@@ -72,27 +72,16 @@ class Login extends React.Component {
       <form name="form"  onSubmit={this.doLogin}>
         <div className="md-form-group float-label">
 
-            <input type="email" className="md-input" ng-model="user.email" required type="text" ref="username" onChange={ () => this.setState({ form_login_username : this.refs.username.value }) } value={ this.state.form_login_username }/>
+            <input type="email" className="md-input"  required type="text" ref="username" onChange={ () => this.setState({ form_login_username : this.refs.username.value }) } value={ this.state.form_login_username }/>
             <label>Username</label>
 
         </div>
         <div className="md-form-group float-label">
-
-          <input type="password" className="md-input" ng-model="user.password" required  type="password" ref="password" onChange={ () => this.setState( { form_login_password : this.refs.password.value } ) } value={ this.state.form_login_password } />
+          <input type="password" className="md-input"  required  type="password" ref="password" onChange={ () => this.setState( { form_login_password : this.refs.password.value } ) } value={ this.state.form_login_password } />
           <label>Password</label>
-
         </div>      
-        <div className="m-b-md">        
-          <label className="md-check">
-            <input type="checkbox" /><i className="primary"></i> Keep me signed in
-          </label>
-        </div>
         <button type="submit" className="btn primary btn-block p-x-md">Sign in</button>
       </form>
-    </div>
-
-    <div className="p-v-lg text-center">
-      <div className="m-b"><a ui-sref="access.forgot-password" href="#/access/forgot-password" className="text-primary _600">Forgot password?</a></div>
     </div>
   </div>
 

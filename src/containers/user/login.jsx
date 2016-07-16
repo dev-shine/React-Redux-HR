@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
 import VisibleHeader from '../../containers/generic/header'
+import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 
 class Login extends React.Component {
     constructor( props ){
@@ -34,10 +35,12 @@ class Login extends React.Component {
             this.props.router.push('/monthly_attendance');
         }else{
             this.setState({
-                form_login_status : props.frontend.form_login_status
+                form_login_status : props.logged_user.login_status_message
             })
+            if( props.logged_user.login_status_message != ''){
+                notify( props.logged_user.login_status_message );    
+            }
         }
-
     }
     doLogin( evt ){
         evt.preventDefault();
@@ -55,7 +58,11 @@ class Login extends React.Component {
 
 
   <div className="center-block w-xxl w-auto-xs p-y-md">
+
+  
+
     <div className="navbar">
+
       <div className="pull-center">
         
         <a className="navbar-brand">
@@ -65,9 +72,12 @@ class Login extends React.Component {
 
       </div>
     </div>
+
     <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
+    <VisibleLoadingIcon/>
       <div className="m-b text-sm">
         Sign in with your username
+        
       </div>
       <form name="form"  onSubmit={this.doLogin}>
         <div className="md-form-group float-label">
@@ -109,7 +119,6 @@ Login.styles = {
 
 function mapStateToProps( state ){
     return {
-        frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS()
     }
 }

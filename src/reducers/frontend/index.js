@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 
 let initialState = {
+    show_loading : '',
     form_login_status : '',
     form_adduser_status : '',
     form_addpoll_title : '',
@@ -12,14 +13,11 @@ let initialState = {
 }
 
 export function frontend( state = Immutable.Map(initialState), action ){
-    if( action.type == 'ACTION_LOGIN_SUCCESS' ){
-        return state.set( 'form_login_status' , action.payload )
+    if( action.type == 'ACTION_SHOW_LOADING' ){
+        return state.set( 'show_loading' , '1' )
     }
-    else if( action.type == 'ACTION_LOGIN_FAIL' ){
-        return state.set( 'form_login_status' , action.payload )
-    }
-    else if( action.type == 'ACTION_LOGIN_ERROR' ){
-        return state.set( 'form_login_status' , action.payload )
+    else if( action.type == 'ACTION_HIDE_LOADING' ){
+        return state.set( 'show_loading' , '' )
     }
 	else if( action.type == 'ACTION_FORM_ADD_USER_STATUS_SUCCESS' ){
         return state.set( 'form_adduser_status' , action.payload )
@@ -86,13 +84,6 @@ export function frontend( state = Immutable.Map(initialState), action ){
     else if( action.type == 'ACTION_DELETE_POLL_FAIL' ){
         return state.set( 'form_addpoll_status', action.payload )
     }
-
-
-
-    
-
-    
-
     else{
         return state
     }

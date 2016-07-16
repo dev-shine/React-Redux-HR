@@ -5,6 +5,8 @@ import {fireAjax} from '../../services/index'
 
 import * as jwt from 'jwt-simple'
 
+import {show_loading, hide_loading} from '../generic/frontend'
+
 export const ACTION_LOGIN_SUCCESS = "ACTION_LOGIN_SUCCESS"
 export const ACTION_LOGIN_FAIL = "ACTION_LOGIN_FAIL"
 export const ACTION_LOGIN_ERROR = "ACTION_LOGIN_ERROR"
@@ -60,8 +62,10 @@ export function login( username, password ){
 		}
 
 		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
 			loginAsync( username, password ).then(
 				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
 					if( json.error == 0 ){
 						let token = json.data.token;
 						localStorage.setItem( 'hr_logged_user', token );
@@ -73,6 +77,7 @@ export function login( username, password ){
 		 			}
 				},
 				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
 					dispatch( login_error( error ) )
 				}
 			)

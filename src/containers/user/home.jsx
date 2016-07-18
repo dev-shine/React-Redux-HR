@@ -39,7 +39,7 @@ class Home extends React.Component {
         }
     }
     componentWillReceiveProps( props ){
-    	console.log( 'B :: '+ this.props.params.userid )
+    	console.log( 'B :: '+ props.params.userid )
     	//this.props.onMonthAttendance( userid, year, month )
     }
   	render(){

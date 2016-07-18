@@ -25,7 +25,6 @@ class Menu extends React.Component {
         }
     }
     render(){
-      let link_my_profile = <Link to='/monthly_attendance'>My Profile</Link>
       let link_my_calendar = <Link to='/monthly_attendance'>My Calendar</Link>
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
@@ -51,12 +50,7 @@ class Menu extends React.Component {
                         <ul className="nav" ui-nav="">
              
 
-                        <li className="hidden-folded" ui-sref-active="active">
-                
-                  <span className="nav-text">{link_my_profile}</span>
-                
-              </li>
-
+                        
              <li className="hidden-folded" ui-sref-active="active">
                   
                   <span className="nav-text">{link_my_calendar}</span>

@@ -3,6 +3,7 @@ import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 
+import {show_loading, hide_loading} from '../generic/frontend'
 
 //get user day summary
 export const ACTION_SUCCESS_USER_DAY_SUMMARY = "ACTION_SUCCESS_USER_DAY_SUMMARY"
@@ -34,8 +35,10 @@ export function getUserDaySummary( userid, date ){
 	return function ( dispatch, getState ){
 
 		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
 			async_getUserDaySummary( userid, date ).then(
 				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
           			if( json.error == 0 ){
             			dispatch( success_user_day_summary( json.data ) )
           			}else{
@@ -43,6 +46,7 @@ export function getUserDaySummary( userid, date ){
           			}
 				},
 				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_user_day_summary( {}  ) )
 				}
 			)
@@ -60,11 +64,11 @@ export function success_update_user_day_summary( data ){
 }
 
 export function empty_update_user_day_summary( data ){
-	return createAction( ACTION_ERROR_UPDATE_USER_DAY_SUMMARY )( data )
+	return createAction( ACTION_EMPTY_UPDATE_USER_DAY_SUMMARY )( data )
 }
 
 export function error_update_user_day_summary( data ){
-	return createAction( ACTION_EMPTY_UPDATE_USER_DAY_SUMMARY )( data )
+	return createAction( ACTION_ERROR_UPDATE_USER_DAY_SUMMARY )( data )
 }
 
 function async_updateUserDaySummary(  userid, date, entry_time, exit_time ){
@@ -95,17 +99,23 @@ export function updateUserDaySummary( userid, date, entry_time, exit_time ){
 
 
 		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
 			async_updateUserDaySummary( userid, date, entry_time, exit_time ).then(
 				( json ) => {
+
+					dispatch( hide_loading() ) // hide loading icon
           			if( json.error == 0 ){
             			dispatch( success_update_user_day_summary( json.data ) )
             			dispatch( getUserDaySummary( userid, date ) )
           			}else{
-            			dispatch( empty_update_user_day_summary( {} ) )
+            			dispatch( empty_update_user_day_summary( json.data.message  ) )
+            			dispatch( getUserDaySummary( userid, date ) )
           			}
 				},
 				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_update_user_day_summary( {}  ) )
+					dispatch( getUserDaySummary( userid, date ) )
 				}
 			)
 		})

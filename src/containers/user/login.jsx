@@ -77,7 +77,6 @@ class Login extends React.Component {
     <VisibleLoadingIcon/>
       <div className="m-b text-sm">
         Sign in with your username
-        
       </div>
       <form name="form"  onSubmit={this.doLogin}>
         <div className="md-form-group float-label">
@@ -92,6 +91,11 @@ class Login extends React.Component {
         </div>      
         <button type="submit" className="btn primary btn-block p-x-md">Sign in</button>
       </form>
+      <div className="m-b text-sm">
+        <br/>
+        <i>Guest Username : global_guest</i><br/>
+        <i>Guest Password : global_guest</i><br/>
+      </div>
     </div>
   </div>
 

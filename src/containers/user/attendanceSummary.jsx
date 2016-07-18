@@ -5,9 +5,9 @@ import * as actions_attendanceSummary from '../../actions/user/attendanceSummary
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
-import VisibleHeader from '../../containers/generic/header'
-import VisibleMenu from '../../containers/generic/menu'
 
+import VisibleMenu from '../../containers/generic/menu'
+import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 
 class AttendanceSummary extends React.Component {
     constructor( props ){
@@ -18,7 +18,6 @@ class AttendanceSummary extends React.Component {
              this.props.router.push('/');
         }else{
         }
-        let user_id = "313"
         let d = new Date();
         let year = d.getFullYear()
         let month = d.getMonth() + 1  // +1 since getMonth starts from 0
@@ -248,7 +247,7 @@ class AttendanceSummary extends React.Component {
 
     _getMonthHtml( styles, userid, m ){
 
-      let weekWise = _.chunk(m, 31)
+      let weekWise = _.chunk(m, 15)
       return _.map( weekWise, ( week, key ) => {
         let weekHtml = this._getWeekHtml( userid, week )
         return (
@@ -306,7 +305,7 @@ class AttendanceSummary extends React.Component {
                       
                       <div className="row">
 
-                       <div className="col-xs-12 col-sm-5">
+                       <div className="col-12">
           <div className="box p-a">
             <div className="pull-left m-r">
               <span className="w-48 rounded  accent">
@@ -314,76 +313,20 @@ class AttendanceSummary extends React.Component {
               </span>
             </div>
             <div className="clear">
-              <h4 className="m-a-0 text-lg _300">
-              <span className="avatar w-70">
-              <img className="image" src={`${userData.profileImage}`} /></span>
-              { userData.name } 
-              <span className="text-sm"> </span></h4>
-              <small className="text-muted"> { userData.jobtitle }  </small>
-            </div>
-          </div>
-      </div>
+              <h4 className="m-a-0 text-lg">
+                { userData.name } 
+                <span className="text-sm"> </span></h4>
 
-
-                     
-   
-      <div className="col-xs-6 col-sm-2 pull-right">
-          <div className="box p-a">
-            <div className="pull-left m-r">
-              <span className="w-48 rounded warn">
-                <i className="material-icons"></i>
-              </span>
-            </div>
-            <div className="clear">
-              <h4 className="m-a-0 text-lg _300">
-                {userData.monthSummary.pending_working_hours}
-                <span className="text-sm"></span>
-              </h4>
-              <small className="text-muted">Pending</small>
-            </div>
-          </div>
-      </div>
-
-      <div className="col-xs-6 col-sm-2 pull-right">
-          <div className="box p-a">
-            <div className="pull-left m-r">
-              <span className="w-48 rounded primary">
-                <i className="material-icons"></i>
-              </span>
-            </div>
-            <div className="clear">
-              <h4 className="m-a-0 text-lg _300">
-                {userData.monthSummary.completed_working_hours}
-                <span className="text-sm"></span>
-              </h4>
-              <small className="text-muted">Completed</small>
-            </div>
-          </div>
-      </div>
-
-        <div className="col-xs-12 col-sm-2 pull-right">
-          <div className="box p-a">
-            <div className="pull-left m-r">
-              <span className="w-48 rounded  accent">
-                <i className="material-icons"></i>
-              </span>
-            </div>
-            <div className="clear">
-              <h4 className="m-a-0 text-lg _300">
-                {userData.monthSummary.actual_working_hours}
-                <span className="text-sm"> </span>
-              </h4>
-              <small className="text-muted"> Total Working Hours  </small>
+              <small className="text-muted"> { userData.jobtitle }  </small><br/><br/>
+              <small className="text-muted"> Total Working Hours - {userData.monthSummary.actual_working_hours}  </small><br/>
+              <small className="text-muted"> Completed - {userData.monthSummary.completed_working_hours}  </small><br/>
+              <small className="text-muted"> Pending - {userData.monthSummary.pending_working_hours}  </small><br/>
             </div>
           </div>
       </div>
 
 
       
-
-
-
-
 
   </div>
 
@@ -463,20 +406,35 @@ class AttendanceSummary extends React.Component {
         
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
-    				<div className="app-header white box-shadow">
+
+
+                
+          
+	<div className="app-header white box-shadow">
+
 						<div className="navbar">
+
     						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
+
     						<div className="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle"> Attendance Summary</div>
 						</div>
     				</div>
+
+
+
+
+
 					
     				<div ui-view className="app-body" id="view">
 
+            <div className="row"><div className="col-12"><VisibleLoadingIcon/></div></div>
+
+
+
 
 <div className="padding">
-    
     <div className="fullcalendar fc fc-ltr fc-unthemed">
       <div className="fc-toolbar">
       	<div className="fc-left">

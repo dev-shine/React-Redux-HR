@@ -7,6 +7,7 @@ import {notify} from '../../services/index'
 
 import VisibleHeader from '../../containers/generic/header'
 import VisibleMenu from '../../containers/generic/menu'
+import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 
@@ -40,11 +41,17 @@ class UserDaySummary extends React.Component {
     }
 
     componentWillReceiveProps( props ){
+
+        if( props.userDaySummary.status_message != ''){
+            notify( props.userDaySummary.status_message );    
+        }
         
         this.setState({
             form_entry_time : props.userDaySummary.entry_time,
             form_exit_time : props.userDaySummary.exit_time,
         })
+
+
         
 
     }
@@ -81,6 +88,7 @@ class UserDaySummary extends React.Component {
 					
     				<div ui-view className="app-body" id="view">
 
+<div className="row"><div className="col-12"><VisibleLoadingIcon/></div></div>
 
 <div className="padding">
     
@@ -89,13 +97,6 @@ class UserDaySummary extends React.Component {
       
       <div className="box">
         <div className="box-header">
-            <a herf="" className="list-left">
-                    <span className="w-40 avatar">
-                      <img src={`${this.props.userDaySummary.profileImage}`} />
-                      <i className="away b-white bottom"></i>
-                    </span>
-                  </a>
-
           <h2> <span className="label label-lg success">{ this.props.userDaySummary.name } - Worked for { this.props.userDaySummary.total_working }</span> </h2>
         </div>
         <div className="box-divider m-a-0"></div>

@@ -3,6 +3,8 @@ import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 
+import {show_loading, hide_loading} from '../generic/frontend'
+
 export const ACTION_SUCCESS_USER_ATTENDANCE = "ACTION_SUCCESS_USER_ATTENDANCE"
 export const ACTION_EMPTY_USER_ATTENDANCE = "ACTION_EMPTY_USER_ATTENDANCE"
 export const ACTION_ERROR_USER_ATTENDANCE = "ACTION_ERROR_USER_ATTENDANCE"
@@ -37,16 +39,19 @@ export function get_monthly_attendance( userid, year, month ){
 	return function ( dispatch, getState ){
 
 		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
 			async_get_monthly_attendance( userid, year, month ).then(
 				( json ) => {
-          if( json.error == 0 ){
-            dispatch( success_user_attendance( json.data ) )
-          }else{
-            dispatch( error_user_attendance( {} ) )
-          }
+					dispatch( hide_loading() ) // hide loading icon
+			          if( json.error == 0 ){
+			            dispatch( success_user_attendance( json.data ) )
+			          }else{
+			            dispatch( error_user_attendance( {} ) )
+			          }
 					
 				},
 				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_user_attendance( {}  ) )
 				}
 			)

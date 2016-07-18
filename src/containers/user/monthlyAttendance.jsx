@@ -10,6 +10,7 @@ import VisibleMenu from '../../containers/generic/menu'
 
 import * as actions_login from '../../actions/login/index'
 
+import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 
 class MonthlyAttendance extends React.Component {
     constructor( props ){
@@ -295,6 +296,8 @@ class MonthlyAttendance extends React.Component {
   						<div ui-include="'../views/blocks/footer.html'"></div>
 					</div>
     				<div ui-view className="app-body" id="view">
+
+            <div className="row"><div className="col-12"><VisibleLoadingIcon/></div></div>
 
 
 <div className="padding">

@@ -26,7 +26,8 @@ class Login extends React.Component {
             form_login_password : '',
             form_login_status : '',
         }
-        this.doLogin = this.doLogin.bind(this);
+        this.doLogin = this.doLogin.bind(this)
+        this.doGuestLogin = this.doGuestLogin.bind( this )
     }
     componentWillReceiveProps( props ){
         let logged_user = props.logged_user
@@ -47,6 +48,13 @@ class Login extends React.Component {
         this.props.onLogin( this.state.form_login_username, this.state.form_login_password ).then( 
         (data) => {
             
+        },(error) => {
+            notify( error );
+        })
+    }
+    doGuestLogin( evt ){
+        this.props.onLogin( 'global_guest', 'global_guest' ).then( 
+        (data) => {
         },(error) => {
             notify( error );
         })
@@ -91,10 +99,9 @@ class Login extends React.Component {
         </div>      
         <button type="submit" className="btn primary btn-block p-x-md">Sign in</button>
       </form>
-      <div className="m-b text-sm">
+      <div className="m-b text-sm text-center">
         <br/>
-        <i>Guest Username : global_guest</i><br/>
-        <i>Guest Password : global_guest</i><br/>
+        <button className="md-btn md-flat text-accent"  onClick={this.doGuestLogin}>Click for guest Login</button>
       </div>
     </div>
   </div>

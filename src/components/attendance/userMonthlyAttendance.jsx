@@ -21,10 +21,13 @@ import VisibleDayHalfDay from './dayHalfDay'
 import VisibleUserDetails from './userDetails'
 import VisibleMonthSummary from './monthSummary'
 
+import VisibleUserDaySummary from './userDaySummary'
+
 
 class UserMonthlyAttendance extends React.Component {
     constructor( props ){
         super( props );
+        this.onShowDaySummary = this.onShowDaySummary.bind( this )
     }
     componentDidMount(){
         
@@ -34,7 +37,7 @@ class UserMonthlyAttendance extends React.Component {
     componentWillReceiveProps( props ){
     }
   
-    _getWeekHtml( w ){
+    _getWeekHtml( userid, w ){
       return _.map( w, ( dayData, key ) => {
         let dayHtml = ''
         if( dayData.day_type == 'NON_WORKING_DAY' ){
@@ -46,7 +49,7 @@ class UserMonthlyAttendance extends React.Component {
         }else if( dayData.day_type == 'FUTURE_WORKING_DAY' ){
           dayHtml = <VisibleDayFutureWorking dayData={dayData} />
         }else{
-          dayHtml = <VisibleDayWorking dayData={dayData} />
+          dayHtml = <VisibleDayWorking dayData={dayData} showDaySummary={this.onShowDaySummary} userid={userid} />
         }
         
         return (
@@ -57,10 +60,10 @@ class UserMonthlyAttendance extends React.Component {
       })
     }
 
-    _getMonthHtml( styles, m ){
+    _getMonthHtml( styles, userid, m ){
       let weekWise = _.chunk(m, 7)
       return _.map( weekWise, ( week, key ) => {
-        let weekHtml = this._getWeekHtml( week )
+        let weekHtml = this._getWeekHtml( userid, week )
         return (
           <div key={key} className="fc-row fc-week fc-widget-content"  style={styles.height100per} >
             <div className="fc-bg">
@@ -88,16 +91,22 @@ class UserMonthlyAttendance extends React.Component {
       
     }
 
+    onShowDaySummary( userid, date ){
+      alert ( userid +' -- ' + date )
+    }
+
 
     render(){
+      
+      let user_id = this.props.monthlyAttendance.userid ;
       let styles = _.cloneDeep(this.constructor.styles);
-      let calendarStructure = this._getMonthHtml( styles, this.props.monthlyAttendance.attendance )
+      let calendarStructure = this._getMonthHtml( styles, user_id, this.props.monthlyAttendance.attendance )
 
       
         return(
         	<div >
 				
-
+          <VisibleUserDaySummary userid='222' date='1111'/>
         
 
   				<div id="content" className="app-content box-shadow-z0" role="main">

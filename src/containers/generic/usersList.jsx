@@ -10,13 +10,12 @@ class UsersList extends React.Component {
     constructor( props ){
         super( props );
     }
-
-    _getUsersListHtml( users ){
-      return _.map( users, ( user, key ) => {
-        let monthly_attendance_link = "/home/" + user.user_Id;
+    _getUsersListHtml( styles, users ){
+        return _.map( users, ( user, key ) => {
+        let userid = user.user_Id
         return (
-                  <li className="list-item" key={key}>
-                      <Link to={monthly_attendance_link}>
+                  <li className="list-item" key={key} onClick={ () => this.props.onUserClick( userid ) } style={styles.cursorPointer}>
+                      
                         <div className="list-left">
                           <span className="w-40 avatar">
                             <img src="../assets/images/a4.jpg" alt="..."/>
@@ -27,7 +26,7 @@ class UsersList extends React.Component {
                           <div>{user.name}</div>
                           <small className="text-muted text-ellipsis">{user.jobtitle}</small>
                         </div>
-                      </Link>
+                      
 
                   </li>
         )
@@ -36,16 +35,10 @@ class UsersList extends React.Component {
 
     render(){
 
-      let usersList = this._getUsersListHtml( this.props.users )
+      let styles = _.cloneDeep(this.constructor.styles);
 
-      // usersList = _.map( this.props.users , ( user, key ) => {
-      //   console.log( key )
-      //   console.log( user  )
-        
-      
-                
-      // }
-        
+      let usersList = this._getUsersListHtml( styles, this.props.users )
+
       return (
         <div className = "row">
         <div className="col-12">
@@ -68,19 +61,13 @@ class UsersList extends React.Component {
     }
 }
 
-function mapStateToProps( state ){
-    return {
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-    }
-}
+UsersList.styles = {
+  cursorPointer: {
+    'cursor' : 'pointer'
+  }
+};
 
-const VisibleUsersList = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)( UsersList )
+const VisibleUsersList = UsersList
 
 
 

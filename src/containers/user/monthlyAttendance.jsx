@@ -260,12 +260,9 @@ class MonthlyAttendance extends React.Component {
 
     _onChangeMonth( check ){
 
-      console.log( this.props.monthlyAttendance.previousMonth )
-
       if( check == 'previous' ){
         this.props.onMonthAttendance( this.props.monthlyAttendance.userid, this.props.monthlyAttendance.previousMonth.year, this.props.monthlyAttendance.previousMonth.month )
       }else if( check == 'next' ){
-        console.log( this.props.monthlyAttendance )
         this.props.onMonthAttendance( this.props.monthlyAttendance.userid, this.props.monthlyAttendance.nextMonth.year, this.props.monthlyAttendance.nextMonth.month )
       }
       

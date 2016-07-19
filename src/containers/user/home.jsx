@@ -11,6 +11,7 @@ import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 
 
 import VisibleUsersList from '../../containers/generic/usersList'
@@ -19,31 +20,56 @@ import VisibleUserMonthlyAttendance from '../../containers/generic/userMonthlyAt
 class Home extends React.Component {
     constructor( props ){
         super( props );
-        console.log( 'A1 :: '+ this.props.params.userid )
-        {this.props.children}
+        this.onUserClick = this.onUserClick.bind( this )
+        this.state = {
+            "showMonthlyAttendance" : "0"
+        }
     }
     componentWillMount(){
-    	console.log( 'A :: '+ this.props.params.userid )
     	if( this.props.onIsAlreadyLogin() == false ){
           this.props.router.push('/');
         }else{
         	if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
         		//this.props.router.push('/attendance_summary');	
-
         		this.props.onUsersList( )
-
         	}else{
         		this.props.router.push('/monthly_attendance');	
         	}
-
         }
     }
     componentWillReceiveProps( props ){
-    	console.log( 'B :: '+ props.params.userid )
-    	//this.props.onMonthAttendance( userid, year, month )
+        
+    }
+    onUserClick( userid ){
+        this.setState({
+            "showMonthlyAttendance" : "1"
+        })
+        let d = new Date();
+        let year = d.getFullYear()
+        let month = d.getMonth() + 1  // +1 since getMonth starts from 0
+        this.props.onMonthAttendance( userid, year, month )
     }
   	render(){
-		console.log( 'C :: '+ this.props.params.userid )
+		
+        
+
+        let mainDivs = <div className="row">
+                            <div className="col-md-12">
+                                <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
+                            </div>
+                        </div>
+        if( this.state.showMonthlyAttendance == '1'){
+            
+             mainDivs = <div className="row">
+
+            <div className="col-md-2">
+                                    <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
+                                </div>
+                                <div className="col-md-10">
+                                    <VisibleUserMonthlyAttendance {...this.props} />
+                                </div>
+                                </div>
+        }
 
 		return(
     		<div>
@@ -69,19 +95,13 @@ class Home extends React.Component {
             				</div>
             			</div>
 						<div className="padding">
-							<div className="row">
-	            				<div className="col-md-2">
-	            					<VisibleUsersList users = { this.props.usersList.users }/>
-	            				</div>
-	            				<div className="col-md-10">
-	            					<VisibleUserMonthlyAttendance/>
-	            				</div>
+							
+	            				{mainDivs}
 	            			</div>
 							
 						</div>
 					</div>
     			
-    		</div>
     		</div>
     	)
     }
@@ -91,7 +111,8 @@ function mapStateToProps( state ){
 	return {
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        usersList : state.usersList.toJS()
+        usersList : state.usersList.toJS(),
+        monthlyAttendance : state.monthlyAttendance.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -101,6 +122,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUsersList : () => {
         	return dispatch( actions_usersList.get_users_list(  ))	
+        },
+        onMonthAttendance : ( userid, year, month ) => {
+            return dispatch( actions_monthlyAttendance.get_monthly_attendance( userid, year, month ))
         }
     }
 }

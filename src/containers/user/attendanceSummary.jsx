@@ -271,12 +271,12 @@ class AttendanceSummary extends React.Component {
 
     _onChangeMonth( check ){
 
-      console.log( this.props.attendanceSummary.previousMonth )
+      
 
       if( check == 'previous' ){
         this.props.onAttendanceSummary( this.props.attendanceSummary.previousMonth.year, this.props.attendanceSummary.previousMonth.month )
       }else if( check == 'next' ){
-        console.log( this.props.monthlyAttendance )
+        
         this.props.onAttendanceSummary( this.props.attendanceSummary.nextMonth.year, this.props.attendanceSummary.nextMonth.month )
       }
       

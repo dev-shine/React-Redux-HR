@@ -15,23 +15,12 @@ class UserMonthlyAttendance extends React.Component {
     constructor( props ){
         super( props );
     }
+    componentDidMount(){
+        
+    }
     componentWillMount(){
-        if( this.props.onIsAlreadyLogin() == false ){
-          this.props.router.push('/');
-        }else{
-        }
-
-        let user_id =  this.props.logged_user.userid;
-        let d = new Date();
-        let year = d.getFullYear()
-        let month = d.getMonth() + 1  // +1 since getMonth starts from 0
-        //this.props.onMonthAttendance( user_id, year, month )
     }
     componentWillReceiveProps( props ){
-
-      
-      
-
     }
     _getDayHtml( d ){
 
@@ -264,13 +253,9 @@ class UserMonthlyAttendance extends React.Component {
     }
 
     _onChangeMonth( check ){
-
-      console.log( this.props.monthlyAttendance.previousMonth )
-
-      if( check == 'previous' ){
+    if( check == 'previous' ){
         this.props.onMonthAttendance( this.props.monthlyAttendance.userid, this.props.monthlyAttendance.previousMonth.year, this.props.monthlyAttendance.previousMonth.month )
       }else if( check == 'next' ){
-        console.log( this.props.monthlyAttendance )
         this.props.onMonthAttendance( this.props.monthlyAttendance.userid, this.props.monthlyAttendance.nextMonth.year, this.props.monthlyAttendance.nextMonth.month )
       }
       
@@ -318,6 +303,24 @@ class UserMonthlyAttendance extends React.Component {
       </div>
 
       <br/>
+      <div className="row">
+         <div className="col-xs-12">
+            <div className="box p-a">
+              <div className="pull-left m-r">
+                <span className="w-48 rounded  accent">
+                  <i className="material-icons"></i>
+                </span>
+              </div>
+              <div className="clear">
+                <h4 className="m-a-0 text-lg">
+                  { this.props.monthlyAttendance.userName } 
+                  <span className="text-sm"> </span></h4>
+
+                <small className="text-muted"> { this.props.monthlyAttendance.userjobtitle }  </small><br/><br/>
+              </div>
+            </div>
+        </div>
+      </div>
 
 
       <div className="row">
@@ -485,34 +488,11 @@ class UserMonthlyAttendance extends React.Component {
     }
 }
 
-
 UserMonthlyAttendance.styles = {
   height100per: {
     'minHeight' : '150px'
   }
 };
 
-function mapStateToProps( state ){
-	return {
-        frontend : state.frontend.toJS(),
-        logged_user : state.logged_user.toJS(),
-        monthlyAttendance : state.monthlyAttendance.toJS(),
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onMonthAttendance : ( userid, year, month ) => {
-            return dispatch( actions_monthlyAttendance.get_monthly_attendance( userid, year, month ))
-        },
-        onIsAlreadyLogin : () => {
-            return dispatch( actions_login.isAlreadyLogin(  ))
-        }
-    }
-}
-
-const VisibleUserMonthlyAttendance = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)( UserMonthlyAttendance )
-
+const VisibleUserMonthlyAttendance = UserMonthlyAttendance
 export default VisibleUserMonthlyAttendance

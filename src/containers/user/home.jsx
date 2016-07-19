@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
-import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
@@ -12,18 +12,25 @@ import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
-
+import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 
 import VisibleUsersList from '../../containers/generic/usersList'
 import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
 
+import VisibleUserDaySummary from '../../components/attendance/userDaySummary'
+
 class Home extends React.Component {
     constructor( props ){
         super( props );
-        this.onUserClick = this.onUserClick.bind( this )
+        
         this.state = {
-            "defaultUserDisplay" : ""
+            "defaultUserDisplay" : "",
+            "daysummary_userid" : "",
+            "daysummary_date" : "",
         }
+
+        this.onUserClick = this.onUserClick.bind( this )
+        this.onShowDaySummary = this.onShowDaySummary.bind( this )
     }
     componentWillMount(){
     	if( this.props.onIsAlreadyLogin() == false ){
@@ -55,6 +62,16 @@ class Home extends React.Component {
         let month = d.getMonth() + 1  // +1 since getMonth starts from 0
         this.props.onMonthAttendance( userid, year, month )
     }
+    onShowDaySummary( userid, date ){
+        this.setState({
+            daysummary_userid : userid,
+            daysummary_date : date,
+        })
+        this.props.onUserDaySummary( userid, date  )
+    }
+
+
+
   	render(){
 		
         
@@ -68,7 +85,7 @@ class Home extends React.Component {
                                     <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
                                 </div>
                                 <div className="col-md-10">
-                                    <VisibleUserMonthlyAttendance {...this.props} />
+                                    <VisibleUserMonthlyAttendance {...this.props}  onShowDaySummary = { this.onShowDaySummary }/>
                                 </div>
                                 </div>
        
@@ -76,6 +93,8 @@ class Home extends React.Component {
 		return(
     		<div>
     			<VisibleMenu/>
+
+                <VisibleUserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} {...this.props}/>
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
     				<div className="app-header white box-shadow">
@@ -114,7 +133,8 @@ function mapStateToProps( state ){
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         usersList : state.usersList.toJS(),
-        monthlyAttendance : state.monthlyAttendance.toJS()
+        monthlyAttendance : state.monthlyAttendance.toJS(),
+        userDaySummary : state.userDaySummary.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -127,7 +147,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onMonthAttendance : ( userid, year, month ) => {
             return dispatch( actions_monthlyAttendance.get_monthly_attendance( userid, year, month ))
-        }
+        },
+        onUserDaySummary : ( userid, date ) => {
+            return dispatch( actions_userDaySummary.getUserDaySummary( userid, date ))
+        },
     }
 }
 

@@ -21,13 +21,12 @@ import VisibleDayHalfDay from './dayHalfDay'
 import VisibleUserDetails from './userDetails'
 import VisibleMonthSummary from './monthSummary'
 
-import VisibleUserDaySummary from './userDaySummary'
+
 
 
 class UserMonthlyAttendance extends React.Component {
     constructor( props ){
         super( props );
-        this.onShowDaySummary = this.onShowDaySummary.bind( this )
     }
     componentDidMount(){
         
@@ -49,7 +48,7 @@ class UserMonthlyAttendance extends React.Component {
         }else if( dayData.day_type == 'FUTURE_WORKING_DAY' ){
           dayHtml = <VisibleDayFutureWorking dayData={dayData} />
         }else{
-          dayHtml = <VisibleDayWorking dayData={dayData} showDaySummary={this.onShowDaySummary} userid={userid} />
+          dayHtml = <VisibleDayWorking dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid} />
         }
         
         return (
@@ -91,9 +90,11 @@ class UserMonthlyAttendance extends React.Component {
       
     }
 
-    onShowDaySummary( userid, date ){
-      alert ( userid +' -- ' + date )
-    }
+
+
+
+
+    
 
 
     render(){
@@ -106,7 +107,7 @@ class UserMonthlyAttendance extends React.Component {
         return(
         	<div >
 				
-          <VisibleUserDaySummary userid='222' date='1111'/>
+          
         
 
   				<div id="content" className="app-content box-shadow-z0" role="main">

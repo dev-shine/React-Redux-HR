@@ -15,14 +15,14 @@ import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance
 
 
 import VisibleUsersList from '../../containers/generic/usersList'
-import VisibleUserMonthlyAttendance from '../../containers/generic/userMonthlyAttendance'
+import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
 
 class Home extends React.Component {
     constructor( props ){
         super( props );
         this.onUserClick = this.onUserClick.bind( this )
         this.state = {
-            "showMonthlyAttendance" : "0"
+            "defaultUserDisplay" : ""
         }
     }
     componentWillMount(){
@@ -38,11 +38,17 @@ class Home extends React.Component {
         }
     }
     componentWillReceiveProps( props ){
-        
+        if( this.state.defaultUserDisplay  == '' ){
+            if( props.usersList.users.length > 0 ){
+                let firstUser = props.usersList.users[0]
+                let defaultUserId = firstUser.user_Id
+                this.onUserClick( defaultUserId )
+            }
+        }
     }
     onUserClick( userid ){
         this.setState({
-            "showMonthlyAttendance" : "1"
+            "defaultUserDisplay" : userid
         })
         let d = new Date();
         let year = d.getFullYear()
@@ -53,14 +59,10 @@ class Home extends React.Component {
 		
         
 
-        let mainDivs = <div className="row">
-                            <div className="col-md-12">
-                                <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
-                            </div>
-                        </div>
-        if( this.state.showMonthlyAttendance == '1'){
+       
+       
             
-             mainDivs = <div className="row">
+        let mainDivs = <div className="row">
 
             <div className="col-md-2">
                                     <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
@@ -69,7 +71,7 @@ class Home extends React.Component {
                                     <VisibleUserMonthlyAttendance {...this.props} />
                                 </div>
                                 </div>
-        }
+       
 
 		return(
     		<div>

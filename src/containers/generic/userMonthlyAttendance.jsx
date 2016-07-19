@@ -27,57 +27,57 @@ class UserMonthlyAttendance extends React.Component {
 
       let d_date = d.date;
 
-      let date_div  = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+      let date_div  = <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d_date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>;
+          </div>;
 
-      let work_time_div =  <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable center">
+      let work_time_div =  <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable center">
             <div className="fc-content">
               { d.total_time} - Total Work Time
               
             </div>
-          </a>
+          </div>
 
       
 
       if( d.admin_alert == 1 ){
         d_date = d_date + ' * '
-        date_div  = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end indigo fc-draggable">
+        date_div  = <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end indigo fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d_date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>;
+          </div>;
 
 
 
-        work_time_div =  <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable center">
+        work_time_div =  <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable center">
             <div className="fc-content">
               {d.admin_alert_message}
               
             </div>
-          </a>
+          </div>
       }
 
       let extraTime = ''
     if( d.extra_time_status == '-' ){
-        extraTime = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+        extraTime = <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-time">  { d.extra_time }</span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
 
       }else if( d.extra_time_status == '+' ){
-        extraTime = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end green fc-draggable">
+        extraTime = <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end green fc-draggable">
             <div className="fc-content">
               <span className="fc-time">  { d.extra_time }</span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
 
       }
 
@@ -86,12 +86,12 @@ class UserMonthlyAttendance extends React.Component {
           
           {date_div}
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
               <span className="fc-time">  { d.in_time } - { d.out_time}  </span>
               <span className="fc-title"> Work Time </span>
             </div>
-          </a>
+          </div>
 
          {work_time_div}
 
@@ -108,12 +108,12 @@ class UserMonthlyAttendance extends React.Component {
     _getFutureWorkingDayHtml( d ){
       return (
         <div >
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>
+          </div>
         </div>
       )
 
@@ -123,26 +123,26 @@ class UserMonthlyAttendance extends React.Component {
       return (
         <div >
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>
+          </div>
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> Non working day  </span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
 
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> { d.day_text } </span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
           
         </div>
       )
@@ -152,26 +152,26 @@ class UserMonthlyAttendance extends React.Component {
       return (
         <div >
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>
+          </div>
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> On Leave </span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
 
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> { d.day_text } </span>
               <span className="fc-title"></span>
             </div>
-          </a>
+          </div>
           
         </div>
       )
@@ -181,26 +181,26 @@ class UserMonthlyAttendance extends React.Component {
       return (
         <div >
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
-          </a>
+          </div>
           
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> Half Day </span>
               <span className="fc-title"> { d.in_time } - { d.out_time}  </span>
             </div>
-          </a>
+          </div>
 
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
             <div className="fc-content">
               <span className="fc-time">{ d.day_text } </span>
               <span className="fc-title">  </span>
             </div>
-          </a>
+          </div>
           
         </div>
       )

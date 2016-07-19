@@ -39,7 +39,6 @@ class Menu extends React.Component {
       if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
           links_to_show = <ul className="nav" ui-nav="">
           <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_users_list}</span></li>
-                          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_attendance_summary}</span></li>
                           <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
           </ul>                          
       }

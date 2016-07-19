@@ -11,7 +11,7 @@ import VisibleMenu from '../../containers/generic/menu'
 import * as actions_login from '../../actions/login/index'
 
 import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
-import VisibleUserMonthlyAttendance from '../../containers/generic/userMonthlyAttendance'
+import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
 
 class MonthlyAttendance extends React.Component {
     constructor( props ){

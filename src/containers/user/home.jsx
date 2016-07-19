@@ -15,7 +15,7 @@ import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance
 
 
 import VisibleUsersList from '../../containers/generic/usersList'
-import VisibleUserMonthlyAttendance from '../../containers/generic/userMonthlyAttendance'
+import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
 
 class Home extends React.Component {
     constructor( props ){

@@ -18,7 +18,7 @@ class Login extends React.Component {
         if( this.props.onIsAlreadyLogin() == false ){
           
         }else{ //is user already readirect to another page
-          this.props.router.push('/monthly_attendance');
+          this.props.router.push('/home');
         }
 
         this.state = {
@@ -32,7 +32,7 @@ class Login extends React.Component {
         let logged_user = props.logged_user
         
         if( typeof logged_user.logged_in != 'undefined' && logged_user.logged_in == 1 ){
-            this.props.router.push('/monthly_attendance');
+            this.props.router.push('/home');
         }else{
             this.setState({
                 form_login_status : props.logged_user.login_status_message

@@ -20,6 +20,7 @@ import reducer from './reducers/index'
 
 //pages
 import Page_Login from './containers/user/login'
+import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
@@ -103,6 +104,7 @@ let render = (routerKey = null) => {
          <Router history={hashHistory} >
              <Route path="/" component={APP} >
                  <IndexRoute component={Page_Login} /> //this will be the default page which will opens when app starts
+                 <Route path="home" component={Page_Home} />
                  <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
                  <Route path="attendance_summary" component={Page_AttendanceSummary} />
                  <Route path="logout" component={Page_Logout} />

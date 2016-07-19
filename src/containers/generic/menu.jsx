@@ -25,9 +25,24 @@ class Menu extends React.Component {
         }
     }
     render(){
+      let link_users_list = <Link to='/home'>Users</Link>
       let link_my_calendar = <Link to='/monthly_attendance'>My Calendar</Link>
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
+
+
+      let links_to_show = <ul className="nav" ui-nav="">
+        <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_my_calendar}</span></li>
+        <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
+      </ul>
+
+      if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
+          links_to_show = <ul className="nav" ui-nav="">
+          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_users_list}</span></li>
+                          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_attendance_summary}</span></li>
+                          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
+          </ul>                          
+      }
 
 
         
@@ -47,34 +62,9 @@ class Menu extends React.Component {
       </div>
       <div flex="" className="hide-scroll">
           <nav className="scroll nav-light">
-                        <ul className="nav" ui-nav="">
-             
-
-                        
-             <li className="hidden-folded" ui-sref-active="active">
-                  
-                  <span className="nav-text">{link_my_calendar}</span>
-                  
-              </li>
-
-              <li className="hidden-folded" ui-sref-active="active">
-                  
-                    <span className="nav-text">{link_attendance_summary}</span>
-                  
-              </li>
-
-              <li className="hidden-folded" ui-sref-active="active">
-                  
-                    <span className="nav-text">{link_logout}</span>
-                  
-              </li>
-
+              {links_to_show}
               
-
-              
-                
-
-              </ul>
+            
           </nav>
       </div>
 

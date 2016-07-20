@@ -150,8 +150,8 @@ const mapDispatchToProps = (dispatch) => {
         onUserDaySummary : ( userid, date ) => {
             return dispatch( actions_userDaySummary.getUserDaySummary( userid, date ))
         },
-        onUpdateDaySummary : ( userid, date, entry_time, exit_time ) => {
-            return dispatch( actions_userDaySummary.updateUserDaySummary( userid, date, entry_time, exit_time ) )
+        onUpdateDaySummary : ( userid, date, entry_time, exit_time, reason  ) => {
+            return dispatch( actions_userDaySummary.updateUserDaySummary( userid, date, entry_time, exit_time, reason ) )
         }
     }
 }

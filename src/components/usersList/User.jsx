@@ -2,9 +2,6 @@ import React from 'react';
 class User extends React.Component {
     constructor( props ){
 		super( props );
-
-		console.log('AAAAAAAA')
-		console.log( props )
     }
     render(){
     	let styles = _.cloneDeep(this.constructor.styles);

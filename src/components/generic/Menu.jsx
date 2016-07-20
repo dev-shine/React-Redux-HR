@@ -5,6 +5,8 @@ import * as _ from 'lodash'
 
 import * as actions_login from '../../actions/login/index'
 
+import LoggedUserInfo from '../../components/menu/LoggedUserInfo'
+
 
 const styles = {
   headerMain : {
@@ -65,18 +67,8 @@ class Menu extends React.Component {
           </nav>
       </div>
 
+      <LoggedUserInfo {...this.props}/>
 
-
-      <div flex-no-shrink="" className="b-t">
-        <div className="nav-fold">
-      <span className="clear hidden-folded">
-        <span className="block _500">{ this.props.logged_user.name}</span>
-        <i><span className="block _500">{ this.props.logged_user.role}</span></i>
-        <i><span className="block _500">{ this.props.logged_user.jobtitle}</span></i>
-      </span>
-  
-</div>
-      </div>
 
 
 

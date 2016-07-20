@@ -4,14 +4,24 @@ class User extends React.Component {
 		super( props );
     }
     render(){
+
+    	console.log( this.props )
+
+    	let selectedUserId = this.props.monthlyAttendance.userid
+
     	let styles = _.cloneDeep(this.constructor.styles);
 		let userid = this.props.user.user_Id
     	let key = parseInt( userid )
 
     	let profileImae = this.props.user.slack_profile.image_72
 
+    	let backgroundClass = styles.cursorPointer
+    	if( selectedUserId == userid ){
+    		backgroundClass = styles.selectedUser
+    	}
+
     	return (
-	     	<li className="list-item" key={key} onClick={ () => this.props.onUserClick( userid ) }  style={styles.cursorPointer}>
+	     	<li className="list-item" key={key} onClick={ () => this.props.onUserClick( userid ) }  style={backgroundClass}>
 	            <div className="list-left">
 	              <span className="w-40 avatar">
 	                <img src={profileImae} />
@@ -29,6 +39,10 @@ class User extends React.Component {
 User.styles = {
   cursorPointer: {
     'cursor' : 'pointer'
+  },
+  selectedUser : {
+  	'background' : '#03a9f4',
+  	'color' : 'white'
   }
 };
 

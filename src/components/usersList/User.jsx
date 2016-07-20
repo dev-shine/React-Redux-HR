@@ -4,10 +4,7 @@ class User extends React.Component {
 		super( props );
     }
     render(){
-
-    	console.log( this.props )
-
-    	let selectedUserId = this.props.monthlyAttendance.userid
+      let selectedUserId = this.props.monthlyAttendance.userid
 
     	let styles = _.cloneDeep(this.constructor.styles);
 		let userid = this.props.user.user_Id

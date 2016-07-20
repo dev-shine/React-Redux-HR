@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import {notify} from '../../services/index'
 
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
@@ -36,7 +37,12 @@ class UserDaySummary extends React.Component {
 
     doUpdateDaySummary( evt ){
         evt.preventDefault();
-        this.props.onUpdateDaySummary( this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time )
+        this.props.onUpdateDaySummary( this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        })
     }
 
 

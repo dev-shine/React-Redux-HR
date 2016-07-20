@@ -76,31 +76,7 @@ class Home extends React.Component {
         })
         this.props.onUserDaySummary( userid, date  )
     }
-
-    doUpdateDaySummary( userid, date, entry_time, exit_time ){
-
-        console.log( 'A ' + userid )
-        console.log( 'B ' + date )
-        console.log( 'C ' + entry_time )
-        console.log( 'D ' + exit_time )
-
-        evt.preventDefault();
-        this.props.onUpdateDaySummary( userid, date, entry_time, exit_time ).then( 
-        (data) => {
-            
-        },(error) => {
-            notify( error );
-        })
-    }
-
-
-
   	render(){
-		
-        
-
-       
-       
             
         let mainDivs = <div className="row">
 

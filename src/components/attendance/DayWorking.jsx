@@ -84,8 +84,6 @@ class DayWorking extends React.Component {
     }
 }
 
-const VisibleDayWorking = DayWorking
-
-export default VisibleDayWorking
+export default DayWorking
 
 

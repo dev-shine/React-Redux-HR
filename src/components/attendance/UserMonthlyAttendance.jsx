@@ -3,23 +3,18 @@ import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as _ from 'lodash'
-import {notify} from '../../services/index'
-
-import VisibleHeader from '../../containers/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
-
-import VisibleDayWorking from './dayWorking'
-import VisibleDayFutureWorking from './dayFutureWorking'
-import VisibleDayNonWorking from './dayNonWorking'
-import VisibleDayLeave from './dayLeave'
-import VisibleDayHalfDay from './dayHalfDay'
+import DayWorking from './DayWorking'
+import DayFutureWorking from './DayFutureWorking'
+import DayNonWorking from './DayNonWorking'
+import DayLeave from './DayLeave'
+import DayHalfDay from './DayHalfDay'
 
 
-import VisibleUserDetails from './userDetails'
-import VisibleMonthSummary from './monthSummary'
+import UserDetails from './UserDetails'
+import MonthSummary from './MonthSummary'
 
 
 
@@ -40,15 +35,15 @@ class UserMonthlyAttendance extends React.Component {
       return _.map( w, ( dayData, key ) => {
         let dayHtml = ''
         if( dayData.day_type == 'NON_WORKING_DAY' ){
-          dayHtml = <VisibleDayNonWorking dayData={dayData}/>
+          dayHtml = <DayNonWorking dayData={dayData}/>
         }else if( dayData.day_type == 'LEAVE_DAY' ){
-          dayHtml = <VisibleDayLeave dayData={dayData}/>
+          dayHtml = <DayLeave dayData={dayData}/>
         }else if( dayData.day_type == 'HALF_DAY' ){
-          dayHtml = <VisibleDayHalfDay dayData={dayData}/>
+          dayHtml = <DayHalfDay dayData={dayData}/>
         }else if( dayData.day_type == 'FUTURE_WORKING_DAY' ){
-          dayHtml = <VisibleDayFutureWorking dayData={dayData} />
+          dayHtml = <DayFutureWorking dayData={dayData} />
         }else{
-          dayHtml = <VisibleDayWorking dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid} />
+          dayHtml = <DayWorking dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid} />
         }
         
         return (
@@ -146,9 +141,9 @@ class UserMonthlyAttendance extends React.Component {
 
 
   
-      <VisibleUserDetails {...this.props } />
+      <UserDetails {...this.props } />
 
-  <VisibleMonthSummary {...this.props }/>
+  <MonthSummary {...this.props }/>
   
   
 
@@ -203,5 +198,4 @@ UserMonthlyAttendance.styles = {
   }
 };
 
-const VisibleUserMonthlyAttendance = UserMonthlyAttendance
-export default VisibleUserMonthlyAttendance
+export default UserMonthlyAttendance

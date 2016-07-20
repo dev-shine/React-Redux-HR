@@ -56,9 +56,6 @@ class TimeSummary extends React.Component {
 	    )
     }
 }
-
-const VisibleTimeSummary = TimeSummary
-
-export default VisibleTimeSummary
+export default TimeSummary
 
 

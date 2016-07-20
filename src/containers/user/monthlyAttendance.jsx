@@ -5,13 +5,14 @@ import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
-import VisibleHeader from '../../containers/generic/header'
-import VisibleMenu from '../../containers/generic/menu'
+import Menu from '../../components/generic/Menu'
+import LoadingIcon from '../../components/generic/LoadingIcon'
+
 
 import * as actions_login from '../../actions/login/index'
 
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
-import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
+
+import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 
 class MonthlyAttendance extends React.Component {
     constructor( props ){
@@ -35,7 +36,7 @@ class MonthlyAttendance extends React.Component {
     render(){
         return(
         	<div >
-				<VisibleMenu/>
+				<Menu {...this.props}/>
 
         
 
@@ -53,11 +54,11 @@ class MonthlyAttendance extends React.Component {
 					</div>
     				<div ui-view className="app-body" id="view">
 
-            <div className="row"><div className="col-12"><VisibleLoadingIcon/></div></div>
+            <div className="row"><div className="col-12"><LoadingIcon {...this.props}/></div></div>
 
 
               <div className="padding">
-                  <VisibleUserMonthlyAttendance {...this.props} />
+                  <UserMonthlyAttendance {...this.props} />
                   </div>
 
               </div>

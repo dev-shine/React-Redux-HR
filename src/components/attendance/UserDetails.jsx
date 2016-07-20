@@ -4,15 +4,16 @@ class UserDetails extends React.Component {
 		super( props );
     }
     render(){
+      let profileImage = this.props.monthlyAttendance.userProfileImage;
 
     	return (
         <div className="row">
          <div className="col-xs-12">
             <div className="box p-a">
               <div className="pull-left m-r">
-                <span className="w-48 rounded  accent">
-                  <i className="material-icons"></i>
-                </span>
+                <span className="w-40 avatar">
+                  <img src={profileImage} />
+                  </span>
               </div>
               <div className="clear">
                 <h4 className="m-a-0 text-lg">
@@ -28,8 +29,6 @@ class UserDetails extends React.Component {
     }
 }
 
-const VisibleUserDetails = UserDetails
-
-export default VisibleUserDetails
+export default UserDetails
 
 

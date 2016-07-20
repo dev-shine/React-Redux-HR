@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
+import LoadingIcon from '../../components/generic/LoadingIcon'
 
 class UserDaySummary extends React.Component {
     constructor( props ){
@@ -46,7 +46,7 @@ class UserDaySummary extends React.Component {
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
-                <VisibleLoadingIcon/>
+                <LoadingIcon {...this.props}/>
                 <div className="row">
                   <div className="col-xs-11">
                     <h5 className="modal-title">User Day Summary - { this.props.userDaySummary.name } - { this.props.date }</h5>
@@ -98,9 +98,7 @@ class UserDaySummary extends React.Component {
     }
 }
 
-const VisibleUserDaySummary = UserDaySummary
-
-export default VisibleUserDaySummary
+export default UserDaySummary
 
 
 

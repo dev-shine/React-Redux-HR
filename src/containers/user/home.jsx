@@ -5,19 +5,20 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
-import VisibleHeader from '../../containers/generic/header'
-import VisibleMenu from '../../containers/generic/menu'
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
+import Menu from '../../components/generic/Menu'
+import LoadingIcon from '../../components/generic/LoadingIcon'
+import UsersList from '../../components/attendance/UsersList'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 
-import VisibleUsersList from '../../containers/generic/usersList'
-import VisibleUserMonthlyAttendance from '../../components/attendance/userMonthlyAttendance'
 
-import VisibleUserDaySummary from '../../components/attendance/userDaySummary'
+
+import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
+
+import UserDaySummary from '../../components/attendance/UserDaySummary'
 
 class Home extends React.Component {
     constructor( props ){
@@ -104,19 +105,19 @@ class Home extends React.Component {
         let mainDivs = <div className="row">
 
             <div className="col-md-2">
-                                    <VisibleUsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
+                                    <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
                                 </div>
                                 <div className="col-md-10">
-                                    <VisibleUserMonthlyAttendance {...this.props}  onShowDaySummary = { this.onShowDaySummary }/>
+                                    <UserMonthlyAttendance {...this.props}  onShowDaySummary = { this.onShowDaySummary }/>
                                 </div>
                                 </div>
        
 
 		return(
     		<div>
-    			<VisibleMenu/>
+    			<Menu {...this.props }/>
 
-                <VisibleUserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} {...this.props}/>
+                <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} {...this.props}/>
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
     				<div className="app-header white box-shadow">
@@ -134,7 +135,7 @@ class Home extends React.Component {
 
             			<div className="row">
             				<div className="col-12">
-            					<VisibleLoadingIcon/>
+            					<LoadingIcon {...this.props}/>
             				</div>
             			</div>
 						<div className="padding">

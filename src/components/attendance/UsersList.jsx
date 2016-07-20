@@ -1,6 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash'
-import VisibleUser from '../../components/usersList/user'
+import User from '../../components/usersList/User'
 
 class UsersList extends React.Component {
     constructor( props ){
@@ -9,7 +9,7 @@ class UsersList extends React.Component {
     render(){
       let usersList =  _.map( this.props.users , ( user, keyval ) => {
         return (
-          <VisibleUser user={user} key={keyval} {...this.props}/>
+          <User user={user} key={keyval} {...this.props}/>
         )
       })
       return (
@@ -26,8 +26,6 @@ class UsersList extends React.Component {
     }
 }
 
-const VisibleUsersList = UsersList
-
-export default VisibleUsersList
+export default UsersList
 
 

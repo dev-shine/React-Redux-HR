@@ -5,8 +5,8 @@ import * as actions_login from '../../actions/login/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
-import VisibleHeader from '../../containers/generic/header'
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
+
+import LoadingIcon from '../../components/generic/LoadingIcon'
 
 class Login extends React.Component {
     constructor( props ){
@@ -82,7 +82,7 @@ class Login extends React.Component {
     </div>
 
     <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
-    <VisibleLoadingIcon/>
+    <LoadingIcon {...this.props}/>
       <div className="m-b text-sm">
         Sign in with your username
       </div>
@@ -130,6 +130,7 @@ Login.styles = {
 
 function mapStateToProps( state ){
     return {
+        frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS()
     }
 }

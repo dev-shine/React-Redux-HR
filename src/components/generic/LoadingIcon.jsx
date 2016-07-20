@@ -31,23 +31,6 @@ LoadingIcon.styles = {
   }
 };
 
-function mapStateToProps( state ){
-    return {
-      frontend : state.frontend.toJS(),
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-    }
-}
-
-const VisibleLoadingIcon = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)( LoadingIcon )
-
-
-
-export default VisibleLoadingIcon
+export default LoadingIcon
 
 

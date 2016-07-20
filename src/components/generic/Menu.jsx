@@ -62,8 +62,6 @@ class Menu extends React.Component {
       <div flex="" className="hide-scroll">
           <nav className="scroll nav-light">
               {links_to_show}
-              
-            
           </nav>
       </div>
 
@@ -71,16 +69,12 @@ class Menu extends React.Component {
 
       <div flex-no-shrink="" className="b-t">
         <div className="nav-fold">
-  <a href="#/app/page/profile" ui-sref="app.page.profile">
-      <span className="pull-left">
-        <img src="http://www.iconsfind.com/wp-content/uploads/2015/10/20151012_561baed03a54e.png" alt="..." className="w-40 img-circle"/>
-      </span>
-      <span className="clear hidden-folded p-x">
+      <span className="clear hidden-folded">
         <span className="block _500">{ this.props.logged_user.name}</span>
         <i><span className="block _500">{ this.props.logged_user.role}</span></i>
         <i><span className="block _500">{ this.props.logged_user.jobtitle}</span></i>
       </span>
-  </a>
+  
 </div>
       </div>
 
@@ -101,23 +95,6 @@ class Menu extends React.Component {
     }
 }
 
-function mapStateToProps( state ){
-    return {
-    logged_user : state.logged_user.toJS()
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-    }
-}
-
-const VisibleMenu = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)( Menu )
-
-
-
-export default VisibleMenu
+export default Menu
 
 

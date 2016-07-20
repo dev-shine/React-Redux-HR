@@ -24,7 +24,6 @@ import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
-import Page_UserDaySummary from './containers/user/userDaySummary'
 
 
 export class APP extends React.Component {
@@ -108,7 +107,6 @@ let render = (routerKey = null) => {
                  <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
                  <Route path="attendance_summary" component={Page_AttendanceSummary} />
                  <Route path="logout" component={Page_Logout} />
-                 <Route path="user_day_summary/:userid/:date" component={Page_UserDaySummary} />
              </Route>
          </Router>
      </Provider>

@@ -45,6 +45,11 @@ class Home extends React.Component {
         }
     }
     componentWillReceiveProps( props ){
+
+        if( props.userDaySummary.status_message != ''){
+            notify( props.userDaySummary.status_message );    
+        }
+
         if( this.state.defaultUserDisplay  == '' ){
             if( props.usersList.users.length > 0 ){
                 let firstUser = props.usersList.users[0]
@@ -52,6 +57,7 @@ class Home extends React.Component {
                 this.onUserClick( defaultUserId )
             }
         }
+
     }
     onUserClick( userid ){
         this.setState({
@@ -68,6 +74,22 @@ class Home extends React.Component {
             daysummary_date : date,
         })
         this.props.onUserDaySummary( userid, date  )
+    }
+
+    doUpdateDaySummary( userid, date, entry_time, exit_time ){
+
+        console.log( 'A ' + userid )
+        console.log( 'B ' + date )
+        console.log( 'C ' + entry_time )
+        console.log( 'D ' + exit_time )
+
+        evt.preventDefault();
+        this.props.onUpdateDaySummary( userid, date, entry_time, exit_time ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        })
     }
 
 
@@ -151,6 +173,9 @@ const mapDispatchToProps = (dispatch) => {
         onUserDaySummary : ( userid, date ) => {
             return dispatch( actions_userDaySummary.getUserDaySummary( userid, date ))
         },
+        onUpdateDaySummary : ( userid, date, entry_time, exit_time ) => {
+            return dispatch( actions_userDaySummary.updateUserDaySummary( userid, date, entry_time, exit_time ) )
+        }
     }
 }
 

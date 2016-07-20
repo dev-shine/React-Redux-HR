@@ -5,8 +5,6 @@ import * as actions_login from '../../actions/login/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
-import VisibleHeader from '../../containers/generic/header'
-
 class Logout extends React.Component {
     constructor( props ){
         super( props );

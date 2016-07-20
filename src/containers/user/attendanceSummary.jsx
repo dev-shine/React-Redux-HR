@@ -6,8 +6,8 @@ import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
 
-import VisibleMenu from '../../containers/generic/menu'
-import VisibleLoadingIcon from '../../containers/generic/loadingIcon'
+import Menu from '../../components/generic/Menu'
+import LoadingIcon from '../../components/generic/LoadingIcon'
 
 //---------------
 //import VisibleDayWorking from './dayWorking'
@@ -404,7 +404,7 @@ class AttendanceSummary extends React.Component {
       
         return(
         	<div >
-				<VisibleMenu/>
+				<Menu {...this.props}/>
 
         
 
@@ -432,7 +432,7 @@ class AttendanceSummary extends React.Component {
 					
     				<div ui-view className="app-body" id="view">
 
-            <div className="row"><div className="col-12"><VisibleLoadingIcon/></div></div>
+            <div className="row"><div className="col-12"><LoadingIcon {...this.props}/></div></div>
 
 
 

@@ -58,8 +58,6 @@ class DayReference extends React.Component {
     }
 }
 
-const VisibleDayReference = DayReference
-
-export default VisibleDayReference
+export default DayReference
 
 

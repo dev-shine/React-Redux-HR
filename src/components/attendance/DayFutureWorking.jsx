@@ -19,8 +19,6 @@ class DayFutureWorking extends React.Component {
     }
 }
 
-const VisibleDayFutureWorking = DayFutureWorking
-
-export default VisibleDayFutureWorking
+export default DayFutureWorking
 
 

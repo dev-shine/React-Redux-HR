@@ -4,7 +4,7 @@ class DayWorking extends React.Component {
 		super( props );
     }
     render(){
-    	let d = this.props.dayData
+      let d = this.props.dayData
     	let d_date = d.date;
 
       let date_div  = <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
@@ -61,7 +61,7 @@ class DayWorking extends React.Component {
 
       }
     	return (
-    		 <div >
+    		 <div  data-toggle="modal" data-target="#modalUserDaySummary"  onClick={ () => this.props.showDaySummary(this.props.userid, this.props.dayData.full_date ) } >
           
           {date_div}
           
@@ -84,8 +84,6 @@ class DayWorking extends React.Component {
     }
 }
 
-const VisibleDayWorking = DayWorking
-
-export default VisibleDayWorking
+export default DayWorking
 
 

@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 
 let initialState = {
+    userProfileImage : '',
     userName : '',
     userjobtitle : '',
     userid : '',
@@ -18,6 +19,7 @@ export function monthlyAttendance( state = Immutable.fromJS(initialState), actio
     if( action.type == 'ACTION_SUCCESS_USER_ATTENDANCE' ){
         
         return state.set( 'userName' , action.payload.userName )
+        .set( 'userProfileImage' , action.payload.userProfileImage )
         .set( 'userjobtitle' , action.payload.userjobtitle )
         .set( 'userid' , action.payload.userid )
         .set( 'month' , action.payload.month )

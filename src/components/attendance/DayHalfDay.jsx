@@ -35,8 +35,6 @@ class DayHalfDay extends React.Component {
     }
 }
 
-const VisibleDayHalfDay = DayHalfDay
-
-export default VisibleDayHalfDay
+export default DayHalfDay
 
 

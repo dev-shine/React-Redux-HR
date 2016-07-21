@@ -23,7 +23,9 @@ import UserDaySummary from '../../components/attendance/UserDaySummary'
 class Home extends React.Component {
     constructor( props ){
         super( props );
-        
+
+        this.props.onIsAlreadyLogin()
+
         this.state = {
             "defaultUserDisplay" : "",
             "daysummary_userid" : "",
@@ -34,19 +36,19 @@ class Home extends React.Component {
         this.onShowDaySummary = this.onShowDaySummary.bind( this )
     }
     componentWillMount(){
-    	if( this.props.onIsAlreadyLogin() == false ){
-          this.props.router.push('/');
-        }else{
-        	if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
-        		//this.props.router.push('/attendance_summary');	
-        		this.props.onUsersList( )
-        	}else{
-        		this.props.router.push('/monthly_attendance');	
-        	}
-        }
+        this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
-
+        if( props.logged_user.logged_in == -1 ){
+            this.props.router.push('/logout');
+        }else{
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
+                //this.props.onUsersList( )
+            }else{
+                this.props.router.push('/monthly_attendance');    
+            }
+        }
+        
         if( props.userDaySummary.status_message != ''){
             notify( props.userDaySummary.status_message );    
         }

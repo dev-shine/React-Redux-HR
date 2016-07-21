@@ -17,22 +17,24 @@ import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttend
 class MonthlyAttendance extends React.Component {
     constructor( props ){
         super( props );
+        this.props.onIsAlreadyLogin()
     }
     componentWillMount(){
-        if( this.props.onIsAlreadyLogin() == false ){
-          this.props.router.push('/');
-        }else{
-        }
-
         let user_id =  this.props.logged_user.userid;
         let d = new Date();
         let year = d.getFullYear()
         let month = d.getMonth() + 1  // +1 since getMonth starts from 0
         this.props.onMonthAttendance( user_id, year, month )
     }
-  
-
-
+    componentWillReceiveProps( props ){
+        if( props.logged_user.logged_in == -1 ){
+            this.props.router.push('/logout');
+        }else{
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
+                this.props.router.push('/home');    
+            }
+        }
+    }
     render(){
         return(
         	<div >

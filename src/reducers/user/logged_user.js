@@ -8,6 +8,7 @@ let initialState = {
     role : '-1',
     name : '-1',
     jobtitle : '-1',
+    profileImage : ''
     
 }
 
@@ -23,7 +24,9 @@ export function logged_user( state = Immutable.Map(initialState), action ){
         .set( 'role' , action.payload.role )
         .set( 'name' , action.payload.name )
         .set( 'jobtitle', action.payload.jobtitle )
+        .set( 'profileImage', action.payload.profileImage )
         .set( 'login_status_message', 'Success Login' )
+
         
         
     }else if( action.type == 'ACTION_LOGIN_FAIL' ){
@@ -46,6 +49,7 @@ export function logged_user( state = Immutable.Map(initialState), action ){
         .set( 'role' , '-1' )
         .set( 'name' , '-1' )
         .set( 'jobtitle', '-1' )
+        .set( 'profileImage', '' )
         
     }else{
         return state.set( 'login_status_message', '' )

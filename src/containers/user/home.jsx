@@ -76,36 +76,12 @@ class Home extends React.Component {
         })
         this.props.onUserDaySummary( userid, date  )
     }
-
-    doUpdateDaySummary( userid, date, entry_time, exit_time ){
-
-        console.log( 'A ' + userid )
-        console.log( 'B ' + date )
-        console.log( 'C ' + entry_time )
-        console.log( 'D ' + exit_time )
-
-        evt.preventDefault();
-        this.props.onUpdateDaySummary( userid, date, entry_time, exit_time ).then( 
-        (data) => {
-            
-        },(error) => {
-            notify( error );
-        })
-    }
-
-
-
   	render(){
-		
-        
-
-       
-       
             
         let mainDivs = <div className="row">
 
             <div className="col-md-2">
-                                    <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } />
+                                    <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } {...this.props } />
                                 </div>
                                 <div className="col-md-10">
                                     <UserMonthlyAttendance {...this.props}  onShowDaySummary = { this.onShowDaySummary }/>
@@ -174,8 +150,8 @@ const mapDispatchToProps = (dispatch) => {
         onUserDaySummary : ( userid, date ) => {
             return dispatch( actions_userDaySummary.getUserDaySummary( userid, date ))
         },
-        onUpdateDaySummary : ( userid, date, entry_time, exit_time ) => {
-            return dispatch( actions_userDaySummary.updateUserDaySummary( userid, date, entry_time, exit_time ) )
+        onUpdateDaySummary : ( userid, date, entry_time, exit_time, reason  ) => {
+            return dispatch( actions_userDaySummary.updateUserDaySummary( userid, date, entry_time, exit_time, reason ) )
         }
     }
 }

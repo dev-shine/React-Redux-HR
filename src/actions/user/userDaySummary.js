@@ -71,18 +71,19 @@ export function error_update_user_day_summary( data ){
 	return createAction( ACTION_ERROR_UPDATE_USER_DAY_SUMMARY )( data )
 }
 
-function async_updateUserDaySummary(  userid, date, entry_time, exit_time ){
+function async_updateUserDaySummary(  userid, date, entry_time, exit_time, reason ){
 	return fireAjax( 'POST', '', {
 		'action' : 'update_user_day_summary',
 		'userid' : userid,
 		'date' : date,
 		'entry_time' : entry_time,
-		'exit_time' : exit_time
+		'exit_time' : exit_time,
+		'reason' : reason
 	} )
 }
 
 
-export function updateUserDaySummary( userid, date, entry_time, exit_time ){
+export function updateUserDaySummary( userid, date, entry_time, exit_time , reason ){
 	return function ( dispatch, getState ){
 		if( _.isEmpty( userid ) ){
 			return Promise.reject('User Id is empty')
@@ -96,11 +97,14 @@ export function updateUserDaySummary( userid, date, entry_time, exit_time ){
 		if( _.isEmpty( exit_time ) ){
 			return Promise.reject('Exit time is empty')
 		}
+		if( _.isEmpty( reason ) ){
+			return Promise.reject('Reason is empty')
+		}
 
 
 		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon
-			async_updateUserDaySummary( userid, date, entry_time, exit_time ).then(
+			async_updateUserDaySummary( userid, date, entry_time, exit_time, reason ).then(
 				( json ) => {
 
 					dispatch( hide_loading() ) // hide loading icon

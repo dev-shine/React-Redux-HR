@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import {notify} from '../../services/index'
 
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
@@ -11,14 +12,12 @@ class UserDaySummary extends React.Component {
           current_userid : '',
           current_date : '',
           form_entry_time : '',
-          form_exit_time : ''
+          form_exit_time : '',
+          form_reason : ''
       }
       this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
     }
     componentWillReceiveProps( props ){
-
-      //console.log('************')
-      //console.log( props )
 
       let user_id =  props.userid
       let date = props.date
@@ -28,6 +27,7 @@ class UserDaySummary extends React.Component {
           current_date : props.date,
           form_entry_time : props.userDaySummary.entry_time,
           form_exit_time : props.userDaySummary.exit_time,
+          form_reason : '',
       })
 
       //this.props.onUserDaySummary( user_id, date  )
@@ -36,7 +36,12 @@ class UserDaySummary extends React.Component {
 
     doUpdateDaySummary( evt ){
         evt.preventDefault();
-        this.props.onUpdateDaySummary( this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time )
+        this.props.onUpdateDaySummary( this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        })
     }
 
 
@@ -79,6 +84,16 @@ class UserDaySummary extends React.Component {
                 <input type="text" className="form-control" ref="exit_time" value={ this.state.form_exit_time } onChange={ () => this.setState( { form_exit_time : this.refs.exit_time.value } ) }/>
               </div>
             </div>
+
+
+            <div className="form-group row">
+              <label className="col-sm-2 form-control-label" >Reason</label>
+              <div className="col-sm-9">
+                <input type="text" className="form-control" ref="reason" value={ this.state.form_reason } onChange={ () => this.setState( { form_reason : this.refs.reason.value } ) }/>
+              </div>
+            </div>
+
+
 
             <div className="form-group row m-t-md">
               <div className="col-sm-10">

@@ -43,9 +43,10 @@ export function isAlreadyLogin(){
 		if( typeof token != 'undefined' && token != null &&  token != '' ){
 			let  tokenData = jwt.decode( token, 'HR_APP' );
 			dispatch( login_sucess( tokenData ) )
-			return token
+			//return token
 		}else{
-			return false
+			dispatch( login_fail( {} ) )
+			//return false
 		}
 	}
 }

@@ -12,14 +12,7 @@ class Login extends React.Component {
     constructor( props ){
         super( props );
 
-        // if( props.logged_user.logged_in == 1 ){  //is user already readirect to another page
-        //     this.props.router.push('/monthly_attendance');
-        // }
-        if( this.props.onIsAlreadyLogin() == false ){
-          
-        }else{ //is user already readirect to another page
-          this.props.router.push('/home');
-        }
+        //this.props.onIsAlreadyLogin()
 
         this.state = {
             form_login_username : '',
@@ -31,9 +24,13 @@ class Login extends React.Component {
     }
     componentWillReceiveProps( props ){
         let logged_user = props.logged_user
-        
+
         if( typeof logged_user.logged_in != 'undefined' && logged_user.logged_in == 1 ){
-            this.props.router.push('/home');
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
+                this.props.router.push('/home');
+            }else{
+                this.props.router.push('/monthly_attendance');
+            }
         }else{
             this.setState({
                 form_login_status : props.logged_user.login_status_message

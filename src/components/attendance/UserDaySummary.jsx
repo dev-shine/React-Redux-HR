@@ -17,6 +17,14 @@ class UserDaySummary extends React.Component {
       }
       this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
     }
+    componentDidMount(){
+      $('.timepickerInput').timepicker({
+        'minTime': '09:00 AM',
+        'maxTime': '09:00 PM',
+        'timeFormat': 'h:i A',
+        'step': 5
+      });
+    }
     componentWillReceiveProps( props ){
 
       let user_id =  props.userid
@@ -27,7 +35,7 @@ class UserDaySummary extends React.Component {
           current_date : props.date,
           form_entry_time : props.userDaySummary.entry_time,
           form_exit_time : props.userDaySummary.exit_time,
-          form_reason : '',
+          form_reason : this.state.form_reason,
       })
 
       //this.props.onUserDaySummary( user_id, date  )
@@ -74,14 +82,14 @@ class UserDaySummary extends React.Component {
             <div className="form-group row">
               <label className="col-sm-2 form-control-label">Entry Time</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" ref="entry_time" value={ this.state.form_entry_time } onChange={ () => this.setState( { form_entry_time : this.refs.entry_time.value } ) }/>
+                <input type="text" className="timepickerInput form-control" ref="entry_time" value={ this.state.form_entry_time } onBlur={ () => this.setState( { form_entry_time : this.refs.entry_time.value } ) }/>
               </div>
             </div>
 
             <div className="form-group row">
               <label className="col-sm-2 form-control-label" >Exit Time</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" ref="exit_time" value={ this.state.form_exit_time } onChange={ () => this.setState( { form_exit_time : this.refs.exit_time.value } ) }/>
+                <input type="text" className="timepickerInput form-control" ref="exit_time" value={ this.state.form_exit_time } onBlur={ () => this.setState( { form_exit_time : this.refs.exit_time.value } ) }/>
               </div>
             </div>
 
@@ -89,7 +97,7 @@ class UserDaySummary extends React.Component {
             <div className="form-group row">
               <label className="col-sm-2 form-control-label" >Reason</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" ref="reason" value={ this.state.form_reason } onChange={ () => this.setState( { form_reason : this.refs.reason.value } ) }/>
+                <input  type="text" className="form-control" ref="reason" value={ this.state.form_reason } onChange={ () => this.setState( { form_reason : this.refs.reason.value } ) }/>
               </div>
             </div>
 

@@ -25,6 +25,7 @@ import Page_Logout from './containers/user/logout'
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
+import Page_Holidays from './containers/user/holidays'
 
 
 
@@ -110,6 +111,7 @@ let render = (routerKey = null) => {
                  <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
                  <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
                  <Route path="logout" component={Page_Logout} />
+                 <Route path="holidays" component={Page_Holidays} />
              </Route>
          </Router>
      </Provider>

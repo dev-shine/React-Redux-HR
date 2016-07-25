@@ -103,13 +103,13 @@ class Home extends React.Component {
     						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
-    						<div className="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle">Users</div>
+    						<div className="navbar-item pull-left h5" id="pageTitle">Users</div>
 						</div>
     				</div>
-					<div className="app-footer" ng-class="{'hide': $state.current.data.hideFooter}">
-  						<div ui-include="'../views/blocks/footer.html'"></div>
+					<div className="app-footer">
+  						<div></div>
 					</div>
-    				<div ui-view className="app-body" id="view">
+    				<div className="app-body" id="view">
 
             			<div className="row">
             				<div className="col-12">

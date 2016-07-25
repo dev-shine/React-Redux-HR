@@ -45,7 +45,7 @@ export function isAlreadyLogin(){
 			dispatch( login_sucess( tokenData ) )
 			//return token
 		}else{
-			dispatch( login_fail( {} ) )
+			//dispatch( login_fail( {} ) )
 			//return false
 		}
 	}

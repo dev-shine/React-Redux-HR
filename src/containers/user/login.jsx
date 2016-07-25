@@ -12,7 +12,7 @@ class Login extends React.Component {
     constructor( props ){
         super( props );
 
-        //this.props.onIsAlreadyLogin()
+        this.props.onIsAlreadyLogin()
 
         this.state = {
             form_login_username : '',

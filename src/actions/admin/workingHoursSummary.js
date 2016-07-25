@@ -82,14 +82,14 @@ function async_update_day_working_hours( date, time ){
 
 export function update_day_working_hours( date, time ){
 
-	if( _.isEmpty( date ) ){
-		return Promise.reject('date is empty')
-	}
-	if( _.isEmpty( time ) ){
-		return Promise.reject('time is empty')
-	}
-	
 	return function ( dispatch, getState ){
+
+		if( _.isEmpty( date ) ){
+			return Promise.reject('date is empty')
+		}
+		if( _.isEmpty( time ) ){
+			return Promise.reject('time is empty')
+		}
 
 		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon

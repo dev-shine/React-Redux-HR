@@ -35,27 +35,27 @@ class Menu extends React.Component {
       let link_manage_working_hours= <Link to='/manage_working_hours'>Manage Working Hours</Link>
 
 
-      let links_to_show = <ul className="nav" ui-nav="">
-        <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_my_calendar}</span></li>
-        <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
+      let links_to_show = <ul className="nav" >
+        <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
+        <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
       </ul>
 
       if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
-          links_to_show = <ul className="nav" ui-nav="">
-            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_users_list}</span></li>
-            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
+          links_to_show = <ul className="nav" >
+            <li className="hidden-folded" ><span className="nav-text">{link_users_list}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
           </ul>                          
       }
 
 
         
     return (
-      <div id="aside" className="app-aside modal fade nav-dropdown" ng-className="{'folded': app.setting.folded}">
-        <div className="left navside dark dk" layout="column">
+      <div id="aside" className="app-aside modal fade nav-dropdown" >
+        <div className="left navside dark dk">
           <div className="navbar no-radius">
           <a className="navbar-brand">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+            <svg viewBox="0 0 48 48" width="24" height="24">
               <path d="M 4 4 L 44 4 L 44 44 Z" fill="#F5F5F5"></path>
               <path d="M 4 4 L 34 4 L 24 24 Z" fill="rgba(0,0,0,0.15)"></path>
               <path d="M 4 4 L 24 4 L 4  44 Z" fill="#f44455"></path>
@@ -64,7 +64,7 @@ class Menu extends React.Component {
             <span className="hidden-folded inline">HR</span>
           </a>
       </div>
-      <div flex="" className="hide-scroll">
+      <div className="hide-scroll">
           <nav className="scroll nav-light">
               {links_to_show}
           </nav>

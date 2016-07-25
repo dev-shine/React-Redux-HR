@@ -421,7 +421,7 @@ class AttendanceSummary extends React.Component {
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
 
-    						<div className="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle"> Attendance Summary</div>
+    						<div className="navbar-item pull-left h5"  id="pageTitle"> Attendance Summary</div>
 						</div>
     				</div>
 
@@ -430,7 +430,7 @@ class AttendanceSummary extends React.Component {
 
 
 					
-    				<div ui-view className="app-body" id="view">
+    				<div className="app-body" id="view">
 
             <div className="row"><div className="col-12"><LoadingIcon {...this.props}/></div></div>
 

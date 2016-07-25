@@ -50,6 +50,7 @@ export function logged_user( state = Immutable.Map(initialState), action ){
         .set( 'name' , '-1' )
         .set( 'jobtitle', '-1' )
         .set( 'profileImage', '' )
+        .set( 'login_status_message', '' )
         
     }else{
         return state.set( 'login_status_message', '' )

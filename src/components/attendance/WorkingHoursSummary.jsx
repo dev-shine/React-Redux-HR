@@ -97,7 +97,7 @@ class WorkingHoursSummary extends React.Component {
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
     				
-    				<div ui-view className="app-body" id="view">
+    				<div className="app-body" id="view">
 
             
 

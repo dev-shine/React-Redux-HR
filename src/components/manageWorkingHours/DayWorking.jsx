@@ -51,7 +51,7 @@ class DayWorking extends React.Component {
           
           <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
-              <span className="fc-time"><h6>Office Working Hours : {d_office_working_hours}</h6></span>
+              <span className="fc-time"><h6>Hours : {d_office_working_hours}</h6></span>
               <span className="fc-title"></span>
             </div>
           </div>
@@ -60,7 +60,7 @@ class DayWorking extends React.Component {
           <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
               <span className="fc-title">
-                Change Working Hours &nbsp; : &nbsp;
+                Change to &nbsp;:&nbsp;
               </span>
               <span className="fc-time">
                 <input type="text" className="timepickerInput" ref="workingtime" value={ this.state.workingTime }   style={styles.timeInputBox} onBlur={ () => this.props.onWorkingHoursChange( this.props.dayData.full_date, this.refs.workingtime.value) }/>
@@ -76,7 +76,7 @@ class DayWorking extends React.Component {
 
 DayWorking.styles = {
   timeInputBox: {
-    'width' : '50px'
+    'width' : '40px'
   }
 };
 

@@ -8,7 +8,7 @@ class LoggedUserInfo extends React.Component {
     	let profileImage = this.props.logged_user.profileImage
     	return (
 
-      <div flex-no-shrink="" className="b-t">
+      <div className="b-t">
       	<div className="nav-fold">
       	<span className="pull-left">
 	      <img src={profileImage} className="w-40 img-circle"/>

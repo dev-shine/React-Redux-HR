@@ -32,6 +32,8 @@ class Menu extends React.Component {
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
 
+      let link_manage_working_hours= <Link to='/manage_working_hours'>Manage Working Hours</Link>
+
 
       let links_to_show = <ul className="nav" ui-nav="">
         <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_my_calendar}</span></li>
@@ -40,8 +42,9 @@ class Menu extends React.Component {
 
       if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
           links_to_show = <ul className="nav" ui-nav="">
-          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_users_list}</span></li>
-                          <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
+            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_users_list}</span></li>
+            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ui-sref-active="active"><span className="nav-text">{link_logout}</span></li>
           </ul>                          
       }
 

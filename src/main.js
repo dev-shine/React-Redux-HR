@@ -24,6 +24,8 @@ import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
+import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
+
 
 
 export class APP extends React.Component {
@@ -40,7 +42,8 @@ export class APP extends React.Component {
 const logger = createLogger();
 
 let store = createStore(reducer,  compose(
-    applyMiddleware( thunk, logger),
+    //applyMiddleware( thunk, logger),
+    applyMiddleware( thunk ),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
@@ -105,7 +108,7 @@ let render = (routerKey = null) => {
                  <IndexRoute component={Page_Login} /> //this will be the default page which will opens when app starts
                  <Route path="home" component={Page_Home} />
                  <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
-                 <Route path="attendance_summary" component={Page_AttendanceSummary} />
+                 <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
                  <Route path="logout" component={Page_Logout} />
              </Route>
          </Router>

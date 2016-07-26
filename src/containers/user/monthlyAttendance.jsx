@@ -54,7 +54,7 @@ class MonthlyAttendance extends React.Component {
 					<div className="app-footer">
   						<div></div>
 					</div>
-    				<div ui-view className="app-body" id="view">
+    				<div className="app-body" id="view">
 
             <div className="row"><div className="col-12"><LoadingIcon {...this.props}/></div></div>
 

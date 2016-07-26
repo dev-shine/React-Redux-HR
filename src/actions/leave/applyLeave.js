@@ -43,6 +43,9 @@ export function apply_leave( from_date, to_date, no_of_days, reason ){
 		if(_.isEmpty(to_date)){
 			return Promise.reject('To date is empty')
 		}
+		if(_.isEmpty(no_of_days)){
+			return Promise.reject('No of days is empty')
+		}
 		if(_.isEmpty(reason)){
 			return Promise.reject('Reason is empty')
 		}

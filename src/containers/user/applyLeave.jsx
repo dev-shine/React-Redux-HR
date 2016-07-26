@@ -8,23 +8,24 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
+import ApplyLeaveForm from '../../components/leaves/ApplyLeaveForm'
 
 import * as actions_login from '../../actions/login/index'
+import * as actions_apply_leave from '../../actions/leave/applyLeave'
 
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 
-class MonthlyAttendance extends React.Component {
+class ApplyLeave extends React.Component {
     constructor( props ){
         super( props );
         this.props.onIsAlreadyLogin()
+        
+    }
+    componentDidMount(){
+      
     }
     componentWillMount(){
-        let user_id =  this.props.logged_user.userid;
-        let d = new Date();
-        let year = d.getFullYear()
-        let month = d.getMonth() + 1  // +1 since getMonth starts from 0
-        this.props.onMonthAttendance( user_id, year, month )
     }
     componentWillReceiveProps( props ){
         if( props.logged_user.logged_in == -1 ){
@@ -35,7 +36,15 @@ class MonthlyAttendance extends React.Component {
             }
         }
     }
+    
     render(){
+
+      let status_message = ""
+      if( this.props.applyLeave.status_message != '' ){
+        status_message = <span className="label label-lg primary pos-rlt m-r-xs">
+          <b className="arrow left b-primary"></b>{this.props.applyLeave.status_message}</span>
+      }
+
         return(
         	<div >
 				<Menu {...this.props}/>
@@ -48,7 +57,7 @@ class MonthlyAttendance extends React.Component {
     						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
-    						<div className="navbar-item pull-left h5" id="pageTitle"> My Calendar</div>
+    						<div className="navbar-item pull-left h5" id="pageTitle">Apply For Leaves &nbsp;&nbsp;&nbsp; {status_message} </div>
 						</div>
     				</div>
 					<div className="app-footer">
@@ -60,7 +69,17 @@ class MonthlyAttendance extends React.Component {
 
 
               <div className="padding">
-                  <UserMonthlyAttendance {...this.props} />
+                  <div className="box">
+        <div className="box-divider m-a-0"></div>
+        <div className="box-body">
+
+        <ApplyLeaveForm {...this.props}/>
+          
+
+
+
+        </div>
+      </div>
                   </div>
 
               </div>
@@ -74,7 +93,7 @@ class MonthlyAttendance extends React.Component {
 }
 
 
-MonthlyAttendance.styles = {
+ApplyLeave.styles = {
   height100per: {
     'minHeight' : '150px'
   }
@@ -84,25 +103,25 @@ function mapStateToProps( state ){
 	return {
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        monthlyAttendance : state.monthlyAttendance.toJS(),
+        applyLeave : state.applyLeave.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onMonthAttendance : ( userid, year, month ) => {
-            return dispatch( actions_monthlyAttendance.get_monthly_attendance( userid, year, month ))
-        },
         onIsAlreadyLogin : () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
+        },
+        onApplyLeave : ( from_date, to_date, no_of_days, reason ) => {
+            return dispatch( actions_apply_leave.apply_leave( from_date, to_date, no_of_days, reason  ))
         }
     }
 }
 
-const VisibleMonthlyAttendance = connect(
+const VisibleApplyLeave = connect(
   mapStateToProps,
   mapDispatchToProps
-)( MonthlyAttendance )
+)( ApplyLeave )
 
-const RouterVisibleMonthlyAttendance = withRouter( VisibleMonthlyAttendance )
+const RouterVisibleApplyLeave = withRouter( VisibleApplyLeave )
 
-export default RouterVisibleMonthlyAttendance
+export default RouterVisibleApplyLeave

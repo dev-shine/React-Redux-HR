@@ -113,6 +113,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onApplyLeave : ( from_date, to_date, no_of_days, reason ) => {
             return dispatch( actions_apply_leave.apply_leave( from_date, to_date, no_of_days, reason  ))
+        },
+        onDaysBetweenLeaves : ( startDate, endDate ) => {
+          return dispatch( actions_apply_leave.getDaysBetweenLeaves( startDate, endDate  ))
         }
     }
 }

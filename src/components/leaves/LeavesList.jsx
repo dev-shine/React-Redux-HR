@@ -2,19 +2,24 @@ import React from 'react';
 import * as _ from 'lodash'
 import LeavesListLeave from './LeavesListLeave'
 
+
 class LeavesList extends React.Component {
     constructor( props ){
         super( props );
     }
     render(){
       let holidaysList =  _.map( this.props.listLeaves.leaves , ( leave, keyval ) => {
+
         return (
-          <LeavesListLeave leave={leave} key={keyval}/>
+          <LeavesListLeave leave={leave} key={keyval} keyval={keyval} {...this.props}/>
         )
       })
       return (
-        <div className = "row">
-          <div className="col-12">
+
+
+
+
+      
             <div className="box">
 
             <div className="box">
@@ -40,8 +45,10 @@ class LeavesList extends React.Component {
 
               
             </div>
-          </div>
-        </div>
+          
+
+          
+        
       )
     }
 }

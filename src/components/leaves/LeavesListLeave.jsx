@@ -124,7 +124,7 @@ class LeavesListLeave extends React.Component {
               <div className="col-md-1">
                 <h6>{this.props.leave.applied_on}</h6>
               </div>
-              <div className="col-md-2">
+              <div className="col-md-3">
                 <h6>{this.props.leave.from_date} TO {this.props.leave.to_date}</h6>
                 <br/>
                 <h6>No. of days - {this.props.leave.no_of_days}</h6>

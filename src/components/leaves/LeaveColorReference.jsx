@@ -20,7 +20,7 @@ class LeaveColorReference extends React.Component {
             </div>
 
             <div className="col-xs-4 col-sm-3 col-md-2 col-lg-1">
-              <div className="p-a primary">
+              <div className="p-a green-A200">
                 <h4></h4>
                 <div className=" text-u-c _600 text-sm">Approved</div>
 

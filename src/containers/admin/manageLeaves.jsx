@@ -92,7 +92,7 @@ class ManageLeaves extends React.Component {
 
 
                             <div className="row">
-                                <div className="col-md-12">
+                                <div className="col-md-12 p-a">
                                     <LeavesList {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
                                 </div>
                             </div>

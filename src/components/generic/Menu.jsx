@@ -40,11 +40,14 @@ class Menu extends React.Component {
 
       let link_manage_leaves = <Link to='/manage_leaves'>Manage Leaves</Link>
 
+      let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
+
 
       let links_to_show = <ul className="nav" >
         <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_apply_leave}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
+        <li className="hidden-folded" ><span className="nav-text">{link_my_leaves}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
       </ul>
 

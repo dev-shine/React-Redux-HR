@@ -45,8 +45,8 @@ class ManageLeaves extends React.Component {
             }
         }
     }
-    doLeaveStatusChange( id, newstatus ){
-      this.props.onChangeLeaveStatus( id, newstatus ).then( 
+    doLeaveStatusChange( id, newstatus, messagetouser ){
+      this.props.onChangeLeaveStatus( id, newstatus, messagetouser ).then( 
         (data) => {
             
         },(error) => {
@@ -142,8 +142,8 @@ const mapDispatchToProps = (dispatch) => {
         onSelectLeave : ( leaveid ) => {
             return dispatch( actions_listLeaves.onSelectLeave( leaveid ))
         },
-        onChangeLeaveStatus : ( leaveid, newstatus ) => {
-            return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus ) )
+        onChangeLeaveStatus : ( leaveid, newstatus , messagetouser ) => {
+            return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus, messagetouser ) )
         }
     }
 }

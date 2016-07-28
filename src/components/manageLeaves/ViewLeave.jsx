@@ -4,8 +4,18 @@ import * as _ from 'lodash'
 class ViewLeave extends React.Component {
     constructor( props ){
 		  super( props );
+      this.state = {
+        messagetouser : ""
+      }
       
     }
+
+
+
+    changeStatus( leaveid, newstatus ){
+      this.props.doLeaveStatusChange( leaveid, newstatus, this.state.messagetouser )
+    }
+
    
     _getChangeStatusButtons( leaveid, status ){
       let statusList = [ "Approved", "Pending", "Rejected" ]
@@ -17,11 +27,11 @@ class ViewLeave extends React.Component {
         if( s == status ){
 
         }else if( s == 'Approved'){
-          return <button key={k} className="md-btn md-raised green-A200" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) } >Mark Approved</button>
+          return <button key={k} className="md-btn md-raised indigo" onClick={ () => this.changeStatus( leaveid, s ) } >Approve</button>
         }else if(s == 'Pending'){
-          return <button  key={k} className="md-btn md-raised blue" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) } >Mark Pending</button>
+          return <button  key={k} className="md-btn md-raised blue" onClick={ () => this.changeStatus( leaveid, s ) } >Mark Pending</button>
         }else if( s == 'Rejected'){
-          return <button key={k} className="md-btn md-flat m-b-sm text-danger" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) }>Mark Rejected</button>
+          return <button key={k} className="md-btn md-flat m-b-sm text-danger" onClick={ () => this.changeStatus( leaveid, s ) }>Reject</button>
         }
         
       })
@@ -59,30 +69,16 @@ class ViewLeave extends React.Component {
 
         )
     }
+    componentWillReceiveProps(){
+      this.setState ({ messagetouser : "" })
+    }
     
     render(){
 
 
       let styles = _.cloneDeep(this.constructor.styles);
 
-      let leaveStatusColor = ""
-      if( this.props.listLeaves.selectedLeave.status == 'Approved'){
-        leaveStatusColor = "green-A200"
-      }else if( this.props.listLeaves.selectedLeave.status == 'Pending'){
-        leaveStatusColor = "blue"
-      }else if( this.props.listLeaves.selectedLeave.status == 'Rejected'){
-        leaveStatusColor = "red-500"
-      }else if( this.props.listLeaves.selectedLeave.status == 'Cancelled'){
-        leaveStatusColor = "red-100"
-      }
-
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
-
-      
-
-
-      
-
 
       let key = parseInt( this.props.keyval )
 
@@ -92,7 +88,7 @@ class ViewLeave extends React.Component {
       let last_applied_leaves_html = ""
       if( typeof last_applied_leaves != 'undefined' && last_applied_leaves.length > 0 ){
         let aa  = this._getLastAppliedLeaves( this.props.listLeaves.selectedLeave.last_applied_leaves )
-        last_applied_leaves_html = <div><hr/><h5>Previous Leaves</h5>{aa}</div>
+        last_applied_leaves_html = <div><hr/><h5>Leave history</h5>{aa}</div>
 
           
       }
@@ -124,7 +120,12 @@ class ViewLeave extends React.Component {
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
             <div>Reason - <i><b>{this.props.listLeaves.selectedLeave.reason}</b></i></div>
             <br/>
+
+            <b>Enter message for employee</b><br/>
+            <input type="text" className="md-input" ref="messagetouser" onChange={ () => this.setState({ messagetouser : this.refs.messagetouser.value }) } value={ this.state.messagetouser }/>
             <br/>
+            <br/>
+
             {changeStatusButton}
             {last_applied_leaves_html}
         </div>

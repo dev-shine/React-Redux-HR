@@ -25,21 +25,22 @@ export function leave_status_change_error( err ){
 	return createAction( ACTION_LEAVE_STATUS_CHANGE_ERROR )( data )
 }
 
-function async_changeLeaveStatus( leaveid, newstatus ){
+function async_changeLeaveStatus( leaveid, newstatus, messagetouser ){
 	return fireAjax( 'POST', '', {
 		'action' : 'change_leave_status',
 		'leaveid' : leaveid,
-		'newstatus' : newstatus
+		'newstatus' : newstatus,
+		'messagetouser' : messagetouser
 	})
 }
 
-export function changeLeaveStatus( leaveid, newstatus ){
+export function changeLeaveStatus( leaveid, newstatus, messagetouser ){
 
 	return function (dispatch,getState){
 		
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
-			async_changeLeaveStatus( leaveid, newstatus ).then(
+			async_changeLeaveStatus( leaveid, newstatus, messagetouser ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 					if( json.error == 0 ){

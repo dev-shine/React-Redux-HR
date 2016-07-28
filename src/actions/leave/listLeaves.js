@@ -55,3 +55,33 @@ export function getAllLeaves( ){
 	}
     
 }
+
+
+//----
+export const ACTION_SELECT_LEAVE = "ACTION_SELECT_LEAVE"
+
+export function selectLeave( leaveid ){
+	return createAction( ACTION_SELECT_LEAVE )( leaveid )
+}
+
+export function onSelectLeave( leaveid ){
+	return function (dispatch,getState){
+		dispatch( selectLeave( leaveid ) )
+	}
+}
+
+//----filter leaves ----
+
+
+export const ACTION_LEAVE_FILTER = "ACTION_LEAVE_FILTER"
+
+export function applyFilter( filter ){
+	return createAction( ACTION_LEAVE_FILTER )( filter )
+}
+
+export function onApplyFilter( filter ){
+	
+	return function (dispatch,getState){
+		dispatch( applyFilter( filter ) )
+	}
+}

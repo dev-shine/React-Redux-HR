@@ -55,3 +55,17 @@ export function getAllLeaves( ){
 	}
     
 }
+
+
+//----
+export const ACTION_SELECT_LEAVE = "ACTION_SELECT_LEAVE"
+
+export function selectLeave( leaveid ){
+	return createAction( ACTION_SELECT_LEAVE )( leaveid )
+}
+
+export function onSelectLeave( leaveid ){
+	return function (dispatch,getState){
+		dispatch( selectLeave( leaveid ) )
+	}
+}

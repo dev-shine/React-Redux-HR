@@ -7,7 +7,11 @@ import {notify} from '../../services/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
-import LeavesList from '../../components/leaves/LeavesList'
+
+import ListLeaves from '../../components/manageLeaves/ListLeaves'
+import ViewLeave from '../../components/manageLeaves/ViewLeave'
+
+
 import LeaveColorReference from '../../components/leaves/LeaveColorReference'
 
 import * as actions_login from '../../actions/login/index'
@@ -17,6 +21,7 @@ import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 
 import * as actions_listLeaves from '../../actions/leave/listLeaves'
 import * as actions_manageLeave from '../../actions/leave/manageLeave'
+
 
 class ManageLeaves extends React.Component {
     constructor( props ){
@@ -82,6 +87,12 @@ class ManageLeaves extends React.Component {
             					<LoadingIcon {...this.props}/>
             				</div>
             			</div>
+
+
+
+
+
+
 						<div className="padding">
 							
 
@@ -93,7 +104,14 @@ class ManageLeaves extends React.Component {
 
                             <div className="row">
                                 <div className="col-md-12 p-a">
-                                    <LeavesList {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                                    <div className="row-col row-col-xs b-b">
+                                        <div className="col-sm-3 light bg b-r">
+                                            <ListLeaves {...this.props}/>
+                                        </div>
+                                        <div className="col-sm-9 light bg b-r">
+                                            <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 	            		</div>
@@ -121,6 +139,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onListLeaves : ( ) => {
             return dispatch( actions_listLeaves.getAllLeaves( ))
+        },
+        onSelectLeave : ( leaveid ) => {
+            return dispatch( actions_listLeaves.onSelectLeave( leaveid ))
         },
         onChangeLeaveStatus : ( leaveid, newstatus ) => {
             return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus ) )

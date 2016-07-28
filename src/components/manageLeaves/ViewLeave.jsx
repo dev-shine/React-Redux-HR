@@ -6,42 +6,22 @@ class ViewLeave extends React.Component {
 		  super( props );
       
     }
-    _leaveStatusSelectBoxOptions( status ){
-      let statusList = [ "Approved", "Pending", "Rejected" , "Cancelled" ]
-      
-      let soptions = _.map( statusList, ( s, k  ) => {
-        let selected = ""
-        if(  s == status ){
-          selected  = "selected"
-        }
-        return <option value={s} key={k}  >{s}</option>
-      })
-
-      return soptions
-
-    }
-
+   
     _getChangeStatusButtons( leaveid, status ){
-      let statusList = [ "Approved", "Pending", "Rejected" , "Cancelled" ]
+      let statusList = [ "Approved", "Pending", "Rejected" ]
       
       let soptions = _.map( statusList, ( s, k  ) => {
 
         let leaveStatusColor = ""
 
-        if( s == 'Approved'){
-          leaveStatusColor = "green-A200"
-        }else if(s == 'Pending'){
-          leaveStatusColor = "blue"
-        }else if( s == 'Rejected'){
-          leaveStatusColor = "red-500"
-        }else if( s == 'Cancelled'){
-          leaveStatusColor = "red-100"
-        }
+        if( s == status ){
 
-        if(  s == status ){
-          
-        }else{
-          return <button  key={k}className={`md-btn md-raised ${leaveStatusColor}`} onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) } >Mark {s}</button> 
+        }else if( s == 'Approved'){
+          return <button key={k} className="md-btn md-raised green-A200" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) } >Mark Approved</button>
+        }else if(s == 'Pending'){
+          return <button  key={k} className="md-btn md-raised blue" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) } >Mark Pending</button>
+        }else if( s == 'Rejected'){
+          return <button key={k} className="md-btn md-flat m-b-sm text-danger" onClick={ () => this.props.doLeaveStatusChange( leaveid, s ) }>Mark Rejected</button>
         }
         
       })
@@ -98,10 +78,10 @@ class ViewLeave extends React.Component {
 
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
 
-      let status_select_box_options = this._leaveStatusSelectBoxOptions( this.props.listLeaves.selectedLeave.status )
+      
 
 
-      let sel_box = <select defaultValue={this.props.listLeaves.selectedLeave.status} ref="leavestatus" onChange={ () => this.props.doLeaveStatusChange( this.props.listLeaves.selectedLeave.id, this.refs.leavestatus.value ) }>{status_select_box_options}</select>
+      
 
 
       let key = parseInt( this.props.keyval )
@@ -138,11 +118,13 @@ class ViewLeave extends React.Component {
           </div>
         </div>
         <div className="col-sm-8">
-            <h5>Status - {this.props.listLeaves.selectedLeave.status}</h5>
-            <p className="text-md profile-status" >Applied On {this.props.listLeaves.selectedLeave.applied_on}</p>
-            <p className="text-md profile-status" >{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</p>
-            <p className="text-md profile-status" >No. of Days - {this.props.listLeaves.selectedLeave.no_of_days}</p>
-            <p className="text-md profile-status" >Reason - {this.props.listLeaves.selectedLeave.reason}</p>
+            <div>Status - <i><b>{this.props.listLeaves.selectedLeave.status}</b>                                                                                                                    </i></div>
+            <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
+            <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
+            <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
+            <div>Reason - <i><b>{this.props.listLeaves.selectedLeave.reason}</b></i></div>
+            <br/>
+            <br/>
             {changeStatusButton}
             {last_applied_leaves_html}
         </div>

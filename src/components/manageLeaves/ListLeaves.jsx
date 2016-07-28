@@ -16,11 +16,9 @@ class ListLeaves extends React.Component {
       })
       return (
         <div className="row-col">
-          
             <div className="list inset">
               {LeavesList}
             </div>
-          
         </div>
       )
     }

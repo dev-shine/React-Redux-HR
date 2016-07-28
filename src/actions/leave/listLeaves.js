@@ -69,3 +69,19 @@ export function onSelectLeave( leaveid ){
 		dispatch( selectLeave( leaveid ) )
 	}
 }
+
+//----filter leaves ----
+
+
+export const ACTION_LEAVE_FILTER = "ACTION_LEAVE_FILTER"
+
+export function applyFilter( filter ){
+	return createAction( ACTION_LEAVE_FILTER )( filter )
+}
+
+export function onApplyFilter( filter ){
+	
+	return function (dispatch,getState){
+		dispatch( applyFilter( filter ) )
+	}
+}

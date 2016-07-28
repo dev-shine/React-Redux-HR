@@ -10,9 +10,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import ListLeaves from '../../components/manageLeaves/ListLeaves'
 import ViewLeave from '../../components/manageLeaves/ViewLeave'
-
-
-import LeaveColorReference from '../../components/leaves/LeaveColorReference'
+import LeaveColorReference from '../../components/manageLeaves/LeaveColorReference'
 
 import * as actions_login from '../../actions/login/index'
 
@@ -93,10 +91,29 @@ class ManageLeaves extends React.Component {
 
 
 
+
 						<div className="padding">
+
+                            <div className="row">
+                                <div className="col-12">
+                                    <LeaveColorReference {...this.props}/>
+                                </div>
+                            </div>
+
+                            <div className="row-col row-col-xs b-b">
+                                <div className="col-sm-3 light bg b-r">
+                                    <ListLeaves {...this.props}/>
+                                </div>
+                                <div className="col-sm-9 light bg b-r">
+                                    <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                                </div>
+                            </div>
+
+
+
 							
 
-                        <LeaveColorReference/>
+                        
 
 
 
@@ -104,12 +121,17 @@ class ManageLeaves extends React.Component {
 
                             <div className="row">
                                 <div className="col-md-12 p-a">
+                                    
+                                        
+
+                                </div>
+                                <div className="col-md-12 p-a">
                                     <div className="row-col row-col-xs b-b">
                                         <div className="col-sm-3 light bg b-r">
-                                            <ListLeaves {...this.props}/>
+                                            
                                         </div>
                                         <div className="col-sm-9 light bg b-r">
-                                            <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -139,6 +161,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onListLeaves : ( ) => {
             return dispatch( actions_listLeaves.getAllLeaves( ))
+        },
+        onApplyFilter : ( filter ) => {
+            return dispatch( actions_listLeaves.onApplyFilter( filter ))
         },
         onSelectLeave : ( leaveid ) => {
             return dispatch( actions_listLeaves.onSelectLeave( leaveid ))

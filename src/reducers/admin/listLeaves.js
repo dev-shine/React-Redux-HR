@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import * as _ from 'lodash'
 
 let initialState = {
+    all_leaves : [],
     leaves : [],
     selectedLeave : {}
 }
@@ -12,8 +13,12 @@ export function listLeaves( state = Immutable.fromJS(initialState), action ){
         let selectedLeave = action.payload.leaves[0]
 
         let leavesList = action.payload.leaves;
-        return state.set( 'leaves' , leavesList )
+
+        let newLeavesList = _.filter( leavesList, { 'status': 'Pending'  } )
+
+        return state.set( 'leaves' , newLeavesList )
         .set( 'selectedLeave' , selectedLeave )
+        .set( 'all_leaves' , leavesList )
 
     }else if( action.type == 'ACTION_LIST_LEAVES_EMPTY'){
 
@@ -38,6 +43,17 @@ export function listLeaves( state = Immutable.fromJS(initialState), action ){
 
         return state.set( 'selectedLeave' , newSelect )
         .set( 'leaves' , newLeavesList )
+    }else if( action.type == 'ACTION_LEAVE_FILTER' ){
+        let appliedFilter = action.payload
+        let leavesList = state.get('all_leaves');
+        let newLeavesList = _.filter( leavesList, { 'status': appliedFilter  } )
+
+        let selectedLeave = newLeavesList[0]
+
+
+        return state.set( 'leaves' , newLeavesList )
+        .set( 'selectedLeave' , selectedLeave )
+           
     }else{
         return state
     }

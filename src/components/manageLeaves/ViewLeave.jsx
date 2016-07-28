@@ -113,8 +113,8 @@ class ViewLeave extends React.Component {
             </span>
           </a>
           <div className="clear m-b">
-            <h3 className="m-a-0 m-b-xs">{this.props.listLeaves.selectedLeave.user_profile_name}</h3>
-            <p className="text-muted"><span className="m-r">{this.props.listLeaves.selectedLeave.user_profile_jobtitle}</span></p>
+            <h6 className="m-a-0 m-b-xs">{this.props.listLeaves.selectedLeave.user_profile_name}</h6>
+            <div>{this.props.listLeaves.selectedLeave.user_profile_jobtitle}</div>
           </div>
         </div>
         <div className="col-sm-8">

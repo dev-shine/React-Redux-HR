@@ -110,32 +110,6 @@ class ManageLeaves extends React.Component {
                             </div>
 
 
-
-							
-
-                        
-
-
-
-
-
-                            <div className="row">
-                                <div className="col-md-12 p-a">
-                                    
-                                        
-
-                                </div>
-                                <div className="col-md-12 p-a">
-                                    <div className="row-col row-col-xs b-b">
-                                        <div className="col-sm-3 light bg b-r">
-                                            
-                                        </div>
-                                        <div className="col-sm-9 light bg b-r">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 	            		</div>
 							
 						</div>

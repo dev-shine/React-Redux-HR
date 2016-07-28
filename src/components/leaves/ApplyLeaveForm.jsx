@@ -6,8 +6,8 @@ import {notify} from '../../services/index'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 
+import { DateRange, Calendar } from 'react-date-range';
 
-import { DateRange } from 'react-date-range';
 
 class ApplyLeaveForm extends React.Component {
     constructor( props ){
@@ -20,10 +20,43 @@ class ApplyLeaveForm extends React.Component {
         }
         this.doApplyLeave = this.doApplyLeave.bind(this)
         this.handleSelect = this.handleSelect.bind(this)
+        
+        this.handleStartDate = this.handleStartDate.bind(this)
+        this.handleEndDate = this.handleEndDate.bind(this)
+
+        this._getDaysBetween = this._getDaysBetween.bind(this)
     }
     componentDidMount(){
       
     }
+
+    _getDaysBetween( ){
+      this.props.onDaysBetweenLeaves( this.state.form_from_date, this.state.form_to_date )
+    }
+
+    handleStartDate(date){
+      console.log('111')
+      let startDate = date.format('YYYY-MM-DD')
+      
+      this.setState({
+        form_from_date : startDate
+      })
+
+      this._getDaysBetween()
+
+      
+    }
+    handleEndDate( date ){
+      console.log('222')
+      let endDate = date.format('YYYY-MM-DD')
+      this.setState({
+         form_to_date : endDate,
+      })
+
+      this._getDaysBetween()
+
+    }
+
     handleSelect(date){
       let fromDate = date.startDate
       let toDate = date.endDate
@@ -58,25 +91,34 @@ class ApplyLeaveForm extends React.Component {
     }
     componentWillReceiveProps( props ){
 
-      this.setState({
-          form_from_date : props.applyLeave.start_date,
-          form_to_date : props.applyLeave.end_date,
-          form_reason : '',
-          form_no_of_days : props.applyLeave.count_working_days
-      }) 
+      console.log('iiiiiii')
+
+
+       this.setState({
+      //     form_from_date : props.applyLeave.start_date,
+      //     form_to_date : props.applyLeave.end_date,
+      //     form_reason : '',
+           form_no_of_days : props.applyLeave.count_working_days
+       }) 
     }
     render(){
       return (
 
           <div className="row">
-            <div className="col-sm-5">
-              <h5>Enter leave reason</h5>
-              <input type="text" className="form-control" ref="reason" onChange={ () => this.setState({ form_reason : this.refs.reason.value }) } value={ this.state.form_reason } />
-              <br/>
-              <h5>Select Dates</h5>
-              <DateRange onInit={this.handleSelect} onChange={this.handleSelect} format="Y-m-d" />
+            <div className="col-sm-3 text-center">
+              <h6>Select Start Date</h6>
+              <Calendar onChange={this.handleStartDate}/>
             </div>
-            <div className="col-sm-5 pull-right">
+
+            <div className="col-sm-3 text-center">
+              <h6>Select End Date</h6>
+              <Calendar onChange={this.handleEndDate}/>
+            </div>
+
+
+            
+
+            <div className="col-sm-4">
            
             <h5>Your Leave Summary</h5>
             <br/>
@@ -109,7 +151,7 @@ class ApplyLeaveForm extends React.Component {
                 <div className="sl-item b-warning">
                   <div className="sl-content">
                     <div className="sl-date text-muted">Reason</div>
-                    <div>{ this.state.form_reason }</div>
+                    <div><input type="text" ref="reason" onChange={ () => this.setState({ form_reason : this.refs.reason.value }) } value={ this.state.form_reason } /></div>
                   </div>
                 </div>
                 <div className="sl-item b-success">

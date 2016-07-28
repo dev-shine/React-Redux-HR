@@ -10,6 +10,9 @@ class UserLeavesList extends React.Component {
     _getLeavesList( d ){
        return _.map( d , ( leave, keyval ) => {
         let s = leave.status
+
+        let f_char = s.charAt(0)
+
         let leaveStatusColor = ""
         if( s == 'Approved'){
           leaveStatusColor = "green-A200"
@@ -21,15 +24,35 @@ class UserLeavesList extends React.Component {
           leaveStatusColor = "red-100"
         }
 
+
           return (
-            <tr key={keyval} className={leaveStatusColor} >
-              <td>{s}</td>
-              <td>{leave.applied_on}</td>
-              <td>{leave.from_date}</td>
-              <td>{leave.to_date}</td>
-              <td>{leave.no_of_days}</td>
-              <td>{leave.reason}</td>
-            </tr>
+
+            <div key={keyval} className={`list-item b-l b-l-2x b-${leaveStatusColor}`}>
+            <div className="list-left">
+              <span className={`w-40 avatar ${leaveStatusColor}`}>
+                {f_char}
+              </span>
+            </div>
+            <div className="list-body">
+              <div className="pull-right text-muted text-xs">
+                
+              </div>
+
+              <div>
+                <span className="_500">Status : {leave.status}</span>
+              </div>
+
+              <div>
+                <span className="_500">Apply on : {leave.applied_on}</span>
+              </div>
+              <div>
+                <span className="_500">From {leave.from_date} to {leave.to_date }</span>
+                <span className="label label-xs m-l-sm text-u-c">{ leave.no_of_days} Day</span>
+              </div>
+              <div className="text-ellipsis text-muted text-sm">Reason : { leave.reason }</div>
+            </div>
+          </div>
+            
           )
       })
 
@@ -38,32 +61,13 @@ class UserLeavesList extends React.Component {
       let leavesList = this._getLeavesList( this.props.userLeaves.leaves )
        return (
         <div className = "row">
-          <div className="col-12">
-            <div className="box">
-
-            <div className="box">
-        <div className="box-divider m-a-0"></div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Applied On</th>
-              <th>From</th>
-              <th>To</th>
-              <th>No. Of Days</th>
-              <th>Reason</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            {leavesList}
-          </tbody>
-        </table>
-      </div>
-
-              
+          
+            <div className="row-col">
+              <div className="list white">
+                {leavesList}
+              </div>
             </div>
-          </div>
+          
         </div>
       )
     }

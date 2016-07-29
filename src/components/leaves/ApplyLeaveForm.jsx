@@ -6,8 +6,8 @@ import {notify} from '../../services/index'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 
+import { DateRange, Calendar } from 'react-date-range';
 
-import { DateRange } from 'react-date-range';
 
 class ApplyLeaveForm extends React.Component {
     constructor( props ){
@@ -17,34 +17,51 @@ class ApplyLeaveForm extends React.Component {
             form_to_date : '',
             form_no_of_days : '',
             form_reason : '',
+            show_half_day_button : ''
         }
         this.doApplyLeave = this.doApplyLeave.bind(this)
-        this.handleSelect = this.handleSelect.bind(this)
+        
+        this.handleStartDate = this.handleStartDate.bind(this)
+        this.handleEndDate = this.handleEndDate.bind(this)
+        this._apply_half_day = this._apply_half_day.bind(this)
+
     }
     componentDidMount(){
       
     }
-    handleSelect(date){
-      let fromDate = date.startDate
-      let toDate = date.endDate
 
-      let startDate = fromDate.format('YYYY-MM-DD')
-      let endDate = toDate.format('YYYY-MM-DD')
-
-      let daysDiff = toDate.diff(fromDate, 'days')
-      daysDiff = daysDiff + 1
-
-      this.setState({
-        form_from_date : startDate,
-        form_to_date : endDate
-      })
-
-
-      this.props.onDaysBetweenLeaves( startDate, endDate )
-
-
+    componentDidUpdate(){
+    if( this.state.form_from_date != '' && this.state.form_to_date != '' && this.state.form_no_of_days == '' ){
+        this.props.onDaysBetweenLeaves( this.state.form_from_date, this.state.form_to_date )
+      }
 
     }
+
+    _apply_half_day(){
+        this.setState({
+          form_no_of_days : "0.5"
+        })
+    }
+
+    handleStartDate(date){
+
+      let startDate = date.format('YYYY-MM-DD')
+      this.setState({
+        form_from_date : startDate,
+        form_no_of_days : ""
+      })
+
+    }
+    handleEndDate( date ){
+
+      let endDate = date.format('YYYY-MM-DD')
+      this.setState({
+        form_to_date : endDate,
+        form_no_of_days : ""
+      })
+
+    }
+
  
 
     doApplyLeave( evt ){
@@ -58,25 +75,42 @@ class ApplyLeaveForm extends React.Component {
     }
     componentWillReceiveProps( props ){
 
-      this.setState({
+      let num_working_days = "0"
+      if( props.applyLeave.count_working_days != '' && props.applyLeave.count_working_days != 0 ){
+        num_working_days = props.applyLeave.count_working_days
+      }
+
+     this.setState({
           form_from_date : props.applyLeave.start_date,
           form_to_date : props.applyLeave.end_date,
-          form_reason : '',
-          form_no_of_days : props.applyLeave.count_working_days
-      }) 
+           form_no_of_days : num_working_days
+       }) 
     }
     render(){
+
+      let apply_half_day_button = ""
+      if( this.state.form_no_of_days == 1 ){
+        apply_half_day_button = <button className="md-btn md-flat text-accent" onClick = { () => this._apply_half_day() } >Apply Half Day</button>
+      }
+
+
       return (
 
           <div className="row">
-            <div className="col-sm-5">
-              <h5>Enter leave reason</h5>
-              <input type="text" className="form-control" ref="reason" onChange={ () => this.setState({ form_reason : this.refs.reason.value }) } value={ this.state.form_reason } />
-              <br/>
-              <h5>Select Dates</h5>
-              <DateRange onInit={this.handleSelect} onChange={this.handleSelect} format="Y-m-d" />
+            <div className="col-sm-4 text-center">
+              <h6>Select Start Date</h6>
+              <Calendar date="" onChange={this.handleStartDate}/>
             </div>
-            <div className="col-sm-5 pull-right">
+
+            <div className="col-sm-4 text-center">
+              <h6>Select End Date</h6>
+              <Calendar  onChange={this.handleEndDate} />
+            </div>
+
+
+            
+
+            <div className="col-sm-4">
            
             <h5>Your Leave Summary</h5>
             <br/>
@@ -101,7 +135,7 @@ class ApplyLeaveForm extends React.Component {
                   <div className="sl-content">
                     <div className="sl-date text-muted">No. of days</div>
                     <div>
-                      { this.state.form_no_of_days }
+                      { this.state.form_no_of_days } { apply_half_day_button }
                     </div>
                   </div>
                 </div>
@@ -109,7 +143,7 @@ class ApplyLeaveForm extends React.Component {
                 <div className="sl-item b-warning">
                   <div className="sl-content">
                     <div className="sl-date text-muted">Reason</div>
-                    <div>{ this.state.form_reason }</div>
+                    <div><input type="text" ref="reason" onChange={ () => this.setState({ form_reason : this.refs.reason.value }) } value={ this.state.form_reason } /></div>
                   </div>
                 </div>
                 <div className="sl-item b-success">

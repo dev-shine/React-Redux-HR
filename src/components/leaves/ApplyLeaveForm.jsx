@@ -17,67 +17,52 @@ class ApplyLeaveForm extends React.Component {
             form_to_date : '',
             form_no_of_days : '',
             form_reason : '',
+            show_half_day_button : ''
         }
         this.doApplyLeave = this.doApplyLeave.bind(this)
-        this.handleSelect = this.handleSelect.bind(this)
         
         this.handleStartDate = this.handleStartDate.bind(this)
         this.handleEndDate = this.handleEndDate.bind(this)
+        this._apply_half_day = this._apply_half_day.bind(this)
 
-        this._getDaysBetween = this._getDaysBetween.bind(this)
     }
     componentDidMount(){
       
     }
 
-    _getDaysBetween( ){
-      this.props.onDaysBetweenLeaves( this.state.form_from_date, this.state.form_to_date )
+    componentDidUpdate(){
+      
+      if( this.state.form_from_date != '' && this.state.form_to_date != '' && this.state.form_no_of_days == '' ){
+        this.props.onDaysBetweenLeaves( this.state.form_from_date, this.state.form_to_date )
+      }
+
+    }
+
+    _apply_half_day(){
+        this.setState({
+          form_no_of_days : "0.5"
+        })
     }
 
     handleStartDate(date){
-      console.log('111')
+      
       let startDate = date.format('YYYY-MM-DD')
-      
-      this.setState({
-        form_from_date : startDate
-      })
-
-      this._getDaysBetween()
-
-      
-    }
-    handleEndDate( date ){
-      console.log('222')
-      let endDate = date.format('YYYY-MM-DD')
-      this.setState({
-         form_to_date : endDate,
-      })
-
-      this._getDaysBetween()
-
-    }
-
-    handleSelect(date){
-      let fromDate = date.startDate
-      let toDate = date.endDate
-
-      let startDate = fromDate.format('YYYY-MM-DD')
-      let endDate = toDate.format('YYYY-MM-DD')
-
-      let daysDiff = toDate.diff(fromDate, 'days')
-      daysDiff = daysDiff + 1
-
       this.setState({
         form_from_date : startDate,
-        form_to_date : endDate
+        form_no_of_days : ""
       })
 
-
-      this.props.onDaysBetweenLeaves( startDate, endDate )
-
-
+    }
+    handleEndDate( date ){
+      
+      let endDate = date.format('YYYY-MM-DD')
+      this.setState({
+        form_to_date : endDate,
+        form_no_of_days : ""
+      })
 
     }
+
  
 
     doApplyLeave( evt ){
@@ -91,17 +76,26 @@ class ApplyLeaveForm extends React.Component {
     }
     componentWillReceiveProps( props ){
 
-      console.log('iiiiiii')
+      let num_working_days = "0"
+      if( props.applyLeave.count_working_days != '' && props.applyLeave.count_working_days != 0 ){
+        num_working_days = props.applyLeave.count_working_days
+      }
 
-
-       this.setState({
-      //     form_from_date : props.applyLeave.start_date,
-      //     form_to_date : props.applyLeave.end_date,
-      //     form_reason : '',
-           form_no_of_days : props.applyLeave.count_working_days
+     this.setState({
+          form_from_date : props.applyLeave.start_date,
+          form_to_date : props.applyLeave.end_date,
+           //form_reason : '',
+           form_no_of_days : num_working_days
        }) 
     }
     render(){
+
+      let apply_half_day_button = ""
+      if( this.state.form_no_of_days == 1 ){
+        apply_half_day_button = <button className="md-btn md-flat text-accent" onClick = { () => this._apply_half_day() } >Apply Half Day</button>
+      }
+
+
       return (
 
           <div className="row">
@@ -143,7 +137,7 @@ class ApplyLeaveForm extends React.Component {
                   <div className="sl-content">
                     <div className="sl-date text-muted">No. of days</div>
                     <div>
-                      { this.state.form_no_of_days }
+                      { this.state.form_no_of_days } { apply_half_day_button }
                     </div>
                   </div>
                 </div>

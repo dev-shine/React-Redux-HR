@@ -20,23 +20,20 @@ export function applyLeave( state = Immutable.fromJS(initialState), action ){
         .set( 'count_weekends' , "" )
         .set( 'days_between_leaves' , "" )
         .set( 'end_date' , "" )
-        .set( 'status_message' , "" )
-    }else if( action.type == 'ACTION_LEAVE_SUCCESS' ){
+    }else if( action.type == 'ACTION_LEAVE_FAIL' ){
         return state.set( 'status_message' ,  action.payload)
         .set( 'count_working_days' , "" )
         .set( 'count_holidays' , "" )
         .set( 'count_weekends' , "" )
         .set( 'days_between_leaves' , "" )
         .set( 'end_date' , "" )
-        .set( 'status_message' , "" )
-    }else if( action.type == 'ACTION_LEAVE_SUCCESS' ){
+    }else if( action.type == 'ACTION_LEAVE_ERROR' ){
         return state.set( 'status_message' , action.payload )
         .set( 'count_working_days' , "" )
         .set( 'count_holidays' , "" )
         .set( 'count_weekends' , "" )
         .set( 'days_between_leaves' , "" )
         .set( 'end_date' , "" )
-        .set( 'status_message' , "" )
     }else if( action.type == 'ACTION_DAYS_BETWEEN_LEAVES_SUCCESS' ){
         return state.set( 'count_working_days' , action.payload.working_days )
         .set( 'count_holidays' , action.payload.holidays )
@@ -52,6 +49,5 @@ export function applyLeave( state = Immutable.fromJS(initialState), action ){
         .set( 'count_weekends' , "" )
         .set( 'days_between_leaves' , "" )
         .set( 'end_date' , "" )
-        .set( 'status_message' , "" )
     }
 }

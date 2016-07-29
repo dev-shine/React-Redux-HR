@@ -47,7 +47,7 @@ class UserLeavesList extends React.Component {
               </div>
               <div>
                 <span className="_500">From {leave.from_date} to {leave.to_date }</span>
-                <span className="label label-xs m-l-sm text-u-c">{ leave.no_of_days} Day</span>
+                &nbsp;&nbsp;&nbsp;<span className="label cyan">{ leave.no_of_days} Day</span>
               </div>
               <div className="text-ellipsis text-muted text-sm">Reason : { leave.reason }</div>
             </div>

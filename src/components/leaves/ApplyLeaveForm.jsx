@@ -31,8 +31,7 @@ class ApplyLeaveForm extends React.Component {
     }
 
     componentDidUpdate(){
-      
-      if( this.state.form_from_date != '' && this.state.form_to_date != '' && this.state.form_no_of_days == '' ){
+    if( this.state.form_from_date != '' && this.state.form_to_date != '' && this.state.form_no_of_days == '' ){
         this.props.onDaysBetweenLeaves( this.state.form_from_date, this.state.form_to_date )
       }
 
@@ -45,7 +44,7 @@ class ApplyLeaveForm extends React.Component {
     }
 
     handleStartDate(date){
-      
+
       let startDate = date.format('YYYY-MM-DD')
       this.setState({
         form_from_date : startDate,
@@ -54,7 +53,7 @@ class ApplyLeaveForm extends React.Component {
 
     }
     handleEndDate( date ){
-      
+
       let endDate = date.format('YYYY-MM-DD')
       this.setState({
         form_to_date : endDate,
@@ -84,7 +83,6 @@ class ApplyLeaveForm extends React.Component {
      this.setState({
           form_from_date : props.applyLeave.start_date,
           form_to_date : props.applyLeave.end_date,
-           //form_reason : '',
            form_no_of_days : num_working_days
        }) 
     }
@@ -99,14 +97,14 @@ class ApplyLeaveForm extends React.Component {
       return (
 
           <div className="row">
-            <div className="col-sm-3 text-center">
+            <div className="col-sm-4 text-center">
               <h6>Select Start Date</h6>
-              <Calendar onChange={this.handleStartDate}/>
+              <Calendar date="" onChange={this.handleStartDate}/>
             </div>
 
-            <div className="col-sm-3 text-center">
+            <div className="col-sm-4 text-center">
               <h6>Select End Date</h6>
-              <Calendar onChange={this.handleEndDate}/>
+              <Calendar  onChange={this.handleEndDate} />
             </div>
 
 

@@ -17,7 +17,7 @@ class LoadingIcon extends React.Component {
         </div>
       }
       return (
-        <div>
+        <div style={styles.loadingDivHeight}>
           {show_loading}
         </div>
       )
@@ -28,6 +28,9 @@ class LoadingIcon extends React.Component {
 LoadingIcon.styles = {
   progressWidth: {
     'width' : '100%'
+  },
+  loadingDivHeight : {
+    'height' : '10px'
   }
 };
 

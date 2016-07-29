@@ -6,7 +6,7 @@ import {notify} from '../../services/index'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 
-import { DateRange, Calendar } from 'react-date-range';
+import { Calendar } from 'react-date-range';
 
 
 class ApplyLeaveForm extends React.Component {
@@ -99,7 +99,7 @@ class ApplyLeaveForm extends React.Component {
           <div className="row">
             <div className="col-sm-4 text-center">
               <h6>Select Start Date</h6>
-              <Calendar date="" onChange={this.handleStartDate}/>
+              <Calendar onChange={this.handleStartDate}/>
             </div>
 
             <div className="col-sm-4 text-center">

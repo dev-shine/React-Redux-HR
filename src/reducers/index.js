@@ -12,6 +12,7 @@ import { applyLeave} from './user/applyLeave'
 import { listLeaves} from './admin/listLeaves'
 import { manageLeave } from './admin/manageLeave'
 import { userLeaves } from './user/userLeaves'
+import { manageUserWorkingHours } from './admin/manageUserWorkingHours'
 
 export default combineReducers({
 	frontend,
@@ -25,5 +26,6 @@ export default combineReducers({
     applyLeave,
     listLeaves,
     manageLeave,
-    userLeaves
+    userLeaves,
+    manageUserWorkingHours,
 })

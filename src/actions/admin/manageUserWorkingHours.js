@@ -10,6 +10,7 @@ export const ACTION_EMPTY_USER_WORKING_HOURS = "ACTION_EMPTY_USER_WORKING_HOURS"
 export const ACTION_ERROR_USER_WORKING_HOURS = "ACTION_ERROR_USER_WORKING_HOURS"
 
 
+
 export function success_user_working_hours( data ){
 	return createAction( ACTION_SUCCESS_USER_WORKING_HOURS )( data )
 }
@@ -43,7 +44,7 @@ export function get_managed_user_working_hours( userid ){
 			        if( json.error == 0 ){
 			            dispatch( success_user_working_hours( json.data ) )
 			          }else{
-			            dispatch( empty_user_working_hours( [] ) )
+			            dispatch( empty_user_working_hours( json.data ) )
 			          }
 					
 				},
@@ -57,6 +58,18 @@ export function get_managed_user_working_hours( userid ){
 }
 
 ///-------------------
+
+
+export const ACTION_SUCCESS_ADD_USER_WORKING_HOURS = "ACTION_SUCCESS_ADD_USER_WORKING_HOURS"
+export const ACTION_ERROR_ADD_USER_WORKING_HOURS = "ACTION_ERROR_ADD_USER_WORKING_HOURS"
+
+export function success_add_user_working_hours( data ){
+	return createAction( ACTION_SUCCESS_ADD_USER_WORKING_HOURS )( data )
+}
+export function error_add_user_working_hours( data ){
+	return createAction( ACTION_ERROR_ADD_USER_WORKING_HOURS )( data )
+}
+
 
 function async_add_user_working_hours( userid, date, working_hours, reason ){
 	return fireAjax( 'POST', '', {
@@ -77,15 +90,16 @@ export function add_user_working_hours(  userid, date, working_hours, reason ){
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 			        if( json.error == 0 ){
+			        	dispatch( success_add_user_working_hours( json.data.message ) )
 			            dispatch( get_managed_user_working_hours( userid ) )
 			          }else{
-			            dispatch( empty_user_working_hours( [] ) )
+			            dispatch( error_add_user_working_hours( json.data.message ) )
 			          }
 					
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
-					dispatch( error_user_working_hours( {}  ) )
+					dispatch( error_add_user_working_hours( 'error occurs'  ) )
 				}
 			)
 		})

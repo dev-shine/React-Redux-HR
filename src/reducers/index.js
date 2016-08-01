@@ -27,5 +27,5 @@ export default combineReducers({
     listLeaves,
     manageLeave,
     userLeaves,
-    manageUserWorkingHours,
+    manageUserWorkingHours
 })

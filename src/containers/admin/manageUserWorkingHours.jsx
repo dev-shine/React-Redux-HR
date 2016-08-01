@@ -88,6 +88,15 @@ class ManageUserWorkingHours extends React.Component {
     }
   	render(){
 
+
+      let status_message = ""
+      if( this.props.manageUserWorkingHours.status_message != '' ){
+        status_message = <span className="label label-lg primary pos-rlt m-r-xs">
+          <b className="arrow left b-primary"></b>{this.props.manageUserWorkingHours.status_message}</span>
+      }
+
+
+
   		let selectedUserImage = ""
   		let selectedUserName = ""
   		let selectedUserJobtitle = ""
@@ -166,7 +175,7 @@ class ManageUserWorkingHours extends React.Component {
     						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
-    						<div className="navbar-item pull-left h5" id="pageTitle">Users</div>
+    						<div className="navbar-item pull-left h5" id="pageTitle">Manage Users Working Hours &nbsp;&nbsp;&nbsp; {status_message}</div>
 						</div>
     				</div>
 					<div className="app-footer">

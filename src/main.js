@@ -51,7 +51,7 @@ const logger = createLogger();
 let store = createStore(reducer,  compose(
     //applyMiddleware( thunk, logger),
     applyMiddleware( thunk ),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    //window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 //--end---for HR APP by arun 

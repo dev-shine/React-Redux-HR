@@ -1,3 +1,4 @@
+/* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
@@ -11,8 +12,8 @@ debug('Creating default configuration.')
 // Default Configuration
 // ========================================================
 const config = {
-  env : process.env.NODE_ENV || 'development',
-  //env : process.env.NODE_ENV || 'production',
+  //env : process.env.NODE_ENV || 'development',
+  env : process.env.NODE_ENV || 'production',
 
   // ----------------------------------
   // Project Structure
@@ -118,7 +119,7 @@ config.utils_paths = {
 // ========================================================
 // Environment Configuration
 // ========================================================
-debug(`Looking for environment overrides for NODE_ENV "${config.env}".`)
+debug(`Looking for environment overrides for NODE_ENV ${config.env}.`)
 const environments = require('./environments').default
 const overrides = environments[config.env]
 if (overrides) {

@@ -1,4 +1,3 @@
-/* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
@@ -12,9 +11,8 @@ debug('Creating default configuration.')
 // Default Configuration
 // ========================================================
 const config = {
-  env : process.env.NODE_ENV || 'development',
-  //env : process.env.NODE_ENV || 'production',
-
+  //env : process.env.NODE_ENV || 'development',
+  env : process.env.NODE_ENV || 'production',
 
   // ----------------------------------
   // Project Structure
@@ -46,6 +44,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'babel-polyfill',
     'history',
     'react',
     'react-redux',
@@ -65,10 +64,8 @@ const config = {
 
 /************************************************
 -------------------------------------------------
-
 All Internal Configuration Below
 Edit at Your Own Risk
-
 -------------------------------------------------
 ************************************************/
 

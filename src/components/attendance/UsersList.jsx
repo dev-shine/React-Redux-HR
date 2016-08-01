@@ -9,7 +9,7 @@ class UsersList extends React.Component {
     render(){
       let usersList =  _.map( this.props.users , ( user, keyval ) => {
         return (
-          <User user={user} key={keyval} {...this.props}/>
+          <User user={user} key={keyval} {...this.props} selectedUserId={this.props.selectedUserId}/>
         )
       })
       return (

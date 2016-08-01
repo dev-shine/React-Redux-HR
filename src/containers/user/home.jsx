@@ -83,7 +83,7 @@ class Home extends React.Component {
         let mainDivs = <div className="row">
 
             <div className="col-md-2">
-                                    <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } {...this.props } />
+                                    <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } {...this.props } selectedUserId={this.props.monthlyAttendance.userid} />
                                 </div>
                                 <div className="col-md-10">
                                     <UserMonthlyAttendance {...this.props}  onShowDaySummary = { this.onShowDaySummary }/>

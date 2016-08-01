@@ -49,7 +49,7 @@ export class APP extends React.Component {
 const logger = createLogger();
 
 let store = createStore(reducer,  compose(
-    //applyMiddleware( thunk, logger),
+    //applyMiddleware( thunk, logger), 
     applyMiddleware( thunk ),
     //window.devToolsExtension ? window.devToolsExtension() : f => f
 ));

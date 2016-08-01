@@ -175,7 +175,7 @@ class ManageUserWorkingHours extends React.Component {
     						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
       							<i className="material-icons">&#xe5d2;</i>
     						</a>
-    						<div className="navbar-item pull-left h5" id="pageTitle">Manage Users Working Hours &nbsp;&nbsp;&nbsp; {status_message}</div>
+    						<div className="navbar-item pull-left h5" id="pageTitle">Manage Employees Working Hours &nbsp;&nbsp;&nbsp; {status_message}</div>
 						</div>
     				</div>
 					<div className="app-footer">

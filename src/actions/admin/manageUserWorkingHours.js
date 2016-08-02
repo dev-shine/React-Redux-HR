@@ -84,6 +84,16 @@ function async_add_user_working_hours( userid, date, working_hours, reason ){
 export function add_user_working_hours(  userid, date, working_hours, reason ){
 	return function ( dispatch, getState ){
 
+		if(_.isEmpty(date)){
+			return Promise.reject('date is empty')
+		}
+		if( _.isEmpty( working_hours) ){
+			return Promise.reject('Time is empty')
+		}
+		if( _.isEmpty( reason) ){
+			return Promise.reject('Reason is empty')
+		}
+
 		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_add_user_working_hours(  userid, date, working_hours, reason ).then(

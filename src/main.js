@@ -54,6 +54,7 @@ let store = createStore(reducer,  compose(
     //window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
+
 //--end---for HR APP by arun 
 
 
@@ -81,11 +82,11 @@ let store = createStore(reducer,  compose(
 // ========================================================
 // Developer Tools Setup
 // ========================================================
-if (__DEBUG__) {
-  if (window.devToolsExtension) {
-    window.devToolsExtension.open()
-  }
-}
+// if (__DEBUG__) {
+//   if (window.devToolsExtension) {
+//     window.devToolsExtension.open()
+//   }
+// }
 
 // ========================================================
 // Render Setup

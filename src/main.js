@@ -31,6 +31,7 @@ import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_MyLeaves from './containers/user/myLeaves'
 
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
+import Page_LeavesSummary from './containers/admin/leavesSummary'
 
 
 
@@ -48,9 +49,9 @@ export class APP extends React.Component {
 const logger = createLogger();
 
 let store = createStore(reducer,  compose(
-    //applyMiddleware( thunk, logger),
+    //applyMiddleware( thunk, logger), 
     applyMiddleware( thunk ),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    //window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 //--end---for HR APP by arun 
@@ -121,6 +122,7 @@ let render = (routerKey = null) => {
                  <Route path="manage_leaves" component={Page_ManageLeaves} />
                  <Route path="my_leaves" component={Page_MyLeaves} />
                  <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
+                 <Route path="leaves_summary" component={Page_LeavesSummary} />
                  
                  
              </Route>

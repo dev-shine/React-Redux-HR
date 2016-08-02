@@ -1,3 +1,4 @@
+/* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
@@ -118,7 +119,7 @@ config.utils_paths = {
 // ========================================================
 // Environment Configuration
 // ========================================================
-debug(`Looking for environment overrides for NODE_ENV "${config.env}".`)
+debug(`Looking for environment overrides for NODE_ENV ${config.env}.`)
 const environments = require('./environments').default
 const overrides = environments[config.env]
 if (overrides) {

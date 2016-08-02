@@ -45,7 +45,7 @@ class FormAddUserWorkingHours extends React.Component {
             <div className="col-xs-6 b-r">
               <div className="p-a block text-center" >
                 <h6 className="">Select Date</h6>
-                <Calendar  onChange={this.handleDateChange}/>
+                <Calendar onInit={this.handleDateChange}  onChange={this.handleDateChange}/>
               </div>
             </div>
             <div className="col-xs-6 b-r">
@@ -64,7 +64,7 @@ class FormAddUserWorkingHours extends React.Component {
 <br/>
                   <br/>
 
-                  <button  className="md-btn md-raised indigo" onClick={ () => this.props.onAddUserWorkingHours( this.state.userid, this.state.date, this.state.working_hours, this.state.reason ) } >Add</button>
+                  <button  className="md-btn md-raised indigo" onClick={ () => this.props.callAddUserWorkingHours( this.state.userid, this.state.date, this.state.working_hours, this.state.reason ) } >Add</button>
                 
               </div>
             </div>

@@ -41,6 +41,7 @@ class ManageUserWorkingHours extends React.Component {
 
         this.onUserClick = this.onUserClick.bind( this )
         this.onShowDaySummary = this.onShowDaySummary.bind( this )
+        this.callAddUserWorkingHours = this.callAddUserWorkingHours.bind( this )
     }
     componentWillMount(){
         this.props.onUsersList()
@@ -86,6 +87,18 @@ class ManageUserWorkingHours extends React.Component {
         })
         this.props.onUserDaySummary( userid, date  )
     }
+
+
+    callAddUserWorkingHours( userid, date, working_hours, reason  ){
+      console.log( 'arun kumar')
+      this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        })
+    }
+
   	render(){
 
 
@@ -152,7 +165,7 @@ class ManageUserWorkingHours extends React.Component {
 					    <div className="p-a block" >
 					      <h6 className="text-center">Add New</h6>
 					      <hr/>
-					      <FormAddUserWorkingHours {...this.props} userid={selectedUserId}/>
+					      <FormAddUserWorkingHours {...this.props} userid={selectedUserId} callAddUserWorkingHours={this.callAddUserWorkingHours}/>
 					    </div>
 					  </div>
 					  

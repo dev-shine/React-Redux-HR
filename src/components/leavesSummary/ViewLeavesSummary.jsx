@@ -39,19 +39,27 @@ class ViewLeavesSummary extends React.Component {
         if( day.day_type == 'WORKING_DAY'){
           if( day.in_time == '' || day.out_time == '' ){
             check_class = "b-danger"
-          }
+          }          
+        }
+
+        let show_text = ""
+
+        if( day.day_type == 'HALF_DAY' ){
+          check_class = "b-warn"
+          show_text = day.day_type + ' / ' + "Timings : " + day.in_time +' - ' + day.out_time + ' / Total Time : ' + day.total_time
         }
 
 
         return(
 
-          <div key={key} className={`sl-item b-success ${check_class}`}>
+          <div key={key} className={`sl-item ${check_class}`}>
             <div className="sl-icon">
               <i className="fa fa-check"></i>
             </div>
             <div className="sl-content">
               <div className="">{day.display_date}</div>
               <div>{day.day_text}</div>
+              <div>{show_text}</div>
             </div>
           </div>
 

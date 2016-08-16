@@ -24,6 +24,14 @@ export function fireAjax( method, url, data ){
 		}
 	}
 
+
+	if( data.action == "get_salary_details" ){
+		let token = localStorage.getItem('hr_logged_user')
+		URL = CONFIG.api_url_salary +'?token=' + token
+	}
+
+
+
 	return fetch( URL, headers ).then( (response) => {
 		if(response.status === 500){
 			return new Promise( (resolve,reject) => {

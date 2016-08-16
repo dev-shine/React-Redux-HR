@@ -46,12 +46,15 @@ class Menu extends React.Component {
 
       let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
 
+      let link_salary = <Link to='/salary'>Salary</Link>
+
 
       let links_to_show = <ul className="nav" >
         <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_apply_leave}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_my_leaves}</span></li>
+        <li className="hidden-folded" ><span className="nav-text">{link_salary}</span></li>
         <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
       </ul>
 

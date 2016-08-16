@@ -33,6 +33,7 @@ import Page_MyLeaves from './containers/user/myLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
 import Page_LeavesSummary from './containers/admin/leavesSummary'
 import Page_Salary from './containers/user/salary'
+import Page_ManageSalary from './containers/admin/manageSalary'
 
 
 
@@ -126,8 +127,7 @@ let render = (routerKey = null) => {
                  <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
                  <Route path="leaves_summary" component={Page_LeavesSummary} />
                  <Route path="salary" component={Page_Salary} />
-                 
-                 
+                 <Route path="manage_salary" component={Page_ManageSalary} />
              </Route>
          </Router>
      </Provider>

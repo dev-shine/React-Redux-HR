@@ -11,13 +11,21 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
 
-import ViewSalary from '../../components/salary/ViewSalary'
+import SalaryDetails from '../../components/salary/SalaryDetails'
+import SalaryHistory from '../../components/salary/SalaryHistory'
 
 class Salary extends React.Component {
     constructor( props ){
         super( props );
         this.props.onIsAlreadyLogin()
-        
+
+        this.viewSalarySummary = this.viewSalarySummary.bind( this )
+
+        this.state = {
+          view_salary_id : false,
+          salary_details : {},
+          salary_history : []
+        }
     }
     componentDidMount(){
       
@@ -33,6 +41,30 @@ class Salary extends React.Component {
                 this.props.router.push('/home');    
             }
         }
+
+
+        if( this.state.view_salary_id == false  ){
+          if( typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0 ){
+            let viewSalaryInfo = props.salary.salary_history[0]
+            this.setState({
+              'salary_details' : viewSalaryInfo,
+              'salary_history' : props.salary.salary_history
+            })
+          }
+        }
+        
+        
+    }
+    viewSalarySummary( id ){
+      let new_details = this.state.salary_details
+      _.forEach( this.state.salary_history, ( d, k )=> {
+        if( d.test.id == id ){
+          new_details = d
+        }
+      })
+      this.setState({
+        'salary_details' : new_details
+      })
     }
     
     render(){
@@ -62,7 +94,29 @@ class Salary extends React.Component {
                   <div className="box">
                     <div className="box-divider m-a-0"></div>
                       <div className="box-body">
-                        <ViewSalary salary={ this.props.salary }/>
+
+
+                    <div className="row">
+                      <div className="col-sm-8">
+                        <h6>Salary Details</h6>
+
+                        <SalaryDetails data={this.state.salary_details} />
+                      </div>
+
+                      <div className="col-sm-4">
+                        <h6>Salary Revisions</h6>
+
+                        
+                        <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary}/>
+
+
+                      </div>
+
+                     </div>
+
+
+
+
                     </div>
                   </div>
                   </div>

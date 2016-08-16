@@ -13,14 +13,15 @@ class SalaryDetails extends React.Component {
       
     }
 	componentWillReceiveProps( props ){
-		console.log( props )
+		
+		
 
     }
     render(){
     	let F_total_salary = ""
     	let F_leaves_allocated = ""
     	let F_applicable_from = ""
-    	if( typeof this.props.data.test != 'undefined' ){
+    	if( typeof typeof this.props.data != 'undefined' && typeof this.props.data.test != 'undefined' ){
     		F_total_salary = this.props.data.test.total_salary
     		F_leaves_allocated = this.props.data.test.leaves_allocated
     		F_applicable_from = this.props.data.test.applicable_from
@@ -33,7 +34,7 @@ class SalaryDetails extends React.Component {
 
 
     			<div className="row">
-				    <div className="col-xs-12 col-sm-4">
+				    <div className="col-xs-4 col-sm-4">
 				          <div className="box p-a">
 				            <div className="pull-left m-r">
 				              <span className="w-48 rounded  accent">
@@ -47,7 +48,7 @@ class SalaryDetails extends React.Component {
 				            </div>
 				          </div>
 				      </div>
-				      <div className="col-xs-6 col-sm-4">
+				      <div className="col-xs-4 col-sm-4">
 				          <div className="box p-a">
 				            <div className="pull-left m-r">
 				              <span className="w-48 rounded primary">
@@ -61,7 +62,7 @@ class SalaryDetails extends React.Component {
 				            </div>
 				          </div>
 				      </div>
-				      <div className="col-xs-6 col-sm-4">
+				      <div className="col-xs-44 col-sm-4">
 				          <div className="box p-a">
 				            <div className="pull-left m-r">
 				              <span className="w-48 rounded warn">
@@ -76,6 +77,8 @@ class SalaryDetails extends React.Component {
 				          </div>
 				      </div>
 				  </div>
+
+				  <hr/>
 
 
 

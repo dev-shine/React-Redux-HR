@@ -7,49 +7,40 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 class SalaryHistory extends React.Component {
     constructor( props ){
-      super( props );
+    	super( props )
     }
     componentDidMount(){
       
     }
 	componentWillReceiveProps( props ){
 
+		
     }
 
-    _getSalaryHistoryHtml( dd ){
-
-    	let salaryHistory = _.map( dd, ( d,k ) => {
+    render(){
+    	let salaryHistoryHtml = _.map( this.props.data, ( d,k ) => {
 			return (
-					<div className="sl-item b-info"  key={k}>
+					<div className="sl-item b-info"  key={k}  onClick={ () => this.props.viewSalarySummary( d.test.id ) } style={{'cursor':"pointer"}}>
 	              		<div className="sl-content">
 	                		<div className="sl-date text-muted">  Applicable From  : {d.test.applicable_from}</div>
-	                		<div className="sl-date text-muted">  <b>Rs.{d.test.total_salary} </b> </div>
+	                		<div className="sl-date text-muted"> Updated on : {d.test.last_updated_on} </div>
 	                		<div>
-	                  			Updated on : {d.test.last_updated_on} 
+	                  			 <b>Rs.{d.test.total_salary} </b> 
 	                		</div>
 	              		</div>
 	            	</div>
 			)
 		})
 
-	      return (
-
-	             <div className="box-body">
-	            <div className="streamline b-l m-l">
-	                {salaryHistory}
-	                
-	            </div>
-	        </div>
-
-	        )
-    }
-
-    render(){
-    	let leavesHistoryHtml = this._getSalaryHistoryHtml( this.props.data )
-      return (
-      	<div>{leavesHistoryHtml}</div>
-
-      )
+      	return (
+      		<div>
+      			<div className="box-body">
+      				<div className="streamline b-l m-l">
+      					{salaryHistoryHtml}
+      				</div>
+      			</div>
+      		</div>
+      	)
     }
 }
 

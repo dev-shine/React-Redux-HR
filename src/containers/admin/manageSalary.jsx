@@ -26,20 +26,21 @@ class ManageSalary extends React.Component {
 
         this.state = {
             "selected_user_name" : "",
+            "selected_user_image" : "",
+            "selected_user_jobtitle" : "",
+            "selected_user_id" : "",
 
-            "defaultUserDisplay" : "",
-            "daysummary_userid" : "",
-            "daysummary_date" : "",
+            "defaultUserDisplay" : ""
         }
 
         this.onUserClick = this.onUserClick.bind( this )
-        this.callAddUserWorkingHours = this.callAddUserWorkingHours.bind( this )
+        this.callAddUserSalary = this.callAddUserSalary.bind( this )
     }
     componentWillMount(){
         this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
-        if( props.logged_user.logged_in == -1 ){
+      if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
@@ -48,42 +49,44 @@ class ManageSalary extends React.Component {
                 this.props.router.push('/monthly_attendance');    
             }
         }
-        
-        if( this.state.defaultUserDisplay  == '' ){
-            if( props.usersList.users.length > 0 ){
-                let firstUser = props.usersList.users[0]
-                let defaultUserId = firstUser.user_Id
-                this.onUserClick( defaultUserId )
-            }
-        }
-
+    }
+    componentDidUpdate(){
+      if( this.state.defaultUserDisplay  == '' ){
+          if( this.props.usersList.users.length > 0 ){
+              let firstUser = this.props.usersList.users[0]
+              let defaultUserId = firstUser.user_Id
+              this.onUserClick( defaultUserId )
+          }
+      }
     }
     onUserClick( userid ){
-
       let selected_user_name = ""
       let selected_user_image = ""
       let selected_user_jobtitle = ""
-
+      let selected_user_id = ""
+      
       if( this.props.usersList.users.length > 0 ){
         let userDetails = _.find( this.props.usersList.users, { 'user_Id' : userid } )
         if( typeof userDetails != 'undefined' ){
           selected_user_name = userDetails.name
           selected_user_image = userDetails.slack_profile.image_192
           selected_user_jobtitle = userDetails.jobtitle
+          selected_user_id = userDetails.user_Id
         }
       }
       this.setState({
             "defaultUserDisplay" : userid,
             "selected_user_name" : selected_user_name,
             "selected_user_image" : selected_user_image,
-            "selected_user_jobtitle" : selected_user_jobtitle
+            "selected_user_jobtitle" : selected_user_jobtitle,
+            "selected_user_id" : selected_user_id
         })
         this.props.onUserSalaryDetails( userid )
     }
     
 
-    callAddUserWorkingHours( userid, date, working_hours, reason  ){
-      this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then( 
+    callAddUserSalary( new_salary_details  ){
+      this.props.onAddNewSalary( new_salary_details ).then( 
         (data) => {
             
         },(error) => {
@@ -149,7 +152,7 @@ class ManageSalary extends React.Component {
 					    <div className="p-a block" >
 					      <h6 className="text-center">Add New</h6>
 					      <hr/>
-					      <FormAddSalary {...this.props} userid={selectedUserId} callAddUserWorkingHours={this.callAddUserWorkingHours}/>
+					      <FormAddSalary {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary}/>
 					    </div>
 					  </div>
 					  
@@ -217,16 +220,8 @@ const mapDispatchToProps = (dispatch) => {
         	return dispatch( actions_manageSalary.get_user_salary_details( userid  ))
         },
         onAddNewSalary : ( new_salary_data ) => {
-          console.log( new_salary_data )
-        },
-
-
-
-
-        onAddUserWorkingHours : ( userid, date, working_hours, reason ) => {
-        	return dispatch( actions_manageSalary.add_user_working_hours( userid, date, working_hours, reason  ))	
+          return dispatch( actions_manageSalary.add_user_new_salary( new_salary_data  ))
         }
-
     }
 }
 

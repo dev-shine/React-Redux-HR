@@ -52,59 +52,142 @@ export function get_user_salary_details( userid ){
 ///-------------------
 
 
-// export const ACTION_SUCCESS_ADD_USER_WORKING_HOURS = "ACTION_SUCCESS_ADD_USER_WORKING_HOURS"
-// export const ACTION_ERROR_ADD_USER_WORKING_HOURS = "ACTION_ERROR_ADD_USER_WORKING_HOURS"
+export const ACTION_SUCCESS_ADD_USER_SALARY = "ACTION_SUCCESS_ADD_USER_SALARY"
+export const ACTION_ERROR_ADD_USER_SALARY = "ACTION_ERROR_ADD_USER_SALARY"
 
-// export function success_add_user_working_hours( data ){
-// 	return createAction( ACTION_SUCCESS_ADD_USER_WORKING_HOURS )( data )
-// }
-// export function error_add_user_working_hours( data ){
-// 	return createAction( ACTION_ERROR_ADD_USER_WORKING_HOURS )( data )
-// }
+export function success_add_user_salary( data ){
+	return createAction( ACTION_SUCCESS_ADD_USER_SALARY )( data )
+}
+export function error_add_user_salary( data ){
+	return createAction( ACTION_ERROR_ADD_USER_SALARY )( data )
+}
 
 
-// function async_add_user_working_hours( userid, date, working_hours, reason ){
-// 	return fireAjax( 'POST', '', {
-// 		action : 'add_user_working_hours',
-// 		userid : userid,
-// 		date : date,
-// 		working_hours : working_hours,
-// 		reason : reason
-// 	})
-// }
+function async_add_user_new_salary( n_userid,n_applicable_from,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ){
+	return fireAjax( 'POST', '', {
+		action : 'add_user_salary',
+		user_id : n_userid,
+		applicable_from : n_applicable_from,
+		total_salary : n_total_salary,
+		leave : n_leave,
+		basic : n_basic,
+		hra : n_hra,
+		conveyance : n_conveyance,
+		medical_allowance : n_medical_allowance,
+		special_allowance : n_special_allowance,
+		arrear : n_arrear,
+		epf : n_epf,
+		loan : n_loan,
+		advance : n_advance,
+		misc_deduction : n_misc_deduction,
+		tds : n_tds
+	})
+}
 
-// export function add_user_working_hours(  userid, date, working_hours, reason ){
-// 	return function ( dispatch, getState ){
+export function add_user_new_salary(  new_salary_data ){
+	return function ( dispatch, getState ){
 
-// 		if(_.isEmpty(date)){
-// 			return Promise.reject('date is empty')
-// 		}
-// 		if( _.isEmpty( working_hours) ){
-// 			return Promise.reject('Time is empty')
-// 		}
-// 		if( _.isEmpty( reason) ){
-// 			return Promise.reject('Reason is empty')
-// 		}
+		//n_userid,n_applicable_from,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds
+		
+		let n_userid = ""
+		let n_applicable_from = ""
+		let n_total_salary = ""
+		let n_leave = ""
+		let n_basic = ""
+		let n_hra = ""
+		let n_conveyance = ""
+		let n_medical_allowance = ""
+		let n_special_allowance = ""
+		let n_arrear = ""
+		let n_epf = ""
+		let n_loan = ""
+		let n_advance = ""
+		let n_misc_deduction = ""
+		let n_tds = ""
+		
 
-// 		return new Promise(( resolve, reject ) => {
-// 			dispatch( show_loading() ); // show loading icon
-// 			async_add_user_working_hours(  userid, date, working_hours, reason ).then(
-// 				( json ) => {
-// 					dispatch( hide_loading() ) // hide loading icon
-// 			        if( json.error == 0 ){
-// 			        	dispatch( success_add_user_working_hours( json.data.message ) )
-// 			            dispatch( get_managed_user_working_hours( userid ) )
-// 			          }else{
-// 			            dispatch( error_add_user_working_hours( json.data.message ) )
-// 			          }
-					
-// 				},
-// 				( error ) =>{
-// 					dispatch( hide_loading() ) // hide loading icon
-// 					dispatch( error_add_user_working_hours( 'error occurs'  ) )
-// 				}
-// 			)
-// 		})
-// 	}
-// }
+
+		if( typeof new_salary_data.user_id != 'undefined' ){ 
+			n_userid = new_salary_data.user_id 
+		}
+		if( typeof new_salary_data.applicable_from != 'undefined' ){ 
+			n_applicable_from = new_salary_data.applicable_from 
+		}
+		if( typeof new_salary_data.total_salary != 'undefined' ){ 
+			n_total_salary = new_salary_data.total_salary 
+		}
+		if( typeof new_salary_data.leave != 'undefined' ){ 
+			n_leave = new_salary_data.leave 
+		}
+		if( typeof new_salary_data.basic != 'undefined' ){ 
+			n_basic = new_salary_data.basic 
+		}
+		if( typeof new_salary_data.hra != 'undefined' ){ 
+			n_hra = new_salary_data.hra 
+		}
+		if( typeof new_salary_data.conveyance != 'undefined' ){ 
+			n_conveyance = new_salary_data.conveyance 
+		}
+		if( typeof new_salary_data.medical_allowance != 'undefined' ){ 
+			n_medical_allowance = new_salary_data.medical_allowance 
+		}
+		if( typeof new_salary_data.special_allowance != 'undefined' ){ 
+			n_special_allowance = new_salary_data.special_allowance 
+		}
+		if( typeof new_salary_data.arrear != 'undefined' ){ 
+			n_arrear = new_salary_data.arrear 
+		}
+		if( typeof new_salary_data.epf != 'undefined' ){ 
+			n_epf = new_salary_data.epf 
+		}
+		if( typeof new_salary_data.loan != 'undefined' ){ 
+			n_loan = new_salary_data.loan 
+		}
+		if( typeof new_salary_data.advance != 'undefined' ){ 
+			n_advance = new_salary_data.advance 
+		}
+		if( typeof new_salary_data.misc_deduction != 'undefined' ){ 
+			n_misc_deduction = new_salary_data.misc_deduction 
+		}
+		if( typeof new_salary_data.tds != 'undefined' ){ 
+			n_tds = new_salary_data.tds 
+		}
+		
+		if( n_userid === "" ){ return Promise.reject('User Id is empty') }
+		if( n_applicable_from === ""){ return Promise.reject('Applicable date is empty') }
+		if( n_total_salary === "" ){ return Promise.reject('Total Salary is empty') }
+		if( n_leave=== "" ){ return Promise.reject('Leave is empty') }
+		if( n_basic === "" ){ return Promise.reject('Basic is empty') }
+		if( n_hra === "" ){ return Promise.reject('HRA date is empty') }
+		if( n_conveyance === "" ){ return Promise.reject('Conveyance is empty') }
+		if( n_medical_allowance === "" ){ return Promise.reject('Medical_allowance is empty') }
+		if( n_special_allowance === "" ){ return Promise.reject('Special Allowance is empty') }
+		if( n_arrear === "" ){ return Promise.reject('Arrear is empty') }
+		if( n_epf === "" ){ return Promise.reject('EPF is empty') }
+		if( n_loan === "" ){ return Promise.reject('Loan is empty') }
+		if( n_advance === "" ){ return Promise.reject('Advance is empty') }
+		if( n_misc_deduction === "" ){ return Promise.reject('Misc Deduction is empty') }
+		if( n_tds === "" ){ return Promise.reject('TDS is empty') }
+		
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_add_user_new_salary(  n_userid,n_applicable_from,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error.length == 0 ){
+		        		dispatch( success_add_user_salary( json.data ) )
+		        		dispatch( get_user_salary_details( n_userid ) )
+		          	}else{
+			            dispatch( error_add_user_salary( json.data.error[0] ) )
+		          	}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_add_user_salary( 'error occurs'  ) )
+				}
+			)
+		})
+	}
+}
+
 

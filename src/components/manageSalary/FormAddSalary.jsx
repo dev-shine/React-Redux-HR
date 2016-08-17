@@ -27,17 +27,29 @@ class FormAddSalary extends React.Component {
       }
       this.handleDateChange = this.handleDateChange.bind( this )
     }
-
     handleDateChange(date){
-      let selectedDate = date.format('YYYY-MM-DD')
       this.setState({
-        date : selectedDate
+        applicable_from : date
       })
     }
     
     componentWillReceiveProps( props ){
       this.setState({
-        user_id : props.userid
+        user_id : props.userid,
+        applicable_from : "",
+        total_salary : "",
+        leave : "",
+        basic : "",
+        hra : "",
+        conveyance : "",
+        medical_allowance : "",
+        special_allowance : "",
+        arrear : "",
+        epf : 0,
+        loan : 0,
+        advance : 0,
+        misc_deduction : 0,
+        tds : 0,
       })
     }
     
@@ -121,7 +133,7 @@ class FormAddSalary extends React.Component {
 
           <div className="row no-gutter">
             <div className="col-xs-12 p-r">
-              <button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.onAddNewSalary( this.state ) } >Add</button>
+              <button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callAddUserSalary( this.state ) } >Add</button>
             </div>
           </div>
         </div>

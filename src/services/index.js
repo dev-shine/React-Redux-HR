@@ -34,7 +34,6 @@ export function fireAjax( method, url, data ){
 	}else if( data.action == "add_user_salary" ){
 		let token = localStorage.getItem('hr_logged_user')
 		delete( data.action )
-		console.log( data )
 		data.token = token
 		headers = {
 			method : 'POST',

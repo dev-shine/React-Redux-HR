@@ -216,6 +216,9 @@ const mapDispatchToProps = (dispatch) => {
         onUserSalaryDetails : ( userid ) => {
         	return dispatch( actions_manageSalary.get_user_salary_details( userid  ))
         },
+        onAddNewSalary : ( new_salary_data ) => {
+          console.log( new_salary_data )
+        },
 
 
 

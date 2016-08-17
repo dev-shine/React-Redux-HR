@@ -48,6 +48,8 @@ class Menu extends React.Component {
 
       let link_salary = <Link to='/salary'>Salary</Link>
 
+      let link_manage_salary = <Link to='/manage_salary'>Manage Salaries</Link>
+
 
       let links_to_show = <ul className="nav" >
         <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
@@ -58,7 +60,19 @@ class Menu extends React.Component {
         <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
       </ul>
 
-      if( this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Guest' ){
+      if( this.props.logged_user.role == 'Admin'){
+          links_to_show = <ul className="nav" >
+            <li className="hidden-folded" ><span className="nav-text">{link_users_list}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_leaves}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_user_working_hours}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_leaves_summary}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_salary}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
+
+          </ul>                          
+      }else if( this.props.logged_user.role == 'Guest' ){
           links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span className="nav-text">{link_users_list}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_manage_working_hours}</span></li>
@@ -67,6 +81,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span className="nav-text">{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
+
           </ul>                          
       }
 

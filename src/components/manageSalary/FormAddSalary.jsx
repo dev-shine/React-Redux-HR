@@ -60,25 +60,25 @@ class FormAddSalary extends React.Component {
                     <div className="box-body">
           <form role="form">
             <div className="form-group row">
-              <label for="inputEmail3" className="col-sm-2 form-control-label">Email</label>
+              <label  className="col-sm-2 form-control-label">Email</label>
               <div className="col-sm-10">
                 <input type="email" className="form-control" id="inputEmail3" placeholder="Email"/>
               </div>
             </div>
             <div className="form-group row">
-              <label for="inputPassword3" className="col-sm-2 form-control-label">Password</label>
+              <label className="col-sm-2 form-control-label">Password</label>
               <div className="col-sm-10">
                 <input type="password" className="form-control" id="inputPassword3" placeholder="Password"/>
               </div>
             </div>
             <div className="form-group row">
-              <label for="inputPassword3" className="col-sm-2 form-control-label">File</label>
+              <label  className="col-sm-2 form-control-label">File</label>
               <div className="col-sm-10">
                 <input type="file" className="form-control"/>
               </div>
             </div>
             <div className="form-group row">
-              <label for="inputPassword3" className="col-sm-2 form-control-label">Select</label>
+              <label  className="col-sm-2 form-control-label">Select</label>
               <div className="col-sm-10">
                 <select className="form-control c-select">
                   <option>Option 1</option>
@@ -88,7 +88,7 @@ class FormAddSalary extends React.Component {
               </div>
             </div>
             <div className="form-group row">
-              <label for="inputPassword3" className="col-sm-2 form-control-label">Textarea</label>
+              <label className="col-sm-2 form-control-label">Textarea</label>
               <div className="col-sm-10">
                 <textarea className="form-control" rows="2"></textarea>
               </div>

@@ -8,35 +8,13 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
-
-
-
-import ListUserWorkingHours from '../../components/manageUserWorkingHours/ListUserWorkingHours'
-
-
-
-
-
-
-
-
-
-
-import * as actions_manageUserWorkingHours from '../../actions/admin/manageUserWorkingHours'
-
-import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-
-
-
-import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
-
-import UserDaySummary from '../../components/attendance/UserDaySummary'
-
 //-----------------------------------------
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_manageSalary from '../../actions/admin/manageSalary'
 
 import UsersList from '../../components/attendance/UsersList'
+import UserSalaryHistory from '../../components/manageSalary/UserSalaryHistory'
 import FormAddSalary from '../../components/manageSalary/FormAddSalary'
 
 
@@ -47,13 +25,14 @@ class ManageSalary extends React.Component {
         this.props.onIsAlreadyLogin()
 
         this.state = {
+            "selected_user_name" : "",
+
             "defaultUserDisplay" : "",
             "daysummary_userid" : "",
             "daysummary_date" : "",
         }
 
         this.onUserClick = this.onUserClick.bind( this )
-        this.onShowDaySummary = this.onShowDaySummary.bind( this )
         this.callAddUserWorkingHours = this.callAddUserWorkingHours.bind( this )
     }
     componentWillMount(){
@@ -70,8 +49,6 @@ class ManageSalary extends React.Component {
             }
         }
         
-        
-
         if( this.state.defaultUserDisplay  == '' ){
             if( props.usersList.users.length > 0 ){
                 let firstUser = props.usersList.users[0]
@@ -82,28 +59,30 @@ class ManageSalary extends React.Component {
 
     }
     onUserClick( userid ){
-        this.setState({
-            "defaultUserDisplay" : userid
+
+      let selected_user_name = ""
+      let selected_user_image = ""
+      let selected_user_jobtitle = ""
+
+      if( this.props.usersList.users.length > 0 ){
+        let userDetails = _.find( this.props.usersList.users, { 'user_Id' : userid } )
+        if( typeof userDetails != 'undefined' ){
+          selected_user_name = userDetails.name
+          selected_user_image = userDetails.slack_profile.image_192
+          selected_user_jobtitle = userDetails.jobtitle
+        }
+      }
+      this.setState({
+            "defaultUserDisplay" : userid,
+            "selected_user_name" : selected_user_name,
+            "selected_user_image" : selected_user_image,
+            "selected_user_jobtitle" : selected_user_jobtitle
         })
-        //let d = new Date();
-        //let year = d.getFullYear()
-        //let month = d.getMonth() + 1  // +1 since getMonth starts from 0
-        //this.props.onMonthAttendance( userid, year, month )
-
-        this.props.onUserWorkingHoursData( userid )
-
+        this.props.onUserSalaryDetails( userid )
     }
-    onShowDaySummary( userid, date ){
-        this.setState({
-            daysummary_userid : userid,
-            daysummary_date : date,
-        })
-        this.props.onUserDaySummary( userid, date  )
-    }
-
+    
 
     callAddUserWorkingHours( userid, date, working_hours, reason  ){
-      console.log( 'arun kumar')
       this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then( 
         (data) => {
             
@@ -114,28 +93,15 @@ class ManageSalary extends React.Component {
 
   	render(){
 
-
+      
       let status_message = ""
-      if( this.props.manageUserWorkingHours.status_message != '' ){
+      if( this.props.manageSalary.status_message != '' ){
         status_message = <span className="label label-lg primary pos-rlt m-r-xs">
-          <b className="arrow left b-primary"></b>{this.props.manageUserWorkingHours.status_message}</span>
+          <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>
       }
 
-
-
-  		let selectedUserImage = ""
-  		let selectedUserName = ""
-  		let selectedUserJobtitle = ""
-  		let selectedUserId = ""
-  		try{
-  			selectedUserImage = this.props.manageUserWorkingHours.userInfo.slack_profile.profile.image_192
-  			selectedUserName = this.props.manageUserWorkingHours.userInfo.name
-  			selectedUserJobtitle = this.props.manageUserWorkingHours.userInfo.jobtitle
-  			selectedUserId = this.props.manageUserWorkingHours.userInfo.user_Id
-  		}catch( err){
-
-  		}
-            
+      let selectedUserId = ""
+  		      
         let mainDivs = <div className="row">
 
             <div className="col-md-3">
@@ -152,15 +118,15 @@ class ManageSalary extends React.Component {
                   <div className="box">
               <div className="item">
                 <div className="item-bg">
-                  <img src={selectedUserImage} className="blur"/>
+                  <img src={this.state.selected_user_image} className="blur"/>
                 </div>
                 <div className="p-a-lg pos-rlt text-center">
-                  <img src={selectedUserImage} className="img-circle w-56" />
+                  <img src={this.state.selected_user_image} className="img-circle w-56" />
                 </div>
             </div>
               <div className="p-a text-center">
-                <a href="" className="text-md m-t block">{selectedUserName}</a>
-                <p><small>{selectedUserJobtitle}</small></p>
+                <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
+                <p><small>{this.state.selected_user_jobtitle}</small></p>
               </div>
           </div>
 
@@ -171,7 +137,12 @@ class ManageSalary extends React.Component {
 					    <div className="p-a block " >
 					      <h6 className="text-center">Salary Revision</h6>
 					      <hr/>
-					      <ListUserWorkingHours {...this.props}/>
+
+
+					      <UserSalaryHistory data={this.props.manageSalary.salary_history}/>
+
+
+
 					    </div>
 					  </div>
 					  <div className="col-xs-9 b-r box">
@@ -227,11 +198,11 @@ class ManageSalary extends React.Component {
 }
 
 function mapStateToProps( state ){
-	return {
+    return {
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         usersList : state.usersList.toJS(),
-        manageUserWorkingHours : state.manageUserWorkingHours.toJS()
+        manageSalary : state.manageSalary.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -242,11 +213,15 @@ const mapDispatchToProps = (dispatch) => {
         onUsersList : () => {
         	return dispatch( actions_usersList.get_users_list(  ))	
         },
-        onUserWorkingHoursData : ( userid ) => {
-        	return dispatch( actions_manageUserWorkingHours.get_managed_user_working_hours( userid  ))
+        onUserSalaryDetails : ( userid ) => {
+        	return dispatch( actions_manageSalary.get_user_salary_details( userid  ))
         },
+
+
+
+
         onAddUserWorkingHours : ( userid, date, working_hours, reason ) => {
-        	return dispatch( actions_manageUserWorkingHours.add_user_working_hours( userid, date, working_hours, reason  ))	
+        	return dispatch( actions_manageSalary.add_user_working_hours( userid, date, working_hours, reason  ))	
         }
 
     }

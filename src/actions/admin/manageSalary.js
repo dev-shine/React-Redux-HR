@@ -33,7 +33,8 @@ export function get_user_salary_details( userid ){
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 					if( typeof json.data != 'undefined' && typeof json.data.salary_details != 'undefind' && json.data.salary_details.length > 0 ){
-						let data = json.data.salary_details.reverse()
+						//let data = json.data.salary_details.reverse()
+						let data = json.data
 						dispatch( success_user_salary_details( data ) )
 					}else{
 						dispatch( success_user_salary_details( [] ) )
@@ -63,11 +64,12 @@ export function error_add_user_salary( data ){
 }
 
 
-function async_add_user_new_salary( n_userid,n_applicable_from,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ){
+function async_add_user_new_salary( n_userid,n_applicable_from,n_applicable_till,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ){
 	return fireAjax( 'POST', '', {
 		action : 'add_user_salary',
 		user_id : n_userid,
 		applicable_from : n_applicable_from,
+		applicable_till : n_applicable_till,
 		total_salary : n_total_salary,
 		leave : n_leave,
 		basic : n_basic,
@@ -91,6 +93,7 @@ export function add_user_new_salary(  new_salary_data ){
 		
 		let n_userid = ""
 		let n_applicable_from = ""
+		let n_applicable_till = ""
 		let n_total_salary = ""
 		let n_leave = ""
 		let n_basic = ""
@@ -112,6 +115,9 @@ export function add_user_new_salary(  new_salary_data ){
 		}
 		if( typeof new_salary_data.applicable_from != 'undefined' ){ 
 			n_applicable_from = new_salary_data.applicable_from 
+		}
+		if( typeof new_salary_data.applicable_till != 'undefined' ){ 
+			n_applicable_till = new_salary_data.applicable_till 
 		}
 		if( typeof new_salary_data.total_salary != 'undefined' ){ 
 			n_total_salary = new_salary_data.total_salary 
@@ -154,7 +160,8 @@ export function add_user_new_salary(  new_salary_data ){
 		}
 		
 		if( n_userid === "" ){ return Promise.reject('User Id is empty') }
-		if( n_applicable_from === ""){ return Promise.reject('Applicable date is empty') }
+		if( n_applicable_from === ""){ return Promise.reject('Applicable from date is empty') }
+		if( n_applicable_till === ""){ return Promise.reject('Applicable till date is empty') }
 		if( n_total_salary === "" ){ return Promise.reject('Total Salary is empty') }
 		if( n_leave=== "" ){ return Promise.reject('Leave is empty') }
 		if( n_basic === "" ){ return Promise.reject('Basic is empty') }
@@ -171,14 +178,14 @@ export function add_user_new_salary(  new_salary_data ){
 		
 		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon
-			async_add_user_new_salary(  n_userid,n_applicable_from,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ).then(
+			async_add_user_new_salary(  n_userid,n_applicable_from,n_applicable_till,n_total_salary,n_leave,n_basic,n_hra,n_conveyance,n_medical_allowance,n_special_allowance,n_arrear,n_epf,n_loan,n_advance,n_misc_deduction,n_tds ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 					if( json.error.length == 0 ){
 		        		dispatch( success_add_user_salary( json.data ) )
 		        		dispatch( get_user_salary_details( n_userid ) )
 		          	}else{
-			            dispatch( error_add_user_salary( json.data.error[0] ) )
+			            dispatch( error_add_user_salary( json.error[0] ) )
 		          	}
 				},
 				( error ) =>{
@@ -189,5 +196,88 @@ export function add_user_new_salary(  new_salary_data ){
 		})
 	}
 }
+
+
+///-----holding---------------------------------------------------------
+
+
+
+export const ACTION_SUCCESS_ADD_USER_HOLDING = "ACTION_SUCCESS_ADD_USER_HOLDING"
+export const ACTION_ERROR_ADD_USER_HOLDING = "ACTION_ERROR_ADD_USER_HOLDING"
+
+export function success_add_user_holding( data ){
+	return createAction( ACTION_SUCCESS_ADD_USER_HOLDING )( data )
+}
+export function error_add_user_holding( data ){
+	return createAction( ACTION_ERROR_ADD_USER_HOLDING )( data )
+}
+
+
+function async_add_user_new_holding( n_userid, n_holding_from, n_holding_till, n_holding_amount, n_holding_reason ){
+	return fireAjax( 'POST', '', {
+		action : 'add_user_holding',
+		user_id : n_userid,
+		holding_start_date : n_holding_from, 
+		holding_end_date : n_holding_till, 
+		holding_amt : n_holding_amount, 
+		reason : n_holding_reason
+	})
+}
+
+export function add_user_new_holding( data ){
+	return function ( dispatch, getState ){
+		
+		let n_userid = ""
+		let n_holding_from = ""
+		let n_holding_till = ""
+		let n_holding_amount = ""
+		let n_holding_reason = ""
+
+		if( typeof data.user_id != 'undefined' ){ 
+			n_userid = data.user_id 
+		}
+		if( typeof data.holding_from != 'undefined' ){ 
+			n_holding_from = data.holding_from 
+		}
+		if( typeof data.holding_till != 'undefined' ){ 
+			n_holding_till = data.holding_till 
+		}
+		if( typeof data.holding_amount != 'undefined' ){ 
+			n_holding_amount = data.holding_amount 
+		}
+		if( typeof data.reason != 'undefined' ){ 
+			n_holding_reason = data.reason 
+		}
+
+		if( n_userid === "" ){ return Promise.reject('User Id is empty') }
+		if( n_holding_from === ""){ return Promise.reject('Holding from date is empty') }
+		if( n_holding_till === ""){ return Promise.reject('Holding till date is empty') }
+		if( n_holding_amount === ""){ return Promise.reject('Holding amount is empty') }
+		if( n_holding_reason === ""){ return Promise.reject('Reason is empty') }
+
+
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_add_user_new_holding(  n_userid, n_holding_from, n_holding_till, n_holding_amount, n_holding_reason ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error.length == 0 ){
+		        		dispatch( success_add_user_holding( json.data ) )
+		        		dispatch( get_user_salary_details( n_userid ) )
+		          	}else{
+		          		dispatch( error_add_user_holding( json.error[0] ) )
+		          	}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_add_user_holding( 'error occurs'  ) )
+				}
+			)
+		})
+	}
+}
+
+
+
 
 

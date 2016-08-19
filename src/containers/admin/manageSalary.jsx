@@ -16,6 +16,8 @@ import * as actions_manageSalary from '../../actions/admin/manageSalary'
 import UsersList from '../../components/attendance/UsersList'
 import UserSalaryHistory from '../../components/manageSalary/UserSalaryHistory'
 import FormAddSalary from '../../components/manageSalary/FormAddSalary'
+import UserHoldingHistory from '../../components/manageSalary/UserHoldingHistory'
+import FormAddHolding from '../../components/manageSalary/FormAddHolding'
 
 
 class ManageSalary extends React.Component {
@@ -29,15 +31,19 @@ class ManageSalary extends React.Component {
             "selected_user_image" : "",
             "selected_user_jobtitle" : "",
             "selected_user_id" : "",
-
-            "defaultUserDisplay" : ""
+            "defaultUserDisplay" : "",
+            "salary_history" : [],
+            "holding_history" : [],
+            "user_latest_salary_details": {},
+            "user_latest_holding_details": {},
         }
 
         this.onUserClick = this.onUserClick.bind( this )
         this.callAddUserSalary = this.callAddUserSalary.bind( this )
-    }
+        this.callAddUserHolding = this.callAddUserHolding.bind( this )
+    }    
     componentWillMount(){
-        this.props.onUsersList()
+      this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
       if( props.logged_user.logged_in == -1 ){
@@ -49,8 +55,39 @@ class ManageSalary extends React.Component {
                 this.props.router.push('/home');    
             }
         }
+
+      //////////////////
+      let s_salary_history = []
+      let s_user_latest_salary_details = {}
+      let s_holding_history = []
+      let s_user_latest_holding_details = {}
+      
+      if( typeof props.manageSalary.salary_structure.salary_details != 'undefined' && props.manageSalary.salary_structure.salary_details.length >  0 ){
+        s_salary_history = props.manageSalary.salary_structure.salary_details.reverse()
+        s_user_latest_salary_details = s_salary_history[0]
+      }
+      if( typeof props.manageSalary.salary_structure.holding_details != 'undefined' && props.manageSalary.salary_structure.holding_details.length > 0 ){
+        s_holding_history = props.manageSalary.salary_structure.holding_details.reverse()
+        s_user_latest_holding_details = s_holding_history[0]
+        this.setState({
+          
+        })
+      }
+
+
+      this.setState({
+          salary_history : s_salary_history,
+          user_latest_salary_details : s_user_latest_salary_details,
+          holding_history : s_holding_history,
+          user_latest_holding_details : s_user_latest_holding_details
+        })
+
+        
+        
+
     }
     componentDidUpdate(){
+
       if( this.state.defaultUserDisplay  == '' ){
           if( this.props.usersList.users.length > 0 ){
               let firstUser = this.props.usersList.users[0]
@@ -93,10 +130,17 @@ class ManageSalary extends React.Component {
             notify( error );
         })
     }
+    callAddUserHolding( new_holding_details ){
+      this.props.onAddNewHolding( new_holding_details ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        }) 
+    }
 
   	render(){
 
-      
       let status_message = ""
       if( this.props.manageSalary.status_message != '' ){
         status_message = <span className="label label-lg primary pos-rlt m-r-xs">
@@ -107,27 +151,19 @@ class ManageSalary extends React.Component {
   		      
         let mainDivs = <div className="row">
 
-            <div className="col-md-3">
-                <UsersList users = { this.props.usersList.users } onUserClick = { this.onUserClick } {...this.props } />
+            <div className="col-md-2">
+                <UsersList users = { this.props.usersList.users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props } />
             </div>
 
 
 
-            <div className="col-md-9">
+            <div className="col-md-10">
 
 
 
 
-                  <div className="box">
-              <div className="item">
-                <div className="item-bg">
-                  <img src={this.state.selected_user_image} className="blur"/>
-                </div>
-                <div className="p-a-lg pos-rlt text-center">
-                  <img src={this.state.selected_user_image} className="img-circle w-56" />
-                </div>
-            </div>
-              <div className="p-a text-center">
+            <div className="box">
+                <div className="p-a text-center">
                 <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
                 <p><small>{this.state.selected_user_jobtitle}</small></p>
               </div>
@@ -142,19 +178,36 @@ class ManageSalary extends React.Component {
 					      <hr/>
 
 
-					      <UserSalaryHistory data={this.props.manageSalary.salary_history}/>
+					      <UserSalaryHistory data={this.state.salary_history}/>
 
 
 
 					    </div>
 					  </div>
-					  <div className="col-xs-9 b-r box">
+					  <div className="col-xs-6 b-r box">
 					    <div className="p-a block" >
 					      <h6 className="text-center">Add New</h6>
 					      <hr/>
-					      <FormAddSalary {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary}/>
+					      <FormAddSalary {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
 					    </div>
 					  </div>
+
+
+            <div className="col-xs-3 b-r box">
+              <div className="p-a block " >
+                <h6 className="text-center">Holding Revision</h6>
+                <hr/>
+                <UserHoldingHistory data={this.state.holding_history}/>
+                
+                <h6 className="text-center">Add Holding</h6>
+                <hr/>
+
+                <FormAddHolding {...this.props} userid={this.state.selected_user_id} callAddUserHolding={this.callAddUserHolding} user_latest_salary_details={this.state.user_latest_salary_details}/>
+
+
+              </div>
+            </div>
+
 					  
 					 </div>
 
@@ -168,34 +221,29 @@ class ManageSalary extends React.Component {
 		return(
     		<div>
     			<Menu {...this.props }/>
+            <div id="content" className="app-content box-shadow-z0" role="main">
+    				  
+              <div className="app-header white box-shadow">
+                <div className="navbar">
+    						  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+      						  <i className="material-icons">&#xe5d2;</i>
+    						  </a>
+    						  <div className="navbar-item pull-left h5" id="pageTitle">Manage Salaries &nbsp;&nbsp;&nbsp; {status_message}</div>
+						    </div>
+                <div className="row no-gutter">
+                  <div className="col-12">
+                    <LoadingIcon {...this.props}/>
+                  </div>
+                </div>
+    				  </div>
 
-                <div id="content" className="app-content box-shadow-z0" role="main">
-    				<div className="app-header white box-shadow">
-						<div className="navbar">
-    						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      							<i className="material-icons">&#xe5d2;</i>
-    						</a>
-    						<div className="navbar-item pull-left h5" id="pageTitle">Manage Salaries &nbsp;&nbsp;&nbsp; {status_message}</div>
-						</div>
-    				</div>
-					<div className="app-footer">
-  						<div></div>
-					</div>
-    				<div className="app-body" id="view">
-
-            			<div className="row">
-            				<div className="col-12">
-            					<LoadingIcon {...this.props}/>
-            				</div>
-            			</div>
-						<div className="padding">
-								{mainDivs}
-	            			</div>
-							
-						</div>
-					</div>
-    			
-    		</div>
+					    <div className="app-body" id="view">
+						    <div className="padding">
+								  {mainDivs}
+	            	</div>
+						  </div>
+					  </div>
+    		  </div>
     	)
     }
 }
@@ -221,6 +269,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onAddNewSalary : ( new_salary_data ) => {
           return dispatch( actions_manageSalary.add_user_new_salary( new_salary_data  ))
+        },
+        onAddNewHolding : ( new_holding_data ) => {
+          return dispatch( actions_manageSalary.add_user_new_holding( new_holding_data  ))
         }
     }
 }

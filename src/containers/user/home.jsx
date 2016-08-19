@@ -98,24 +98,24 @@ class Home extends React.Component {
                 <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} {...this.props}/>
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
-    				<div className="app-header white box-shadow">
-						<div className="navbar">
-    						<a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      							<i className="material-icons">&#xe5d2;</i>
-    						</a>
-    						<div className="navbar-item pull-left h5" id="pageTitle">Users</div>
-						</div>
-    				</div>
-					<div className="app-footer">
-  						<div></div>
-					</div>
+
+
+                    <div className="app-header white box-shadow">
+                <div className="navbar">
+                  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+                    <i className="material-icons">&#xe5d2;</i>
+                  </a>
+                  <div className="navbar-item pull-left h5" id="pageTitle">Users</div>
+                </div>
+                <div className="row no-gutter">
+                  <div className="col-12">
+                    <LoadingIcon {...this.props}/>
+                  </div>
+                </div>
+              </div>
+    			
     				<div className="app-body" id="view">
 
-            			<div className="row">
-            				<div className="col-12">
-            					<LoadingIcon {...this.props}/>
-            				</div>
-            			</div>
 						<div className="padding">
 							
 	            				{mainDivs}

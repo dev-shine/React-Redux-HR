@@ -21,6 +21,7 @@ class Holidays extends React.Component {
         this.props.onHolidaysList()
     }
     componentWillReceiveProps( props ){
+        window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
+import ReactDOM from 'react-dom'
 
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
@@ -46,6 +47,9 @@ class ManageSalary extends React.Component {
       this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
+
+      window.scrollTo(0, 0);
+
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
@@ -87,6 +91,7 @@ class ManageSalary extends React.Component {
 
     }
     componentDidUpdate(){
+
 
       if( this.state.defaultUserDisplay  == '' ){
           if( this.props.usersList.users.length > 0 ){

@@ -42,7 +42,19 @@ export function fireAjax( method, url, data ){
 			body: JSON.stringify(data),
 		}
 		URL = CONFIG.api_url_salary +'/add_sal_structure.php'
+	}else if( data.action == "add_user_holding" ){
+		let token = localStorage.getItem('hr_logged_user')
+		delete( data.action )
+		data.token = token
+		headers = {
+			method : 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			body: JSON.stringify(data),
+		}
+		URL = CONFIG.api_url_salary +'/add_holding_info.php'
 	}
+
 
 
 

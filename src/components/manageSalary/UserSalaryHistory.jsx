@@ -23,6 +23,7 @@ class UserSalaryHistory extends React.Component {
 					<div className="sl-item b-info"  key={k}  onClick={ () => this.props.viewSalarySummary( d.test.id ) } style={{'cursor':"pointer"}}>
 	              		<div className="sl-content">
 	                		<div className="sl-date text-muted">  Applicable From  : {d.test.applicable_from}</div>
+                      <div className="sl-date text-muted">  Applicable Till  : {d.test.applicable_till}</div>
 	                		<div className="sl-date text-muted"> Updated on : {d.test.last_updated_on} </div>
 	                		<div>
 	                  			 <b>Rs.{d.test.total_salary} </b> 

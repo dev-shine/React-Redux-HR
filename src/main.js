@@ -22,18 +22,22 @@ import reducer from './reducers/index'
 import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
-import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
-import Page_AttendanceSummary from './containers/user/attendanceSummary'
-import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
-import Page_Holidays from './containers/user/holidays'
-import Page_ApplyLeave from './containers/user/applyLeave'
-import Page_ManageLeaves from './containers/admin/manageLeaves'
-import Page_MyLeaves from './containers/user/myLeaves'
 
+//-admin
+import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
+import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
 import Page_LeavesSummary from './containers/admin/leavesSummary'
-import Page_Salary from './containers/user/salary'
 import Page_ManageSalary from './containers/admin/manageSalary'
+
+//-user
+import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
+import Page_AttendanceSummary from './containers/user/attendanceSummary'
+import Page_Holidays from './containers/user/holidays'
+import Page_ApplyLeave from './containers/user/applyLeave'
+import Page_MyLeaves from './containers/user/myLeaves'
+import Page_Salary from './containers/user/salary'
+import Page_MyProfile from './containers/user/myProfile'
 
 
 
@@ -128,6 +132,7 @@ let render = (routerKey = null) => {
                  <Route path="leaves_summary" component={Page_LeavesSummary} />
                  <Route path="salary" component={Page_Salary} />
                  <Route path="manage_salary" component={Page_ManageSalary} />
+                 <Route path="my_profile" component={Page_MyProfile} />
              </Route>
          </Router>
      </Provider>

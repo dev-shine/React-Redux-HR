@@ -54,6 +54,18 @@ export function fireAjax( method, url, data ){
 		}
 		URL = CONFIG.api_url_salary +'/add_holding_info.php'
 	}
+	else if( data.action == "get_user_profile_detail"){
+		let token = localStorage.getItem('hr_logged_user')
+		data.token = token
+		headers = {
+			method : 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			body: JSON.stringify(data),
+		}
+		URL = CONFIG.other_api_url
+
+	}
 
 
 

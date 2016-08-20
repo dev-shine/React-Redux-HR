@@ -26,28 +26,8 @@
         mobile_ph : "",
         work_email : "",
         other_email : "",
-
-
-
-        holding_from : "",
-        holding_till : "",
-        holding_amount : "",
-        reason : ""
       }
-      this.handleHoldingFrom = this.handleHoldingFrom.bind( this )
-      this.handleHoldingTill = this.handleHoldingTill.bind( this )
     }
-    handleHoldingFrom(date){
-      this.setState({
-        holding_from : date
-      })
-    }
-    handleHoldingTill(date){
-      this.setState({
-        holding_till : date
-      })
-    }
-
     componentWillReceiveProps( props ){
       this.setState({
         name : props.user_profile_detail.name,
@@ -66,88 +46,26 @@
         mobile_ph : props.user_profile_detail.mobile_ph,
         work_email : props.user_profile_detail.work_email,
         other_email : props.user_profile_detail.other_email,
-      })
-
-
-      // console.log( props )
-      // console.log('-----')
-
-
-      // let holding_from = ""
-      // let holding_till = ""
-      // let holding_amount = ""
-      // let reason = "" 
-
-      //   // if( typeof props.user_latest_salary_details.Basic != 'undefined' ){
-      //   //   basic = props.user_latest_salary_details.Basic
-      //   // }
-        
-
-      //   this.setState({
-      //     user_id : props.userid,
-      //     holding_from : holding_from,
-      //     holding_till : holding_till,
-      //     holding_amount : holding_amount,
-      //     reason : reason
-      //   })
+     })
     }
       
       render(){
-        let styles = _.cloneDeep(this.constructor.styles);
-
-        let date = this.state.applicable_from
 
         return (
           <div>
-          <div className="row no-gutter">
-            <div className="col-md-12 p-r">
-
-          <div className="item">
-                <div className="item-bg">
-                  <img src="../assets/images/a1.jpg" className="blur opacity-3"/>
-                </div>
-                <div className="p-a-md">
-                  <div className="row m-t">
-                    <div className="col-sm-7">
-                      <a href="" className="pull-left m-r-md">
-                        <span className="avatar w-96">
-                          <img src="../assets/images/a1.jpg"/>
-                          <i className="on b-white"></i>
-                        </span>
-                      </a>
-                      <div className="clear m-b">
-                        <h3 className="m-a-0 m-b-xs">{this.state.name}</h3>
-                        <p className="text-muted"><span className="m-r">{this.state.jobtitle}</span> </p>
-                        <p className="text-muted"><span className="m-r">Joining Date : {this.state.dateofjoining}</span></p>
-                        
-                        
-                      </div>
-                    </div>
-
-                    <div className="col-sm-5">
-                      <p className="text-muted"><span className="m-r">Gender : <b>{this.state.gender}</b></span></p>
-                      <p className="text-muted"><span className="m-r">Date Of Birth : <b>{this.state.dob}</b></span></p>
-                      <p className="text-muted"><span className="m-r">Work Email : <b>{this.state.work_email}</b></span></p>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-
-             <div className="row no-gutter">
-
-            
-            
-                <div className="col-xs-6 p-r">
+                
                   <h6 className="text-center">Personal Details</h6>
           
 
           <div className="form-group">
-          <label>Maritial Status</label>
-          <input type="text" className="form-control" ref="holding_amount" onChange={ () => this.setState({ holding_amount : this.refs.holding_amount.value }) } value={ this.state.holding_amount }/>
+          <label>Marital Status</label>
+
+          <select className="form-control" ref="marital_status" onChange={ () => this.setState({ marital_status : this.refs.marital_status.value }) } value={this.state.marital_status} >
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Other">Other</option>
+          </select>
+          
           </div>
           
           <div className="row no-gutter">
@@ -217,49 +135,19 @@
 
 
 
+<button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callUpdateProfileDetails( this.state ) } >Update Profile Details</button>
+
+          
 
 
-          </div>
+                </div>
 
-
-          <div className="col-xs-6 p-r">
 
 
           
-<h6 className="text-center">Bank Details</h6>
-
-          <div className="form-group">
-          <label>Bank Account Number</label>
-          <input type="text" className="form-control" ref="holding_amount" onChange={ () => this.setState({ holding_amount : this.refs.holding_amount.value }) } value={ this.state.holding_amount }/>
-          </div>
-
-          <div className="form-group">
-          <label>Pan Card Number</label>
-          <input type="text" className="form-control" ref="holding_amount" onChange={ () => this.setState({ holding_amount : this.refs.holding_amount.value }) } value={ this.state.holding_amount }/>
-          </div>
-
-                
-                </div>
-                </div>
-
-                <div className="row no-gutter">
-                <div className="col-xs-12 p-r">
-                <button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callAddUserHolding( this.state ) } >Add Holding</button>
-                </div>
-                </div>
-
-
-          </div>
           )
 }
 }
-
-FormProfileDetails.styles = {
-  leaveDiv: {
-    'marginBottom' : '10px'
-  }
-};
-
 
 
 export default FormProfileDetails

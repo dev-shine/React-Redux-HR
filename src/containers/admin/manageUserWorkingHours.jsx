@@ -91,7 +91,6 @@ class ManageUserWorkingHours extends React.Component {
 
 
     callAddUserWorkingHours( userid, date, working_hours, reason  ){
-      console.log( 'arun kumar')
       this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then( 
         (data) => {
             

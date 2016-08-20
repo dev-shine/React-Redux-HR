@@ -5,9 +5,14 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
+
+
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import AlertNotification from '../../components/generic/AlertNotification'
+import UserHorizontalView from '../../components/generic/UserHorizontalView'
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails'
+import FormBankDetails from '../../components/myProfile/FormBankDetails'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
@@ -16,10 +21,13 @@ class MyProfile extends React.Component {
     constructor( props ){
         super( props );
         this.state = {
+            status_message : "",
             user_profile_detail : {},
             user_bank_detail : []
         }
         this.props.onIsAlreadyLogin()
+        this.callUpdateBankDetails = this.callUpdateBankDetails.bind( this )
+        this.callUpdateProfileDetails = this.callUpdateProfileDetails.bind( this )
     }
     componentWillMount(){
         this.props.onMyProfileDetails(  )
@@ -37,16 +45,29 @@ class MyProfile extends React.Component {
             user_bank_detail : props.myProfile.user_bank_detail,
         })
     }
-    render(){
+    callUpdateBankDetails( new_bank_details  ){
+      this.props.onUpdateBankDetails( new_bank_details ).then( 
+        (data) => {
             
-        let mainDivs = <div className="row">
-            <div className="col-md-12">
-                <FormProfileDetails  user_profile_detail={this.state.user_profile_detail}/>
-            </div>
-        </div>
+        },(error) => {
+            notify( error );
+        })
+    }
+    callUpdateProfileDetails( new_profile_details ){
+        this.props.onUpdateProfileDetails( new_profile_details ).then( 
+        (data) => {
+            
+        },(error) => {
+            notify( error );
+        })   
+    }
+    render(){
 
-		return(
+        return(
     		<div>
+
+                <AlertNotification alert_message={this.props.myProfile.status_message}/>
+                
     			<Menu {...this.props }/>
 
                 <div id="content" className="app-content box-shadow-z0" role="main">
@@ -69,7 +90,30 @@ class MyProfile extends React.Component {
 					<div className="app-body" id="view">
 
             			<div className="padding">
-	            				{mainDivs}
+
+
+                                <div className="row no-gutter">
+                                    <UserHorizontalView 
+                                        profileImage={this.props.logged_user.profileImage}
+                                        name = { this.state.user_profile_detail.name }
+                                        jobtitle = { this.state.user_profile_detail.jobtitle }
+                                        dateofjoining = { this.state.user_profile_detail.dateofjoining }
+                                        gender = { this.state.user_profile_detail.gender }
+                                        dob = { this.state.user_profile_detail.dob }
+                                        work_email = { this.state.user_profile_detail.work_email }
+                                    />
+                                </div>
+                                <div className="row no-gutter">
+                                    <div className="col-xs-6 p-t p-r b-r">
+                                        <FormProfileDetails  user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails}/>
+                                    </div>
+                                    <div className="col-xs-6 p-t p-l">
+                                        <FormBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails}/>
+                                    </div>
+                                </div>
+
+                                
+	            				
                         </div>
 							
 						</div>
@@ -94,6 +138,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onMyProfileDetails : () => {
         	return dispatch( actions_myProfile.getMyProfileDetails(  ))	
+        },
+        onUpdateBankDetails : ( new_bank_details ) => {
+            return dispatch( actions_myProfile.updateBankDetails( new_bank_details )) 
+        },
+        onUpdateProfileDetails : ( new_profile_details ) => {
+            return dispatch( actions_myProfile.updateProfileDetails( new_profile_details ))   
         }
     }
 }

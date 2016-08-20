@@ -22,18 +22,24 @@ import reducer from './reducers/index'
 import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
-import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
-import Page_AttendanceSummary from './containers/user/attendanceSummary'
-import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
-import Page_Holidays from './containers/user/holidays'
-import Page_ApplyLeave from './containers/user/applyLeave'
-import Page_ManageLeaves from './containers/admin/manageLeaves'
-import Page_MyLeaves from './containers/user/myLeaves'
 
+//-admin
+import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
+import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
 import Page_LeavesSummary from './containers/admin/leavesSummary'
-import Page_Salary from './containers/user/salary'
 import Page_ManageSalary from './containers/admin/manageSalary'
+
+//-user
+import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
+import Page_AttendanceSummary from './containers/user/attendanceSummary'
+import Page_Holidays from './containers/user/holidays'
+import Page_ApplyLeave from './containers/user/applyLeave'
+import Page_MyLeaves from './containers/user/myLeaves'
+import Page_Salary from './containers/user/salary'
+import Page_MyProfile from './containers/user/myProfile'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 
@@ -112,25 +118,28 @@ let store = createStore(reducer,  compose(
 //--start----added by arun for HR app
 let render = (routerKey = null) => { 
   ReactDOM.render((
-     <Provider store={store}>
-         <Router history={hashHistory} >
-             <Route path="/" component={APP} >
-                 <IndexRoute component={Page_Login} /> //this will be the default page which will opens when app starts
-                 <Route path="home" component={Page_Home} />
-                 <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
-                 <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
-                 <Route path="logout" component={Page_Logout} />
-                 <Route path="holidays" component={Page_Holidays} />
-                 <Route path="apply_leave" component={Page_ApplyLeave} />
-                 <Route path="manage_leaves" component={Page_ManageLeaves} />
-                 <Route path="my_leaves" component={Page_MyLeaves} />
-                 <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
-                 <Route path="leaves_summary" component={Page_LeavesSummary} />
-                 <Route path="salary" component={Page_Salary} />
-                 <Route path="manage_salary" component={Page_ManageSalary} />
-             </Route>
-         </Router>
-     </Provider>
+    <MuiThemeProvider>
+         <Provider store={store}>
+             <Router history={hashHistory} >
+                 <Route path="/" component={APP} >
+                     <IndexRoute component={Page_Login} /> //this will be the default page which will opens when app starts
+                     <Route path="home" component={Page_Home} />
+                     <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
+                     <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
+                     <Route path="logout" component={Page_Logout} />
+                     <Route path="holidays" component={Page_Holidays} />
+                     <Route path="apply_leave" component={Page_ApplyLeave} />
+                     <Route path="manage_leaves" component={Page_ManageLeaves} />
+                     <Route path="my_leaves" component={Page_MyLeaves} />
+                     <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
+                     <Route path="leaves_summary" component={Page_LeavesSummary} />
+                     <Route path="salary" component={Page_Salary} />
+                     <Route path="manage_salary" component={Page_ManageSalary} />
+                     <Route path="my_profile" component={Page_MyProfile} />
+                 </Route>
+             </Router>
+         </Provider>
+     </MuiThemeProvider>
   ), document.querySelector("#myApp"))
 }
 //--end------added by arun for HR app

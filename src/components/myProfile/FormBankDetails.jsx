@@ -1,0 +1,70 @@
+  import React from 'react';
+  import * as _ from 'lodash'
+
+  import { DateField } from 'react-date-picker'
+  import 'react-date-picker/index.css'
+
+
+  class FormBankDetails extends React.Component {
+    constructor( props ){
+      super( props );
+      this.state = {
+        user_id : "",
+        bank_account_no : "",
+        bank_name : "",
+        bank_address : "",
+        ifsc : ""
+      }
+    }
+    componentWillReceiveProps( props ){
+
+      this.setState({
+        bank_account_no : props.user_bank_detail.bank_account_no,
+        bank_name : props.user_bank_detail.bank_name,
+        bank_address : props.user_bank_detail.bank_address,
+        ifsc : props.user_bank_detail.ifsc,
+      })
+    }
+      
+      render(){
+        let styles = _.cloneDeep(this.constructor.styles);
+
+        let date = this.state.applicable_from
+
+        return (
+          <div>
+            <h6 className="text-center">Bank Details</h6>
+            <div className="form-group">
+              <label>Bank Account Number</label>
+              <input type="text" className="form-control" ref="bank_account_no" onChange={ () => this.setState({ bank_account_no : this.refs.bank_account_no.value }) } value={ this.state.bank_account_no }/>
+            </div>
+            <div className="form-group">
+              <label>Bank Name</label>
+              <input type="text" className="form-control" ref="bank_name" onChange={ () => this.setState({ bank_name : this.refs.bank_name.value }) } value={ this.state.bank_name }/>
+            </div>
+            <div className="form-group">
+              <label>Bank Address</label>
+              <input type="text" className="form-control" ref="bank_address" onChange={ () => this.setState({ bank_address : this.refs.bank_address.value }) } value={ this.state.bank_address }/>
+            </div>
+            <div className="form-group">
+              <label>IFSC Code</label>
+              <input type="text" className="form-control" ref="ifsc" onChange={ () => this.setState({ ifsc : this.refs.ifsc.value }) } value={ this.state.ifsc }/>
+            </div>
+
+            <button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callUpdateBankDetails( this.state ) } >Update Bank Details</button>
+          </div>
+        )
+      }
+}
+
+FormBankDetails.styles = {
+  leaveDiv: {
+    'marginBottom' : '10px'
+  }
+};
+
+
+
+export default FormBankDetails
+
+

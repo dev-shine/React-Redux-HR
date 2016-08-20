@@ -54,6 +54,29 @@ export function fireAjax( method, url, data ){
 		}
 		URL = CONFIG.api_url_salary +'/add_holding_info.php'
 	}
+	// else if( data.action == "update_user_bank_details" ){
+	// 	let token = localStorage.getItem('hr_logged_user')
+	// 	delete( data.action )
+	// 	data.token = token
+	// 	headers = {
+	// 		method : 'POST',
+	// 		mode: 'cors',
+	// 		cache: 'no-cache',
+	// 		body: JSON.stringify(data),
+	// 	}
+	// 	URL = CONFIG.api_url_salary +'/user_bank_detail.php'
+	// }
+	else if( data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail"){  //generic other new api url
+		let token = localStorage.getItem('hr_logged_user')
+		data.token = token
+		headers = {
+			method : 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			body: JSON.stringify(data),
+		}
+		URL = CONFIG.other_api_url
+	}
 
 
 

@@ -52,6 +52,8 @@ class Menu extends React.Component {
 
       let link_my_profile = <Link to='/my_profile'>My Profile</Link>
 
+      let link_manage_users = <Link to='/manage_users'>Manage Employees Profile</Link>
+
 
       let links_to_show = <ul className="nav" >
         <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
@@ -72,6 +74,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span className="nav-text">{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_manage_salary}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_users}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
 
           </ul>                          

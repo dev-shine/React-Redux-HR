@@ -29,6 +29,7 @@ import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
 import Page_LeavesSummary from './containers/admin/leavesSummary'
 import Page_ManageSalary from './containers/admin/manageSalary'
+import Page_ManageUsers from './containers/admin/manageUsers'
 
 //-user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
@@ -136,6 +137,7 @@ let render = (routerKey = null) => {
                      <Route path="salary" component={Page_Salary} />
                      <Route path="manage_salary" component={Page_ManageSalary} />
                      <Route path="my_profile" component={Page_MyProfile} />
+                     <Route path="manage_users" component={Page_ManageUsers}/>
                  </Route>
              </Router>
          </Provider>

@@ -38,7 +38,9 @@ class FormAddNewClient extends React.Component {
   render(){
     return (
       <div>
-      <RaisedButton label="Add Client" onTouchTap={this.handleOpen} />
+
+        <button className="btn btn-fw info" onTouchTap={this.handleOpen} >Add Client</button>
+      
         <Dialog
           title="Add New Client"
           modal={false}
@@ -46,14 +48,16 @@ class FormAddNewClient extends React.Component {
           onRequestClose={this.handleClose}
         >
         <TextField
-          hintText="Client Name"
+          floatingLabelText="Name"
+          floatingLabelFixed={true}
           fullWidth={true}
           onChange={ (e) => ( this.setState({ client_name : e.target.value  })) }
         />
         <br/>
         <TextField
           multiLine={true}
-          hintText="Client Address"
+          floatingLabelText="Address"
+          floatingLabelFixed={true}
           fullWidth={true}
           onChange={ (e) => ( this.setState({ client_address : e.target.value  })) }
         />

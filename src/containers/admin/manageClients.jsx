@@ -19,6 +19,7 @@ import ClientsList from '../../components/generic/clientsList'
 import FormClientDetails from '../../components/manageClients/FormClientDetails'
 import InvoicesList from '../../components/manageClients/InvoicesList'
 import FormAddNewClient from '../../components/manageClients/FormAddNewClient'
+import FormCreateClientInvoice from '../../components/manageClients/FormCreateClientInvoice'
 
 
 class ManageClients extends React.Component {
@@ -153,8 +154,16 @@ class ManageClients extends React.Component {
                             <FormClientDetails clienDetails={this.state.client_info} />
                           </div>
                           <div className="col-md-7 p-t p-b">
-                          
-                          <InvoicesList invoicesList={ this.state.client_invoices } />
+                            
+                            <h6 className="text-center">Invoices</h6>
+                            
+                            <FormCreateClientInvoice 
+                              clientName = {this.state.selected_client_name}
+                              clientAddress = {this.state.selected_client_address}
+                              callAddNewClient={this.callAddNewClient}
+                            />
+
+                            <InvoicesList invoicesList={ this.state.client_invoices } />
 
                             
                           </div>

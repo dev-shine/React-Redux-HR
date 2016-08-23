@@ -21,7 +21,7 @@ class InvoicesList extends React.Component {
       })
       return (
         <div className = "row">
-          <h6 className="text-center">Invoices</h6>
+          
 
           <div className="col-12">
             <div className="box">

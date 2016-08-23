@@ -21,13 +21,15 @@ export function manageClients( state = Immutable.fromJS(initialState), action ){
         
         return state.set( 'status_message' , action.payload )
 
+    }else if( action.type == 'ACTION_SUCCESS_ADD_NEW_CLIENT'){
+
+     	return state.set( 'status_message' , action.payload )
+
+    }else if( action.type == 'ACTION_ERROR_ADD_NEW_CLIENT'){
+
+     	return state.set( 'status_message' , action.payload )
+
     }
-    // else if( action.type == 'ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS'){
-    //  	return state.set( 'status_message' , action.payload )
-    // }
-    // else if( action.type == 'ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS'){
-    //  	return state.set( 'status_message' , action.payload )
-    // }
     else{
     	return state.set( 'status_message' , "")
     }

@@ -49,6 +49,65 @@ export function get_client_details( clientid  ){
 	}
 }
 
+///-----add new client
+
+export const ACTION_SUCCESS_ADD_NEW_CLIENT = "ACTION_SUCCESS_ADD_NEW_CLIENT"
+export const ACTION_ERROR_ADD_NEW_CLIENT = "ACTION_ERROR_ADD_NEW_CLIENT"
+
+export function success_add_new_client( data ){
+	return createAction( ACTION_SUCCESS_ADD_NEW_CLIENT )( data )
+}
+export function error_add_new_client( data ){
+	return createAction( ACTION_ERROR_ADD_NEW_CLIENT )( data )
+}
+
+function async_add_new_client( n_client_name, n_client_address){
+	return fireAjax( 'POST', '', {
+		'action' : 'create_new_client',
+		'name' : n_client_name,
+		'address' : n_client_address
+	})
+}
+
+export function add_new_client( new_client_details  ){
+	return function (dispatch,getState){
+		let n_client_name = ""
+		let n_client_address = ""
+
+		if( typeof new_client_details.client_name != 'undefined' ){ 
+			n_client_name = new_client_details.client_name
+		}
+		if( typeof new_client_details.client_address != 'undefined' ){ 
+			n_client_address = new_client_details.client_address
+		}
+
+		if( n_client_name === "" ){ return Promise.reject('Client name is empty') }
+		if( n_client_address === "" ){ return Promise.reject('Client Address is empty') }
+
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_add_new_client( n_client_name, n_client_address ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( success_add_new_client( json.data.message ) )
+						reslove(1)
+		 			}else{
+		 				dispatch( error_add_new_client( json.data.message ) )
+		 				reslove(0)
+		 			}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_add_new_client( "error occurs!!!" ) )
+					reslove(0)
+				}
+			)
+		})
+	}
+}
+
+
 // // //-------update profile details
 // // export const ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS = "ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS"
 // // export const ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS = "ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS"

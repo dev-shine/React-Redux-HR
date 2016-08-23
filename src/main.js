@@ -18,6 +18,8 @@ import createLogger from 'redux-logger';
 
 import reducer from './reducers/index'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 //pages
 import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
@@ -57,6 +59,8 @@ export class APP extends React.Component {
 
 
 const logger = createLogger();
+
+injectTapEventPlugin()
 
 let store = createStore(reducer,  compose(
     //applyMiddleware( thunk, logger), 

@@ -29,10 +29,8 @@ class FormClientDetails extends React.Component {
 
               <div className="form-group">
                 <label>Client Address</label>
-                <input type="text" className="form-control" value={ this.state.client_address } ref="client_address" onChange={ () => this.setState({ client_address : this.refs.client_address.value }) } />
+                <textarea className="form-control" rows="4" ref="client_address" onChange={ () => this.setState({ client_address : this.refs.client_address.value }) } value={ this.state.client_address }/>
               </div>
-            
-
           
         </div>
 	    )

@@ -18,6 +18,7 @@ import * as actions_manageClients from '../../actions/admin/manageClients'
 import ClientsList from '../../components/generic/clientsList'
 import FormClientDetails from '../../components/manageClients/FormClientDetails'
 import InvoicesList from '../../components/manageClients/InvoicesList'
+import FormAddNewClient from '../../components/manageClients/FormAddNewClient'
 
 
 class ManageClients extends React.Component {
@@ -34,8 +35,7 @@ class ManageClients extends React.Component {
             'client_invoices' : []
         }
         this.onClientClick = this.onClientClick.bind( this )
-        this.callUpdateUserBankDetails = this.callUpdateUserBankDetails.bind( this )
-        this.callUpdateUserProfileDetails = this.callUpdateUserProfileDetails.bind( this )
+        this.callAddNewClient = this.callAddNewClient.bind(this)
     }    
     componentWillMount(){
       this.props.onClientsList()
@@ -51,6 +51,7 @@ class ManageClients extends React.Component {
               this.props.router.push('/home');    
           }
       }
+
       this.setState({
         clientsList : props.clientsList.clients,
         client_info : props.manageClients.client_info,
@@ -85,22 +86,15 @@ class ManageClients extends React.Component {
       })
       this.props.onClientDetails( clientid )
     }
-
-    callUpdateUserBankDetails( new_bank_details  ){
-      this.props.onUpdateUserBankDetails( new_bank_details ).then( 
+    callAddNewClient( new_client_details ){
+      this.props.onAddNewClient( new_client_details ).then( 
         (data) => {
-            
+          //on success of adding a new client referch list
+          this.props.onClientsList()
         },(error) => {
-            notify( error );
-        })
-    }
-    callUpdateUserProfileDetails( new_profile_details ){
-        this.props.onUpdateUserProfileDetails( new_profile_details ).then( 
-        (data) => {
-            
-        },(error) => {
-            notify( error );
-        })   
+          notify( error );
+        }
+      )
     }
 
   	render(){
@@ -136,8 +130,11 @@ class ManageClients extends React.Component {
 
 
                   <div className="row">
+
+
                             <div className="col-md-12 p-t p-b">
-                              <button className="md-btn md-raised m-b-sm indigo">Add New Client</button>
+                              
+                                <FormAddNewClient callAddNewClient={this.callAddNewClient}/>
                             </div>
                         </div>
                     
@@ -196,15 +193,9 @@ const mapDispatchToProps = (dispatch) => {
         onClientDetails : ( clientid ) => {
           return dispatch( actions_manageClients.get_client_details( clientid )) 
         },
-
-
-        onUpdateUserBankDetails : ( new_bank_details ) => {
-            //return dispatch( actions_manageClients.updateUserBankDetails( new_bank_details )) 
-        },
-        onUpdateUserProfileDetails : ( new_profile_details ) => {
-            //return dispatch( actions_manageClients.updateUserProfileDetails( new_profile_details ))   
+        onAddNewClient: ( new_client_details ) => {
+          return dispatch( actions_manageClients.add_new_client( new_client_details )) 
         }
-
     }
 }
 

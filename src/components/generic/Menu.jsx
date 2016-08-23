@@ -27,32 +27,29 @@ class Menu extends React.Component {
         }
     }
     render(){
-      let link_users_list = <Link to='/home'>Users</Link>
-      let link_my_calendar = <Link to='/monthly_attendance'>My Calendar</Link>
+      
+      
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
-
-      let link_manage_working_hours= <Link to='/manage_working_hours'>Manage Working Hours</Link>
-
       let link_holidays= <Link to='/holidays'>Holidays</Link>
-
+      
+      //user
+      let link_my_calendar = <Link to='/monthly_attendance'>My Calendar</Link>
       let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
-
-      let link_manage_leaves = <Link to='/manage_leaves'>Manage Leaves</Link>
-
-      let link_manage_user_working_hours = <Link to='/manage_user_working_hours'>Manage User Working Hours</Link>
-
       let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
-
-      let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
-
+      let link_my_profile = <Link to='/my_profile'>My Profile</Link>
       let link_salary = <Link to='/salary'>Salary</Link>
 
+      //admin
+      let link_users_list = <Link to='/home'>Users</Link>
+      let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
+      let link_manage_leaves = <Link to='/manage_leaves'>Manage Leaves</Link>
+      let link_manage_working_hours= <Link to='/manage_working_hours'>Manage Working Hours</Link>
+      let link_manage_user_working_hours = <Link to='/manage_user_working_hours'>Manage User Working Hours</Link>
       let link_manage_salary = <Link to='/manage_salary'>Manage Salaries</Link>
-
-      let link_my_profile = <Link to='/my_profile'>My Profile</Link>
-
       let link_manage_users = <Link to='/manage_users'>Manage Employees Profile</Link>
+      let link_manage_clients = <Link to='/manage_clients'>Manage Clients</Link>
+
 
 
       let links_to_show = <ul className="nav" >
@@ -75,6 +72,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_manage_salary}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_manage_users}</span></li>
+            <li className="hidden-folded" ><span className="nav-text">{link_manage_clients}</span></li>
             <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
 
           </ul>                          

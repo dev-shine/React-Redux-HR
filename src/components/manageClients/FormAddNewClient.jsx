@@ -18,7 +18,11 @@ class FormAddNewClient extends React.Component {
     this.addNewClient = this.addNewClient.bind(this)
   }
   handleOpen(){
-    this.setState({open: true});
+    this.setState({
+      open: true,
+      client_name : "",
+      client_address : ""
+    });
   }
   handleClose(){
     this.setState({open: false});
@@ -26,14 +30,12 @@ class FormAddNewClient extends React.Component {
   addNewClient(){
     this.props.callAddNewClient({
       client_name : this.state.client_name,
-      client_address : this.state.client_address
+      client_address : this.state.client_address,
+      open : false
     })
   }
   componentWillReceiveProps( props ){
-    this.setState({
-      //client_name : props.clienDetails.name,
-      //client_address : props.clienDetails.address
-    })
+    
   }
   render(){
     return (
@@ -52,6 +54,7 @@ class FormAddNewClient extends React.Component {
           floatingLabelFixed={true}
           fullWidth={true}
           onChange={ (e) => ( this.setState({ client_name : e.target.value  })) }
+          value = {this.state.client_name}
         />
         <br/>
         <TextField
@@ -60,6 +63,7 @@ class FormAddNewClient extends React.Component {
           floatingLabelFixed={true}
           fullWidth={true}
           onChange={ (e) => ( this.setState({ client_address : e.target.value  })) }
+          value = {this.state.client_address}
         />
         <br/>
         <br/>

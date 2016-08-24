@@ -37,6 +37,7 @@ class ManageClients extends React.Component {
         }
         this.onClientClick = this.onClientClick.bind( this )
         this.callAddNewClient = this.callAddNewClient.bind(this)
+        this.callCreateClientInvoice  = this.callCreateClientInvoice.bind(this)
     }    
     componentWillMount(){
       this.props.onClientsList()
@@ -97,6 +98,20 @@ class ManageClients extends React.Component {
         }
       )
     }
+    callCreateClientInvoice( new_client_invoice_details ){
+      this.props.onCreateClientInvoice( new_client_invoice_details ).then( 
+        (data) => {
+          console.log( data  )
+          console.log( data  )
+          console.log( data  )
+
+          //on success of adding a new client referch list
+          //this.props.onClientsList()
+        },(error) => {
+          notify( error );
+        }
+      ) 
+    }
 
   	render(){
 
@@ -150,17 +165,18 @@ class ManageClients extends React.Component {
                         
 
                         <div className="row box">
-                          <div className="col-md-5 p-t p-b p-r b-r">
+                          <div className="col-md-5 p-t p-b p-r">
                             <FormClientDetails clienDetails={this.state.client_info} />
                           </div>
-                          <div className="col-md-7 p-t p-b">
+                          <div className="col-md-7 p-t p-b b-l">
                             
-                            <h6 className="text-center">Invoices</h6>
-                            
-                            <FormCreateClientInvoice 
+                            <h6 className="text-center">Client Invoices</h6>
+
+                            <FormCreateClientInvoice
+                              clientId = {this.state.selected_client_id} 
                               clientName = {this.state.selected_client_name}
                               clientAddress = {this.state.selected_client_address}
-                              callAddNewClient={this.callAddNewClient}
+                              callCreateClientInvoice={this.callCreateClientInvoice}
                             />
 
                             <InvoicesList invoicesList={ this.state.client_invoices } />
@@ -204,6 +220,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onAddNewClient: ( new_client_details ) => {
           return dispatch( actions_manageClients.add_new_client( new_client_details )) 
+        },
+        onCreateClientInvoice : ( new_client_invoice_details ) => {
+          return dispatch( actions_manageClients.create_client_invoice( new_client_invoice_details )) 
         }
     }
 }

@@ -18,6 +18,8 @@ import createLogger from 'redux-logger';
 
 import reducer from './reducers/index'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 //pages
 import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
@@ -30,6 +32,7 @@ import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHou
 import Page_LeavesSummary from './containers/admin/leavesSummary'
 import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
+import Page_ManageClients from './containers/admin/manageClients'
 
 //-user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
@@ -56,6 +59,8 @@ export class APP extends React.Component {
 
 
 const logger = createLogger();
+
+injectTapEventPlugin()
 
 let store = createStore(reducer,  compose(
     //applyMiddleware( thunk, logger), 
@@ -138,6 +143,7 @@ let render = (routerKey = null) => {
                      <Route path="manage_salary" component={Page_ManageSalary} />
                      <Route path="my_profile" component={Page_MyProfile} />
                      <Route path="manage_users" component={Page_ManageUsers}/>
+                     <Route path="manage_clients" component={Page_ManageClients}/>
                  </Route>
              </Router>
          </Provider>

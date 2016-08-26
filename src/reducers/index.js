@@ -20,6 +20,7 @@ import { myProfile } from './user/myProfile'
 import { manageUsers } from './admin/manageUsers'
 import { clientsList } from './admin/clientsList'
 import { manageClients } from './admin/manageClients'
+import { managePayslips } from './admin/managePayslips'
 
 
 export default combineReducers({
@@ -42,5 +43,6 @@ export default combineReducers({
     myProfile,
     manageUsers,
     clientsList,
-    manageClients
+    manageClients,
+    managePayslips
 })

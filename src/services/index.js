@@ -67,7 +67,9 @@ export function fireAjax( method, url, data ){
 	// 	URL = CONFIG.api_url_salary +'/user_bank_detail.php'
 	// }
 	else if( data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail" || data.action == "get_all_clients" 
-	|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' ){  //generic other new api url
+		|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' 
+		|| data.action == "delete_invoice"
+	){  //generic other new api url
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token
 		headers = {

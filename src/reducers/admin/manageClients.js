@@ -30,6 +30,14 @@ export function manageClients( state = Immutable.fromJS(initialState), action ){
      	return state.set( 'status_message' , action.payload )
 
     }
+
+    else if( action.type == 'ACTION_SUCCESS_INVOICE_DELETE'){
+        return state.set( 'status_message' , action.payload )
+    }
+    else if( action.type == 'ACTION_ERROR_INVOICE_DELETE'){
+        return state.set( 'status_message' , action.payload )
+    }
+    
     else{
     	return state.set( 'status_message' , "")
     }

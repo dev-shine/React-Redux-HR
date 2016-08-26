@@ -40,6 +40,7 @@ class ManageClients extends React.Component {
         this.callAddNewClient = this.callAddNewClient.bind(this)
         this.callCreateClientInvoice  = this.callCreateClientInvoice.bind(this)
         this.callUpdateClientDetails = this.callUpdateClientDetails.bind(this)
+        this.callDeleteInvoice = this.callDeleteInvoice.bind( this )
     }    
     componentWillMount(){
       this.props.onClientsList()
@@ -143,6 +144,16 @@ class ManageClients extends React.Component {
         }
       ) 
     }
+    callDeleteInvoice( invoice_id ){
+      this.props.onDeleteInvoice( invoice_id ).then( 
+        (data) => {
+          //on success of updating a client referch list
+          this.onClientClick( this.state.selected_client_id )
+        },(error) => {
+          notify( error );
+        }
+      ) 
+    }
 
   	render(){
 
@@ -205,7 +216,7 @@ class ManageClients extends React.Component {
                             </div>
                             <div className="col-md-7 p-t p-b b-l">
                               
-                              <h6 className="text-center">Client Invoices</h6>
+                              <h6 className="text-center"><u>Client Invoices</u></h6>
 
                               <FormCreateClientInvoice
                                 showForm = {this.state.show_create_invoice_form}
@@ -215,7 +226,10 @@ class ManageClients extends React.Component {
                                 callCreateClientInvoice={this.callCreateClientInvoice}
                               />
 
-                              <InvoicesList invoicesList={ this.state.client_invoices } />
+                              <InvoicesList 
+                                invoicesList={ this.state.client_invoices } 
+                                callDeleteInvoice={this.callDeleteInvoice}
+                              />
 
                               
                             </div>
@@ -262,6 +276,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateClientDetails : ( updated_client_details ) => {
           return dispatch( actions_manageClients.update_client_details( updated_client_details )) 
+        },
+        onDeleteInvoice : ( invoice_id ) => {
+          return dispatch( actions_manageClients.delete_invoice( invoice_id )) 
         }
     }
 }

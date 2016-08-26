@@ -84,11 +84,16 @@ class FormCreateClientInvoice extends React.Component {
     })
   }
   componentWillReceiveProps( props ){
+    let open = this.state.open
+    if( props.showForm != false ){
+      open: false
+    }
+
     this.setState({
+      open: open,
       client_id : props.clientId,
       client_name : props.clientName,
       client_address : props.clientAddress,
-
     })
   }
 

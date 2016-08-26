@@ -108,6 +108,73 @@ export function add_new_client( new_client_details  ){
 }
 
 
+///-----update client info
+
+export const ACTION_SUCCESS_UPDATE_CLIENT_DETAILS = "ACTION_SUCCESS_UPDATE_CLIENT_DETAILS"
+export const ACTION_ERROR_UPDATE_CLIENT_DETAILS = "ACTION_ERROR_UPDATE_CLIENT_DETAILS"
+
+export function success_update_client_details( data ){
+	return createAction( ACTION_SUCCESS_UPDATE_CLIENT_DETAILS )( data )
+}
+export function error_update_client_details( data ){
+	return createAction( ACTION_ERROR_UPDATE_CLIENT_DETAILS )( data )
+}
+
+function async_update_client_details( n_client_id, n_client_name, n_client_address){
+	return fireAjax( 'POST', '', {
+		'action' : 'update_client_details',
+		'client_id' : n_client_id,
+		'name' : n_client_name,
+		'address' : n_client_address
+	})
+}
+
+export function update_client_details( new_client_details  ){
+	return function (dispatch,getState){
+
+		let n_client_id = ""
+		let n_client_name = ""
+		let n_client_address = ""
+
+		if( typeof new_client_details.client_id != 'undefined' ){ 
+			n_client_id = new_client_details.client_id
+		}
+		if( typeof new_client_details.client_name != 'undefined' ){ 
+			n_client_name = new_client_details.client_name
+		}
+		if( typeof new_client_details.client_address != 'undefined' ){ 
+			n_client_address = new_client_details.client_address
+		}
+
+		if( n_client_id === "" ){ return Promise.reject('Client id is empty') }
+		if( n_client_name === "" ){ return Promise.reject('Client name is empty') }
+		if( n_client_address === "" ){ return Promise.reject('Client Address is empty') }
+
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_update_client_details( n_client_id, n_client_name, n_client_address ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( success_update_client_details( json.data.message ) )
+						reslove( n_client_id )
+		 			}else{
+		 				dispatch( ACTION_ERROR_UPDATE_CLIENT_DETAILS( json.data.message ) )
+		 				reslove(0)
+		 			}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( ACTION_ERROR_UPDATE_CLIENT_DETAILS( "error occurs!!!" ) )
+					reslove(0)
+				}
+			)
+		})
+	}
+}
+
+
+
 ///-----create client new invoice
 
 export const ACTION_SUCCESS_CREATE_CLIENT_INVOICE = "ACTION_SUCCESS_CREATE_CLIENT_INVOICE"
@@ -136,9 +203,6 @@ function async_create_client_invoice( n_client_id, n_client_name, n_client_addre
 }
 
 export function create_client_invoice( new_client_invoice_details  ){
-
-
-	console.log( new_client_invoice_details )
 
 	return function (dispatch,getState){
 		let n_client_id = ""
@@ -196,7 +260,7 @@ export function create_client_invoice( new_client_invoice_details  ){
 					dispatch( hide_loading() ) // hide loading icon
 					if( json.error == 0 ){
 						dispatch( success_add_new_client( json.data.message ) )
-						reslove(1)
+						reslove(n_client_id)
 		 			}else{
 		 				dispatch( error_add_new_client( json.data.message ) )
 		 				reslove(0)

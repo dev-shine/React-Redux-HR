@@ -33,11 +33,13 @@ class ManageClients extends React.Component {
             'selected_client_name' : "",
             'selected_client_address' : "",
             'client_info' : {},
-            'client_invoices' : []
+            'client_invoices' : [],
+            'show_create_invoice_form':""
         }
         this.onClientClick = this.onClientClick.bind( this )
         this.callAddNewClient = this.callAddNewClient.bind(this)
         this.callCreateClientInvoice  = this.callCreateClientInvoice.bind(this)
+        this.callUpdateClientDetails = this.callUpdateClientDetails.bind(this)
     }    
     componentWillMount(){
       this.props.onClientsList()
@@ -54,10 +56,27 @@ class ManageClients extends React.Component {
           }
       }
 
+      let p_selected_client_id = ""
+      let p_selected_client_name = ""
+      let p_selected_client_address = ""
+      if( typeof props.manageClients.client_info.id  != 'undefined' ){
+        p_selected_client_id = props.manageClients.client_info.id
+      }
+      if( typeof props.manageClients.client_info.name  != 'undefined' ){
+        p_selected_client_name = props.manageClients.client_info.name
+      }
+      if( typeof props.manageClients.client_info.address  != 'undefined' ){
+        p_selected_client_address = props.manageClients.client_info.address
+      }
+
+
       this.setState({
         clientsList : props.clientsList.clients,
         client_info : props.manageClients.client_info,
-        client_invoices : props.manageClients.client_invoices,        
+        client_invoices : props.manageClients.client_invoices,
+        selected_client_id : p_selected_client_id,
+        selected_client_name : p_selected_client_name,
+        selected_client_address : p_selected_client_address,
       })
     }
     componentDidUpdate(){
@@ -101,12 +120,24 @@ class ManageClients extends React.Component {
     callCreateClientInvoice( new_client_invoice_details ){
       this.props.onCreateClientInvoice( new_client_invoice_details ).then( 
         (data) => {
-          console.log( data  )
-          console.log( data  )
-          console.log( data  )
-
           //on success of adding a new client referch list
           //this.props.onClientsList()
+          this.setState({
+            'show_create_invoice_form' : false
+          })
+          this.props.onClientsList()
+          this.onClientClick( data )
+        },(error) => {
+          notify( error );
+        }
+      ) 
+    }
+    callUpdateClientDetails( updated_client_details ){
+      this.props.onUpdateClientDetails( updated_client_details ).then( 
+        (data) => {
+          //on success of updating a client referch list
+          this.props.onClientsList()
+          this.onClientClick( data )
         },(error) => {
           notify( error );
         }
@@ -119,84 +150,89 @@ class ManageClients extends React.Component {
       
        
 
-		return(
-    		<div>
+  		return(
+      		<div>
 
-          <AlertNotification alert_message={this.props.manageClients.status_message}/>
+            <AlertNotification alert_message={this.props.manageClients.status_message}/>
 
-    			<Menu {...this.props }/>
-            <div id="content" className="app-content box-shadow-z0" role="main">
-    				  
-              <div className="app-header white box-shadow">
-                <div className="navbar">
-    						  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      						  <i className="material-icons">&#xe5d2;</i>
-    						  </a>
-    						  <div className="navbar-item pull-left h5" id="pageTitle">Manage Clients</div>
-						    </div>
-                <div className="row no-gutter">
-                  <div className="col-12">
-                    <LoadingIcon {...this.props}/>
+      			<Menu {...this.props }/>
+              <div id="content" className="app-content box-shadow-z0" role="main">
+      				  
+                <div className="app-header white box-shadow">
+                  <div className="navbar">
+      						  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+        						  <i className="material-icons">&#xe5d2;</i>
+      						  </a>
+      						  <div className="navbar-item pull-left h5" id="pageTitle">Manage Clients</div>
+  						    </div>
+                  <div className="row no-gutter">
+                    <div className="col-12">
+                      <LoadingIcon {...this.props}/>
+                    </div>
                   </div>
-                </div>
-    				  </div>
+      				  </div>
 
-					    <div className="app-body" id="view">
-						    <div className="padding">
-
-
-                  <div className="row">
+  					    <div className="app-body" id="view">
+  						    <div className="padding">
 
 
-                            <div className="col-md-12 p-t p-b">
-                              
-                                <FormAddNewClient callAddNewClient={this.callAddNewClient}/>
-                            </div>
-                        </div>
-                    
                     <div className="row">
 
-                    <div className="col-md-2">
-                        <ClientsList clients = { this.state.clientsList } selectedClientId={this.state.selected_client_id} onClientClick = { this.onClientClick }/>
-                    </div>
 
-                    <div className="col-md-10 p">
-
-                        
-
-                        <div className="row box">
-                          <div className="col-md-5 p-t p-b p-r">
-                            <FormClientDetails clienDetails={this.state.client_info} />
+                              <div className="col-md-12 p-t p-b">
+                                
+                                  <FormAddNewClient callAddNewClient={this.callAddNewClient}/>
+                              </div>
                           </div>
-                          <div className="col-md-7 p-t p-b b-l">
-                            
-                            <h6 className="text-center">Client Invoices</h6>
+                      
+                      <div className="row">
 
-                            <FormCreateClientInvoice
-                              clientId = {this.state.selected_client_id} 
-                              clientName = {this.state.selected_client_name}
-                              clientAddress = {this.state.selected_client_address}
-                              callCreateClientInvoice={this.callCreateClientInvoice}
-                            />
+                      <div className="col-md-2">
+                          <ClientsList clients = { this.state.clientsList } selectedClientId={this.state.selected_client_id} onClientClick = { this.onClientClick }/>
+                      </div>
 
-                            <InvoicesList invoicesList={ this.state.client_invoices } />
+                      <div className="col-md-10 p">
 
-                            
+                          
+
+                          <div className="row box">
+                            <div className="col-md-5 p-t p-b p-r">
+                              <FormClientDetails 
+                                clientId = {this.state.selected_client_id}
+                                clientName = {this.state.selected_client_name}
+                                clientAddress = {this.state.selected_client_address}
+                                callUpdateClientDetails={this.callUpdateClientDetails}/>
+                            </div>
+                            <div className="col-md-7 p-t p-b b-l">
+                              
+                              <h6 className="text-center">Client Invoices</h6>
+
+                              <FormCreateClientInvoice
+                                showForm = {this.state.show_create_invoice_form}
+                                clientId = {this.state.selected_client_id} 
+                                clientName = {this.state.selected_client_name}
+                                clientAddress = {this.state.selected_client_address}
+                                callCreateClientInvoice={this.callCreateClientInvoice}
+                              />
+
+                              <InvoicesList invoicesList={ this.state.client_invoices } />
+
+                              
+                            </div>
                           </div>
-                        </div>
+                      </div>
+
                     </div>
-
-                  </div>
-                 
+                   
 
 
 
-	            	</div>
-						  </div>
-					  </div>
-    		  </div>
-    	)
-    }
+  	            	</div>
+  						  </div>
+  					  </div>
+      		  </div>
+      	)
+      }
 }
 
 function mapStateToProps( state ){
@@ -223,6 +259,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onCreateClientInvoice : ( new_client_invoice_details ) => {
           return dispatch( actions_manageClients.create_client_invoice( new_client_invoice_details )) 
+        },
+        onUpdateClientDetails : ( updated_client_details ) => {
+          return dispatch( actions_manageClients.update_client_details( updated_client_details )) 
         }
     }
 }

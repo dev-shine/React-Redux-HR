@@ -34,8 +34,7 @@ class ManagePayslips extends React.Component {
         }
 
         this.onUserClick = this.onUserClick.bind( this )
-        this.callAddUserSalary = this.callAddUserSalary.bind( this )
-        this.callAddUserHolding = this.callAddUserHolding.bind( this )
+        this.callCreateUserPayslip = this.callCreateUserPayslip.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -101,21 +100,13 @@ class ManagePayslips extends React.Component {
     }
     
 
-    callAddUserSalary( new_salary_details  ){
-      this.props.onAddNewSalary( new_salary_details ).then( 
+    callCreateUserPayslip( payslipData  ){
+      this.props.onCreateUserPayslip( payslipData ).then( 
         (data) => {
-            
+            this.onUserClick( this.state.selected_user_id )
         },(error) => {
             notify( error );
         })
-    }
-    callAddUserHolding( new_holding_details ){
-      this.props.onAddNewHolding( new_holding_details ).then( 
-        (data) => {
-            
-        },(error) => {
-            notify( error );
-        }) 
     }
 
     render(){
@@ -157,24 +148,9 @@ class ManagePayslips extends React.Component {
                       <UsersList users = { this.props.usersList.users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props } />
                     </div>
                     <div className="col-md-10">
-                      <div className="box">
-                        <div className="p-a text-center">
-                          <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
-                          <p><small>{this.state.selected_user_jobtitle}</small></p>
-                        </div>
-                      </div>
-
+                      
                       <div className="row no-gutter b-t box">
-                        <div className="col-xs-9 b-r box">
-                          <div className="p-a block" >
-                            <h6 className="text-center">Generate Payslip</h6>
-                            <hr/>
-                            <FormGeneratePaySlip 
-                              user_data_for_payslip={this.state.user_data_for_payslip}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-xs-3 b-r box">
+                        <div className="col-xs-3 box">
                           <div className="p-a block " >
                             <h6 className="text-center">Previous Payslips</h6>
                             <hr/>
@@ -183,6 +159,21 @@ class ManagePayslips extends React.Component {
                             />
                           </div>
                         </div>
+                        <div className="col-xs-9 b-l box">
+                         
+                          <div className="p-a block" >
+                            <h6 className="text-center">Generate Payslip</h6>
+                            <hr/>
+                            <FormGeneratePaySlip
+                              user_id = { this.state.selected_user_id } 
+                              name = { this.state.selected_user_name } 
+                              designation = { this.state.selected_user_jobtitle } 
+                              user_data_for_payslip={this.state.user_data_for_payslip}
+                              callCreateUserPayslip={this.callCreateUserPayslip}
+                            />
+                          </div>
+                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -212,6 +203,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUserManagePayslipsData : ( userid ) => {
           return dispatch( actions_managePayslips.get_user_manage_payslips_data( userid ) )
+        },
+        onCreateUserPayslip : ( payslipData ) => {
+          return dispatch( actions_managePayslips.create_user_payslip( payslipData ) )
         }
     }
 }

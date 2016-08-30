@@ -414,71 +414,41 @@ class FormGeneratePaySlip extends React.Component {
           <div className="row no-gutter">
             
             <div className="col-xs-6 p-r">
-              <h6 className="text-center">Earnings</h6>
+              <h6 className="text-center"><u>Earnings</u></h6>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Basic</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.basic}
-                    ref="basic" 
-                    onChange={ () => this.setState({ basic : this.refs.basic.value }) }
-                  />
+                  {this.state.basic}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">HRA</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.hra}
-                    ref="hra" 
-                    onChange={ () => this.setState({ hra : this.refs.hra.value }) }
-                  />
+                  {this.state.hra}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Conveyance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.conveyance}
-                    ref="conveyance" 
-                    onChange={ () => this.setState({ conveyance : this.refs.conveyance.value }) }
-                  />
+                  {this.state.conveyance}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Medical Allowance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.medical_allowance}
-                    ref="medical_allowance" 
-                    onChange={ () => this.setState({ medical_allowance : this.refs.medical_allowance.value }) }
-                  />
+                  {this.state.medical_allowance}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Special Allowance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.special_allowance}
-                    ref="special_allowance" 
-                    onChange={ () => this.setState({ special_allowance : this.refs.special_allowance.value }) }
-                  />
+                  {this.state.special_allowance}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Arrears</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.arrear}
-                    ref="arrear" 
-                    onChange={ () => this.setState({ arrear : this.refs.arrear.value }) }
-                  />
+                  {this.state.arrear}
                 </div>
               </div>
               <div className="row no-gutter p-t">
@@ -520,38 +490,23 @@ class FormGeneratePaySlip extends React.Component {
 
 
             <div className="col-xs-6 p-r">
-              <h6 className="text-center">Deductions</h6>
+              <h6 className="text-center"><u>Deductions</u></h6>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">EPF</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.epf}
-                    ref="epf" 
-                    onChange={ () => this.setState({ epf : this.refs.epf.value }) }
-                  />
+                  {this.state.epf}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Loan</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.loan}
-                    ref="loan" 
-                    onChange={ () => this.setState({ loan : this.refs.loan.value }) }
-                  />
+                  {this.state.loan}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Advance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.advance}
-                    ref="advance" 
-                    onChange={ () => this.setState({ advance : this.refs.advance.value }) }
-                  />
+                  {this.state.advance}
                 </div>
               </div>
               <div className="row no-gutter p-t">
@@ -568,12 +523,7 @@ class FormGeneratePaySlip extends React.Component {
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">TDS</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.tds}
-                    ref="tds" 
-                    onChange={ () => this.setState({ tds : this.refs.tds.value }) }
-                  />
+                  {this.state.tds}
                 </div>
               </div>
               <div className="row no-gutter p-t">

@@ -54,35 +54,6 @@ class FormGeneratePaySlip extends React.Component {
     }
     
     componentWillReceiveProps( props ){
-      // let user_id = ""
-      // let year = ""
-      // let month = ""
-      // let name = ""
-      // let designation = ""
-      // let joining_date = "joining_date"
-      // let total_working_days = "total_working_days"
-      // let days_present = "days_present"
-      // let paid_leaves = "paid_leaves"
-      // let unpaid_leaves = "unpaid_leaves"
-      // let total_leave_taken = "total_leave_taken"
-      // let allocated_leaves = "allocated_leaves"
-      // let leave_balance = "leave_balance"
-      // let final_leave_balance = "final_leave_balance"
-      // let basic = "basic"
-      // let epf = "epf"
-      // let hra = "hra"
-      // let loan = "loan"
-      // let conveyance = "conveyance"
-      // let advance = "advance"
-      // let medical_allowance = "medical_allowance"
-      // let misc_deduction = "misc_deduction"
-      // let special_allowance = "special_allowance"
-      // let tds = "tds"
-      // let arrear = "arrear"
-      // let total_earning = "total_earning"
-      // let total_deduction = "total_deduction"
-      // let net_salary = "net_salary"
-
       let user_id = ""
       let year = ""
       let month = ""
@@ -123,41 +94,96 @@ class FormGeneratePaySlip extends React.Component {
         designation = this.props.designation
       }
 
-      if( typeof props.user_data_for_payslip.salary_detail != 'undefined' ){ 
-        let SalaryDetails = props.user_data_for_payslip.salary_detail
+      if( typeof props.user_data_for_payslip != 'undefined' ){ 
 
-        if( typeof SalaryDetails.Basic != 'undefined' ){
-          basic = SalaryDetails.Basic
-        }
-        if( typeof SalaryDetails.EPF != 'undefined' ){
-          epf = SalaryDetails.EPF
-        }
-        if( typeof SalaryDetails.HRA != 'undefined' ){
-          hra = SalaryDetails.HRA
-        }
-        if( typeof SalaryDetails.Loan != 'undefined' ){
-          loan = SalaryDetails.Loan
-        }
-        if( typeof SalaryDetails.Conveyance != 'undefined' ){
-          conveyance = SalaryDetails.Conveyance
-        }
-        if( typeof SalaryDetails.Advance != 'undefined' ){
-          advance = SalaryDetails.Advance
-        }
-        if( typeof SalaryDetails.Medical_Allowance != 'undefined' ){
-          medical_allowance = SalaryDetails.Medical_Allowance
-        }
-        if( typeof SalaryDetails.Misc_Deductions != 'undefined' ){
-          misc_deduction = SalaryDetails.Misc_Deductions
-        }
-        if( typeof SalaryDetails.Special_Allowance != 'undefined' ){
-          special_allowance = SalaryDetails.Special_Allowance
-        }
-        if( typeof SalaryDetails.TDS != 'undefined' ){
-          tds = SalaryDetails.TDS
-        }
-        if( typeof SalaryDetails.Arrears != 'undefined' ){
-          arrear = SalaryDetails.Arrears
+        //---info
+        if( typeof props.user_data_for_payslip != 'undefined' ){ 
+          let d = props.user_data_for_payslip
+
+          if( typeof d.year != 'undefined' ){
+            year = d.year
+          }
+
+          if( typeof d.month != 'undefined' ){
+            month = d.month
+          }
+
+          if( typeof d.dateofjoining != 'undefined' ){
+            joining_date = d.dateofjoining
+          }
+          if( typeof d.total_working_days != 'undefined' ){
+            total_working_days = d.total_working_days
+          }
+          if( typeof d.paid_leaves != 'undefined' ){
+            paid_leaves = d.paid_leaves
+          }
+
+          //total_leave_taken
+
+          if( typeof d.total_leave_taken != 'undefined' ){
+            total_leave_taken = d.total_leave_taken
+          }
+          if( typeof d.leave_balance != 'undefined' ){
+            leave_balance = d.leave_balance
+          }
+          if( typeof d.paid_leaves != 'undefined' ){
+            paid_leaves = d.paid_leaves
+          }
+          if( typeof d.final_leave_balance != 'undefined' ){
+            final_leave_balance = d.final_leave_balance
+          }
+          
+
+          if( typeof d.leaves_allocated != 'undefined' ){
+            allocated_leaves = d.leaves_allocated
+          }
+          if( typeof d.unpaid_leaves != 'undefined' ){
+            unpaid_leaves = d.unpaid_leaves
+          }
+          if( typeof d.days_present != 'undefined' ){
+            days_present = d.days_present
+          }
+
+        }        
+
+        //---salary
+        if( typeof props.user_data_for_payslip.salary_detail != 'undefined' ){ 
+          let SalaryDetails = props.user_data_for_payslip.salary_detail
+
+          
+          if( typeof SalaryDetails.Basic != 'undefined' ){
+            basic = SalaryDetails.Basic
+          }
+          if( typeof SalaryDetails.EPF != 'undefined' ){
+            epf = SalaryDetails.EPF
+          }
+          if( typeof SalaryDetails.HRA != 'undefined' ){
+            hra = SalaryDetails.HRA
+          }
+          if( typeof SalaryDetails.Loan != 'undefined' ){
+            loan = SalaryDetails.Loan
+          }
+          if( typeof SalaryDetails.Conveyance != 'undefined' ){
+            conveyance = SalaryDetails.Conveyance
+          }
+          if( typeof SalaryDetails.Advance != 'undefined' ){
+            advance = SalaryDetails.Advance
+          }
+          if( typeof SalaryDetails.Medical_Allowance != 'undefined' ){
+            medical_allowance = SalaryDetails.Medical_Allowance
+          }
+          if( typeof SalaryDetails.Misc_Deductions != 'undefined' ){
+            misc_deduction = SalaryDetails.Misc_Deductions
+          }
+          if( typeof SalaryDetails.Special_Allowance != 'undefined' ){
+            special_allowance = SalaryDetails.Special_Allowance
+          }
+          if( typeof SalaryDetails.TDS != 'undefined' ){
+            tds = SalaryDetails.TDS
+          }
+          if( typeof SalaryDetails.Arrears != 'undefined' ){
+            arrear = SalaryDetails.Arrears
+          }
         }
 
       }
@@ -194,7 +220,7 @@ class FormGeneratePaySlip extends React.Component {
         net_salary : net_salary
       })
     }
-    
+
     render(){
       let styles = _.cloneDeep(this.constructor.styles);
 
@@ -210,13 +236,13 @@ class FormGeneratePaySlip extends React.Component {
                 <div className="col-xs-6 p-r">Year</div>
                 <div className="col-xs-6 p-r">
 
-                  <select ref="year" onChange={ (e) => this.setState({ year : this.refs.year.value }) }>
+                  <select ref="year" value={this.state.year} onChange={ (e) => this.setState({ year : this.refs.year.value }) }>
                     <option value=''>--Select Year--</option>
                     <option value='2016'>2016</option>
                     <option value='2017'>2017</option>
                     <option value='2018'>2018</option>
-                    <option value='2020'>2019</option>
-                    <option value='2021'>2021</option>
+                    <option value='2019'>2019</option>
+                    <option value='2020'>2021</option>
                   </select>
                   
                 </div>
@@ -282,9 +308,9 @@ class FormGeneratePaySlip extends React.Component {
                 <div className="col-xs-6 p-r">
                   <input
                     type="text"
-                    value={this.state.final_leave_balance}
-                    ref="final_leave_balance" 
-                    onChange={ () => this.setState({ final_leave_balance : this.refs.final_leave_balance.value }) }
+                    value={this.state.leave_balance}
+                    ref="leave_balance" 
+                    onChange={ () => this.setState({ leave_balance : this.refs.leave_balance.value }) }
                   />
                 </div>
               </div>
@@ -297,20 +323,20 @@ class FormGeneratePaySlip extends React.Component {
                 <div className="col-xs-6 p-r">Month</div>
                 <div className="col-xs-6 p-r">
 
-                  <select ref="month" onChange={ (e) => this.setState({ month : this.refs.month.value }) }>
+                  <select ref="month" value={this.state.month} onChange={ (e) => this.setState({ month : this.refs.month.value }) }>
                     <option value=''>--Select Month--</option>
-                    <option value='Janaury'>Janaury</option>
-                    <option value='February'>February</option>
-                    <option value='March'>March</option>
-                    <option value='April'>April</option>
-                    <option value='May'>May</option>
-                    <option value='June'>June</option>
-                    <option value='July'>July</option>
-                    <option value='August'>August</option>
-                    <option value='September'>September</option>
-                    <option value='October'>October</option>
-                    <option value='November'>November</option>
-                    <option value='December'>December</option>
+                    <option value='01'>Janaury</option>
+                    <option value='02'>February</option>
+                    <option value='03'>March</option>
+                    <option value='04'>April</option>
+                    <option value='05'>May</option>
+                    <option value='06'>June</option>
+                    <option value='07'>July</option>
+                    <option value='08'>August</option>
+                    <option value='09'>September</option>
+                    <option value='10'>October</option>
+                    <option value='11'>November</option>
+                    <option value='12'>December</option>
                   </select>
                 </div>
               </div>

@@ -20,7 +20,9 @@ export function error_user_manage_payslips_data( data ){
 function async_get_user_manage_payslips_data( userid ){
 	return fireAjax( 'GET', '', {
 		action : 'get_user_manage_payslips_data',
-		user_id : userid
+		user_id : userid,
+		year : "2016",
+		month : "07"
 	})
 }
 
@@ -169,140 +171,140 @@ export function create_user_payslip(  new_salary_slip_data ){
  			n_joining_date = new_salary_slip_data.joining_date 
  		}
 
- 		if( typeof new_salary_slip_data.total_working_days == 'undefined' || new_salary_slip_data.total_working_days == '' ){ 
+ 		if( typeof new_salary_slip_data.total_working_days == 'undefined' || new_salary_slip_data.total_working_days === '' ){ 
 			return Promise.reject('Total working days is empty')
  		}else{
  			n_total_working_days = new_salary_slip_data.total_working_days 
  		}
 
- 		if( typeof new_salary_slip_data.days_present == 'undefined' || new_salary_slip_data.days_present == '' ){ 
+ 		if( typeof new_salary_slip_data.days_present == 'undefined' || new_salary_slip_data.days_present === '' ){ 
 			return Promise.reject('Days present is empty')
  		}else{
  			n_days_present = new_salary_slip_data.days_present 
  		}
 
- 		if( typeof new_salary_slip_data.paid_leaves == 'undefined' || new_salary_slip_data.paid_leaves == '' ){ 
+ 		if( typeof new_salary_slip_data.paid_leaves == 'undefined' || new_salary_slip_data.paid_leaves === '' ){ 
 			return Promise.reject('Paid leaves is empty')
  		}else{
  			n_paid_leaves = new_salary_slip_data.paid_leaves 
  		}
 
- 		if( typeof new_salary_slip_data.unpaid_leaves == 'undefined' || new_salary_slip_data.unpaid_leaves == '' ){ 
+ 		if( typeof new_salary_slip_data.unpaid_leaves == 'undefined' || new_salary_slip_data.unpaid_leaves === '' ){ 
 			return Promise.reject('Unpaid leaves is empty')
  		}else{
  			n_unpaid_leaves = new_salary_slip_data.unpaid_leaves 
  		}
 
- 		if( typeof new_salary_slip_data.total_leave_taken == 'undefined' || new_salary_slip_data.total_leave_taken == '' ){ 
+ 		if( typeof new_salary_slip_data.total_leave_taken == 'undefined' || new_salary_slip_data.total_leave_taken === '' ){ 
 			return Promise.reject('Total leave taken is empty')
  		}else{
  			n_total_leave_taken = new_salary_slip_data.total_leave_taken 
  		}
 
- 		if( typeof new_salary_slip_data.allocated_leaves == 'undefined' || new_salary_slip_data.allocated_leaves == '' ){ 
+ 		if( typeof new_salary_slip_data.allocated_leaves == 'undefined' || new_salary_slip_data.allocated_leaves === '' ){ 
 			return Promise.reject('Allocated leaves is empty')
  		}else{
  			n_allocated_leaves = new_salary_slip_data.allocated_leaves 
  		}
 
- 		if( typeof new_salary_slip_data.leave_balance == 'undefined' || new_salary_slip_data.leave_balance == '' ){ 
+ 		if( typeof new_salary_slip_data.leave_balance == 'undefined' || new_salary_slip_data.leave_balance === '' ){ 
 			return Promise.reject('Leave balance is empty')
  		}else{
  			n_leave_balance = new_salary_slip_data.leave_balance 
  		}
 
- 		if( typeof new_salary_slip_data.final_leave_balance == 'undefined' || new_salary_slip_data.final_leave_balance == '' ){ 
+ 		if( typeof new_salary_slip_data.final_leave_balance == 'undefined' || new_salary_slip_data.final_leave_balance === '' ){ 
 			return Promise.reject('Final leave balance is empty')
  		}else{
  			n_final_leave_balance = new_salary_slip_data.final_leave_balance 
  		}
 
- 		if( typeof new_salary_slip_data.basic == 'undefined' || new_salary_slip_data.basic == '' ){ 
+ 		if( typeof new_salary_slip_data.basic == 'undefined' || new_salary_slip_data.basic === '' ){ 
 			return Promise.reject('Basic is empty')
  		}else{
  			n_basic = new_salary_slip_data.basic 
  		}
 
- 		if( typeof new_salary_slip_data.epf == 'undefined' || new_salary_slip_data.epf == '' ){ 
+ 		if( typeof new_salary_slip_data.epf == 'undefined' || new_salary_slip_data.epf === '' ){ 
 			return Promise.reject('EPF is empty')
  		}else{
  			n_epf = new_salary_slip_data.epf
  		}
 
- 		if( typeof new_salary_slip_data.hra == 'undefined' || new_salary_slip_data.hra == '' ){ 
+ 		if( typeof new_salary_slip_data.hra == 'undefined' || new_salary_slip_data.hra === '' ){ 
 			return Promise.reject('HRA is empty')
  		}else{
  			n_hra = new_salary_slip_data.hra
  		}
 
- 		if( typeof new_salary_slip_data.loan == 'undefined' || new_salary_slip_data.loan == '' ){ 
+ 		if( typeof new_salary_slip_data.loan == 'undefined' || new_salary_slip_data.loan === '' ){ 
 			return Promise.reject('Loan is empty')
  		}else{
  			n_loan = new_salary_slip_data.loan 
  		}
 
- 		if( typeof new_salary_slip_data.conveyance == 'undefined' || new_salary_slip_data.conveyance == '' ){ 
+ 		if( typeof new_salary_slip_data.conveyance == 'undefined' || new_salary_slip_data.conveyance === '' ){ 
 			return Promise.reject('Conveyance is empty')
  		}else{
  			n_conveyance = new_salary_slip_data.conveyance 
  		}
 
- 		if( typeof new_salary_slip_data.advance == 'undefined' || new_salary_slip_data.advance == '' ){ 
+ 		if( typeof new_salary_slip_data.advance == 'undefined' || new_salary_slip_data.advance === '' ){ 
 			return Promise.reject('Advance is empty')
  		}else{
  			n_advance = new_salary_slip_data.advance 
  		}
  		
-		if( typeof new_salary_slip_data.medical_allowance == 'undefined' || new_salary_slip_data.medical_allowance == '' ){ 
+		if( typeof new_salary_slip_data.medical_allowance == 'undefined' || new_salary_slip_data.medical_allowance === '' ){ 
 			return Promise.reject('Medical allowance is empty')
  		}else{
  			n_medical_allowance = new_salary_slip_data.medical_allowance 
  		}
 
-        if( typeof new_salary_slip_data.misc_deduction == 'undefined' || new_salary_slip_data.misc_deduction == '' ){ 
+        if( typeof new_salary_slip_data.misc_deduction == 'undefined' || new_salary_slip_data.misc_deduction === '' ){ 
 			return Promise.reject('Advance is empty')
  		}else{
  			n_misc_deduction = new_salary_slip_data.misc_deduction 
  		}
 
-        if( typeof new_salary_slip_data.special_allowance == 'undefined' || new_salary_slip_data.special_allowance == '' ){ 
+        if( typeof new_salary_slip_data.special_allowance == 'undefined' || new_salary_slip_data.special_allowance === '' ){ 
 			return Promise.reject('Special allowance is empty')
  		}else{
  			n_special_allowance = new_salary_slip_data.special_allowance 
  		}
 
-        if( typeof new_salary_slip_data.tds == 'undefined' || new_salary_slip_data.tds == '' ){ 
+        if( typeof new_salary_slip_data.tds == 'undefined' || new_salary_slip_data.tds === '' ){ 
 			return Promise.reject('TDS is empty')
  		}else{
  			n_tds = new_salary_slip_data.tds 
  		}
 
-        if( typeof new_salary_slip_data.arrear == 'undefined' || new_salary_slip_data.arrear == '' ){ 
+        if( typeof new_salary_slip_data.arrear == 'undefined' || new_salary_slip_data.arrear === '' ){ 
 			return Promise.reject('Advance is empty')
  		}else{
  			n_arrear = new_salary_slip_data.arrear 
  		}
 
- 		if( typeof new_salary_slip_data.bonus == 'undefined' || new_salary_slip_data.bonus == '' ){ 
+ 		if( typeof new_salary_slip_data.bonus == 'undefined' || new_salary_slip_data.bonus === '' ){ 
 			return Promise.reject('Bonus is empty')
  		}else{
  			n_bonus = new_salary_slip_data.bonus 
  		}
 
 	        
-        if( typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning == '' ){ 
+        if( typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning === '' ){ 
 			return Promise.reject('Total earning is empty')
  		}else{
  			n_total_earning = new_salary_slip_data.total_earning 
  		}
         
-        if( typeof new_salary_slip_data.total_deduction == 'undefined' || new_salary_slip_data.total_deduction == '' ){ 
+        if( typeof new_salary_slip_data.total_deduction == 'undefined' || new_salary_slip_data.total_deduction === '' ){ 
 			return Promise.reject('Total deduction is empty')
  		}else{
  			n_total_deduction = new_salary_slip_data.n_total_deduction 
  		}
 
-        if( typeof new_salary_slip_data.net_salary == 'undefined' || new_salary_slip_data.net_salary == '' ){ 
+        if( typeof new_salary_slip_data.net_salary == 'undefined' || new_salary_slip_data.net_salary === '' ){ 
 			return Promise.reject('Net salary is empty')
  		}else{
  			n_net_salary = new_salary_slip_data.net_salary 

@@ -65,7 +65,7 @@ export function error_create_user_salary_slip( data ){
 
 function async_create_user_payslip( n_userid,n_year,n_month,n_name,n_designation,n_joining_date,n_total_working_days,n_days_present,n_paid_leaves,n_unpaid_leaves,n_total_leave_taken,
         n_allocated_leaves,n_leave_balance,n_final_leave_balance,n_basic,n_epf,n_hra,n_loan,n_conveyance,n_advance,n_medical_allowance,n_misc_deduction,
-        n_special_allowance,n_tds,n_arrear,n_total_earning,n_total_deduction,n_net_salary ){
+        n_special_allowance,n_tds,n_arrear,n_bonus,n_total_earning,n_total_deduction,n_net_salary ){
 	return fireAjax( 'POST', '', {
 		action : 'create_employee_salary_slip',
 		user_id : n_userid,
@@ -93,6 +93,7 @@ function async_create_user_payslip( n_userid,n_year,n_month,n_name,n_designation
 		special_allowance : n_special_allowance,
 		tds : n_tds,
 		arrear : n_arrear,
+		bonus : n_bonus,
 		total_earning : n_total_earning,
 		total_deduction : n_total_deduction,
 		net_salary : n_net_salary
@@ -126,16 +127,11 @@ export function create_user_payslip(  new_salary_slip_data ){
         let n_special_allowance = ""
         let n_tds = ""
         let n_arrear = ""
+        let n_bonus = ""
         let n_total_earning = ""
         let n_total_deduction = ""
         let n_net_salary = ""
 
-
-        // n_userid,n_year,n_month,n_name,n_designation,n_joining_date,n_total_working_days,n_days_present,n_paid_leaves,n_unpaid_leaves,n_total_leave_taken,
-        // n_allocated_leaves,n_leave_balance,n_final_leave_balance,n_basic,n_epf,n_hra,n_loan,n_conveyance,n_advance,n_medical_allowance,n_misc_deduction,
-        // n_special_allowance,n_tds,n_arrear,n_total_earning,n_total_deduction,n_net_salary
-
-		
 
 		if( typeof new_salary_slip_data.user_id == 'undefined' || new_salary_slip_data.user_id == '' ){ 
 			return Promise.reject('User Id is empty')
@@ -286,7 +282,14 @@ export function create_user_payslip(  new_salary_slip_data ){
  		}else{
  			n_arrear = new_salary_slip_data.arrear 
  		}
-        
+
+ 		if( typeof new_salary_slip_data.bonus == 'undefined' || new_salary_slip_data.bonus == '' ){ 
+			return Promise.reject('Bonus is empty')
+ 		}else{
+ 			n_bonus = new_salary_slip_data.bonus 
+ 		}
+
+	        
         if( typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning == '' ){ 
 			return Promise.reject('Total earning is empty')
  		}else{
@@ -309,7 +312,7 @@ export function create_user_payslip(  new_salary_slip_data ){
 			dispatch( show_loading() ); // show loading icon
 			async_create_user_payslip(  n_userid,n_year,n_month,n_name,n_designation,n_joining_date,n_total_working_days,n_days_present,n_paid_leaves,n_unpaid_leaves,n_total_leave_taken,
         n_allocated_leaves,n_leave_balance,n_final_leave_balance,n_basic,n_epf,n_hra,n_loan,n_conveyance,n_advance,n_medical_allowance,n_misc_deduction,
-        n_special_allowance,n_tds,n_arrear,n_total_earning,n_total_deduction,n_net_salary ).then(
+        n_special_allowance,n_tds,n_arrear,n_bonus,n_total_earning,n_total_deduction,n_net_salary ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 

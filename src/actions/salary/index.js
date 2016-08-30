@@ -34,8 +34,9 @@ export function getSalaryDetails( ){
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 					if( typeof json.data != 'undefined' && typeof json.data.salary_details != 'undefind' && json.data.salary_details.length > 0 ){
-						let data = json.data.salary_details.reverse()
-						dispatch( success_salary_details( data ) )
+						//let data = json.data.salary_details.reverse()
+						//dispatch( success_salary_details( data ) )
+						dispatch( success_salary_details( json.data ))
 					}else{
 						dispatch( success_salary_details( [] ) )
 					}

@@ -60,6 +60,7 @@ class ManagePayslips extends React.Component {
       if( typeof props.managePayslips.user_payslip_history != 'undefined' ){
         s_user_payslip_history = props.managePayslips.user_payslip_history
       }
+
       this.setState({
         user_data_for_payslip : s_user_data_for_payslip,
         user_payslip_history : s_user_payslip_history

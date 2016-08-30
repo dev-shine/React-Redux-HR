@@ -143,6 +143,15 @@ class FormGeneratePaySlip extends React.Component {
           if( typeof d.days_present != 'undefined' ){
             days_present = d.days_present
           }
+          if( typeof d.net_salary != 'undefined' ){
+            net_salary = d.net_salary
+          }
+          if( typeof d.total_earning != 'undefined' ){
+            total_earning = d.total_earning
+          }
+          if( typeof d.total_deduction != 'undefined' ){
+            total_deduction = d.total_deduction
+          }
 
         }        
 
@@ -494,6 +503,19 @@ class FormGeneratePaySlip extends React.Component {
                   />
                 </div>
               </div>
+              <br/>
+              <br/>
+              <div className="row no-gutter p-t">
+                <div className="col-xs-6 p-r">Net Salary</div>
+                <div className="col-xs-6 p-r">
+                  <input
+                    type="text"
+                    value={this.state.net_salary}
+                    ref="net_salary" 
+                    onChange={ () => this.setState({ net_salary : this.refs.net_salary.value }) }
+                  />
+                </div>
+              </div>
             </div>
 
 
@@ -529,6 +551,17 @@ class FormGeneratePaySlip extends React.Component {
                     value={this.state.advance}
                     ref="advance" 
                     onChange={ () => this.setState({ advance : this.refs.advance.value }) }
+                  />
+                </div>
+              </div>
+              <div className="row no-gutter p-t">
+                <div className="col-xs-6 p-r">Misc Deductions</div>
+                <div className="col-xs-6 p-r">
+                  <input
+                    type="text"
+                    value={this.state.misc_deduction}
+                    ref="misc_deduction" 
+                    onChange={ () => this.setState({ misc_deduction : this.refs.misc_deduction.value }) }
                   />
                 </div>
               </div>

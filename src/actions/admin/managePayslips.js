@@ -68,6 +68,7 @@ export function error_create_user_salary_slip( data ){
 function async_create_user_payslip( n_userid,n_year,n_month,n_name,n_designation,n_joining_date,n_total_working_days,n_days_present,n_paid_leaves,n_unpaid_leaves,n_total_leave_taken,
         n_allocated_leaves,n_leave_balance,n_final_leave_balance,n_basic,n_epf,n_hra,n_loan,n_conveyance,n_advance,n_medical_allowance,n_misc_deduction,
         n_special_allowance,n_tds,n_arrear,n_bonus,n_total_earning,n_total_deduction,n_net_salary ){
+	
 	return fireAjax( 'POST', '', {
 		action : 'create_employee_salary_slip',
 		user_id : n_userid,
@@ -301,7 +302,7 @@ export function create_user_payslip(  new_salary_slip_data ){
         if( typeof new_salary_slip_data.total_deduction == 'undefined' || new_salary_slip_data.total_deduction === '' ){ 
 			return Promise.reject('Total deduction is empty')
  		}else{
- 			n_total_deduction = new_salary_slip_data.n_total_deduction 
+ 			n_total_deduction = new_salary_slip_data.total_deduction 
  		}
 
         if( typeof new_salary_slip_data.net_salary == 'undefined' || new_salary_slip_data.net_salary === '' ){ 

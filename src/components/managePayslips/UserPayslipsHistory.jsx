@@ -17,7 +17,7 @@ class UserPayslipsHistory extends React.Component {
         return (
           <div className="sl-item b-info"  key={k} >
             <div className="sl-content">
-              <div className="sl-date text-muted">  <b>{d.month}</b></div>
+              <div className="sl-date text-muted">  <b>{d.month}, {d.year}</b></div>
               <div className="sl-date text-muted">  <b>{d.total_leave_taken}</b> : Total Leave Taken</div>
               <div className="sl-date text-muted">  <b>{d.leave_balance}</b> : Leave Balance</div>
               <div className="sl-date text-muted">  <b>{d.allocated_leaves} : Allocated Leaves</b></div>

@@ -35,7 +35,7 @@ class ManagePayslips extends React.Component {
 
         this.onUserClick = this.onUserClick.bind( this )
         this.callCreateUserPayslip = this.callCreateUserPayslip.bind( this )
-        this._emailPayslips = this._emailPayslips.bind( this )
+        this.callEmailPayslips = this.callEmailPayslips.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -106,7 +106,6 @@ class ManagePayslips extends React.Component {
         this.props.onUserManagePayslipsData( userid )
     }
     
-
     callCreateUserPayslip( payslipData  ){
       this.props.onCreateUserPayslip( payslipData ).then( 
         (data) => {
@@ -116,8 +115,18 @@ class ManagePayslips extends React.Component {
         })
     }
 
-    _emailPayslips(){
-      console.log('arun kumar')
+    callEmailPayslips( ids ){
+      if( ids.length == 0 ){
+        notify( "Select an employee!!!" );
+      }else{
+        //     this.props.onEmailPayslips( ids ).then( 
+        //   (data) => {
+        //     this.onUserClick( this.state.selected_user_id )
+        // },(error) => {
+        //   notify( error );
+        // })
+      }
+      
     }
 
     render(){
@@ -157,16 +166,14 @@ class ManagePayslips extends React.Component {
                   <div className="row">
                     <div className="col-md-2">
                       <div>
-                        <button 
-                          className="md-btn md-raised m-b-sm indigo"
-                          onClick={ this._emailPayslips }
-                        >Email Payslips</button>
+                        
                       </div>
                       <ManagePayslipsUsersList 
                         users = { this.props.usersList.users } 
                         selectedUserId={this.state.selected_user_id} 
                         onUserClick = { this.onUserClick }
                         all_users_latest_payslip = {this.state.all_users_latest_payslip}
+                        callEmailPayslips = {this.callEmailPayslips }
                         {...this.props } 
                       />
                     </div>

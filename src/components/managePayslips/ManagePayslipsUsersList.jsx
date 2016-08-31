@@ -4,7 +4,28 @@ import * as _ from 'lodash'
 class ManagePayslipsUsersList extends React.Component {
   constructor( props ){
     super( props );
+    this.state = {
+      'email_paylsips_ids' : []
+    }
+    this._select_payslips_to_email = this._select_payslips_to_email.bind(this)
   }
+  _select_payslips_to_email( e ){
+    let existing_email_paylsips_ids = this.state.email_paylsips_ids
+    let checked_payslip_id = e.target.value
+    let checked_status = e.target.checked
+
+    let new_email_paylsips_ids = existing_email_paylsips_ids
+
+    if( checked_status == true ){
+      new_email_paylsips_ids.push( checked_payslip_id )
+    }else{
+      _.pull( new_email_paylsips_ids, checked_payslip_id )
+    }
+    this.setState({
+      email_paylsips_ids : new_email_paylsips_ids
+    })
+  }
+
   render(){
     let usersList =  _.map( this.props.users , ( user, keyval ) => {
       let userid = user.user_Id
@@ -35,7 +56,13 @@ class ManagePayslipsUsersList extends React.Component {
         payslipGeneratedHtmlClass = styles.doneStatus
       }
       
-      let checkbox_send_email = <input type="checkbox" name="send_payslip_emails" value={userid} style={{'verticalAlign':'middle'}}/>
+      let checkbox_send_email = <input 
+        type="checkbox" 
+        name="send_payslip_emails" 
+        value={userid} 
+        style={{'verticalAlign':'middle'}}
+        onChange={ this._select_payslips_to_email }
+      />
       let email_to_user_statusHtmlClass = styles.pendingStatus      
       if( email_to_user_status == 1 ){
         email_to_user_statusHtmlClass = styles.doneStatus
@@ -67,6 +94,10 @@ class ManagePayslipsUsersList extends React.Component {
     return (
       <div className = "row">
         <div className="col-12">
+          <button 
+              className="md-btn md-raised m-b-sm indigo"
+              onClick={ () => ( this.props.callEmailPayslips( this.state.email_paylsips_ids ) ) }
+            >Email Payslips</button>
           <div className="box">
             <ul className="list no-border p-b">
               {usersList}

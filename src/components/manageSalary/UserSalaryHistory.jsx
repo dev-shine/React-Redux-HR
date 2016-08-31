@@ -28,6 +28,12 @@ class UserSalaryHistory extends React.Component {
 	                		<div>
 	                  			 <b>Rs.{d.test.total_salary} </b> 
 	                		</div>
+                      <div>
+                        <button 
+                          className="btn-sm btn-outline b-danger text-danger"
+                          onClick={ () => this.props.callDeleteUserSalary( d.test.user_Id, d.test.id ) }
+                        >Delete Salary</button>
+                      </div>
 	              		</div>
 	            	</div>
 			)

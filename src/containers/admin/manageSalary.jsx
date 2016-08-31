@@ -43,6 +43,7 @@ class ManageSalary extends React.Component {
         this.callAddUserSalary = this.callAddUserSalary.bind( this )
         this.callAddUserHolding = this.callAddUserHolding.bind( this )
         this.viewSalarySummary = this.viewSalarySummary.bind( this )
+        this.callDeleteUserSalary = this.callDeleteUserSalary.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -81,19 +82,17 @@ class ManageSalary extends React.Component {
 
 
       this.setState({
-          salary_history : s_salary_history,
-          user_latest_salary_details : s_user_latest_salary_details,
-          holding_history : s_holding_history,
-          user_latest_holding_details : s_user_latest_holding_details
-        })
+        salary_history : s_salary_history,
+        user_latest_salary_details : s_user_latest_salary_details,
+        holding_history : s_holding_history,
+        user_latest_holding_details : s_user_latest_holding_details
+      })
 
         
         
 
     }
     componentDidUpdate(){
-
-
       if( this.state.defaultUserDisplay  == '' ){
           if( this.props.usersList.users.length > 0 ){
               let firstUser = this.props.usersList.users[0]
@@ -155,6 +154,14 @@ class ManageSalary extends React.Component {
         'user_latest_salary_details' : new_details
       })
     }
+    callDeleteUserSalary( user_id, salary_id ){
+      this.props.onDeleteUserSalary( user_id, salary_id ).then( 
+        (data) => {
+          this.onUserClick( user_id )
+        },(error) => {
+          notify( error );
+        })
+    }
 
   	render(){
 
@@ -164,6 +171,7 @@ class ManageSalary extends React.Component {
           <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>
       }
 
+      
       let selectedUserId = ""
   		      
         let mainDivs = <div className="row">
@@ -195,7 +203,11 @@ class ManageSalary extends React.Component {
 					      <hr/>
 
 
-					      <UserSalaryHistory data={this.state.salary_history} viewSalarySummary={this.viewSalarySummary}/>
+					      <UserSalaryHistory 
+                  data={this.state.salary_history} 
+                  viewSalarySummary={this.viewSalarySummary}
+                  callDeleteUserSalary={this.callDeleteUserSalary}
+                />
 
 
 
@@ -237,7 +249,7 @@ class ManageSalary extends React.Component {
 
 		return(
     		<div>
-    			<Menu {...this.props }/>
+          <Menu {...this.props }/>
             <div id="content" className="app-content box-shadow-z0" role="main">
     				  
               <div className="app-header white box-shadow">
@@ -289,6 +301,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onAddNewHolding : ( new_holding_data ) => {
           return dispatch( actions_manageSalary.add_user_new_holding( new_holding_data  ))
+        },
+        onDeleteUserSalary : ( user_id, salary_id ) => {
+          return dispatch( actions_manageSalary.delete_user_salary( user_id, salary_id  ))
         }
     }
 }

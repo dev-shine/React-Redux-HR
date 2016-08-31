@@ -36,21 +36,36 @@ class FormGeneratePaySlip extends React.Component {
         bonus : "",
         total_earning : "",
         total_deduction : "",
-        net_salary : ""
+        net_salary : "",
       }
+    }
+    componentDidUpdate(){
+      let e_basic = this.state.basic
+      let e_hra = this.state.hra
+      let e_conveyance = this.state.conveyance
+      let e_medical_allowance = this.state.medical_allowance
+      let e_special_allowance = this.state.special_allowance
+      let e_arrear = this.state.arrear
+      let e_bonus = this.state.bonus
+      let n_total_earning = +e_basic + +e_hra + +e_conveyance + +e_medical_allowance + +e_special_allowance + +e_arrear + +e_bonus
 
-      this.handleApplicableFrom = this.handleApplicableFrom.bind( this )
-      this.handleApplicableTill = this.handleApplicableTill.bind( this )
-    }
-    handleApplicableFrom(date){
-      this.setState({
-        applicable_from : date
-      })
-    }
-    handleApplicableTill(date){
-      this.setState({
-        applicable_till : date
-      })
+      let e_epf = this.state.epf
+      let e_loan = this.state.loan
+      let e_advance = this.state.advance
+      let e_misc_deduction = this.state.misc_deduction
+      let e_tds = this.state.tds
+      let n_total_deduction = +e_epf + +e_loan + +e_advance + +e_misc_deduction + +e_tds
+
+      let n_net_salary = n_total_earning - n_total_deduction
+
+      if( n_net_salary != this.state.net_salary ){
+        this.setState({
+          total_earning : n_total_earning,
+          total_deduction : n_total_deduction,
+          net_salary : n_net_salary
+        })
+      }
+        
     }
     
     componentWillReceiveProps( props ){
@@ -60,14 +75,14 @@ class FormGeneratePaySlip extends React.Component {
       let name = ""
       let designation = ""
       let joining_date = ""
-      let total_working_days = ""
-      let days_present = ""
-      let paid_leaves = ""
-      let unpaid_leaves = ""
-      let total_leave_taken = ""
-      let allocated_leaves = ""
-      let leave_balance = ""
-      let final_leave_balance = ""
+      let total_working_days = 0
+      let days_present = 0
+      let paid_leaves = 0
+      let unpaid_leaves = 0
+      let total_leave_taken = 0
+      let allocated_leaves = 0
+      let leave_balance = 0
+      let final_leave_balance = 0
       let basic = 0
       let epf = 0
       let hra = 0
@@ -260,67 +275,37 @@ class FormGeneratePaySlip extends React.Component {
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Employee Name</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.name}
-                    ref="name" 
-                    onChange={ () => this.setState({ name : this.refs.name.value }) }
-                  />
+                  {this.state.name}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Designation</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.designation}
-                    ref="designation" 
-                    onChange={ () => this.setState({ designation : this.refs.designation.value }) }
-                  />
+                  {this.state.designation}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Total Working Days</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.total_working_days}
-                    ref="total_working_days" 
-                    onChange={ () => this.setState({ total_working_days : this.refs.total_working_days.value }) }
-                  />
+                  {this.state.total_working_days}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Paid Leave Taken</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.paid_leaves}
-                    ref="paid_leaves" 
-                    onChange={ () => this.setState({ paid_leaves : this.refs.paid_leaves.value }) }
-                  />
+                  {this.state.paid_leaves}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Total Leave Taken</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.total_leave_taken}
-                    ref="total_leave_taken" 
-                    onChange={ () => this.setState({ total_leave_taken : this.refs.total_leave_taken.value }) }
-                  />
+                  {this.state.total_leave_taken}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Previous Leave Balance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.leave_balance}
-                    ref="leave_balance" 
-                    onChange={ () => this.setState({ leave_balance : this.refs.leave_balance.value }) }
-                  />
+                  {this.state.leave_balance}
                 </div>
               </div>
             </div>
@@ -354,56 +339,31 @@ class FormGeneratePaySlip extends React.Component {
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Joining Date</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.joining_date}
-                    ref="joining_date" 
-                    onChange={ () => this.setState({ joining_date : this.refs.joining_date.value }) }
-                  />
+                  {this.state.joining_date}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Days Present</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.days_present}
-                    ref="days_present" 
-                    onChange={ () => this.setState({ days_present : this.refs.days_present.value }) }
-                  />
+                  {this.state.days_present}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Leave Without Pay</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.unpaid_leaves}
-                    ref="unpaid_leaves" 
-                    onChange={ () => this.setState({ unpaid_leaves : this.refs.unpaid_leaves.value }) }
-                  />
+                  {this.state.unpaid_leaves}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Leave Accumulated</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.allocated_leaves}
-                    ref="allocated_leaves" 
-                    onChange={ () => this.setState({ allocated_leaves : this.refs.allocated_leaves.value }) }
-                  />
+                  {this.state.allocated_leaves}
                 </div>
               </div>
               <div className="row no-gutter p-t">
                 <div className="col-xs-6 p-r">Final Leave Balance</div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.final_leave_balance}
-                    ref="final_leave_balance" 
-                    onChange={ () => this.setState({ final_leave_balance : this.refs.final_leave_balance.value }) }
-                  />
+                  {this.state.final_leave_balance}
                 </div>
               </div>
             </div>
@@ -463,27 +423,17 @@ class FormGeneratePaySlip extends React.Component {
                 </div>
               </div>
               <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Total Earnings</div>
+                <div className="col-xs-6 p-r"><h5>Total Earnings</h5></div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.total_earning}
-                    ref="total_earning" 
-                    onChange={ () => this.setState({ total_earning : this.refs.total_earning.value }) }
-                  />
+                  <h5>{this.state.total_earning}</h5>
                 </div>
               </div>
               <br/>
               <br/>
               <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Net Salary</div>
+                <div className="col-xs-6 p-r"><h3>Net Salary</h3></div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.net_salary}
-                    ref="net_salary" 
-                    onChange={ () => this.setState({ net_salary : this.refs.net_salary.value }) }
-                  />
+                  <h3>{this.state.net_salary}</h3>
                 </div>
               </div>
             </div>
@@ -527,14 +477,9 @@ class FormGeneratePaySlip extends React.Component {
                 </div>
               </div>
               <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Total Deductions</div>
+                <div className="col-xs-6 p-r"><h5>Total Deductions</h5></div>
                 <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.total_deduction}
-                    ref="total_deduction" 
-                    onChange={ () => this.setState({ total_deduction : this.refs.total_deduction.value }) }
-                  />
+                  <h5>{this.state.total_deduction}</h5>
                 </div>
               </div>
             </div>

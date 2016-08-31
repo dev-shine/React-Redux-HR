@@ -14,7 +14,7 @@ import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
 
-import UsersList from '../../components/attendance/UsersList'
+import ManagePayslipsUsersList from '../../components/managePayslips/ManagePayslipsUsersList'
 import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
 import FormGeneratePaySlip from '../../components/managePayslips/FormGeneratePaySlip'
 
@@ -35,6 +35,7 @@ class ManagePayslips extends React.Component {
 
         this.onUserClick = this.onUserClick.bind( this )
         this.callCreateUserPayslip = this.callCreateUserPayslip.bind( this )
+        this._emailPayslips = this._emailPayslips.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -53,6 +54,7 @@ class ManagePayslips extends React.Component {
       //////////////////
       let s_user_data_for_payslip = {}
       let s_user_payslip_history = []
+      let s_all_users_latest_payslip = []
 
       if( typeof props.managePayslips.user_data_for_payslip != 'undefined' ){
         s_user_data_for_payslip = props.managePayslips.user_data_for_payslip
@@ -60,10 +62,14 @@ class ManagePayslips extends React.Component {
       if( typeof props.managePayslips.user_payslip_history != 'undefined' ){
         s_user_payslip_history = props.managePayslips.user_payslip_history
       }
+      if( typeof props.managePayslips.all_users_latest_payslip != 'undefined' ){
+        s_all_users_latest_payslip = props.managePayslips.all_users_latest_payslip
+      }
 
       this.setState({
         user_data_for_payslip : s_user_data_for_payslip,
-        user_payslip_history : s_user_payslip_history
+        user_payslip_history : s_user_payslip_history,
+        all_users_latest_payslip : s_all_users_latest_payslip
       })
     }
     componentDidUpdate(){
@@ -110,6 +116,10 @@ class ManagePayslips extends React.Component {
         })
     }
 
+    _emailPayslips(){
+      console.log('arun kumar')
+    }
+
     render(){
 
       let status_message = ""
@@ -146,7 +156,19 @@ class ManagePayslips extends React.Component {
                   
                   <div className="row">
                     <div className="col-md-2">
-                      <UsersList users = { this.props.usersList.users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props } />
+                      <div>
+                        <button 
+                          className="md-btn md-raised m-b-sm indigo"
+                          onClick={ this._emailPayslips }
+                        >Email Payslips</button>
+                      </div>
+                      <ManagePayslipsUsersList 
+                        users = { this.props.usersList.users } 
+                        selectedUserId={this.state.selected_user_id} 
+                        onUserClick = { this.onUserClick }
+                        all_users_latest_payslip = {this.state.all_users_latest_payslip}
+                        {...this.props } 
+                      />
                     </div>
                     <div className="col-md-10">
                       

@@ -30,58 +30,27 @@ class SalaryDetails extends React.Component {
     	
     	return (
     		<div>
-
-
-
+    			<hr/>
     			<div className="row">
-				    <div className="col-xs-4 col-sm-4">
-				          <div className="box p-a">
-				            <div className="pull-left m-r">
-				              <span className="w-48 rounded  accent">
-				                <i className="material-icons"></i>
-				              </span>
-				            </div>
-				            <div className="clear">
-				              <h4 className="m-a-0 text-lg _300">
-				              {F_total_salary} <span className="text-sm"> </span></h4>
-				              <small className="text-muted"> Total Salary  </small>
-				            </div>
-				          </div>
-				      </div>
-				      <div className="col-xs-4 col-sm-4">
-				          <div className="box p-a">
-				            <div className="pull-left m-r">
-				              <span className="w-48 rounded primary">
-				                <i className="material-icons"></i>
-				              </span>
-				            </div>
-				            <div className="clear">
-				              <h4 className="m-a-0 text-lg _300">
-				              {F_leaves_allocated}<span className="text-sm"></span></h4>
-				              <small className="text-muted">Leaves Allocated</small>
-				            </div>
-				          </div>
-				      </div>
-				      <div className="col-xs-44 col-sm-4">
-				          <div className="box p-a">
-				            <div className="pull-left m-r">
-				              <span className="w-48 rounded warn">
-				                <i className="material-icons"></i>
-				              </span>
-				            </div>
-				            <div className="clear">
-				              <h4 className="m-a-0 text-lg _300">
-				              {F_applicable_from} <span className="text-sm"></span></h4>
-				              <small className="text-muted">Applicable From</small>
-				            </div>
-				          </div>
-				      </div>
-				  </div>
+    				<div className="col-xs-12">
+    					<div className="p-y text-center text-sm-left">
+				          <a href="" className="inline p-x text-center">
+				            <span className="h4 block m-a-0">{F_total_salary}</span>
+				            <small className="text-xs text-muted">Total Salary</small>
+				          </a>
+				          <a href="" className="inline p-x b-l b-r text-center">
+				            <span className="h4 block m-a-0">{F_leaves_allocated}</span>
+				            <small className="text-xs text-muted">Leaves Allocated</small>
+				          </a>
+				          <a href="" className="inline p-x text-center">
+				            <span className="h4 block m-a-0">{F_applicable_from}</span>
+				            <small className="text-xs text-muted">Applicable From</small>
+				          </a>
+				        </div>
+    				</div>
+    			</div>
 
-				  <hr/>
-
-
-
+				<hr/>
 
 
 	      		<div className="row">

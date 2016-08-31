@@ -13,6 +13,7 @@ import * as actions_salary from '../../actions/salary/index'
 
 import SalaryDetails from '../../components/salary/SalaryDetails'
 import SalaryHistory from '../../components/salary/SalaryHistory'
+import PayslipHistory from '../../components/salary/PayslipHistory'
 
 class Salary extends React.Component {
     constructor( props ){
@@ -24,7 +25,8 @@ class Salary extends React.Component {
         this.state = {
           view_salary_id : false,
           salary_details : {},
-          salary_history : []
+          salary_history : [],
+          payslip_history : [],
         }
     }
     componentDidMount(){
@@ -43,17 +45,27 @@ class Salary extends React.Component {
             }
         }
 
+        let s_salary_details = {}
+        let s_salary_history = []
+        let s_payslip_history = []
+
 
         if( this.state.view_salary_id == false  ){
           if( typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0 ){
             let viewSalaryInfo = props.salary.salary_history[0]
-            this.setState({
-              'salary_details' : viewSalaryInfo,
-              'salary_history' : props.salary.salary_history
-            })
+            s_salary_details = viewSalaryInfo
+            s_salary_history = props.salary.salary_history
+          }
+          if( typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0 ){
+            s_payslip_history = props.salary.payslip_history
           }
         }
         
+        this.setState({
+          salary_details : s_salary_details,
+          salary_history : s_salary_history,
+          payslip_history : s_payslip_history
+        })
         
     }
     viewSalarySummary( id ){
@@ -104,19 +116,24 @@ class Salary extends React.Component {
 
 
                     <div className="row">
-                      <div className="col-sm-8">
+                      
+                      <div className="col-sm-6">
                         <h6>Salary Details</h6>
-
                         <SalaryDetails data={this.state.salary_details} />
                       </div>
 
-                      <div className="col-sm-4">
+                      <div className="col-sm-3 b-l">
                         <h6>Salary Revisions</h6>
-
-                        
+                        <hr/>
                         <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary}/>
+                      </div>
 
-
+                      <div className="col-sm-3 b-l">
+                        <h6>Previous Payslips</h6>
+                        <hr/>
+                        <PayslipHistory 
+                          payslip_history={this.state.payslip_history}
+                        />
                       </div>
 
                      </div>

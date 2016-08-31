@@ -32,7 +32,7 @@ export function get_user_salary_details( userid ){
 			async_get_user_salary_details( userid ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
-					if( typeof json.data != 'undefined' && typeof json.data.salary_details != 'undefind' && json.data.salary_details.length > 0 ){
+					if( typeof json.data != 'undefined' && typeof json.data.salary_details != 'undefined' && json.data.salary_details.length > 0 ){
 						//let data = json.data.salary_details.reverse()
 						let data = json.data
 						dispatch( success_user_salary_details( data ) )
@@ -271,6 +271,54 @@ export function add_user_new_holding( data ){
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_add_user_holding( 'error occurs'  ) )
+				}
+			)
+		})
+	}
+}
+
+////---------------
+export const ACTION_SUCCESS_DELETE_USER_SALARY = "ACTION_SUCCESS_DELETE_USER_SALARY"
+export const ACTION_ERROR_DELETE_USER_SALARY = "ACTION_ERROR_DELETE_USER_SALARY"
+
+
+export function success_delete_user_salary( data ){
+	return createAction( ACTION_SUCCESS_DELETE_USER_SALARY )( data )
+}
+
+export function error_delete_user_salary( data ){
+	return createAction( ACTION_ERROR_DELETE_USER_SALARY )( data )
+}
+
+function async_delete_user_salary( user_id, salary_id ){
+	return fireAjax( 'GET', '', {
+		action : 'delete_salary',
+		user_id : user_id,
+		salary_id : salary_id
+	})
+}
+
+export function delete_user_salary( user_id, salary_id ){
+	return function ( dispatch, getState ){
+
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_delete_user_salary( user_id, salary_id ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( typeof json.error != 'undefined' && json.error == 0 ){
+						let message = json.data.message
+						dispatch( success_delete_user_salary( message ) )
+						resolve( message )
+					}else{
+						dispatch( error_delete_user_salary( 'error' ) )
+						reject( 'error occurs')
+					}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_delete_user_salary( 'error'  ) )
+					reject( 'error occurs')
 				}
 			)
 		})

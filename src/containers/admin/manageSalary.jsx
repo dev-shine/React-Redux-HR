@@ -42,6 +42,7 @@ class ManageSalary extends React.Component {
         this.onUserClick = this.onUserClick.bind( this )
         this.callAddUserSalary = this.callAddUserSalary.bind( this )
         this.callAddUserHolding = this.callAddUserHolding.bind( this )
+        this.viewSalarySummary = this.viewSalarySummary.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -143,6 +144,17 @@ class ManageSalary extends React.Component {
             notify( error );
         }) 
     }
+    viewSalarySummary( id ){
+      let new_details = this.state.salary_details
+      _.forEach( this.state.salary_history, ( d, k )=> {
+        if( d.test.id == id ){
+          new_details = d
+        }
+      })
+      this.setState({
+        'user_latest_salary_details' : new_details
+      })
+    }
 
   	render(){
 
@@ -183,7 +195,7 @@ class ManageSalary extends React.Component {
 					      <hr/>
 
 
-					      <UserSalaryHistory data={this.state.salary_history}/>
+					      <UserSalaryHistory data={this.state.salary_history} viewSalarySummary={this.viewSalarySummary}/>
 
 
 

@@ -54,39 +54,39 @@ class Menu extends React.Component {
 
 
       let links_to_show = <ul className="nav" >
-        <li className="hidden-folded" ><span className="nav-text">{link_my_calendar}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_apply_leave}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_my_leaves}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_salary}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_my_profile}</span></li>
-        <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
+        <li className="hidden-folded" ><span >{link_my_calendar}</span></li>
+        <li className="hidden-folded" ><span >{link_apply_leave}</span></li>
+        <li className="hidden-folded" ><span >{link_holidays}</span></li>
+        <li className="hidden-folded" ><span >{link_my_leaves}</span></li>
+        <li className="hidden-folded" ><span >{link_salary}</span></li>
+        <li className="hidden-folded" ><span >{link_my_profile}</span></li>
+        <li className="hidden-folded" ><span >{link_logout}</span></li>
       </ul>
 
       if( this.props.logged_user.role == 'Admin'){
           links_to_show = <ul className="nav" >
-            <li className="hidden-folded" ><span className="nav-text">{link_users_list}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_leaves}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_user_working_hours}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_leaves_summary}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_salary}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_users}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_clients}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_payslips}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
+            <li className="hidden-folded" ><span>{link_users_list}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
+            <li className="hidden-folded" ><span>{link_holidays}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_salary}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_users}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_clients}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_payslips}</span></li>
+            <li className="hidden-folded" ><span>{link_logout}</span></li>
 
           </ul>                          
       }else if( this.props.logged_user.role == 'Guest' ){
           links_to_show = <ul className="nav" >
-            <li className="hidden-folded" ><span className="nav-text">{link_users_list}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_leaves}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_manage_user_working_hours}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_leaves_summary}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_holidays}</span></li>
-            <li className="hidden-folded" ><span className="nav-text">{link_logout}</span></li>
+            <li className="hidden-folded" ><span>{link_users_list}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
+            <li className="hidden-folded" ><span>{link_holidays}</span></li>
+            <li className="hidden-folded" ><span>{link_logout}</span></li>
 
           </ul>                          
       }

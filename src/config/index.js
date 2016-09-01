@@ -10,5 +10,6 @@ export const CONFIG = {
 	// other_api_url : 'http://excellencemagentoblog.com/slack/attendance/sal_info/api.php',
 	// api_url_salary : 'http://excellencemagentoblog.com/slack/attendance/sal_info/salary_info.php',
 	
-	jwt_secret_key : 'HR_APP'
+	jwt_secret_key : 'HR_APP',
+	google_login_btn_page_url : "http://excellencemagentoblog.com/slack_dev/attendance/sal_info/google-api/examples/"
 }

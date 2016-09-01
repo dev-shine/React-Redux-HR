@@ -1,14 +1,32 @@
 import React from 'react';
 import * as _ from 'lodash'
 
+import { CONFIG } from '../../config/index'
+
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 class ManagePayslipsUsersList extends React.Component {
   constructor( props ){
     super( props );
     this.state = {
-      'email_paylsips_ids' : []
+      'email_paylsips_ids' : [],
+      'openIframe': false,
     }
     this._select_payslips_to_email = this._select_payslips_to_email.bind(this)
+    this.handleOpenIframe = this.handleOpenIframe.bind( this )
+    this.handleCloseIframe = this.handleCloseIframe.bind( this )
   }
+  handleOpenIframe(){
+    this.setState({openIframe: true});
+  };
+
+  handleCloseIframe(){
+    this.setState({openIframe: false});
+  };
+
   _select_payslips_to_email( e ){
     let existing_email_paylsips_ids = this.state.email_paylsips_ids
     let checked_payslip_id = e.target.value
@@ -68,6 +86,10 @@ class ManagePayslipsUsersList extends React.Component {
         email_to_user_statusHtmlClass = styles.doneStatus
         checkbox_send_email = ""
       }
+      if( payslipGenerated == 0 ){
+        // if payslip is not generated then there is no option to send email
+        checkbox_send_email = "" 
+      }
       //---
 
       return (
@@ -94,6 +116,24 @@ class ManagePayslipsUsersList extends React.Component {
     return (
       <div className = "row">
         <div className="col-12">
+
+          <RaisedButton label="Paylslip Drive Google Login" onTouchTap={this.handleOpenIframe} />
+          <Dialog
+            title="Google authentication for drive"
+            modal={false}
+            open={this.state.openIframe}
+            onRequestClose={this.handleCloseIframe}
+            contentStyle={{'width':'80%'}}
+          >
+           <iframe
+              ref="myIframe"
+              src= {CONFIG.google_login_btn_page_url}
+              style={{'width':'100%','height':'300px'}}
+            >
+            </iframe>
+          </Dialog>
+          <br/>
+          <br/>
           <button 
               className="md-btn md-raised m-b-sm indigo"
               onClick={ () => ( this.props.callEmailPayslips( this.state.email_paylsips_ids ) ) }

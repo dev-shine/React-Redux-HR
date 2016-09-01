@@ -114,6 +114,8 @@
     "react-date-picker": "^5.3.28",
     "react-date-range": "^0.2.4",
     "react-dom": "^15.0.0",
+    "react-google-login": "^2.3.2",
+    "react-google-login-component": "^0.5.2",
     "react-redux": "^4.0.0",
     "react-router": "^2.2.0",
     "react-router-redux": "^4.0.0",

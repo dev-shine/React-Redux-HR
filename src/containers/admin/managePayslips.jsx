@@ -36,6 +36,7 @@ class ManagePayslips extends React.Component {
         this.onUserClick = this.onUserClick.bind( this )
         this.callCreateUserPayslip = this.callCreateUserPayslip.bind( this )
         this.callEmailPayslips = this.callEmailPayslips.bind( this )
+        this.responseGoogle = this.responseGoogle.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -129,6 +130,23 @@ class ManagePayslips extends React.Component {
       }
       
     }
+    responseGoogle( response ){
+      let accessToken = response.getAuthResponse().access_token;
+      if( accessToken == ''){
+        notify( "Access token is empty!!!" );
+      }else{
+        this.props.onSaveGoogleAccessToken( accessToken ).then( 
+          (data) => {
+            notify( data );
+          },(error) => {
+            notify( error );
+        })
+      }
+
+      console.log( accessToken );
+      console.log( 'arun')
+      console.log( response )
+    }
 
     render(){
       let status_message = ""
@@ -158,9 +176,6 @@ class ManagePayslips extends React.Component {
                   
                   <div className="row">
                     <div className="col-md-2">
-                      <div>
-                        
-                      </div>
                       <ManagePayslipsUsersList 
                         users = { this.props.usersList.users } 
                         selectedUserId={this.state.selected_user_id} 
@@ -232,6 +247,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onEmailPayslips : ( payslips_ids ) => {
           return dispatch( actions_managePayslips.email_payslips( payslips_ids ) )
+        },
+        onSaveGoogleAccessToken : ( accessToken ) => {
+          return dispatch( actions_managePayslips.save_google_access_token( accessToken ) )
         }
     }
 }

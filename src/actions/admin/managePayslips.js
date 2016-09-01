@@ -353,7 +353,7 @@ export function error_email_payslips( data ){
 }
 
 function async_email_payslips( payslips_ids ){
-	return fireAjax( 'GET', '', {
+	return fireAjax( 'POST', '', {
 		action : 'send_payslips_to_employees',
 		payslip_ids : payslips_ids
 	})
@@ -381,6 +381,60 @@ export function email_payslips( payslips_ids ){
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_email_payslips( 'error occurs!!'  ) )
+					reject('error occurs!!')
+				}
+			)
+		})
+	}
+}
+
+
+
+
+//------save google access token
+
+
+export const ACTION_SUCCESS_SAVE_GOOGLE_ACCESS_TOKEN = "ACTION_SUCCESS_SAVE_GOOGLE_ACCESS_TOKEN"
+export const ACTION_ERROR_SAVE_GOOGLE_ACCESS_TOKEN = "ACTION_ERROR_SAVE_GOOGLE_ACCESS_TOKEN"
+
+
+export function success_save_google_access_token( data ){
+	return createAction( ACTION_SUCCESS_SAVE_GOOGLE_ACCESS_TOKEN )( data )
+}
+
+export function error_save_google_access_token( data ){
+	return createAction( ACTION_ERROR_SAVE_GOOGLE_ACCESS_TOKEN )( data )
+}
+
+function async_save_google_access_token( accessToken ){
+	return fireAjax( 'POST', '', {
+		action : 'save_google_payslip_drive_access_token',
+		google_access_token : accessToken
+	})
+}
+
+export function save_google_access_token( accessToken ){
+	return function ( dispatch, getState ){
+
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_save_google_access_token( accessToken ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( typeof json.error != 'undefined' && json.error == 0 ){
+						//let data = json.data.salary_details.reverse()
+						let message = json.data.message
+						dispatch( success_save_google_access_token( message ) )
+						resolve(message)
+					}else{
+						dispatch( error_save_google_access_token( 'error occurs!!' ) )
+						reject('error occurs!!')
+					}
+					
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_save_google_access_token( 'error occurs!!'  ) )
 					reject('error occurs!!')
 				}
 			)

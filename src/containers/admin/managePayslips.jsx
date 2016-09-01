@@ -119,29 +119,22 @@ class ManagePayslips extends React.Component {
       if( ids.length == 0 ){
         notify( "Select an employee!!!" );
       }else{
-        //     this.props.onEmailPayslips( ids ).then( 
-        //   (data) => {
-        //     this.onUserClick( this.state.selected_user_id )
-        // },(error) => {
-        //   notify( error );
-        // })
+        this.props.onEmailPayslips( ids ).then( 
+        (data) => {
+            this.props.onUsersList()
+        },(error) => {
+            notify( error );
+        })
+
       }
       
     }
 
     render(){
-
       let status_message = ""
-      // if( this.props.manageSalary.status_message != '' ){
-      //   status_message = <span className="label label-lg primary pos-rlt m-r-xs">
-      //     <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>
-      // }
-
       let selectedUserId = ""
-     
-       
 
-    return(
+      return(
         <div>
           <Menu {...this.props }/>
             <div id="content" className="app-content box-shadow-z0" role="main">
@@ -236,6 +229,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onCreateUserPayslip : ( payslipData ) => {
           return dispatch( actions_managePayslips.create_user_payslip( payslipData ) )
+        },
+        onEmailPayslips : ( payslips_ids ) => {
+          return dispatch( actions_managePayslips.email_payslips( payslips_ids ) )
         }
     }
 }

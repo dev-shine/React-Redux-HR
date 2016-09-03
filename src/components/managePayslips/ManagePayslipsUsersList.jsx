@@ -45,8 +45,10 @@ class ManagePayslipsUsersList extends React.Component {
   }
 
   render(){
-    let usersList =  _.map( this.props.users , ( user, keyval ) => {
+      let usersList =  _.map( this.props.users , ( user, keyval ) => {
       let userid = user.user_Id
+
+      let generatedPayslipIdToEmail = ""
 
       let payslipGenerated = 0
       let email_to_user_status = 0
@@ -57,6 +59,12 @@ class ManagePayslipsUsersList extends React.Component {
           if( typeof findUser.status != 'undefined' ){
             email_to_user_status = findUser.status
           }
+
+          if( typeof findUser.id != 'undefined' && generatedPayslipIdToEmail == '' ){
+            generatedPayslipIdToEmail = findUser.id
+          }
+
+          
         }
       }
       let selectedUserId = this.props.selectedUserId
@@ -77,7 +85,7 @@ class ManagePayslipsUsersList extends React.Component {
       let checkbox_send_email = <input 
         type="checkbox" 
         name="send_payslip_emails" 
-        value={userid} 
+        value={generatedPayslipIdToEmail} 
         style={{'verticalAlign':'middle'}}
         onChange={ this._select_payslips_to_email }
       />

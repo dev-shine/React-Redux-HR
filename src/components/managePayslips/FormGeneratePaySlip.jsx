@@ -135,16 +135,16 @@ class FormGeneratePaySlip extends React.Component {
 
           //total_leave_taken
 
-          if( typeof d.total_leave_taken != 'undefined' ){
+          if( typeof d.total_leave_taken != 'undefined' &&  d.total_leave_taken != null ){
             total_leave_taken = d.total_leave_taken
           }
-          if( typeof d.leave_balance != 'undefined' ){
+          if( typeof d.leave_balance != 'undefined' && d.leave_balance != null ){
             leave_balance = d.leave_balance
           }
-          if( typeof d.paid_leaves != 'undefined' ){
+          if( typeof d.paid_leaves != 'undefined' && d.paid_leaves != null){
             paid_leaves = d.paid_leaves
           }
-          if( typeof d.final_leave_balance != 'undefined' ){
+          if( typeof d.final_leave_balance != 'undefined' && d.final_leave_balance != null ){
             final_leave_balance = d.final_leave_balance
           }
           

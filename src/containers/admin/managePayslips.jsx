@@ -122,6 +122,7 @@ class ManagePayslips extends React.Component {
       }else{
         this.props.onEmailPayslips( ids ).then( 
         (data) => {
+            notify( data );
             this.props.onUsersList()
         },(error) => {
             notify( error );
@@ -142,10 +143,6 @@ class ManagePayslips extends React.Component {
             notify( error );
         })
       }
-
-      console.log( accessToken );
-      console.log( 'arun')
-      console.log( response )
     }
 
     render(){

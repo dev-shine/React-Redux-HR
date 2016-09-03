@@ -323,14 +323,14 @@ export function create_user_payslip(  new_salary_slip_data ){
 						dispatch( success_create_user_salary_slip( json.data ) )
 		        		resolve(1)
 		          	}else{
-			            dispatch( error_create_user_salary_slip( json.error[0] ) )
-			            resolve(0)
+			            dispatch( error_create_user_salary_slip( json.data.message ) )
+			            reject(json.data.message)
 		          	}
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_create_user_salary_slip( 'error occurs'  ) )
-					resolve(0)
+					reject(0)
 				}
 			)
 		})

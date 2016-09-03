@@ -251,16 +251,14 @@ class FormGeneratePaySlip extends React.Component {
       let date = this.state.applicable_from
 
       return (
-        <div className="row no-gutter">
-
-          <div className="row no-gutter">
-            
-            <div className="col-xs-6 p-r">
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Year</div>
-                <div className="col-xs-6 p-r">
-
-                  <select ref="year" value={this.state.year} onChange={ (e) => this.setState({ year : this.refs.year.value }) }>
+        <div>
+          <div className="box">
+            <table className="table">
+          <tbody>
+            <tr>
+              <td>Year</td>
+              <td>
+                <select ref="year" value={this.state.year} onChange={ (e) => this.setState({ year : this.refs.year.value }) }>
                     <option value=''>--Select Year--</option>
                     <option value='2016'>2016</option>
                     <option value='2017'>2017</option>
@@ -268,56 +266,9 @@ class FormGeneratePaySlip extends React.Component {
                     <option value='2019'>2019</option>
                     <option value='2020'>2021</option>
                   </select>
-                  
-                </div>
-              </div>
-              
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Employee Name</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.name}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Designation</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.designation}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Total Working Days</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.total_working_days}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Paid Leave Taken</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.paid_leaves}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Total Leave Taken</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.total_leave_taken}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Previous Leave Balance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.leave_balance}
-                </div>
-              </div>
-            </div>
-
-
-            <div className="col-xs-6 p-r">
-
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Month</div>
-                <div className="col-xs-6 p-r">
-
-                  <select ref="month" value={this.state.month} onChange={ (e) => this.setState({ month : this.refs.month.value }) }>
+              </td>
+              <td>Month</td>
+              <td><select ref="month" value={this.state.month} onChange={ (e) => this.setState({ month : this.refs.month.value }) }>
                     <option value=''>--Select Month--</option>
                     <option value='01'>Janaury</option>
                     <option value='02'>February</option>
@@ -331,166 +282,159 @@ class FormGeneratePaySlip extends React.Component {
                     <option value='10'>October</option>
                     <option value='11'>November</option>
                     <option value='12'>December</option>
-                  </select>
-                </div>
-              </div>
+                  </select></td>
+            </tr>
+            <tr>
+              <td>Employee Name</td>
+              <td>{this.state.name}</td>
+              <td>Joining Date</td>
+              <td>{this.state.joining_date}</td>
+            </tr>
+            <tr>
+              <td>Designation</td>
+              <td>{this.state.designation}</td>
+              <td>Days Present</td>
+              <td>{this.state.days_present}</td>
+            </tr>
+            <tr>
+              <td>Total Working Days</td>
+              <td>{this.state.total_working_days}</td>
+              <td>Leave Without Pay</td>
+              <td>{this.state.unpaid_leaves}</td>
+            </tr>
+            <tr>
+              <td>Paid Leave Taken</td>
+              <td>{this.state.paid_leaves}</td>
+              <td>Leave Accumulated</td>
+              <td>{this.state.allocated_leaves}</td>
+            </tr>
+            <tr>
+              <td>Total Leave Taken</td>
+              <td>{this.state.total_leave_taken}</td>
+              <td>Final Leave Balance</td>
+              <td>{this.state.final_leave_balance}</td>
+            </tr>
+            <tr>
+              <td>Previous Leave Balance</td>
+              <td>{this.state.leave_balance}</td>
+              <td></td>
+              <td></td>
+            </tr>
 
+            <tr>
+              <td className="text-center"><b><u>Earnings</u></b></td>
+              <td></td>
+              <td className="text-center"><b><u>Deductions</u></b></td>
+              <td></td>
+            </tr>
 
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Joining Date</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.joining_date}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Days Present</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.days_present}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Leave Without Pay</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.unpaid_leaves}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Leave Accumulated</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.allocated_leaves}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Final Leave Balance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.final_leave_balance}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <br/>
-
-          <div className="row no-gutter">
+         
+            <tr>
+              <td>Basic</td>
+              <td>{this.state.basic}</td>
+              <td>EPF</td>
+              <td>{this.state.epf}</td>
+            </tr>
+            <tr>
+              <td>HRA</td>
+              <td>{this.state.hra}</td>
+              <td>Loan</td>
+              <td>{this.state.loan}</td>
+            </tr>
             
-            <div className="col-xs-6 p-r">
-              <h6 className="text-center"><u>Earnings</u></h6>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Basic</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.basic}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">HRA</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.hra}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Conveyance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.conveyance}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Medical Allowance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.medical_allowance}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Special Allowance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.special_allowance}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Arrears</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.arrear}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Bonus</div>
-                <div className="col-xs-6 p-r">
-                  <input
-                    type="text"
-                    value={this.state.bonus}
-                    ref="bonus" 
-                    onChange={ () => this.setState({ bonus : this.refs.bonus.value }) }
-                  />
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r"><h5>Total Earnings</h5></div>
-                <div className="col-xs-6 p-r">
-                  <h5>{this.state.total_earning}</h5>
-                </div>
-              </div>
-              <br/>
-              <br/>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r"><h3>Net Salary</h3></div>
-                <div className="col-xs-6 p-r">
-                  <h3>{this.state.net_salary}</h3>
-                </div>
-              </div>
-            </div>
-
-
-            <div className="col-xs-6 p-r">
-              <h6 className="text-center"><u>Deductions</u></h6>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">EPF</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.epf}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Loan</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.loan}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Advance</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.advance}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">Misc Deductions</div>
-                <div className="col-xs-6 p-r">
-                  <input
+            <tr>
+              <td>Conveyance</td>
+              <td>{this.state.conveyance}</td>
+              <td>Advance</td>
+              <td>{this.state.advance}</td>
+            </tr>
+            <tr>
+              <td>Medical Allowance</td>
+              <td>{this.state.medical_allowance}</td>
+              <td>Misc Deductions</td>
+              <td>
+                <input
+                    className="col-md-6"
                     type="text"
                     value={this.state.misc_deduction}
                     ref="misc_deduction" 
                     onChange={ () => this.setState({ misc_deduction : this.refs.misc_deduction.value }) }
                   />
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r">TDS</div>
-                <div className="col-xs-6 p-r">
-                  {this.state.tds}
-                </div>
-              </div>
-              <div className="row no-gutter p-t">
-                <div className="col-xs-6 p-r"><h5>Total Deductions</h5></div>
-                <div className="col-xs-6 p-r">
-                  <h5>{this.state.total_deduction}</h5>
-                </div>
-              </div>
-            </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Special Allowance</td>
+              <td>{this.state.special_allowance}</td>
+              <td>TDS</td>
+              <td>{this.state.tds}</td>
+            </tr>
+            <tr>
+              <td>Arrears</td>
+              <td>{this.state.arrear}</td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td>Bonus</td>
+              <td>
+                <input
+                    className="col-md-6"
+                    type="text"
+                    value={this.state.bonus}
+                    ref="bonus" 
+                    onChange={ () => this.setState({ bonus : this.refs.bonus.value }) }
+                  />
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
 
 
-          </div>
+
+            <tr>
+              <td><h5>Total Earnings</h5></td>
+              <td><h5>{this.state.total_earning}</h5></td>
+              <td><h5>Total Deductions</h5></td>
+              <td>{this.state.total_deduction}</td>
+            </tr>
+
+
+             <tr>
+              <td><h3>Net Salary</h3></td>
+              <td><h3>{this.state.net_salary}</h3></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
 
 
           
+          <br/>
 
-          <div className="row no-gutter  p-t">
+         
+          
+
+          <div className="row  p-t">
             <div className="col-xs-12 p-r">
               <button className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callCreateUserPayslip( this.state ) } >Create Payslip</button>
             </div>

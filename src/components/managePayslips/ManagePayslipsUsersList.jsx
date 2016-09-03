@@ -105,8 +105,9 @@ class ManagePayslipsUsersList extends React.Component {
               <small className="text-muted text-ellipsis">{user.jobtitle}</small>
             </div>
             <div>
-              <small className="text-muted text-ellipsis" style={payslipGeneratedHtmlClass}>Payslip</small>
-              <small className="text-muted text-ellipsis" style={email_to_user_statusHtmlClass}>{checkbox_send_email}Email to Employee</small>
+              <small className="text-muted" style={payslipGeneratedHtmlClass}>Payslip Generated</small>
+              <br/>
+              <small className="text-muted" style={email_to_user_statusHtmlClass}>{checkbox_send_email}Email to Employee</small>
             </div>
           </div>
         </li>
@@ -117,7 +118,7 @@ class ManagePayslipsUsersList extends React.Component {
       <div className = "row">
         <div className="col-12">
 
-          <RaisedButton label="Paylslip Drive Google Login" onTouchTap={this.handleOpenIframe} />
+          <RaisedButton label="Google Drive Login" onTouchTap={this.handleOpenIframe} />
           <Dialog
             title="Google authentication for drive"
             modal={false}

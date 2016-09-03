@@ -21,8 +21,8 @@ function async_get_user_manage_payslips_data( userid ){
 	return fireAjax( 'GET', '', {
 		action : 'get_user_manage_payslips_data',
 		user_id : userid,
-		year : "2016",
-		month : "07"
+		//year : "2016",
+		//month : "07"
 	})
 }
 

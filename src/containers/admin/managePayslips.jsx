@@ -175,7 +175,7 @@ class ManagePayslips extends React.Component {
                 <div className="padding">
                   
                   <div className="row">
-                    <div className="col-md-2">
+                    <div className="col-md-3">
                       <ManagePayslipsUsersList 
                         users = { this.props.usersList.users } 
                         selectedUserId={this.state.selected_user_id} 
@@ -185,19 +185,10 @@ class ManagePayslips extends React.Component {
                         {...this.props } 
                       />
                     </div>
-                    <div className="col-md-10">
+                    <div className="col-md-9">
                       
                       <div className="row no-gutter b-t box">
-                        <div className="col-xs-3 box">
-                          <div className="p-a block " >
-                            <h6 className="text-center">Previous Payslips</h6>
-                            <hr/>
-                            <UserPayslipsHistory
-                              user_payslip_history={this.state.user_payslip_history}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-xs-9 b-l box">
+                        <div className="col-xs-12 b-l box">
                          
                           <div className="p-a block" >
                             <h6 className="text-center">Generate Payslip</h6>
@@ -210,6 +201,17 @@ class ManagePayslips extends React.Component {
                               callCreateUserPayslip={this.callCreateUserPayslip}
                             />
                           </div>
+
+                          <hr/>
+                          <div className="p-a block " >
+                            <h6 className="text-center">Previous Payslips</h6>
+                            <hr/>
+                            <UserPayslipsHistory
+                              user_payslip_history={this.state.user_payslip_history}
+                            />
+                          </div>
+
+
                         </div>
                         
                       </div>

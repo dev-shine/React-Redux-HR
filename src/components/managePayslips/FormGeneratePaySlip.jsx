@@ -11,6 +11,7 @@ class FormGeneratePaySlip extends React.Component {
         user_id : "",
         year : "",
         month : "",
+        month_name : "",
         name : "",
         designation : "",
         joining_date : "",
@@ -72,6 +73,7 @@ class FormGeneratePaySlip extends React.Component {
       let user_id = ""
       let year = ""
       let month = ""
+      let month_name = ""
       let name = ""
       let designation = ""
       let joining_date = ""
@@ -121,6 +123,10 @@ class FormGeneratePaySlip extends React.Component {
 
           if( typeof d.month != 'undefined' ){
             month = d.month
+          }
+
+          if( typeof d.month_name != 'undefined' ){
+            month_name = d.month_name
           }
 
           if( typeof d.dateofjoining != 'undefined' ){
@@ -217,6 +223,7 @@ class FormGeneratePaySlip extends React.Component {
         name : name,
         year : year,
         month : month,
+        month_name : month_name,
         designation : designation,
         joining_date : joining_date,
         total_working_days : total_working_days,
@@ -258,31 +265,12 @@ class FormGeneratePaySlip extends React.Component {
             <tr>
               <td>Year</td>
               <td>
-                <select ref="year" value={this.state.year} onChange={ (e) => this.setState({ year : this.refs.year.value }) }>
-                    <option value=''>--Select Year--</option>
-                    <option value='2016'>2016</option>
-                    <option value='2017'>2017</option>
-                    <option value='2018'>2018</option>
-                    <option value='2019'>2019</option>
-                    <option value='2020'>2021</option>
-                  </select>
+                {this.state.year}
               </td>
               <td>Month</td>
-              <td><select ref="month" value={this.state.month} onChange={ (e) => this.setState({ month : this.refs.month.value }) }>
-                    <option value=''>--Select Month--</option>
-                    <option value='01'>Janaury</option>
-                    <option value='02'>February</option>
-                    <option value='03'>March</option>
-                    <option value='04'>April</option>
-                    <option value='05'>May</option>
-                    <option value='06'>June</option>
-                    <option value='07'>July</option>
-                    <option value='08'>August</option>
-                    <option value='09'>September</option>
-                    <option value='10'>October</option>
-                    <option value='11'>November</option>
-                    <option value='12'>December</option>
-                  </select></td>
+              <td>  
+                {this.state.month_name} ( {this.state.month} )
+              </td>
             </tr>
             <tr>
               <td>Employee Name</td>

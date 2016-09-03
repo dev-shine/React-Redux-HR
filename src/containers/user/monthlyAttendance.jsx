@@ -52,7 +52,7 @@ class MonthlyAttendance extends React.Component {
                   <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
                     <i className="material-icons">&#xe5d2;</i>
                   </a>
-                  <div className="navbar-item pull-left h5" id="pageTitle">My Calendar</div>
+                  <div className="navbar-item pull-left h5" id="pageTitle">My Attendance</div>
                 </div>
                 <div className="row no-gutter">
                   <div className="col-12">

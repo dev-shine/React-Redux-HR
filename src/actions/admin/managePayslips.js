@@ -367,11 +367,10 @@ export function email_payslips( payslips_ids ){
 			async_email_payslips( payslips_ids ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
-					if( typeof json.data != 'undefined' && typeof json.data.error != 'undefined' && json.data.error == 0 ){
+					if( typeof json.error != 'undefined' && json.error == 0){
 						//let data = json.data.salary_details.reverse()
-						let data = json.data
-						dispatch( success_user_manage_payslips_data( data ) )
-						resolve('Emails sent successfully')
+						dispatch( success_user_manage_payslips_data( json.data.message ) )
+						resolve(json.data.message)
 					}else{
 						dispatch( error_email_payslips( 'error occurs!!' ) )
 						reject('error occurs!!')

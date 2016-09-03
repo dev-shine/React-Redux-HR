@@ -34,14 +34,14 @@ class Menu extends React.Component {
       let link_holidays= <Link to='/holidays'>Holidays</Link>
       
       //user
-      let link_my_calendar = <Link to='/monthly_attendance'>My Calendar</Link>
+      let link_my_calendar = <Link to='/monthly_attendance'>My Attendance</Link>
       let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
       let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
       let link_my_profile = <Link to='/my_profile'>My Profile</Link>
       let link_salary = <Link to='/salary'>Salary</Link>
 
       //admin
-      let link_users_list = <Link to='/home'>Users</Link>
+      let link_users_list = <Link to='/home'>Employees Attendance</Link>
       let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
       let link_manage_leaves = <Link to='/manage_leaves'>Manage Leaves</Link>
       let link_manage_working_hours= <Link to='/manage_working_hours'>Manage Office Hours</Link>

@@ -28,9 +28,9 @@ class ManagePayslips extends React.Component {
           "selected_user_jobtitle" : "",
           "selected_user_id" : "",
           "defaultUserDisplay" : "",
-
           "user_data_for_payslip" : {},
-          "user_payslip_history" : []
+          "user_payslip_history" : [],
+          "google_drive_emailid" : ""
         }
 
         this.onUserClick = this.onUserClick.bind( this )
@@ -53,6 +53,7 @@ class ManagePayslips extends React.Component {
         }
       }
       //////////////////
+      let s_google_drive_emailid = ""
       let s_user_data_for_payslip = {}
       let s_user_payslip_history = []
       let s_all_users_latest_payslip = []
@@ -66,11 +67,15 @@ class ManagePayslips extends React.Component {
       if( typeof props.managePayslips.all_users_latest_payslip != 'undefined' ){
         s_all_users_latest_payslip = props.managePayslips.all_users_latest_payslip
       }
+      if( typeof props.managePayslips.google_drive_emailid != 'undefined' ){
+        s_google_drive_emailid = props.managePayslips.google_drive_emailid 
+      }
 
       this.setState({
         user_data_for_payslip : s_user_data_for_payslip,
         user_payslip_history : s_user_payslip_history,
-        all_users_latest_payslip : s_all_users_latest_payslip
+        all_users_latest_payslip : s_all_users_latest_payslip,
+        google_drive_emailid : s_google_drive_emailid
       })
     }
     componentDidUpdate(){
@@ -122,6 +127,7 @@ class ManagePayslips extends React.Component {
       }else{
         this.props.onEmailPayslips( ids ).then( 
         (data) => {
+            notify( data );
             this.props.onUsersList()
         },(error) => {
             notify( error );
@@ -142,10 +148,6 @@ class ManagePayslips extends React.Component {
             notify( error );
         })
       }
-
-      console.log( accessToken );
-      console.log( 'arun')
-      console.log( response )
     }
 
     render(){
@@ -182,6 +184,7 @@ class ManagePayslips extends React.Component {
                         onUserClick = { this.onUserClick }
                         all_users_latest_payslip = {this.state.all_users_latest_payslip}
                         callEmailPayslips = {this.callEmailPayslips }
+                        google_drive_emailid = {this.state.google_drive_emailid}
                         {...this.props } 
                       />
                     </div>

@@ -80,6 +80,7 @@ class Login extends React.Component {
 
     <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
     <LoadingIcon {...this.props}/>
+    <br/>
       <div className="m-b text-sm">
         Sign in with your username
       </div>

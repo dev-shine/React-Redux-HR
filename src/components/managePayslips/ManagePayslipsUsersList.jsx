@@ -45,8 +45,10 @@ class ManagePayslipsUsersList extends React.Component {
   }
 
   render(){
-    let usersList =  _.map( this.props.users , ( user, keyval ) => {
+      let usersList =  _.map( this.props.users , ( user, keyval ) => {
       let userid = user.user_Id
+
+      let generatedPayslipIdToEmail = ""
 
       let payslipGenerated = 0
       let email_to_user_status = 0
@@ -57,6 +59,12 @@ class ManagePayslipsUsersList extends React.Component {
           if( typeof findUser.status != 'undefined' ){
             email_to_user_status = findUser.status
           }
+
+          if( typeof findUser.id != 'undefined' && generatedPayslipIdToEmail == '' ){
+            generatedPayslipIdToEmail = findUser.id
+          }
+
+          
         }
       }
       let selectedUserId = this.props.selectedUserId
@@ -77,7 +85,7 @@ class ManagePayslipsUsersList extends React.Component {
       let checkbox_send_email = <input 
         type="checkbox" 
         name="send_payslip_emails" 
-        value={userid} 
+        value={generatedPayslipIdToEmail} 
         style={{'verticalAlign':'middle'}}
         onChange={ this._select_payslips_to_email }
       />
@@ -104,20 +112,31 @@ class ManagePayslipsUsersList extends React.Component {
               <div>{user.name}</div>
               <small className="text-muted text-ellipsis">{user.jobtitle}</small>
             </div>
-            <div>
-              <small className="text-muted" style={payslipGeneratedHtmlClass}>Payslip Generated</small>
-              <br/>
-              <small className="text-muted" style={email_to_user_statusHtmlClass}>{checkbox_send_email}Email to Employee</small>
-            </div>
+            
+            <div  className="text-muted" style={payslipGeneratedHtmlClass}>Payslip Generated</div>
+            <div className="text-muted" style={email_to_user_statusHtmlClass}>{checkbox_send_email}Email to Employee</div>
+            
           </div>
         </li>
       )
     })
+
+
+    let googleDriveEmailStatus = <span className="text-info">Google Drive Email - {this.props.google_drive_emailid}</span>
+    if( this.props.google_drive_emailid == '' || this.props.google_drive_emailid == false ){
+      googleDriveEmailStatus = <span className="text-danger">Google drive token not found. Plz do login first!!</span>
+    }
     
+
     return (
       <div className = "row">
         <div className="col-12">
 
+
+          <div>
+            <b>{googleDriveEmailStatus}</b>
+          </div>
+          <br/>
           <RaisedButton label="Google Drive Login" onTouchTap={this.handleOpenIframe} />
           <Dialog
             title="Google authentication for drive"
@@ -161,12 +180,14 @@ ManagePayslipsUsersList.styles = {
   pendingStatus : {
     'background' : 'red',
     'color' : 'white',
-    'padding' :'2px'
+    'padding' :'2px',
+    'fontSize' : '12px'
   },
   doneStatus : {
     'background' : 'green',
     'color' : 'white',
-    'padding' :'2px'
+    'padding' :'2px',
+    'fontSize' : '12px'
   }
 }
 

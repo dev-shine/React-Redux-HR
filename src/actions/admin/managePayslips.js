@@ -45,7 +45,7 @@ export function get_user_manage_payslips_data( userid ){
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
-					dispatch( ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA( []  ) )
+					dispatch( error_user_manage_payslips_data( []  ) )
 				}
 			)
 		})

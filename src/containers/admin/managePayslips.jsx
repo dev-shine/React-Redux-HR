@@ -134,8 +134,9 @@ class ManagePayslips extends React.Component {
       }else{
         this.props.onEmailPayslips( ids ).then( 
         (data) => {
-            notify( data );
+            notify( data )
             this.props.onUsersList()
+            this.onUserClick( this.state.selected_user_id )
         },(error) => {
             notify( error );
         })

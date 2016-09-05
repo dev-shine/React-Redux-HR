@@ -17,6 +17,7 @@ import * as actions_managePayslips from '../../actions/admin/managePayslips'
 import ManagePayslipsUsersList from '../../components/managePayslips/ManagePayslipsUsersList'
 import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
 import FormGeneratePaySlip from '../../components/managePayslips/FormGeneratePaySlip'
+import EmployeeActualSalary from '../../components/managePayslips/EmployeeActualSalary'
 
 class ManagePayslips extends React.Component {
     constructor( props ){
@@ -30,7 +31,8 @@ class ManagePayslips extends React.Component {
           "defaultUserDisplay" : "",
           "user_data_for_payslip" : {},
           "user_payslip_history" : [],
-          "google_drive_emailid" : ""
+          "google_drive_emailid" : "",
+          "employee_actual_salary" : {}
         }
 
         this.onUserClick = this.onUserClick.bind( this )
@@ -57,6 +59,7 @@ class ManagePayslips extends React.Component {
       let s_user_data_for_payslip = {}
       let s_user_payslip_history = []
       let s_all_users_latest_payslip = []
+      let s_employee_actual_salary = {}
 
       if( typeof props.managePayslips.user_data_for_payslip != 'undefined' ){
         s_user_data_for_payslip = props.managePayslips.user_data_for_payslip
@@ -70,12 +73,16 @@ class ManagePayslips extends React.Component {
       if( typeof props.managePayslips.google_drive_emailid != 'undefined' ){
         s_google_drive_emailid = props.managePayslips.google_drive_emailid 
       }
+      if( typeof props.managePayslips.employee_actual_salary != 'undefined' ){
+        s_employee_actual_salary = props.managePayslips.employee_actual_salary 
+      }
 
       this.setState({
         user_data_for_payslip : s_user_data_for_payslip,
         user_payslip_history : s_user_payslip_history,
         all_users_latest_payslip : s_all_users_latest_payslip,
-        google_drive_emailid : s_google_drive_emailid
+        google_drive_emailid : s_google_drive_emailid,
+        employee_actual_salary : s_employee_actual_salary
       })
     }
     componentDidUpdate(){
@@ -190,10 +197,9 @@ class ManagePayslips extends React.Component {
                     </div>
                     <div className="col-md-9">
                       
-                      <div className="row no-gutter b-t box">
-                        <div className="col-xs-12 b-l box">
-                         
-                          <div className="p-a block" >
+                      <div className="row no-gutter b-t">
+                        <div className="col-xs-12 b-l">
+                          <div className="p-a block box" >
                             <h6 className="text-center">Generate Payslip</h6>
                             <hr/>
                             <FormGeneratePaySlip
@@ -205,13 +211,26 @@ class ManagePayslips extends React.Component {
                             />
                           </div>
 
-                          <hr/>
-                          <div className="p-a block " >
-                            <h6 className="text-center">Previous Payslips</h6>
-                            <hr/>
-                            <UserPayslipsHistory
-                              user_payslip_history={this.state.user_payslip_history}
-                            />
+                          
+                          <div className="p-a block box" >
+                            <div className="row">
+                              <div className="col-md-8 b-r">
+                                <h6 className="text-center"><u>EmployeeActualSalary</u></h6>
+                                <hr/>
+                                <EmployeeActualSalary
+                                  employee_actual_salary = {this.state.employee_actual_salary}
+                                />
+                              </div>
+                              <div className="col-md-4">
+                                <h6 className="text-center"><u>Previous Payslips</u></h6>
+                                <hr/>
+                                <UserPayslipsHistory
+                                    user_payslip_history={this.state.user_payslip_history}
+                                />
+                              </div>
+                              
+                            </div>
+                            
                           </div>
 
 

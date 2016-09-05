@@ -259,7 +259,6 @@ class FormGeneratePaySlip extends React.Component {
 
       return (
         <div>
-          <div className="box">
             <table className="table">
           <tbody>
             <tr>
@@ -397,30 +396,7 @@ class FormGeneratePaySlip extends React.Component {
 
           </tbody>
         </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
-
-
-
-          
           <br/>
-
-         
-          
 
           <div className="row  p-t">
             <div className="col-xs-12 p-r">

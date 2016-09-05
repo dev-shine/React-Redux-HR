@@ -6,7 +6,8 @@ let initialState = {
     "user_data_for_payslip" : {},
     "user_payslip_history" : [],
     "all_users_latest_payslip" : [],
-    "google_drive_emailid": ""
+    "google_drive_emailid": "",
+    "employee_actual_salary" : {}
 }
 
 export function managePayslips( state = Immutable.fromJS(initialState), action ){
@@ -17,6 +18,7 @@ export function managePayslips( state = Immutable.fromJS(initialState), action )
         .set( 'user_payslip_history' , action.payload.user_payslip_history )
         .set( 'all_users_latest_payslip' , action.payload.all_users_latest_payslip )
         .set( 'google_drive_emailid' , action.payload.google_drive_emailid )
+        .set( 'employee_actual_salary' , action.payload.employee_actual_salary )
 
     }else if( action.type == 'ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA'){
 

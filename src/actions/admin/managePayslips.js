@@ -321,16 +321,18 @@ export function create_user_payslip(  new_salary_slip_data ){
 
 					if( json.error == 0 ){
 						dispatch( success_create_user_salary_slip( json.data ) )
-		        		resolve(1)
+		        		resolve('Payslip generated!!')
 		          	}else{
 			            dispatch( error_create_user_salary_slip( json.data.message ) )
 			            reject(json.data.message)
 		          	}
 				},
 				( error ) =>{
+					console.log('Tell Arun error occurs on Action - create_user_payslip')
+					console.log( error )
 					dispatch( hide_loading() ) // hide loading icon
-					dispatch( error_create_user_salary_slip( 'error occurs'  ) )
-					reject(0)
+					dispatch( error_create_user_salary_slip( 'error occurs!!'  ) )
+					reject('error occurs!!')
 				}
 			)
 		})

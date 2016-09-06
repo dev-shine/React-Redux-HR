@@ -38,6 +38,7 @@ class ManageUsers extends React.Component {
         this.onUserClick = this.onUserClick.bind( this )
         this.callUpdateUserBankDetails = this.callUpdateUserBankDetails.bind( this )
         this.callUpdateUserProfileDetails = this.callUpdateUserProfileDetails.bind( this )
+        this.callAddNewEmployee = this.callAddNewEmployee.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -114,18 +115,15 @@ class ManageUsers extends React.Component {
             notify( error );
         })   
     }
-
     callAddNewEmployee( new_employee_details ){
-      console.log('----')
-      console.log( new_employee_details )
-      // this.props.onAddNewClient( new_client_details ).then( 
-      //   (data) => {
-      //     //on success of adding a new client referch list
-      //     this.props.onClientsList()
-      //   },(error) => {
-      //     notify( error );
-      //   }
-      // )
+      this.props.onAddNewEmployee( new_employee_details ).then( 
+        (data) => {
+          //on success of adding a new client referch list
+          this.props.onUsersList()
+        },(error) => {
+          notify( error );
+        }
+      )
     }
 
   	render(){
@@ -216,6 +214,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateUserProfileDetails : ( new_profile_details ) => {
             return dispatch( actions_manageUsers.updateUserProfileDetails( new_profile_details ))   
+        },
+        onAddNewEmployee : ( new_employee_details ) => {
+            return dispatch( actions_manageUsers.addNewEmployee( new_employee_details ))   
         }
 
     }

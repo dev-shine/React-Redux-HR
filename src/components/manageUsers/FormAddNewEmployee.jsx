@@ -5,41 +5,42 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
+import { DateField } from 'react-date-picker'
+import 'react-date-picker/index.css'
+
+
 class FormAddNewEmployee extends React.Component {
   constructor( props ){
     super( props );
     this.state = {
       open: false,
+      dateofjoining : "",
       name : "",
       jobtitle : "",
-
-
-      client_name : "",
-      client_address : ""
+      gender : "",
+      dob : "",
+      username : "",
+      workemail : ""
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.addNewClient = this.addNewClient.bind(this)
   }
   handleOpen(){
     this.setState({
       open: true,
-      client_name : "",
-      client_address : ""
+      dateofjoining : "",
+      name : "",
+      jobtitle : "",
+      gender : "",
+      dob : "",
+      username : "",
+      workemail : ""
     });
   }
   handleClose(){
     this.setState({open: false});
   }
-  addNewClient(){
-    this.props.callAddNewClient({
-      client_name : this.state.client_name,
-      client_address : this.state.client_address,
-      open : false
-    })
-  }
   componentWillReceiveProps( props ){
-    
   }
   render(){
     return (
@@ -52,6 +53,8 @@ class FormAddNewEmployee extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          contentStyle={ {width: '70%',maxWidth: 'none'}}
+          autoScrollBodyContent={true}
         >
           <div className="text-danger">
            <i>*Create a slack profile first and enter email in Work Email</i>
@@ -64,21 +67,48 @@ class FormAddNewEmployee extends React.Component {
             <tbody>
             <tr>
               <td>
-                <TextField
-                  floatingLabelText="Date Of Joining"
-                  floatingLabelFixed={true}
-                  fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
+                Date of Joining
+                <DateField 
+                  dateFormat="YYYY-MM-DD" 
+                  onChange={ ( date ) => { this.setState({ dateofjoining : date }) }} 
+                  className="form-control"
                 />
               </td>
+               <td colSpan={2}>
+                Date of Birth
+                <DateField 
+                  dateFormat="YYYY-MM-DD" 
+                  onChange={ ( date ) => { this.setState({ dob : date }) }} 
+                  className="form-control"
+                />
+
+              </td>
+              
+              
+              
+            </tr>
+
+
+            <tr>
+              <td>
+
+                 Gender
+                  <select className="form-control" ref="gender" onChange={ () => this.setState({ gender : this.refs.gender.value }) } value={this.state.gender} >
+                  <option value="">--Select gender--</option>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Other">Other</option>
+                </select>
+                
+              </td>
+
               <td>
                 <TextField
                   floatingLabelText="Name"
                   floatingLabelFixed={true}
                   fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
+                  onChange={ (e) => ( this.setState({ name : e.target.value  })) }
+                  value = {this.state.name}
                 />
                 
               </td>
@@ -94,29 +124,6 @@ class FormAddNewEmployee extends React.Component {
                 
               </td>
               
-            </tr>
-
-
-            <tr>
-              <td>
-                <TextField
-                  floatingLabelText="Gender"
-                  floatingLabelFixed={true}
-                  fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
-                />
-              </td>
-               <td colSpan={2}>
-                <TextField
-                  floatingLabelText="Date Of Birth"
-                  floatingLabelFixed={true}
-                  fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
-                />
-              </td>
-              
               
             </tr>
 
@@ -127,8 +134,8 @@ class FormAddNewEmployee extends React.Component {
                   floatingLabelText="UserName"
                   floatingLabelFixed={true}
                   fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
+                  onChange={ (e) => ( this.setState({ username : e.target.value  })) }
+                  value = {this.state.username}
                 />
               </td>
                <td colSpan={2}>
@@ -136,8 +143,8 @@ class FormAddNewEmployee extends React.Component {
                   floatingLabelText="Work Email"
                   floatingLabelFixed={true}
                   fullWidth={true}
-                  onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
+                  onChange={ (e) => ( this.setState({ workemail : e.target.value  })) }
+                  value = {this.state.workemail}
                 />
               </td>
               
@@ -148,23 +155,11 @@ class FormAddNewEmployee extends React.Component {
             </tbody>
             </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         <br/>
         <br/>
-        <button className="col-md-12 md-btn md-raised m-b-sm indigo" onClick={this.addNewClient}>ADD</button>
+        <button className="col-md-12 md-btn md-raised m-b-sm indigo" onClick={ () => this.props.callAddNewEmployee( this.state ) } >Add Employee</button>
+        <br/>
+        <br/>
       </Dialog>
     </div>
     )

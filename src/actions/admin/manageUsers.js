@@ -198,3 +198,120 @@ export function updateUserProfileDetails( new_profile_details  ){
 		})
 	}
 }
+
+
+
+
+
+
+
+
+
+//-------add New employee
+export const ACTION_SUCCESS_ADD_NEW_EMPLOYEE = "ACTION_SUCCESS_ADD_NEW_EMPLOYEE"
+export const ACTION_ERROR_ADD_NEW_EMPLOYEE = "ACTION_ERROR_ADD_NEW_EMPLOYEE"
+
+export function success_add_new_employee( data ){
+	return createAction( ACTION_SUCCESS_ADD_NEW_EMPLOYEE )( data )
+}
+export function error_add_new_employee( data ){
+	return createAction( ACTION_ERROR_ADD_NEW_EMPLOYEE )( data )
+}
+
+function async_addNewEmployee( n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail ){
+	return fireAjax( 'POST', '', {
+		'action' : 'add_new_employee',
+		'dateofjoining' : n_dateofjoining, 
+		'name' : n_name, 
+		'jobtitle' : n_jobtitle, 
+		'gender' : n_gender, 
+		'dob' : n_dob, 
+		'username' : n_username, 
+		'workemail' : n_workemail
+	})
+}
+
+export function addNewEmployee( new_employee_details  ){
+	return function (dispatch,getState){
+		let n_dateofjoining = ""
+		let n_name = ""
+		let n_jobtitle = ""
+		let n_gender = ""
+		let n_dob = ""
+		let n_username = ""
+		let n_workemail = ""
+
+
+
+
+		if( typeof new_employee_details.dateofjoining == 'undefined' || new_employee_details.dateofjoining == '' ){ 
+			return Promise.reject('Date of Joining is empty')
+ 		}else{
+ 			n_dateofjoining = new_employee_details.dateofjoining 
+ 		}
+
+ 		if( typeof new_employee_details.name == 'undefined' || new_employee_details.name == '' ){ 
+			return Promise.reject('Name is empty')
+ 		}else{
+ 			n_name = new_employee_details.name 
+ 		}
+
+ 		if( typeof new_employee_details.jobtitle == 'undefined' || new_employee_details.jobtitle == '' ){ 
+			return Promise.reject('Job Title is empty')
+ 		}else{
+ 			n_jobtitle = new_employee_details.jobtitle 
+ 		}
+
+ 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){ 
+			return Promise.reject('Gender is empty')
+ 		}else{
+ 			n_gender = new_employee_details.gender 
+ 		}
+
+ 		if( typeof new_employee_details.dob == 'undefined' || new_employee_details.dob == '' ){ 
+			return Promise.reject('Date of birth is empty')
+ 		}else{
+ 			n_dob = new_employee_details.dob 
+ 		}
+
+ 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){ 
+			return Promise.reject('Gender is empty')
+ 		}else{
+ 			n_gender = new_employee_details.gender 
+ 		}
+
+ 		if( typeof new_employee_details.username == 'undefined' || new_employee_details.username == '' ){ 
+			return Promise.reject('Username is empty')
+ 		}else{
+ 			n_username = new_employee_details.username 
+ 		}
+
+ 		if( typeof new_employee_details.workemail == 'undefined' || new_employee_details.workemail == '' ){ 
+			return Promise.reject('Work email is empty')
+ 		}else{
+ 			n_workemail = new_employee_details.workemail 
+ 		}
+
+		
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_addNewEmployee( n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( success_add_new_employee( json.data.message ) )
+						reslove( json.data.message )
+		 			}else{
+		 				dispatch( error_add_new_employee( json.data.message ) )
+		 				reject( json.data.message )
+		 			}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_add_new_employee( "error occurs!!!" ) )
+					reject(  "error occurs!!!" )
+				}
+			)
+		})
+	}
+}

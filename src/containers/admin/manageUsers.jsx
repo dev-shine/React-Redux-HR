@@ -19,6 +19,7 @@ import UsersList from '../../components/attendance/UsersList'
 
 import FormUserProfileDetails from '../../components/manageUsers/FormUserProfileDetails'
 import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails'
+import FormAddNewEmployee from '../../components/manageUsers/FormAddNewEmployee'
 
 
 class ManageUsers extends React.Component {
@@ -114,6 +115,19 @@ class ManageUsers extends React.Component {
         })   
     }
 
+    callAddNewEmployee( new_employee_details ){
+      console.log('----')
+      console.log( new_employee_details )
+      // this.props.onAddNewClient( new_client_details ).then( 
+      //   (data) => {
+      //     //on success of adding a new client referch list
+      //     this.props.onClientsList()
+      //   },(error) => {
+      //     notify( error );
+      //   }
+      // )
+    }
+
   	render(){
        
 
@@ -141,26 +155,32 @@ class ManageUsers extends React.Component {
 
 					    <div className="app-body" id="view">
 						    <div className="padding">
-                    
+                    <div className="row">
+                      <div className="col-md-12 p-b">
+                        <FormAddNewEmployee 
+                          callAddNewEmployee={this.callAddNewEmployee}
+                        />
+                      </div>
+                    </div>
                     <div className="row">
 
-                    <div className="col-md-2">
-                        <UsersList users = { this.props.usersList.users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props } />
-                    </div>
+                      <div className="col-md-2">
+                          <UsersList users = { this.props.usersList.users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props } />
+                      </div>
 
-                    <div className="col-md-10 p">
-                        <div className="row box">
-                          <div className="col-md-7 p-t p-b p-r b-r">
-                            <FormUserProfileDetails  user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails}/>
+                      <div className="col-md-10 p">
+                          <div className="row box">
+                            <div className="col-md-7 p-t p-b p-r b-r">
+                              <FormUserProfileDetails  user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails}/>
+                            </div>
+                            <div className="col-md-5 p-t p-b">
+                              <FormUserBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateUserBankDetails={this.callUpdateUserBankDetails}/>
+                            </div>
                           </div>
-                          <div className="col-md-5 p-t p-b">
-                            <FormUserBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateUserBankDetails={this.callUpdateUserBankDetails}/>
-                          </div>
-                        </div>
-                    </div>
+                      </div>
 
-                  </div>
-                 
+                    </div>
+                   
 
 
 

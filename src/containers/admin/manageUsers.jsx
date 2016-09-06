@@ -119,6 +119,7 @@ class ManageUsers extends React.Component {
       this.props.onAddNewEmployee( new_employee_details ).then( 
         (data) => {
           //on success of adding a new client referch list
+          notify( data );
           this.props.onUsersList()
         },(error) => {
           notify( error );

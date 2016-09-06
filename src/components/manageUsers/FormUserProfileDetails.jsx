@@ -26,24 +26,97 @@
       }
     }
     componentWillReceiveProps( props ){
+      let user_id = ""
+      let name = ""
+      let jobtitle = ""
+      let dateofjoining = ""
+      let dob = " "
+      let gender= " "
+      let marital_status= " "
+      let address1 = " "
+      let address2 = " "
+      let city = " "
+      let state = " "
+      let zip_postal = " "
+      let country = " "
+      let home_ph = " "
+      let mobile_ph = " "
+      let work_email = " "
+      let other_email = " "
+
+
+
+      if( typeof props.user_profile_detail.user_Id != 'undefined' &&  props.user_profile_detail.user_Id != null ){
+        user_id = props.user_profile_detail.user_Id
+      }
+      if( typeof props.user_profile_detail.name != 'undefined' &&  props.user_profile_detail.name != null ){
+        name = props.user_profile_detail.name
+      }
+      if( typeof props.user_profile_detail.jobtitle != 'undefined' &&  props.user_profile_detail.jobtitle != null ){
+        jobtitle = props.user_profile_detail.jobtitle
+      }
+      if( typeof props.user_profile_detail.dateofjoining != 'undefined' &&  props.user_profile_detail.dateofjoining != null ){
+        dateofjoining = props.user_profile_detail.dateofjoining
+      }
+      if( typeof props.user_profile_detail.dob != 'undefined' &&  props.user_profile_detail.dob != null ){
+        dob = props.user_profile_detail.dob
+      }
+      if( typeof props.user_profile_detail.gender != 'undefined' &&  props.user_profile_detail.gender != null ){
+        gender = props.user_profile_detail.gender
+      }
+      if( typeof props.user_profile_detail.marital_status != 'undefined' &&  props.user_profile_detail.marital_status != null ){
+        marital_status = props.user_profile_detail.marital_status
+      }
+      if( typeof props.user_profile_detail.address1 != 'undefined' &&  props.user_profile_detail.address1 != null ){
+        address1 = props.user_profile_detail.address1
+      }
+      if( typeof props.user_profile_detail.address2 != 'undefined' &&  props.user_profile_detail.address2 != null ){
+        address2 = props.user_profile_detail.address2
+      }
+      if( typeof props.user_profile_detail.city != 'undefined' &&  props.user_profile_detail.city != null ){
+        city = props.user_profile_detail.city
+      }
+      if( typeof props.user_profile_detail.state != 'undefined' &&  props.user_profile_detail.state != null ){
+        state = props.user_profile_detail.state
+      }
+      if( typeof props.user_profile_detail.zip_postal != 'undefined' &&  props.user_profile_detail.zip_postal != null ){
+        zip_postal = props.user_profile_detail.zip_postal
+      }
+      if( typeof props.user_profile_detail.country != 'undefined' &&  props.user_profile_detail.country != null ){
+        country = props.user_profile_detail.country
+      }
+      if( typeof props.user_profile_detail.home_ph != 'undefined' &&  props.user_profile_detail.home_ph != null ){
+        home_ph = props.user_profile_detail.home_ph
+      }
+      if( typeof props.user_profile_detail.mobile_ph != 'undefined' &&  props.user_profile_detail.mobile_ph != null ){
+        mobile_ph = props.user_profile_detail.mobile_ph
+      }
+      if( typeof props.user_profile_detail.work_email != 'undefined' &&  props.user_profile_detail.work_email != null ){
+        work_email = props.user_profile_detail.work_email
+      }
+      if( typeof props.user_profile_detail.other_email != 'undefined' &&  props.user_profile_detail.other_email != null ){
+        other_email = props.user_profile_detail.other_email
+      }
+
+
       this.setState({
-        user_id : props.user_profile_detail.user_Id,
-        name : props.user_profile_detail.name,
-        jobtitle : props.user_profile_detail.jobtitle,
-        dateofjoining : props.user_profile_detail.dateofjoining,
-        dob : props.user_profile_detail.dob,
-        gender : props.user_profile_detail.gender,
-        marital_status : props.user_profile_detail.marital_status,
-        address1 : props.user_profile_detail.address1,
-        address2 : props.user_profile_detail.address2,
-        city : props.user_profile_detail.city,
-        state : props.user_profile_detail.state,
-        zip_postal : props.user_profile_detail.zip_postal,
-        country : props.user_profile_detail.country,
-        home_ph : props.user_profile_detail.home_ph,
-        mobile_ph : props.user_profile_detail.mobile_ph,
-        work_email : props.user_profile_detail.work_email,
-        other_email : props.user_profile_detail.other_email,
+        user_id : user_id,
+        name : name,
+        jobtitle : jobtitle,
+        dateofjoining : dateofjoining,
+        dob : dob,
+        gender : gender,
+        marital_status : marital_status,
+        address1 : address1,
+        address2 : address2,
+        city : city,
+        state : state,
+        zip_postal : zip_postal,
+        country : country,
+        home_ph : home_ph,
+        mobile_ph : mobile_ph,
+        work_email : work_email,
+        other_email : other_email,
      })
     }
       

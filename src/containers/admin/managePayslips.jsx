@@ -44,7 +44,7 @@ class ManagePayslips extends React.Component {
       this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0); // no need to scroll to top for this
       if( props.logged_user.logged_in == -1 ){
         this.props.router.push('/logout');
       }else{

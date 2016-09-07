@@ -73,7 +73,6 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_holidays}</span></li>
             <li className="hidden-folded" ><span>{link_manage_salary}</span></li>
             <li className="hidden-folded" ><span>{link_manage_users}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_clients}</span></li>
             <li className="hidden-folded" ><span>{link_manage_payslips}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
 

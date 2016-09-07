@@ -92,7 +92,7 @@ class ManagePayslipsUsersList extends React.Component {
       let email_to_user_statusHtmlClass = styles.pendingStatus      
       if( email_to_user_status == 1 ){
         email_to_user_statusHtmlClass = styles.doneStatus
-        checkbox_send_email = ""
+        //checkbox_send_email = ""
       }
       if( payslipGenerated == 0 ){
         // if payslip is not generated then there is no option to send email

@@ -39,6 +39,7 @@ class FormGeneratePaySlip extends React.Component {
         total_earning : "",
         total_deduction : "",
         net_salary : "",
+        send_email : 0
       }
     }
     componentDidUpdate(){
@@ -408,8 +409,29 @@ class FormGeneratePaySlip extends React.Component {
           <br/>
 
           <div className="row  p-t">
-            <div className="col-xs-12 p-r">
-              <button className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callCreateUserPayslip( this.state ) } >Create Payslip</button>
+            <div className="col-xs-6 p-r">
+              <button 
+                className="col-xs-12 md-btn md-raised indigo" 
+                onClick={ () => {
+                  let s = this.state
+                  s.send_email = 0
+                  this.props.callCreateUserPayslip( s )
+                }} 
+              >
+                Create Payslip
+              </button>
+            </div>
+            <div className="col-xs-6 p-r">
+              <button 
+                className="col-xs-12 md-btn md-raised info" 
+                onClick={ () => {
+                  let s = this.state
+                  s.send_email = 1
+                  this.props.callCreateUserPayslip( this.state )
+                }} 
+              >
+                Create & Email Payslip
+              </button>
             </div>
           </div>
         </div>

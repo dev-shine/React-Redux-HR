@@ -31,6 +31,7 @@ class FormGeneratePaySlip extends React.Component {
         advance : "",
         medical_allowance : "",
         misc_deduction : "",
+        misc_deduction_2 : "",
         special_allowance : "",
         tds : "",
         arrear : "",
@@ -38,6 +39,7 @@ class FormGeneratePaySlip extends React.Component {
         total_earning : "",
         total_deduction : "",
         net_salary : "",
+        send_email : 0
       }
     }
     componentDidUpdate(){
@@ -54,10 +56,16 @@ class FormGeneratePaySlip extends React.Component {
       let e_loan = this.state.loan
       let e_advance = this.state.advance
       let e_misc_deduction = this.state.misc_deduction
+      let e_misc_deduction_2 = this.state.misc_deduction_2
       let e_tds = this.state.tds
-      let n_total_deduction = +e_epf + +e_loan + +e_advance + +e_misc_deduction + +e_tds
+      let n_total_deduction = +e_epf + +e_loan + +e_advance + +e_misc_deduction + +e_tds + +e_misc_deduction_2
 
       let n_net_salary = n_total_earning - n_total_deduction
+
+
+      n_total_earning = n_total_earning.toFixed(2)
+      n_total_deduction = n_total_deduction.toFixed(2)
+      n_net_salary = n_net_salary.toFixed(2)
 
       if( n_net_salary != this.state.net_salary ){
         this.setState({
@@ -93,6 +101,7 @@ class FormGeneratePaySlip extends React.Component {
       let advance = 0
       let medical_allowance = 0
       let misc_deduction = 0
+      let misc_deduction_2 = 0
       let special_allowance = 0
       let tds = 0
       let arrear = 0
@@ -242,6 +251,7 @@ class FormGeneratePaySlip extends React.Component {
         advance : advance,
         medical_allowance : medical_allowance,
         misc_deduction : misc_deduction,
+        misc_deduction_2 : misc_deduction_2,
         special_allowance : special_allowance,
         tds : tds,
         arrear : arrear,
@@ -338,16 +348,8 @@ class FormGeneratePaySlip extends React.Component {
             <tr>
               <td>Medical Allowance</td>
               <td>{this.state.medical_allowance}</td>
-              <td>Misc Deductions</td>
-              <td>
-                <input
-                    className="col-md-6"
-                    type="text"
-                    value={this.state.misc_deduction}
-                    ref="misc_deduction" 
-                    onChange={ () => this.setState({ misc_deduction : this.refs.misc_deduction.value }) }
-                  />
-              </td>
+              <td>Holding Amount</td>
+              <td>{this.state.misc_deduction}</td>
             </tr>
             <tr>
               <td>Special Allowance</td>
@@ -358,8 +360,16 @@ class FormGeneratePaySlip extends React.Component {
             <tr>
               <td>Arrears</td>
               <td>{this.state.arrear}</td>
-              <td></td>
-              <td></td>
+              <td>Misc Deductions</td>
+              <td>
+                <input
+                    className="col-md-6"
+                    type="text"
+                    value={this.state.misc_deduction_2}
+                    ref="misc_deduction_2" 
+                    onChange={ () => this.setState({ misc_deduction_2 : this.refs.misc_deduction_2.value }) }
+                  />
+              </td>
             </tr>
 
             <tr>
@@ -399,8 +409,29 @@ class FormGeneratePaySlip extends React.Component {
           <br/>
 
           <div className="row  p-t">
-            <div className="col-xs-12 p-r">
-              <button className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callCreateUserPayslip( this.state ) } >Create Payslip</button>
+            <div className="col-xs-6 p-r">
+              <button 
+                className="col-xs-12 md-btn md-raised indigo" 
+                onClick={ () => {
+                  let s = this.state
+                  s.send_email = 0
+                  this.props.callCreateUserPayslip( s )
+                }} 
+              >
+                Create Payslip
+              </button>
+            </div>
+            <div className="col-xs-6 p-r">
+              <button 
+                className="col-xs-12 md-btn md-raised info" 
+                onClick={ () => {
+                  let s = this.state
+                  s.send_email = 1
+                  this.props.callCreateUserPayslip( this.state )
+                }} 
+              >
+                Create & Email Payslip
+              </button>
             </div>
           </div>
         </div>

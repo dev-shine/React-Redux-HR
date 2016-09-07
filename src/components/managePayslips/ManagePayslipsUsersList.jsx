@@ -44,6 +44,12 @@ class ManagePayslipsUsersList extends React.Component {
     })
   }
 
+  componentWillReceiveProps( props ){
+    this.setState({
+      email_paylsips_ids : []
+    }) 
+  }
+
   render(){
       let usersList =  _.map( this.props.users , ( user, keyval ) => {
       let userid = user.user_Id

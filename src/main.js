@@ -24,6 +24,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
+import Page_ForgotPassword from './containers/user/forgotPassword'
 
 //-admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
@@ -146,6 +147,7 @@ let render = (routerKey = null) => {
                      <Route path="manage_users" component={Page_ManageUsers}/>
                      <Route path="manage_clients" component={Page_ManageClients}/>
                      <Route path="manage_payslips" component={Page_ManagePayslips}/>
+                     <Route path="forgot_password" component={Page_ForgotPassword}/>
                  </Route>
              </Router>
          </Provider>

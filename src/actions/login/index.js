@@ -121,3 +121,48 @@ export function logout(){
 		
 	}
 }
+
+//forgot password
+export const ACTION_SUCCESS_FORGOT_PASSWORD = "ACTION_SUCCESS_FORGOT_PASSWORD"
+export const ACTION_ERROR_FORGOT_PASSWORD = "ACTION_ERROR_FORGOT_PASSWORD"
+
+
+export function success_forgot_password( data ){
+	return createAction( ACTION_SUCCESS_FORGOT_PASSWORD )( data )
+}
+
+export function error_forgot_password( data ){
+	return createAction( ACTION_ERROR_FORGOT_PASSWORD )( data )
+}
+
+function async_forgotPassword( username ){
+	return fireAjax( 'POST', '', {
+		'action' : 'forgot_password',
+		'username' : username,
+	})
+}
+
+export function forgotPassword( username ){
+
+	return function ( dispatch, getState ){
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_forgotPassword( username ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( typeof json.error != 'undefined' && json.error == 0 ){
+						dispatch( success_forgot_password( json.data.message ) )
+						resolve( json.data.message )
+					}else{
+						dispatch( error_forgot_password( json.data.message ) )
+						reject( json.data.message )
+					}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_forgot_password( 'error occurs') )
+				}
+			)
+		})
+	}
+}

@@ -8,19 +8,14 @@ import {notify} from '../../services/index'
 
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
-class Login extends React.Component {
+class ForgotPassword extends React.Component {
     constructor( props ){
         super( props );
-
         this.props.onIsAlreadyLogin()
-
         this.state = {
-            form_login_username : '',
-            form_login_password : '',
-            form_login_status : '',
+            form_username : '',
         }
-        this.doLogin = this.doLogin.bind(this)
-        this.doGuestLogin = this.doGuestLogin.bind( this )
+        this.doResetPassword = this.doResetPassword.bind(this)
     }
     componentWillReceiveProps( props ){
         let logged_user = props.logged_user
@@ -40,26 +35,25 @@ class Login extends React.Component {
             }
         }
     }
-    doLogin( evt ){
+    doResetPassword( evt ){
         evt.preventDefault();
-        this.props.onLogin( this.state.form_login_username, this.state.form_login_password ).then( 
-        (data) => {
-            
-        },(error) => {
-            notify( error );
-        })
-    }
-    doGuestLogin( evt ){
-        this.props.onLogin( 'global_guest', 'global_guest' ).then( 
-        (data) => {
-        },(error) => {
-            notify( error );
-        })
+
+        if( this.state.form_username == '' ){
+            alert('Enter username!!')
+        }else{
+            this.props.onForgotPassword( this.state.form_username ).then( 
+            (data) => {
+                notify( data );
+            },(error) => {
+                notify( error );
+            })
+        }
     }
     render(){
-        let styles = _.cloneDeep(this.constructor.styles);
-        let link_forgot_password = <Link to='/forgot_password'>Forgot Password</Link>
 
+        let link_login = <Link to='/'>Login</Link>
+
+        let styles = _.cloneDeep(this.constructor.styles);
         return(
 
 
@@ -84,36 +78,38 @@ class Login extends React.Component {
     <LoadingIcon {...this.props}/>
     <br/>
       <div className="m-b text-sm">
-        Sign in with your username
+        Reset Your Password
       </div>
-      <form name="form"  onSubmit={this.doLogin}>
+      <form name="form"  onSubmit={this.doResetPassword}>
         <div className="md-form-group float-label">
-
-            <input type="email" className="md-input"  required type="text" ref="username" onChange={ () => this.setState({ form_login_username : this.refs.username.value }) } value={ this.state.form_login_username }/>
-            <label>Username</label>
+            <input 
+                className="md-input"  
+                required type="text" 
+                ref="username" 
+                onChange={ () => this.setState({ form_username : this.refs.username.value }) } 
+                value={ this.state.form_username }/>
+            <label>Enter Username</label>
 
         </div>
-        <div className="md-form-group float-label">
-          <input type="password" className="md-input"  required  type="password" ref="password" onChange={ () => this.setState( { form_login_password : this.refs.password.value } ) } value={ this.state.form_login_password } />
-          <label>Password</label>
-        </div>      
-        <button type="submit" className="btn primary btn-block p-x-md">Sign in</button>
+        <button type="submit" className="btn primary btn-block p-x-md">Reset Password</button>
       </form>
       <div className="m-b text-sm text-center">
         <br/>
-        <button className="md-btn md-flat text-accent"  onClick={this.doGuestLogin}>Click for guest Login</button>
-        <br/>
-        <button className="md-btn md-flat text-accent" >{link_forgot_password}</button>
+        <button className="md-btn md-flat text-accent"  >{link_login}</button>
       </div>
     </div>
   </div>
+
+
+
+
 
         )
     }
 }
 
 // inline css
-Login.styles = {
+ForgotPassword.styles = {
   username: {
     background : "rgb(62, 168, 245)",
     color : "white",
@@ -139,15 +135,18 @@ const mapDispatchToProps = (dispatch) => {
         },
         onIsAlreadyLogin : () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
+        },
+        onForgotPassword : ( username ) => {
+            return dispatch( actions_login.forgotPassword( username ))  
         }
     }
 }
 
-const VisibleLogin = connect(
+const VisibleForgotPassword = connect(
   mapStateToProps,
   mapDispatchToProps
-)( Login )
+)( ForgotPassword )
 
-const RouterVisibleLogin = withRouter( VisibleLogin )
+const RouterVisibleForgotPassword = withRouter( VisibleForgotPassword )
 
-export default RouterVisibleLogin
+export default RouterVisibleForgotPassword

@@ -13,6 +13,7 @@ import AlertNotification from '../../components/generic/AlertNotification'
 import UserHorizontalView from '../../components/generic/UserHorizontalView'
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails'
 import FormBankDetails from '../../components/myProfile/FormBankDetails'
+import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
@@ -28,6 +29,7 @@ class MyProfile extends React.Component {
         this.props.onIsAlreadyLogin()
         this.callUpdateBankDetails = this.callUpdateBankDetails.bind( this )
         this.callUpdateProfileDetails = this.callUpdateProfileDetails.bind( this )
+        this.callUpdatePassword = this.callUpdatePassword.bind( this )
     }
     componentWillMount(){
         this.props.onMyProfileDetails(  )
@@ -60,6 +62,19 @@ class MyProfile extends React.Component {
         },(error) => {
             notify( error );
         })   
+    }
+    callUpdatePassword( new_password ){
+        new_password = new_password.trim()
+        if( new_password == '' ){
+            notify( "Enter Password !!" );
+        }else{
+            this.props.onUpdatePassword( new_password ).then( 
+            (data) => {
+                notify( data );    
+            },(error) => {
+                notify( error );
+            }) 
+        }
     }
     render(){
 
@@ -106,6 +121,12 @@ class MyProfile extends React.Component {
                                 <div className="row no-gutter">
                                     <div className="col-xs-6 p-t p-r b-r">
                                         <FormProfileDetails  user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails}/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <FormUpdatePassword  
+                                            callUpdatePassword={this.callUpdatePassword} 
+                                        />
                                     </div>
                                     <div className="col-xs-6 p-t p-l">
                                         <FormBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails}/>
@@ -144,6 +165,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateProfileDetails : ( new_profile_details ) => {
             return dispatch( actions_myProfile.updateProfileDetails( new_profile_details ))   
+        },
+        onUpdatePassword : ( new_password ) =>{
+            return dispatch( actions_myProfile.updatePassword( new_password ))     
         }
     }
 }

@@ -220,3 +220,60 @@ export function updateBankDetails( new_bank_details  ){
 		})
 	}
 }
+
+
+
+
+
+//-------update password
+export const ACTION_SUCCESS_UPDATE_PASSWORD = "ACTION_SUCCESS_UPDATE_PASSWORD"
+export const ACTION_ERROR_UPDATE_PASSWORD = "ACTION_ERROR_UPDATE_PASSWORD"
+
+export function success_update_password( data ){
+	return createAction( ACTION_SUCCESS_UPDATE_PASSWORD )( data )
+}
+export function error_update_password( data ){
+	return createAction( ACTION_ERROR_UPDATE_PASSWORD )( data )
+}
+
+function async_updatePassword( n_new_password ){
+	return fireAjax( 'POST', '', {
+		'action' : 'update_new_password',
+		'password' : n_new_password
+	})
+}
+
+export function updatePassword( new_password  ){
+	return function (dispatch,getState){
+		
+		let n_new_password = ""
+		
+		if( typeof new_password != 'undefined' && new_password != "" ){ 
+			n_new_password = new_password
+		}		
+		
+		if( n_new_password === "" ){ return Promise.reject('New Password is empty!!') }
+		
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_updatePassword( n_new_password ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+
+					if( typeof json.error != 'undefined' && json.error == 0 ){
+						dispatch( success_update_password( json.data.message ) )
+						resolve( json.data.message )
+					}else{
+						dispatch( error_update_password( json.data.message ) )
+						reject( json.data.message )
+					}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_update_password( "error occurs!!!" ) )
+					reject( "error occurs!!!" )
+				}
+			)
+		})
+	}
+}

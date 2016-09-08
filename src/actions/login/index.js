@@ -161,6 +161,7 @@ export function forgotPassword( username ){
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_forgot_password( 'error occurs') )
+					reject( 'error occurs' )
 				}
 			)
 		})

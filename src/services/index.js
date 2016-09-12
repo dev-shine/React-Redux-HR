@@ -95,6 +95,9 @@ export function fireAjax( method, url, data ){
 			
 		}else if(response.status === 401){
 			//alert('401 hai ')	;
+			localStorage.removeItem('hr_logged_user');
+			let login_page_url = CONFIG.login_page_url
+			location.href = login_page_url
 		}else{
 			return response.json()
 		}

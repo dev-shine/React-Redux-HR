@@ -70,9 +70,10 @@ class MyProfile extends React.Component {
         }else{
             this.props.onUpdatePassword( new_password ).then( 
             (data) => {
-                notify( data );    
+                notify( data )
+                this.props.onMyProfileDetails(  ) 
             },(error) => {
-                notify( error );
+                notify( error )
             }) 
         }
     }

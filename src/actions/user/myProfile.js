@@ -254,7 +254,7 @@ export function updatePassword( new_password  ){
 		
 		if( n_new_password === "" ){ return Promise.reject('New Password is empty!!') }
 		
-		return new Promise(( reslove, reject ) => {
+		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_updatePassword( n_new_password ).then(
 				( json ) => {

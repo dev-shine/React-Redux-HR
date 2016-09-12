@@ -13,7 +13,9 @@
       }
     }
     componentWillReceiveProps( props ){
-      
+      this.state = {
+        new_password : ""
+      }
     }
       
     render(){

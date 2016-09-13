@@ -117,6 +117,7 @@ class ManagePayslipsUsersList extends React.Component {
             <div onClick={ () => this.props.onUserClick( userid ) } > 
               <div>{user.name}</div>
               <small className="text-muted text-ellipsis">{user.jobtitle}</small>
+              <small className="text-muted text-ellipsis"><b>Emp Id : {userid}</b></small>
             </div>
             
             <div  className="text-muted" style={payslipGeneratedHtmlClass}>Payslip Generated</div>

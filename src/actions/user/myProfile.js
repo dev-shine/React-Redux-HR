@@ -286,7 +286,6 @@ function async_updateDocument( document_type, document_link, declearation ){
 		'document_link' : document_link,
 		'declearation'	: declearation
 	}
-	console.log(data,'data------------')
 	return fireAjax( 'POST', '', data)
 }
 
@@ -310,7 +309,6 @@ export function updateDocument( documents_link ){
 			_.map(document_link,(link)=>{
 				async_updateDocument(document_type, link, declearation).then(
 				( json ) => {
-					console.log(json,'json')
 					if( json.error == 0 ){
 						resolve('Document updated successfully')
 		 			}else{
@@ -318,7 +316,6 @@ export function updateDocument( documents_link ){
 		 			}
 				},
 				( error ) => {
-					console.log(error,'error')
 					reject(  "error occurs!!!" )
 				}
 				)

@@ -84,7 +84,7 @@ export function getDisabledUsersList(){
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( success_disabled_user_list( json ) )
 				},
-				( error ) =>{ console.log('error')
+				( error ) =>{ 
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_disabled_users_list( []  ) )
 				}

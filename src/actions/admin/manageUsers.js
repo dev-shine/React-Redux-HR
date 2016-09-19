@@ -324,7 +324,7 @@ export function error_user_document( data ){
 	return createAction( 'ACTION_ERROR_USER_DOCUMENT' )( data )
 }
 
-function async_getUserDocument( userid ){console.log('get_document function called')
+function async_getUserDocument( userid ){
 	return fireAjax( 'POST', '', {
 		'action' : 'get_document',
 		'user_id' : userid
@@ -340,18 +340,15 @@ export function getUserDocument( userid ){
 				dispatch( hide_loading() )
 				if(json.error == 0){
 					dispatch( success_user_document(json.data))
-					console.log(json,'error 0')
 					//resolve('disabled')
 				}else{
 					dispatch( error_user_document( json.data.message ))
-					console.log('error 1')
 					//reject('response with Error')
 				}
 			},
 			( error ) => {
 				dispatch( hide_loading() ) // hide loading icon
 				dispatch( error_user_document( "error occurs!!!" ) )
-				console.log('error')
 				//reject('error occurs!!')
 			}	
 			)
@@ -368,7 +365,6 @@ function async_updateDocument( user_id, document_type, document_link, declearati
 		'document_link' : document_link,
 		'declearation'	: declearation
 	}
-	console.log(data,'data------------')
 	return fireAjax( 'POST', '', data)
 }
 
@@ -393,7 +389,6 @@ export function updateDocument( documents_link ){
 			_.map(document_link,(link)=>{
 				async_updateDocument(user_id, document_type, link, declearation).then(
 				( json ) => {
-					console.log(json,'json')
 					if( json.error == 0 ){
 						resolve('Document updated successfully')
 		 			}else{
@@ -401,7 +396,6 @@ export function updateDocument( documents_link ){
 		 			}
 				},
 				( error ) => {
-					console.log(error,'error')
 					reject(  "error occurs!!!" )
 				}
 				)

@@ -14,10 +14,7 @@ class UsersList extends React.Component {
       let disabled_users = this.props.disabled_users
 
       let usersList = []
-      console.log(disabled_users,'disabled_users')
        _.map( disabled_users , ( user, keyval ) => {
-        console.log(user.name,'user.name')
-        console.log(user.name.charAt(0),'user.name.char')
         let f_char = user.name.charAt(0)
         f_char = f_char.toUpperCase();
         usersList.push (

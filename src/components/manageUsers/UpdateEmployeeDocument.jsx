@@ -50,7 +50,6 @@ import TextField from 'material-ui/TextField'
       let link3 = this.state.doc_link2.trim()
       let re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
       let tmp = true
-      console.log(this.state.user_id,'user_id ')
       if(this.state.user_id == ''){
         tmp = false
         alert('User not selected')

@@ -22,7 +22,7 @@ class User extends React.Component {
 	            <div className="list-left">
 	              <span className="w-40 avatar">
 	                <img src={profileImae} />
-	                </span>
+	              </span>
 	            </div>
 	            <div className="list-body">
 	              <div>{this.props.user.name}</div>

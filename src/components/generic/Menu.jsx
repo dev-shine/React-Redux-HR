@@ -38,7 +38,7 @@ class Menu extends React.Component {
       let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
       let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
       let link_my_profile = <Link to='/my_profile'>My Profile</Link>
-      let link_salary = <Link to='/salary'>Salary</Link>
+      let link_salary = <Link to='/salary'>My Salary</Link>
 
       //admin
       let link_users_list = <Link to='/home'>Employees Attendance</Link>
@@ -50,7 +50,8 @@ class Menu extends React.Component {
       let link_manage_users = <Link to='/manage_users'>Manage Employees Profile</Link>
       let link_manage_clients = <Link to='/manage_clients'>Manage Clients</Link>
       let link_manage_payslips = <Link to='/manage_payslips'>Manage Payslips</Link>
-
+      let link_documents = <Link to='/documents'>My Documents</Link>
+      let link_manageUserStatus = <Link to='/manage_user_status'>Manage User Status</Link>
 
 
       let links_to_show = <ul className="nav" >
@@ -60,6 +61,7 @@ class Menu extends React.Component {
         <li className="hidden-folded" ><span >{link_my_leaves}</span></li>
         <li className="hidden-folded" ><span >{link_salary}</span></li>
         <li className="hidden-folded" ><span >{link_my_profile}</span></li>
+        <li className="hidden-folded" ><span >{link_documents}</span></li>
         <li className="hidden-folded" ><span >{link_logout}</span></li>
       </ul>
 
@@ -74,6 +76,20 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_manage_salary}</span></li>
             <li className="hidden-folded" ><span>{link_manage_users}</span></li>
             <li className="hidden-folded" ><span>{link_manage_payslips}</span></li>
+            <li className="hidden-folded" ><span>{link_manageUserStatus}</span></li>
+            <li className="hidden-folded" ><span>{link_logout}</span></li>
+
+          </ul>                          
+      }else if( this.props.logged_user.role == 'HR' ){
+            links_to_show = <ul className="nav" >
+            <li className="hidden-folded" ><span>{link_users_list}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
+            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
+            <li className="hidden-folded" ><span>{link_holidays}</span></li>
+            <li className="hidden-folded" ><span>{link_manage_users}</span></li>
+            <li className="hidden-folded" ><span>{link_manageUserStatus}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
 
           </ul>                          
@@ -86,7 +102,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span>{link_holidays}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
-
+            
           </ul>                          
       }
 

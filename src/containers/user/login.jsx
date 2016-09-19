@@ -26,7 +26,7 @@ class Login extends React.Component {
         let logged_user = props.logged_user
 
         if( typeof logged_user.logged_in != 'undefined' && logged_user.logged_in == 1 ){
-            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR' ){
                 this.props.router.push('/home');
             }else{
                 this.props.router.push('/monthly_attendance');

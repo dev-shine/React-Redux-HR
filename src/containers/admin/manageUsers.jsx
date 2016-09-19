@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
 import ReactDOM from 'react-dom'
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
 
+import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
@@ -20,6 +23,7 @@ import UsersList from '../../components/attendance/UsersList'
 import FormUserProfileDetails from '../../components/manageUsers/FormUserProfileDetails'
 import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails'
 import FormAddNewEmployee from '../../components/manageUsers/FormAddNewEmployee'
+import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
 
 
 class ManageUsers extends React.Component {
@@ -32,13 +36,18 @@ class ManageUsers extends React.Component {
             status_message : "",
             "defaultUserDisplay" : "",
             user_profile_detail : {},
-            user_bank_detail : []
+            user_bank_detail : [],
+            user_documents : {},
+            'openIframe': false,
         }
 
         this.onUserClick = this.onUserClick.bind( this )
         this.callUpdateUserBankDetails = this.callUpdateUserBankDetails.bind( this )
         this.callUpdateUserProfileDetails = this.callUpdateUserProfileDetails.bind( this )
         this.callAddNewEmployee = this.callAddNewEmployee.bind( this )
+        this.handleOpenIframe = this.handleOpenIframe.bind( this )
+        this.handleCloseIframe = this.handleCloseIframe.bind( this )
+        this.changeEmployeeStatus = this.changeEmployeeStatus.bind( this )
     }    
     componentWillMount(){
       this.props.onUsersList()
@@ -50,16 +59,16 @@ class ManageUsers extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == 'Admin'){
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'HR' ){
                 //this.props.onUsersList( )
             }else{
                 this.props.router.push('/home');    
             }
         }
-
         this.setState({
             user_profile_detail : props.manageUsers.user_profile_detail,
             user_bank_detail : props.manageUsers.user_bank_detail,
+            user_documents : props.manageUsers.user_documents,
         })
      
     }
@@ -97,6 +106,7 @@ class ManageUsers extends React.Component {
             "selected_user_id" : selected_user_id
         })
         this.props.onUserProfileDetails( userid )
+        this.props.onGetUserDocument( userid )
     }
 
     callUpdateUserBankDetails( new_bank_details  ){
@@ -126,10 +136,25 @@ class ManageUsers extends React.Component {
         }
       )
     }
+    changeEmployeeStatus( userid, status ){
+      this.props.onChangeEmployeeStatus( userid, status ).then(()=>{
+        this.props.onUsersList().then(()=>{
+          if( this.props.usersList.users.length > 0 ){
+              let firstUser = this.props.usersList.users[0]
+              let defaultUserId = firstUser.user_Id
+              this.onUserClick( defaultUserId )
+          }
+        })
+      })
+    }
+  handleOpenIframe(){
+    this.setState({openIframe: true});
+  };
 
+  handleCloseIframe(){
+    this.setState({openIframe: false});
+  };
   	render(){
-       
-
 		return(
     		<div>
 
@@ -155,10 +180,17 @@ class ManageUsers extends React.Component {
 					    <div className="app-body" id="view">
 						    <div className="padding">
                     <div className="row">
-                      <div className="col-md-12 p-b">
+                      <div className="col-md-4 p-b">
                         <FormAddNewEmployee 
                           callAddNewEmployee={this.callAddNewEmployee}
                         />
+                      </div>
+                      <div className="col-md-4 text-center">
+                      
+          
+                      </div>
+                      <div className="col-md-4 text-right">
+                        <button className="btn btn-fw btn-danger" onTouchTap={()=>this.changeEmployeeStatus( this.state.selected_user_id, 'Disabled' )} >Disable Selected User</button>
                       </div>
                     </div>
                     <div className="row">
@@ -173,16 +205,16 @@ class ManageUsers extends React.Component {
                               <FormUserProfileDetails  user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails}/>
                             </div>
                             <div className="col-md-5 p-t p-b">
-                              <FormUserBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateUserBankDetails={this.callUpdateUserBankDetails}/>
+                              <div className="col-md-12">
+                                <FormUserBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateUserBankDetails={this.callUpdateUserBankDetails}/>
+                              </div>
+                              <div className="col-md-12">
+                                <UpdateEmployeeDocument user_documents={this.state.user_documents} user_id={this.state.selected_user_id} onUpdatedocuments={this.props.onUpdatedocuments} {...this.props}/>
+                              </div>
                             </div>
                           </div>
                       </div>
-
                     </div>
-                   
-
-
-
 	            	</div>
 						  </div>
 					  </div>
@@ -218,6 +250,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         onAddNewEmployee : ( new_employee_details ) => {
             return dispatch( actions_manageUsers.addNewEmployee( new_employee_details ))   
+        },
+        onUpdatedocuments : ( document_link ) => {
+            return dispatch( actions_manageUsers.updateDocument( document_link ))
+        },
+        onChangeEmployeeStatus : ( userid, status ) => {
+          return dispatch( actions_manageUsers.changeEmployeeStatus( userid, status ) )
+        },
+        onGetUserDocument : ( userid ) => {
+          return dispatch ( actions_manageUsers.getUserDocument( userid ) )
         }
 
     }

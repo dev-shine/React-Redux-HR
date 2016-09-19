@@ -3,7 +3,8 @@ import Immutable from 'immutable'
 let initialState = {
 	"status_message" : "",
     "user_profile_detail" : {},
-    "user_bank_detail" : {}
+    "user_bank_detail" : {},
+    "user_documents" : {},
 }
 
 export function manageUsers( state = Immutable.fromJS(initialState), action ){
@@ -22,10 +23,22 @@ export function manageUsers( state = Immutable.fromJS(initialState), action ){
         return state.set( 'status_message' , action.payload )
 
     }else if( action.type == 'ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS'){
-     	return state.set( 'status_message' , action.payload )
+     	
+        return state.set( 'status_message' , action.payload )
+    
     }else if( action.type == 'ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS'){
-     	return state.set( 'status_message' , action.payload )
-     }
+     	
+        return state.set( 'status_message' , action.payload )
+    
+    }else if( action.type == 'ACTION_SUCCESS_USER_DOCUMENT' ){
+
+        return state.set( 'user_documents', action.payload.user_document_info )
+
+    }else if( action.type == 'ACTION_ERROR_USER_DOCUMENT' ){
+
+        return state.set( 'status_message', action.payload )
+
+    }
     else{
     	return state.set( 'status_message' , "")
     }

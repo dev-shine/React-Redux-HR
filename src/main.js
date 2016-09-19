@@ -35,6 +35,8 @@ import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
 import Page_ManagePayslips from './containers/admin/managePayslips'
+import Page_ManageUserStatus from './containers/admin/manageUserStatus'
+
 
 //-user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
@@ -44,6 +46,7 @@ import Page_ApplyLeave from './containers/user/applyLeave'
 import Page_MyLeaves from './containers/user/myLeaves'
 import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
+import Page_MyDocuments from './containers/user/myDocuments'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -148,6 +151,8 @@ let render = (routerKey = null) => {
                      <Route path="manage_clients" component={Page_ManageClients}/>
                      <Route path="manage_payslips" component={Page_ManagePayslips}/>
                      <Route path="forgot_password" component={Page_ForgotPassword}/>
+                     <Route path="documents" component={Page_MyDocuments}/>
+                     <Route path="manage_user_status" component={Page_ManageUserStatus}/>
                  </Route>
              </Router>
          </Provider>

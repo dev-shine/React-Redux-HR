@@ -277,3 +277,49 @@ export function updatePassword( new_password  ){
 		})
 	}
 }
+
+//------update document
+function async_updateDocument( document_type, document_link, declearation ){
+	let data = {
+		'action' : 'insert_user_document',
+		'document_type' : document_type, 
+		'document_link' : document_link,
+		'declearation'	: declearation
+	}
+	return fireAjax( 'POST', '', data)
+}
+
+export function updateDocument( documents_link ){
+	return function (dispatch,getState){
+		let document_type = ""
+		let document_link = ""
+		let declearation = documents_link.declearation
+
+		if( typeof documents_link.doc_type == 'undefined' || documents_link.doc_type == '' ){ 
+			return Promise.reject('Select document type')
+ 		}else{
+ 			document_type = documents_link.doc_type 
+ 		}
+ 		if( typeof documents_link.doc_link == 'undefined' || documents_link.doc_link.length == 0 ){ 
+			return Promise.reject('Enter document link')
+ 		}else{
+ 			document_link = documents_link.doc_link 
+ 		}
+		return new Promise((reslove, reject)=>{
+			_.map(document_link,(link)=>{
+				async_updateDocument(document_type, link, declearation).then(
+				( json ) => {
+					if( json.error == 0 ){
+						resolve('Document updated successfully')
+		 			}else{
+		 				reject( 'Response with error 1')
+		 			}
+				},
+				( error ) => {
+					reject(  "error occurs!!!" )
+				}
+				)
+			})
+		})
+	}
+}

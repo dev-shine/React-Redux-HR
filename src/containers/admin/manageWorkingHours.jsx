@@ -47,7 +47,7 @@ class ManageWorkingHours extends React.Component {
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' ){
+            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR' ){
                 //this.props.onUsersList( )
             }else{
                 this.props.router.push('/monthly_attendance');    

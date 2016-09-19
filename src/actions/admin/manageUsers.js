@@ -315,3 +315,121 @@ export function addNewEmployee( new_employee_details  ){
 		})
 	}
 }
+//---------get user document 
+
+export function success_user_document( data ){
+	return createAction( 'ACTION_SUCCESS_USER_DOCUMENT' )( data )
+}
+export function error_user_document( data ){
+	return createAction( 'ACTION_ERROR_USER_DOCUMENT' )( data )
+}
+
+function async_getUserDocument( userid ){
+	return fireAjax( 'POST', '', {
+		'action' : 'get_document',
+		'user_id' : userid
+	})
+}
+
+export function getUserDocument( userid ){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject)=>{
+			dispatch( show_loading() );
+			async_getUserDocument( userid ).then(
+			( json ) => {
+				dispatch( hide_loading() )
+				if(json.error == 0){
+					dispatch( success_user_document(json.data))
+					//resolve('disabled')
+				}else{
+					dispatch( error_user_document( json.data.message ))
+					//reject('response with Error')
+				}
+			},
+			( error ) => {
+				dispatch( hide_loading() ) // hide loading icon
+				dispatch( error_user_document( "error occurs!!!" ) )
+				//reject('error occurs!!')
+			}	
+			)
+		})
+	}
+}
+
+//------update user document
+function async_updateDocument( user_id, document_type, document_link, declearation ){
+	let data = {
+		'action' : 'insert_user_document',
+		'user_id': user_id,
+		'document_type' : document_type, 
+		'document_link' : document_link,
+		'declearation'	: declearation
+	}
+	return fireAjax( 'POST', '', data)
+}
+
+export function updateDocument( documents_link ){
+	return function (dispatch,getState){
+		let user_id = documents_link.user_id
+		let document_type = ""
+		let document_link = ""
+		let declearation = documents_link.declearation
+
+		if( typeof documents_link.doc_type == 'undefined' || documents_link.doc_type == '' ){ 
+			return Promise.reject('Select document type')
+ 		}else{
+ 			document_type = documents_link.doc_type 
+ 		}
+ 		if( typeof documents_link.doc_link == 'undefined' || documents_link.doc_link.length == 0 ){ 
+			return Promise.reject('Enter document link')
+ 		}else{
+ 			document_link = documents_link.doc_link 
+ 		}
+		return new Promise((reslove, reject)=>{
+			_.map(document_link,(link)=>{
+				async_updateDocument(user_id, document_type, link, declearation).then(
+				( json ) => {
+					if( json.error == 0 ){
+						resolve('Document updated successfully')
+		 			}else{
+		 				reject( 'Response with error 1')
+		 			}
+				},
+				( error ) => {
+					reject(  "error occurs!!!" )
+				}
+				)
+			})
+		})
+	}
+}
+
+//--------changeEmployeeStatus Enable/Disable user
+
+function async_changeEmployeeStatus( userid, status ){
+	return fireAjax( 'POST', '', {
+		'action' : 'change_employee_status',
+		'user_id' : userid,
+		'status' : status,	
+	})
+}
+
+export function changeEmployeeStatus( userid, status ){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject)=>{
+			async_changeEmployeeStatus( userid, status ).then(
+			( json ) => {
+				if(json.error == 0){
+					resolve('disabled')
+				}else{
+					reject('Error with response')
+				}
+			},
+			( error ) => {
+				reject('error occurs!!')
+			}	
+			)
+		})
+	}
+}
+

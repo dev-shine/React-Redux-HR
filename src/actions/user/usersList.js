@@ -38,8 +38,9 @@ export function get_users_list( ){
 			async_get_users_list(  ).then(
 				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
-          			if( json.error == 0 ){
+          			if( json.error == 0 ){ 
             			dispatch( success_usersList( json.data ) )
+            			resolve()
           			}else{
             			dispatch( empty_usersList( [] ) )
           			}
@@ -47,6 +48,45 @@ export function get_users_list( ){
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
 					dispatch( error_usersList( []  ) )
+				}
+			)
+		})
+	}
+}
+
+//------get disabled user list
+
+
+export function success_disabled_user_list( data ){
+	return createAction( "ACTION_SUCCESS_DISABLED_USERSLIST" )( data )
+}
+
+export function error_disabled_users_list( data ){
+	return createAction( "ACTION_ERROR_DISABLED_USERSLIST" )( data )
+}
+
+
+function async_getDisabledUsersList(){
+	return fireAjax( 'POST', '', {
+		'action' : 'show_disabled_users',
+	} )
+}
+
+
+export function getDisabledUsersList(){
+
+	return function ( dispatch, getState ){
+
+		return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_getDisabledUsersList().then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( success_disabled_user_list( json ) )
+				},
+				( error ) =>{ 
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_disabled_users_list( []  ) )
 				}
 			)
 		})

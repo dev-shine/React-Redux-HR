@@ -1,6 +1,8 @@
   import React from 'react';
   import * as _ from 'lodash'
-import { CONFIG } from '../../config/index'
+  
+  import { CONFIG } from '../../config/index'
+  import {notify} from '../../services/index'
 
   import { DateField } from 'react-date-picker'
   import 'react-date-picker/index.css'
@@ -22,77 +24,28 @@ import { CONFIG } from '../../config/index'
     callUpdateDocuments(e){
       let type = this.state.doc_type
       let link1 = this.refs.file.value //this.state.doc_link.trim()
-      
+      let stop = false
       if(type == ''){
-        e.preventDefault()
-        alert('Please select document type')
+        stop = true
+        notify('Please select document type')
       }else if(link1 == ''){
-        e.preventDefault()
-        alert('Please select a file')
+        stop = true
+        notify('Please select a file')
       }else if(this.refs.declear.checked !== true){
+        stop = true
+        notify('Mark declearation before submit')
+      }
+      if(stop){
         e.preventDefault()
-        alert('Mark declearation before submit')
       }
-      /*
-      let links = []
-      let link1 = this.state.doc_link.trim()
-      let link2 = this.state.doc_link1.trim()
-      let link3 = this.state.doc_link2.trim()
-      let re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-      let tmp = true
-      if(link1 !== ''){
-        if(re.test(link1)){
-          links.push(link1)
-        }else{
-          tmp = false
-          alert('Link 1 invalid')
-        }
-      }
-      if(link2 !== ''){
-        if(re.test(link2)){
-          links.push(link2)
-        }else{
-          tmp = false
-          alert('Link 2 invalid')
-        }
-      }
-      if(link3 !== ''){
-        if(re.test(link3)){
-          links.push(link3)
-        }else{
-          tmp = false
-          alert('Link 3 invalid')
-        }
-      }
-      if(this.refs.declear.checked !== true){
-        tmp = false
-        alert('Mark declearation before submit')
-      }
-      if(tmp){
-      let link_data = {
-        doc_type:this.state.doc_type.trim(),
-        doc_link:links,
-        declearation:'*IMPORTANT: Upload documents in your company google drive account. Make sure that the link is not private and document is shared with hr@excellencetechnologies.in . Also make hr@excellencetechnologies.in owner of the document.   Also by uploading this document you certify that these document are true and all information is certified'
-      }
-      this.props.callUpdateDocuments(link_data).then((msg)=>{
-          alert(msg.toString())
-          this.setState({
-            doc_link : '',
-            doc_link1 : '',
-            doc_link2  : ''
-          })
-      }).catch((err)=>{
-        alert(err.toString())
-      })
-    }
-    */
+      
     }
       deleteDocument( doc_id ){
       this.props.onDeleteDocument( doc_id ).then((msg)=>{
         this.props.onGetMydocuments()
-        alert(msg.toString())
+        notify(msg.toString())
       }).catch((err)=>{
-        alert(err.toString())
+        notify(err.toString())
       })
       }
       render(){

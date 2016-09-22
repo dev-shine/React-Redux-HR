@@ -2,7 +2,6 @@ import { createAction } from 'redux-actions'
 import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-import $ from 'jquery';
 import {show_loading, hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USER_PROFILE = "ACTION_SUCCESS_USER_PROFILE"
@@ -355,6 +354,8 @@ export function getUserDocument( userid ){
 		})
 	}
 }
+
+
 //------Delete user document
 function async_deleteDocument( doc_id ){
 	return fireAjax('POST', '', {
@@ -384,81 +385,7 @@ export function deleteDocument( doc_id ){
 		})
 	}
 }
-//------update user document
-/*function async_updateDocument( user_id, document_type, document_link, declearation ){
-	let data = {
-		'action' : 'insert_user_document',
-		'user_id': user_id,
-		'document_type' : document_type, 
-		'document_link' : document_link,
-		'declearation'	: declearation
-	}
-	return fireAjax( 'POST', '', data)
-}
 
-
-//--------upload documents
-//const express = require('express');
-//const Busboy = require('busboy');
-//const fs = require('fs');
-//var uploader = require('file-uploader')
-
-
-
-export function uploadFiles( filedata ){
-	return function (dispatch,getState){
-		return new Promise((reslove, reject)=>{console.log(filedata,'action')
-	/*		var file = filedata.data_uri
-			var options = {
-  host : 'localhost',
-  port : 3000,
-  path : '/upload',
-  method : 'POST',
-  encoding : 'utf8'
-}
-uploader.postFile(options, file, function(err, res) {
-  console.log(res.statusCode)
-})
-	*/		/*const port = 3000;
-			const app = express();
-			app.all('/upload', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
-  next();
- });
-			app.post('/api/uploadfile', (req, res) => {
-  const busboy = new Busboy({ headers: req.headers });
-    busboy.on('file', function(fieldname, file, filename) {
-        let saveTo = __dirname + '/uploads/' + fieldname + '-' + filename + Date.now();
-        file.pipe(fs.createWriteStream(saveTo));
-    });
-    busboy.on('finish', function() {
-        res.end('done');
-    });
-  res.on('close', function() {
-    req.unpipe(busboy);
-  });
-    req.pipe(busboy);
-});*/
-		/*const promise = $.ajax({
-      url: '/upload',
-      type: "POST",
-      data: {
-        data_uri: filedata.data_uri,
-        filename: filedata.filename,
-        filetype: filedata.filetype
-      },
-      dataType: 'json'
-    });
-		promise.done(function(data){
-			console.log(data)
-			alert('done')
-    });
-		})
-
-	}
-}
-*/
 //--------changeEmployeeStatus Enable/Disable user
 
 function async_changeEmployeeStatus( userid, status ){

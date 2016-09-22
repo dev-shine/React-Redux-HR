@@ -26,7 +26,7 @@ export function getMyDocument(){
 			dispatch( show_loading() );
 			async_getMyDocument().then(
 				
-			( json ) => {console.log(json,'json action')
+			( json ) => {
 				dispatch( hide_loading() )
 				if(json.error == 0){
 					dispatch( success_my_document(json.data))
@@ -36,7 +36,7 @@ export function getMyDocument(){
 					//reject('response with Error')
 				}
 			},
-			( error ) => {console.log(error,'error action')
+			( error ) => {
 				dispatch( hide_loading() ) // hide loading icon
 				dispatch( error_my_document( "error occurs!!!" ) )
 				//reject('error occurs!!')

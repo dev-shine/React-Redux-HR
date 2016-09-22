@@ -128,9 +128,12 @@
                 
                   <h6 className="text-center">Personal Details</h6>
                   <br/>
-
-
-
+                  <div className="row no-gutter">
+                    <div className="col-md-6">
+                      Employee Id : <b>{this.state.user_id}</b>
+                    </div>
+                  </div>
+                  <hr/>
                   <div className="row no-gutter">
                     <div className="col-md-6 p-r">
                       <div className="form-group">

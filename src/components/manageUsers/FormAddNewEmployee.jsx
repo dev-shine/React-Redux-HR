@@ -59,6 +59,9 @@ class FormAddNewEmployee extends React.Component {
           <div className="text-danger">
            <i>*Create a slack profile first and enter email in Work Email</i>
         </div>
+        <div className="text-info">
+           *Default password is : java@123
+        </div>
        
       
 

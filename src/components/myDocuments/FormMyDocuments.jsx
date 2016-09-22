@@ -1,5 +1,6 @@
   import React from 'react';
   import * as _ from 'lodash'
+import { CONFIG } from '../../config/index'
 
   import { DateField } from 'react-date-picker'
   import 'react-date-picker/index.css'
@@ -15,10 +16,24 @@
         doc_link1:"",
         doc_link2:"",
       }
+      this.deleteDocument = this.deleteDocument.bind( this )
       this.callUpdateDocuments = this.callUpdateDocuments.bind( this )
     }
-    callUpdateDocuments(){
+    callUpdateDocuments(e){
+      let type = this.state.doc_type
+      let link1 = this.refs.file.value //this.state.doc_link.trim()
       
+      if(type == ''){
+        e.preventDefault()
+        alert('Please select document type')
+      }else if(link1 == ''){
+        e.preventDefault()
+        alert('Please select a file')
+      }else if(this.refs.declear.checked !== true){
+        e.preventDefault()
+        alert('Mark declearation before submit')
+      }
+      /*
       let links = []
       let link1 = this.state.doc_link.trim()
       let link2 = this.state.doc_link1.trim()
@@ -70,19 +85,39 @@
         alert(err.toString())
       })
     }
+    */
     }
-      
+      deleteDocument( doc_id ){
+      this.props.onDeleteDocument( doc_id ).then((msg)=>{
+        this.props.onGetMydocuments()
+        alert(msg.toString())
+      }).catch((err)=>{
+        alert(err.toString())
+      })
+      }
       render(){
         let styles = _.cloneDeep(this.constructor.styles);
+
+        let user_id = this.props.user_id
+        let page_url = window.location.href 
+        //---------display document
+                let my_doc = []
+                  _.map(this.props.my_documents,(doc, key)=>{
+                    my_doc.push(<li key={key} className="list-group-item">
+                      <div className="clear b-t p-t">
+                      <div className="_500 block">{doc.document_type}
+                      <span className="glyphicon glyphicon-remove-circle pull-right" style={{fontSize:'12px',cursor:'pointer'}} onClick={()=>{this.deleteDocument(doc.id)}}></span>
+                      </div>
+                     {typeof doc.link_1 == 'undefined'?'':<span className="text-muted"><div dangerouslySetInnerHTML={{__html:doc.link_1}}></div><br /></span>}
+                   </div></li>)
+
+                  }) 
         return (
           <div>
             <div className="row">
             <div className="col-xs-6">
-          <h6 className="text-center">Uploaded Documents</h6>
-          </div>
-            <div className="col-xs-6">
             <h6 className="text-center">Upload New Documents</h6>
-            <form>
+            <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
             <div className="form-group">
               <label>Document Type</label>
 
@@ -101,29 +136,32 @@
             <option value="Other Documents">Other Documents</option>
           </select>
             </div>
+            <input type="hidden" name="user_id" value={user_id} />
+            <input type="hidden" name="document_type" value={this.state.doc_type} />
+            <input type="hidden" name="page_url" value={page_url} />
             <div className="form-group">
-              <label>Google drive Link 1</label>
-
-              <input type="url" className="form-control" ref="doc_link" onChange={(e) => this.setState({ doc_link : e.target.value })} value={this.state.doc_link}/>
+              <label>Attachment </label>
+              <input type="file" className="form-control" ref="file" name="link_1" />
             </div>
             <div className="form-group">
-              <label>Google drive Link 2</label>
-
-              <input type="url" className="form-control" ref="doc_link1" onChange={(e) => this.setState({ doc_link1 : e.target.value })} value={this.state.doc_link1}/>
-            </div>
-            <div className="form-group">
-              <label>Google drive Link 3</label>
-
-              <input type="url" className="form-control" ref="doc_link2" onChange={(e) => this.setState({ doc_link2 : e.target.value })} value={this.state.doc_link2}/>
-            </div>
-            <div className="form-group">
-            <input style={styles.checkbox} type="checkbox" ref="declear" /><span style={styles.declearation}><b>*IMPORTANT:</b> Upload documents in your company google drive account. Make sure that the link is not private and document is shared with hr@excellencetechnologies.in . Also make hr@excellencetechnologies.in owner of the document.   Also by uploading this document you certify that these document are true and all information is certified</span>
+            <input style={styles.checkbox} type="checkbox" ref="declear" />
+            <span style={styles.declearation}><b>*IMPORTANT:</b> By uploading this document you certify that these document are true and all information is correct</span>
             </div>
           <div className="form-group">
-            <button  className="col-xs-12 md-btn md-raised indigo" onClick={()=>{this.callUpdateDocuments()}} >Update Your Documents</button>
+            <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo"  onClick={(e)=>{this.callUpdateDocuments(e)}}/>
           </div>
           </form>
-          </div>          
+          </div>  
+
+          <div className="col-xs-6">
+          <h6 className="text-center">Uploaded Documents</h6>
+          <div className="b-r p-r">
+            <ul className="list-group m-b ">
+                {my_doc.length == 0 ? <li className="list-group-item text-center"><span>No document uploaded</span></li>:my_doc}    
+            </ul>
+          </div>
+          </div>
+
           </div>
           </div>
         )

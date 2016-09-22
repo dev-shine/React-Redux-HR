@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
-import * as actions_login from '../../actions/login/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
-import * as actions_myProfile from '../../actions/user/myProfile'
+
+import * as actions_login from '../../actions/login/index'
+import * as actions_myDocument from '../../actions/user/myDocument'
 
 import FormMyDocuments from '../../components/myDocuments/FormMyDocuments'
 import LoadingIcon from '../../components/generic/LoadingIcon'
@@ -14,8 +15,15 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 class MyDoduments extends React.Component {
 	constructor( props ){
         super( props );
+        this.props.onIsAlreadyLogin()
+        this.state={
+          my_document:[],
+          message:"",
+        }
     }
-
+    componentWillMount(){
+        this.props.onGetMydocuments()
+    }
     componentWillReceiveProps( props ){
         window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
@@ -23,9 +31,14 @@ class MyDoduments extends React.Component {
         }else{
             
         }
+        this.setState({
+          my_document:props.myDocuments.my_document,
+          message:props.myDocuments.status_message
+        })
     }
    
 	render(){
+
         return(
           <div>
           	<Menu {...this.props }/>
@@ -45,15 +58,15 @@ class MyDoduments extends React.Component {
                 </div>
               </div>
 
-             		 <div className="app-body" id="view">
+             		 <div className="app-body" id="view"> 
 
             			<div className="padding">
                                 <div className="row no-gutter">
                                     <div className="col-xs-12 p-t p-l">
-                                        <FormMyDocuments  callUpdateDocuments={this.props.onUpdatedocuments} {...this.props}/>
+                                        <FormMyDocuments my_documents={this.state.my_document} user_id={this.props.logged_user.userid} callUpdateDocuments={this.props.onUpdatedocuments} {...this.props} />
                                     </div>
                                 </div>
-                        </div>
+                  </div>
 
 						</div>
 					</div>
@@ -66,15 +79,22 @@ class MyDoduments extends React.Component {
 
 function mapStateToProps( state ){
     return {
-    	frontend : state.frontend.toJS(),
+    	  frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         myProfile : state.myProfile.toJS(),
+        myDocuments: state.myDocument.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onUpdatedocuments : ( document_link ) => {
-            return dispatch( actions_myProfile.updateDocument( document_link ))
+        onIsAlreadyLogin : () => {
+            return dispatch( actions_login.isAlreadyLogin(  ))
+        },
+        onGetMydocuments : () => {
+            return dispatch( actions_myDocument.getMyDocument())
+        },
+        onDeleteDocument : ( doc_id ) => {
+          return dispatch( actions_myDocument.deleteDocument( doc_id ))
         }
     }
 }

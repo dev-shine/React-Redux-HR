@@ -17,6 +17,7 @@ import { leavesSummary } from './admin/leavesSummary'
 import { salary } from './user/salary'
 import { manageSalary } from './admin/manageSalary'
 import { myProfile } from './user/myProfile'
+import { myDocument } from './user/myDocument'
 import { manageUsers } from './admin/manageUsers'
 import { clientsList } from './admin/clientsList'
 import { manageClients } from './admin/manageClients'
@@ -41,6 +42,7 @@ export default combineReducers({
     salary,
     manageSalary,
     myProfile,
+    myDocument,
     manageUsers,
     clientsList,
     manageClients,

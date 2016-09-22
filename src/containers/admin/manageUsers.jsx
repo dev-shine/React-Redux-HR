@@ -70,7 +70,6 @@ class ManageUsers extends React.Component {
             user_bank_detail : props.manageUsers.user_bank_detail,
             user_documents : props.manageUsers.user_documents,
         })
-     
     }
     componentDidUpdate(){
 
@@ -259,6 +258,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onGetUserDocument : ( userid ) => {
           return dispatch ( actions_manageUsers.getUserDocument( userid ) )
+        },
+        onDeleteDocument : ( doc_id ) => {
+          return dispatch( actions_manageUsers.deleteDocument( doc_id ))
         }
 
     }

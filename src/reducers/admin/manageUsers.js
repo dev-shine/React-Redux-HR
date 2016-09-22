@@ -1,10 +1,11 @@
 import Immutable from 'immutable'
 
+
 let initialState = {
 	"status_message" : "",
     "user_profile_detail" : {},
     "user_bank_detail" : {},
-    "user_documents" : {},
+    "user_documents" : [],
 }
 
 export function manageUsers( state = Immutable.fromJS(initialState), action ){
@@ -35,8 +36,9 @@ export function manageUsers( state = Immutable.fromJS(initialState), action ){
         return state.set( 'user_documents', action.payload.user_document_info )
 
     }else if( action.type == 'ACTION_ERROR_USER_DOCUMENT' ){
-
+        
         return state.set( 'status_message', action.payload )
+                .set('user_documents',[])
 
     }
     else{

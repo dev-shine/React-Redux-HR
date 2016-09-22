@@ -2,7 +2,6 @@ import { createAction } from 'redux-actions'
 import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-
 import {show_loading, hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USER_PROFILE = "ACTION_SUCCESS_USER_PROFILE"
@@ -326,7 +325,7 @@ export function error_user_document( data ){
 
 function async_getUserDocument( userid ){
 	return fireAjax( 'POST', '', {
-		'action' : 'get_document',
+		'action' : 'get_user_document',
 		'user_id' : userid
 	})
 }
@@ -356,50 +355,33 @@ export function getUserDocument( userid ){
 	}
 }
 
-//------update user document
-function async_updateDocument( user_id, document_type, document_link, declearation ){
-	let data = {
-		'action' : 'insert_user_document',
-		'user_id': user_id,
-		'document_type' : document_type, 
-		'document_link' : document_link,
-		'declearation'	: declearation
-	}
-	return fireAjax( 'POST', '', data)
+
+//------Delete user document
+function async_deleteDocument( doc_id ){
+	return fireAjax('POST', '', {
+		'action' : 'delete_user_document',
+		'id' : doc_id
+	})
 }
 
-export function updateDocument( documents_link ){
-	return function (dispatch,getState){
-		let user_id = documents_link.user_id
-		let document_type = ""
-		let document_link = ""
-		let declearation = documents_link.declearation
-
-		if( typeof documents_link.doc_type == 'undefined' || documents_link.doc_type == '' ){ 
-			return Promise.reject('Select document type')
- 		}else{
- 			document_type = documents_link.doc_type 
- 		}
- 		if( typeof documents_link.doc_link == 'undefined' || documents_link.doc_link.length == 0 ){ 
-			return Promise.reject('Enter document link')
- 		}else{
- 			document_link = documents_link.doc_link 
- 		}
-		return new Promise((reslove, reject)=>{
-			_.map(document_link,(link)=>{
-				async_updateDocument(user_id, document_type, link, declearation).then(
-				( json ) => {
-					if( json.error == 0 ){
-						resolve('Document updated successfully')
-		 			}else{
-		 				reject( 'Response with error 1')
-		 			}
-				},
-				( error ) => {
-					reject(  "error occurs!!!" )
+export function deleteDocument( doc_id ){
+	return function(dispatch,getState){
+		return new Promise((resolve, reject)=>{
+			dispatch( show_loading() );
+			async_deleteDocument( doc_id ).then(
+			( json ) => {
+				dispatch( hide_loading() )
+				if(json.error == 0){
+					resolve(json.data.message)
+				}else{
+					reject(json.data.message)
 				}
-				)
-			})
+			},
+			( error ) => {
+				dispatch( hide_loading() ) // hide loading icon
+				reject('error occurs!!')
+			}	
+			)
 		})
 	}
 }

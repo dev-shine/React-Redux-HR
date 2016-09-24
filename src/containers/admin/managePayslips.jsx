@@ -157,7 +157,6 @@ class ManagePayslips extends React.Component {
         })
       }
     }
-
     render(){
       let status_message = ""
       let selectedUserId = ""
@@ -192,6 +191,7 @@ class ManagePayslips extends React.Component {
                         onUserClick = { this.onUserClick }
                         all_users_latest_payslip = {this.state.all_users_latest_payslip}
                         callEmailPayslips = {this.callEmailPayslips }
+                        onGetTransferList = {this.props.onGetTransferList}
                         google_drive_emailid = {this.state.google_drive_emailid}
                         {...this.props } 
                       />
@@ -277,6 +277,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSaveGoogleAccessToken : ( accessToken ) => {
           return dispatch( actions_managePayslips.save_google_access_token( accessToken ) )
+        },
+        onGetTransferList : ( userIds ) => {
+          return dispatch( actions_managePayslips.getTransferList( userIds ))
         }
     }
 }

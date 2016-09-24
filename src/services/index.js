@@ -31,6 +31,7 @@ export function fireAjax( method, url, data ){
 	}else if( data.action == "get_user_salary_details" ){
 		let token = localStorage.getItem('hr_logged_user')
 		URL = CONFIG.api_url_salary +'/salary_info.php?token=' + token + "&user_id=" + data.userid
+		console.log('api URL for get_user_salary_details: ',URL)
 	}else if( data.action == "add_user_salary" ){
 		let token = localStorage.getItem('hr_logged_user')
 		delete( data.action )
@@ -70,7 +71,7 @@ export function fireAjax( method, url, data ){
 		|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' 
 		|| data.action == "delete_invoice" || data.action == "get_user_manage_payslips_data" || data.action == "create_employee_salary_slip"
 		|| data.action == "delete_salary" || data.action == 'send_payslips_to_employees' || data.action == 'get_user_document' || data.action == 'insert_user_document'
-		|| data.action == "delete_user_document"
+		|| data.action == "delete_user_document" || data.action == 'get_users_bankaccount_no'
 	){  //generic other new api url
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token

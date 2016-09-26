@@ -35,8 +35,7 @@ class UserMonthlyAttendance extends React.Component {
       return _.map( w, ( dayData, key ) => {
         let dayHtml = ''
         if( dayData.day_type == 'NON_WORKING_DAY' ){
-          //dayHtml = <DayNonWorking dayData={dayData}/>
-          dayHtml = <DayWorking dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid} />
+          dayHtml = <DayNonWorking dayData={dayData}/>
         }else if( dayData.day_type == 'LEAVE_DAY' ){
           dayHtml = <DayLeave dayData={dayData}/>
         }else if( dayData.day_type == 'HALF_DAY' ){

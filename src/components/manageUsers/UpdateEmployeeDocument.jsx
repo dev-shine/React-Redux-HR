@@ -4,7 +4,7 @@
 
   import { DateField } from 'react-date-picker'
   import 'react-date-picker/index.css'
-
+import { CONFIG } from '../../config/index'
 //--------
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -17,7 +17,7 @@ import TextField from 'material-ui/TextField'
       this.state={
         user_id:'',
         open:false,
-        doc_type:"",
+        doc_type:'',
         user_token:'',
       }
       this.deleteDocument = this.deleteDocument.bind( this )
@@ -89,7 +89,6 @@ import TextField from 'material-ui/TextField'
                    </div>
                    </li>)
                   })
-                
         return (
           <div>
              <h6 className="text-center">Uploaded Documents</h6>
@@ -113,12 +112,13 @@ import TextField from 'material-ui/TextField'
               autoScrollBodyContent={true}
               > 
                  <div>
-            <form action="http://excellencemagentoblog.com/slack_dev/hr/attendance/sal_info/upload_file.php" method="POST" encType="multipart/form-data">
+            <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
             <div className="form-group">
               <label>Document Type</label>
 
           <select className="form-control" ref="doc_type" onChange={ () => this.setState({ doc_type : this.refs.doc_type.value }) } value={this.state.doc_type} >
             <option value="">---select doc type----</option>
+            <option value="CV">CV</option>
             <option value="PAN Card">PAN Card</option>
             <option value="Address Proof">Address Proof</option>
             <option value="Photo">Photo</option>

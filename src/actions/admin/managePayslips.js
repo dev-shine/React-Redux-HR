@@ -458,7 +458,48 @@ export function save_google_access_token( accessToken ){
 	}
 }
 
+//----get transfer list
+export function success_get_transfer_list( data ){
+	return createAction( 'ACTION_SUCCESS_GET_TRANSFER' )( data )
+}
+
+export function error_get_transfer_list( data ){
+	return createAction( 'ACTION_ERROR_GET_TRANSFER' )( data )
+}
+
+function async_getTransferList( userIds ){
+	return fireAjax( 'POST', '', {
+		action : 'get_users_bankaccount_no',
+		user_id : userIds
+	})
+}
 
 
 
+export function getTransferList( userIds ){
+	return function (dispatch, getState){
+		if(userIds.length == 0){return Promise.reject('No user selected')}
+			return new Promise(( resolve, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_getTransferList( userIds ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( success_get_transfer_list( json.data ) )
+		        		resolve(json.data)
+		          	}else{
+			            dispatch( error_get_transfer_list( json.data.message ) )
+			            reject(json.data.message)
+		          	}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( error_get_transfer_list( 'error occurs!!'  ) )
+					reject('error occurs!!')
+				}
+			)
+		})
+		
+	}
+}
 

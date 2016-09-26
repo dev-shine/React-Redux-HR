@@ -80,6 +80,7 @@
 
           <select className="form-control" ref="doc_type" onChange={ () => this.setState({ doc_type : this.refs.doc_type.value }) } value={this.state.doc_type} >
             <option value="">---select doc type----</option>
+            <option value="CV">CV</option>
             <option value="PAN Card">PAN Card</option>
             <option value="Address Proof">Address Proof</option>
             <option value="Photo">Photo</option>

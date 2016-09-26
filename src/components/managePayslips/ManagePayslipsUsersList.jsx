@@ -246,7 +246,7 @@ class ManagePayslipsUsersList extends React.Component {
           >
            <iframe
               ref="myIframe"
-              src= {CONFIG.google_login_btn_page_url+this.state.user_token}
+              src= {CONFIG.google_login_btn_page_url}
               style={{'width':'100%','height':'300px'}}
             >
             </iframe>

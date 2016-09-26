@@ -71,7 +71,7 @@ export function fireAjax( method, url, data ){
 		|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' 
 		|| data.action == "delete_invoice" || data.action == "get_user_manage_payslips_data" || data.action == "create_employee_salary_slip"
 		|| data.action == "delete_salary" || data.action == 'send_payslips_to_employees' || data.action == 'get_user_document' || data.action == 'insert_user_document'
-		|| data.action == "delete_user_document" || data.action == 'get_users_bankaccount_no'
+		|| data.action == "delete_user_document" || data.action == 'get_all_users_detail'
 	){  //generic other new api url
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token

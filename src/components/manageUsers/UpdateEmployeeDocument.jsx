@@ -26,16 +26,16 @@ import TextField from 'material-ui/TextField'
       this.callUpdateDocuments = this.callUpdateDocuments.bind( this )
     }
     componentWillReceiveProps( props ){
-      let token = localStorage.getItem('hr_logged_user')
-      this.setState({
-        user_token:token
-      })
-      if( typeof props.user_id != 'undefined' &&  props.user_id != null ){
-        this.setState({
-          user_id : props.user_id
-        })
-      }
-    }
+     let token = localStorage.getItem('hr_logged_user')
+     this.setState({
+       user_token:token
+     })
+     if( typeof props.user_id != 'undefined' &&  props.user_id != null ){
+       this.setState({
+         user_id : props.user_id
+       })
+     }
+   }
     handleOpen(){
       this.setState({
         open:true

@@ -36,6 +36,7 @@ import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
 import Page_ManagePayslips from './containers/admin/managePayslips'
 import Page_ManageUserStatus from './containers/admin/manageUserStatus'
+import Page_ViewSalary from './containers/admin/viewSalary'
 
 
 //-user
@@ -153,6 +154,7 @@ let render = (routerKey = null) => {
                      <Route path="forgot_password" component={Page_ForgotPassword}/>
                      <Route path="documents" component={Page_MyDocuments}/>
                      <Route path="manage_user_status" component={Page_ManageUserStatus}/>
+                     <Route path="view_salary" component={Page_ViewSalary}/>
                  </Route>
              </Router>
          </Provider>

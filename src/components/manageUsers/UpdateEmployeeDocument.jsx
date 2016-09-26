@@ -18,6 +18,7 @@ import TextField from 'material-ui/TextField'
         user_id:'',
         open:false,
         doc_type:"",
+        user_token:'',
       }
       this.deleteDocument = this.deleteDocument.bind( this )
       this.handleOpen = this.handleOpen.bind( this )
@@ -25,12 +26,16 @@ import TextField from 'material-ui/TextField'
       this.callUpdateDocuments = this.callUpdateDocuments.bind( this )
     }
     componentWillReceiveProps( props ){
-      if( typeof props.user_id != 'undefined' &&  props.user_id != null ){
-        this.setState({
-          user_id : props.user_id
-        })
-      }
-    }
+     let token = localStorage.getItem('hr_logged_user')
+     this.setState({
+       user_token:token
+     })
+     if( typeof props.user_id != 'undefined' &&  props.user_id != null ){
+       this.setState({
+         user_id : props.user_id
+       })
+     }
+   }
     handleOpen(){
       this.setState({
         open:true
@@ -127,6 +132,7 @@ import TextField from 'material-ui/TextField'
             <option value="Other Documents">Other Documents</option>
           </select>
             </div>
+            <input type="hidden" name="token" value={this.state.user_token} />
             <input type="hidden" name="user_id" value={this.state.user_id} />
             <input type="hidden" name="document_type" value={this.state.doc_type} />
             <input type="hidden" name="page_url" value={page_url} />

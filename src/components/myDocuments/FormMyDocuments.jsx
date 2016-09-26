@@ -17,9 +17,17 @@
         doc_link:"",
         doc_link1:"",
         doc_link2:"",
+        user_token:"",
       }
       this.deleteDocument = this.deleteDocument.bind( this )
       this.callUpdateDocuments = this.callUpdateDocuments.bind( this )
+    }
+    componentWillReceiveProps( props ){
+      let token = localStorage.getItem('hr_logged_user')
+      //console.log()
+      this.setState({
+        user_token:token
+      })
     }
     callUpdateDocuments(e){
       let type = this.state.doc_type
@@ -89,6 +97,7 @@
             <option value="Other Documents">Other Documents</option>
           </select>
             </div>
+            <input type="hidden" name="token" value={this.state.user_token} />
             <input type="hidden" name="user_id" value={user_id} />
             <input type="hidden" name="document_type" value={this.state.doc_type} />
             <input type="hidden" name="page_url" value={page_url} />

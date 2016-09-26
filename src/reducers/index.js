@@ -22,6 +22,7 @@ import { manageUsers } from './admin/manageUsers'
 import { clientsList } from './admin/clientsList'
 import { manageClients } from './admin/manageClients'
 import { managePayslips } from './admin/managePayslips'
+import { empSalaryList } from './admin/empSalaryDetails'
 
 
 export default combineReducers({
@@ -46,5 +47,6 @@ export default combineReducers({
     manageUsers,
     clientsList,
     manageClients,
-    managePayslips
+    managePayslips,
+    empSalaryList
 })

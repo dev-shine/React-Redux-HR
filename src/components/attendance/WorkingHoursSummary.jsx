@@ -36,7 +36,8 @@ class WorkingHoursSummary extends React.Component {
       return _.map( w, ( dayData, key ) => {
         let dayHtml = ''
         if( dayData.day_type == 'NON_WORKING_DAY' ){
-          dayHtml = <DayNonWorking dayData={dayData}/>
+          //dayHtml = <DayNonWorking dayData={dayData}/>
+          dayHtml = <DayWorking dayData={dayData} {...this.props}/>
         }else if( dayData.day_type == 'FUTURE_WORKING_DAY' ){
           dayHtml = <DayFutureWorking dayData={dayData} />
         }else{

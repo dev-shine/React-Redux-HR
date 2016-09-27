@@ -42,7 +42,7 @@ export function fireAjax( method, url, data ){
 			cache: 'no-cache',
 			body: JSON.stringify(data),
 		}
-		URL = CONFIG.api_url_salary +'/add_sal_structure.php'
+		URL = CONFIG.api_url_salary +'/add_sal_structure.php?token='+token
 	}else if( data.action == "add_user_holding" ){
 		let token = localStorage.getItem('hr_logged_user')
 		delete( data.action )
@@ -53,7 +53,7 @@ export function fireAjax( method, url, data ){
 			cache: 'no-cache',
 			body: JSON.stringify(data),
 		}
-		URL = CONFIG.api_url_salary +'/add_holding_info.php'
+		URL = CONFIG.api_url_salary +'/add_holding_info.php?token='+token
 	}
 	// else if( data.action == "update_user_bank_details" ){
 	// 	let token = localStorage.getItem('hr_logged_user')
@@ -81,7 +81,7 @@ export function fireAjax( method, url, data ){
 			cache: 'no-cache',
 			body: JSON.stringify(data),
 		}
-		URL = CONFIG.other_api_url
+		URL = CONFIG.other_api_url+"?token="+token
 	}else if( data.action == "change_employee_status" || data.action == "show_disabled_users" ){
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token

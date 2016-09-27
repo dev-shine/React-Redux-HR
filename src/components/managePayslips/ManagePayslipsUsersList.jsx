@@ -231,12 +231,38 @@ class ManagePayslipsUsersList extends React.Component {
       <div className = "row">
         <div className="col-12">
 
-
-          <div>
+        <div className = "row" style={{'marginTop':12}}>
+        <div className = "col-lg-12 col-md-12">
+        <div style={{'marginBottom':5}}>
             <b>{googleDriveEmailStatus}</b>
           </div>
+        <RaisedButton label="Google Drive Login" onTouchTap={this.handleOpenIframe} />
+        </div>
+        </div>
+
+        <div className = "row" style={{'marginTop':8}}>
+        <div className = "col-lg-6 col-md-6">
+        <button 
+              className="md-btn md-raised m-b-sm indigo"
+              onClick={ () => ( this.props.callEmailPayslips( this.state.email_paylsips_ids ) ) }
+            >Email Payslips</button>
+        </div>
+        <div className = "col-lg-6 col-md-6">
+        <form style={styles.form} action="http://excellencemagentoblog.com/slack_dev/hr/attendance/sal_info/display_user_info.php" method="POST" target='_blank' onSubmit={(e)=>this.validate(e)}>
+            { list_item }
+            <input type="hidden" name="token" value={this.state.user_token} />
+            <input type='submit'
+              className="md-btn md-raised m-b-sm indigo m-l-sm-xs "
+              name="submit"
+              value="Transfer"
+            />
+            </form>
+        </div>
+        </div>
+
+
+          
           <br/>
-          <RaisedButton label="Google Drive Login" onTouchTap={this.handleOpenIframe} />
           <Dialog
             title="Google authentication for drive"
             modal={false}
@@ -252,20 +278,7 @@ class ManagePayslipsUsersList extends React.Component {
             </iframe>
           </Dialog>
           <br/>
-          <br/>
-          <button 
-              className="md-btn md-raised m-b-sm indigo"
-              onClick={ () => ( this.props.callEmailPayslips( this.state.email_paylsips_ids ) ) }
-            >Email Payslips</button>
-            <form style={styles.form} action="http://excellencemagentoblog.com/slack_dev/hr/attendance/sal_info/display_user_info.php" method="POST" target='_blank' onSubmit={(e)=>this.validate(e)}>
-            { list_item }
-            <input type="hidden" name="token" value={this.state.user_token} />
-            <input type='submit'
-              className="md-btn md-raised m-b-sm indigo m-l "
-              name="submit"
-              value="Transfer"
-            />
-            </form>
+         
           <div className="box">
             <ul className="list no-border p-b">
              <li className="list-item b-b">

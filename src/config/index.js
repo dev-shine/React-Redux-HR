@@ -16,7 +16,7 @@ export const CONFIG = {
 	 google_login_btn_page_url : "http://excellencemagentoblog.com/hr/attendance/sal_info/google-api/drive_file/index.php?token="+token,
 	 login_page_url : "http://excellencemagentoblog.com/hr",
 	 upload_url : "http://excellencemagentoblog.com/hr/attendance/sal_info/upload_file.php",
-
+    
 	 
 	jwt_secret_key : 'HR_APP'
 

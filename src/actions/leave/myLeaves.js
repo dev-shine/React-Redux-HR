@@ -49,9 +49,44 @@ export function getMyLeaves(  ){
 					dispatch( list_my_leaves_error( json.data.message ) )
 				}
 			)
-			
+
 		})
 
 	}
-    
+
+}
+
+function async_cancelLeave(userId, from_date){
+		return fireAjax( 'POST', '', {
+		'action' : 'cancel_applied_leave',
+		'user_id':userId,
+ 		'date':from_date,
+	})
+}
+
+export function cancelLeave(userId, from_date){
+
+	return function (dispatch,getState){
+
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_cancelLeave(userId, from_date).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( getMyLeaves( ) )
+		 			}else{
+						reject(json.data.message)
+		 			}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					reject(json.data.message)
+				}
+			)
+
+		})
+
+	}
+
 }

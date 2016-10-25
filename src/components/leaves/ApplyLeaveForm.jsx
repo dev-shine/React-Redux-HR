@@ -20,14 +20,14 @@ class ApplyLeaveForm extends React.Component {
             show_half_day_button : ''
         }
         this.doApplyLeave = this.doApplyLeave.bind(this)
-        
+
         this.handleStartDate = this.handleStartDate.bind(this)
         this.handleEndDate = this.handleEndDate.bind(this)
         this._apply_half_day = this._apply_half_day.bind(this)
 
     }
     componentDidMount(){
-      
+
     }
 
     componentDidUpdate(){
@@ -62,13 +62,13 @@ class ApplyLeaveForm extends React.Component {
 
     }
 
- 
+
 
     doApplyLeave( evt ){
-      evt.preventDefault();
-        this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason ).then( 
+      evt.preventDefault(); 
+        this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason ).then(
         (data) => {
-            
+
         },(error) => {
             notify( error );
         })
@@ -84,7 +84,7 @@ class ApplyLeaveForm extends React.Component {
           form_from_date : props.applyLeave.start_date,
           form_to_date : props.applyLeave.end_date,
            form_no_of_days : num_working_days
-       }) 
+       })
     }
     render(){
 
@@ -108,10 +108,10 @@ class ApplyLeaveForm extends React.Component {
             </div>
 
 
-            
+
 
             <div className="col-sm-4">
-           
+
             <h5>Your Leave Summary</h5>
             <br/>
 
@@ -157,16 +157,16 @@ class ApplyLeaveForm extends React.Component {
                     </div>
                   </div>
                 </div>
-                
+
             </div>
         </div>
-        
+
 <div className="form-group row m-t-md">
               <div className="col-sm-10">
                 <button type="submit" className="btn green">Apply</button>
               </div>
             </div>
-          </form>  
+          </form>
 
 
            </div>
@@ -177,8 +177,3 @@ class ApplyLeaveForm extends React.Component {
 }
 
 export default ApplyLeaveForm
-
-
-
-
-

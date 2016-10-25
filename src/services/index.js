@@ -67,11 +67,11 @@ export function fireAjax( method, url, data ){
 	// 	}
 	// 	URL = CONFIG.api_url_salary +'/user_bank_detail.php'
 	// }
-	else if( data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail" || data.action == "get_all_clients" 
-		|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' 
+	else if( data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail" || data.action == "get_all_clients"
+		|| data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details'
 		|| data.action == "delete_invoice" || data.action == "get_user_manage_payslips_data" || data.action == "create_employee_salary_slip"
 		|| data.action == "delete_salary" || data.action == 'send_payslips_to_employees' || data.action == 'get_user_document' || data.action == 'insert_user_document'
-		|| data.action == "delete_user_document" || data.action == 'get_all_users_detail'
+		|| data.action == "delete_user_document" || data.action == 'get_all_users_detail' || data.action == 'cancel_applied_leave'
 	){  //generic other new api url
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token
@@ -104,7 +104,7 @@ export function fireAjax( method, url, data ){
 					reject(data)
 				})
 			})
-			
+
 		}else if(response.status === 401){
 			//alert('401 hai ')	;
 			localStorage.removeItem('hr_logged_user');
@@ -113,6 +113,6 @@ export function fireAjax( method, url, data ){
 		}else{
 			return response.json()
 		}
-		
+
 	})
 }

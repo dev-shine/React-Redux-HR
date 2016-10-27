@@ -17,6 +17,7 @@ import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
+import * as actions_salary from '../../actions/salary/index'
 import PayslipHistory from '../../components/salary/PayslipHistory'
 
 class MyProfile extends React.Component {
@@ -35,6 +36,7 @@ class MyProfile extends React.Component {
     }
     componentWillMount(){
         this.props.onMyProfileDetails(  )
+        this.props.onSalaryDetails()
     }
     componentWillReceiveProps( props ){
         window.scrollTo(0, 0);
@@ -141,6 +143,7 @@ class MyProfile extends React.Component {
                                           <br/>
                                           <br/>
                                           <br/>
+                                          <h6 className="text-center">Previous Payslips</h6>
                                         <PayslipHistory
                                           payslip_history={this.state.payslip_history}
                                         />
@@ -183,6 +186,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdatePassword : ( new_password ) =>{
             return dispatch( actions_myProfile.updatePassword( new_password ))
+        },
+        onSalaryDetails : () => {
+            return dispatch( actions_salary.getSalaryDetails(  ))
         }
     }
 }

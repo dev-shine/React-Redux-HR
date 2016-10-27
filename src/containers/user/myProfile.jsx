@@ -17,6 +17,8 @@ import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
+import * as actions_salary from '../../actions/salary/index'
+import PayslipHistory from '../../components/salary/PayslipHistory'
 
 class MyProfile extends React.Component {
     constructor( props ){
@@ -24,7 +26,8 @@ class MyProfile extends React.Component {
         this.state = {
             status_message : "",
             user_profile_detail : {},
-            user_bank_detail : []
+            user_bank_detail : [],
+            payslip_history : [],
         }
         this.props.onIsAlreadyLogin()
         this.callUpdateBankDetails = this.callUpdateBankDetails.bind( this )
@@ -33,48 +36,54 @@ class MyProfile extends React.Component {
     }
     componentWillMount(){
         this.props.onMyProfileDetails(  )
+        this.props.onSalaryDetails()
     }
     componentWillReceiveProps( props ){
         window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            
+
         }
-        
+        let s_payslip_history = []
+
+        if( typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0 ){
+          s_payslip_history = props.salary.payslip_history
+        }
         this.setState({
             user_profile_detail : props.myProfile.user_profile_detail,
             user_bank_detail : props.myProfile.user_bank_detail,
+            payslip_history : s_payslip_history,
         })
     }
     callUpdateBankDetails( new_bank_details  ){
-      this.props.onUpdateBankDetails( new_bank_details ).then( 
+      this.props.onUpdateBankDetails( new_bank_details ).then(
         (data) => {
-            
+
         },(error) => {
             notify( error );
         })
     }
     callUpdateProfileDetails( new_profile_details ){
-        this.props.onUpdateProfileDetails( new_profile_details ).then( 
+        this.props.onUpdateProfileDetails( new_profile_details ).then(
         (data) => {
-            
+
         },(error) => {
             notify( error );
-        })   
+        })
     }
     callUpdatePassword( new_password ){
         new_password = new_password.trim()
         if( new_password == '' ){
             notify( "Enter Password !!" );
         }else{
-            this.props.onUpdatePassword( new_password ).then( 
+            this.props.onUpdatePassword( new_password ).then(
             (data) => {
                 notify( data )
-                this.props.onMyProfileDetails(  ) 
+                this.props.onMyProfileDetails(  )
             },(error) => {
                 notify( error )
-            }) 
+            })
         }
     }
     render(){
@@ -83,7 +92,7 @@ class MyProfile extends React.Component {
     		<div>
 
                 <AlertNotification alert_message={this.props.myProfile.status_message}/>
-                
+
     			<Menu {...this.props }/>
 
                 <div id="content" className="app-content box-shadow-z0" role="main">
@@ -109,7 +118,7 @@ class MyProfile extends React.Component {
 
 
                                 <div className="row no-gutter">
-                                    <UserHorizontalView 
+                                    <UserHorizontalView
                                         profileImage={this.props.logged_user.profileImage}
                                         name = { this.state.user_profile_detail.name }
                                         jobtitle = { this.state.user_profile_detail.jobtitle }
@@ -125,22 +134,29 @@ class MyProfile extends React.Component {
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <FormUpdatePassword  
-                                            callUpdatePassword={this.callUpdatePassword} 
+                                        <FormUpdatePassword
+                                            callUpdatePassword={this.callUpdatePassword}
                                         />
                                     </div>
                                     <div className="col-xs-6 p-t p-l">
                                         <FormBankDetails  user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails}/>
+                                          <br/>
+                                          <br/>
+                                          <br/>
+                                          <h6 className="text-center">Previous Payslips</h6>
+                                        <PayslipHistory
+                                          payslip_history={this.state.payslip_history}
+                                        />
                                     </div>
                                 </div>
 
-                                
-	            				
+
+
                         </div>
-							
+
 						</div>
 					</div>
-    			
+
     		</div>
     	)
     }
@@ -150,7 +166,8 @@ function mapStateToProps( state ){
     return {
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        myProfile : state.myProfile.toJS()
+        myProfile : state.myProfile.toJS(),
+        salary : state.salary.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -159,16 +176,19 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
         onMyProfileDetails : () => {
-        	return dispatch( actions_myProfile.getMyProfileDetails(  ))	
+        	return dispatch( actions_myProfile.getMyProfileDetails(  ))
         },
         onUpdateBankDetails : ( new_bank_details ) => {
-            return dispatch( actions_myProfile.updateBankDetails( new_bank_details )) 
+            return dispatch( actions_myProfile.updateBankDetails( new_bank_details ))
         },
         onUpdateProfileDetails : ( new_profile_details ) => {
-            return dispatch( actions_myProfile.updateProfileDetails( new_profile_details ))   
+            return dispatch( actions_myProfile.updateProfileDetails( new_profile_details ))
         },
         onUpdatePassword : ( new_password ) =>{
-            return dispatch( actions_myProfile.updatePassword( new_password ))     
+            return dispatch( actions_myProfile.updatePassword( new_password ))
+        },
+        onSalaryDetails : () => {
+            return dispatch( actions_salary.getSalaryDetails(  ))
         }
     }
 }

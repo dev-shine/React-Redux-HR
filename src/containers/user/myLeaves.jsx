@@ -25,11 +25,11 @@ class MyLeaves extends React.Component {
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            
+
         }
     }
     render(){
-            
+
         let mainDivs = <div className="row">
             <div className="col-md-12">
                 <UserLeavesList {...this.props}/>
@@ -62,10 +62,10 @@ class MyLeaves extends React.Component {
             			<div className="padding">
 	            				{mainDivs}
                         </div>
-							
+
 						</div>
 					</div>
-    			
+
     		</div>
     	)
     }
@@ -77,6 +77,7 @@ function mapStateToProps( state ){
         logged_user : state.logged_user.toJS(),
         holidaysList : state.holidaysList.toJS(),
         userLeaves : state.userLeaves.toJS(),
+        applyLeave : state.applyLeave.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -85,7 +86,10 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
         onMyLeavesList : () => {
-        	return dispatch( actions_myLeaves.getMyLeaves(  ))	
+        	return dispatch( actions_myLeaves.getMyLeaves(  ))
+        },
+        onCancelLeave : (userId, from_date) => {
+          return dispatch( actions_myLeaves.cancelLeave(userId, from_date) )
         }
     }
 }

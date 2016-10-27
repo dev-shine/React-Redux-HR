@@ -6,7 +6,7 @@
 // import createStore from './store/createStore'
 // import AppContainer from './containers/AppContainer'
 
-//--start---for HR APP by arun 
+//--start---for HR APP by arun  
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router'
@@ -69,13 +69,13 @@ const logger = createLogger();
 injectTapEventPlugin()
 
 let store = createStore(reducer,  compose(
-    //applyMiddleware( thunk, logger), 
+    //applyMiddleware( thunk, logger),
     applyMiddleware( thunk ),
     //window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 
-//--end---for HR APP by arun 
+//--end---for HR APP by arun
 
 
 
@@ -128,7 +128,7 @@ let store = createStore(reducer,  compose(
 // }
 
 //--start----added by arun for HR app
-let render = (routerKey = null) => { 
+let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
          <Provider store={store}>

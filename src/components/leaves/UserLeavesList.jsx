@@ -7,6 +7,7 @@ import {notify} from '../../services/index'
 class UserLeavesList extends React.Component {
     constructor( props ){
         super( props );
+        this.cancelLeave = this.cancelLeave.bind(this);
     }
     cancelLeave(userId, from_date){
       this.props.onCancelLeave(userId, from_date).then((data)=>{
@@ -16,7 +17,7 @@ class UserLeavesList extends React.Component {
       })
     }
     _getLeavesList( d ){
-       return _.map( d , ( leave, keyval ) => {
+       return _.map( d , ( leave, keyval ) => {console.log(leave)
         let s = leave.status
         let f_char = s.charAt(0)
         let leaveStatusColor = ""
@@ -26,7 +27,7 @@ class UserLeavesList extends React.Component {
           leaveStatusColor = "blue"
         }else if( s == 'Rejected'){
           leaveStatusColor = "red-500"
-        }else if( s == 'Cancelled'){
+        }else if( s == 'Cancelled Request'){
           leaveStatusColor = "red-100"
         }
 
@@ -65,7 +66,7 @@ class UserLeavesList extends React.Component {
 
     }
     render(){
-      
+
       let leavesList = this._getLeavesList( this.props.userLeaves.leaves )
        return (
         <div className = "row">

@@ -98,51 +98,51 @@ export function updateUserProfileDetails( new_profile_details  ){
 		let n_blood_group = ""
 		let n_medical_condition = ""
 		
-		if( typeof new_profile_details.user_id != 'undefined' ){ 
+		if( typeof new_profile_details.user_id != 'undefined' ){
 			n_user_id = new_profile_details.user_id
 		}
-		if( typeof new_profile_details.name != 'undefined' ){ 
+		if( typeof new_profile_details.name != 'undefined' ){
 			n_name = new_profile_details.name
 		}
-		if( typeof new_profile_details.jobtitle != 'undefined' ){ 
-			n_jobtitle = new_profile_details.n_jobtitle
+		if( typeof new_profile_details.jobtitle != 'undefined' ){
+			n_jobtitle = new_profile_details.jobtitle
 		}
-		if( typeof new_profile_details.dateofjoining != 'undefined' ){ 
+		if( typeof new_profile_details.dateofjoining != 'undefined' ){
 			n_dateofjoining = new_profile_details.dateofjoining
 		}
-		if( typeof new_profile_details.work_email != 'undefined' ){ 
+		if( typeof new_profile_details.work_email != 'undefined' ){
 			n_work_email = new_profile_details.work_email
 		}
-		if( typeof new_profile_details.gender != 'undefined' ){ 
+		if( typeof new_profile_details.gender != 'undefined' ){
 			n_gender = new_profile_details.gender
 		}
-		if( typeof new_profile_details.dob != 'undefined' ){ 
+		if( typeof new_profile_details.dob != 'undefined' ){
 			n_dob = new_profile_details.dob
 		}
 
-		if( typeof new_profile_details.marital_status != 'undefined' ){ 
+		if( typeof new_profile_details.marital_status != 'undefined' ){
 			n_marital_status = new_profile_details.marital_status
-		}		
-		if( typeof new_profile_details.address1 != 'undefined' ){ 
+		}
+		if( typeof new_profile_details.address1 != 'undefined' ){
 			n_address1 = new_profile_details.address1
 		}
-		if( typeof new_profile_details.address2 != 'undefined' ){ 
+		if( typeof new_profile_details.address2 != 'undefined' ){
 			n_address2 = new_profile_details.address2
 		}
-		if( typeof new_profile_details.emergency_ph1 != 'undefined' ){ 
+		if( typeof new_profile_details.emergency_ph1 != 'undefined' ){
 			n_emergency_ph1 = new_profile_details.emergency_ph1
 		}
-		if( typeof new_profile_details.emergency_ph2 != 'undefined' ){ 
+		if( typeof new_profile_details.emergency_ph2 != 'undefined' ){
 			n_emergency_ph2 = new_profile_details.emergency_ph2
 		}
-		if( typeof new_profile_details.blood_group != 'undefined' ){ 
+		if( typeof new_profile_details.blood_group != 'undefined' ){
 			n_blood_group = new_profile_details.blood_group
 		}
-		if( typeof new_profile_details.medical_condition != 'undefined' ){ 
+		if( typeof new_profile_details.medical_condition != 'undefined' ){
 			n_medical_condition = new_profile_details.medical_condition
 		}
 
-		
+
 		if( n_user_id.trim() === "" ){ return Promise.reject('User id is empty') }
 		if( n_name.trim() === "" ){ return Promise.reject('Name is empty') }
 		if( n_jobtitle.trim() === "" ){ return Promise.reject('Jobtitle is empty') }
@@ -157,7 +157,7 @@ export function updateUserProfileDetails( new_profile_details  ){
 		if( n_emergency_ph2.trim() === "" ){ return Promise.reject('Emmergency contact 2 is empty') }
 		if( n_blood_group.trim() === "" ){ return Promise.reject('Blood group not selected') }
 		if( n_medical_condition.trim() === "" ){ return Promise.reject('Any medical conditions is empty') }
-		
+
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_updateUserProfileDetails( n_user_id, n_name, n_jobtitle, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition).then(
@@ -201,12 +201,12 @@ export function error_add_new_employee( data ){
 function async_addNewEmployee( n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail ){
 	return fireAjax( 'POST', '', {
 		'action' : 'add_new_employee',
-		'dateofjoining' : n_dateofjoining, 
-		'name' : n_name, 
-		'jobtitle' : n_jobtitle, 
-		'gender' : n_gender, 
-		'dob' : n_dob, 
-		'username' : n_username, 
+		'dateofjoining' : n_dateofjoining,
+		'name' : n_name,
+		'jobtitle' : n_jobtitle,
+		'gender' : n_gender,
+		'dob' : n_dob,
+		'username' : n_username,
 		'workemail' : n_workemail
 	})
 }
@@ -224,55 +224,55 @@ export function addNewEmployee( new_employee_details  ){
 
 
 
-		if( typeof new_employee_details.dateofjoining == 'undefined' || new_employee_details.dateofjoining == '' ){ 
+		if( typeof new_employee_details.dateofjoining == 'undefined' || new_employee_details.dateofjoining == '' ){
 			return Promise.reject('Date of Joining is empty')
  		}else{
- 			n_dateofjoining = new_employee_details.dateofjoining 
+ 			n_dateofjoining = new_employee_details.dateofjoining
  		}
 
- 		if( typeof new_employee_details.name == 'undefined' || new_employee_details.name == '' ){ 
+ 		if( typeof new_employee_details.name == 'undefined' || new_employee_details.name == '' ){
 			return Promise.reject('Name is empty')
  		}else{
- 			n_name = new_employee_details.name 
+ 			n_name = new_employee_details.name
  		}
 
- 		if( typeof new_employee_details.jobtitle == 'undefined' || new_employee_details.jobtitle == '' ){ 
+ 		if( typeof new_employee_details.jobtitle == 'undefined' || new_employee_details.jobtitle == '' ){
 			return Promise.reject('Job Title is empty')
  		}else{
- 			n_jobtitle = new_employee_details.jobtitle 
+ 			n_jobtitle = new_employee_details.jobtitle
  		}
 
- 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){ 
+ 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){
 			return Promise.reject('Gender is empty')
  		}else{
- 			n_gender = new_employee_details.gender 
+ 			n_gender = new_employee_details.gender
  		}
 
- 		if( typeof new_employee_details.dob == 'undefined' || new_employee_details.dob == '' ){ 
+ 		if( typeof new_employee_details.dob == 'undefined' || new_employee_details.dob == '' ){
 			return Promise.reject('Date of birth is empty')
  		}else{
- 			n_dob = new_employee_details.dob 
+ 			n_dob = new_employee_details.dob
  		}
 
- 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){ 
+ 		if( typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '' ){
 			return Promise.reject('Gender is empty')
  		}else{
- 			n_gender = new_employee_details.gender 
+ 			n_gender = new_employee_details.gender
  		}
 
- 		if( typeof new_employee_details.username == 'undefined' || new_employee_details.username == '' ){ 
+ 		if( typeof new_employee_details.username == 'undefined' || new_employee_details.username == '' ){
 			return Promise.reject('Username is empty')
  		}else{
- 			n_username = new_employee_details.username 
+ 			n_username = new_employee_details.username
  		}
 
- 		if( typeof new_employee_details.workemail == 'undefined' || new_employee_details.workemail == '' ){ 
+ 		if( typeof new_employee_details.workemail == 'undefined' || new_employee_details.workemail == '' ){
 			return Promise.reject('Work email is empty')
  		}else{
- 			n_workemail = new_employee_details.workemail 
+ 			n_workemail = new_employee_details.workemail
  		}
 
-		
+
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_addNewEmployee( n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail).then(
@@ -295,7 +295,7 @@ export function addNewEmployee( new_employee_details  ){
 		})
 	}
 }
-//---------get user document 
+//---------get user document
 
 export function success_user_document( data ){
 	return createAction( 'ACTION_SUCCESS_USER_DOCUMENT' )( data )
@@ -330,7 +330,7 @@ export function getUserDocument( userid ){
 				dispatch( hide_loading() ) // hide loading icon
 				dispatch( error_user_document( "error occurs!!!" ) )
 				//reject('error occurs!!')
-			}	
+			}
 			)
 		})
 	}
@@ -361,7 +361,7 @@ export function deleteDocument( doc_id ){
 			( error ) => {
 				dispatch( hide_loading() ) // hide loading icon
 				reject('error occurs!!')
-			}	
+			}
 			)
 		})
 	}
@@ -373,7 +373,7 @@ function async_changeEmployeeStatus( userid, status ){
 	return fireAjax( 'POST', '', {
 		'action' : 'change_employee_status',
 		'user_id' : userid,
-		'status' : status,	
+		'status' : status,
 	})
 }
 
@@ -390,9 +390,8 @@ export function changeEmployeeStatus( userid, status ){
 			},
 			( error ) => {
 				reject('error occurs!!')
-			}	
+			}
 			)
 		})
 	}
 }
-

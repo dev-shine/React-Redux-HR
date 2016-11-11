@@ -45,11 +45,11 @@ export function getMyProfileDetails(  ){
 					dispatch( error_my_profile( "error occurs!!!" ) )
 				}
 			)
-			
+
 		})
 
 	}
-    
+
 }
 
 //-------update profile details
@@ -64,7 +64,6 @@ export function error_update_profile_details( data ){
 }
 
 function async_updateProfileDetails(  n_marital_status, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con ){
-	
 	return fireAjax( 'POST', '', {
 		'action' : 'update_user_profile_detail',
 		"permanent_address":n_address2,
@@ -87,29 +86,29 @@ export function updateProfileDetails( new_profile_details  ){
 		let n_em_contact2 = ""
 		let n_blood_group = ""
 		let n_medical_con = ""
-		
-		if( typeof new_profile_details.marital_status != 'undefined' ){ 
+		console.log('new_profile_details',new_profile_details)
+		if( typeof new_profile_details.marital_status != 'undefined' ){
 			n_marital_status = new_profile_details.marital_status
-		}		
-		if( typeof new_profile_details.address1 != 'undefined' ){ 
+		}
+		if( typeof new_profile_details.address1 != 'undefined' ){
 			n_address1 = new_profile_details.address1
 		}
-		if( typeof new_profile_details.address2 != 'undefined' ){ 
+		if( typeof new_profile_details.address2 != 'undefined' ){
 			n_address2 = new_profile_details.address2
 		}
-		if( typeof new_profile_details.emr_con_1 != 'undefined' ){ 
+		if( typeof new_profile_details.emr_con_1 != 'undefined' ){
 			n_em_contact1 = new_profile_details.emr_con_1
 		}
-		if( typeof new_profile_details.emr_con_2 != 'undefined' ){ 
+		if( typeof new_profile_details.emr_con_2 != 'undefined' ){
 			n_em_contact2 = new_profile_details.emr_con_2
 		}
-		if( typeof new_profile_details.blood_group != 'undefined' ){ 
+		if( typeof new_profile_details.blood_group != 'undefined' ){
 			n_blood_group = new_profile_details.blood_group
 		}
-		if( typeof new_profile_details.medical_con != 'undefined' ){ 
+		if( typeof new_profile_details.medical_con != 'undefined' ){
 			n_medical_con = new_profile_details.medical_con
 		}
-
+		
 		if( n_marital_status.trim() === "" ){ return Promise.reject('Marital status is empty') }
 		if( n_address1.trim() === "" ){ return Promise.reject('Current address is empty') }
 		if( n_address2.trim() === "" ){ return Promise.reject('Permanent address is empty') }
@@ -117,7 +116,7 @@ export function updateProfileDetails( new_profile_details  ){
 		if( n_em_contact2.trim() === "" ){ return Promise.reject('Emmergency contact 2 is empty') }
 		if( n_blood_group.trim() === "" ){ return Promise.reject('Blood group not selected') }
 		if( n_medical_con.trim() === "" ){ return Promise.reject('Any medical conditions is empty') }
-		
+
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_updateProfileDetails( n_marital_status, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con).then(
@@ -167,17 +166,17 @@ export function updateBankDetails( new_bank_details  ){
 		let n_bank_account_no = ""
 		let n_ifsc = ""
 
-		if( typeof new_bank_details.bank_account_no != 'undefined' ){ 
-			n_bank_account_no = new_bank_details.bank_account_no 
+		if( typeof new_bank_details.bank_account_no != 'undefined' ){
+			n_bank_account_no = new_bank_details.bank_account_no
 		}
-		if( typeof new_bank_details.bank_name != 'undefined' ){ 
-			n_bank_name = new_bank_details.bank_name 
+		if( typeof new_bank_details.bank_name != 'undefined' ){
+			n_bank_name = new_bank_details.bank_name
 		}
-		if( typeof new_bank_details.bank_address != 'undefined' ){ 
-			n_bank_address = new_bank_details.bank_address 
+		if( typeof new_bank_details.bank_address != 'undefined' ){
+			n_bank_address = new_bank_details.bank_address
 		}
-		if( typeof new_bank_details.ifsc != 'undefined' ){ 
-			n_ifsc = new_bank_details.ifsc 
+		if( typeof new_bank_details.ifsc != 'undefined' ){
+			n_ifsc = new_bank_details.ifsc
 		}
 		if( n_bank_account_no === "" ){ return Promise.reject('Account number is empty') }
 		if( n_bank_name === "" ){ return Promise.reject('Bank name is empty') }
@@ -228,15 +227,15 @@ function async_updatePassword( n_new_password ){
 
 export function updatePassword( new_password  ){
 	return function (dispatch,getState){
-		
+
 		let n_new_password = ""
-		
-		if( typeof new_password != 'undefined' && new_password != "" ){ 
+
+		if( typeof new_password != 'undefined' && new_password != "" ){
 			n_new_password = new_password
-		}		
-		
+		}
+
 		if( n_new_password === "" ){ return Promise.reject('New Password is empty!!') }
-		
+
 		return new Promise(( resolve, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_updatePassword( n_new_password ).then(
@@ -265,7 +264,7 @@ export function updatePassword( new_password  ){
 function async_updateDocument( document_type, document_link, declearation ){
 	let data = {
 		'action' : 'insert_user_document',
-		'document_type' : document_type, 
+		'document_type' : document_type,
 		'document_link' : document_link,
 		'declearation'	: declearation
 	}
@@ -278,15 +277,15 @@ export function updateDocument( documents_link ){
 		let document_link = ""
 		let declearation = documents_link.declearation
 
-		if( typeof documents_link.doc_type == 'undefined' || documents_link.doc_type == '' ){ 
+		if( typeof documents_link.doc_type == 'undefined' || documents_link.doc_type == '' ){
 			return Promise.reject('Select document type')
  		}else{
- 			document_type = documents_link.doc_type 
+ 			document_type = documents_link.doc_type
  		}
- 		if( typeof documents_link.doc_link == 'undefined' || documents_link.doc_link.length == 0 ){ 
+ 		if( typeof documents_link.doc_link == 'undefined' || documents_link.doc_link.length == 0 ){
 			return Promise.reject('Enter document link')
  		}else{
- 			document_link = documents_link.doc_link 
+ 			document_link = documents_link.doc_link
  		}
 		return new Promise((reslove, reject)=>{
 			_.map(document_link,(link)=>{

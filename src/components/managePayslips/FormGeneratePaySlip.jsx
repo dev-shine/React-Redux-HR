@@ -74,9 +74,9 @@ class FormGeneratePaySlip extends React.Component {
           net_salary : n_net_salary
         })
       }
-        
+
     }
-    
+
     componentWillReceiveProps( props ){
       let user_id = ""
       let year = ""
@@ -120,10 +120,10 @@ class FormGeneratePaySlip extends React.Component {
         designation = this.props.designation
       }
 
-      if( typeof props.user_data_for_payslip != 'undefined' ){ 
+      if( typeof props.user_data_for_payslip != 'undefined' ){
 
         //---info
-        if( typeof props.user_data_for_payslip != 'undefined' ){ 
+        if( typeof props.user_data_for_payslip != 'undefined' ){
           let d = props.user_data_for_payslip
 
           if( typeof d.year != 'undefined' ){
@@ -162,7 +162,7 @@ class FormGeneratePaySlip extends React.Component {
           if( typeof d.final_leave_balance != 'undefined' && d.final_leave_balance != null ){
             final_leave_balance = d.final_leave_balance
           }
-          
+
 
           if( typeof d.leaves_allocated != 'undefined' ){
             allocated_leaves = d.leaves_allocated
@@ -183,13 +183,13 @@ class FormGeneratePaySlip extends React.Component {
             total_deduction = d.total_deduction
           }
 
-        }        
+        }
 
         //---salary
-        if( typeof props.user_data_for_payslip.salary_detail != 'undefined' ){ 
+        if( typeof props.user_data_for_payslip.salary_detail != 'undefined' ){
           let SalaryDetails = props.user_data_for_payslip.salary_detail
 
-          
+
           if( typeof SalaryDetails.Basic != 'undefined' ){
             basic = SalaryDetails.Basic
           }
@@ -214,6 +214,9 @@ class FormGeneratePaySlip extends React.Component {
           if( typeof SalaryDetails.Misc_Deductions != 'undefined' ){
             misc_deduction = SalaryDetails.Misc_Deductions
           }
+          if( typeof SalaryDetails.misc_deduction2 != 'undefined' ){
+            misc_deduction_2 = SalaryDetails.misc_deduction2
+          }
           if( typeof SalaryDetails.Special_Allowance != 'undefined' ){
             special_allowance = SalaryDetails.Special_Allowance
           }
@@ -222,6 +225,9 @@ class FormGeneratePaySlip extends React.Component {
           }
           if( typeof SalaryDetails.Arrears != 'undefined' ){
             arrear = SalaryDetails.Arrears
+          }
+          if( typeof SalaryDetails.bonus != 'undefined' ){
+            bonus = SalaryDetails.bonus
           }
         }
 
@@ -242,7 +248,7 @@ class FormGeneratePaySlip extends React.Component {
         total_leave_taken : total_leave_taken,
         allocated_leaves : allocated_leaves,
         leave_balance : leave_balance,
-        final_leave_balance : final_leave_balance,        
+        final_leave_balance : final_leave_balance,
         basic : basic,
         epf : epf,
         hra : hra,
@@ -266,7 +272,7 @@ class FormGeneratePaySlip extends React.Component {
       let styles = _.cloneDeep(this.constructor.styles);
 
       let date = this.state.applicable_from
-
+      console.log('this.state.bonus',this.state.bonus)
       return (
         <div>
             <table className="table">
@@ -277,7 +283,7 @@ class FormGeneratePaySlip extends React.Component {
                 {this.state.year}
               </td>
               <td>Month</td>
-              <td>  
+              <td>
                 {this.state.month_name} ( {this.state.month} )
               </td>
             </tr>
@@ -325,7 +331,7 @@ class FormGeneratePaySlip extends React.Component {
               <td></td>
             </tr>
 
-         
+
             <tr>
               <td>Basic</td>
               <td>{this.state.basic}</td>
@@ -338,7 +344,7 @@ class FormGeneratePaySlip extends React.Component {
               <td>Loan</td>
               <td>{this.state.loan}</td>
             </tr>
-            
+
             <tr>
               <td>Conveyance</td>
               <td>{this.state.conveyance}</td>
@@ -366,7 +372,7 @@ class FormGeneratePaySlip extends React.Component {
                     className="col-md-6"
                     type="text"
                     value={this.state.misc_deduction_2}
-                    ref="misc_deduction_2" 
+                    ref="misc_deduction_2"
                     onChange={ () => this.setState({ misc_deduction_2 : this.refs.misc_deduction_2.value }) }
                   />
               </td>
@@ -379,7 +385,7 @@ class FormGeneratePaySlip extends React.Component {
                     className="col-md-6"
                     type="text"
                     value={this.state.bonus}
-                    ref="bonus" 
+                    ref="bonus"
                     onChange={ () => this.setState({ bonus : this.refs.bonus.value }) }
                   />
               </td>
@@ -410,25 +416,25 @@ class FormGeneratePaySlip extends React.Component {
 
           <div className="row  p-t">
             <div className="col-xs-6 p-r">
-              <button 
-                className="col-xs-12 md-btn md-raised indigo" 
+              <button
+                className="col-xs-12 md-btn md-raised indigo"
                 onClick={ () => {
                   let s = this.state
                   s.send_email = 0
                   this.props.callCreateUserPayslip( s )
-                }} 
+                }}
               >
                 Create Payslip
               </button>
             </div>
             <div className="col-xs-6 p-r">
-              <button 
-                className="col-xs-12 md-btn md-raised info" 
+              <button
+                className="col-xs-12 md-btn md-raised info"
                 onClick={ () => {
                   let s = this.state
                   s.send_email = 1
                   this.props.callCreateUserPayslip( this.state )
-                }} 
+                }}
               >
                 Create & Email Payslip
               </button>
@@ -448,5 +454,3 @@ FormGeneratePaySlip.styles = {
 
 
 export default FormGeneratePaySlip
-
-

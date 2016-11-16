@@ -41,7 +41,7 @@ export function get_user_manage_payslips_data( userid ){
 					}else{
 						dispatch( success_user_manage_payslips_data( [] ) )
 					}
-					
+
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
@@ -68,7 +68,7 @@ export function error_create_user_salary_slip( data ){
 function async_create_user_payslip( n_userid,n_year,n_month,n_name,n_designation,n_joining_date,n_total_working_days,n_days_present,n_paid_leaves,n_unpaid_leaves,n_total_leave_taken,
         n_allocated_leaves,n_leave_balance,n_final_leave_balance,n_basic,n_epf,n_hra,n_loan,n_conveyance,n_advance,n_medical_allowance,n_misc_deduction,
         n_misc_deduction_2, n_special_allowance,n_tds,n_arrear,n_bonus,n_total_earning,n_total_deduction,n_net_salary, n_send_email ){
-	
+
 	return fireAjax( 'POST', '', {
 		action : 'create_employee_salary_slip',
 		user_id : n_userid,
@@ -140,188 +140,188 @@ export function create_user_payslip(  new_salary_slip_data ){
         let n_send_email = ""
 
 
-		if( typeof new_salary_slip_data.user_id == 'undefined' || new_salary_slip_data.user_id == '' ){ 
+		if( typeof new_salary_slip_data.user_id == 'undefined' || new_salary_slip_data.user_id == '' ){
 			return Promise.reject('User Id is empty')
  		}else{
- 			n_userid = new_salary_slip_data.user_id 
+ 			n_userid = new_salary_slip_data.user_id
  		}
 
- 		if( typeof new_salary_slip_data.name == 'undefined' || new_salary_slip_data.name == '' ){ 
+ 		if( typeof new_salary_slip_data.name == 'undefined' || new_salary_slip_data.name == '' ){
 			return Promise.reject('Name is empty')
  		}else{
  			n_name = new_salary_slip_data.name
  		}
 
- 		if( typeof new_salary_slip_data.year == 'undefined' || new_salary_slip_data.year == '' ){ 
+ 		if( typeof new_salary_slip_data.year == 'undefined' || new_salary_slip_data.year == '' ){
 			return Promise.reject('Year is empty')
  		}else{
- 			n_year = new_salary_slip_data.year 
+ 			n_year = new_salary_slip_data.year
  		}
 
- 		if( typeof new_salary_slip_data.month == 'undefined' || new_salary_slip_data.month == '' ){ 
+ 		if( typeof new_salary_slip_data.month == 'undefined' || new_salary_slip_data.month == '' ){
 			return Promise.reject('Month is empty')
  		}else{
- 			n_month = new_salary_slip_data.month 
+ 			n_month = new_salary_slip_data.month
  		}
 
- 		if( typeof new_salary_slip_data.designation == 'undefined' || new_salary_slip_data.designation == '' ){ 
+ 		if( typeof new_salary_slip_data.designation == 'undefined' || new_salary_slip_data.designation == '' ){
 			return Promise.reject('Designation is empty')
  		}else{
- 			n_designation = new_salary_slip_data.designation 
+ 			n_designation = new_salary_slip_data.designation
  		}
 
- 		if( typeof new_salary_slip_data.joining_date == 'undefined' || new_salary_slip_data.joining_date == '' ){ 
+ 		if( typeof new_salary_slip_data.joining_date == 'undefined' || new_salary_slip_data.joining_date == '' ){
 			return Promise.reject('Joining date is empty')
  		}else{
- 			n_joining_date = new_salary_slip_data.joining_date 
+ 			n_joining_date = new_salary_slip_data.joining_date
  		}
 
- 		if( typeof new_salary_slip_data.total_working_days == 'undefined' || new_salary_slip_data.total_working_days === '' ){ 
+ 		if( typeof new_salary_slip_data.total_working_days == 'undefined' || new_salary_slip_data.total_working_days === '' ){
 			return Promise.reject('Total working days is empty')
  		}else{
- 			n_total_working_days = new_salary_slip_data.total_working_days 
+ 			n_total_working_days = new_salary_slip_data.total_working_days
  		}
 
- 		if( typeof new_salary_slip_data.days_present == 'undefined' || new_salary_slip_data.days_present === '' ){ 
+ 		if( typeof new_salary_slip_data.days_present == 'undefined' || new_salary_slip_data.days_present === '' ){
 			return Promise.reject('Days present is empty')
  		}else{
- 			n_days_present = new_salary_slip_data.days_present 
+ 			n_days_present = new_salary_slip_data.days_present
  		}
 
- 		if( typeof new_salary_slip_data.paid_leaves == 'undefined' || new_salary_slip_data.paid_leaves === '' ){ 
+ 		if( typeof new_salary_slip_data.paid_leaves == 'undefined' || new_salary_slip_data.paid_leaves === '' ){
 			return Promise.reject('Paid leaves is empty')
  		}else{
- 			n_paid_leaves = new_salary_slip_data.paid_leaves 
+ 			n_paid_leaves = new_salary_slip_data.paid_leaves
  		}
 
- 		if( typeof new_salary_slip_data.unpaid_leaves == 'undefined' || new_salary_slip_data.unpaid_leaves === '' ){ 
+ 		if( typeof new_salary_slip_data.unpaid_leaves == 'undefined' || new_salary_slip_data.unpaid_leaves === '' ){
 			return Promise.reject('Unpaid leaves is empty')
  		}else{
- 			n_unpaid_leaves = new_salary_slip_data.unpaid_leaves 
+ 			n_unpaid_leaves = new_salary_slip_data.unpaid_leaves
  		}
 
- 		if( typeof new_salary_slip_data.total_leave_taken == 'undefined' || new_salary_slip_data.total_leave_taken === '' ){ 
+ 		if( typeof new_salary_slip_data.total_leave_taken == 'undefined' || new_salary_slip_data.total_leave_taken === '' ){
 			return Promise.reject('Total leave taken is empty')
  		}else{
- 			n_total_leave_taken = new_salary_slip_data.total_leave_taken 
+ 			n_total_leave_taken = new_salary_slip_data.total_leave_taken
  		}
 
- 		if( typeof new_salary_slip_data.allocated_leaves == 'undefined' || new_salary_slip_data.allocated_leaves === '' ){ 
+ 		if( typeof new_salary_slip_data.allocated_leaves == 'undefined' || new_salary_slip_data.allocated_leaves === '' ){
 			return Promise.reject('Allocated leaves is empty')
  		}else{
- 			n_allocated_leaves = new_salary_slip_data.allocated_leaves 
+ 			n_allocated_leaves = new_salary_slip_data.allocated_leaves
  		}
 
- 		if( typeof new_salary_slip_data.leave_balance == 'undefined' || new_salary_slip_data.leave_balance === '' ){ 
+ 		if( typeof new_salary_slip_data.leave_balance == 'undefined' || new_salary_slip_data.leave_balance === '' ){
 			return Promise.reject('Leave balance is empty')
  		}else{
- 			n_leave_balance = new_salary_slip_data.leave_balance 
+ 			n_leave_balance = new_salary_slip_data.leave_balance
  		}
 
- 		if( typeof new_salary_slip_data.final_leave_balance == 'undefined' || new_salary_slip_data.final_leave_balance === '' ){ 
+ 		if( typeof new_salary_slip_data.final_leave_balance == 'undefined' || new_salary_slip_data.final_leave_balance === '' ){
 			return Promise.reject('Final leave balance is empty')
  		}else{
- 			n_final_leave_balance = new_salary_slip_data.final_leave_balance 
+ 			n_final_leave_balance = new_salary_slip_data.final_leave_balance
  		}
 
- 		if( typeof new_salary_slip_data.basic == 'undefined' || new_salary_slip_data.basic === '' ){ 
+ 		if( typeof new_salary_slip_data.basic == 'undefined' || new_salary_slip_data.basic === '' ){
 			return Promise.reject('Basic is empty')
  		}else{
- 			n_basic = new_salary_slip_data.basic 
+ 			n_basic = new_salary_slip_data.basic
  		}
 
- 		if( typeof new_salary_slip_data.epf == 'undefined' || new_salary_slip_data.epf === '' ){ 
+ 		if( typeof new_salary_slip_data.epf == 'undefined' || new_salary_slip_data.epf === '' ){
 			return Promise.reject('EPF is empty')
  		}else{
  			n_epf = new_salary_slip_data.epf
  		}
 
- 		if( typeof new_salary_slip_data.hra == 'undefined' || new_salary_slip_data.hra === '' ){ 
+ 		if( typeof new_salary_slip_data.hra == 'undefined' || new_salary_slip_data.hra === '' ){
 			return Promise.reject('HRA is empty')
  		}else{
  			n_hra = new_salary_slip_data.hra
  		}
 
- 		if( typeof new_salary_slip_data.loan == 'undefined' || new_salary_slip_data.loan === '' ){ 
+ 		if( typeof new_salary_slip_data.loan == 'undefined' || new_salary_slip_data.loan === '' ){
 			return Promise.reject('Loan is empty')
  		}else{
- 			n_loan = new_salary_slip_data.loan 
+ 			n_loan = new_salary_slip_data.loan
  		}
 
- 		if( typeof new_salary_slip_data.conveyance == 'undefined' || new_salary_slip_data.conveyance === '' ){ 
+ 		if( typeof new_salary_slip_data.conveyance == 'undefined' || new_salary_slip_data.conveyance === '' ){
 			return Promise.reject('Conveyance is empty')
  		}else{
- 			n_conveyance = new_salary_slip_data.conveyance 
+ 			n_conveyance = new_salary_slip_data.conveyance
  		}
 
- 		if( typeof new_salary_slip_data.advance == 'undefined' || new_salary_slip_data.advance === '' ){ 
+ 		if( typeof new_salary_slip_data.advance == 'undefined' || new_salary_slip_data.advance === '' ){
 			return Promise.reject('Advance is empty')
  		}else{
- 			n_advance = new_salary_slip_data.advance 
+ 			n_advance = new_salary_slip_data.advance
  		}
- 		
-		if( typeof new_salary_slip_data.medical_allowance == 'undefined' || new_salary_slip_data.medical_allowance === '' ){ 
+
+		if( typeof new_salary_slip_data.medical_allowance == 'undefined' || new_salary_slip_data.medical_allowance === '' ){
 			return Promise.reject('Medical allowance is empty')
  		}else{
- 			n_medical_allowance = new_salary_slip_data.medical_allowance 
+ 			n_medical_allowance = new_salary_slip_data.medical_allowance
  		}
 
-        if( typeof new_salary_slip_data.misc_deduction == 'undefined' || new_salary_slip_data.misc_deduction === '' ){ 
+        if( typeof new_salary_slip_data.misc_deduction == 'undefined' || new_salary_slip_data.misc_deduction === '' ){
 			return Promise.reject('Holding is empty')
  		}else{
- 			n_misc_deduction = new_salary_slip_data.misc_deduction 
+ 			n_misc_deduction = new_salary_slip_data.misc_deduction
  		}
 
- 		if( typeof new_salary_slip_data.misc_deduction_2 == 'undefined' || new_salary_slip_data.misc_deduction_2 === '' ){ 
+ 		if( typeof new_salary_slip_data.misc_deduction_2 == 'undefined' || new_salary_slip_data.misc_deduction_2 === '' ){
 			return Promise.reject('Misc deduction  is empty')
  		}else{
- 			n_misc_deduction_2 = new_salary_slip_data.misc_deduction_2 
+ 			n_misc_deduction_2 = new_salary_slip_data.misc_deduction_2
  		}
 
-        if( typeof new_salary_slip_data.special_allowance == 'undefined' || new_salary_slip_data.special_allowance === '' ){ 
+        if( typeof new_salary_slip_data.special_allowance == 'undefined' || new_salary_slip_data.special_allowance === '' ){
 			return Promise.reject('Special allowance is empty')
  		}else{
- 			n_special_allowance = new_salary_slip_data.special_allowance 
+ 			n_special_allowance = new_salary_slip_data.special_allowance
  		}
 
-        if( typeof new_salary_slip_data.tds == 'undefined' || new_salary_slip_data.tds === '' ){ 
+        if( typeof new_salary_slip_data.tds == 'undefined' || new_salary_slip_data.tds === '' ){
 			return Promise.reject('TDS is empty')
  		}else{
- 			n_tds = new_salary_slip_data.tds 
+ 			n_tds = new_salary_slip_data.tds
  		}
 
-        if( typeof new_salary_slip_data.arrear == 'undefined' || new_salary_slip_data.arrear === '' ){ 
+        if( typeof new_salary_slip_data.arrear == 'undefined' || new_salary_slip_data.arrear === '' ){
 			return Promise.reject('Advance is empty')
  		}else{
- 			n_arrear = new_salary_slip_data.arrear 
+ 			n_arrear = new_salary_slip_data.arrear
  		}
 
- 		if( typeof new_salary_slip_data.bonus == 'undefined' || new_salary_slip_data.bonus === '' ){ 
+ 		if( typeof new_salary_slip_data.bonus == 'undefined' || new_salary_slip_data.bonus === '' ){
 			return Promise.reject('Bonus is empty')
  		}else{
- 			n_bonus = new_salary_slip_data.bonus 
+ 			n_bonus = new_salary_slip_data.bonus
  		}
 
-	        
-        if( typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning === '' ){ 
+
+        if( typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning === '' ){
 			return Promise.reject('Total earning is empty')
  		}else{
- 			n_total_earning = new_salary_slip_data.total_earning 
+ 			n_total_earning = new_salary_slip_data.total_earning
  		}
-        
-        if( typeof new_salary_slip_data.total_deduction == 'undefined' || new_salary_slip_data.total_deduction === '' ){ 
+
+        if( typeof new_salary_slip_data.total_deduction == 'undefined' || new_salary_slip_data.total_deduction === '' ){
 			return Promise.reject('Total deduction is empty')
  		}else{
- 			n_total_deduction = new_salary_slip_data.total_deduction 
+ 			n_total_deduction = new_salary_slip_data.total_deduction
  		}
 
-        if( typeof new_salary_slip_data.net_salary == 'undefined' || new_salary_slip_data.net_salary === '' ){ 
+        if( typeof new_salary_slip_data.net_salary == 'undefined' || new_salary_slip_data.net_salary === '' ){
 			return Promise.reject('Net salary is empty')
  		}else{
- 			n_net_salary = new_salary_slip_data.net_salary 
+ 			n_net_salary = new_salary_slip_data.net_salary
  		}
 
- 		if( typeof new_salary_slip_data.send_email != 'undefined' ){ 
+ 		if( typeof new_salary_slip_data.send_email != 'undefined' ){
 			n_send_email = new_salary_slip_data.send_email
  		}
 
@@ -335,12 +335,12 @@ export function create_user_payslip(  new_salary_slip_data ){
 					dispatch( hide_loading() ) // hide loading icon
 
 					if( json.error == 0 ){
-						dispatch( success_create_user_salary_slip( json.data ) )
-		        		resolve('Payslip generated!!')
-		          	}else{
-			            dispatch( error_create_user_salary_slip( json.data.message ) )
-			            reject(json.data.message)
-		          	}
+						//dispatch( success_create_user_salary_slip( json.data ) )
+      			resolve('Payslip generated!!')
+        	}else{
+            dispatch( error_create_user_salary_slip( json.data.message ) )
+            reject(json.data.message)
+        	}
 				},
 				( error ) =>{
 					console.log('Tell Arun error occurs on Action - create_user_payslip')
@@ -392,7 +392,7 @@ export function email_payslips( payslips_ids ){
 						dispatch( error_email_payslips( 'error occurs!!' ) )
 						reject('error occurs!!')
 					}
-					
+
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
@@ -446,7 +446,7 @@ export function save_google_access_token( accessToken ){
 						dispatch( error_save_google_access_token( 'error occurs!!' ) )
 						reject('error occurs!!')
 					}
-					
+
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
@@ -499,7 +499,6 @@ export function getTransferList( userIds ){
 				}
 			)
 		})
-		
+
 	}
 }
-

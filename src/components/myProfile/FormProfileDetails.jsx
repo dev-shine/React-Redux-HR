@@ -42,95 +42,80 @@
         medical_con : props.user_profile_detail.medical_condition
      })
     }
-      
-      render(){
 
+      render(){
         return (
           <div>
-                
-                  <h6 className="text-center">Personal Details</h6>
-          
+            <h6 className="text-center">Personal Details</h6>
+            <div className="form-group">
+              <label> User Name</label>
+              <input type="text" className="form-control" value={ this.state.name } disabled />
+            </div>
 
-          <div className="form-group">
-          <label>Marital Status</label>
+            <div className="form-group">
+              <label>Marital Status</label>
+              <select className="form-control" ref="marital_status" onChange={ () => this.setState({ marital_status : this.refs.marital_status.value }) } value={this.state.marital_status} >
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
 
-          <select className="form-control" ref="marital_status" onChange={ () => this.setState({ marital_status : this.refs.marital_status.value }) } value={this.state.marital_status} >
-            <option value="Single">Single</option>
-            <option value="Married">Married</option>
-            <option value="Other">Other</option>
-          </select>
-          
-          </div>
-          
-          <div className="row no-gutter">
-            <div className="col-md-6 p-r">
-              <div className="form-group">
-                <label>Current Address</label>
-                <textarea placeholder="your current address..." className="form-control" ref="address1" onChange={ () => this.setState({ address1 : this.refs.address1.value }) } value={this.state.address1}></textarea>
+            <div className="row no-gutter">
+              <div className="col-md-6 p-r">
+                <div className="form-group">
+                  <label>Current Address</label>
+                  <textarea placeholder="your current address..." className="form-control" ref="address1" onChange={ () => this.setState({ address1 : this.refs.address1.value }) } value={this.state.address1}></textarea>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label>Permanent Address</label>
+                  <textarea placeholder="your permanent address..." className="form-control" ref="address2" onChange={ () => this.setState({ address2 : this.refs.address2.value }) } value={this.state.address2}></textarea>
+                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label>Permanent Address</label>
-                <textarea placeholder="your permanent address..." className="form-control" ref="address2" onChange={ () => this.setState({ address2 : this.refs.address2.value }) } value={this.state.address2}></textarea>
-              </div>
-            </div>
-          </div>
 
-          <div className="row no-gutter">
-            <div className="col-md-6 p-r">
-              <div className="form-group">
-                <label>Emergency Contact Information 1</label>
-                <input type="text" className="form-control" ref="emr_con_1" onChange={ () => this.setState({ emr_con_1 : this.refs.emr_con_1.value }) } value={ this.state.emr_con_1 }/>
+            <div className="row no-gutter">
+              <div className="col-md-6 p-r">
+                <div className="form-group">
+                  <label>Emergency Contact Information 1</label>
+                  <input type="text" className="form-control" ref="emr_con_1" onChange={ () => this.setState({ emr_con_1 : this.refs.emr_con_1.value }) } value={ this.state.emr_con_1 }/>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label> Emergency Contact Information 2</label>
+                  <input type="text" className="form-control" ref="emr_con_2" onChange={ () => this.setState({ emr_con_2 : this.refs.emr_con_2.value }) } value={ this.state.emr_con_2 }/>
+                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label> Emergency Contact Information 2</label>
-                <input type="text" className="form-control" ref="emr_con_2" onChange={ () => this.setState({ emr_con_2 : this.refs.emr_con_2.value }) } value={ this.state.emr_con_2 }/>
-              </div>
-            </div>
-          </div>
 
            <div className="form-group">
-          <label>Blood Group</label>
-
-          <select className="form-control" ref="blood_group" onChange={ () => this.setState({ blood_group : this.refs.blood_group.value }) } value={this.state.blood_group} >
-            <option value="">--select your blood group--</option>
-            <option value="O+">O-</option>
-            <option value="O-">O+</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-          </select>
-          
+             <label>Blood Group</label>
+             <select className="form-control" ref="blood_group" onChange={ () => this.setState({ blood_group : this.refs.blood_group.value }) } value={this.state.blood_group} >
+                <option value="">--select your blood group--</option>
+                <option value="O+">O-</option>
+                <option value="O-">O+</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+             </select>
           </div>
 
           <div className="form-group">
-          <label>Any Medical Conditions</label>
-          <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={ () => this.setState({ medical_con : this.refs.medical_con.value }) } value={this.state.medical_con}></textarea>
+            <label>Any Medical Conditions</label>
+            <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={ () => this.setState({ medical_con : this.refs.medical_con.value }) } value={this.state.medical_con}></textarea>
           </div>
 
-
-
-<button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callUpdateProfileDetails( this.state ) } >Update Profile Details</button>
-
-          
-
-
-                </div>
-
-
-
-          
-          )
-}
+        <button  className="col-xs-12 md-btn md-raised indigo" onClick={ () => this.props.callUpdateProfileDetails( this.state ) } >Update Profile Details</button>
+      </div>
+    )
+  }
 }
 
 
 export default FormProfileDetails
-
-

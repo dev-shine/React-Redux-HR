@@ -74,7 +74,7 @@ class ApplyLeave extends React.Component {
         <div className="box-divider m-a-0"></div>
         <div className="box-body">
 
-        <ApplyLeaveForm {...this.props}/>
+        <ApplyLeaveForm forAdmin={false} {...this.props}/>
           
 
 

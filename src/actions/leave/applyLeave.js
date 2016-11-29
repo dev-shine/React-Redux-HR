@@ -72,6 +72,60 @@ export function apply_leave( from_date, to_date, no_of_days, reason ){
     
 }
 
+function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, token ){
+	return fireAjax( 'POST', '', {
+		'action' : 'admin_user_apply_leave',
+		'from_date' : from_date,
+		'to_date' : to_date,
+		'no_of_days' : no_of_days,
+		'reason' : reason,
+		'user_id' : userId
+	})
+}
+
+
+export function apply_userLeave( from_date, to_date, no_of_days, reason, userId ){
+
+	return function (dispatch,getState){
+		if(_.isEmpty(from_date)){
+			return Promise.reject('From date is empty')
+		}
+		if(_.isEmpty(to_date)){
+			return Promise.reject('To date is empty')
+		}
+		if( no_of_days == '' ){
+			return Promise.reject('No of days is empty')
+		}
+		if(_.isEmpty(reason)){
+			return Promise.reject('Reason is empty')
+		}
+
+		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			let token = localStorage.getItem('hr_logged_user')
+			async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, token ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						//dispatch( leave_sucess( json.data.message ) )
+						reslove(json.data.message)
+		 			}else{
+		 				//dispatch( leave_fail( json.data.message ) )
+		 				reject(json.data.message)
+		 			}
+				},
+				( error ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					dispatch( leave_error( 'error occurs' ) )
+					reject('error occurs')
+				}
+			)
+			
+		})
+
+	}
+    
+}
 //------get days between leaves
 
 

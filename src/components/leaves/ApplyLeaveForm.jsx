@@ -65,13 +65,30 @@ class ApplyLeaveForm extends React.Component {
 
 
     doApplyLeave( evt ){
-      evt.preventDefault(); 
+      evt.preventDefault();
+      if(this.props.forAdmin==true){
+        this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId ).then(
+        (data) => {
+          this.setState({
+            form_from_date : '',
+            form_to_date : '',
+            form_no_of_days : '',
+            form_reason : '',
+            show_half_day_button : ''
+          })
+          notify( data );
+        },(error) => {
+            notify( error );
+        })
+      }else{
         this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason ).then(
         (data) => {
 
         },(error) => {
             notify( error );
         })
+      } 
+        
     }
     componentWillReceiveProps( props ){
 
@@ -112,7 +129,7 @@ class ApplyLeaveForm extends React.Component {
 
             <div className="col-sm-4">
 
-            <h5>Your Leave Summary</h5>
+            <h5>Leave Summary</h5>
             <br/>
 
         <form role="form"  onSubmit={this.doApplyLeave}>

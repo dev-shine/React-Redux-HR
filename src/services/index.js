@@ -82,7 +82,7 @@ export function fireAjax( method, url, data ){
 			body: JSON.stringify(data),
 		}
 		URL = CONFIG.other_api_url
-	}else if( data.action == "change_employee_status" || data.action == "show_disabled_users" ){
+	}else if(data.action == "admin_user_apply_leave" || data.action == "change_employee_status" || data.action == "show_disabled_users" ){
 		let token = localStorage.getItem('hr_logged_user')
 		data.token = token
 		headers = {

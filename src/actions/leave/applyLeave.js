@@ -33,7 +33,19 @@ function async_apply_leave( from_date, to_date, no_of_days, reason ){
 	})
 }
 
-export function apply_leave( from_date, to_date, no_of_days, reason ){
+
+function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId ){
+	return fireAjax( 'POST', '', {
+		'action' : 'admin_user_apply_leave',
+		'from_date' : from_date,
+		'to_date' : to_date,
+		'no_of_days' : no_of_days,
+		'reason' : reason,
+		'user_id' : userId
+	})
+}
+
+export function apply_leave( from_date, to_date, no_of_days, reason, userId ){
 
 	return function (dispatch,getState){
 		if(_.isEmpty(from_date)){
@@ -50,27 +62,47 @@ export function apply_leave( from_date, to_date, no_of_days, reason ){
 		}
 
 		return new Promise(( reslove, reject ) => {
-			dispatch( show_loading() ); // show loading icon
-			async_apply_leave( from_date, to_date, no_of_days, reason ).then(
-				( json ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					if( json.error == 0 ){
-						dispatch( leave_sucess( json.data.message ) )
-		 			}else{
-		 				dispatch( leave_fail( json.data.message ) )
-		 			}
-				},
-				( error ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					dispatch( leave_error( 'error occurs' ) )
-				}
-			)
+			if(userId==""){
+				async_apply_leave( from_date, to_date, no_of_days, reason ).then(
+				    ( json ) => {
+					    dispatch( hide_loading() ) // hide loading icon
+					    if( json.error == 0 ){
+						    dispatch( leave_sucess( json.data.message ) )
+		 			    }else{
+		 				    dispatch( leave_fail( json.data.message ) )
+		 			    }
+				    },
+				    ( error ) => {
+					    dispatch( hide_loading() ) // hide loading icon
+					    dispatch( leave_error( 'error occurs' ) )
+				    }
+			    )
+			}else{
+				async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId ).then(
+				    ( json ) => {
+					    dispatch( hide_loading() ) // hide loading icon
+					    if( json.error == 0 ){
+						    dispatch( leave_sucess( json.data.message ) )
+						    reslove(json.data.message)
+		 			    }else{
+		 				    dispatch( leave_fail( json.data.message ) )
+		 				    reject(json.data.message)
+		 			    }
+				    },
+				    ( error ) => {
+					    dispatch( hide_loading() ) // hide loading icon
+					    dispatch( leave_error( 'error occurs' ) )
+					    reject('error occurs')
+				    }
+			    )
+			}
 			
 		})
 
 	}
     
 }
+
 
 //------get days between leaves
 

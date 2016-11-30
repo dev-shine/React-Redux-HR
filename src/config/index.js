@@ -1,5 +1,8 @@
 const token = localStorage.getItem('hr_logged_user')
 export const CONFIG = {
+	//constants
+	ADMIN:'Admin',
+	HR:'Hr',
 	//dev apis
 	api_url : 'http://excellencemagentoblog.com/slack_dev/hr/attendance/API_HR/api.php',
 	other_api_url : 'http://excellencemagentoblog.com/slack_dev/hr/attendance/sal_info/api.php',

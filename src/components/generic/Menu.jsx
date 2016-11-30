@@ -32,10 +32,10 @@ class Menu extends React.Component {
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
       let link_holidays= <Link to='/holidays'>Holidays</Link>
+      let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
       
       //user
       let link_my_calendar = <Link to='/monthly_attendance'>My Attendance</Link>
-      let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
       let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
       let link_my_profile = <Link to='/my_profile'>My Profile</Link>
       let link_salary = <Link to='/salary'>My Salary</Link>
@@ -74,6 +74,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
             <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span>{link_holidays}</span></li>
+            <li className="hidden-folded" ><span>{link_apply_leave}</span></li>
             <li className="hidden-folded" ><span>{link_manage_salary}</span></li>
             <li className="hidden-folded" ><span>{link_manage_users}</span></li>
             <li className="hidden-folded" ><span>{link_manage_payslips}</span></li>
@@ -90,6 +91,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
             <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span>{link_holidays}</span></li>
+            <li className="hidden-folded" ><span>{link_apply_leave}</span></li>
             <li className="hidden-folded" ><span>{link_manage_users}</span></li>
             <li className="hidden-folded" ><span>{link_manageUserStatus}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>

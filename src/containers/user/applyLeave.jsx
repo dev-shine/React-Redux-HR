@@ -108,21 +108,17 @@ class ApplyLeave extends React.Component {
                   <p><small>{this.state.selected_user_jobtitle}</small></p>
                 </div>
               </div>
-              <div className="row no-gutter b-t box">
-                <div className="col-xs-12 b-r box">
+              <div className="box">
+                <div className="box-body">
                   <ApplyLeaveForm forAdmin={true} selectedUserId={this.state.selected_user_id} {...this.props}/>
                 </div>
               </div>
             </div>
             </div>:
-            <div className="row">
-            <div className="col-md-12">
-              <div className="row no-gutter b-t box">
-                <div className="col-xs-12 b-r box">
-                  <ApplyLeaveForm forAdmin={false} {...this.props}/>
-                </div>
+            <div className="box">
+              <div className="box-body">
+                <ApplyLeaveForm forAdmin={false} {...this.props}/>
               </div>
-            </div>
             </div>)
 
         return(
@@ -145,7 +141,7 @@ class ApplyLeave extends React.Component {
               </div>
 
               <div className="app-body" id="view">
-                <div style={{'paddingTop':'20px'}}>
+                <div style={{'paddingTop':'50px'}} className="padding">
                   {mainDivs}
                 </div>
               </div>

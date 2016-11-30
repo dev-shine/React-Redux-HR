@@ -81,7 +81,7 @@ class ApplyLeaveForm extends React.Component {
             notify( error );
         })
       }else{
-        this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason ).then(
+        this.props.onApplyLeave( this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "" ).then(
         (data) => {
 
         },(error) => {
@@ -100,7 +100,7 @@ class ApplyLeaveForm extends React.Component {
      this.setState({
           form_from_date : props.applyLeave.start_date,
           form_to_date : props.applyLeave.end_date,
-           form_no_of_days : num_working_days
+          form_no_of_days : num_working_days
        })
     }
     render(){

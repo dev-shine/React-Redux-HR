@@ -37,7 +37,6 @@ import Page_ManageClients from './containers/admin/manageClients'
 import Page_ManagePayslips from './containers/admin/managePayslips'
 import Page_ManageUserStatus from './containers/admin/manageUserStatus'
 import Page_ViewSalary from './containers/admin/viewSalary'
-import Page_ApplyUserLeave from './containers/admin/applyLeave'
 
 
 //-user
@@ -142,7 +141,6 @@ let render = (routerKey = null) => {
                      <Route path="logout" component={Page_Logout} />
                      <Route path="holidays" component={Page_Holidays} />
                      <Route path="apply_leave" component={Page_ApplyLeave} />
-                     <Route path="apply_user_leave" component={Page_ApplyUserLeave}/>
                      <Route path="manage_leaves" component={Page_ManageLeaves} />
                      <Route path="my_leaves" component={Page_MyLeaves} />
                      <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />

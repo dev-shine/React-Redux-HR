@@ -18,6 +18,10 @@ import * as actions_usersList from '../../actions/user/usersList'
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 import UsersList from '../../components/attendance/UsersList'
 
+const styles={
+  content:{'paddingTop':'50px'}
+}
+
 class ApplyLeave extends React.Component {
     constructor( props ){
         super( props );
@@ -141,7 +145,7 @@ class ApplyLeave extends React.Component {
               </div>
 
               <div className="app-body" id="view">
-                <div style={{'paddingTop':'50px'}} className="padding">
+                <div style={styles.content} className="padding">
                   {mainDivs}
                 </div>
               </div>

@@ -124,9 +124,6 @@ class ApplyLeaveForm extends React.Component {
               <Calendar  onChange={this.handleEndDate} />
             </div>
 
-
-
-
             <div className="col-sm-4">
 
             <h5>Leave Summary</h5>

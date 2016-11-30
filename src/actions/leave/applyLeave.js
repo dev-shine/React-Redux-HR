@@ -62,6 +62,7 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId ){
 		}
 
 		return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
 			if(userId==""){
 				async_apply_leave( from_date, to_date, no_of_days, reason ).then(
 				    ( json ) => {

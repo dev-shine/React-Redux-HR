@@ -9,7 +9,7 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import ApplyLeaveForm from '../../components/leaves/ApplyLeaveForm'
-
+import { CONFIG } from '../../config/index'
 import * as actions_login from '../../actions/login/index'
 import * as actions_apply_leave from '../../actions/leave/applyLeave'
 import * as actions_usersList from '../../actions/user/usersList'
@@ -44,7 +44,7 @@ class ApplyLeave extends React.Component {
             if( props.logged_user.role == 'Guest' ){
                 this.props.router.push('/home');    
             }else{
-              if(props.logged_user.role == 'Admin' || props.logged_user.role == 'Hr'){
+              if(props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.ADMIN){
                 if( this.state.defaultUserDisplay  == '' ){
                   props.onUsersList()
                 }
@@ -53,7 +53,7 @@ class ApplyLeave extends React.Component {
         }
     }
     componentDidUpdate(){
-      if(this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Hr'){
+      if(this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.ADMIN){
         if( this.state.defaultUserDisplay  == '' ){
           if( this.props.usersList.users.length > 0 ){
               let firstUser = this.props.usersList.users[0]

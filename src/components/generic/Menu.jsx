@@ -53,7 +53,6 @@ class Menu extends React.Component {
       let link_documents = <Link to='/documents'>My Documents</Link>
       let link_manageUserStatus = <Link to='/manage_user_status'>Manage User Status</Link>
       let link_view_salary = <Link to='/view_salary'>View Salary</Link>
-      //let link_apply_user_leave = <Link to='/apply_user_leave'>Apply User's Leave</Link>
 
 
       let links_to_show = <ul className="nav" >

@@ -169,8 +169,10 @@ class ManagePayslipsUsersList extends React.Component {
 
       //---
       let payslipGeneratedHtmlClass = styles.pendingStatus
+      let Payslip_Generated_text = "Payslip Not Generated"
       if( payslipGenerated == 1 ){
         payslipGeneratedHtmlClass = styles.doneStatus
+        Payslip_Generated_text = "Payslip Generated"
       }
       
       let checkbox_send_email = <input 
@@ -208,7 +210,7 @@ class ManagePayslipsUsersList extends React.Component {
               <small className="text-muted text-ellipsis"><b>Emp Id : {userid}</b></small>
             </div>
             
-            <div  className="text-muted" style={payslipGeneratedHtmlClass}>Payslip Generated</div>
+            <div  className="text-muted" style={payslipGeneratedHtmlClass}>{Payslip_Generated_text}</div>
             <div className="text-muted" style={email_to_user_statusHtmlClass}>{checkbox_send_email}Email to Employee</div>
             
           </div>

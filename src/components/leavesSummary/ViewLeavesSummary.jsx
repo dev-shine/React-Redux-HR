@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as _ from 'lodash'
+import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 
@@ -10,26 +11,48 @@ class ViewLeavesSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "",
-      userid: ''
+      data: '',
+      userid: '',
+      month: '',
+      year: ''
     }
+    this.test = this.test.bind(this);
   }
   componentDidMount() {}
   componentWillMount() {}
-  componentWillReceiveProps(props) {}
+  componentWillReceiveProps(props) {
+    this.setState({year: props.year, month: props.month});
+    //console.log(this.state.month, props.month);
+    this.test(props);
+  }
+  test(props) {
+    if (props.componentData.month == this.state.month && props.componentData.year == this.state.year) {
+      //console.log(this.props.componentData);
+      this.setState({data: props.componentData})
+      //console.log(this.state.data);
+    } else {
+      {
+        this.setState({data: ''});
+        //console.log("month change");
+      }
+    }
+
+  }
 
   _onChangeMonth(check) {
     if (check == 'previous') {
-      this.props.on_user_leaves_summary(this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
+      //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
+      this.props.dataToggle(this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
     } else if (check == 'next') {
-      this.props.on_user_leaves_summary(this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
+      //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
+      this.props.dataToggle(this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
     }
   }
 
   _getPendingPunchingDays(p) {
     return _.map(p, (day, key) => {
-      let check_class = "b-success"
-      if (day.day_type == 'WORKING_DAY' || day.day_type == 'LEAVE_DAY') {
+      let check_class = "b-success";
+      if (day.day_type == CONFIG.WORKING_DAY || day.day_type == CONFIG.LEAVE_DAY) {
         if (day.in_time == '' || day.out_time == '') {
           check_class = "b-danger"
         }
@@ -58,9 +81,11 @@ class ViewLeavesSummary extends React.Component {
     })
   }
 
-  _leavesSummaryHtml(d, u) {
+  _leavesSummaryHtml(d) {
+    //console.log(d);
 
     return _.map(d, (user, key) => {
+      //console.log(user);
       let pendingPunchingDays = this._getPendingPunchingDays(user.attendance)
       return (
 
@@ -98,9 +123,12 @@ class ViewLeavesSummary extends React.Component {
     if (typeof this.props.componentData.monthName != 'undefined') {
       current_monthName = this.props.componentData.monthName
     }
+    let summaryHtml
+    if (this.props.componentData.leavesSummary != []) {
+      summaryHtml = this._leavesSummaryHtml(this.state.data.leavesSummary)
+    }
 
-    let summaryHtml = this._leavesSummaryHtml(this.props.componentData.leavesSummary, this.props.users)
-    //console.log(this.props.componentData, "comp");
+    //console.log(this.props.componentData.leavesSummary, "comp");
     return (
       <div >
 

@@ -23,15 +23,15 @@ class ViewSalary extends React.Component {
     }
     componentWillReceiveProps( props ){
 
-      window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
 
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == 'Admin' || props.logged_user.role == 'HR'){
-                
+
             }else{
-                this.props.router.push('/home');    
+                this.props.router.push('/home');
             }
         }
         let emp = []
@@ -52,7 +52,7 @@ class ViewSalary extends React.Component {
             this.setState({
                 empList:emp
             })
-        }     
+        }
     }
     componentDidUpdate(){
     }
@@ -70,7 +70,7 @@ class ViewSalary extends React.Component {
     			    <div className="navbar-item pull-left h5" id="pageTitle">
     			       View Salary
     			    </div>
-			    </div>	
+			    </div>
 				</div>
 				<div className="app-body" id="view">
                         <div className="row">

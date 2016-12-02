@@ -8,6 +8,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UsersList from '../../components/attendance/UsersList'
+import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
@@ -26,27 +27,38 @@ class LeavesSummary extends React.Component {
 
     this.state = {
       defaultUserDisplay: "",
-      userid: ""
+      userid: "",
+      year: '',
+      month: '',
+      leaveData: ''
     }
+    this.dataToggle = this.dataToggle.bind(this);
   }
   componentWillMount() {
-    //this.props.onUsersList();
     let d = new Date();
-    let year = d.getFullYear()
-    let month = d.getMonth() + 1
-    this.props.on_user_leaves_summary(year, month)
+    let y = d.getFullYear()
+    let m = d.getMonth() + 1
+    this.dataToggle(y, m);
+    //this.props.onUsersList();
+  }
+  dataToggle(y, m) {
+    this.setState({year: y, month: m});
+    this.props.on_user_leaves_summary(y, m)
   }
   componentWillReceiveProps(props) {
     //window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR') {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
         //this.props.onUsersList( )
       } else {
         this.props.router.push('/monthly_attendance');
       }
     }
+    //  if (props.leavesSummary.month == this.state.month) {
+    //    this.setState({leaveData: props.leavesSummary})
+    //}
 
   }
   render() {
@@ -74,7 +86,7 @@ class LeavesSummary extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-12 p">
-                  <ViewLeavesSummary componentData={this.props.leavesSummary} onUserClick={this.onUserClick} users={this.props.usersList.users} user_name={this.state.selected_user_name} {...this.props}/>
+                  <ViewLeavesSummary componentData={this.props.leavesSummary} year={this.state.year} month={this.state.month} dataToggle={this.dataToggle} users={this.props.usersList.users} user_name={this.state.selected_user_name} {...this.props}/>
                 </div>
               </div>
             </div>

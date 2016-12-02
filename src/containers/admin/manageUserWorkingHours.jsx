@@ -47,18 +47,18 @@ class ManageUserWorkingHours extends React.Component {
         this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR' ){
                 //this.props.onUsersList( )
             }else{
-                this.props.router.push('/monthly_attendance');    
+                this.props.router.push('/monthly_attendance');
             }
         }
-        
-        
+
+
 
         if( this.state.defaultUserDisplay  == '' ){
             if( props.usersList.users.length > 0 ){
@@ -91,9 +91,9 @@ class ManageUserWorkingHours extends React.Component {
 
 
     callAddUserWorkingHours( userid, date, working_hours, reason  ){
-      this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then( 
+      this.props.onAddUserWorkingHours( userid, date, working_hours, reason ).then(
         (data) => {
-            
+
         },(error) => {
             notify( error );
         })
@@ -122,7 +122,7 @@ class ManageUserWorkingHours extends React.Component {
   		}catch( err){
 
   		}
-            
+
         let mainDivs = <div className="row">
 
             <div className="col-md-3">
@@ -168,15 +168,15 @@ class ManageUserWorkingHours extends React.Component {
 					      <FormAddUserWorkingHours {...this.props} userid={selectedUserId} callAddUserWorkingHours={this.callAddUserWorkingHours}/>
 					    </div>
 					  </div>
-					  
+
 					 </div>
 
 
 
             </div>
-            
+
           </div>
-       
+
 
 		return(
     		<div>
@@ -198,16 +198,16 @@ class ManageUserWorkingHours extends React.Component {
                   </div>
                 </div>
               </div>
-              
+
     				<div className="app-body" id="view">
 
 						<div className="padding">
 								{mainDivs}
 	            			</div>
-							
+
 						</div>
 					</div>
-    			
+
     		</div>
     	)
     }
@@ -227,13 +227,13 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
         onUsersList : () => {
-        	return dispatch( actions_usersList.get_users_list(  ))	
+        	return dispatch( actions_usersList.get_users_list(  ))
         },
         onUserWorkingHoursData : ( userid ) => {
         	return dispatch( actions_manageUserWorkingHours.get_managed_user_working_hours( userid  ))
         },
         onAddUserWorkingHours : ( userid, date, working_hours, reason ) => {
-        	return dispatch( actions_manageUserWorkingHours.add_user_working_hours( userid, date, working_hours, reason  ))	
+        	return dispatch( actions_manageUserWorkingHours.add_user_working_hours( userid, date, working_hours, reason  ))
         }
 
     }

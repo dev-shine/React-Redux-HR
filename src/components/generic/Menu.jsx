@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as _ from 'lodash'
-
+import { CONFIG } from '../../config/index'
 import * as actions_login from '../../actions/login/index'
 
 import LoggedUserInfo from '../../components/menu/LoggedUserInfo'
@@ -79,7 +79,7 @@ class Menu extends React.Component {
         <span >{link_logout}</span>
       </li>
     </ul>
-      if( this.props.logged_user.role == 'Admin'){
+      if( this.props.logged_user.role == CONFIG.ADMIN){
           links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span>{link_users_list}</span></li>
             <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
@@ -96,7 +96,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_view_salary}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
           </ul>                          
-      }else if( this.props.logged_user.role == 'HR' ){
+      }else if( this.props.logged_user.role == CONFIG.HR ){
             links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span>{link_users_list}</span></li>
             <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
@@ -110,7 +110,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_logout}</span></li>
 
           </ul>                          
-      }else if( this.props.logged_user.role == 'Guest' ){
+      }else if( this.props.logged_user.role == CONFIG.GUEST ){
           links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span>{link_users_list}</span></li>
             <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>

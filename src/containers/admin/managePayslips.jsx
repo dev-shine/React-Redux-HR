@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-
+import { CONFIG } from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
@@ -49,7 +49,7 @@ class ManagePayslips extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == 'Admin') {
+      if (props.logged_user.role == CONFIG.ADMIN) {
         //this.props.onUsersList( )
       } else {
         this.props.router.push('/home');

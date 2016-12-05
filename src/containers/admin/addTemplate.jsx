@@ -9,6 +9,7 @@ import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
 import * as actions_variable from '../../actions/variable'
 import Template from '../../components/attendance/Template'
+import { CONFIG } from '../../config/index'
 
 
 class TemplateContainer extends React.Component {
@@ -28,7 +29,7 @@ class TemplateContainer extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'HR'){
+            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
                 
             }else{
                 this.props.router.push('/home');    

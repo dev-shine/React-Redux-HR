@@ -48,7 +48,7 @@ class ApplyLeave extends React.Component {
             if( props.logged_user.role == 'Guest' ){
                 this.props.router.push('/home');    
             }else{
-              if(props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.ADMIN){
+              if(props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
                 if( this.state.defaultUserDisplay  == '' ){
                   props.onUsersList()
                 }
@@ -57,7 +57,7 @@ class ApplyLeave extends React.Component {
         }
     }
     componentDidUpdate(){
-      if(this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.ADMIN){
+      if(this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR){
         if( this.state.defaultUserDisplay  == '' ){
           if( this.props.usersList.users.length > 0 ){
               let firstUser = this.props.usersList.users[0]

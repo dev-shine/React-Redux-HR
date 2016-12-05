@@ -7,7 +7,8 @@ class UsersList extends React.Component {
         super( props );
     }
     render(){
-      let usersList =  _.map( this.props.users , ( user, keyval ) => {
+      let usersList = 
+        usersList =  _.map( this.props.users , ( user, keyval ) => {
         return (
           <User user={user} key={keyval} {...this.props} selectedUserId={this.props.selectedUserId}/>
         )

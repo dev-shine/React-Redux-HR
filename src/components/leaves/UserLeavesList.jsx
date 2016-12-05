@@ -17,7 +17,7 @@ class UserLeavesList extends React.Component {
       })
     }
     _getLeavesList( d ){
-       return _.map( d , ( leave, keyval ) => {console.log(leave)
+       return _.map( d , ( leave, keyval ) => {
         let s = leave.status
         let f_char = s.charAt(0)
         let leaveStatusColor = ""

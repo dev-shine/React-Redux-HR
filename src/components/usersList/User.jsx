@@ -1,15 +1,17 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
 class User extends React.Component {
-    constructor( props ){
-		super( props );
-    }
-    render(){
+  constructor(props) {
+    super(props);
+  }
+  render() {
       let selectedUserId = this.props.selectedUserId
 
-    	let styles = _.cloneDeep(this.constructor.styles);
-		let userid = this.props.user.user_Id
-    	let key = parseInt( userid )
+      let styles = _.cloneDeep(this.constructor.styles);
+      let userid = this.props.user.user_Id
+      let username = this.props.user.username
+      let key = parseInt(userid)
+
 
     	let profileImae = (this.props.disabledUser != undefined ?this.props.user.name.charAt(0):this.props.user.slack_profile.image_72)
       let avatar = (this.props.disabledUser != undefined ?<Avatar>{profileImae}</Avatar>:<img src={profileImae} />)
@@ -50,19 +52,18 @@ class User extends React.Component {
               {arrow}
 	      	</li>
 	    )
+
     }
 }
 
 User.styles = {
   cursorPointer: {
-    'cursor' : 'pointer'
+    'cursor': 'pointer'
   },
-  selectedUser : {
-  	'background' : '#03a9f4',
-  	'color' : 'white'
+  selectedUser: {
+    'background': '#03a9f4',
+    'color': 'white'
   }
 };
 
 export default User
-
-

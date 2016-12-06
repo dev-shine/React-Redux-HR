@@ -6,9 +6,11 @@ import * as _ from 'lodash'
 import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
-
+let v = 0;
 class ViewLeavesSummary extends React.Component {
+
   constructor(props) {
+
     super(props);
     this.state = {
       data: '',
@@ -40,22 +42,26 @@ class ViewLeavesSummary extends React.Component {
   }
 
   _onChangeMonth(check) {
+    let i;
     if (check == 'previous') {
+      //console.log(this.props.userlist.users[0].user_Id);
       //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
-      this.props.dataToggle(this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
+      this.props.dataToggle(this.props.userlist.users[0].user_Id, this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
     } else if (check == 'next') {
       //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
-      this.props.dataToggle(this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
+      this.props.dataToggle(this.props.userlist.users[0].user_Id, this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
     }
   }
 
   _getPendingPunchingDays(p) {
     return _.map(p, (day, key) => {
-      let check_class = "b-success";
-      if (day.day_type == CONFIG.WORKING_DAY || day.day_type == CONFIG.LEAVE_DAY) {
+      let check_class;
+      if (day.day_type == CONFIG.WORKING_DAY) {
         if (day.in_time == '' || day.out_time == '') {
           check_class = "b-danger"
         }
+      } else if (day.day_type == CONFIG.LEAVE_DAY) {
+        check_class = "b-success";
       }
 
       let show_text = ""
@@ -125,6 +131,7 @@ class ViewLeavesSummary extends React.Component {
     }
     let summaryHtml
     if (this.props.componentData.leavesSummary != []) {
+
       summaryHtml = this._leavesSummaryHtml(this.state.data.leavesSummary)
     }
 

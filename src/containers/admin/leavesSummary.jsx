@@ -18,7 +18,9 @@ import * as actions_leaveSummary from '../../actions/admin/leavesSummary'
 import ViewLeavesSummary from '../../components/leavesSummary/ViewLeavesSummary'
 
 //import UserDaySummary from '../../components/attendance/UserDaySummary'
-
+let i = 0,
+  userlist = [],
+  uId;
 class LeavesSummary extends React.Component {
   constructor(props) {
     super(props);
@@ -35,17 +37,21 @@ class LeavesSummary extends React.Component {
     this.dataToggle = this.dataToggle.bind(this);
   }
   componentWillMount() {
+    this.props.onUsersList();
+
+    //console.log(this.props.usersList);
     let d = new Date();
     let y = d.getFullYear()
     let m = d.getMonth() + 1
-    this.dataToggle(y, m);
-    //this.props.onUsersList();
-  }
-  dataToggle(y, m) {
+    i = 0;
     this.setState({year: y, month: m});
-    this.props.on_user_leaves_summary(y, m)
+  }
+  dataToggle(u, y, m) {
+    this.setState({year: y, month: m});
+    this.props.on_select_month_leaves_summary(u, y, m)
   }
   componentWillReceiveProps(props) {
+    //console.log(props.usersList);
     //window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
@@ -59,10 +65,19 @@ class LeavesSummary extends React.Component {
     //  if (props.leavesSummary.month == this.state.month) {
     //    this.setState({leaveData: props.leavesSummary})
     //}
-
+    if (props.usersList.users[i] !== undefined) {
+      console.log(props.usersList.users[i].user_Id);
+      if (i < props.usersList.users.length) {
+        this.props.on_user_leaves_summary(props.usersList.users[i].user_Id, this.state.year, this.state.month)
+        i++;
+        //console.log(this.state.u);
+      }
+      //this.setState({u: props.usersList.users[i].user_Id})
+    } else {
+      console.log("not updated");
+    }
   }
   render() {
-
     return (
       <div>
         <Menu {...this.props }/>
@@ -86,7 +101,7 @@ class LeavesSummary extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-12 p">
-                  <ViewLeavesSummary componentData={this.props.leavesSummary} year={this.state.year} month={this.state.month} dataToggle={this.dataToggle} users={this.props.usersList.users} user_name={this.state.selected_user_name} {...this.props}/>
+                  <ViewLeavesSummary userlist={this.props.usersList} componentData={this.props.leavesSummary} year={this.state.year} month={this.state.month} dataToggle={this.dataToggle} users={this.props.usersList.users} user_name={this.state.selected_user_name} {...this.props}/>
                 </div>
               </div>
             </div>
@@ -107,11 +122,14 @@ const mapDispatchToProps = (dispatch) => {
     onIsAlreadyLogin: () => {
       return dispatch(actions_login.isAlreadyLogin())
     },
-    on_user_leaves_summary: (year, month) => {
-      return dispatch(actions_leaveSummary.get_users_leaves_summary(year, month))
+    on_user_leaves_summary: (u, year, month) => {
+      return dispatch(actions_leaveSummary.get_users_leaves_summary(u, year, month))
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list())
+    },
+    on_select_month_leaves_summary: (u, y, m) => {
+      return dispatch(actions_leaveSummary.select_month_leaves_summary(u, y, m))
     }
   }
 }

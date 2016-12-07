@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
-let v = 0;
+
 class ViewLeavesSummary extends React.Component {
 
   constructor(props) {
@@ -18,38 +18,18 @@ class ViewLeavesSummary extends React.Component {
       month: '',
       year: ''
     }
-    this.test = this.test.bind(this);
   }
   componentDidMount() {}
   componentWillMount() {}
-  componentWillReceiveProps(props) {
-    this.setState({year: props.year, month: props.month});
-    //console.log(this.state.month, props.month);
-    this.test(props);
-  }
-  test(props) {
-    if (props.componentData.month == this.state.month && props.componentData.year == this.state.year) {
-      //console.log(this.props.componentData);
-      this.setState({data: props.componentData})
-      //console.log(this.state.data);
-    } else {
-      {
-        this.setState({data: ''});
-        //console.log("month change");
-      }
-    }
-
-  }
-
+  componentWillReceiveProps(props) {}
   _onChangeMonth(check) {
-    let i;
+    let i = 0;
     if (check == 'previous') {
-      //console.log(this.props.userlist.users[0].user_Id);
-      //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
-      this.props.dataToggle(this.props.userlist.users[0].user_Id, this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
+
+      this.props.monthToggle(this.props.selectedUserId, this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
     } else if (check == 'next') {
-      //this.setState({year: this.props.componentData.previousMonth.year, month: this.props.componentData.previousMonth.month})
-      this.props.dataToggle(this.props.userlist.users[0].user_Id, this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
+
+      this.props.monthToggle(this.props.selectedUserId, this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
     }
   }
 
@@ -89,28 +69,25 @@ class ViewLeavesSummary extends React.Component {
 
   _leavesSummaryHtml(d) {
     //console.log(d);
+    //console.log(user);
+    let pendingPunchingDays = this._getPendingPunchingDays(d.attendance)
+    return (
 
-    return _.map(d, (user, key) => {
-      //console.log(user);
-      let pendingPunchingDays = this._getPendingPunchingDays(user.attendance)
-      return (
-
-        <div key={key} className="row">
-          <div className="col-sm-12 col-md-12">
-            <div className="box">
-              <div className="box-header">
-                <h3>{user.name}</h3>
-              </div>
-              <div className="box-body">
-                <div className="streamline b-l m-l">
-                  {pendingPunchingDays}
-                </div>
+      <div className="row">
+        <div className="col-sm-12 col-md-12">
+          <div className="box">
+            <div className="box-header">
+              <h3>{d.name}</h3>
+            </div>
+            <div className="box-body">
+              <div className="streamline b-l m-l">
+                {pendingPunchingDays}
               </div>
             </div>
           </div>
         </div>
-      )
-    })
+      </div>
+    )
   }
 
   render() {
@@ -132,10 +109,10 @@ class ViewLeavesSummary extends React.Component {
     let summaryHtml
     if (this.props.componentData.leavesSummary != []) {
 
-      summaryHtml = this._leavesSummaryHtml(this.state.data.leavesSummary)
+      summaryHtml = this._leavesSummaryHtml(this.props.componentData.leavesSummary)
     }
 
-    //console.log(this.props.componentData.leavesSummary, "comp");
+    console.log(this.props.componentData.leavesSummary, "comp");
     return (
       <div >
 

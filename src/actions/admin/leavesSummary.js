@@ -9,8 +9,8 @@ export const ACTION_SUCCESS_LEAVES_SUMMARY = "ACTION_SUCCESS_LEAVES_SUMMARY"
 export const ACTION_EMPTY_LEAVES_SUMMARY = "ACTION_EMPTY_LEAVES_SUMMARY"
 export const ACTION_ERROR_LEAVES_SUMMARY = "ACTION_ERROR_LEAVES_SUMMARY"
 
-export function success_leaves_summary(data, username) {
-  return {type: ACTION_SUCCESS_LEAVES_SUMMARY, payload: data, username: username}
+export function success_leaves_summary(data) {
+  return createAction(ACTION_SUCCESS_LEAVES_SUMMARY)(data)
 }
 
 export function empty_leaves_summary(data) {
@@ -30,26 +30,17 @@ function async_get_users_leaves_summary(userid, year, month) {
   })
 }
 
-function async_get_users_list() {
-  return fireAjax('POST', '', {'action': 'get_enable_user'})
-}
-export function select_month_leaves_summary(u, y, m) {
+export function get_users_leaves_summary(userid, year, month) {
+  console.log(userid, year, month);
   return function(dispatch, getState) {
-    dispatch(empty_leaves_summary({}))
-    dispatch(get_users_leaves_summary(u, y, m));
-  }
-}
-export function get_users_leaves_summary(u, year, month) {
-  console.log(u, year, month, "///////");
 
-  return function(dispatch, getState) {
-    //i = start
     return new Promise((resolve, reject) => {
-      dispatch(show_loading());
-      async_get_users_leaves_summary(u, year, month).then((json) => {
+      dispatch(show_loading()); // show loading icon
+      async_get_users_leaves_summary(userid, year, month).then((json) => {
+        resolve(json);
+        console.log(json);
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
-          //console.log(json.data);
           dispatch(success_leaves_summary(json.data))
         } else {
           dispatch(empty_leaves_summary({}))
@@ -58,9 +49,7 @@ export function get_users_leaves_summary(u, year, month) {
       }, (error) => {
         dispatch(hide_loading()) // hide loading icon
         dispatch(error_leaves_summary({}))
-      }) // show loading icon
-
+      })
     })
-
   }
 }

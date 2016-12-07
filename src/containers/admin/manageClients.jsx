@@ -42,19 +42,19 @@ class ManageClients extends React.Component {
         this.callCreateClientInvoice  = this.callCreateClientInvoice.bind(this)
         this.callUpdateClientDetails = this.callUpdateClientDetails.bind(this)
         this.callDeleteInvoice = this.callDeleteInvoice.bind( this )
-    }    
+    }
     componentWillMount(){
       this.props.onClientsList()
     }
     componentWillReceiveProps( props ){
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
       if( props.logged_user.logged_in == -1 ){
           this.props.router.push('/logout');
       }else{
           if( props.logged_user.role == CONFIG.ADMIN){
               //this.props.onUsersList( )
           }else{
-              this.props.router.push('/home');    
+              this.props.router.push('/home');
           }
       }
 
@@ -110,7 +110,7 @@ class ManageClients extends React.Component {
       this.props.onClientDetails( clientid )
     }
     callAddNewClient( new_client_details ){
-      this.props.onAddNewClient( new_client_details ).then( 
+      this.props.onAddNewClient( new_client_details ).then(
         (data) => {
           //on success of adding a new client referch list
           this.props.onClientsList()
@@ -120,7 +120,7 @@ class ManageClients extends React.Component {
       )
     }
     callCreateClientInvoice( new_client_invoice_details ){
-      this.props.onCreateClientInvoice( new_client_invoice_details ).then( 
+      this.props.onCreateClientInvoice( new_client_invoice_details ).then(
         (data) => {
           //on success of adding a new client referch list
           //this.props.onClientsList()
@@ -132,10 +132,10 @@ class ManageClients extends React.Component {
         },(error) => {
           notify( error );
         }
-      ) 
+      )
     }
     callUpdateClientDetails( updated_client_details ){
-      this.props.onUpdateClientDetails( updated_client_details ).then( 
+      this.props.onUpdateClientDetails( updated_client_details ).then(
         (data) => {
           //on success of updating a client referch list
           this.props.onClientsList()
@@ -143,24 +143,24 @@ class ManageClients extends React.Component {
         },(error) => {
           notify( error );
         }
-      ) 
+      )
     }
     callDeleteInvoice( invoice_id ){
-      this.props.onDeleteInvoice( invoice_id ).then( 
+      this.props.onDeleteInvoice( invoice_id ).then(
         (data) => {
           //on success of updating a client referch list
           this.onClientClick( this.state.selected_client_id )
         },(error) => {
           notify( error );
         }
-      ) 
+      )
     }
 
   	render(){
 
 
-      
-       
+
+
 
   		return(
       		<div>
@@ -169,7 +169,7 @@ class ManageClients extends React.Component {
 
       			<Menu {...this.props }/>
               <div id="content" className="app-content box-shadow-z0" role="main">
-      				  
+
                 <div className="app-header white box-shadow">
                   <div className="navbar">
       						  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
@@ -192,11 +192,11 @@ class ManageClients extends React.Component {
 
 
                               <div className="col-md-12 p-t p-b">
-                                
+
                                   <FormAddNewClient callAddNewClient={this.callAddNewClient}/>
                               </div>
                           </div>
-                      
+
                       <div className="row">
 
                       <div className="col-md-2">
@@ -205,40 +205,40 @@ class ManageClients extends React.Component {
 
                       <div className="col-md-10 p">
 
-                          
+
 
                           <div className="row box">
                             <div className="col-md-5 p-t p-b p-r">
-                              <FormClientDetails 
+                              <FormClientDetails
                                 clientId = {this.state.selected_client_id}
                                 clientName = {this.state.selected_client_name}
                                 clientAddress = {this.state.selected_client_address}
                                 callUpdateClientDetails={this.callUpdateClientDetails}/>
                             </div>
                             <div className="col-md-7 p-t p-b b-l">
-                              
+
                               <h6 className="text-center"><u>Client Invoices</u></h6>
 
                               <FormCreateClientInvoice
                                 showForm = {this.state.show_create_invoice_form}
-                                clientId = {this.state.selected_client_id} 
+                                clientId = {this.state.selected_client_id}
                                 clientName = {this.state.selected_client_name}
                                 clientAddress = {this.state.selected_client_address}
                                 callCreateClientInvoice={this.callCreateClientInvoice}
                               />
 
-                              <InvoicesList 
-                                invoicesList={ this.state.client_invoices } 
+                              <InvoicesList
+                                invoicesList={ this.state.client_invoices }
                                 callDeleteInvoice={this.callDeleteInvoice}
                               />
 
-                              
+
                             </div>
                           </div>
                       </div>
 
                     </div>
-                   
+
 
 
 
@@ -264,22 +264,22 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
         onClientsList : () => {
-        	return dispatch( actions_clientsList.get_clients_list(  ))	
+        	return dispatch( actions_clientsList.get_clients_list(  ))
         },
         onClientDetails : ( clientid ) => {
-          return dispatch( actions_manageClients.get_client_details( clientid )) 
+          return dispatch( actions_manageClients.get_client_details( clientid ))
         },
         onAddNewClient: ( new_client_details ) => {
-          return dispatch( actions_manageClients.add_new_client( new_client_details )) 
+          return dispatch( actions_manageClients.add_new_client( new_client_details ))
         },
         onCreateClientInvoice : ( new_client_invoice_details ) => {
-          return dispatch( actions_manageClients.create_client_invoice( new_client_invoice_details )) 
+          return dispatch( actions_manageClients.create_client_invoice( new_client_invoice_details ))
         },
         onUpdateClientDetails : ( updated_client_details ) => {
-          return dispatch( actions_manageClients.update_client_details( updated_client_details )) 
+          return dispatch( actions_manageClients.update_client_details( updated_client_details ))
         },
         onDeleteInvoice : ( invoice_id ) => {
-          return dispatch( actions_manageClients.delete_invoice( invoice_id )) 
+          return dispatch( actions_manageClients.delete_invoice( invoice_id ))
         }
     }
 }

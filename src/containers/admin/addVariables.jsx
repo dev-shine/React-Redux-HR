@@ -24,15 +24,14 @@ class VariablesContainer extends React.Component {
     }
     componentWillReceiveProps( props ){
 
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
 
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-                
             }else{
-                this.props.router.push('/home');    
+                this.props.router.push('/home');
             }
         }
     }
@@ -52,7 +51,7 @@ class VariablesContainer extends React.Component {
     			    <div className="navbar-item pull-left h5" id="pageTitle">
     			       Template Variable
     			    </div>
-			    </div>	
+			    </div>
 				</div>
 				<Variables {...this.props }/>
     		</div>

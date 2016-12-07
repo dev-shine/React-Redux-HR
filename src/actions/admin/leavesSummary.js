@@ -21,22 +21,21 @@ export function error_leaves_summary(data) {
   return createAction(ACTION_ERROR_LEAVES_SUMMARY)(data)
 }
 
-function async_get_users_leaves_summary(userid, year, month) {
+function async_get_all_leaves_summary(year, month) {
   return fireAjax('POST', '', {
-    action: 'get_users_leaves_summary',
-    user_id: userid,
+    action: 'get_all_leaves_summary',
     year: year,
     month: month
   })
 }
 
-export function get_users_leaves_summary(userid, year, month) {
-  console.log(userid, year, month);
+export function get_all_leaves_summary(year, month) {
+  //  console.log(userid, year, month);
   return function(dispatch, getState) {
 
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_get_users_leaves_summary(userid, year, month).then((json) => {
+      async_get_all_leaves_summary(year, month).then((json) => {
         resolve(json);
         //console.log(json);
         dispatch(hide_loading()) // hide loading icon

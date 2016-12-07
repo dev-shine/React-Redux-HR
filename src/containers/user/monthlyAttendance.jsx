@@ -31,13 +31,15 @@ class MonthlyAttendance extends React.Component {
     this.props.onIsAlreadyLogin()
   }
   componentWillMount() {
+    this.props.onIsAlreadyLogin()
+    console.log(localStorage.getItem("userid"));
     let user_id = this.props.logged_user.userid;
     this.setState({"defaultUserDisplay": user_id})
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1 // +1 since getMonth starts from 0
     this.setState({year: year, month: month})
-    this.props.onMonthAttendance(user_id, year, month)
+    this.props.onMonthAttendance(localStorage.getItem("userid"), year, month)
   }
   componentWillReceiveProps(props) {
     //window.scrollTo(0, 0);

@@ -112,7 +112,7 @@ class ViewLeavesSummary extends React.Component {
       summaryHtml = this._leavesSummaryHtml(this.props.componentData.leavesSummary)
     }
 
-    console.log(this.props.componentData.leavesSummary, "comp");
+    //console.log(this.props.componentData.leavesSummary, "comp");
     return (
       <div >
 

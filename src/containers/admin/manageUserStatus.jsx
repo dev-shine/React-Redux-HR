@@ -30,13 +30,13 @@ class ManageUserStatus extends React.Component {
         this.state = {
         }
         this.changeEmployeeStatus = this.changeEmployeeStatus.bind( this )
-    }    
+    }
     componentWillMount(){
       this.props.onDisabledUsersList()
     }
     componentWillReceiveProps( props ){
 
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
 
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
@@ -44,9 +44,9 @@ class ManageUserStatus extends React.Component {
             if( props.logged_user.role == 'Admin' || props.logged_user.role == 'HR'){
                 //this.props.onUsersList( )
             }else{
-                this.props.router.push('/home');    
+                this.props.router.push('/home');
             }
-        }     
+        }
     }
     componentDidUpdate(){
     }
@@ -63,7 +63,7 @@ class ManageUserStatus extends React.Component {
 
     			<Menu {...this.props }/>
             <div id="content" className="app-content box-shadow-z0" role="main">
-    				  
+
               <div className="app-header white box-shadow">
                 <div className="navbar">
     						  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
@@ -107,7 +107,7 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
         onDisabledUsersList : () => {
-        	return dispatch( actions_usersList.getDisabledUsersList())	
+        	return dispatch( actions_usersList.getDisabledUsersList())
         },
         onChangeEmployeeStatus : ( userid, status ) => {
           return dispatch( actions_manageUsers.changeEmployeeStatus( userid, status ) )

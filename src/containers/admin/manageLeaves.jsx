@@ -26,7 +26,7 @@ class ManageLeaves extends React.Component {
         super( props );
         this.props.onIsAlreadyLogin()
         this.doLeaveStatusChange = this.doLeaveStatusChange.bind(this)
-        
+
     }
     componentDidMount(){
         this.props.onListLeaves( )
@@ -35,21 +35,21 @@ class ManageLeaves extends React.Component {
         //this.props.onListLeaves( )
     }
     componentWillReceiveProps( props ){
-        window.scrollTo(0, 0);
+      //  window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR' ){
-                
+
             }else{
-                this.props.router.push('/monthly_attendance');    
+                this.props.router.push('/monthly_attendance');
             }
         }
     }
     doLeaveStatusChange( id, newstatus, messagetouser ){
-      this.props.onChangeLeaveStatus( id, newstatus, messagetouser ).then( 
+      this.props.onChangeLeaveStatus( id, newstatus, messagetouser ).then(
         (data) => {
-            
+
         },(error) => {
             //notify( error );
         })
@@ -68,7 +68,7 @@ class ManageLeaves extends React.Component {
     			<Menu {...this.props }/>
 
                 <div id="content" className="app-content box-shadow-z0" role="main">
-    				
+
                      <div className="app-header white box-shadow">
                 <div className="navbar">
                   <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
@@ -85,10 +85,10 @@ class ManageLeaves extends React.Component {
 
 
 
-					
+
     				<div className="app-body" id="view">
 
-            			
+
 
 						<div className="padding">
 
@@ -109,10 +109,10 @@ class ManageLeaves extends React.Component {
 
 
 	            		</div>
-							
+
 						</div>
 					</div>
-    			
+
     		</div>
     	)
     }

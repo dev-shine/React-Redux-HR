@@ -4,7 +4,7 @@ import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as actions_login from '../../actions/login/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-
+import { CONFIG } from '../../config/index'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 const css = {
@@ -35,7 +35,7 @@ class Login extends React.Component {
     let logged_user = props.logged_user
 
     if (typeof logged_user.logged_in != 'undefined' && logged_user.logged_in == 1) {
-      if (props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest' || props.logged_user.role == 'HR') {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
         this.props.router.push('/home');
       } else {
         this.props.router.push('/monthly_attendance');

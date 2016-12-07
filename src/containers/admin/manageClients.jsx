@@ -9,6 +9,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import AlertNotification from '../../components/generic/AlertNotification'
+import { CONFIG } from '../../config/index'
 
 //-----------------------------------------
 import * as actions_login from '../../actions/login/index'
@@ -50,7 +51,7 @@ class ManageClients extends React.Component {
       if( props.logged_user.logged_in == -1 ){
           this.props.router.push('/logout');
       }else{
-          if( props.logged_user.role == 'Admin'){
+          if( props.logged_user.role == CONFIG.ADMIN){
               //this.props.onUsersList( )
           }else{
               this.props.router.push('/home');

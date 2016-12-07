@@ -4,6 +4,7 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
+import { CONFIG } from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import SalaryList from '../../components/attendance/SalaryList'
@@ -28,8 +29,7 @@ class ViewSalary extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == 'Admin' || props.logged_user.role == 'HR'){
-
+            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
             }else{
                 this.props.router.push('/home');
             }

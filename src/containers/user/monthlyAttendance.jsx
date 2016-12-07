@@ -10,7 +10,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-//import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
+import { CONFIG } from '../../config/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 import UserDaySummary from '../../components/attendance/UserDaySummary'
@@ -44,7 +44,7 @@ class MonthlyAttendance extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == 'Admin' || props.logged_user.role == 'Guest') {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
       }
     }

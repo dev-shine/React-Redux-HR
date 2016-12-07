@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 import {notify} from '../../services/index'
-
+import { CONFIG } from '../../config/index'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 class UserDaySummary extends React.Component {
@@ -26,7 +26,7 @@ class UserDaySummary extends React.Component {
     $('.timepickerInput').timepicker({'minTime': '09:00 AM', 'maxTime': '09:00 PM', 'timeFormat': 'h:i A', 'step': 5});
   }
   componentWillReceiveProps(props) {
-    if (this.props.logged_user.role == "Employee") {
+    if (this.props.logged_user.role == CONFIG.EMPLOYEE) {
       this.setState({formInfo: 'show'})
     } else {
       this.setState({formInfo: 'hidden'})
@@ -35,7 +35,7 @@ class UserDaySummary extends React.Component {
     let date = props.date
     let year = props.year
     let month = props.month
-    if (this.props.logged_user.role == "Employee" && props.userDaySummary.entry_time != '' && props.userDaySummary.exit_time != '') {
+    if (this.props.logged_user.role == CONFIG.EMPLOYEE && props.userDaySummary.entry_time != '' && props.userDaySummary.exit_time != '') {
       this.setState({inputAccess: "true", buttonAccess: "hidden"})
     } else {
       this.setState({inputAccess: ""})
@@ -56,7 +56,7 @@ class UserDaySummary extends React.Component {
 
   doUpdateDaySummary(evt) {
     evt.preventDefault();
-    if (this.props.logged_user.role != "Employee") {
+    if (this.props.logged_user.role != CONFIG.EMPLOYEE) {
       this.props.onUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
         notify(error);
       })

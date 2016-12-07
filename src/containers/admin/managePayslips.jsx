@@ -105,7 +105,10 @@ class ManagePayslips extends React.Component {
       }
     }
     this.setState({"defaultUserDisplay": userid, "selected_user_name": selected_user_name, "selected_user_image": selected_user_image, "selected_user_jobtitle": selected_user_jobtitle, "selected_user_id": selected_user_id})
-    this.props.onUserManagePayslipsData(userid)
+    let d = new Date();
+    let year = d.getFullYear()
+    let month = d.getMonth() + 1
+    this.props.onUserMonthlyManagePayslipsData(userid, year, month)
   }
 
   callCreateUserPayslip(payslipData, evt) {

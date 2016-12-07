@@ -7,6 +7,7 @@ import {notify} from '../../services/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_leavesSummary from '../../actions/admin/leavesSummary'

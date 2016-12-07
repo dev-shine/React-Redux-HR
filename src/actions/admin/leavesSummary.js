@@ -38,7 +38,7 @@ export function get_users_leaves_summary(userid, year, month) {
       dispatch(show_loading()); // show loading icon
       async_get_users_leaves_summary(userid, year, month).then((json) => {
         resolve(json);
-        console.log(json);
+        //console.log(json);
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(success_leaves_summary(json.data))

@@ -3,93 +3,79 @@ import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as _ from 'lodash'
-import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 
 class ViewLeavesSummary extends React.Component {
-
   constructor(props) {
-
     super(props);
-    this.state = {
-      data: '',
-      userid: '',
-      month: '',
-      year: ''
-    }
   }
   componentDidMount() {}
   componentWillMount() {}
   componentWillReceiveProps(props) {}
+
   _onChangeMonth(check) {
-    let i = 0;
     if (check == 'previous') {
-
-      this.props.monthToggle(this.props.selectedUserId, this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
+      this.props.on_all_leaves_summary(this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
     } else if (check == 'next') {
-
-      this.props.monthToggle(this.props.selectedUserId, this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
+      this.props.on_all_leaves_summary(this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
     }
   }
 
-  _getPendingPunchingDays(p) {
-    return _.map(p, (day, key) => {
-      let check_class;
-      if (day.day_type == CONFIG.WORKING_DAY) {
+  _getPendingPunchingDays(d) {
+    return _.map(d, (day, key) => {
+      let check_class = "b-success"
+      if (day.day_type == 'WORKING_DAY') {
         if (day.in_time == '' || day.out_time == '') {
           check_class = "b-danger"
         }
-      } else if (day.day_type == CONFIG.LEAVE_DAY) {
-        check_class = "b-success";
       }
-
       let show_text = ""
 
       if (day.day_type == 'HALF_DAY') {
         check_class = "b-warn"
         show_text = day.day_type + ' / ' + "Timings : " + day.in_time + ' - ' + day.out_time + ' / Total Time : ' + day.total_time
       }
-
       return (
+
         <div key={key} className={`sl-item ${check_class}`}>
           <div className="sl-icon">
             <i className="fa fa-check"></i>
           </div>
           <div className="sl-content">
-            <div className="">{day.full_date}</div>
-            <div>{day.day}</div>
+            <div className="">{day.display_date}</div>
             <div>{day.day_text}</div>
             <div>{show_text}</div>
           </div>
         </div>
+
       )
     })
   }
 
   _leavesSummaryHtml(d) {
-    //console.log(d);
-    //console.log(user);
-    let pendingPunchingDays = this._getPendingPunchingDays(d.attendance)
-    return (
+    return _.map(d, (user, key) => {
+      let pendingPunchingDays = this._getPendingPunchingDays(user.attendance)
+      return (
 
-      <div className="row">
-        <div className="col-sm-12 col-md-12">
-          <div className="box">
-            <div className="box-header">
-              <h3>{d.name}</h3>
-            </div>
-            <div className="box-body">
-              <div className="streamline b-l m-l">
-                {pendingPunchingDays}
+        <div key={key} className="row">
+          <div className="col-sm-12 col-md-12">
+            <div className="box">
+              <div className="box-header">
+                <h3>{user.name}</h3>
+                <small>{user.jobtitle}</small>
+              </div>
+              <div className="box-body">
+                <div className="streamline b-l m-l">
+                  {pendingPunchingDays}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    })
   }
-
   render() {
 
     let styles = _.cloneDeep(this.constructor.styles);
@@ -106,22 +92,14 @@ class ViewLeavesSummary extends React.Component {
     if (typeof this.props.componentData.monthName != 'undefined') {
       current_monthName = this.props.componentData.monthName
     }
-    let summaryHtml
-    if (this.props.componentData.leavesSummary != []) {
 
-      summaryHtml = this._leavesSummaryHtml(this.props.componentData.leavesSummary)
-    }
+    let summaryHtml = this._leavesSummaryHtml(this.props.componentData.leavesSummary)
 
-    //console.log(this.props.componentData.leavesSummary, "comp");
     return (
       <div >
-
         <div id="content" className="app-content box-shadow-z0" role="main">
-
           <div className="app-body" id="view">
-
             <div>
-
               <div className="fullcalendar fc fc-ltr fc-unthemed">
                 <div className="fc-toolbar">
                   <div className="fc-left">
@@ -135,30 +113,20 @@ class ViewLeavesSummary extends React.Component {
                     </button>
                   </div>
                   <div className="fc-center">
-
                     <h2>
                       {current_monthName}
                       - {current_year}</h2>
-
                   </div>
                   <div className="fc-clear"></div>
                 </div>
-
                 <br/>
-
                 <div className="fc-view fc-month-view fc-basic-view">
-
                   {summaryHtml}
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
-
       </div>
 
     )

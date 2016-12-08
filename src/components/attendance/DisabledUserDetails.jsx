@@ -128,6 +128,11 @@ class DisabledUserDetails extends React.Component {
                   <small className="text-muted">Status</small>
                   <div className="_500">{userDetail.status==null?"":<span className="label rounded primary">{userDetail.status}</span>}</div>
                 </div>
+                <div className="col-xs-6">
+                  <div className="col-md-12 text-right">
+                    <button className="btn btn-fw btn-success" onTouchTap={()=>this.props.changeEmployeeStatus( userDetail.id, 'Enabled' )} >Enable</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

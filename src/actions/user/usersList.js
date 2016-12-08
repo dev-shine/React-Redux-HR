@@ -7,7 +7,7 @@ import {show_loading, hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USERSLIST = "ACTION_SUCCESS_USERSLIST"
 export const ACTION_EMPTY_USERSLIST = "ACTION_EMPTY_USERSLIST"
-export const ACTION_ERROR_USERSLIST = "ACTION_ERROR_USERSLIST"
+export const ACTION_ERROR_USERSLIST = "ACTION_ERROR_USERSLIST" 
 
 export function success_usersList(data) {
   return createAction(ACTION_SUCCESS_USERSLIST)(data)

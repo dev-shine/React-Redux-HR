@@ -12,10 +12,13 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_disabledEmployee from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
+import * as actions_managePayslips from '../../actions/admin/managePayslips'
 
 import ViewLeavesSummary from '../../components/leavesSummary/ViewLeavesSummary'
 import UsersList from '../../components/attendance/UsersList'
 import DisabledUserDetails from '../../components/attendance/DisabledUserDetails'
+import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
+import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
 
 const styles={
   content:{'paddingTop':'50px'}
@@ -35,7 +38,9 @@ class Page_DisabledEmployes extends React.Component {
             "selected_user_jobtitle" : "",
             "selected_user_id" : "",
             "userDetails":"",
-            key:0
+            key:0,
+            user_documents: {},
+            user_payslip_history: [],
         }
         this.onUserClick = this.onUserClick.bind( this )
         this.changeEmployeeStatus = this.changeEmployeeStatus.bind( this )
@@ -48,8 +53,7 @@ class Page_DisabledEmployes extends React.Component {
         this.props.onFetchDisabledEmployee()
       }
     }
-    componentDidUpdate(){
-    }
+
     componentWillReceiveProps( props ){
       window.scrollTo(0, 0);
       if( props.logged_user.logged_in == -1 ){
@@ -57,8 +61,19 @@ class Page_DisabledEmployes extends React.Component {
       }
       let disabledUserList = []
       if(props.logged_user.role == CONFIG.ADMIN){
-        if( props.usersList.disabled_users.length > 0 ){
-          let user_list = props.usersList.disabled_users
+
+      }else{
+        this.props.router.push('/home');
+      }
+      this.setState({
+        user_payslip_history: props.managePayslips.user_payslip_history,
+        user_documents: props.manageUsers.user_documents
+      })
+    }
+    componentDidUpdate(){
+      if (this.state.defaultUserDisplay == '') {
+        if( this.props.usersList.disabled_users.length > 0 ){
+          let user_list = this.props.usersList.disabled_users
           let firstUser = user_list[this.state.key]
           if(firstUser==undefined){
             firstUser = user_list[0]
@@ -77,6 +92,8 @@ class Page_DisabledEmployes extends React.Component {
             "selected_user_id" : firstUser.user_Id,
             "userDetails":firstUser
         })
+        this.props.onGetUserDocument(firstUser.user_Id)
+        this.props.onUserManagePayslipsData(firstUser.user_Id)
     }
     changeEmployeeStatus( userid, status ){
       this.props.onChangeEmployeeStatus( userid, status ).then(()=>{
@@ -84,14 +101,31 @@ class Page_DisabledEmployes extends React.Component {
       })
     }
     render(){
+      let disabled_users = _.orderBy(this.props.usersList.disabled_users, 'user_Id', 'asc')
       let mainDivs = <div className="row">
             <div className="col-md-3">
-                <UsersList disabledUser={true} users = { this.props.usersList.disabled_users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } changeEmployeeStatus={this.changeEmployeeStatus} {...this.props}/>
+                <UsersList disabledUser={true} users = { disabled_users } selectedUserId={this.state.selected_user_id} onUserClick = { this.onUserClick } {...this.props}/>
             </div>
             <div className="col-md-9">
               <div className="box">
                 <div className="box-body">
-                  {this.state.userDetails==""?"":<DisabledUserDetails userDetails={this.state.userDetails} {...this.props }/>}
+                  {this.state.userDetails==""?"":<DisabledUserDetails userDetails={this.state.userDetails} changeEmployeeStatus={this.changeEmployeeStatus} {...this.props }/>}
+                </div>
+              </div>
+              <div className="box">
+                <div className="box-body">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <h6 className="text-center">
+                        <u>Previous Payslips</u>
+                      </h6>
+                      <hr/>
+                      <UserPayslipsHistory user_payslip_history={this.state.user_payslip_history}/>
+                    </div>
+                    <div className="col-md-6">
+                      <UpdateEmployeeDocument disabled={true} user_documents={this.state.user_documents} user_id={this.state.selected_user_id} onUpdatedocuments={this.props.onUpdatedocuments} {...this.props}/>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,7 +152,6 @@ class Page_DisabledEmployes extends React.Component {
                         {mainDivs}
                       </div>
 					          </div>
-    			
     		    </div>
             </div>
     	)
@@ -129,7 +162,9 @@ function mapStateToProps( state ){
 	return {
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        usersList : state.usersList.toJS()
+        usersList : state.usersList.toJS(),
+        managePayslips: state.managePayslips.toJS(),
+        manageUsers: state.manageUsers.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -143,6 +178,12 @@ const mapDispatchToProps = (dispatch) => {
         onChangeEmployeeStatus : ( userid, status ) => {
           return dispatch( actions_manageUsers.changeEmployeeStatus( userid, status ) )
         },
+        onGetUserDocument: (userid) => {
+          return dispatch(actions_manageUsers.getUserDocument(userid))
+        },
+        onUserManagePayslipsData: (userid) => {
+          return dispatch(actions_managePayslips.get_user_manage_payslips_data(userid))
+        }
     }
 }
 

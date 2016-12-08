@@ -27,12 +27,12 @@ class Menu extends React.Component {
         }
     }
     render(){
-      
-      
+
+
       let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
       let link_logout = <Link to='/logout'>Logout</Link>
       let link_holidays= <Link to='/holidays'>Holidays</Link>
-      
+
       //user
       let link_my_calendar = <Link to='/monthly_attendance'>My Attendance</Link>
       let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
@@ -51,7 +51,6 @@ class Menu extends React.Component {
       let link_manage_clients = <Link to='/manage_clients'>Manage Clients</Link>
       let link_manage_payslips = <Link to='/manage_payslips'>Manage Payslips</Link>
       let link_documents = <Link to='/documents'>My Documents</Link>
-      let link_manageUserStatus = <Link to='/manage_user_status'>Manage User Status</Link>
 
 
       let links_to_show = <ul className="nav" >
@@ -79,7 +78,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_manageUserStatus}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
 
-          </ul>                          
+          </ul>
       }else if( this.props.logged_user.role == 'HR' ){
             links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span>{link_users_list}</span></li>
@@ -92,7 +91,7 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_manageUserStatus}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
 
-          </ul>                          
+          </ul>
       }else if( this.props.logged_user.role == 'Guest' ){
           links_to_show = <ul className="nav" >
             <li className="hidden-folded" ><span>{link_users_list}</span></li>
@@ -102,12 +101,12 @@ class Menu extends React.Component {
             <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
             <li className="hidden-folded" ><span>{link_holidays}</span></li>
             <li className="hidden-folded" ><span>{link_logout}</span></li>
-            
-          </ul>                          
+
+          </ul>
       }
 
 
-        
+
     return (
       <div id="aside" className="app-aside modal fade nav-dropdown" >
         <div className="left navside dark dk">
@@ -135,19 +134,17 @@ class Menu extends React.Component {
 
 
 
-      
+
     </div>
 
 
 
 
   </div>
-           
+
     )
 
     }
 }
 
 export default Menu
-
-

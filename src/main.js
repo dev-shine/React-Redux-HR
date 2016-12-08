@@ -6,7 +6,7 @@
 // import createStore from './store/createStore'
 // import AppContainer from './containers/AppContainer'
 
-//--start---for HR APP by arun  
+//--start---for HR APP by arun
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router'
@@ -35,7 +35,6 @@ import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
 import Page_ManagePayslips from './containers/admin/managePayslips'
-import Page_ManageUserStatus from './containers/admin/manageUserStatus'
 import Page_ViewSalary from './containers/admin/viewSalary'
 import Page_DisabledEmployes from './containers/admin/disabledEmployes'
 
@@ -155,7 +154,6 @@ let render = (routerKey = null) => {
                      <Route path="manage_payslips" component={Page_ManagePayslips}/>
                      <Route path="forgot_password" component={Page_ForgotPassword}/>
                      <Route path="documents" component={Page_MyDocuments}/>
-                     <Route path="manage_user_status" component={Page_ManageUserStatus}/>
                      <Route path="view_salary" component={Page_ViewSalary}/>
                  </Route>
              </Router>

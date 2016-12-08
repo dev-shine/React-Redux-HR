@@ -42,7 +42,6 @@ export function isAlreadyLogin(){
 		let token = localStorage.getItem('hr_logged_user')
 		if( typeof token != 'undefined' && token != null &&  token != '' ){
 			let  tokenData = jwt.decode( token, 'HR_APP' );
-			console.log(tokenData);
 			localStorage.setItem( 'userid', tokenData.id );
 			dispatch( login_sucess( tokenData ) )
 			//return token

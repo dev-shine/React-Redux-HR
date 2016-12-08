@@ -55,7 +55,6 @@ class ManageUsers extends React.Component {
     this.props.onUsersList()
   }
   componentWillReceiveProps(props) {
-
     //window.scrollTo(0, 0);
 
     if (props.logged_user.logged_in == -1) {
@@ -67,11 +66,9 @@ class ManageUsers extends React.Component {
         this.props.router.push('/home');
       }
     }
-    //console.log(props.managePayslips);
     this.setState({user_payslip_history: props.managePayslips.user_payslip_history, username: props.manageUsers.username, user_profile_detail: props.manageUsers.user_profile_detail, user_bank_detail: props.manageUsers.user_bank_detail, user_documents: props.manageUsers.user_documents})
   }
   componentDidUpdate() {
-
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.usersList.users[0]

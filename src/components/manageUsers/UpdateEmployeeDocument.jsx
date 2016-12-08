@@ -43,12 +43,12 @@ import TextField from 'material-ui/TextField'
     }
     handleClose(){
       this.setState({
-        open:false      
-      })      
+        open:false
+      })
     }
-     callUpdateDocuments(e){    
+     callUpdateDocuments(e){
       let type = this.state.doc_type
-      let link1 = this.refs.file.value 
+      let link1 = this.refs.file.value
       let stop = false
       if(this.state.user_id == ''){
         stop = true
@@ -76,7 +76,7 @@ import TextField from 'material-ui/TextField'
       })
     }
       render(){
-        let page_url = window.location.href 
+        let page_url = window.location.href
         let styles = _.cloneDeep(this.constructor.styles);
                   let user_doc = []
                   _.map(this.props.user_documents,(doc, key)=>{
@@ -96,11 +96,11 @@ import TextField from 'material-ui/TextField'
               <div>
               <ul className="list-group m-b">
                 {user_doc.length == 0 ? <li className="list-group-item"><span>No document uploaded</span></li>:user_doc}
-                     
+
               </ul>
               </div>
               <div className="text-center">
-                <button className="btn info" onTouchTap={this.handleOpen} >Upload New Documents</button>
+                {this.props.disabled ? "" : <button className="btn info" onTouchTap={this.handleOpen} >Upload New Documents</button>}
               </div>
 
               <Dialog
@@ -110,7 +110,7 @@ import TextField from 'material-ui/TextField'
               onRequestClose={this.handleClose}
               contentStyle={ {width: '75%',maxWidth: 'none'}}
               autoScrollBodyContent={true}
-              > 
+              >
                  <div>
             <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
             <div className="form-group">
@@ -172,5 +172,3 @@ UpdateEmployeeDocument.styles = {
 
 
 export default UpdateEmployeeDocument
-
-

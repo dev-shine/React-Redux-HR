@@ -130,7 +130,7 @@ class DisabledUserDetails extends React.Component {
                 </div>
                 <div className="col-xs-6">
                   <div className="col-md-12 text-right">
-                    <button className="btn btn-fw btn-success" onTouchTap={()=>this.props.changeEmployeeStatus( userDetail.id, 'Enabled' )} >Enable</button>
+                    <button className="btn btn-fw btn-success" onTouchTap={()=>this.props.changeEmployeeStatus( userDetail.user_Id, 'Enabled' )} >Enable</button>
                   </div>
                 </div>
               </div>

@@ -123,7 +123,7 @@ class Page_DisabledEmployes extends React.Component {
                       <UserPayslipsHistory user_payslip_history={this.state.user_payslip_history}/>
                     </div>
                     <div className="col-md-6">
-                      <UpdateEmployeeDocument user_documents={this.state.user_documents} user_id={this.state.selected_user_id} onUpdatedocuments={this.props.onUpdatedocuments} {...this.props}/>
+                      <UpdateEmployeeDocument disabled={true} user_documents={this.state.user_documents} user_id={this.state.selected_user_id} onUpdatedocuments={this.props.onUpdatedocuments} {...this.props}/>
                     </div>
                   </div>
                 </div>

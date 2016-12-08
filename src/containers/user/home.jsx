@@ -17,7 +17,7 @@ import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 
 import UserDaySummary from '../../components/attendance/UserDaySummary'
-import { CONFIG } from '../../config/index'
+import {CONFIG} from '../../config/index'
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,9 +35,14 @@ class Home extends React.Component {
 
     this.onUserClick = this.onUserClick.bind(this)
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
+    this.monthToggle = this.monthToggle.bind(this)
   }
   componentWillMount() {
     this.props.onUsersList()
+    let d = new Date();
+    let year = d.getFullYear()
+    let month = d.getMonth() + 1 // +1 since getMonth starts from 0
+    this.setState({year: year, month: month})
   }
   componentWillReceiveProps(props) {
     //window.scrollTo(0, 0);
@@ -66,11 +71,11 @@ class Home extends React.Component {
   }
   onUserClick(userid) {
     this.setState({"defaultUserDisplay": userid})
-    let d = new Date();
-    let year = d.getFullYear()
-    let month = d.getMonth() + 1 // +1 since getMonth starts from 0
-    this.setState({year: year, month: month})
-    this.props.onMonthAttendance(userid, year, month)
+    this.props.onMonthAttendance(userid, this.state.year, this.state.month)
+  }
+  monthToggle(u, y, m) {
+    this.setState({year: y, month: m})
+    this.props.onMonthAttendance(u, y, m)
   }
   onShowDaySummary(userid, date) {
     this.setState({daysummary_userid: userid, daysummary_date: date})
@@ -84,7 +89,7 @@ class Home extends React.Component {
         <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} {...this.props } selectedUserId={this.props.monthlyAttendance.userid}/>
       </div>
       <div className="col-md-10">
-        <UserMonthlyAttendance {...this.props} onShowDaySummary={this.onShowDaySummary}/>
+        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
       </div>
     </div>
 

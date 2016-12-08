@@ -44,7 +44,7 @@ class ApplyLeave extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == 'Guest') {
+      if (props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
       } else {
         if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
@@ -99,7 +99,7 @@ class ApplyLeave extends React.Component {
         <b className="arrow left b-primary"></b>{this.props.applyLeave.status_message}</span>
     }
 
-    let mainDivs = (this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'HR'
+    let mainDivs = (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR
       ? <div className="row">
           <div className="col-md-2">
             <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props }/>

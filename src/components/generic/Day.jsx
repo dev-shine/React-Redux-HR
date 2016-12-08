@@ -1,5 +1,5 @@
 import React from 'react';
-class DayHalfDay extends React.Component {
+class Day extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -9,7 +9,7 @@ class DayHalfDay extends React.Component {
     return (
       <div >
 
-        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
           <div className="fc-content">
             <span className="fc-time">
               <h5>{d.date}</h5>
@@ -19,21 +19,19 @@ class DayHalfDay extends React.Component {
           </div>
         </div>
 
-        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
           <div className="fc-content">
             <span className="fc-time">
               {this.props.day}
             </span>
-            <span className="fc-title">
-              {d.in_time}
-              - {d.out_time}
-            </span>
+            <span className="fc-title"></span>
           </div>
         </div>
 
-        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
           <div className="fc-content">
-            <span className="fc-time">{d.day_text}
+            <span className="fc-time">
+              {d.day_text}
             </span>
             <span className="fc-title"></span>
           </div>
@@ -44,4 +42,4 @@ class DayHalfDay extends React.Component {
   }
 }
 
-export default DayHalfDay
+export default Day

@@ -8,7 +8,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
-import ApplyLeaveForm from '../../components/leaves/ApplyLeaveForm'
+import ApplyLeaveForm from '../../components/generic/ApplyLeaveForm'
 import {CONFIG} from '../../config/index'
 import * as actions_login from '../../actions/login/index'
 import * as actions_apply_leave from '../../actions/leave/applyLeave'
@@ -47,7 +47,7 @@ class ApplyLeave extends React.Component {
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == 'Guest' ){
-                this.props.router.push('/home');    
+                this.props.router.push('/home');
             }else{
               if(props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
                 if( this.state.defaultUserDisplay  == '' ){
@@ -101,7 +101,7 @@ class ApplyLeave extends React.Component {
         <b className="arrow left b-primary"></b>{this.props.applyLeave.status_message}</span>
     }
 
-    let mainDivs = (this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Hr'
+    let mainDivs = (this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'HR'
       ? <div className="row">
           <div className="col-md-2">
             <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props }/>

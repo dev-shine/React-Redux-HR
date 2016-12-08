@@ -8,9 +8,7 @@ import * as actions_login from '../../actions/login/index'
 
 import DayWorking from './DayWorking'
 import DayFutureWorking from './DayFutureWorking'
-import DayNonWorking from './DayNonWorking'
-import DayLeave from './DayLeave'
-import DayHalfDay from './DayHalfDay'
+import Day from '../../components/generic/Day'
 
 import UserDetails from './UserDetails'
 import MonthSummary from './MonthSummary'
@@ -27,9 +25,9 @@ class UserMonthlyAttendance extends React.Component {
     return _.map(w, (dayData, key) => {
       let dayHtml = ''
       if (dayData.day_type == 'NON_WORKING_DAY') {
-        dayHtml = <DayNonWorking dayData={dayData}/>
+        dayHtml = <Day day="Non Working day" dayData={dayData}/>
       } else if (dayData.day_type == 'LEAVE_DAY') {
-        dayHtml = <DayLeave dayData={dayData}/>
+        dayHtml = <Day day="On Leave" dayData={dayData}/>
       } else if (dayData.day_type == 'HALF_DAY') {
         dayHtml = <DayHalfDay dayData={dayData}/>
       } else if (dayData.day_type == 'FUTURE_WORKING_DAY') {
@@ -70,9 +68,9 @@ class UserMonthlyAttendance extends React.Component {
 
   _onChangeMonth(check) {
     if (check == 'previous') {
-      this.props.onMonthAttendance(this.props.monthlyAttendance.userid, this.props.monthlyAttendance.previousMonth.year, this.props.monthlyAttendance.previousMonth.month)
+      this.props.monthToggle(this.props.monthlyAttendance.userid, this.props.monthlyAttendance.previousMonth.year, this.props.monthlyAttendance.previousMonth.month)
     } else if (check == 'next') {
-      this.props.onMonthAttendance(this.props.monthlyAttendance.userid, this.props.monthlyAttendance.nextMonth.year, this.props.monthlyAttendance.nextMonth.month)
+      this.props.monthToggle(this.props.monthlyAttendance.userid, this.props.monthlyAttendance.nextMonth.year, this.props.monthlyAttendance.nextMonth.month)
     }
 
   }

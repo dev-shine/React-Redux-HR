@@ -87,8 +87,8 @@ class ApplyLeaveForm extends React.Component {
         },(error) => {
             notify( error );
         })
-      } 
-        
+      }
+
     }
     componentWillReceiveProps( props ){
 

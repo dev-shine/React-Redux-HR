@@ -8,7 +8,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
-import ApplyLeaveForm from '../../components/leaves/ApplyLeaveForm'
+import ApplyLeaveForm from '../../components/generic/ApplyLeaveForm'
 import {CONFIG} from '../../config/index'
 import * as actions_login from '../../actions/login/index'
 import * as actions_apply_leave from '../../actions/leave/applyLeave'
@@ -24,39 +24,37 @@ const styles = {
 }
 
 class ApplyLeave extends React.Component {
-    constructor( props ){
-        super( props );
-        this.props.onIsAlreadyLogin()
-        this.state = {
-            "defaultUserDisplay" : "",
-            "selected_user_name" : "",
-            "selected_user_image" : "",
-            "selected_user_jobtitle" : "",
-            "selected_user_id" : "",
-            "show_status_message":true
+  constructor(props) {
+    super(props);
+    this.props.onIsAlreadyLogin()
+    this.state = {
+      "defaultUserDisplay": "",
+      "selected_user_name": "",
+      "selected_user_image": "",
+      "selected_user_jobtitle": "",
+      "selected_user_id": "",
+      "show_status_message": true
+    }
+    this.onUserClick = this.onUserClick.bind(this)
+  }
+  componentDidMount() {}
+  componentWillMount() {}
+  componentWillReceiveProps(props) {
+    window.scrollTo(0, 0);
+    if (props.logged_user.logged_in == -1) {
+      this.props.router.push('/logout');
+    } else {
+      if (props.logged_user.role == CONFIG.GUEST) {
+        this.props.router.push('/home');
+      } else {
+        if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
+          if (this.state.defaultUserDisplay == '') {
+            props.onUsersList()
+          }
         }
-        this.onUserClick = this.onUserClick.bind( this )
+      }
     }
-    componentDidMount(){
-    }
-    componentWillMount(){
-    }
-    componentWillReceiveProps( props ){
-      window.scrollTo(0, 0);
-        if( props.logged_user.logged_in == -1 ){
-            this.props.router.push('/logout');
-        }else{
-            if( props.logged_user.role == 'Guest' ){
-                this.props.router.push('/home');    
-            }else{
-              if(props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-                if( this.state.defaultUserDisplay  == '' ){
-                  props.onUsersList()
-                }
-              }
-            }
-        }
-    }
+  }
   componentDidUpdate() {
     if (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR) {
       if (this.state.defaultUserDisplay == '') {
@@ -101,7 +99,7 @@ class ApplyLeave extends React.Component {
         <b className="arrow left b-primary"></b>{this.props.applyLeave.status_message}</span>
     }
 
-    let mainDivs = (this.props.logged_user.role == 'Admin' || this.props.logged_user.role == 'Hr'
+    let mainDivs = (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR
       ? <div className="row">
           <div className="col-md-2">
             <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props }/>
@@ -117,14 +115,14 @@ class ApplyLeave extends React.Component {
             </div>
             <div className="box">
               <div className="box-body">
-                <ApplyLeaveForm forAdmin={true} selectedUserId={this.state.selected_user_id} {...this.props}/>
+                <ApplyLeaveForm forAdmin={true} doApplyLeave={this.props.onApplyLeave} selectedUserId={this.state.selected_user_id} {...this.props}/>
               </div>
             </div>
           </div>
         </div>
       : <div className="box">
         <div className="box-body">
-          <ApplyLeaveForm forAdmin={false} {...this.props}/>
+          <ApplyLeaveForm doApplyLeave={this.props.onApplyLeave} forAdmin={false} {...this.props}/>
         </div>
       </div>)
 

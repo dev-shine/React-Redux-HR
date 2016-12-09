@@ -10,7 +10,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-import { CONFIG } from '../../config/index'
+import {CONFIG} from '../../config/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 import UserDaySummary from '../../components/attendance/UserDaySummary'
@@ -28,6 +28,7 @@ class MonthlyAttendance extends React.Component {
     }
 
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
+    this.monthToggle = this.monthToggle.bind(this)
     this.props.onIsAlreadyLogin()
   }
   componentWillMount() {
@@ -55,12 +56,16 @@ class MonthlyAttendance extends React.Component {
     this.setState({daysummary_userid: userid, daysummary_date: date})
     //this.props.onUserDaySummary(userid, date)
   }
+  monthToggle(u, y, m) {
+    this.setState({year: y, month: m})
+    this.props.onMonthAttendance(u, y, m)
+  }
   render() {
     let mainDivs = <div className="row">
 
       <div className="col-md-1"></div>
       <div className="col-md-10">
-        <UserMonthlyAttendance {...this.props} onShowDaySummary={this.onShowDaySummary}/>
+        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
       </div>
     </div>
     return (

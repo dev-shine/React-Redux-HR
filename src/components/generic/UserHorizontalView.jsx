@@ -62,8 +62,8 @@ class UserHorizontalView extends React.Component {
 UserHorizontalView.propTypes = {
   name: React.PropTypes.string,
   jobtitle: React.PropTypes.string,
-  dateofjoining: React.PropTypes.instanceOf(Date),
-  dob: React.PropTypes.instanceOf(Date),
+  dateofjoining: React.PropTypes.string,
+  dob: React.PropTypes.string,
   Gender: React.PropTypes.string,
   Email: React.PropTypes.string
 };

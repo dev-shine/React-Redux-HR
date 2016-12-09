@@ -36,6 +36,7 @@ class ApplyLeave extends React.Component {
       "show_status_message": true
     }
     this.onUserClick = this.onUserClick.bind(this)
+    this.doApplyLeave = this.doApplyLeave.bind(this)
   }
   componentDidMount() {}
   componentWillMount() {}
@@ -90,9 +91,12 @@ class ApplyLeave extends React.Component {
       "show_status_message": false
     })
   }
+  doApplyLeave(start, end, days, reason, userid) {
+    this.setState({show_status_message: true});
+    this.props.onApplyLeave(start, end, days, reason, userid);
+  }
 
   render() {
-
     let status_message = ""
     if (this.props.applyLeave.status_message != '' && this.state.show_status_message == true) {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
@@ -115,14 +119,14 @@ class ApplyLeave extends React.Component {
             </div>
             <div className="box">
               <div className="box-body">
-                <ApplyLeaveForm forAdmin={true} doApplyLeave={this.props.onApplyLeave} selectedUserId={this.state.selected_user_id} {...this.props}/>
+                <ApplyLeaveForm forAdmin={true} doApplyLeave={this.doApplyLeave} selectedUserId={this.state.selected_user_id} {...this.props}/>
               </div>
             </div>
           </div>
         </div>
       : <div className="box">
         <div className="box-body">
-          <ApplyLeaveForm doApplyLeave={this.props.onApplyLeave} forAdmin={false} {...this.props}/>
+          <ApplyLeaveForm doApplyLeave={this.doApplyLeave} forAdmin={false} {...this.props}/>
         </div>
       </div>)
 

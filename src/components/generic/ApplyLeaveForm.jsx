@@ -52,10 +52,10 @@ class ApplyLeaveForm extends React.Component {
     if (this.props.forAdmin == true) {
       this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId)
       this.setState({form_from_date: '', form_to_date: '', form_no_of_days: '', form_reason: '', show_half_day_button: ''});
-      notify(data);
+      //notify("leave Applied");
     } else {
       this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "")
-
+      this.setState({form_from_date: '', form_to_date: '', form_no_of_days: '', form_reason: '', show_half_day_button: ''});
     }
   }
   componentWillReceiveProps(props) {

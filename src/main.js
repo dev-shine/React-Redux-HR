@@ -9,9 +9,9 @@
 //--start---for HR APP by arun
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router'
-import { createStore, applyMiddleware, compose  } from 'redux'
-import { Provider } from 'react-redux'
+import {Router, Route, Link, IndexRoute, hashHistory} from 'react-router'
+import {createStore, applyMiddleware, compose} from 'redux'
+import {Provider} from 'react-redux'
 import Immutable from 'immutable'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger';
@@ -37,7 +37,7 @@ import Page_ManageClients from './containers/admin/manageClients'
 import Page_ManagePayslips from './containers/admin/managePayslips'
 import Page_ViewSalary from './containers/admin/viewSalary'
 import Page_DisabledEmployes from './containers/admin/disabledEmployes'
-
+import Page_UploadAttendance from './containers/admin/uploadAttendance'
 
 //-user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
@@ -51,33 +51,27 @@ import Page_MyDocuments from './containers/user/myDocuments'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
-
 export class APP extends React.Component {
-    render() {
-        return (
-            <div>
-                {this.props.children}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
+  }
 }
-
 
 const logger = createLogger();
 
 injectTapEventPlugin()
 
-let store = createStore(reducer,  compose(
-    //applyMiddleware( thunk, logger),
-    applyMiddleware( thunk ),
-    //window.devToolsExtension ? window.devToolsExtension() : f => f
+let store = createStore(reducer, compose(
+//applyMiddleware( thunk, logger),
+applyMiddleware(thunk),
+//window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-
 //--end---for HR APP by arun
-
-
 
 // ========================================================
 // Browser History Setup
@@ -131,38 +125,39 @@ let store = createStore(reducer,  compose(
 let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
-         <Provider store={store}>
-             <Router history={hashHistory} >
-                 <Route path="/" component={APP} >
-                     <IndexRoute component={Page_Login} /> //this will be the default page which will opens when app starts
-                     <Route path="home" component={Page_Home} />
-                     <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
-                     <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
-                     <Route path="logout" component={Page_Logout} />
-                     <Route path="holidays" component={Page_Holidays} />
-                     <Route path="apply_leave" component={Page_ApplyLeave} />
-                     <Route path="manage_leaves" component={Page_ManageLeaves} />
-                     <Route path="my_leaves" component={Page_MyLeaves} />
-                     <Route path="disabled_employes" component={Page_DisabledEmployes}/>
-                     <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
-                     <Route path="leaves_summary" component={Page_LeavesSummary} />
-                     <Route path="salary" component={Page_Salary} />
-                     <Route path="manage_salary" component={Page_ManageSalary} />
-                     <Route path="my_profile" component={Page_MyProfile} />
-                     <Route path="manage_users" component={Page_ManageUsers}/>
-                     <Route path="manage_clients" component={Page_ManageClients}/>
-                     <Route path="manage_payslips" component={Page_ManagePayslips}/>
-                     <Route path="forgot_password" component={Page_ForgotPassword}/>
-                     <Route path="documents" component={Page_MyDocuments}/>
-                     <Route path="view_salary" component={Page_ViewSalary}/>
-                 </Route>
-             </Router>
-         </Provider>
-     </MuiThemeProvider>
+      <Provider store={store}>
+        <Router history={hashHistory}>
+          <Route path="/" component={APP}>
+            <IndexRoute component={Page_Login}/>
+            //this will be the default page which will opens when app starts
+            <Route path="home" component={Page_Home}/>
+            <Route path="monthly_attendance" component={Page_MonthlyAttendance}/>
+            <Route path="manage_working_hours" component={Page_ManageWorkingHours}/>
+            <Route path="logout" component={Page_Logout}/>
+            <Route path="holidays" component={Page_Holidays}/>
+            <Route path="apply_leave" component={Page_ApplyLeave}/>
+            <Route path="manage_leaves" component={Page_ManageLeaves}/>
+            <Route path="my_leaves" component={Page_MyLeaves}/>
+            <Route path="disabled_employes" component={Page_DisabledEmployes}/>
+            <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours}/>
+            <Route path="leaves_summary" component={Page_LeavesSummary}/>
+            <Route path="salary" component={Page_Salary}/>
+            <Route path="manage_salary" component={Page_ManageSalary}/>
+            <Route path="my_profile" component={Page_MyProfile}/>
+            <Route path="manage_users" component={Page_ManageUsers}/>
+            <Route path="manage_clients" component={Page_ManageClients}/>
+            <Route path="manage_payslips" component={Page_ManagePayslips}/>
+            <Route path="forgot_password" component={Page_ForgotPassword}/>
+            <Route path="documents" component={Page_MyDocuments}/>
+            <Route path="uploadAttendance" component={Page_UploadAttendance}/>
+            <Route path="view_salary" component={Page_ViewSalary}/>
+          </Route>
+        </Router>
+      </Provider>
+    </MuiThemeProvider>
   ), document.querySelector("#myApp"))
 }
 //--end------added by arun for HR app
-
 
 // Enable HMR and catch runtime errors in RedBox
 // This code is excluded from production bundle

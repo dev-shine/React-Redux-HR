@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-import { CONFIG } from '../../config/index'
+import {CONFIG} from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
@@ -24,6 +24,8 @@ class ManagePayslips extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin()
     this.state = {
+      year: '',
+      month: '',
       "selected_user_name": "",
       "selected_user_image": "",
       "selected_user_jobtitle": "",
@@ -45,7 +47,7 @@ class ManagePayslips extends React.Component {
     this.props.onUsersList()
   }
   componentWillReceiveProps(props) {
-    //window.scrollTo(0, 0); // no need to scroll to top for this
+    window.scrollTo(0, 0); // no need to scroll to top for this
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
@@ -108,7 +110,11 @@ class ManagePayslips extends React.Component {
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1
-    this.props.onUserMonthlyManagePayslipsData(userid, year, month)
+    if (this.state.year == '' && this.state.month == '') {
+      this.props.onUserManagePayslipsData(userid)
+    } else {
+      this.props.onUserMonthlyManagePayslipsData(userid, this.state.year, this.state.month);
+    }
   }
 
   callCreateUserPayslip(payslipData, evt) {
@@ -121,6 +127,7 @@ class ManagePayslips extends React.Component {
   }
   callMonthlyPayslip(userid, year, month) {
     console.log(userid, year, month);
+    this.setState({year: year, month: month})
     this.props.onUserMonthlyManagePayslipsData(userid, year, month);
   }
 

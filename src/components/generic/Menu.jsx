@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as _ from 'lodash'
-import { CONFIG } from '../../config/index'
+import {CONFIG} from '../../config/index'
 import * as actions_login from '../../actions/login/index'
 
 import LoggedUserInfo from '../../components/menu/LoggedUserInfo'
@@ -40,6 +40,7 @@ class Menu extends React.Component {
 
     //admin
     let link_users_list = <Link to='/home'>Employees Attendance</Link>
+    let link_user_attendance_upload = <Link to='/uploadAttendance'>Upload Attendance</Link>
     let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
     let link_manage_leaves = <Link to='/manage_leaves'>Manage Leaves</Link>
     let link_manage_working_hours = <Link to='/manage_working_hours'>Manage Office Hours</Link>
@@ -78,47 +79,111 @@ class Menu extends React.Component {
         <span >{link_logout}</span>
       </li>
     </ul>
-      if( this.props.logged_user.role == CONFIG.ADMIN){
-          links_to_show = <ul className="nav" >
-            <li className="hidden-folded" ><span>{link_users_list}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
-            <li className="hidden-folded" ><span>{link_holidays}</span></li>
-            <li className="hidden-folded" ><span>{link_apply_leave}</span></li>
-            <li className="hidden-folded" ><span>{link_disabled_employes}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_salary}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_users}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_payslips}</span></li>
-            <li className="hidden-folded" ><span>{link_view_salary}</span></li>
-            <li className="hidden-folded" ><span>{link_logout}</span></li>
-          </ul>
-      }else if( this.props.logged_user.role == CONFIG.HR ){
-            links_to_show = <ul className="nav" >
-            <li className="hidden-folded" ><span>{link_users_list}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
-            <li className="hidden-folded" ><span>{link_holidays}</span></li>
-            <li className="hidden-folded" ><span>{link_apply_leave}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_users}</span></li>
-            <li className="hidden-folded" ><span>{link_logout}</span></li>
+    if (this.props.logged_user.role == CONFIG.ADMIN) {
+      links_to_show = <ul className="nav">
+        <li className="hidden-folded">
+          <span>{link_users_list}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_user_attendance_upload}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_leaves}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_user_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_leaves_summary}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_holidays}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_apply_leave}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_disabled_employes}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_salary}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_users}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_payslips}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_view_salary}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_logout}</span>
+        </li>
+      </ul>
+    } else if (this.props.logged_user.role == CONFIG.HR) {
+      links_to_show = <ul className="nav">
+        <li className="hidden-folded">
+          <span>{link_users_list}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_user_attendance_upload}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_leaves}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_user_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_leaves_summary}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_holidays}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_apply_leave}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_users}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_logout}</span>
+        </li>
 
-          </ul>
-      }else if( this.props.logged_user.role == CONFIG.GUEST ){
-          links_to_show = <ul className="nav" >
-            <li className="hidden-folded" ><span>{link_users_list}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_leaves}</span></li>
-            <li className="hidden-folded" ><span>{link_manage_user_working_hours}</span></li>
-            <li className="hidden-folded" ><span>{link_leaves_summary}</span></li>
-            <li className="hidden-folded" ><span>{link_holidays}</span></li>
-            <li className="hidden-folded" ><span>{link_logout}</span></li>
+      </ul>
+    } else if (this.props.logged_user.role == CONFIG.GUEST) {
+      links_to_show = <ul className="nav">
+        <li className="hidden-folded">
+          <span>{link_users_list}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_leaves}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_manage_user_working_hours}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_leaves_summary}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_holidays}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_logout}</span>
+        </li>
 
-          </ul>
-      }
+      </ul>
+    }
     return (
       <div id="aside" className="app-aside modal fade nav-dropdown">
         <div className="left navside dark dk">

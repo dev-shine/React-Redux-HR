@@ -6,8 +6,6 @@ import * as _ from 'lodash'
 
 import * as actions_login from '../../actions/login/index'
 
-import DayWorking from './DayWorking'
-import DayFutureWorking from './DayFutureWorking'
 import Day from '../../components/generic/Day'
 
 import UserDetails from './UserDetails'
@@ -25,15 +23,15 @@ class UserMonthlyAttendance extends React.Component {
     return _.map(w, (dayData, key) => {
       let dayHtml = ''
       if (dayData.day_type == 'NON_WORKING_DAY') {
-        dayHtml = <Day day="Non Working day" dayData={dayData}/>
+        dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData}/>
       } else if (dayData.day_type == 'LEAVE_DAY') {
-        dayHtml = <Day day="On Leave" dayData={dayData}/>
+        dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable" day="On Leave" dayData={dayData}/>
       } else if (dayData.day_type == 'HALF_DAY') {
-        dayHtml = <DayHalfDay dayData={dayData}/>
+        dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable" dayData={dayData}/>
       } else if (dayData.day_type == 'FUTURE_WORKING_DAY') {
-        dayHtml = <DayFutureWorking dayData={dayData}/>
+        dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable" dayData={dayData}/>
       } else {
-        dayHtml = <DayWorking dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid}/>
+        dayHtml = <Day forEmployeeHours={false} dayData={dayData} showDaySummary={this.props.onShowDaySummary} userid={userid}/>
       }
 
       return (

@@ -18,7 +18,7 @@ import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
 
-import UsersList from '../../components/attendance/UsersList'
+import UsersList from '../../components/generic/UsersList'
 
 import FormUserProfileDetails from '../../components/manageUsers/FormUserProfileDetails'
 import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails'

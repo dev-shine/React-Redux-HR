@@ -55,7 +55,8 @@ class FormUserProfileDetails extends React.Component {
       dateofjoining = props.user_profile_detail.dateofjoining
     }
     if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
-      dob = props.user_profile_detail.dob
+      var mydate = new Date(props.user_profile_detail.dob);
+      dob = (mydate.getDate() + '/' + (mydate.getMonth() + 1) + '/' +  mydate.getFullYear());
     }
     if (typeof props.user_profile_detail.gender != 'undefined' && props.user_profile_detail.gender != null) {
       gender = props.user_profile_detail.gender
@@ -105,7 +106,6 @@ class FormUserProfileDetails extends React.Component {
   }
 
   render() {
-
     return (
       <div>
 
@@ -170,7 +170,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
           <div className="col-md-6">
             <div className="form-group">
-              <label>Date Of Birth ( eg. 2016-12-30 )</label>
+              <label>Date Of Birth ( eg. 30/12/2016 )</label>
               <input type="text" className="form-control" ref="dob" onChange={() => this.setState({dob: this.refs.dob.value})} value={this.state.dob}/>
             </div>
           </div>

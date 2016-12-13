@@ -27,13 +27,11 @@ function async_getUserProfileDetails(userid) {
 
 export function getUserProfileDetails(userid, username) {
   return function(dispatch, getState) {
-    console.log('getUserProfileDetails 2');
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
       async_getUserProfileDetails(userid).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
-          console.log('getUserProfileDetails 3',json.data);
           dispatch(success_user_profile(json.data, username))
         } else {
           dispatch(empty_user_profile(json.data.message))

@@ -6,8 +6,9 @@ import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
+import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_salary from '../../actions/salary/index'
-import * as actions_variable from '../../actions/variable'
+import * as actions_templates from '../../actions/admin/templates'
 import Template from '../../components/attendance/Template'
 import { CONFIG } from '../../config/index'
 
@@ -20,7 +21,8 @@ class TemplateContainer extends React.Component {
         }
     }
     componentWillMount(){
-        //this.props.onFetchVariables( )
+        this.props.onFetchTemplate()
+        this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
 
@@ -61,14 +63,28 @@ class TemplateContainer extends React.Component {
 }
 function mapStateToProps( state ){
     return {
-    	frontend : state.frontend.toJS(),
-        logged_user : state.logged_user.toJS()
+    	  frontend : state.frontend.toJS(),
+        logged_user : state.logged_user.toJS(),
+        templates : state.template.toJS(),
+        usersList: state.usersList.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-    	onIsAlreadyLogin : () => {
+    	  onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
+        },
+        onUsersList: () => {
+          return dispatch(actions_usersList.get_users_list())
+        },
+        onFetchTemplate: ()=>{
+            return dispatch(actions_templates.get_templates())
+        },
+        onSaveTemplate: (t_name, t_subject, t_body) =>{
+          return dispatch(actions_templates.save_templates(t_name, t_subject, t_body))
+        },
+        onDeleteTemplate: (t_id) =>{
+          return dispatch(actions_templates.delete_template(t_id))
         }
     }
 }

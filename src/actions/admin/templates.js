@@ -9,6 +9,10 @@ export const ACTION_ERROR_ADD_VARIABLE = "ACTION_ERROR_ADD_VARIABLE"
 export const ACTION_SUCCESS_VARIABLE_GET = "ACTION_SUCCESS_VARIABLE_GET"
 //export const ACTION_UPDATE_PROGRESS_STATUS = "ACTION_UPDATE_PROGRESS_STATUS"
 //export const UPDATE_TAGID = "UPDATE_TAGID"
+
+
+//--------add new valiable-------
+
 export function success_add_variable( data ){
 	return createAction( ACTION_SUCCESS_ADD_VARIABLE )( data )
 }
@@ -32,6 +36,8 @@ function async_editVariable( id,variable ){
         value : variable.varValue
 	    })
 }
+
+
 
 export function saveVariable(id,variable){
 	return (dispatch,getState) => {
@@ -72,10 +78,13 @@ export function saveVariable(id,variable){
 				}
 				)
 			}
-			
+
 		})
 	}
 }
+
+
+//------------Get valiables---------
 
 function async_get_variable(  ){
 	return fireAjax( 'POST', '', {
@@ -102,7 +111,7 @@ export function get_variable( ){
 					}else{
 						dispatch( success_variable_get( [] ) )
 					}
-					
+
 				},
 				( error ) =>{
 					dispatch( hide_loading() )// hide loading icon
@@ -113,12 +122,16 @@ export function get_variable( ){
 	}
 }
 
+
+//----------delete Variables---------------
+
 function async_delete_variable( id ){
 	return fireAjax( 'POST', '', {
 		action : 'delete_template_variable',
 		id:id
 	})
 }
+
 
 export function deleteVariable(id){
 	return function ( dispatch, getState ){
@@ -134,7 +147,7 @@ export function deleteVariable(id){
 						dispatch( get_variable( ) )
 						resolve(json.data.message)
 					}
-					
+
 				},
 				( error ) =>{
 					dispatch( hide_loading() )// hide loading icon
@@ -144,6 +157,132 @@ export function deleteVariable(id){
 		})
 	}
 }
+
+//----------------get templates -------------
+
+export function success_get_template( data ){
+	return createAction( 'ACTION_SUCCESS_GET_TEMPLATES' )( data )
+}
+
+function async_get_templates(){
+	return fireAjax( 'POST', '', {
+		action : 'get_email_template',
+	})
+}
+export function get_templates(){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject) => {
+			dispatch(show_loading());
+			async_get_templates().then(
+				(json) => {
+					dispatch(hide_loading())
+					if( typeof json != 'undefined' && json.length > 0 ){
+						let data = json
+						dispatch( success_get_template( data ) )
+						resolve(data)
+					}else{
+						dispatch( success_get_template( [] ) )
+					}
+				},
+				(error) =>{
+					dispatch(hide_loading()) // hide loading icon
+					reject('error occurs!!')
+				}
+			)
+		})
+	}
+}
+
+//-------------------save template ------------
+
+function async_save_template(t_name, t_subject, t_body){
+	return fireAjax( 'POST', '', {
+		action: 'create_email_template',
+		name: t_name,
+		subject: t_subject,
+		body: t_body
+	})
+}
+function async_update_template(t_id, t_name, t_subject, t_body){
+	return fireAjax( 'POST', '', {
+		action: 'update_email_template',
+		id: t_id,
+		name: t_name,
+		subject: t_subject,
+		body: t_body
+	})
+}
+export function save_templates(t_id, t_name, t_subject, t_body){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject) => {
+			dispatch(show_loading());
+			if(_.isEmpty(t_id)){
+				async_save_template(t_name, t_subject, t_body).then(
+					(json) => {
+						dispatch(hide_loading())
+						console.log(('updated',json));
+						dispatch(get_templates())
+						resolve(json.data.message)
+					},
+					(error) =>{
+						dispatch(hide_loading()) // hide loading icon
+						console.log('updated error',error);
+						reject('error occurs!!')
+					}
+				)
+			}else{
+				async_update_template(t_id, t_name, t_subject, t_body).then(
+					(json) => {
+						dispatch(hide_loading())
+						console.log('updated',json);
+						dispatch(get_templates())
+						resolve(json.data.message)
+					},
+					(error) =>{
+						dispatch(hide_loading()) // hide loading icon
+						console.log('updated error',error);
+						reject('error occurs!!')
+					}
+				)
+			}
+		})
+	}
+}
+
+//--------------Delete template-------------
+
+function async_delete_template(t_id){
+	return fireAjax( 'POST', '', {
+		action: 'delete_email_template',
+		id: t_id
+	})
+}
+
+export function delete_template(t_id){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject)=>{
+			dispatch(show_loading());
+			async_delete_template(t_id).then(
+				(json)=>{
+					dispatch(hide_loading())
+					if(json.error){
+						reject(json.data.message)
+					}else{
+						dispatch(get_templates())
+						resolve(json.data.message)
+					}
+				},
+				(error)=>{
+					dispatch(hide_loading())
+					eject('error occurs!!')
+				}
+			)
+		})
+	}
+}
+
+
+
 
 /*export function fetchVariable(){
 	return (dispatch,getState)=>{
@@ -184,5 +323,3 @@ export function deleteVariable( id ){
 export function success_fetch_variable( data ){
 	return createAction( ACTION_SUCCESS_FETCH_VARIABLE )( data )
 }*/
-
-

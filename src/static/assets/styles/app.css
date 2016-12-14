@@ -1,4 +1,4 @@
-/* 
+/*
 
 */
 html {
@@ -5730,3 +5730,38 @@ textarea.md-input {
 .fade-in-down.ng-leave {
   -webkit-animation: fadeOutDown 0.5s;
   animation: fadeOutDown 0.5s; }
+
+.tempalate-btn{
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 2px;
+  transition: border .25s, background .25s ;
+}
+  .tempalate-btn.delete{
+    color: crimson;
+    border: 1px solid rgba(218, 10, 77, 0);
+    background: rgba(255, 56, 93, 0);
+  }
+  .tempalate-btn.delete:hover{
+    border: 1px solid rgba(218, 10, 77, 0.44);
+    background: rgba(255, 56, 93, 0.20);
+  }
+  .tempalate-btn.edit{
+    color: green;
+    border: 1px solid rgba(0, 128, 0, 0);
+    background: rgba(0, 128, 0, 0);
+  }
+  .tempalate-btn.edit:hover{
+    border: 1px solid rgba(0, 128, 0, 0.45);
+    background: rgba(0, 128, 0, 0.14);
+  }
+  .tempalate-btn.forward-mail{
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
+  }
+  .tempalate-btn.forward-mail:hover{
+    border: 1px solid rgba(0, 0, 0, 0.33);
+    background: rgba(0, 0, 0, 0.12);
+  }

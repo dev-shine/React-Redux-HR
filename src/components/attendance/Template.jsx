@@ -4,6 +4,7 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
+import FilterLabel from '../../components/generic/FilterLabel'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
@@ -56,7 +57,8 @@ class Variables extends React.Component {
           templateBody: '',
           errName: '',
           errSubject: '',
-          openSendMailDialog:false
+          openSendMailDialog:false,
+          recipient: [],
         }
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
@@ -64,6 +66,8 @@ class Variables extends React.Component {
         this.editTemplate = this.editTemplate.bind(this)
         this.deleteTemplate = this.deleteTemplate.bind(this)
         this.forwardTemplate = this.forwardTemplate.bind(this)
+        this.onclearFilter = this.onclearFilter.bind(this)
+        this.onClickLabel = this.onClickLabel.bind(this)
     }
     componentWillMount(){
 
@@ -81,6 +85,9 @@ class Variables extends React.Component {
                 this.props.router.push('/home');
             }
         }
+        this.setState({
+          usersList: props.usersList.users,
+        })
     }
     componentDidUpdate(){
 
@@ -154,12 +161,49 @@ class Variables extends React.Component {
         errName: '',
         errSubject: '',
         openSendMailDialog:false,
+        recipient:[],
       })
     }
-
+    toggleDialog(back, front){
+        $('#' + back).toggle()
+        $('#' + front).toggle()
+      }
+    filterList(searchText){
+      let usersList = this.props.usersList.users,
+          list = [];
+      usersList.map((user)=>{
+        if(user.name.toLowerCase().indexOf(searchText) !== -1){
+          list.push(user)
+        }
+      });
+      this.setState({
+        usersList: list
+      })
+    }
+    selectUser(data, status){
+      let recipient = this.state.recipient;
+      status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+      this.setState({
+        recipient: recipient
+      });
+    }
+    selectAll(){
+      let recipient = [];
+      this.state.usersList.map((user)=>{
+        recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
+      });
+      this.setState({
+        recipient: recipient,
+      })
+    }
+    onclearFilter() {
+      this.setState({ recipient: []});
+    }
+    onClickLabel(label, indexLabel) {
+       this.selectUser(label, false);
+    }
     render(){
-      console.log('this.state',this.state,'this.props.userList',this.props.usersList);
-      const actions = [
+      const actionsCreateTemplate = [
         <FlatButton
             label="Close"
             primary={true}
@@ -172,11 +216,34 @@ class Variables extends React.Component {
             onClick={this.saveTemplate}
           />,
         ];
+        const actionsSendMail = [
+          <FlatButton
+              label="Close"
+              primary={true}
+              onTouchTap={this.handleCloseDialog}
+              style={{marginRight:5}}
+            />,
+            <RaisedButton
+              label={"Send"}
+              primary={true}
+              onClick={this.sendMail}
+            />,
+          ];
+        let listChartItems = [];
 
-        const dataSourceConfig = {
-          text: 'name',
-          value: 'work_email',
-        };
+        this.state.usersList.map((user, i)=>{
+          let check = false;
+          if(_.filter(this.state.recipient, _.matches({user_Id:user.user_Id })).length > 0) {
+            check = true;
+          }
+        listChartItems.push(
+          <li className="mb-sm b-b p-t p-b" key={i}>
+              <div className="form-group">
+                  <input type="checkbox" id="user" className="check" checked={check} onChange={(e)=>this.selectUser({user_Id:user.user_Id, name: user.name, email: user.work_email}, e.target.checked)} /> {user.name}
+              </div>
+          </li>);
+        });
+
     	return(
 				<div className="app-body" id="view" style={{'marginTop':10}}>
         {/*<div className="row">
@@ -187,7 +254,7 @@ class Variables extends React.Component {
 					<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
             <Dialog
               title={_.isEmpty(this.state.templateId) ? "Create Template" : "Edit Template"}
-              actions={actions}
+              actions={actionsCreateTemplate}
               modal={false}
               contentStyle={{maxWidth:'80%',width:"80%"}}
               open={this.state.openDialog}
@@ -256,7 +323,7 @@ class Variables extends React.Component {
                         <div className="col-xs-6" key={i} style={{height:'400px', marginBottom:'20px'}}>
                           <Paper zDepth={3} style={{padding:'20px', overflow:'hidden', height:'100%'}} >
                             <div style={styles.delete}>
-                              <i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" onClick={()=>this.forwardTemplate(tmp)}></i>
+                              <i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" title="forword" onClick={()=>this.forwardTemplate(tmp)}></i>
                               <i className="fa fa-pencil-square-o tempalate-btn edit" aria-hidden="true" title="Edit" onClick={()=>this.editTemplate(tmp)}></i>
                               <i className="fa fa-times tempalate-btn delete" aria-hidden="true" title="Delete" onClick={()=>this.deleteTemplate(tmp)}></i>
                             </div>
@@ -274,7 +341,7 @@ class Variables extends React.Component {
                  </div>
                  <Dialog
                    title={"Send Mail"}
-                   actions={actions}
+                   actions={actionsSendMail}
                    modal={false}
                    contentStyle={{maxWidth:'80%',width:"80%"}}
                    open={this.state.openSendMailDialog}
@@ -284,18 +351,34 @@ class Variables extends React.Component {
                  >
                  <div>
                    <form className="form-inline">
-                    <div className="form-group" style={styles.formInput}>
-                      <select className="form-control ">
-                        <option><input type="text" /></option>
-                        <option><input type="checkbox"/> ssssssss</option>
-                        <option><input type="checkbox"/>aaaa</option>
-                        <option><input type="checkbox"/>aaaa</option>
-                        <option><input type="checkbox"/>aaaa</option>
-                      </select>
+                     <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
+                       <div className="dropdown">
+                        <div id={"FilterBack"} className="dropdown-backdrop-custom" style={{'display':'none','opacity':0.5}} onClick={()=>this.toggleDialog("FilterBack","Filter")}></div>
+                        <div id={"Filter"} className="dropdown-menu has-child has-arrow selectUser">
+                              <ul className="list-unstyled pt-xs">
+                              <li className="mb-sm b-b p-t p-b">
+                                  <div className="form-group" style={{width:'50%'}}>
+                                    <input type="checkbox" id="selectAll" className="select-all" checked={this.state.recipient.length === this.state.usersList.length ? true : false} onChange={(e)=>this.selectAll()} /> Select all
+                                  </div>
+                                  <div className="form-group" style={{width:'50%'}}>
+                                    <input type="checkbox" id="clearAll" className="clear-all" checked={this.state.recipient.length > 0 ? false : true} onChange={(e)=>this.onclearFilter()} /> Clear all
+                                  </div>
+                              </li>
+                              <li className="mb-sm b-b p-t p-b">
+                                <div className="form-group" style={{width:'100%'}}>
+                                  <input type="text" id={'selectAll'} style={{width:'100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e)=>this.filterList(e.target.value)} />
+                                </div>
+                              </li>
+                                  {listChartItems}
+                              </ul>
+                          </div>
+                      </div>
+                   <div className="form-group selected-recipient" style={styles.formInput}>
+                      <div className="pull-left to">To</div>
+                      <div className="pull-left filter-tags" style={{textTransform: 'capitalize'}}>
+                        {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={this.onClickLabel} onClear={this.onclearFilter} /> : ""}
+                      </div>
                     </div>
-                   <div className="form-group" style={styles.formInput}>
-                     
-                   </div>
                    <div className="form-group" style={styles.formInput}>
                    <TextField
                          ref='value'

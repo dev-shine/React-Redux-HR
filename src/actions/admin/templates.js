@@ -220,13 +220,11 @@ export function save_templates(t_id, t_name, t_subject, t_body){
 				async_save_template(t_name, t_subject, t_body).then(
 					(json) => {
 						dispatch(hide_loading())
-						console.log(('updated',json));
 						dispatch(get_templates())
 						resolve(json.data.message)
 					},
 					(error) =>{
 						dispatch(hide_loading()) // hide loading icon
-						console.log('updated error',error);
 						reject('error occurs!!')
 					}
 				)
@@ -234,13 +232,11 @@ export function save_templates(t_id, t_name, t_subject, t_body){
 				async_update_template(t_id, t_name, t_subject, t_body).then(
 					(json) => {
 						dispatch(hide_loading())
-						console.log('updated',json);
 						dispatch(get_templates())
 						resolve(json.data.message)
 					},
 					(error) =>{
 						dispatch(hide_loading()) // hide loading icon
-						console.log('updated error',error);
 						reject('error occurs!!')
 					}
 				)

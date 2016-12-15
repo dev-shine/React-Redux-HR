@@ -5765,3 +5765,54 @@ textarea.md-input {
     border: 1px solid rgba(0, 0, 0, 0.33);
     background: rgba(0, 0, 0, 0.12);
   }
+  .selectUser{
+    width: 30%;
+    margin-left: 70%;
+    margin-top: 17px;
+    max-height: 253px;
+    overflow: scroll;
+  }
+  .list-unstyled li {
+    padding-left: 15px;
+  }
+  .list-unstyled li:hover {
+    background: #ffcccc;
+  }
+  .dropdown-backdrop-custom {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+  background-color: rgba(255, 255, 255, 0);
+}
+.selected-recipient{
+  padding-bottom: 5px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.selected-recipient .to{
+  width:100%;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.filter-tags{
+  height: auto;
+}
+.filter-tags .filter-label, .filter-tags-clear .filter-label {
+  margin-right: 5px;
+  font-size: 100%;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 5px; }
+  .filter-tags .filter-label .filter-remove, .filter-tags-clear .filter-label .filter-remove {
+    color: #fff;
+    margin-right: 5px;
+    cursor: pointer; }
+.filter-tags .filter-label .clear-all{
+  background: #747474;
+}
+.filter-tags .filter-clear, .filter-tags-clear .filter-clear {
+  cursor: pointer; }

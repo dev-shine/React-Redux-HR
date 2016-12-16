@@ -68,16 +68,16 @@ function mapStateToProps( state ){
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-    	onIsAlreadyLogin : () => {
+    	 onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
-        onFetchVariables:()=>{
+        onFetchVariables: ()=>{
             return dispatch(actions_templates.get_variable())
         },
-        onSaveVariable:(id,variable)=>{
+        onSaveVariable: (id, variable)=>{
             return dispatch(actions_templates.saveVariable(id,variable))
         },
-        onDeleteVariable:(id)=>{
+        onDeleteVariable: (id)=>{
             return dispatch(actions_templates.deleteVariable(id))
         }
     }

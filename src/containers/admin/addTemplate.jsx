@@ -22,6 +22,7 @@ class TemplateContainer extends React.Component {
     }
     componentWillMount(){
         this.props.onFetchTemplate()
+        this.props.onFetchVariables()
         this.props.onUsersList()
     }
     componentWillReceiveProps( props ){
@@ -40,7 +41,6 @@ class TemplateContainer extends React.Component {
     componentDidUpdate(){
     }
     render(){
-    	//let table =(this.state.empList.length>0)? <SalaryList {...this.props} empList={this.state.empList}/>:""
     	return(
     		<div>
             <Menu {...this.props }/>
@@ -80,8 +80,11 @@ const mapDispatchToProps = (dispatch) => {
         onFetchTemplate: ()=>{
             return dispatch(actions_templates.get_templates())
         },
-        onSaveTemplate: (t_name, t_subject, t_body) =>{
-          return dispatch(actions_templates.save_templates(t_name, t_subject, t_body))
+        onFetchVariables:()=>{
+            return dispatch(actions_templates.get_variable())
+        },
+        onSaveTemplate: (t_id, t_name, t_subject, t_body) =>{
+          return dispatch(actions_templates.save_templates(t_id, t_name, t_subject, t_body))
         },
         onDeleteTemplate: (t_id) =>{
           return dispatch(actions_templates.delete_template(t_id))

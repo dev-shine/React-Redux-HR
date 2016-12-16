@@ -1,6 +1,10 @@
+//require('../../components/css/template.scss');
+
 import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
+
+import {Editor, EditorState, RichUtils} from 'draft-js';
 
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
@@ -15,9 +19,11 @@ import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
-import AutoComplete from 'material-ui/AutoComplete';
+import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
-import { CONFIG } from '../../config/index'
+import { CONFIG } from '../../config/index';
+import EditableDiv from '../../components/editor/EditableDiv';
+//var EditableDiv = require('react-wysiwyg-editor');
 
 const styles = {
   block: {
@@ -42,6 +48,13 @@ const styles = {
     marginTop: '-12px',
     marginRight: '-7px'
   },
+  editorStyle: {
+  overflow: 'auto',
+  width: '100%',
+  height: '300px',
+  maxHeight: '300px',
+  background:'rgba(204,204,204,.51)',
+  }
 };
 
 class Variables extends React.Component {
@@ -59,7 +72,9 @@ class Variables extends React.Component {
           errSubject: '',
           openSendMailDialog:false,
           recipient: [],
+          editorState: EditorState.createEmpty(),
         }
+
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
         this.saveTemplate = this.saveTemplate.bind(this)
@@ -68,6 +83,7 @@ class Variables extends React.Component {
         this.forwardTemplate = this.forwardTemplate.bind(this)
         this.onclearFilter = this.onclearFilter.bind(this)
         this.onClickLabel = this.onClickLabel.bind(this)
+        this.handleContentChange = this.handleContentChange.bind(this);
     }
     componentWillMount(){
 
@@ -137,13 +153,20 @@ class Variables extends React.Component {
         })
       }
     }
+    applyVariables(str){
+      this.props.templates.variable.map((variable)=>{
+        //str = _.replace(str, variable.name, variable.value); // replace single variable
+        str = str.split(variable.name).join(variable.value)    // replace multiple variables
+      });
+      return str;
+    }
     forwardTemplate(tmp){
       this.setState({
           openSendMailDialog:true,
           templateId:tmp.id,
-          templateName: tmp.name,
-          templateSubject: tmp.subject,
-          templateBody: tmp.body
+          templateName: this.applyVariables(tmp.name),
+          templateSubject: this.applyVariables(tmp.subject),
+          templateBody: this.applyVariables(tmp.body)
       })
     }
     openCreateTemplate(){
@@ -202,7 +225,12 @@ class Variables extends React.Component {
     onClickLabel(label, indexLabel) {
        this.selectUser(label, false);
     }
+    //------editors
+    handleContentChange(e) {
+      this.setState({templateBody: e.target.value});
+    }
     render(){
+      console.log('state:',this.state,'prop',this.props);
       const actionsCreateTemplate = [
         <FlatButton
             label="Close"
@@ -256,13 +284,14 @@ class Variables extends React.Component {
               title={_.isEmpty(this.state.templateId) ? "Create Template" : "Edit Template"}
               actions={actionsCreateTemplate}
               modal={false}
-              contentStyle={{maxWidth:'80%',width:"80%"}}
+              bodyStyle={{minHeight:'70vh'}}
+              contentStyle={{maxWidth:'90%',width:"90%",transform: 'translate(0px, 0px)'}}
               open={this.state.openDialog}
               onRequestClose={this.handleCloseDialog}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}
             >
-            <div>
+            <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
               <TextField
@@ -297,16 +326,19 @@ class Variables extends React.Component {
               />
               </div>
               <div className="form-group" style={styles.formInput}>
-                <textarea style={{width:'100%', height:'200px'}}
-                  value = {this.state.templateBody}
-                  onChange={(e)=>{
-                    this.setState({
-                        templateBody: e.target.value,
-                    });
-                  }}
-                  ></textarea>
+                <EditableDiv style={styles.editorStyle} content={this.state.templateBody} onChange={this.handleContentChange} />
               </div>
               </form>
+            </div>
+            <div className="col-xs-3">
+              <h5 style={{textAlign:'center'}}>Variables</h5>
+              <Divider />
+                {_.map(this.props.templates.variable, (vari) => (
+                  <div key={vari.id}>
+                  <span className="select-variable">{vari.name}</span>
+                  <Divider />
+                  </div>
+                  ))}
             </div>
             </Dialog>
                  <div className="row" style={{margin:'0px 4px 0px'}}>
@@ -321,11 +353,15 @@ class Variables extends React.Component {
                       <div className={this.state.paper} style={{"marginTop":"8%"}}>
                         {_.map(this.props.templates.templates, (tmp, i) => (
                         <div className="col-xs-6" key={i} style={{height:'400px', marginBottom:'20px'}}>
-                          <Paper zDepth={3} style={{padding:'20px', overflow:'hidden', height:'100%'}} >
+                          <Paper zDepth={0} className="paper">
                             <div style={styles.delete}>
-                              <i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" title="forword" onClick={()=>this.forwardTemplate(tmp)}></i>
-                              <i className="fa fa-pencil-square-o tempalate-btn edit" aria-hidden="true" title="Edit" onClick={()=>this.editTemplate(tmp)}></i>
-                              <i className="fa fa-times tempalate-btn delete" aria-hidden="true" title="Delete" onClick={()=>this.deleteTemplate(tmp)}></i>
+                              <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#000',cursor:'pointer',padding:'5px 10px'}} onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                              <div id={tmp.id+"_menuBack"} className="dropdown-backdrop-custom" style={{'display':'none','opacity':0.5}} onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}></div>
+                              <div id={tmp.id+"_menu"} className="menuOptions" onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}>
+                                <span className="b-b" onClick={()=>this.forwardTemplate(tmp)} ><i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" title="forword"></i>Forword Mail</span>
+                                <span className="b-b" onClick={()=>this.editTemplate(tmp)} ><i className="fa fa-pencil-square-o tempalate-btn edit" aria-hidden="true" title="Edit"></i>Edit Template</span>
+                                <span className="b-b" onClick={()=>this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
+                              </div>
                             </div>
                             <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:  </b><div className="p-l" dangerouslySetInnerHTML={{__html:tmp.name}}></div></span></div>
                             <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html:tmp.subject}}></div></span></div>
@@ -343,13 +379,14 @@ class Variables extends React.Component {
                    title={"Send Mail"}
                    actions={actionsSendMail}
                    modal={false}
-                   contentStyle={{maxWidth:'80%',width:"80%"}}
+                   bodyStyle={{minHeight:'70vh'}}
+                   contentStyle={{maxWidth:'90%',width:"90%",transform: 'translate(0px, 0px)'}}
                    open={this.state.openSendMailDialog}
                    onRequestClose={this.handleCloseDialog}
                    autoDetectWindowHeight={true}
                    autoScrollBodyContent={true}
                  >
-                 <div>
+                 <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">
                      <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
                        <div className="dropdown">
@@ -412,16 +449,19 @@ class Variables extends React.Component {
                    />
                    </div>
                    <div className="form-group" style={styles.formInput}>
-                     <textarea style={{width:'100%', height:'70px'}}
-                       value = {this.state.templateBody}
-                       onChange={(e)=>{
-                         this.setState({
-                             templateBody: e.target.value,
-                         });
-                       }}
-                       ></textarea>
+                     <EditableDiv style={styles.editorStyle} content={this.state.templateBody} onChange={this.handleContentChange} />
                    </div>
                    </form>
+                 </div>
+                 <div className="col-xs-3">
+                   <h5 style={{textAlign:'center'}}>Variables</h5>
+                   <Divider />
+                     {_.map(this.props.templates.variable, (vari) => (
+                       <div key={vari.id}>
+                       <span className="select-variable">{vari.name}</span>
+                       <Divider />
+                       </div>
+                       ))}
                  </div>
                  </Dialog>
               </div>

@@ -88,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDeleteTemplate: (t_id) =>{
           return dispatch(actions_templates.delete_template(t_id))
+        },
+        onSendMail: (templateId, recipient) =>{
+          return dispatch(actions_templates.send_mail(templateId, recipient))
         }
     }
 }

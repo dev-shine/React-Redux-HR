@@ -10,6 +10,7 @@ import * as actions_salary from '../../actions/salary/index'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -30,10 +31,20 @@ const styles = {
     textAlign:'center',
     paddingTop:'200px'
   },
-  formInput:{
+  formInput: {
     "marginLeft": "5%",
     "marginRight": "5%",
     "width": "60%"
+  },
+  radioButton: {
+    marginBottom: 16,
+    width:"50%",
+    float: 'left',
+    marginBottom: '0px',
+    marginTop: '16px',
+  },
+  radioLabel: {
+    fontWeight: 300,
   },
 };
 
@@ -45,6 +56,7 @@ class Variables extends React.Component {
             paper:'show',
             openDialog:false,
             dialogTitle:'',
+            variableType:'system',
             variableCode:'',
             floatingLabelCode:'',
             hintCode:'',
@@ -55,9 +67,10 @@ class Variables extends React.Component {
             varValError:'',
             varId:''
         }
-        this.openCreateVariable = this.openCreateVariable.bind(this)
-        this.saveVariable = this.saveVariable.bind(this)
+        this.openCreateVariable = this.openCreateVariable.bind(this);
+        this.saveVariable = this.saveVariable.bind(this);
         this.deleteVariable = this.deleteVariable.bind(this);
+        this.handleVariableType = this.handleVariableType.bind(this);
     }
     componentWillMount(){
       /*this.setState({
@@ -81,16 +94,16 @@ class Variables extends React.Component {
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-                
+
             }else{
-                this.props.router.push('/home');    
+                this.props.router.push('/home');
             }
         }
     }
     componentDidUpdate(){
     }
     openCreateVariable(){
-      
+
         this.setState({
             variableCode:'',
             varCodeError:'',
@@ -117,34 +130,42 @@ class Variables extends React.Component {
         })
     }
     saveVariable() {
-      let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm,'')
-      let varVal = this.state.variableValue.replace(/^\s+|\s+$/gm,'')
-      let id = this.state.varId
+      let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm,'');
+      let varVal = this.state.variableValue.replace(/^\s+|\s+$/gm,'');
+      let varType = this.state.variableType.trim();
+      let id = this.state.varId;
+      let state = true;
       if(varCode!=''){
         this.setState({varCodeError:''})
       }else{
+        state = false;
         this.setState({varCodeError:'Required'})
       }
-      if(varVal!=''){
-        this.setState({varValError:''})
-      }else{
-        this.setState({varValError:'Required'})
-      }
-      if(varCode!='' && varVal!=''){
-        varCode = varCode.toLowerCase()
-        if(_.trim(varCode)[0]=="#"){
-
+      if(varType === 'user'){
+        if(varVal!=''){
+          this.setState({varValError:''})
         }else{
+          state = false;
+          this.setState({varValError:'Required'})
+        }
+      }else{
+        varVal = ''
+      }
+      if(state){
+        varCode = varCode.toLowerCase()
+        if(_.trim(varCode)[0]!=="#"){
            varCode = "#"+varCode
         }
         let variable={
               varCode:varCode,
-              varValue:varVal
+              varValue:varVal,
+              varType:varType
             }
         this.props.onSaveVariable(id,variable).then( (data) => {
           this.setState({
             variableCode:'',
             variableValue:'',
+            variableType: 'system',
             varId:''
           })
         this.gotoVariablePage()
@@ -152,6 +173,7 @@ class Variables extends React.Component {
         this.setState({
           variableCode:'',
           variableValue:'',
+          variableType: 'system',
         })
       })
       }
@@ -161,6 +183,7 @@ class Variables extends React.Component {
             variableCode:data.name,
             varCodeError:'',
             variableValue:data.value,
+            variableType: data.varType,
             varValError:'',
             openDialog:true,
             varId:data.id,
@@ -176,6 +199,11 @@ class Variables extends React.Component {
       }).catch( (error) => {
       })
     }
+    handleVariableType(e){
+      this.setState({
+        variableType: e.target.value,
+      });
+    }
     render(){
         const actions = [
       <FlatButton
@@ -190,9 +218,9 @@ class Variables extends React.Component {
               onClick={this.saveVariable}
             />,
     ];
-    	
+
     	return(
-    		  
+
 				<div className="app-body" id="view" style={{'marginTop':10}}>
         <div className="row">
                     <div className="col-12">
@@ -201,7 +229,7 @@ class Variables extends React.Component {
                   </div>
 						<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
 
-                        <Dialog
+            <Dialog
               title={this.state.dialogTitle}
               actions={actions}
               modal={false}
@@ -211,6 +239,22 @@ class Variables extends React.Component {
             >
             <div>
               <form className="form-inline">
+              <div className="form-group" style={styles.formInput}>
+                <RadioButtonGroup name="variable_type" defaultSelected={this.state.variableType} onChange={this.handleVariableType}>
+                  <RadioButton
+                    value="system"
+                    label="System Variable"
+                    style={styles.radioButton}
+                    labelStyle={styles.radioLabel}
+                  />
+                  <RadioButton
+                    value="user"
+                    label="User Variable"
+                    style={styles.radioButton}
+                    labelStyle={styles.radioLabel}
+                  />
+                </RadioButtonGroup>
+              </div>
               <div className="form-group" style={styles.formInput}>
               <TextField
                     ref='value'
@@ -230,6 +274,7 @@ class Variables extends React.Component {
               <div className="form-group" style={styles.formInput}>
               <TextField
                     ref='Name'
+                    style={{display:this.state.variableType === 'system' ? 'none' : 'block'}}
                     floatingLabelText={this.state.floatingLabelValue}
                     floatingLabelFixed={true}
                     hintText={this.state.hintValue}
@@ -252,13 +297,13 @@ class Variables extends React.Component {
                            <div className="col-xs-12">
                              <div className='row'>
                               <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px'}}>
-                              <button 
+                              <button
                                className="md-btn md-raised m-b-sm indigo"
                                onClick={this.openCreateVariable}
                               >Add New Variable</button>
                               </div>
                               <div className={this.state.paper} style={{"marginTop":"8%"}}>
-                        <Paper  zDepth={1} >
+                        <Paper  zDepth={1} style={{marginBottom:'10px'}} >
                         <Table
                          fixedHeader={true}
                          fixedFooter={true}
@@ -276,30 +321,94 @@ class Variables extends React.Component {
                         >
                         <TableRow>
                         <TableRowColumn colSpan="3" >
-                           <h4 style={{float: 'left', "marginLeft":"-5%","paddingTop":"1%","paddingBottom":"1%","paddingLeft":"5%","paddingRight":"3%","fontWeight": "bold"}}>Variable(s)</h4>
+                           <h4 style={{float: 'left', "marginLeft":"-5%","paddingTop":"1%","paddingBottom":"1%","paddingLeft":"5%","paddingRight":"3%","fontWeight": "bold"}}>User Variable(s)</h4>
                         </TableRowColumn>
                         </TableRow>
                         <TableRow>
-                         <TableRowColumn colSpan={1} tooltip="Variable code" style={{"fontWeight": "bold"}}>Variable code</TableRowColumn>
-                         <TableRowColumn colSpan={1} tooltip="Variable value" style={{"fontWeight": "bold"}}>Variable value</TableRowColumn>
-                         <TableRowColumn colSpan={1} tooltip="Delete" style={{"fontWeight": "bold",textAlign:'center'}}>Delete</TableRowColumn>
+                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold"}}>Variable code</TableRowColumn>
+                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold"}}>Variable value</TableRowColumn>
+                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold",textAlign:'center'}}>Delete</TableRowColumn>
                         </TableRow>
                         </TableHeader>
                         <TableBody
                          displayRowCheckbox={false}
                         >
-                        {_.map(this.props.variable.variable, (vari) => (
-                          <TableRow key={vari.id}
+                        {_.map(this.props.variable.variable, (vari) => {
+                          if(vari.variable_type == 'user' || vari.value !== ''){
+                            return (
+                              <TableRow key={vari.id}
+                                onChange={ (evt) => {
+                                }}
+                                style={{'cursor':'pointer'}}
+                                >
+                                  <TableRowColumn colSpan={1} >{vari.name}</TableRowColumn>
+                                  <TableRowColumn colSpan={1} >{vari.value}</TableRowColumn>
+                                  <TableRowColumn colSpan={1} style={{textAlign:'center'}}>
+                                    <IconButton
+                                      tooltip="Delete Variable"
+                                      tooltipPosition="top-right"
+                                      iconStyle={{"color":"#B71C1C"}}
+                                      children={
+                                        <Delete color='#B71C1C'/>
+                                      }
+                                      onClick= {
+                                        (evt) => {
+                                          evt.stopPropagation();
+                                          this.deleteVariable(vari)
+                                        }
+                                      }
+                                      />
+                                  </TableRowColumn>
+                                </TableRow>
+                              )
+                            }
+                          }
+                        )
+                      }
+                        </TableBody>
+                      </Table>
+                      </Paper>
+                        <Paper  zDepth={1} >
+                        <Table
+                         fixedHeader={true}
+                         fixedFooter={true}
+                         onRowSelection={
+                            (rowNumber) => {
+                              if(rowNumber.length == 1){
+                                this.editVariable(this.props.variable.variable[rowNumber])
+                              }
+                            }
+                         }
+                        >
+                        <TableHeader
+                         adjustForCheckbox={false}
+                         displaySelectAll={false}
+                        >
+                        <TableRow>
+                        <TableRowColumn colSpan="2" >
+                           <h4 style={{float: 'left', "marginLeft":"-5%","paddingTop":"1%","paddingBottom":"1%","paddingLeft":"5%","paddingRight":"3%","fontWeight": "bold"}}>System Variable(s)</h4>
+                        </TableRowColumn>
+                        </TableRow>
+                        <TableRow>
+                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold"}}>Variable code</TableRowColumn>
+                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold",textAlign:'center'}}>Delete</TableRowColumn>
+                        </TableRow>
+                        </TableHeader>
+                        <TableBody
+                         displayRowCheckbox={false}
+                        >
+                        {_.map(this.props.variable.variable, (vari) => {
+                          if(vari.variable_type === 'user' || vari.value !== ''){
+                          return <TableRow key={vari.id}
                             onChange={ (evt) => {
                             }}
                             style={{'cursor':'pointer'}}
                           >
                           <TableRowColumn colSpan={1} >{vari.name}</TableRowColumn>
-                          <TableRowColumn colSpan={1} >{vari.value}</TableRowColumn>
                           <TableRowColumn colSpan={1} style={{textAlign:'center'}}>
                           <IconButton
                           tooltip="Delete Variable"
-                          tooltipPosition="right"
+                          tooltipPosition="top-right"
                           iconStyle={{"color":"#B71C1C"}}
                           children={
                             <Delete color='#B71C1C'/>
@@ -313,7 +422,8 @@ class Variables extends React.Component {
                        />
                           </TableRowColumn>
                           </TableRow>
-                          ))}
+                        }
+                      })}
                         </TableBody>
                         </Table>
                         </Paper>

@@ -84,7 +84,9 @@ class Variables extends React.Component {
         this.onclearFilter = this.onclearFilter.bind(this)
         this.onClickLabel = this.onClickLabel.bind(this)
         this.handleContentChange = this.handleContentChange.bind(this);
+        this.sendMail = this.sendMail.bind(this);
     }
+
     componentWillMount(){
 
     }
@@ -229,8 +231,28 @@ class Variables extends React.Component {
     handleContentChange(e) {
       this.setState({templateBody: e.target.value});
     }
+    sendMail(){
+      let recipient = this.state.recipient,
+          templateId = this.state.templateId.trim(),
+          state = true;
+          if(recipient.length === 0){
+            state = false;
+            let error = "Please select recipient"
+          }
+          if(_.isEmpty(templateId)){
+            state = false;
+            let error = "Please select recipient"
+          }
+          if(state){
+            this.props.onSendMail(templateId, recipient).then(()=>{
+              alert('Mail sent');
+              this.handleCloseDialog();
+            }).catch(()=>{
+              alert('Error mail not sent.')
+            })
+          }
+    }
     render(){
-      console.log('state:',this.state,'prop',this.props);
       const actionsCreateTemplate = [
         <FlatButton
             label="Close"
@@ -348,7 +370,7 @@ class Variables extends React.Component {
                       <button
                        className="md-btn md-raised m-b-sm indigo"
                        onClick={this.openCreateTemplate}
-                      >Add New Template</button>
+                      >Create New Template</button>
                       </div>
                       <div className={this.state.paper} style={{"marginTop":"8%"}}>
                         {_.map(this.props.templates.templates, (tmp, i) => (
@@ -412,7 +434,7 @@ class Variables extends React.Component {
                       </div>
                    <div className="form-group selected-recipient" style={styles.formInput}>
                       <div className="pull-left to">To</div>
-                      <div className="pull-left filter-tags" style={{textTransform: 'capitalize'}}>
+                      <div className="pull-left filter-tags" style={{textTransform: 'capitalize',fontSize:'12px'}}>
                         {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={this.onClickLabel} onClear={this.onclearFilter} /> : ""}
                       </div>
                     </div>

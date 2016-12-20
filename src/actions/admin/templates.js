@@ -21,20 +21,22 @@ export function error_add_varaible( data ){
 }
 
 function async_saveVariable( id,variable ){
-		return fireAjax( 'POST', '', {
-		action : 'create_template_variable',
-		name : variable.varCode,
-        value : variable.varValue
-	    })
+		 return fireAjax( 'POST', '', {
+		 	action : 'create_template_variable',
+		 	name : variable.varCode,
+	    value : variable.varValue,
+			variable_type: variable.varType
+		 });
 }
 
 function async_editVariable( id,variable ){
 		return fireAjax( 'POST', '', {
-		action : 'update_template_variable',
-		id:id,
-		name : variable.varCode,
-        value : variable.varValue
-	    })
+			action : 'update_template_variable',
+			id:id,
+			name : variable.varCode,
+	    value : variable.varValue,
+			variable_type: variable.varType
+		});
 }
 
 
@@ -251,7 +253,7 @@ function async_delete_template(t_id){
 	return fireAjax( 'POST', '', {
 		action: 'delete_email_template',
 		id: t_id
-	})
+	});
 }
 
 export function delete_template(t_id){
@@ -270,14 +272,45 @@ export function delete_template(t_id){
 				},
 				(error)=>{
 					dispatch(hide_loading())
-					eject('error occurs!!')
+					reject('error occurs!!')
 				}
 			)
 		})
 	}
 }
 
+//------------send_mail functionality------------
 
+function async_send_mail(templateId, recipient){
+	return fireAjax( 'POST', '', {
+		action: 'send_employee_email',
+		user_id: recipient[0].user_Id,
+		template_id:templateId
+	});
+}
+
+export function send_mail(templateId, recipient){
+	return function (dispatch, getState) {
+		return new Promise((resolve, reject)=>{
+			dispatch(show_loading());
+			async_send_mail(templateId, recipient).then(
+				(json)=>{
+					dispatch(hide_loading())
+					if(json.error){
+						reject(json.data.message)
+					}else{
+						dispatch(get_templates())
+						resolve(json.data.message)
+					}
+				},
+				(error)=>{
+					dispatch(hide_loading())
+					reject('error occurs!!')
+				}
+			)
+		})
+	}
+}
 
 
 /*export function fetchVariable(){

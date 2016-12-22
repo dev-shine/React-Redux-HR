@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
 
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import RichTextEditor from 'react-rte';
 
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
@@ -23,7 +23,7 @@ import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
-//var EditableDiv = require('react-wysiwyg-editor');
+var moment = require('moment');
 
 const styles = {
   block: {
@@ -49,11 +49,12 @@ const styles = {
     marginRight: '-7px'
   },
   editorStyle: {
-  overflow: 'auto',
-  width: '100%',
-  height: '300px',
-  maxHeight: '300px',
-  background:'rgba(204,204,204,.51)',
+    overflow: 'auto',
+    display: 'block',
+    width: '100%',
+    height: '300px',
+    maxHeight: '300px',
+    background:'rgba(204,204,204,.51)',
   }
 };
 
@@ -67,12 +68,15 @@ class Variables extends React.Component {
           templateId:'',
           templateName: '',
           templateSubject: '',
-          templateBody: '',
+          templateBody: RichTextEditor.createEmptyValue(),
           errName: '',
           errSubject: '',
+          pValue:[],
           openSendMailDialog:false,
           recipient: [],
-          editorState: EditorState.createEmpty(),
+          openVarDialog: false,
+          openPreview: false,
+          sentMail:{},
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
@@ -85,6 +89,12 @@ class Variables extends React.Component {
         this.onClickLabel = this.onClickLabel.bind(this)
         this.handleContentChange = this.handleContentChange.bind(this);
         this.sendMail = this.sendMail.bind(this);
+        this.applyVariables = this.applyVariables.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.setVariable = this.setVariable.bind(this);
+        this.openMailPreview = this.openMailPreview.bind(this);
+
+        this.variables = [];
     }
 
     componentWillMount(){
@@ -114,10 +124,9 @@ class Variables extends React.Component {
       let t_id = this.state.templateId.trim(),
           t_name = this.state.templateName.trim(),
           t_subject = this.state.templateSubject.trim(),
-          t_body = this.state.templateBody.trim(),
+          t_body = this.state.templateBody.toString('html'),
           errName = "",
           errSubject = "";
-
           if(_.isEmpty(t_name)){
             errName = "Name empty"
           }
@@ -143,33 +152,72 @@ class Variables extends React.Component {
           templateId:tmp.id,
           templateName: tmp.name,
           templateSubject: tmp.subject,
-          templateBody: tmp.body
+          templateBody: RichTextEditor.createValueFromString(tmp.body, 'html'),
       })
     }
     deleteTemplate(tmp){
       if(confirm('Do you want to delete this template')){
-        this.props.onDeleteTemplate(tmp.id).then((msg)=>{
-          alert(msg)
+        this.props.onDeleteTemplate(tmp.id).then(()=>{
+
         }).catch((err)=>{
           alert(err)
         })
       }
     }
-    applyVariables(str){
-      this.props.templates.variable.map((variable)=>{
-        //str = _.replace(str, variable.name, variable.value); // replace single variable
-        str = str.split(variable.name).join(variable.value)    // replace multiple variables
+    applyVariables(templateId){
+      let templ = '', recipient = '';
+       _.map(this.props.templates.templates, (tmp, i) =>{
+        if(tmp.id === templateId){
+          templ = _.clone(tmp);
+        }
       });
-      return str;
+      if(this.state.recipient.length > 0){
+        this.state.usersList.map((user)=>{
+          if(user.user_Id == this.state.recipient[0].user_Id){
+            recipient = user;
+          }
+        });
+      }
+      this.props.templates.variable.map((variable)=>{
+        if(variable.variable_type == 'user' || !_.isEmpty(variable.value)){
+          templ.name = templ.name.split(variable.name).join(variable.value)    // replace multiple variables
+          templ.subject = templ.subject.split(variable.name).join(variable.value)    // replace multiple variables
+          templ.body = templ.body.split(variable.name).join(variable.value)    // replace multiple variables
+        }
+        if(variable.variable_type === 'system' || _.isEmpty(variable.value)){
+          if(this.state.recipient.length > 0){
+          let value;
+          if(variable.name == '#date'){
+            value = new Date();
+            value = moment(value).format('YYYY-MM-DD');
+          }else if(variable.name == '#joining_date'){
+            value = recipient.dateofjoining
+          }else if(variable.name == '#employee_title'){
+            value = recipient.jobtitle
+          }else if(variable.name == '#employee_name'){
+            value = recipient.name
+          }
+          templ.name = templ.name.split(variable.name).join(value)    // replace multiple variables
+          templ.subject = templ.subject.split(variable.name).join(value)    // replace multiple variables
+          templ.body = templ.body.split(variable.name).join(value)    // replace multiple variables
+          }
+        }
+      });
+      this.setState({
+        templateName: templ.name,
+        templateSubject: templ.subject,
+        templateBody: RichTextEditor.createValueFromString(templ.body, 'html'),
+      });
     }
     forwardTemplate(tmp){
       this.setState({
           openSendMailDialog:true,
           templateId:tmp.id,
-          templateName: this.applyVariables(tmp.name),
-          templateSubject: this.applyVariables(tmp.subject),
-          templateBody: this.applyVariables(tmp.body)
-      })
+          templateName: tmp.name,
+          templateSubject: tmp.subject,
+          templateBody: RichTextEditor.createValueFromString(tmp.body, 'html'),
+      });
+      this.applyVariables(tmp.id);
     }
     openCreateTemplate(){
         this.setState({
@@ -182,7 +230,7 @@ class Variables extends React.Component {
         templateId: '',
         templateName: '',
         templateSubject: '',
-        templateBody: '',
+        templateBody: RichTextEditor.createEmptyValue(),
         errName: '',
         errSubject: '',
         openSendMailDialog:false,
@@ -211,40 +259,123 @@ class Variables extends React.Component {
       this.setState({
         recipient: recipient
       });
+      this.applyVariables(this.state.templateId);
     }
     selectAll(){
-      let recipient = [];
+      let recipient = this.state.recipient;
+      _.remove(recipient)
       this.state.usersList.map((user)=>{
         recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
       });
       this.setState({
         recipient: recipient,
-      })
+      });
+      this.applyVariables(this.state.templateId);
     }
-    onclearFilter() {
-      this.setState({ recipient: []});
+    onclearFilter(){
+      let recipient = this.state.recipient;
+      _.remove(recipient)
+      this.setState({ recipient: recipient});
+      this.applyVariables(this.state.templateId);
     }
     onClickLabel(label, indexLabel) {
        this.selectUser(label, false);
     }
     //------editors
-    handleContentChange(e) {
-      this.setState({templateBody: e.target.value});
+    handleContentChange(value) {
+      this.setState({templateBody: value});
+      //this.setState({templateBody:e.target.value});
     }
-    sendMail(){
+    closeMailPreview(){
+      this.setState({
+        openPreview: false,
+        sentMail:{},
+      });
+    }
+    openMailPreview(){
       let recipient = this.state.recipient,
-          templateId = this.state.templateId.trim(),
+          templateName = this.state.templateName.trim(),
+          templateSubject = this.state.templateSubject.trim(),
+          templateBody = this.state.templateBody.toString('html'),
           state = true;
           if(recipient.length === 0){
             state = false;
-            let error = "Please select recipient"
+            alert("Please select a recipient");
           }
-          if(_.isEmpty(templateId)){
+          if(state && _.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
             state = false;
-            let error = "Please select recipient"
+            alert("Please select a template");
           }
           if(state){
-            this.props.onSendMail(templateId, recipient).then(()=>{
+            let string = templateName.concat(" ",templateSubject," ", templateBody);
+            let regx = /(?:^|\W)#(\w+)(?!\w)/g;
+            let result = string.match(regx);
+            if(result !== null && result.length > 0){
+              state = false;
+              result = _.uniq(result);
+             this.variables = result.map((str)=>{
+                 return str.substring(1);
+               });
+               this.setState({
+                 openVarDialog: true,
+               });
+             }
+           }
+        if(state){
+          let email = [{
+              email_id: recipient[0].email,
+              name: recipient[0].name,
+              subject: templateSubject,
+              body: templateBody
+              }]
+          this.setState({
+            openPreview: true,
+            sentMail:{status:state, email:email}
+          })
+        }
+    }
+    sendMail(){
+      this.closeMailPreview();
+      // let recipient = this.state.recipient,
+      //     templateName = this.state.templateName.trim(),
+      //     templateSubject = this.state.templateSubject.trim(),
+      //     templateBody = this.state.templateBody.toString('html'),
+      //     state = true;
+      //     if(recipient.length === 0){
+      //       state = false;
+      //       alert("Please select a recipient");
+      //     }
+      //     if(_.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
+      //       state = false;
+      //       alert("Please select a template");
+      //     }else{
+      //         let string = templateName.concat(" ",templateSubject," ", templateBody);
+      //         let regx = /(?:^|\W)#(\w+)(?!\w)/g;
+      //         let result = string.match(regx);
+      //         if(result !== null && result.length > 0){
+      //           state = false;
+      //           result = _.uniq(result);
+      //          this.variables = result.map((str)=>{
+      //              return str.substring(1);
+      //          });
+      //          this.setState({
+      //           openVarDialog: true,
+      //          });
+      //        }else{
+      //          this.setState({
+      //            openPreview: true,
+      //          })
+      //        }
+      //     }
+      let sentMail = this.state.sentMail;
+          if(sentMail.status){
+            // let email = [{
+            //     email_id: recipient[0].email,
+            //     name: recipient[0].name,
+            //     subject: templateSubject,
+            //     body: templateBody
+            //     }]
+            this.props.onSendMail(sentmail.email).then(()=>{
               alert('Mail sent');
               this.handleCloseDialog();
             }).catch(()=>{
@@ -252,35 +383,64 @@ class Variables extends React.Component {
             })
           }
     }
+    handleClose(){
+      this.setState({
+        openVarDialog: false,
+        pValue: [],
+      });
+      this.variables = [];
+    }
+    setVariable(){
+      let pValue = this.state.pValue,
+          templateName = this.state.templateName.trim(),
+          templateSubject = this.state.templateSubject.trim(),
+          templateBody = this.state.templateBody.toString('html');
+      _.map(this.variables, (variable, i)=>{
+           templateName = _.replace(templateName, variable, pValue[i]);
+           templateSubject = _.replace(templateSubject, variable, pValue[i]);
+           templateBody = _.replace(templateBody, variable, pValue[i]);
+       });
+       this.setState({
+         templateName: templateName,
+         templateSubject: templateSubject,
+         templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
+       });
+       this.handleClose();
+    }
     render(){
-      const actionsCreateTemplate = [
-        <FlatButton
-            label="Close"
-            primary={true}
-            onTouchTap={this.handleCloseDialog}
-            style={{marginRight:5}}
-          />,
-          <RaisedButton
-            label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"}
-            primary={true}
-            onClick={this.saveTemplate}
-          />,
-        ];
-        const actionsSendMail = [
-          <FlatButton
-              label="Close"
-              primary={true}
-              onTouchTap={this.handleCloseDialog}
-              style={{marginRight:5}}
-            />,
-            <RaisedButton
-              label={"Send"}
-              primary={true}
-              onClick={this.sendMail}
-            />,
+      console.log('this.state',this.state,'props',this.props);
+          //let sendMail = this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0];
+          console.log(sendMail);
+          const actionsCreateTemplate = [
+            <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
+            <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
           ];
+          const actionsSendMail = [
+            <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
+            <RaisedButton label={"Send"} primary={true} onClick={this.openMailPreview} />
+          ];
+          //-------------------toolbarConfig for editor--------------------
+          const toolbarConfig = {
+          // Optionally specify the groups to display (displayed in the order listed).
+          display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+          INLINE_STYLE_BUTTONS: [
+            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
+            {label: 'Italic', style: 'ITALIC'},
+            {label: 'Underline', style: 'UNDERLINE'}
+          ],
+          BLOCK_TYPE_DROPDOWN: [
+            {label: 'Normal', style: 'unstyled'},
+            {label: 'Heading Large', style: 'header-one'},
+            {label: 'Heading Medium', style: 'header-two'},
+            {label: 'Heading Small', style: 'header-three'}
+          ],
+          BLOCK_TYPE_BUTTONS: [
+            {label: 'UL', style: 'unordered-list-item'},
+            {label: 'OL', style: 'ordered-list-item'}
+          ]
+        };
+        //------------------------------------
         let listChartItems = [];
-
         this.state.usersList.map((user, i)=>{
           let check = false;
           if(_.filter(this.state.recipient, _.matches({user_Id:user.user_Id })).length > 0) {
@@ -293,7 +453,22 @@ class Variables extends React.Component {
               </div>
           </li>);
         });
-
+        //-----------------pending Variables
+        let pendingVar = [];
+        _.map(this.variables,(variable, i)=>{
+          pendingVar.push(
+          <div className="form-group" key={i}>
+           <label>Enter value for {variable} :</label>
+           <input type="text" className="form-control" onChange={(e)=>{
+               let pValue = this.state.pValue;
+               pValue[i] = e.target.value;
+             this.setState({
+                 pValue: pValue,
+             });
+           }}
+           value={this.state.pValue[i]} />
+          </div>)
+        })
     	return(
 				<div className="app-body" id="view" style={{'marginTop':10}}>
         {/*<div className="row">
@@ -348,19 +523,42 @@ class Variables extends React.Component {
               />
               </div>
               <div className="form-group" style={styles.formInput}>
-                <EditableDiv style={styles.editorStyle} content={this.state.templateBody} onChange={this.handleContentChange} />
+                <RichTextEditor
+                   style={styles.editorStyle}
+                   toolbarConfig={toolbarConfig}
+                   value={this.state.templateBody}
+                   onChange={this.handleContentChange}
+                 />
               </div>
               </form>
             </div>
             <div className="col-xs-3">
-              <h5 style={{textAlign:'center'}}>Variables</h5>
+              <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
               <Divider />
-                {_.map(this.props.templates.variable, (vari) => (
-                  <div key={vari.id}>
-                  <span className="select-variable">{vari.name}</span>
-                  <Divider />
-                  </div>
-                  ))}
+                {_.map(this.props.templates.variable, (vari) => {
+                  if(vari.variable_type === 'system' || vari.value == ''){
+                    return (
+                      <div key={vari.id}>
+                        <span className="select-variable">{vari.name}</span>
+                        <Divider />
+                      </div>
+                    )
+                  }
+                })
+                }
+                <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
+                <Divider />
+                  {_.map(this.props.templates.variable, (vari) => {
+                    if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                      return(
+                        <div key={vari.id}>
+                          <span className="select-variable">{vari.name}</span>
+                          <Divider />
+                        </div>
+                      )
+                    }
+                   })
+                  }
             </div>
             </Dialog>
                  <div className="row" style={{margin:'0px 4px 0px'}}>
@@ -408,6 +606,40 @@ class Variables extends React.Component {
                    autoDetectWindowHeight={true}
                    autoScrollBodyContent={true}
                  >
+                 <Dialog
+                   title={"Enter values"}
+                   actions={[<FlatButton label="Close" primary={true} onTouchTap={this.handleClose} style={{marginRight:5}} />,
+                             <RaisedButton label={"Set Variables"} primary={true} onClick={this.setVariable}/>]}
+                   modal={false}
+                   bodyStyle={{minHeight:'50vh'}}
+                   contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
+                   open={this.state.openVarDialog}
+                   onRequestClose={this.handleClose}
+                   autoDetectWindowHeight={true}
+                   autoScrollBodyContent={true}
+                 >
+                 <div>
+                 <div className="col-sx-12"></div>
+                    {pendingVar}
+                </div>
+               </Dialog>
+               <Dialog
+                 title={"Mail Preview"}
+                 actions={[<FlatButton label="Close" primary={true} onTouchTap={this.handleClose} style={{marginRight:5}} />,
+                            <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>]}
+                 modal={false}
+                 bodyStyle={{minHeight:'70vh'}}
+                 contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
+                 open={this.state.openPreview}
+                 onRequestClose={this.closeMailPreview}
+                 autoDetectWindowHeight={true}
+                 autoScrollBodyContent={true}
+               >
+               <div>
+                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].subject}}></div>
+                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].body}}></div>
+              </div>
+             </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">
                      <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
@@ -445,6 +677,7 @@ class Variables extends React.Component {
                          floatingLabelFixed={true}
                          hintText="Template Name"
                          fullWidth={true}
+                         disabled={true}
                          errorText={this.state.errName}
                          value={this.state.templateName}
                          onChange={(e)=>{
@@ -471,19 +704,43 @@ class Variables extends React.Component {
                    />
                    </div>
                    <div className="form-group" style={styles.formInput}>
-                     <EditableDiv style={styles.editorStyle} content={this.state.templateBody} onChange={this.handleContentChange} />
-                   </div>
+                   <RichTextEditor
+                      style={styles.editorStyle}
+                      toolbarConfig={toolbarConfig}
+                      value={this.state.templateBody}
+                      onChange={this.handleContentChange}
+                    />
+                </div>
+
                    </form>
                  </div>
                  <div className="col-xs-3">
-                   <h5 style={{textAlign:'center'}}>Variables</h5>
+                   <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
                    <Divider />
-                     {_.map(this.props.templates.variable, (vari) => (
-                       <div key={vari.id}>
-                       <span className="select-variable">{vari.name}</span>
-                       <Divider />
-                       </div>
-                       ))}
+                     {_.map(this.props.templates.variable, (vari) => {
+                       if(vari.variable_type === 'system' || vari.value == ''){
+                         return (
+                           <div key={vari.id}>
+                             <span className="select-variable">{vari.name}</span>
+                             <Divider />
+                           </div>
+                         )
+                       }
+                     })
+                     }
+                     <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
+                     <Divider />
+                       {_.map(this.props.templates.variable, (vari) => {
+                         if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                           return(
+                             <div key={vari.id}>
+                               <span className="select-variable">{vari.name}</span>
+                               <Divider />
+                             </div>
+                           )
+                         }
+                        })
+                       }
                  </div>
                  </Dialog>
               </div>

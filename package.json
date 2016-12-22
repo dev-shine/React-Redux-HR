@@ -121,6 +121,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^2.2.0",
     "react-router-redux": "^4.0.0",
+    "react-rte": "^0.11.0",
     "react-tap-event-plugin": "^2.0.1",
     "react-toastr": "^2.8.0",
     "redux": "^3.0.0",

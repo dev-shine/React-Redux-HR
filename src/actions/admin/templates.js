@@ -267,7 +267,7 @@ export function delete_template(t_id){
 						reject(json.data.message)
 					}else{
 						dispatch(get_templates())
-						resolve(json.data.message)
+						resolve()
 					}
 				},
 				(error)=>{
@@ -281,19 +281,19 @@ export function delete_template(t_id){
 
 //------------send_mail functionality------------
 
-function async_send_mail(templateId, recipient){
+function async_send_mail(email){
+	console.log('email',email);
 	return fireAjax( 'POST', '', {
 		action: 'send_employee_email',
-		user_id: recipient[0].user_Id,
-		template_id:templateId
+		email: email
 	});
 }
 
-export function send_mail(templateId, recipient){
+export function send_mail(email){
 	return function (dispatch, getState) {
 		return new Promise((resolve, reject)=>{
 			dispatch(show_loading());
-			async_send_mail(templateId, recipient).then(
+			async_send_mail(email).then(
 				(json)=>{
 					dispatch(hide_loading())
 					if(json.error){

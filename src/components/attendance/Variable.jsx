@@ -17,6 +17,8 @@ import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index'
+import RichTextEditor from 'react-rte';
+
 
 const styles = {
   block: {
@@ -34,7 +36,9 @@ const styles = {
   formInput: {
     "marginLeft": "5%",
     "marginRight": "5%",
-    "width": "60%"
+    "width": "90%",
+    "paddingTop":'10px',
+    "color": 'gray',
   },
   radioButton: {
     marginBottom: 16,
@@ -56,12 +60,12 @@ class Variables extends React.Component {
             paper:'show',
             openDialog:false,
             dialogTitle:'',
-            variableType:'system',
-            variableCode:'',
+            variableType:'user',
+            variableCode: '',
             floatingLabelCode:'',
             hintCode:'',
             varCodeError:'',
-            variableValue:'',
+            variableValue: RichTextEditor.createEmptyValue(),
             floatingLabelValue:'',
             hintValue:'',
             varValError:'',
@@ -70,7 +74,8 @@ class Variables extends React.Component {
         this.openCreateVariable = this.openCreateVariable.bind(this);
         this.saveVariable = this.saveVariable.bind(this);
         this.deleteVariable = this.deleteVariable.bind(this);
-        this.handleVariableType = this.handleVariableType.bind(this);
+        this.editVariable = this.editVariable.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
     componentWillMount(){
       /*this.setState({
@@ -102,12 +107,14 @@ class Variables extends React.Component {
     }
     componentDidUpdate(){
     }
+    onChange (value){
+      this.setState({variableValue: value});
+    }
     openCreateVariable(){
-
         this.setState({
-            variableCode:'',
+            variableCode: '',
             varCodeError:'',
-            variableValue:'',
+            variableValue: RichTextEditor.createEmptyValue(),
             varValError:'',
             openDialog:true,
             varId:'',
@@ -120,9 +127,9 @@ class Variables extends React.Component {
     }
     gotoVariablePage(){
         this.setState({
-            variableCode:'',
+            variableCode: '',
             varCodeError:'',
-            variableValue:'',
+            variableValue: RichTextEditor.createEmptyValue(),
             varValError:'',
             openDialog:false,
             dialogTitle:'',
@@ -130,12 +137,18 @@ class Variables extends React.Component {
         })
     }
     saveVariable() {
-      let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm,'');
-      let varVal = this.state.variableValue.replace(/^\s+|\s+$/gm,'');
+      let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm,'').trim();
+      let varVal = this.state.variableValue.toString('html'); //replace(/^\s+|\s+$/gm,'');
       let varType = this.state.variableType.trim();
       let id = this.state.varId;
       let state = true;
-      if(varCode!=''){
+
+      // var span= document.createElement('span');
+      // span.innerHTML= varCode;
+      // let codeText = span.textContent || span.innerText;
+      // codeText = codeText.trim();
+
+      if(varCode != ''){
         this.setState({varCodeError:''})
       }else{
         state = false;
@@ -151,10 +164,11 @@ class Variables extends React.Component {
       }else{
         varVal = ''
       }
+
       if(state){
-        varCode = varCode.toLowerCase()
+        varCode = varCode.toLowerCase();
         if(_.trim(varCode)[0]!=="#"){
-           varCode = "#"+varCode
+          varCode = '#'+varCode; //_.replace(varCode, codeText, '#'+codeText)
         }
         let variable={
               varCode:varCode,
@@ -163,27 +177,24 @@ class Variables extends React.Component {
             }
         this.props.onSaveVariable(id,variable).then( (data) => {
           this.setState({
-            variableCode:'',
-            variableValue:'',
-            variableType: 'system',
+            variableCode: '',
+            variableValue: RichTextEditor.createEmptyValue(),
             varId:''
           })
         this.gotoVariablePage()
       }).catch( (error) => {
         this.setState({
-          variableCode:'',
-          variableValue:'',
-          variableType: 'system',
+          variableCode: '',
+          variableValue:RichTextEditor.createEmptyValue(),
         })
       })
       }
     }
     editVariable(data){
         this.setState({
-            variableCode:data.name,
+            variableCode: data.name,
             varCodeError:'',
-            variableValue:data.value,
-            variableType: data.varType,
+            variableValue:RichTextEditor.createValueFromString(data.value, 'html'),
             varValError:'',
             openDialog:true,
             varId:data.id,
@@ -195,18 +206,13 @@ class Variables extends React.Component {
         })
     }
     deleteVariable(vari){
-    this.props.onDeleteVariable(vari.id).then( () => {
+      this.props.onDeleteVariable(vari.id).then( () => {
       }).catch( (error) => {
       })
     }
-    handleVariableType(e){
-      this.setState({
-        variableType: e.target.value,
-      });
-    }
     render(){
         const actions = [
-      <FlatButton
+          <FlatButton
               label="BACK"
               primary={true}
               onTouchTap={this.gotoVariablePage.bind(this)}
@@ -217,8 +223,9 @@ class Variables extends React.Component {
               primary={true}
               onClick={this.saveVariable}
             />,
-    ];
-
+          ];
+          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user' || !_.isEmpty(o.value) });
+          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system' || _.isEmpty(o.value)});
     	return(
 
 				<div className="app-body" id="view" style={{'marginTop':10}}>
@@ -240,53 +247,28 @@ class Variables extends React.Component {
             <div>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
-                <RadioButtonGroup name="variable_type" defaultSelected={this.state.variableType} onChange={this.handleVariableType}>
-                  <RadioButton
-                    value="system"
-                    label="System Variable"
-                    style={styles.radioButton}
-                    labelStyle={styles.radioLabel}
-                  />
-                  <RadioButton
-                    value="user"
-                    label="User Variable"
-                    style={styles.radioButton}
-                    labelStyle={styles.radioLabel}
-                  />
-                </RadioButtonGroup>
+                <label>Enter Variable code</label>
+                  <TextField
+                      ref='value'
+                      floatingLabelText={this.state.floatingLabelCode}
+                      floatingLabelFixed={true}
+                      hintText={this.state.hintCode}
+                      fullWidth={true}
+                      errorText={this.state.varCodeError}
+                      value={this.state.variableCode}
+                      onChange={(e)=>{
+                        this.setState({
+                            variableCode: e.target.value,
+                        });
+                      }}
+                />
               </div>
               <div className="form-group" style={styles.formInput}>
-              <TextField
-                    ref='value'
-                    floatingLabelText={this.state.floatingLabelCode}
-                    floatingLabelFixed={true}
-                    hintText={this.state.hintCode}
-                    fullWidth={true}
-                    errorText={this.state.varCodeError}
-                    value={this.state.variableCode}
-                    onChange={(e)=>{
-                      this.setState({
-                          variableCode: e.target.value,
-                      });
-                    }}
-              />
-              </div>
-              <div className="form-group" style={styles.formInput}>
-              <TextField
-                    ref='Name'
-                    style={{display:this.state.variableType === 'system' ? 'none' : 'block'}}
-                    floatingLabelText={this.state.floatingLabelValue}
-                    floatingLabelFixed={true}
-                    hintText={this.state.hintValue}
-                    fullWidth={true}
-                    errorText={this.state.varValError}
-                    value={this.state.variableValue}
-                    onChange={(e)=>{
-                      this.setState({
-                          variableValue: e.target.value,
-                      });
-                    }}
-              />
+                <RichTextEditor
+                   style={styles.editorStyle}
+                   value={this.state.variableValue}
+                   onChange={this.onChange}
+                 />
               </div>
               </form>
             </div>
@@ -310,7 +292,7 @@ class Variables extends React.Component {
                          onRowSelection={
                             (rowNumber) => {
                               if(rowNumber.length == 1){
-                                this.editVariable(this.props.variable.variable[rowNumber])
+                                this.editVariable(userVar[rowNumber])
                               }
                             }
                          }
@@ -333,16 +315,12 @@ class Variables extends React.Component {
                         <TableBody
                          displayRowCheckbox={false}
                         >
-                        {_.map(this.props.variable.variable, (vari) => {
-                          if(vari.variable_type == 'user' || vari.value !== ''){
-                            return (
+                        {_.map(userVar, (vari, i) => (
                               <TableRow key={vari.id}
-                                onChange={ (evt) => {
-                                }}
                                 style={{'cursor':'pointer'}}
                                 >
                                   <TableRowColumn colSpan={1} >{vari.name}</TableRowColumn>
-                                  <TableRowColumn colSpan={1} >{vari.value}</TableRowColumn>
+                                  <TableRowColumn colSpan={1} ><div className="p-l" dangerouslySetInnerHTML={{__html:vari.value}}></div></TableRowColumn>
                                   <TableRowColumn colSpan={1} style={{textAlign:'center'}}>
                                     <IconButton
                                       tooltip="Delete Variable"
@@ -361,8 +339,6 @@ class Variables extends React.Component {
                                   </TableRowColumn>
                                 </TableRow>
                               )
-                            }
-                          }
                         )
                       }
                         </TableBody>
@@ -372,13 +348,6 @@ class Variables extends React.Component {
                         <Table
                          fixedHeader={true}
                          fixedFooter={true}
-                         onRowSelection={
-                            (rowNumber) => {
-                              if(rowNumber.length == 1){
-                                this.editVariable(this.props.variable.variable[rowNumber])
-                              }
-                            }
-                         }
                         >
                         <TableHeader
                          adjustForCheckbox={false}
@@ -391,39 +360,17 @@ class Variables extends React.Component {
                         </TableRow>
                         <TableRow>
                          <TableRowColumn colSpan={1} style={{"fontWeight": "bold"}}>Variable code</TableRowColumn>
-                         <TableRowColumn colSpan={1} style={{"fontWeight": "bold",textAlign:'center'}}>Delete</TableRowColumn>
                         </TableRow>
                         </TableHeader>
                         <TableBody
                          displayRowCheckbox={false}
                         >
-                        {_.map(this.props.variable.variable, (vari) => {
-                          if(vari.variable_type === 'user' || vari.value !== ''){
-                          return <TableRow key={vari.id}
-                            onChange={ (evt) => {
-                            }}
-                            style={{'cursor':'pointer'}}
-                          >
+                        {_.map(systemVar, (vari) => (
+                          <TableRow key={vari.id} style={{'cursor':'pointer'}} >
                           <TableRowColumn colSpan={1} >{vari.name}</TableRowColumn>
-                          <TableRowColumn colSpan={1} style={{textAlign:'center'}}>
-                          <IconButton
-                          tooltip="Delete Variable"
-                          tooltipPosition="top-right"
-                          iconStyle={{"color":"#B71C1C"}}
-                          children={
-                            <Delete color='#B71C1C'/>
-                          }
-                        onClick= {
-                         (evt) => {
-                           evt.stopPropagation();
-                           this.deleteVariable(vari)
-                         }
-                       }
-                       />
-                          </TableRowColumn>
                           </TableRow>
-                        }
-                      })}
+
+                      ))}
                         </TableBody>
                         </Table>
                         </Paper>

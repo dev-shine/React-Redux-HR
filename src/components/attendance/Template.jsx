@@ -93,6 +93,7 @@ class Variables extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.setVariable = this.setVariable.bind(this);
         this.openMailPreview = this.openMailPreview.bind(this);
+        this.closeMailPreview = this.closeMailPreview.bind(this);
 
         this.variables = [];
     }
@@ -410,7 +411,7 @@ class Variables extends React.Component {
     render(){
       console.log('this.state',this.state,'props',this.props);
           //let sendMail = this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0];
-          console.log(sendMail);
+          //console.log(sendMail);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />

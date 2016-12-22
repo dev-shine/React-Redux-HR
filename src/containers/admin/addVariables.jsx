@@ -7,7 +7,7 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
-import * as actions_variable from '../../actions/variable'
+import * as actions_templates from '../../actions/admin/templates'
 import Variables from '../../components/attendance/Variable'
 import { CONFIG } from '../../config/index'
 
@@ -63,22 +63,22 @@ function mapStateToProps( state ){
     return {
     	frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        variable : state.variable.toJS()
+        variable : state.template.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-    	onIsAlreadyLogin : () => {
+    	 onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
-        onFetchVariables:()=>{
-            return dispatch(actions_variable.get_variable())
+        onFetchVariables: ()=>{
+            return dispatch(actions_templates.get_variable())
         },
-        onSaveVariable:(id,variable)=>{
-            return dispatch(actions_variable.saveVariable(id,variable))
+        onSaveVariable: (id, variable)=>{
+            return dispatch(actions_templates.saveVariable(id,variable))
         },
-        onDeleteVariable:(id)=>{
-            return dispatch(actions_variable.deleteVariable(id))
+        onDeleteVariable: (id)=>{
+            return dispatch(actions_templates.deleteVariable(id))
         }
     }
 }

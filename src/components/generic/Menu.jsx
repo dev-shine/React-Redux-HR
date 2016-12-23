@@ -28,9 +28,11 @@ class Menu extends React.Component {
   }
   click(a) {
     let id = a;
-    if ($("ul #" + id).hasClass("active")) {
+    if ($("ul #" + id).hasClass("active") && $("ul li").hasClass("active")) {
+      $("ul li").removeClass("active")
       $("ul #" + id).removeClass("active")
     } else {
+      $("ul li").removeClass("active")
       $("ul #" + id).addClass("active")
     }
   }

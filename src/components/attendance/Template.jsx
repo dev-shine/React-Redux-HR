@@ -55,6 +55,12 @@ const styles = {
     height: '300px',
     maxHeight: '300px',
     background:'rgba(204,204,204,.51)',
+  },
+  errorAlert: {
+    "marginLeft": "5%",
+    "marginRight": "5%",
+    "width": "90%",
+    "display":"none",
   }
 };
 
@@ -77,6 +83,9 @@ class Variables extends React.Component {
           openVarDialog: false,
           openPreview: false,
           sentMail:{},
+          recipientEmailId: '',
+          recipientNotFound: false,
+          emailValidationError: '',
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
@@ -85,7 +94,7 @@ class Variables extends React.Component {
         this.editTemplate = this.editTemplate.bind(this)
         this.deleteTemplate = this.deleteTemplate.bind(this)
         this.forwardTemplate = this.forwardTemplate.bind(this)
-        this.onclearFilter = this.onclearFilter.bind(this)
+        //this.onclearFilter = this.onclearFilter.bind(this)
         this.onClickLabel = this.onClickLabel.bind(this)
         this.handleContentChange = this.handleContentChange.bind(this);
         this.sendMail = this.sendMail.bind(this);
@@ -94,6 +103,7 @@ class Variables extends React.Component {
         this.setVariable = this.setVariable.bind(this);
         this.openMailPreview = this.openMailPreview.bind(this);
         this.closeMailPreview = this.closeMailPreview.bind(this);
+        this.submitEmail = this.submitEmail.bind(this);
 
         this.variables = [];
     }
@@ -256,29 +266,79 @@ class Variables extends React.Component {
     }
     selectUser(data, status){
       let recipient = this.state.recipient;
-      status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+      //status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+      status ? recipient[0] = data : _.pullAllBy(recipient, [data], 'email');
       this.setState({
         recipient: recipient
       });
       this.applyVariables(this.state.templateId);
     }
-    selectAll(){
-      let recipient = this.state.recipient;
-      _.remove(recipient)
-      this.state.usersList.map((user)=>{
-        recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
-      });
-      this.setState({
-        recipient: recipient,
-      });
-      this.applyVariables(this.state.templateId);
+    submitEmail(email){
+      var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      email = email.trim();
+      if(_.isEmpty(email)){
+        this.setState({emailValidationError:"Empty field"});
+      }else if(!email.match(pattern)){
+        this.setState({emailValidationError:"Not a valid email"})
+      }else{
+        this.setState({emailValidationError:"",recipientEmailId:""})
+        this.selectUser({user_Id:"#", name: email, email: email}, true)
+      }
     }
-    onclearFilter(){
-      let recipient = this.state.recipient;
-      _.remove(recipient)
-      this.setState({ recipient: recipient});
-      this.applyVariables(this.state.templateId);
-    }
+    //-----------insertAtCaret
+  //   function insertAtCaret(areaId, text) {
+	// 	var txtarea = document.getElementById(areaId);
+	// 	if (!txtarea) { return; }
+  //
+	// 	var scrollPos = txtarea.scrollTop;
+	// 	var strPos = 0;
+	// 	var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+	// 		"ff" : (document.selection ? "ie" : false ) );
+	// 	if (br == "ie") {
+	// 		txtarea.focus();
+	// 		var range = document.selection.createRange();
+	// 		range.moveStart ('character', -txtarea.value.length);
+	// 		strPos = range.text.length;
+	// 	} else if (br == "ff") {
+	// 		strPos = txtarea.selectionStart;
+	// 	}
+  //
+	// 	var front = (txtarea.value).substring(0, strPos);
+	// 	var back = (txtarea.value).substring(strPos, txtarea.value.length);
+	// 	txtarea.value = front + text + back;
+	// 	strPos = strPos + text.length;
+	// 	if (br == "ie") {
+	// 		txtarea.focus();
+	// 		var ieRange = document.selection.createRange();
+	// 		ieRange.moveStart ('character', -txtarea.value.length);
+	// 		ieRange.moveStart ('character', strPos);
+	// 		ieRange.moveEnd ('character', 0);
+	// 		ieRange.select();
+	// 	} else if (br == "ff") {
+	// 		txtarea.selectionStart = strPos;
+	// 		txtarea.selectionEnd = strPos;
+	// 		txtarea.focus();
+	// 	}
+  //
+	// 	txtarea.scrollTop = scrollPos;
+	// }
+    // selectAll(){
+    //   let recipient = this.state.recipient;
+    //   _.remove(recipient)
+    //   this.state.usersList.map((user)=>{
+    //     recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
+    //   });
+    //   this.setState({
+    //     recipient: recipient,
+    //   });
+    //   this.applyVariables(this.state.templateId);
+    // }
+    // onclearFilter(){
+    //   let recipient = this.state.recipient;
+    //   _.remove(recipient)
+    //   this.setState({ recipient: recipient});
+    //   this.applyVariables(this.state.templateId);
+    // }
     onClickLabel(label, indexLabel) {
        this.selectUser(label, false);
     }
@@ -293,19 +353,21 @@ class Variables extends React.Component {
         sentMail:{},
       });
     }
+
     openMailPreview(){
       let recipient = this.state.recipient,
           templateName = this.state.templateName.trim(),
           templateSubject = this.state.templateSubject.trim(),
           templateBody = this.state.templateBody.toString('html'),
-          state = true;
+          state = true,
+          error = '';
           if(recipient.length === 0){
             state = false;
-            alert("Please select a recipient");
+            error = "Please select a recipient"
           }
           if(state && _.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
             state = false;
-            alert("Please select a template");
+            error = "Please select a template";
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
@@ -313,6 +375,7 @@ class Variables extends React.Component {
             let result = string.match(regx);
             if(result !== null && result.length > 0){
               state = false;
+              error = "Please put all variable's value";
               result = _.uniq(result);
              this.variables = result.map((str)=>{
                  return str.substring(1);
@@ -333,6 +396,8 @@ class Variables extends React.Component {
             openPreview: true,
             sentMail:{status:state, email:email}
           })
+        }else{
+          $('#previewalert').fadeIn().append("<strong>Error!</strong>"+error).fadeOut(10000)
         }
     }
     sendMail(){
@@ -368,7 +433,8 @@ class Variables extends React.Component {
       //          })
       //        }
       //     }
-      let sentMail = this.state.sentMail;
+
+          let sentMail = this.state.sentMail;
           if(sentMail.status){
             // let email = [{
             //     email_id: recipient[0].email,
@@ -376,10 +442,11 @@ class Variables extends React.Component {
             //     subject: templateSubject,
             //     body: templateBody
             //     }]
-            this.props.onSendMail(sentmail.email).then(()=>{
+            this.props.onSendMail(sentMail.email).then(()=>{
               alert('Mail sent');
               this.handleCloseDialog();
             }).catch(()=>{
+              //$('#mailsenterror').fadeIn().append("<strong>Error!</strong>"+error).fadeOut(10000)
               alert('Error mail not sent.')
             })
           }
@@ -410,8 +477,6 @@ class Variables extends React.Component {
     }
     render(){
       console.log('this.state',this.state,'props',this.props);
-          //let sendMail = this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0];
-          //console.log(sendMail);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
@@ -420,26 +485,7 @@ class Variables extends React.Component {
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={"Send"} primary={true} onClick={this.openMailPreview} />
           ];
-          //-------------------toolbarConfig for editor--------------------
-          const toolbarConfig = {
-          // Optionally specify the groups to display (displayed in the order listed).
-          display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-          INLINE_STYLE_BUTTONS: [
-            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
-            {label: 'Italic', style: 'ITALIC'},
-            {label: 'Underline', style: 'UNDERLINE'}
-          ],
-          BLOCK_TYPE_DROPDOWN: [
-            {label: 'Normal', style: 'unstyled'},
-            {label: 'Heading Large', style: 'header-one'},
-            {label: 'Heading Medium', style: 'header-two'},
-            {label: 'Heading Small', style: 'header-three'}
-          ],
-          BLOCK_TYPE_BUTTONS: [
-            {label: 'UL', style: 'unordered-list-item'},
-            {label: 'OL', style: 'ordered-list-item'}
-          ]
-        };
+
         //------------------------------------
         let listChartItems = [];
         this.state.usersList.map((user, i)=>{
@@ -526,7 +572,6 @@ class Variables extends React.Component {
               <div className="form-group" style={styles.formInput}>
                 <RichTextEditor
                    style={styles.editorStyle}
-                   toolbarConfig={toolbarConfig}
                    value={this.state.templateBody}
                    onChange={this.handleContentChange}
                  />
@@ -626,7 +671,8 @@ class Variables extends React.Component {
                </Dialog>
                <Dialog
                  title={"Mail Preview"}
-                 actions={[<FlatButton label="Close" primary={true} onTouchTap={this.handleClose} style={{marginRight:5}} />,
+                 titleStyle={{padding:'5px 24px 0px',textAlign:'center',fontSize:'18px',fontWeight:'500'}}
+                 actions={[<FlatButton label="Cancel" primary={true} onTouchTap={this.closeMailPreview} style={{marginRight:5}} />,
                             <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>]}
                  modal={false}
                  bodyStyle={{minHeight:'70vh'}}
@@ -637,35 +683,53 @@ class Variables extends React.Component {
                  autoScrollBodyContent={true}
                >
                <div>
-                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].subject}}></div>
-                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].body}}></div>
+                 <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">
-                     <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
+                     <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer',display:'block',width:'100%',textAlign:'right'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
                        <div className="dropdown">
                         <div id={"FilterBack"} className="dropdown-backdrop-custom" style={{'display':'none','opacity':0.5}} onClick={()=>this.toggleDialog("FilterBack","Filter")}></div>
                         <div id={"Filter"} className="dropdown-menu has-child has-arrow selectUser">
                               <ul className="list-unstyled pt-xs">
                               <li className="mb-sm b-b p-t p-b">
-                                  <div className="form-group" style={{width:'50%'}}>
+                                  {/*<div className="form-group" style={{width:'50%'}}>
                                     <input type="checkbox" id="selectAll" className="select-all" checked={this.state.recipient.length === this.state.usersList.length ? true : false} onChange={(e)=>this.selectAll()} /> Select all
                                   </div>
                                   <div className="form-group" style={{width:'50%'}}>
                                     <input type="checkbox" id="clearAll" className="clear-all" checked={this.state.recipient.length > 0 ? false : true} onChange={(e)=>this.onclearFilter()} /> Clear all
+                                  </div>*/}
+                                  <div className="form-group" style={{width:'100%'}}>
+                                    <input type="checkbox" id="notListed" className="not-listed" checked={this.state.recipientNotFound} onChange={(e)=>this.setState({recipientNotFound:e.target.checked})} /> Recipient Not Listed
                                   </div>
                               </li>
+                              {this.state.recipientNotFound ?
                               <li className="mb-sm b-b p-t p-b">
                                 <div className="form-group" style={{width:'100%'}}>
-                                  <input type="text" id={'selectAll'} style={{width:'100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e)=>this.filterList(e.target.value)} />
+                                  <label>Enter email id:</label>
+                                  <input type="text"  style={{width:'100%'}} className="form-control" placeholder="enter email..." onChange={(e)=>this.setState({recipientEmailId: e.target.value})} value={this.state.recipientEmailId} />
+                                  <span style={{color:'#FF0000',padding:'5px',display:'block'}}>{this.state.emailValidationError}</span>
+                                  <button type="button" className="btn m-t btn-primary btn-block" onClick={()=>this.submitEmail(this.state.recipientEmailId)}>Submit</button>
+                                </div>
+                              </li>
+                              :
+                              <span>
+                              <li className="mb-sm b-b p-t p-b">
+                                <div className="form-group" style={{width:'100%'}}>
+                                  <input type="text"  style={{width:'100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e)=>this.filterList(e.target.value)} />
                                 </div>
                               </li>
                                   {listChartItems}
+                                </span>
+                                }
                               </ul>
                           </div>
                       </div>
-                   <div className="form-group selected-recipient" style={styles.formInput}>
+                    <div id="previewalert" className="alert alert-danger pull-left" style={styles.errorAlert}>
+                    </div>
+                    <div className="form-group selected-recipient" style={styles.formInput}>
                       <div className="pull-left to">To</div>
                       <div className="pull-left filter-tags" style={{textTransform: 'capitalize',fontSize:'12px'}}>
                         {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={this.onClickLabel} onClear={this.onclearFilter} /> : ""}
@@ -707,7 +771,6 @@ class Variables extends React.Component {
                    <div className="form-group" style={styles.formInput}>
                    <RichTextEditor
                       style={styles.editorStyle}
-                      toolbarConfig={toolbarConfig}
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
                     />

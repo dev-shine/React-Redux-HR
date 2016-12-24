@@ -247,7 +247,6 @@ class Variables extends React.Component {
             <div>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
-                <label>Enter Variable code</label>
                   <TextField
                       ref='value'
                       floatingLabelText={this.state.floatingLabelCode}
@@ -264,6 +263,7 @@ class Variables extends React.Component {
                 />
               </div>
               <div className="form-group" style={styles.formInput}>
+                <label style={{fontSize:'13px',color:'#BFBFBF'}}>Enter Variable Value</label>
                 <RichTextEditor
                    style={styles.editorStyle}
                    value={this.state.variableValue}
@@ -354,7 +354,7 @@ class Variables extends React.Component {
                          displaySelectAll={false}
                         >
                         <TableRow>
-                        <TableRowColumn colSpan="2" >
+                        <TableRowColumn>
                            <h4 style={{float: 'left', "marginLeft":"-5%","paddingTop":"1%","paddingBottom":"1%","paddingLeft":"5%","paddingRight":"3%","fontWeight": "bold"}}>System Variable(s)</h4>
                         </TableRowColumn>
                         </TableRow>

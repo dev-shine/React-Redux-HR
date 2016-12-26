@@ -104,7 +104,6 @@ class Variables extends React.Component {
         this.openMailPreview = this.openMailPreview.bind(this);
         this.closeMailPreview = this.closeMailPreview.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
-        //this.insertAtCaret = this.insertAtCaret.bind(this);
         this.download_mail_preview = this.download_mail_preview.bind(this)
 
         this.variables = [];
@@ -287,76 +286,23 @@ class Variables extends React.Component {
         this.selectUser({user_Id:"#", name: email, email: email}, true)
       }
     }
-    //-----------insertAtCaret
-  //   insertAtCaret(areaId, text) {
-  //   var textarea =  $( "div.public-DraftStyleDefault-block" ).find( "span" ).find("span");
-  //       textarea = textarea[0];
-  //       console.log(textarea,"&&&&&&&&&&&&&")
-	// 	if (!textarea) { return; }
-  //
-	// 	var scrollPos = textarea.scrollTop;
-	// 	var strPos = 0;
-  //   console.log(textarea.selectionStart,"******************")
-	// 	/*var br = ((textarea.selectionStart || textarea.selectionStart == '0') ?
-	// 		"ff" : (document.selection ? "ie" : false ) );
-	// 	if (br == "ie") {
-	// 		txtarea.focus();
-	// 		var range = document.selection.createRange();
-	// 		range.moveStart ('character', -txtarea.value.length);
-	// 		strPos = range.text.length;
-	// 	} else if (br == "ff") {
-	// 		strPos = txtarea.selectionStart;
-	// 	}
-  //
-	// 	var front = (txtarea.value).substring(0, strPos);
-	// 	var back = (txtarea.value).substring(strPos, txtarea.value.length);
-	// 	txtarea.value = front + text + back;
-	// 	strPos = strPos + text.length;
-	// 	if (br == "ie") {
-	// 		txtarea.focus();
-	// 		var ieRange = document.selection.createRange();
-	// 		ieRange.moveStart ('character', -txtarea.value.length);
-	// 		ieRange.moveStart ('character', strPos);
-	// 		ieRange.moveEnd ('character', 0);
-	// 		ieRange.select();
-	// 	} else if (br == "ff") {
-	// 		txtarea.selectionStart = strPos;
-	// 		txtarea.selectionEnd = strPos;
-	// 		txtarea.focus();
-	// 	}
-  //
-	// 	txtarea.scrollTop = scrollPos;*/
-	// }
-    // selectAll(){
-    //   let recipient = this.state.recipient;
-    //   _.remove(recipient)
-    //   this.state.usersList.map((user)=>{
-    //     recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
-    //   });
-    //   this.setState({
-    //     recipient: recipient,
-    //   });
-    //   this.applyVariables(this.state.templateId);
-    // }
-    // onclearFilter(){
-    //   let recipient = this.state.recipient;
-    //   _.remove(recipient)
-    //   this.setState({ recipient: recipient});
-    //   this.applyVariables(this.state.templateId);
-    // }
     download_mail_preview(e){
-      var doc = new jsPDF();
-      console.log(doc,"************")
-      var specialElementHandlers = {
-       '#editor': function (element, renderer) {
-        return true;
-       }
-      };
-      doc.fromHTML($('#dialogContent').html(),15,15,{
-        'width':170,
-        'elementHandlers': specialElementHandlers
-      });
-      doc.save('sample-file.pdf');
+      let fileName = 'mail-preview';
+      this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
+          let doc = new jsPDF();
+          var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+              return true;
+            }
+          };
+          doc.fromHTML($('#dialogContent').html(),15,15,{
+            'width':170,
+            'elementHandlers': specialElementHandlers
+          });
+          doc.save('sample-file.pdf');
+      }).catch((err)=>{
+      })
+
     }
     onClickLabel(label, indexLabel) {
        this.selectUser(label, false);
@@ -603,7 +549,7 @@ class Variables extends React.Component {
                 {_.map(this.props.templates.variable, (vari) => {
                   if(vari.variable_type === 'system' || vari.value == ''){
                     return (
-                      <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                      <div key={vari.id}>
                         <span className="select-variable">{vari.name}</span>
                         <Divider />
                       </div>
@@ -616,7 +562,7 @@ class Variables extends React.Component {
                   {_.map(this.props.templates.variable, (vari) => {
                     if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
                       return(
-                        <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                        <div key={vari.id}>
                           <span className="select-variable">{vari.name}</span>
                           <Divider />
                         </div>
@@ -808,7 +754,7 @@ class Variables extends React.Component {
                      {_.map(this.props.templates.variable, (vari) => {
                        if(vari.variable_type === 'system' || vari.value == ''){
                          return (
-                           <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                           <div key={vari.id}>
                              <span className="select-variable">{vari.name}</span>
                              <Divider />
                            </div>
@@ -821,7 +767,7 @@ class Variables extends React.Component {
                        {_.map(this.props.templates.variable, (vari) => {
                          if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
                            return(
-                             <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                             <div key={vari.id}>
                                <span className="select-variable">{vari.name}</span>
                                <Divider />
                              </div>

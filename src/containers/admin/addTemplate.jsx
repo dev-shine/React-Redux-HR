@@ -91,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSendMail: (email) =>{
           return dispatch(actions_templates.send_mail(email))
+        },
+        onDownloadPdf: (template,fileName)=>{
+            return dispatch(actions_templates.download_pdf(template,fileName))
         }
     }
 }

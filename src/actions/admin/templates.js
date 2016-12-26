@@ -312,6 +312,31 @@ export function send_mail(email){
 	}
 }
 
+//-------------------Download PDF ------------
+
+function async_download_template(template,fileName){
+	return fireAjax( 'POST', '', {
+		action: 'create_pdf',
+		template: template,
+		file_name: fileName
+	})
+}
+export function download_pdf(template,fileName){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject) => {
+			dispatch(show_loading());
+				async_download_template(template,fileName).then(
+					(json) => {
+						resolve(json.data)
+					},
+					(error) =>{
+						reject('error occurs!!')
+					}
+				)
+		})
+	}
+}
+
 
 /*export function fetchVariable(){
 	return (dispatch,getState)=>{

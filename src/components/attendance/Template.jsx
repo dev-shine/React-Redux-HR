@@ -104,6 +104,8 @@ class Variables extends React.Component {
         this.openMailPreview = this.openMailPreview.bind(this);
         this.closeMailPreview = this.closeMailPreview.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
+        //this.insertAtCaret = this.insertAtCaret.bind(this);
+        this.download_mail_preview = this.download_mail_preview.bind(this)
 
         this.variables = [];
     }
@@ -286,13 +288,16 @@ class Variables extends React.Component {
       }
     }
     //-----------insertAtCaret
-  //   function insertAtCaret(areaId, text) {
-	// 	var txtarea = document.getElementById(areaId);
-	// 	if (!txtarea) { return; }
+  //   insertAtCaret(areaId, text) {
+  //   var textarea =  $( "div.public-DraftStyleDefault-block" ).find( "span" ).find("span");
+  //       textarea = textarea[0];
+  //       console.log(textarea,"&&&&&&&&&&&&&")
+	// 	if (!textarea) { return; }
   //
-	// 	var scrollPos = txtarea.scrollTop;
+	// 	var scrollPos = textarea.scrollTop;
 	// 	var strPos = 0;
-	// 	var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+  //   console.log(textarea.selectionStart,"******************")
+	// 	/*var br = ((textarea.selectionStart || textarea.selectionStart == '0') ?
 	// 		"ff" : (document.selection ? "ie" : false ) );
 	// 	if (br == "ie") {
 	// 		txtarea.focus();
@@ -320,7 +325,7 @@ class Variables extends React.Component {
 	// 		txtarea.focus();
 	// 	}
   //
-	// 	txtarea.scrollTop = scrollPos;
+	// 	txtarea.scrollTop = scrollPos;*/
 	// }
     // selectAll(){
     //   let recipient = this.state.recipient;
@@ -339,6 +344,20 @@ class Variables extends React.Component {
     //   this.setState({ recipient: recipient});
     //   this.applyVariables(this.state.templateId);
     // }
+    download_mail_preview(e){
+      var doc = new jsPDF();
+      console.log(doc,"************")
+      var specialElementHandlers = {
+       '#editor': function (element, renderer) {
+        return true;
+       }
+      };
+      doc.fromHTML($('#dialogContent').html(),15,15,{
+        'width':170,
+        'elementHandlers': specialElementHandlers
+      });
+      doc.save('sample-file.pdf');
+    }
     onClickLabel(label, indexLabel) {
        this.selectUser(label, false);
     }
@@ -584,7 +603,7 @@ class Variables extends React.Component {
                 {_.map(this.props.templates.variable, (vari) => {
                   if(vari.variable_type === 'system' || vari.value == ''){
                     return (
-                      <div key={vari.id}>
+                      <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                         <span className="select-variable">{vari.name}</span>
                         <Divider />
                       </div>
@@ -597,7 +616,7 @@ class Variables extends React.Component {
                   {_.map(this.props.templates.variable, (vari) => {
                     if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
                       return(
-                        <div key={vari.id}>
+                        <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                           <span className="select-variable">{vari.name}</span>
                           <Divider />
                         </div>
@@ -673,7 +692,8 @@ class Variables extends React.Component {
                  title={"Mail Preview"}
                  titleStyle={{padding:'5px 24px 0px',textAlign:'center',fontSize:'18px',fontWeight:'500'}}
                  actions={[<FlatButton label="Cancel" primary={true} onTouchTap={this.closeMailPreview} style={{marginRight:5}} />,
-                            <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>]}
+                            <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>,
+                            <FlatButton label={"Download Preview"} primary={true} style={{"float":'left'}} onClick={(e)=>{this.download_mail_preview(e)}}/>]}
                  modal={false}
                  bodyStyle={{minHeight:'70vh'}}
                  contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
@@ -683,8 +703,11 @@ class Variables extends React.Component {
                  autoScrollBodyContent={true}
                >
                <div>
+               <div id="dialogContent">
                  <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+              </div>
+              <div id="editor"></div>
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
@@ -771,6 +794,7 @@ class Variables extends React.Component {
                    <div className="form-group" style={styles.formInput}>
                    <RichTextEditor
                       style={styles.editorStyle}
+                      id={"editor"}
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
                     />
@@ -784,7 +808,7 @@ class Variables extends React.Component {
                      {_.map(this.props.templates.variable, (vari) => {
                        if(vari.variable_type === 'system' || vari.value == ''){
                          return (
-                           <div key={vari.id}>
+                           <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                              <span className="select-variable">{vari.name}</span>
                              <Divider />
                            </div>
@@ -797,7 +821,7 @@ class Variables extends React.Component {
                        {_.map(this.props.templates.variable, (vari) => {
                          if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
                            return(
-                             <div key={vari.id}>
+                             <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                                <span className="select-variable">{vari.name}</span>
                                <Divider />
                              </div>

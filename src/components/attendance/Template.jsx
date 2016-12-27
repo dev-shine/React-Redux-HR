@@ -23,6 +23,7 @@ import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
+
 var moment = require('moment');
 
 const styles = {
@@ -107,8 +108,7 @@ class Variables extends React.Component {
         this.openMailPreview = this.openMailPreview.bind(this);
         this.closeMailPreview = this.closeMailPreview.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
-        this.closeAlert = this.closeAlert.bind(this);
-      //  this.download_mail_preview = this.download_mail_preview.bind(this)
+        this.hideError = this.hideError.bind(this);
 
         this.variables = [];
     }
@@ -217,13 +217,13 @@ class Variables extends React.Component {
 
              if(typeof variable !== 'undefined' &&  variable.name == str){
 
-               if(variable.variable_type == 'user' || !_.isEmpty(variable.value)){
+               if(variable.variable_type == 'user'){
                  templ.name = _.replace(templ.name, str, variable.value);
                  templ.subject = _.replace(templ.subject, str, variable.value);
                  templ.body = _.replace(templ.body, str, variable.value);
                }
 
-               if(variable.variable_type === 'system' || _.isEmpty(variable.value)){
+               if(variable.variable_type === 'system'){
 
                  if(this.state.recipient.length > 0){
                  let value;
@@ -237,6 +237,8 @@ class Variables extends React.Component {
                    value = recipient.jobtitle
                  }else if(variable.name == '#employee_name'){
                    value = recipient.name
+                 }else if(variable.name == '#logo'){
+                   value = variable.value
                  }
 
                  if(dateVariable === false){
@@ -286,12 +288,12 @@ class Variables extends React.Component {
         errSubject: '',
         openSendMailDialog:false,
         recipient:[],
-      })
+      });
     }
     toggleDialog(back, front){
-        $('#' + back).toggle()
-        $('#' + front).toggle()
-      }
+      $('#' + back).toggle()
+      $('#' + front).toggle()
+    }
     filterList(searchText){
       let usersList = this.props.usersList.users,
           list = [];
@@ -370,7 +372,11 @@ class Variables extends React.Component {
         sentMail:{},
       });
     }
-    closeAlert(e, id){
+    showError(id, errorMsg){
+      $('#'+id+ " span").remove();
+      $('#'+id).fadeIn().append("<span>"+errorMsg+"<span>")
+    }
+    hideError(e, id){
       e.preventDefault();
       $('#'+id).fadeOut(0);
       $('#'+id+ " span").remove();
@@ -426,18 +432,22 @@ class Variables extends React.Component {
             sentMail:{status:state, email:email}
           })
         }else{
-          $('#previewalert').fadeIn().append("<span>"+error+"<span>")
+          this.showError('previewalert',error);
+          //$('#previewalert').fadeIn().append("<span>"+error+"<span>")
         }
     }
+
     sendMail(){
       this.closeMailPreview();
       let sentMail = this.state.sentMail;
       if(sentMail.status){
         this.props.onSendMail(sentMail.email).then(()=>{
           this.handleCloseDialog();
-          $('#mailsentsuccessfully').fadeIn().append("Mail sent successfully. ")
+          this.showError('mailsentsuccessfully','Mail sent successfully.');
+          //$('#mailsentsuccessfully').fadeIn().append("Mail sent successfully. ")
         }).catch(()=>{
-          $('#previewalert').fadeIn().append("<span>Mail not sent. try again<span>");
+          this.showError('previewalert','Mail not sent. try again')
+          //$('#previewalert').fadeIn().append("<span>Mail not sent. try again<span>");
         })
       }
     }
@@ -466,7 +476,6 @@ class Variables extends React.Component {
        this.handleClose();
     }
     render(){
-          console.log('this.state',this.state,'props',this.props);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
@@ -582,7 +591,7 @@ class Variables extends React.Component {
               <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
               <Divider />
                 {_.map(this.props.templates.variable, (vari) => {
-                  if(vari.variable_type === 'system' || vari.value == ''){
+                  if(vari.variable_type === 'system'){
                     return (
                       <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                         <span className="select-variable">{vari.name}</span>
@@ -595,7 +604,7 @@ class Variables extends React.Component {
                 <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
                 <Divider />
                   {_.map(this.props.templates.variable, (vari) => {
-                    if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                    if(vari.variable_type == 'user'){
                       return(
                         <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
                           <span className="select-variable">{vari.name}</span>
@@ -618,7 +627,7 @@ class Variables extends React.Component {
                       </div>
                       <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
                         <div id="mailsentsuccessfully" className="alert alert-success pull-left" style={styles.errorAlert}>
-                          <a href="#" className="close" onClick={(e)=>this.closeAlert(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
+                          <a href="#" className="close" onClick={(e)=>this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
                         </div>
                       </div>
                       <div className={this.state.paper} style={{"marginTop":"8%"}}>
@@ -745,7 +754,7 @@ class Variables extends React.Component {
                           </div>
                       </div>
                     <div id="previewalert" className="alert alert-danger pull-left" style={styles.errorAlert}>
-                      <a href="#" className="close" onClick={(e)=>this.closeAlert(e, 'previewalert')} aria-label="close">&times;</a>
+                      <a href="#" className="close" onClick={(e)=>this.hideError(e, 'previewalert')} aria-label="close">&times;</a>
                     </div>
                     <div className="form-group selected-recipient" style={styles.formInput}>
                       <div className="pull-left to">To</div>

@@ -159,10 +159,10 @@ class Variables extends React.Component {
       }else{
         varVal = ''
       }
-      // let  varCode = "#employee_title",
-      //  varVal = "", //'<div style={styles.logoContainer}><img src={CONFIG.logo} style={styles.logo}></div>', //'<div style="padding: 8px 10px; width: 180px; margin-left: 0px; border-radius: 3px; background-color: rgb(40, 70, 101);"><img src="logo.png" height="30" width="160"></div>' ,
+      // let  varCode = "#logo",
+      //  varVal = '<img src="logo.png" height="30" width="160">',
       //  varType = "system",
-      //  id = "34";
+      //  id = "39";
       if( state){
         varCode = varCode.toLowerCase();
         if(_.trim(varCode)[0]!=="#"){

@@ -237,7 +237,7 @@ class Variables extends React.Component {
                  }else if(variable.name == '#employee_title'){
                    value = recipient.jobtitle
                  }else if(variable.name == '#employee_name'){
-                   value = recipient.name
+                   value = recipient.name || this.state.recipient[0].name
                  }else if(variable.name == '#logo'){
                    value = variable.value
                  }
@@ -332,7 +332,7 @@ class Variables extends React.Component {
     }
 
     submitEmail(email){
-      var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      var pattern = /^\w[a-zA-Z1-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
       email = email.trim();
       if(_.isEmpty(email)){
         this.setState({emailValidationError:"Empty field"});
@@ -340,7 +340,7 @@ class Variables extends React.Component {
         this.setState({emailValidationError:"Not a valid email"})
       }else{
         this.setState({emailValidationError:"",recipientEmailId:""})
-        this.selectUser({user_Id:"#", name: email, email: email}, true)
+        this.selectUser({user_Id:"#", name: email, email: email}, true, this.state.recipientType)
       }
     }
     // selectAll(){
@@ -485,6 +485,7 @@ class Variables extends React.Component {
        this.handleClose();
     }
     render(){
+        //console.log('this.state',this.state,'this.props', this.props);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
@@ -824,12 +825,27 @@ class Variables extends React.Component {
                 </div>
 
                    </form>
+                   <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
+                     <input type="hidden" name="token" value={localStorage.getItem('hr_logged_user')} />
+                     <input type="hidden" name="user_id" value={this.props.logged_user.userid} />
+                     <input type="hidden" name="document_type" value={"pdf"} />
+                     <input type="hidden" name="page_url" value={window.location.href} />
+                     <div className="form-group" style={styles.formInput}>
+                       <button style={styles.uploadButton} className="btn btn-blue">
+                         <i className="fa fa-file-pdf-o" style={{'marginRight':'5px'}}></i>
+                           <input style={styles.uploadInput} id="file_image" type="file" name="link_1" ref="file" className="img"/>Attachment
+                       </button>
+                     </div>
+                     <div className="form-group">
+                       <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo"  onClick={(e)=>{this.callUpdateDocuments(e)}}/>
+                     </div>
+                  </form>
                  </div>
                  <div className="col-xs-3">
                    <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
                    <Divider />
                      {_.map(this.props.templates.variable, (vari) => {
-                       if(vari.variable_type === 'system' || vari.value == ''){
+                       if(vari.variable_type === 'system'){
                          return (
                            <div key={vari.id}>
                              <span className="select-variable">{vari.name}</span>
@@ -842,7 +858,7 @@ class Variables extends React.Component {
                      <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
                      <Divider />
                        {_.map(this.props.templates.variable, (vari) => {
-                         if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                         if(vari.variable_type == 'user'){
                            return(
                              <div key={vari.id}>
                                <span className="select-variable">{vari.name}</span>

@@ -164,15 +164,16 @@ class Variables extends React.Component {
       }else{
         varVal = ''
       }
-      
+
       // let  varCode = "#logo",
       //  varVal = '<img src="logo.png" height="30" width="160">',
       //  varType = "system",
       //  id = "39";
+
       if( state){
         varCode = varCode.toLowerCase();
         if(_.trim(varCode)[0]!=="#"){
-          varCode = '#'+varCode; //_.replace(varCode, codeText, '#'+codeText)
+          varCode = '#'+varCode;
         }
         let variable={
               varCode:varCode,
@@ -228,8 +229,8 @@ class Variables extends React.Component {
               onClick={this.saveVariable}
             />,
           ];
-          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user' || !_.isEmpty(o.value) });
-          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system' || _.isEmpty(o.value)});
+          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user'});
+          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system'});
     	return(
 
 				<div className="app-body" id="view" style={{'marginTop':10}}>

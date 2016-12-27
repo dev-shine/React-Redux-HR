@@ -130,7 +130,7 @@ export function get_variable( ){
 function async_delete_variable( id ){
 	return fireAjax( 'POST', '', {
 		action : 'delete_template_variable',
-		id:id
+		id: id
 	})
 }
 
@@ -282,7 +282,6 @@ export function delete_template(t_id){
 //------------send_mail functionality------------
 
 function async_send_mail(email){
-	console.log('email',email);
 	return fireAjax( 'POST', '', {
 		action: 'send_employee_email',
 		email: email

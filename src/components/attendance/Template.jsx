@@ -829,23 +829,7 @@ class Variables extends React.Component {
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
                     />
-                </div>
-
-                   </form>
-                   <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
-                     <input type="hidden" name="token" value={localStorage.getItem('hr_logged_user')} />
-                     <input type="hidden" name="user_id" value={this.props.logged_user.userid} />
-                     <input type="hidden" name="document_type" value={"pdf"} />
-                     <input type="hidden" name="page_url" value={window.location.href} />
-                     <div className="form-group" style={styles.formInput}>
-                       <button style={styles.uploadButton} className="btn btn-blue">
-                         <i className="fa fa-file-pdf-o" style={{'marginRight':'5px'}}></i>
-                           <input style={styles.uploadInput} id="file_image" type="file" name="link_1" ref="file" className="img"/>Attachment
-                       </button>
-                     </div>
-                     <div className="form-group">
-                       <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo"  onClick={(e)=>{this.callUpdateDocuments(e)}}/>
-                     </div>
+                  </div>
                   </form>
                  </div>
                  <div className="col-xs-3">

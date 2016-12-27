@@ -289,17 +289,11 @@ class Variables extends React.Component {
     download_mail_preview(e){
       let fileName = 'mail-preview';
       this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
-          let doc = new jsPDF();
-          var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-              return true;
-            }
-          };
-          doc.fromHTML($('#dialogContent').html(),15,15,{
-            'width':170,
-            'elementHandlers': specialElementHandlers
-          });
-          doc.save('sample-file.pdf');
+        var link = document.createElement('a');
+        link.href = CONFIG.pdf_url+succ.message;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();    
       }).catch((err)=>{
       })
 
@@ -648,13 +642,10 @@ class Variables extends React.Component {
                  autoDetectWindowHeight={true}
                  autoScrollBodyContent={true}
                >
-               <div>
-               <div id="dialogContent">
-                 <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
-                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
-              </div>
-              <div id="editor"></div>
-              </div>
+                <div id="dialogContent">
+                  <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">

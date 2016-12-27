@@ -76,7 +76,6 @@ else if (data.action == "get_user_profile_detail" || data.action == "update_user
 || data.action == "update_email_template" || data.action == "send_employee_email"  || data.action == "create_pdf") { //generic other new api url
     let token = localStorage.getItem('hr_logged_user')
     data.token = token
-    console.log(data,"*****");
     headers = {
       method: 'POST',
       mode: 'cors',

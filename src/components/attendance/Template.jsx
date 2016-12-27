@@ -109,6 +109,7 @@ class Variables extends React.Component {
         this.closeMailPreview = this.closeMailPreview.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
         this.hideError = this.hideError.bind(this);
+        this.download_mail_preview = this.download_mail_preview.bind(this)
 
         this.variables = [];
     }
@@ -362,6 +363,17 @@ class Variables extends React.Component {
     onClickLabel(label, indexLabel, recipientType) {
        this.selectUser(label, false, recipientType);
     }
+    download_mail_preview(e){
+      let fileName = 'mail-preview';
+      this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
+        var link = document.createElement('a');
+        link.href = CONFIG.pdf_url+succ.message;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+      }).catch((err)=>{
+      })
+    }
     //------editors
     handleContentChange(value) {
       this.setState({templateBody: value});
@@ -433,7 +445,6 @@ class Variables extends React.Component {
           })
         }else{
           this.showError('previewalert',error);
-          //$('#previewalert').fadeIn().append("<span>"+error+"<span>")
         }
     }
 
@@ -444,10 +455,8 @@ class Variables extends React.Component {
         this.props.onSendMail(sentMail.email).then(()=>{
           this.handleCloseDialog();
           this.showError('mailsentsuccessfully','Mail sent successfully.');
-          //$('#mailsentsuccessfully').fadeIn().append("Mail sent successfully. ")
         }).catch(()=>{
           this.showError('previewalert','Mail not sent. try again')
-          //$('#previewalert').fadeIn().append("<span>Mail not sent. try again<span>");
         })
       }
     }
@@ -593,7 +602,7 @@ class Variables extends React.Component {
                 {_.map(this.props.templates.variable, (vari) => {
                   if(vari.variable_type === 'system'){
                     return (
-                      <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                      <div key={vari.id}>
                         <span className="select-variable">{vari.name}</span>
                         <Divider />
                       </div>
@@ -606,7 +615,7 @@ class Variables extends React.Component {
                   {_.map(this.props.templates.variable, (vari) => {
                     if(vari.variable_type == 'user'){
                       return(
-                        <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                        <div key={vari.id}>
                           <span className="select-variable">{vari.name}</span>
                           <Divider />
                         </div>
@@ -710,12 +719,6 @@ class Variables extends React.Component {
                         <div id={"Filter"} className="dropdown-menu has-child has-arrow selectUser">
                               <ul className="list-unstyled pt-xs">
                               <li className="mb-sm b-b p-t p-b">
-                                  {/*<div className="form-group" style={{width:'50%'}}>
-                                    <input type="checkbox" id="selectAll" className="select-all" checked={this.state.recipient.length === this.state.usersList.length ? true : false} onChange={(e)=>this.selectAll()} /> Select all
-                                  </div>
-                                  <div className="form-group" style={{width:'50%'}}>
-                                    <input type="checkbox" id="clearAll" className="clear-all" checked={this.state.recipient.length > 0 ? false : true} onChange={(e)=>this.onclearFilter()} /> Clear all
-                                  </div>*/}
                                   <div className="form-group" style={{width:'100%'}}>
                                     <input type="checkbox" id="notListed" className="not-listed" checked={this.state.recipientNotFound} onChange={(e)=>this.setState({recipientNotFound:e.target.checked})} /> Recipient Not Listed
                                   </div>
@@ -828,7 +831,7 @@ class Variables extends React.Component {
                      {_.map(this.props.templates.variable, (vari) => {
                        if(vari.variable_type === 'system' || vari.value == ''){
                          return (
-                           <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                           <div key={vari.id}>
                              <span className="select-variable">{vari.name}</span>
                              <Divider />
                            </div>
@@ -841,7 +844,7 @@ class Variables extends React.Component {
                        {_.map(this.props.templates.variable, (vari) => {
                          if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
                            return(
-                             <div key={vari.id} onClick={()=>{this.insertAtCaret('editor',"text to insert")}}>
+                             <div key={vari.id}>
                                <span className="select-variable">{vari.name}</span>
                                <Divider />
                              </div>

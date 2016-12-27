@@ -73,7 +73,7 @@ else if (data.action == "get_user_profile_detail" || data.action == "update_user
 || data.action == 'get_user_document' || data.action == 'insert_user_document' || data.action == "delete_user_document" || data.action == 'get_all_users_detail'
 || data.action == "create_template_variable" || data.action == "get_template_variable" || data.action == "delete_template_variable"
 || data.action == "update_template_variable" || data.action == "create_email_template" || data.action == "get_email_template" || data.action == "delete_email_template"
-|| data.action == "update_email_template" || data.action == "send_employee_email") { //generic other new api url
+|| data.action == "update_email_template" || data.action == "send_employee_email"  || data.action == "create_pdf") { //generic other new api url
     let token = localStorage.getItem('hr_logged_user')
     data.token = token
     headers = {

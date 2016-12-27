@@ -435,7 +435,6 @@ class Variables extends React.Component {
        this.handleClose();
     }
     render(){
-      console.log('this.state',this.state,'props',this.props);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />

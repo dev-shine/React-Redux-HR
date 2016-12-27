@@ -143,6 +143,11 @@ class Variables extends React.Component {
       let id = this.state.varId;
       let state = true;
 
+      // var span= document.createElement('span');
+      // span.innerHTML= varCode;
+      // let codeText = span.textContent || span.innerText;
+      // codeText = codeText.trim();
+
       if(varCode != ''){
         this.setState({varCodeError:''})
       }else{
@@ -159,14 +164,11 @@ class Variables extends React.Component {
       }else{
         varVal = ''
       }
-      // let  varCode = "#employee_title",
-      //  varVal = "", //'<div style={styles.logoContainer}><img src={CONFIG.logo} style={styles.logo}></div>', //'<div style="padding: 8px 10px; width: 180px; margin-left: 0px; border-radius: 3px; background-color: rgb(40, 70, 101);"><img src="logo.png" height="30" width="160"></div>' ,
-      //  varType = "system",
-      //  id = "34";
-      if( state){
+
+      if(state){
         varCode = varCode.toLowerCase();
         if(_.trim(varCode)[0]!=="#"){
-          varCode = '#'+varCode;
+          varCode = '#'+varCode; //_.replace(varCode, codeText, '#'+codeText)
         }
         let variable={
               varCode:varCode,
@@ -222,8 +224,8 @@ class Variables extends React.Component {
               onClick={this.saveVariable}
             />,
           ];
-          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user'});
-          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system'});
+          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user' || !_.isEmpty(o.value) });
+          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system' || _.isEmpty(o.value)});
     	return(
 
 				<div className="app-body" id="view" style={{'marginTop':10}}>

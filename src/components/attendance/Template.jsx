@@ -90,6 +90,7 @@ class Variables extends React.Component {
           recipientEmailId: '',
           recipientNotFound: false,
           emailValidationError: '',
+          upload_file:[]
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
@@ -115,7 +116,6 @@ class Variables extends React.Component {
     }
 
     componentWillMount(){
-
     }
     componentWillReceiveProps( props ){
 
@@ -371,6 +371,11 @@ class Variables extends React.Component {
         link.target = "_blank";
         document.body.appendChild(link);
         link.click();
+        let upload_file = [];
+            upload_file.push(succ.message)
+        this.setState({
+          upload_file:upload_file
+        })
       }).catch((err)=>{
       })
     }
@@ -451,6 +456,8 @@ class Variables extends React.Component {
     sendMail(){
       this.closeMailPreview();
       let sentMail = this.state.sentMail;
+      let files = this.state.upload_file;
+      sentMail.email[0].upload_file = files;
       if(sentMail.status){
         this.props.onSendMail(sentMail.email).then(()=>{
           this.handleCloseDialog();

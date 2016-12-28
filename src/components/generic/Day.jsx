@@ -130,8 +130,20 @@ class Day extends React.Component {
             <span className="fc-title"></span>
           </div>
         </div>
+
+        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title">
+              Change to &nbsp;:&nbsp;
+            </span>
+            <span className="fc-time">
+              <input type="text" className="timepicker" ref="workingtime" value={this.state.workingTime} style={styles.timeInputBox} onBlur={() => this.props.onWorkingHoursChange(this.props.dayData.full_date, this.refs.workingtime.value)}/>
+            </span>
+          </div>
+        </div>
       </div>
     } else if (d.day_type == "WORKING_DAY" && this.props.forEmployeeHours == true) {
+      console.log('WORKING_DAY');
       main = <div data-toggle="modal">
 
         <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">

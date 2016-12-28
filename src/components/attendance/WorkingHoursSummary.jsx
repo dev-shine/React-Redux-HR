@@ -23,7 +23,7 @@ class WorkingHoursSummary extends React.Component {
       let dayHtml = ''
       if (dayData.day_type == 'NON_WORKING_DAY') {
         //dayHtml = <DayNonWorking dayData={dayData}/>
-        dayHtml = dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData}/>
+        dayHtml = dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
       } else if (dayData.day_type == 'FUTURE_WORKING_DAY') {
         dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable" dayData={dayData}/>
       } else {

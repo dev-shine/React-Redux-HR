@@ -182,6 +182,9 @@ class Variables extends React.Component {
       }
     }
     replaceVariablesWithValue(templ, str, value){
+      // templ.name = templ.name.split(str).join(value);
+      // templ.subject = templ.subject.split(str).join(value);
+      // templ.body = templ.body.split(str).join(value);
       templ.name = _.replace(templ.name, str, value);
       templ.subject = _.replace(templ.subject, str, value);
       templ.body = _.replace(templ.body, str, value);
@@ -228,10 +231,14 @@ class Variables extends React.Component {
                  templ = this.replaceVariablesWithValue(templ, str, variable.value);
                }
 
-               if(variable.name == '#date' && dateVariable !== false){
+               if(_.includes(variable.name, '#date')){
                  let value = new Date();
                  value = moment(value).format(format);
-                 templ = this.replaceVariablesWithValue(templ, dateVariable, value);
+                 if(dateVariable === false){
+                   templ = this.replaceVariablesWithValue(templ, str, value);
+                 }else{
+                   templ = this.replaceVariablesWithValue(templ, dateVariable, value);
+                 }
                }
 
                if(variable.variable_type === 'system' && !_.isEmpty(recipient)){
@@ -414,23 +421,23 @@ class Variables extends React.Component {
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
-            console.log(string)
-            let regx = /#[\w\|-]*/g; //  /(?:^|\W)#(\w+)(?!\w)/g;
+            let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
+            let pendingVariables = []; //_.remove(this.state.pValue);
+
             if(result !== null && result.length > 0){
-              console.log('result',result);
               state = false;
               error = "Please put all variable's value";
               result = _.uniq(result);
-              let pendingVariables = [];
+
               result.map((str)=>{
-                 //return str.substring(1);
                  pendingVariables.push({name:str});
                });
                console.log('this.variables',this.variables,'pendingVariables',pendingVariables);
                this.setState({
                  pValue: pendingVariables,
                  openVarDialog: true,
+                 result: result
                });
              }
            }
@@ -481,25 +488,30 @@ class Variables extends React.Component {
     }
     setVariable(){
       let pValue = this.state.pValue,
+        result = this.state.result,
           template = {
             name:this.state.templateName.trim(),
             subject:this.state.templateSubject.trim(),
             body:this.state.templateBody.toString('html'),
           };
-            //console.log('setVariable',pValue);
-          _.map(this.state.pValue, (variable, i)=>{
-            if(typeof variable.value !== 'undefined'){
-              template = this.replaceVariablesWithValue(template, variable.name, variable.value)
-            }
-          });
 
-       this.setState({
-         templateName: template.name,
-         templateSubject: template.subject,
-         templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
-       });
-       this.handleClose();
+      _.map(pValue, (variable, i)=>{
+        if(typeof variable.value !== 'undefined'){
+          template = this.replaceVariablesWithValue(template, variable.name, variable.value)
+        }
+      });
+
+     this.setState({
+       templateName: template.name,
+       templateSubject: template.subject,
+       templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
+     });
+
+     this.handleClose();
+     if(!result.length){
+       //console.log('this.state.pValue',this.state.pValue);
        this.openMailPreview();
+     }
     }
     render(){
         console.log('this.state',this.state,'this.props', this.props);

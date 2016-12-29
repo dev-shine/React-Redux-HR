@@ -23,6 +23,7 @@ import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
+var FormData = require('form-data');
 
 var moment = require('moment');
 
@@ -62,7 +63,38 @@ const styles = {
     "marginRight": "5%",
     "width": "90%",
     "display":"none",
-  }
+  },
+  uploadButton:{
+    'position':'relative',
+    'overflow':'hidden',
+    'margin':'10px',
+    'marginLeft':'40px',
+    'cursor':'pointer',
+  },
+  uploadInput:{
+    'color':'transparent',
+    'position':'absolute',
+    'top':0,
+    'right':0,
+    'margin':0,
+    'padding':0,
+    'fontSize':'20px',
+    'cursor':'pointer',
+    'opacity':0,
+  },
+  uploadedPdfBlock:{
+      'boxShadow': '0px 0px 5px #888888',
+      'height':'30px',
+      'padding':'5px',
+      'textAlign':'left',
+      'marginLeft':'40px',
+      'marginTop':'10px',
+      'width':'350px',
+      'display':'block',
+      'fontStyle':'italic',
+      'fontWeight':'bold',
+      'color':'#0099cc'
+    }
 };
 
 class Variables extends React.Component {
@@ -90,11 +122,13 @@ class Variables extends React.Component {
           recipientEmailId: '',
           recipientNotFound: false,
           emailValidationError: '',
-          upload_file:[]
+          upload_file:[],
+          uploadedPDF:[]
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
+        this.handleCloseDialog1 = this.handleCloseDialog1.bind(this)
         this.saveTemplate = this.saveTemplate.bind(this)
         this.editTemplate = this.editTemplate.bind(this)
         this.deleteTemplate = this.deleteTemplate.bind(this)
@@ -111,6 +145,8 @@ class Variables extends React.Component {
         this.submitEmail = this.submitEmail.bind(this);
         this.hideError = this.hideError.bind(this);
         this.download_mail_preview = this.download_mail_preview.bind(this)
+        this.uploadPDF=this.uploadPDF.bind(this)
+        //this.finalUpload = this.finalUpload.bind(this)
 
         this.variables = [];
     }
@@ -270,6 +306,8 @@ class Variables extends React.Component {
           templateName: tmp.name,
           templateSubject: tmp.subject,
           templateBody: RichTextEditor.createValueFromString(tmp.body, 'html'),
+          uploadedPDF:[],
+          upload_file:[]
       });
       this.applyVariables(tmp.id);
     }
@@ -288,7 +326,21 @@ class Variables extends React.Component {
         errName: '',
         errSubject: '',
         openSendMailDialog:false,
+        recipient:[]
+      });
+    }
+    handleCloseDialog1(){
+      this.setState({
+        openDialog: false,
+        templateId: '',
+        templateName: '',
+        templateSubject: '',
+        templateBody: RichTextEditor.createEmptyValue(),
+        errName: '',
+        errSubject: '',
+        openSendMailDialog:false,
         recipient:[],
+        uploadedPDF:[]
       });
     }
     toggleDialog(back, front){
@@ -371,11 +423,6 @@ class Variables extends React.Component {
         link.target = "_blank";
         document.body.appendChild(link);
         link.click();
-        let upload_file = [];
-            upload_file.push(succ.message)
-        this.setState({
-          upload_file:upload_file
-        })
       }).catch((err)=>{
       })
     }
@@ -491,14 +538,48 @@ class Variables extends React.Component {
        });
        this.handleClose();
     }
+    uploadPDF(e){
+      let self = this
+        var file_data = $("#file_image").prop("files");
+        var form_data = new FormData(); 
+        for( var i in file_data){
+          form_data.append(i.toString(), file_data[i])
+        }
+        
+      $.ajax({
+          url: CONFIG.upload_email_attachment,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          success: function(data) {
+            let obj = JSON.parse(data);
+            let uploadedPDF = self.state.uploadedPDF;
+            let upload_file_path = self.state.upload_file;
+            let preKey = uploadedPDF.length
+             if(obj.error == 0){
+              _.map(obj.data,(file, key)=>{
+                  uploadedPDF.push(<div key={key+preKey} style={styles.uploadedPdfBlock}>{file.name}</div>);
+                    upload_file_path.push(file.path)
+                }) 
+             }
+             self.setState({
+              uploadedPDF:uploadedPDF,
+              upload_file:upload_file_path
+             })
+          },
+          error: function(error) {
+            console.log(error,"error")
+          }
+        });
+    }
     render(){
-        //console.log('this.state',this.state,'this.props', this.props);
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
           ];
           const actionsSendMail = [
-            <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
+            <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog1} style={{marginRight:5}} />,
             <RaisedButton label={"Send"} primary={true} onClick={this.openMailPreview} />
           ];
 
@@ -830,6 +911,19 @@ class Variables extends React.Component {
                       onChange={this.handleContentChange}
                     />
                   </div>
+                  </form>
+                  <div className="row">
+                    <div className="col-md-2">
+                      {this.state.uploadedPDF}
+                    </div>
+                  </div>
+                  <form action={''} method="POST" encType="multipart/form-data">
+                    <div className="form-group">
+                      <button style={styles.uploadButton} className="btn btn-blue" >
+                      <i className="fa fa-file-pdf-o" style={{'marginRight':'5px','cursor':'pointer'}}></i>
+                      <input onChange={(e)=>{this.uploadPDF(e)}} style={styles.uploadInput} id="file_image" type="file" name="image[]" ref="file" className="form-control" multiple={true}/>Attachment
+                      </button>
+                    </div>
                   </form>
                  </div>
                  <div className="col-xs-3">

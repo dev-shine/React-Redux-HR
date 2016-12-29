@@ -337,6 +337,7 @@ export function download_pdf(template,fileName){
 }
 
 
+
 /*export function fetchVariable(){
 	return (dispatch,getState)=>{
 		return new Promise((resolve,reject)=>{

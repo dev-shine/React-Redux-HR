@@ -15,6 +15,7 @@ export const CONFIG = {
   upload_url: "http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file.php",
   upload_attendance_url: "http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php",
   pdf_url : 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
+  upload_email_attachment : 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
 
   //live apis
   // api_url: 'https://hr.excellencetechnologies.in/attendance/API_HR/api.php',
@@ -25,6 +26,7 @@ export const CONFIG = {
   // upload_url: "https://hr.excellencetechnologies.in/attendance/sal_info/upload_file.php",
   // upload_attendance_url: "http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php",
   // pdf_url : 'https://hr.excellencetechnologies.in/attendance/sal_info/',
+  //upload_email_attachment : 'http://hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
 
   jwt_secret_key: 'HR_APP'
 

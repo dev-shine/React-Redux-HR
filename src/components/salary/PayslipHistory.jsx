@@ -9,10 +9,10 @@ class PayslipHistory extends React.Component {
     super( props )
   }
   componentDidMount(){
-      
+
   }
 	componentWillReceiveProps( props ){
-    
+
   }
   render(){
     let previousPayslipsHistoryHtml = _.map( this.props.payslip_history, ( d,k ) => {
@@ -26,14 +26,14 @@ class PayslipHistory extends React.Component {
             <div className="sl-date text-muted">  <b>{d.paid_leaves} : Paid Leaves</b></div>
             <div className="sl-date text-muted">  <b>{d.unpaid_leaves} : Unpaid Leaves</b></div>
             <div className="sl-date text-muted">  <b>{d.final_leave_balance} : Final Leave Balance</b></div>
-            <div className="sl-date text-muted">  
-              <a href={`${d.payslip_url}` } target="_BLANK">View Payslip</a>                
+            <div className="sl-date text-muted">
+              {d.status ? <a href={`${d.payslip_url}` } target="_BLANK">View Payslip</a> : ""}                
             </div>
           </div>
         </div>
       )
     })
-    
+
     return (
       <div>
         <div className="box-body">
@@ -47,8 +47,3 @@ class PayslipHistory extends React.Component {
 }
 
 export default PayslipHistory
-
-
-
-
-

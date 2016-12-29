@@ -433,11 +433,9 @@ class Variables extends React.Component {
               result.map((str)=>{
                  pendingVariables.push({name:str});
                });
-               console.log('this.variables',this.variables,'pendingVariables',pendingVariables);
                this.setState({
                  pValue: pendingVariables,
                  openVarDialog: true,
-                 result: result
                });
              }
            }
@@ -480,10 +478,9 @@ class Variables extends React.Component {
       }
     }
     handleClose(){
-      let pValue = this.state.pValue;
       this.setState({
         openVarDialog: false,
-        pValue: _.remove(pValue),
+        pValue: _.remove(this.state.pValue),
       });
     }
     setVariable(){
@@ -508,10 +505,7 @@ class Variables extends React.Component {
      });
 
      this.handleClose();
-     if(!result.length){
-       //console.log('this.state.pValue',this.state.pValue);
-       this.openMailPreview();
-     }
+     this.openMailPreview();
     }
     render(){
         console.log('this.state',this.state,'this.props', this.props);

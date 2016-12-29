@@ -20,12 +20,9 @@ class WorkingHoursSummary extends React.Component {
 
   _getWeekHtml(w) {
     return _.map(w, (dayData, key) => {
-      //console.log(dayData);
       let dayHtml = ''
       if (dayData.day_type == 'NON_WORKING_DAY') {
         //dayHtml = <DayNonWorking dayData={dayData}/>
-        //dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
-        console.log(this.props,'props');
         if (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.GUEST || this.props.logged_user.role == CONFIG.HR) {
           dayHtml = <Day forEmployeeHours={true} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
         }else{

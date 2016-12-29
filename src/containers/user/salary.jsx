@@ -31,10 +31,7 @@ class Salary extends React.Component {
   }
   componentDidMount() {}
   componentWillMount() {
-    this.props.onSalaryDetails().then((val) => {
-      console.log(val.holding_details[0].holding_amt);
-      this.setState({payslip_history: val.payslip_history, holding_amt: val.holding_details[0].holding_amt})
-    })
+    this.props.onSalaryDetails();
   }
   componentWillReceiveProps(props) {
     if (props.logged_user.logged_in == -1) {
@@ -44,6 +41,23 @@ class Salary extends React.Component {
         this.props.router.push('/home');
       }
     }
+
+    let s_salary_details = {}
+   let s_salary_history = []
+   let s_payslip_history = []
+
+   if (this.state.view_salary_id == false) {
+     if (typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0) {
+       let viewSalaryInfo = props.salary.salary_history[0]
+       s_salary_details = viewSalaryInfo
+       s_salary_history = props.salary.salary_history
+     }
+     if (typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0) {
+       s_payslip_history = props.salary.payslip_history
+     }
+   }
+
+   this.setState({salary_details: s_salary_details, salary_history: s_salary_history, payslip_history: s_payslip_history})
   }
 
   viewSalarySummary(id) {
@@ -57,7 +71,6 @@ class Salary extends React.Component {
   }
 
   render() {
-
     return (
       <div >
         <Menu {...this.props}/>

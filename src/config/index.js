@@ -22,6 +22,7 @@ export const CONFIG = {
   // google_login_btn_page_url: "https://hr.excellencetechnologies.in/attendance/sal_info/google-api/drive_file/index.php?token=" + token,
   // login_page_url: "https://hr.excellencetechnologies.in/",
   // upload_url: "https://hr.excellencetechnologies.in/attendance/sal_info/upload_file.php",
+  // upload_attendance_url: "http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php",
 
   jwt_secret_key: 'HR_APP'
 

@@ -1,4 +1,7 @@
 import React from 'react';
+
+
+
 class Day extends React.Component {
   constructor(props) {
     super(props);
@@ -7,6 +10,10 @@ class Day extends React.Component {
     }
   }
   componentDidMount() {
+    $('.timepicker').timepicker({'minTime': '5:00', 'maxTime': '12:00', 'timeFormat': 'h:i', 'step': 10});
+  }
+
+  componentWillReceiveProps(){
     $('.timepicker').timepicker({'minTime': '5:00', 'maxTime': '12:00', 'timeFormat': 'h:i', 'step': 10});
   }
 
@@ -101,7 +108,7 @@ class Day extends React.Component {
         {extraTime}
 
       </div>
-    } else if (this.props.forEmployeeHours == false) {
+    } else if (d.day_type == "NON_WORKING_DAY" && this.props.forEmployeeHours == false) {
       main = <div>
         <div className={this.props.class}>
           <div className="fc-content">
@@ -130,7 +137,69 @@ class Day extends React.Component {
             <span className="fc-title"></span>
           </div>
         </div>
+
       </div>
+    }  else if (d.day_type == "FUTURE_WORKING_DAY" && this.props.forEmployeeHours == false) {
+      main = <div>
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              <h5>{d.date}</h5>
+            </span>
+            <span className="fc-title">
+              {d.day}</span>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {this.props.day}
+            </span>
+            <div>{inOutTime}</div>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {d.day_text}
+            </span>
+            <span className="fc-title"></span>
+          </div>
+        </div>
+        {work_time_div}
+      </div>
+    }else if (this.props.forEmployeeHours == false) {
+      main = <div>
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              <h5>{d.date}</h5>
+            </span>
+            <span className="fc-title">
+              {d.day}</span>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {this.props.day}
+            </span>
+            <div>{inOutTime}</div>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {d.day_text}
+            </span>
+            <span className="fc-title"></span>
+           </div>
+        </div>
+       </div>
     } else if (d.day_type == "WORKING_DAY" && this.props.forEmployeeHours == true) {
       main = <div data-toggle="modal">
 
@@ -164,6 +233,47 @@ class Day extends React.Component {
           </div>
         </div>
 
+      </div>
+    } else if (d.day_type == "NON_WORKING_DAY" && this.props.forEmployeeHours == true) {
+      main = <div>
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              <h5>{d.date}</h5>
+            </span>
+            <span className="fc-title">
+              {d.day}</span>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {this.props.day}
+            </span>
+            <div>{inOutTime}</div>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {d.day_text}
+            </span>
+            <span className="fc-title"></span>
+          </div>
+        </div>
+
+        <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title">
+              Change to &nbsp;:&nbsp;
+            </span>
+            <span className="fc-time">
+              <input type="text" className="timepicker" ref="workingtime" value={this.state.workingTime} style={styles.timeInputBox} onBlur={() => this.props.onWorkingHoursChange(this.props.dayData.full_date, this.refs.workingtime.value)}/>
+            </span>
+          </div>
+        </div>
       </div>
     }
     return (

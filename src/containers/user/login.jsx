@@ -9,7 +9,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 const css = {
   log: {
-    //"backgroundColor": "#284665",
+    "backgroundColor": "#284665",
     "padding": "30px 40px 30px 40px",
     "width": "300px",
     "marginLeft": "5px",
@@ -68,7 +68,7 @@ class Login extends React.Component {
           <div style={css.log}>
             <img src="./logo.png" height="40" width="220"/>
           </div>
-          {/*<div className="navbar">
+          <div className="navbar">
 
             <div className="pull-center">
 
@@ -78,7 +78,7 @@ class Login extends React.Component {
               </a>
 
             </div>
-          </div>*/}
+          </div>
 
           <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
             <LoadingIcon {...this.props}/>

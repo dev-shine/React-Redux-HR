@@ -143,10 +143,10 @@ class Variables extends React.Component {
       let id = this.state.varId;
       let state = true;
 
-      // var span= document.createElement('span');
-      // span.innerHTML= varCode;
-      // let codeText = span.textContent || span.innerText;
-      // codeText = codeText.trim();
+      var span= document.createElement('span');
+      span.innerHTML= varCode;
+      let codeText = span.textContent || span.innerText;
+      codeText = codeText.trim();
 
       if(varCode != ''){
         this.setState({varCodeError:''})
@@ -165,8 +165,9 @@ class Variables extends React.Component {
         varVal = ''
       }
 
+      //-------------this is hardcode to change logo & system variables -----------
       // let  varCode = "#logo",
-      //  varVal = '<img src="logo.png" height="30" width="160">',
+      //  varVal = '<img src="Excelogo-black.jpg" height="30" width="160">',
       //  varType = "system",
       //  id = "39";
 

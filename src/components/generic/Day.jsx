@@ -140,7 +140,6 @@ class Day extends React.Component {
 
       </div>
     }  else if (d.day_type == "FUTURE_WORKING_DAY" && this.props.forEmployeeHours == false) {
-      console.log("FUTURE_WORKING_DAY",d);
       main = <div>
         <div className={this.props.class}>
           <div className="fc-content">
@@ -171,6 +170,36 @@ class Day extends React.Component {
         </div>
         {work_time_div}
       </div>
+    }else if (this.props.forEmployeeHours == false) {
+      main = <div>
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              <h5>{d.date}</h5>
+            </span>
+            <span className="fc-title">
+              {d.day}</span>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {this.props.day}
+            </span>
+            <div>{inOutTime}</div>
+          </div>
+        </div>
+
+        <div className={this.props.class}>
+          <div className="fc-content">
+            <span className="fc-time">
+              {d.day_text}
+            </span>
+            <span className="fc-title"></span>
+           </div>
+        </div>
+       </div>
     } else if (d.day_type == "WORKING_DAY" && this.props.forEmployeeHours == true) {
       main = <div data-toggle="modal">
 

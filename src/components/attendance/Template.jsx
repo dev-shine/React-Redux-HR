@@ -146,6 +146,7 @@ class Variables extends React.Component {
         this.hideError = this.hideError.bind(this);
         this.download_mail_preview = this.download_mail_preview.bind(this)
         this.uploadPDF=this.uploadPDF.bind(this)
+        this.deleteAttachment = this.deleteAttachment.bind(this)
         //this.finalUpload = this.finalUpload.bind(this)
 
         this.variables = [];
@@ -559,7 +560,7 @@ class Variables extends React.Component {
             let preKey = uploadedPDF.length
              if(obj.error == 0){
               _.map(obj.data,(file, key)=>{
-                  uploadedPDF.push(<div key={key+preKey} style={styles.uploadedPdfBlock}>{file.name}</div>);
+                  uploadedPDF.push(<div key={key+preKey} style={styles.uploadedPdfBlock}>{file.name}<i onClick={()=>{self.deleteAttachment(key+preKey)}} style={{'color':'red','float':'right','marginTop':'3px','cursor':'pointer'}} className="fa fa-remove"></i></div>);
                     upload_file_path.push(file.path)
                 }) 
              }
@@ -569,9 +570,25 @@ class Variables extends React.Component {
              })
           },
           error: function(error) {
-            console.log(error,"error")
+            //console.log(error,"error")
           }
         });
+    }
+    deleteAttachment(filekey){
+      let uploadedPDF = this.state.uploadedPDF;
+      let newuploadedPDF = []
+      let upload_file_path = this.state.upload_file;
+      let newupload_file_path = []
+      _.map(uploadedPDF,(file, key)=>{
+        if(filekey != key){
+          newuploadedPDF.push(uploadedPDF[key])
+          newupload_file_path.push(upload_file_path[key])
+        }
+      }) 
+      this.setState({
+        uploadedPDF:newuploadedPDF,
+        upload_file:newupload_file_path
+      })
     }
     render(){
           const actionsCreateTemplate = [

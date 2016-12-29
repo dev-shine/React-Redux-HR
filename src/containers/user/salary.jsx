@@ -25,16 +25,15 @@ class Salary extends React.Component {
     this.state = {
       view_salary_id: false,
       salary_details: {},
-      salary_history: [],
+      holding_amt: '',
       payslip_history: []
     }
   }
   componentDidMount() {}
   componentWillMount() {
-    this.props.onSalaryDetails()
+    this.props.onSalaryDetails();
   }
   componentWillReceiveProps(props) {
-    window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
@@ -44,23 +43,23 @@ class Salary extends React.Component {
     }
 
     let s_salary_details = {}
-    let s_salary_history = []
-    let s_payslip_history = []
+   let s_salary_history = []
+   let s_payslip_history = []
 
-    if (this.state.view_salary_id == false) {
-      if (typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0) {
-        let viewSalaryInfo = props.salary.salary_history[0]
-        s_salary_details = viewSalaryInfo
-        s_salary_history = props.salary.salary_history
-      }
-      if (typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0) {
-        s_payslip_history = props.salary.payslip_history
-      }
-    }
+   if (this.state.view_salary_id == false) {
+     if (typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0) {
+       let viewSalaryInfo = props.salary.salary_history[0]
+       s_salary_details = viewSalaryInfo
+       s_salary_history = props.salary.salary_history
+     }
+     if (typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0) {
+       s_payslip_history = props.salary.payslip_history
+     }
+   }
 
-    this.setState({salary_details: s_salary_details, salary_history: s_salary_history, payslip_history: s_payslip_history})
-
+   this.setState({salary_details: s_salary_details, salary_history: s_salary_history, payslip_history: s_payslip_history})
   }
+
   viewSalarySummary(id) {
     let new_details = this.state.salary_details
     _.forEach(this.state.salary_history, (d, k) => {
@@ -72,7 +71,6 @@ class Salary extends React.Component {
   }
 
   render() {
-
     return (
       <div >
         <Menu {...this.props}/>
@@ -104,7 +102,7 @@ class Salary extends React.Component {
 
                     <div className="col-sm-6">
                       <h6>Salary Details</h6>
-                      <SalaryDetails data={this.state.salary_details}/>
+                      <SalaryDetails data={this.state.holding_amt}/>
                     </div>
 
                     <div className="col-sm-3 b-l">

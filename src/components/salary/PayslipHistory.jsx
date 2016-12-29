@@ -27,7 +27,7 @@ class PayslipHistory extends React.Component {
             <div className="sl-date text-muted">  <b>{d.unpaid_leaves} : Unpaid Leaves</b></div>
             <div className="sl-date text-muted">  <b>{d.final_leave_balance} : Final Leave Balance</b></div>
             <div className="sl-date text-muted">
-              {d.status ? <a href={`${d.payslip_url}` } target="_BLANK">View Payslip</a> : ""}                
+              {parseInt(d.status) !== 0 ? <a href={`${d.payslip_url}` } target="_BLANK">View Payslip</a> : ""}
             </div>
           </div>
         </div>

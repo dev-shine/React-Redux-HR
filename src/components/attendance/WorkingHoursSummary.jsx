@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import * as actions_login from '../../actions/login/index'
 import {CONFIG} from '../../config/index'
 import Day from '../../components/generic/Day'
-
+import {CONFIG} from '../../config/index'
 import UserDetails from './UserDetails'
 import MonthSummary from './MonthSummary'
 
@@ -23,11 +23,7 @@ class WorkingHoursSummary extends React.Component {
       let dayHtml = ''
       if (dayData.day_type == 'NON_WORKING_DAY') {
         //dayHtml = <DayNonWorking dayData={dayData}/>
-        if (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.GUEST || this.props.logged_user.role == CONFIG.HR) {
-          dayHtml = <Day forEmployeeHours={true} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
-        }else{
-          dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
-        }
+        dayHtml = <Day forEmployeeHours={true} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable" day="Non Working day" dayData={dayData} {...this.props}/>
       } else if (dayData.day_type == 'FUTURE_WORKING_DAY') {
         dayHtml = <Day forEmployeeHours={false} class="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable" dayData={dayData}/>
       } else {

@@ -235,11 +235,6 @@ class Variables extends React.Component {
     	return(
 
 				<div className="app-body" id="view" style={{'marginTop':10}}>
-        <div className="row">
-                    <div className="col-12">
-                      <LoadingIcon {...this.props}/>
-                    </div>
-                  </div>
 						<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
 
             <Dialog
@@ -284,7 +279,7 @@ class Variables extends React.Component {
                          <div className="row" style={{margin:'0px 4px 0px'}}>
                            <div className="col-xs-12">
                              <div className='row'>
-                              <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px'}}>
+                              <div className='col-xs-12' style={{paddingTop:'16px',paddingRight:'0px'}}>
                               <button
                                className="md-btn md-raised m-b-sm indigo"
                                onClick={this.openCreateVariable}

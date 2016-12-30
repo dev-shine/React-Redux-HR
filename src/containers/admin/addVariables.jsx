@@ -52,6 +52,11 @@ class VariablesContainer extends React.Component {
     			       Template Variable
     			    </div>
 			    </div>
+                <div className="row no-gutter">
+                    <div className="col-12">
+                        <LoadingIcon {...this.props}/>
+                    </div>
+                </div>
 				</div>
 				<Variables {...this.props }/>
     		</div>

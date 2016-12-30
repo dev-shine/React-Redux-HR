@@ -1,4 +1,4 @@
-sl//require('../../components/css/template.scss');
+//require('../../components/css/template.scss');
 
 import React from 'react';
 import { connect } from 'react-redux'
@@ -23,6 +23,7 @@ import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
+import LinearProgress from 'material-ui/LinearProgress';
 var FormData = require('form-data');
 
 var moment = require('moment');
@@ -94,7 +95,13 @@ const styles = {
       'fontStyle':'italic',
       'fontWeight':'bold',
       'color':'#0099cc'
-    }
+    },
+    crossButton:{
+    'color':'red',
+    'float':'right',
+    'marginTop':'3px',
+    'cursor':'pointer'
+  }
 };
 
 class Variables extends React.Component {
@@ -123,7 +130,8 @@ class Variables extends React.Component {
           recipientNotFound: false,
           emailValidationError: '',
           upload_file:[],
-          uploadedPDF:[]
+          uploadedPDF:[],
+          LinearProgressBar:[]
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
@@ -570,9 +578,23 @@ class Variables extends React.Component {
       let self = this
         var file_data = $("#file_image").prop("files");
         var form_data = new FormData();
+        var LinearProgressBar = [];
         for( var i in file_data){
           form_data.append(i.toString(), file_data[i])
         }
+        for(i=0;i<file_data['length'];i++){
+          LinearProgressBar.push(<div key={i} className="row" style={styles.uploadedPdfBlock}>
+            <div className="col-xs-7">
+              {file_data[i].name}
+            </div>
+            <div className="col-xs-5">
+              <LinearProgress mode="indeterminate"/>
+            </div>
+            </div>)
+        }
+        self.setState({
+          LinearProgressBar:LinearProgressBar
+        })
 
       $.ajax({
           url: CONFIG.upload_email_attachment,
@@ -586,14 +608,16 @@ class Variables extends React.Component {
             let upload_file_path = self.state.upload_file;
             let preKey = uploadedPDF.length
              if(obj.error == 0){
-              _.map(obj.data,(file, key)=>{
-                  uploadedPDF.push(<div key={key+preKey} style={styles.uploadedPdfBlock}>{file.name}<i onClick={()=>{self.deleteAttachment(key+preKey)}} style={{'color':'red','float':'right','marginTop':'3px','cursor':'pointer'}} className="fa fa-remove"></i></div>);
-                    upload_file_path.push(file.path)
-                })
+               let data = obj.data
+               _.map(data,(file, key)=>{
+                   uploadedPDF.push(file.name);
+                   upload_file_path.push(file.path)
+                 })
              }
              self.setState({
               uploadedPDF:uploadedPDF,
-              upload_file:upload_file_path
+              upload_file:upload_file_path,
+              LinearProgressBar:[]
              })
           },
           error: function(error) {
@@ -606,12 +630,18 @@ class Variables extends React.Component {
       let newuploadedPDF = []
       let upload_file_path = this.state.upload_file;
       let newupload_file_path = []
-      _.map(uploadedPDF,(file, key)=>{
-        if(filekey != key){
-          newuploadedPDF.push(uploadedPDF[key])
-          newupload_file_path.push(upload_file_path[key])
-        }
-      })
+      _.map(uploadedPDF,(file, k)=>{
+       if(filekey != k){
+         newuploadedPDF.push(uploadedPDF[k])
+         newupload_file_path.push(upload_file_path[k])
+       }
+     })
+      // _.map(uploadedPDF,(file, key)=>{
+      //   if(filekey != key){
+      //     newuploadedPDF.push(uploadedPDF[key])
+      //     newupload_file_path.push(upload_file_path[key])
+      //   }
+      // })
       this.setState({
         uploadedPDF:newuploadedPDF,
         upload_file:newupload_file_path
@@ -619,6 +649,18 @@ class Variables extends React.Component {
     }
     render(){
         //console.log('this.state',this.state,'this.props', this.props);
+            let fileList = []
+         _.map(this.state.uploadedPDF,(name, key)=>{
+           fileList.push(
+             <div key={key} style={styles.uploadedPdfBlock}>
+               {name}
+               <i
+                 onClick={()=>{this.deleteAttachment(key)}}
+                 style={styles.crossButton}
+                 className="fa fa-remove">
+               </i>
+             </div>)
+         })
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
@@ -687,6 +729,11 @@ class Variables extends React.Component {
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}
             >
+            <div className="row">
+              <div className="col-xs-12">
+                <LoadingIcon {...this.props}/>
+              </div>
+            </div>
             <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
@@ -762,7 +809,7 @@ class Variables extends React.Component {
                  <div className="row" style={{margin:'0px 4px 0px'}}>
                    <div className="col-xs-12">
                      <div className='row'>
-                      <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px'}}>
+                      <div className='col-xs-12' style={{paddingTop:'16px',paddingRight:'0px'}}>
                       <button
                        className="md-btn md-raised m-b-sm indigo"
                        onClick={this.openCreateTemplate}
@@ -840,6 +887,11 @@ class Variables extends React.Component {
                  autoDetectWindowHeight={true}
                  autoScrollBodyContent={true}
                >
+                <div className="row">
+                  <div className="col-xs-12">
+                    <LoadingIcon {...this.props}/>
+                  </div>
+                </div>
                <div id="dialogContent">
                  <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
@@ -960,7 +1012,8 @@ class Variables extends React.Component {
 
                   <div className="row">
                     <div className="col-md-2">
-                      {this.state.uploadedPDF}
+                      {this.state.LinearProgressBar}
+                      {fileList}
                     </div>
                   </div>
 

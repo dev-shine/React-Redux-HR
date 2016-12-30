@@ -326,9 +326,11 @@ export function download_pdf(template,fileName){
 			dispatch(show_loading());
 				async_download_template(template,fileName).then(
 					(json) => {
+						dispatch(hide_loading())
 						resolve(json.data)
 					},
 					(error) =>{
+						dispatch(hide_loading())
 						reject('error occurs!!')
 					}
 				)

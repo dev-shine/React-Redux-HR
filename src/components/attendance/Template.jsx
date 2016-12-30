@@ -278,9 +278,8 @@ class Variables extends React.Component {
                  }
                }
 
-               if(variable.variable_type === 'system' && !_.isEmpty(recipient)){
+               if(variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date') ){
                  let value;
-
                  if(variable.name == '#joining_date'){
                    value = recipient.dateofjoining
                    value = moment(value).format(format);
@@ -289,13 +288,13 @@ class Variables extends React.Component {
                  }else if(variable.name == '#employee_name'){
                    value = recipient.name
                  }
-
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
                  }else{
                    templ = this.replaceVariablesWithValue(templ, dateVariable, value);
                  }
                }
+
              }
          });
        }
@@ -453,6 +452,7 @@ class Variables extends React.Component {
       $('#'+id+ " span").remove();
     }
     openMailPreview(){
+      console.log('openMailPreview');
       let recipient = this.state.recipient,
           templateName = this.state.templateName.trim(),
           templateSubject = this.state.templateSubject.trim(),
@@ -472,8 +472,9 @@ class Variables extends React.Component {
             let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
             let pendingVariables = []; //_.remove(this.state.pValue);
-
+            console.log('result out');
             if(result !== null && result.length > 0){
+              console.log('result');
               state = false;
               error = "Please put all variable's value";
               result = _.uniq(result);
@@ -502,6 +503,7 @@ class Variables extends React.Component {
                 cc_detail: cc_detail,
                 bcc_detail: bcc_detail,
               }]
+              console.log('email');
           this.setState({
             openPreview: true,
             sentMail:{status:state, email:email}
@@ -526,32 +528,41 @@ class Variables extends React.Component {
       }
     }
     handleClose(){
+      console.log('handleClose');
       this.setState({
         openVarDialog: false,
         pValue: _.remove(this.state.pValue),
       });
     }
     setVariable(){
+      console.log('hhhhhhhhhhhhhh');
       let pValue = this.state.pValue,
-        result = this.state.result,
-          template = {
-            name:this.state.templateName.trim(),
-            subject:this.state.templateSubject.trim(),
-            body:this.state.templateBody.toString('html'),
-          };
+          // template = {
+          //   name:this.state.templateName.trim(),
+          //   subject:this.state.templateSubject.trim(),
+          //   body:this.state.templateBody.toString('html'),
+          // };
+            templateName = this.state.templateName.trim(),
+            templateSubject = this.state.templateSubject.trim(),
+            templateBody = this.state.templateBody.toString('html');
 
       _.map(pValue, (variable, i)=>{
         if(typeof variable.value !== 'undefined'){
-          template = this.replaceVariablesWithValue(template, variable.name, variable.value)
+          console.log('inside');
+          templateName = _.replace(templateName, variable.name, variable.value);
+          templateSubject = _.replace(templateSubject, variable.name, variable.value);
+          templateBody = _.replace(templateBody, variable.name, variable.value);
+          //template = this.replaceVariablesWithValue(template, variable.name, variable.value)
         }
       });
 
      this.setState({
-       templateName: template.name,
-       templateSubject: template.subject,
-       templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
+       templateName: templateName, //template.name,
+       templateSubject: templateSubject, // template.subject,
+       templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
      });
-
+     console.log('templateBody',templateBody);
+     console.log('lllllllllllllll',this.state.templateBody.toString('html'));
      this.handleClose();
      this.openMailPreview();
     }
@@ -961,7 +972,7 @@ class Variables extends React.Component {
                       </button>
                     </div>
                   </form>
-                  
+
                  </div>
                  <div className="col-xs-3">
                    <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>

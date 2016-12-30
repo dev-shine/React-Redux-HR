@@ -101,6 +101,35 @@ const styles = {
     'float':'right',
     'marginTop':'3px',
     'cursor':'pointer'
+  },
+  pdfHeader: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    //padding:'2px 10px',
+    minHeight: '50px'
+  },
+  tab1: {
+    borderCollapse: 'collapse',
+    //padding:'2px 10px',
+    minHeight: '50px'
+  },
+  para: {
+    fontSize: '29px',
+    fontWeight:'800',
+    paddingTop:'10px',
+    marginBottom: '12px',
+    marginTop: '-20px',
+  },
+  span_bold: {
+    fontWeight: '600',
+    fontSize: '16px',
+  },
+  pdfFooter: {
+    fontSize:'12px',
+    fontFamily: "sans-serif",
+    width:'100%',
+    bottom:'50px',
+    borderTop:'3px sold',
   }
 };
 
@@ -881,7 +910,7 @@ class Variables extends React.Component {
                             <FlatButton label={"Download Preview"} primary={true} style={{"float":'left'}} onClick={(e)=>{this.download_mail_preview(e)}}/>]}
                  modal={false}
                  bodyStyle={{minHeight:'70vh'}}
-                 contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
+                 contentStyle={{maxWidth:'90%',width:"70%",transform: 'translate(0px, 0px)'}}
                  open={this.state.openPreview}
                  onRequestClose={this.closeMailPreview}
                  autoDetectWindowHeight={true}
@@ -893,8 +922,58 @@ class Variables extends React.Component {
                   </div>
                 </div>
                <div id="dialogContent">
+             
+                 
+                <table className="tab1"  style={styles.pdfHeader}>
+                    <tbody>
+                        <tr>
+                            <td style={styles.tab1}>
+                              <p style={styles.para}>Excellence Technologies</p>
+                              <span className="span_bold" style={styles.span_bold}>Salary Statement For the Month of </span></td>
+                            <td style={{borderCollapse: 'collapse',minHeight: '50px',textAlign:'right'}}>
+                              <img className="pull-right" src="Excelogo-black.jpg" height="50px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2" style={styles.tab1} ><hr /></td>
+                        </tr>
+                    </tbody>
+                  </table>
                  <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                  <table style={styles.pdfFooter}>
+                    <tbody>
+                        <tr>
+                            <td colSpan="2">
+                                <div  style={{backgroundColor: '#622423',height:'5px'}}></div>
+                                <div  style={{backgroundColor: '#622423',height:'1px',marginTop:'2px'}}></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Excellence Technosoft Pvt Ltd</b>
+                            </td>
+                            <td style={{textAlign: 'right'}}>
+                                <a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Corp Office:</b> C84-A, Sector 8, Noida, U.P. - 201301
+                            </td>
+                            <td style={{textAlign: 'right'}}>
+                                <b>CIN:</b> U72200DL2010PTC205087
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <b>Regd Office:</b> 328 GAGAN VIHAR IST MEZZAZINE,NEW DELHI-110051
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>

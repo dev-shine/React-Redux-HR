@@ -143,10 +143,10 @@ class Variables extends React.Component {
       let id = this.state.varId;
       let state = true;
 
-      // var span= document.createElement('span');
-      // span.innerHTML= varCode;
-      // let codeText = span.textContent || span.innerText;
-      // codeText = codeText.trim();
+      var span= document.createElement('span');
+      span.innerHTML= varCode;
+      let codeText = span.textContent || span.innerText;
+      codeText = codeText.trim();
 
       if(varCode != ''){
         this.setState({varCodeError:''})
@@ -165,10 +165,16 @@ class Variables extends React.Component {
         varVal = ''
       }
 
-      if(state){
+      //-------------this is hardcode to change logo & system variables -----------
+      // let  varCode = "#logo",
+      //  varVal = '<img src="Excelogo-black.jpg" height="30" width="160">',
+      //  varType = "system",
+      //  id = "39";
+
+      if( state){
         varCode = varCode.toLowerCase();
         if(_.trim(varCode)[0]!=="#"){
-          varCode = '#'+varCode; //_.replace(varCode, codeText, '#'+codeText)
+          varCode = '#'+varCode;
         }
         let variable={
               varCode:varCode,
@@ -224,16 +230,11 @@ class Variables extends React.Component {
               onClick={this.saveVariable}
             />,
           ];
-          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user' || !_.isEmpty(o.value) });
-          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system' || _.isEmpty(o.value)});
+          let userVar = _.filter(this.props.variable.variable, function(o){return o.variable_type == 'user'});
+          let systemVar = _.filter(this.props.variable.variable, function(o){return o.variable_type === 'system'});
     	return(
 
 				<div className="app-body" id="view" style={{'marginTop':10}}>
-        <div className="row">
-                    <div className="col-12">
-                      <LoadingIcon {...this.props}/>
-                    </div>
-                  </div>
 						<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
 
             <Dialog
@@ -247,7 +248,6 @@ class Variables extends React.Component {
             <div>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
-                <label>Enter Variable code</label>
                   <TextField
                       ref='value'
                       floatingLabelText={this.state.floatingLabelCode}
@@ -264,6 +264,7 @@ class Variables extends React.Component {
                 />
               </div>
               <div className="form-group" style={styles.formInput}>
+                <label style={{fontSize:'13px',color:'#BFBFBF'}}>Enter Variable Value</label>
                 <RichTextEditor
                    style={styles.editorStyle}
                    value={this.state.variableValue}
@@ -278,7 +279,7 @@ class Variables extends React.Component {
                          <div className="row" style={{margin:'0px 4px 0px'}}>
                            <div className="col-xs-12">
                              <div className='row'>
-                              <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px'}}>
+                              <div className='col-xs-12' style={{paddingTop:'16px',paddingRight:'0px'}}>
                               <button
                                className="md-btn md-raised m-b-sm indigo"
                                onClick={this.openCreateVariable}
@@ -354,7 +355,7 @@ class Variables extends React.Component {
                          displaySelectAll={false}
                         >
                         <TableRow>
-                        <TableRowColumn colSpan="2" >
+                        <TableRowColumn>
                            <h4 style={{float: 'left', "marginLeft":"-5%","paddingTop":"1%","paddingBottom":"1%","paddingLeft":"5%","paddingRight":"3%","fontWeight": "bold"}}>System Variable(s)</h4>
                         </TableRowColumn>
                         </TableRow>

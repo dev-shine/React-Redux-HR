@@ -38,7 +38,7 @@ class AttendanceSummary extends React.Component {
               <span className="fc-title"> { d_day }</span>
             </div>
           </a>
-      
+
       if( d.admin_alert == 1 ){
         d_date = d_date + '*'
         date_div = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end indigo fc-draggable">
@@ -74,7 +74,7 @@ class AttendanceSummary extends React.Component {
         <div >
 
           {date_div}
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
             <div className="fc-content">
               <span className="fc-title">  { d.in_time }</span>
@@ -110,14 +110,14 @@ class AttendanceSummary extends React.Component {
     _getNonWorkingDayHtml( d ){
       return (
         <div >
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
           </a>
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
             <div className="fc-content">
               <span className="fc-title"> Non working day  </span>
@@ -138,7 +138,7 @@ class AttendanceSummary extends React.Component {
               <span className="fc-title"></span>
             </div>
           </a>
-          
+
         </div>
       )
 
@@ -148,14 +148,14 @@ class AttendanceSummary extends React.Component {
     _getLeaveDayHtml( d ){
       return (
         <div >
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
           </a>
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
             <div className="fc-content">
               <span className="fc-title"> On Leave </span>
@@ -176,7 +176,7 @@ class AttendanceSummary extends React.Component {
               <span className="fc-title"></span>
             </div>
           </a>
-          
+
         </div>
       )
 
@@ -186,14 +186,14 @@ class AttendanceSummary extends React.Component {
     _getHalfDayHtml( d ){
       return (
         <div >
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
             <div className="fc-content">
               <span className="fc-time"><h5>{ d.date }</h5></span>
               <span className="fc-title"> { d.day }</span>
             </div>
           </a>
-          
+
           <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
             <div className="fc-content">
               <span className="fc-time"> </span>
@@ -214,7 +214,7 @@ class AttendanceSummary extends React.Component {
               <span className="fc-title">  </span>
             </div>
           </a>
-          
+
         </div>
       )
 
@@ -223,24 +223,24 @@ class AttendanceSummary extends React.Component {
     _getWeekHtml( userid, w ){
       return _.map( w, ( dayData, key ) => {
         let dayHtml = ''
-        
+
         if( dayData.day_type == 'NON_WORKING_DAY' ){
-          dayHtml = this._getNonWorkingDayHtml( dayData )  
+          dayHtml = this._getNonWorkingDayHtml( dayData )
         }else if( dayData.day_type == 'LEAVE_DAY' ){
-          dayHtml = this._getLeaveDayHtml( dayData )  
+          dayHtml = this._getLeaveDayHtml( dayData )
         }else if( dayData.day_type == 'HALF_DAY' ){
-          dayHtml = this._getHalfDayHtml( dayData )  
+          dayHtml = this._getHalfDayHtml( dayData )
         }else if( dayData.day_type == 'FUTURE_WORKING_DAY' ){
-          dayHtml = this._getFutureWorkingDayHtml( dayData )  
+          dayHtml = this._getFutureWorkingDayHtml( dayData )
         }else{
           dayHtml = this._getDayHtml( dayData )
         }
 
         let daySummaryUrl = "/user_day_summary/" + userid +'/' + dayData.full_date;
-        
+
         return (
           <td key={key}  className="fc-event-container">
-            <Link to={daySummaryUrl}> 
+            <Link to={daySummaryUrl}>
               { dayHtml }
             </Link>
           </td>
@@ -274,15 +274,15 @@ class AttendanceSummary extends React.Component {
 
     _onChangeMonth( check ){
 
-      
+
 
       if( check == 'previous' ){
         this.props.onAttendanceSummary( this.props.attendanceSummary.previousMonth.year, this.props.attendanceSummary.previousMonth.month )
       }else if( check == 'next' ){
-        
+
         this.props.onAttendanceSummary( this.props.attendanceSummary.nextMonth.year, this.props.attendanceSummary.nextMonth.month )
       }
-      
+
     }
 
 
@@ -293,8 +293,8 @@ class AttendanceSummary extends React.Component {
         let user_id = userData.userid
         let monthlyAttendance = userData.attendance
 
-        
-        
+
+
       let monthHtml = this._getMonthHtml( styles, user_id,  monthlyAttendance )
 
         return (
@@ -305,7 +305,7 @@ class AttendanceSummary extends React.Component {
                     <div className="fc-day-grid-container" >
                       <div className="fc-day-grid">
 
-                      
+
                       <div className="row">
 
                        <div className="col-12">
@@ -317,7 +317,7 @@ class AttendanceSummary extends React.Component {
             </div>
             <div className="clear">
               <h4 className="m-a-0 text-lg">
-                { userData.name } 
+                { userData.name }
                 <span className="text-sm"> </span></h4>
 
               <small className="text-muted"> { userData.jobtitle }  </small><br/><br/>
@@ -329,7 +329,7 @@ class AttendanceSummary extends React.Component {
       </div>
 
 
-      
+
 
   </div>
 
@@ -359,8 +359,8 @@ class AttendanceSummary extends React.Component {
                               </div>
 
                             </div>
-                            
-                           
+
+
                           </div>
 
 
@@ -372,7 +372,7 @@ class AttendanceSummary extends React.Component {
 
 
 
-                
+
 
 
                         { monthHtml }
@@ -388,7 +388,7 @@ class AttendanceSummary extends React.Component {
       })
 
 
-            
+
 
     }
 
@@ -401,18 +401,18 @@ class AttendanceSummary extends React.Component {
 
       //let calendarStructure = this._getMonthHtml( styles, this.props.attendanceSummary.usersAttendance )
 
-      
+
         return(
         	<div >
 				<Menu {...this.props}/>
 
-        
+
 
   				<div id="content" className="app-content box-shadow-z0" role="main">
 
 
-                
-          
+
+
 	<div className="app-header white box-shadow">
 
 						<div className="navbar">
@@ -429,7 +429,7 @@ class AttendanceSummary extends React.Component {
 
 
 
-					
+
     				<div className="app-body" id="view">
 
             <div className="row"><div className="col-12"><LoadingIcon {...this.props}/></div></div>
@@ -461,7 +461,7 @@ class AttendanceSummary extends React.Component {
       <br/>
 
 
-    
+
 
 
 
@@ -472,10 +472,10 @@ class AttendanceSummary extends React.Component {
 {allUsersAttendance}
 
 
-          
+
         </div>
       </div>
-      
+
     </div>
 
 
@@ -487,7 +487,7 @@ class AttendanceSummary extends React.Component {
 
     </div>
   </div>
-  
+
   </div>
 
 

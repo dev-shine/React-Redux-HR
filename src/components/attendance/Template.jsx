@@ -23,6 +23,9 @@ import Divider from 'material-ui/Divider';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
+import LinearProgress from 'material-ui/LinearProgress';
+var FormData = require('form-data');
+
 var moment = require('moment');
 
 const styles = {
@@ -55,6 +58,49 @@ const styles = {
     height: '300px',
     maxHeight: '300px',
     background:'rgba(204,204,204,.51)',
+  },
+  errorAlert: {
+    "marginLeft": "5%",
+    "marginRight": "5%",
+    "width": "90%",
+    "display":"none",
+  },
+  uploadButton:{
+    'position':'relative',
+    'overflow':'hidden',
+    'margin':'10px',
+    'marginLeft':'40px',
+    'cursor':'pointer',
+  },
+  uploadInput:{
+    'color':'transparent',
+    'position':'absolute',
+    'top':0,
+    'right':0,
+    'margin':0,
+    'padding':0,
+    'fontSize':'20px',
+    'cursor':'pointer',
+    'opacity':0,
+  },
+  uploadedPdfBlock:{
+      'boxShadow': '0px 0px 5px #888888',
+      'height':'30px',
+      'padding':'5px',
+      'textAlign':'left',
+      'marginLeft':'40px',
+      'marginTop':'10px',
+      'width':'350px',
+      'display':'block',
+      'fontStyle':'italic',
+      'fontWeight':'bold',
+      'color':'#0099cc'
+    },
+    crossButton:{
+    'color':'red',
+    'float':'right',
+    'marginTop':'3px',
+    'cursor':'pointer'
   }
 };
 
@@ -74,18 +120,28 @@ class Variables extends React.Component {
           pValue:[],
           openSendMailDialog:false,
           recipient: [],
+          cc: [],
+          bcc: [],
+          recipientType:'Recipient',
           openVarDialog: false,
           openPreview: false,
           sentMail:{},
+          recipientEmailId: '',
+          recipientNotFound: false,
+          emailValidationError: '',
+          upload_file:[],
+          uploadedPDF:[],
+          LinearProgressBar:[]
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
+        this.handleCloseDialog1 = this.handleCloseDialog1.bind(this)
         this.saveTemplate = this.saveTemplate.bind(this)
         this.editTemplate = this.editTemplate.bind(this)
         this.deleteTemplate = this.deleteTemplate.bind(this)
         this.forwardTemplate = this.forwardTemplate.bind(this)
-        this.onclearFilter = this.onclearFilter.bind(this)
+        //this.onclearFilter = this.onclearFilter.bind(this)
         this.onClickLabel = this.onClickLabel.bind(this)
         this.handleContentChange = this.handleContentChange.bind(this);
         this.sendMail = this.sendMail.bind(this);
@@ -94,12 +150,17 @@ class Variables extends React.Component {
         this.setVariable = this.setVariable.bind(this);
         this.openMailPreview = this.openMailPreview.bind(this);
         this.closeMailPreview = this.closeMailPreview.bind(this);
+        this.submitEmail = this.submitEmail.bind(this);
+        this.hideError = this.hideError.bind(this);
+        this.download_mail_preview = this.download_mail_preview.bind(this)
+        this.uploadPDF=this.uploadPDF.bind(this)
+        this.deleteAttachment = this.deleteAttachment.bind(this)
+        //this.finalUpload = this.finalUpload.bind(this)
 
         this.variables = [];
     }
 
     componentWillMount(){
-
     }
     componentWillReceiveProps( props ){
 
@@ -165,6 +226,15 @@ class Variables extends React.Component {
         })
       }
     }
+    replaceVariablesWithValue(templ, str, value){
+      // templ.name = templ.name.split(str).join(value);
+      // templ.subject = templ.subject.split(str).join(value);
+      // templ.body = templ.body.split(str).join(value);
+      templ.name = _.replace(templ.name, str, value);
+      templ.subject = _.replace(templ.subject, str, value);
+      templ.body = _.replace(templ.body, str, value);
+      return templ;
+    }
     applyVariables(templateId){
       let templ = '', recipient = '';
        _.map(this.props.templates.templates, (tmp, i) =>{
@@ -172,6 +242,7 @@ class Variables extends React.Component {
           templ = _.clone(tmp);
         }
       });
+
       if(this.state.recipient.length > 0){
         this.state.usersList.map((user)=>{
           if(user.user_Id == this.state.recipient[0].user_Id){
@@ -179,31 +250,63 @@ class Variables extends React.Component {
           }
         });
       }
-      this.props.templates.variable.map((variable)=>{
-        if(variable.variable_type == 'user' || !_.isEmpty(variable.value)){
-          templ.name = templ.name.split(variable.name).join(variable.value)    // replace multiple variables
-          templ.subject = templ.subject.split(variable.name).join(variable.value)    // replace multiple variables
-          templ.body = templ.body.split(variable.name).join(variable.value)    // replace multiple variables
-        }
-        if(variable.variable_type === 'system' || _.isEmpty(variable.value)){
-          if(this.state.recipient.length > 0){
-          let value;
-          if(variable.name == '#date'){
-            value = new Date();
-            value = moment(value).format('YYYY-MM-DD');
-          }else if(variable.name == '#joining_date'){
-            value = recipient.dateofjoining
-          }else if(variable.name == '#employee_title'){
-            value = recipient.jobtitle
-          }else if(variable.name == '#employee_name'){
-            value = recipient.name
-          }
-          templ.name = templ.name.split(variable.name).join(value)    // replace multiple variables
-          templ.subject = templ.subject.split(variable.name).join(value)    // replace multiple variables
-          templ.body = templ.body.split(variable.name).join(value)    // replace multiple variables
-          }
-        }
-      });
+
+      let format = 'YYYY-MM-DD';
+      let string = templ.name.concat(" ",templ.subject," ", templ.body);
+      let regx = /#[\w\|-]*/g;
+      let variables = string.match(regx);
+
+      if(variables !== null && variables.length > 0){
+        variables = _.uniq(variables);
+        variables.map((str,i)=>{
+
+            let dateVariable = false;
+            if(str.indexOf('|') !== -1){
+               dateVariable = str;
+               let res = str.split('|');
+               str = res[0];
+               format = res[1];
+             }
+
+             let variable = _.find(this.props.templates.variable, function(o) { return o.name == str });
+
+             if(typeof variable !== 'undefined' &&  variable.name == str){
+
+               if(variable.variable_type == 'user' || variable.name == '#logo'){
+                 templ = this.replaceVariablesWithValue(templ, str, variable.value);
+               }
+
+               if(_.includes(variable.name, '#date')){
+                 let value = new Date();
+                 value = moment(value).format(format);
+                 if(dateVariable === false){
+                   templ = this.replaceVariablesWithValue(templ, str, value);
+                 }else{
+                   templ = this.replaceVariablesWithValue(templ, dateVariable, value);
+                 }
+               }
+
+               if(variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date') ){
+                 let value;
+                 if(variable.name == '#joining_date'){
+                   value = recipient.dateofjoining
+                   value = moment(value).format(format);
+                 }else if(variable.name == '#employee_title'){
+                   value = recipient.jobtitle
+                 }else if(variable.name == '#employee_name'){
+                   value = recipient.name
+                 }
+                 if(dateVariable === false){
+                   templ = this.replaceVariablesWithValue(templ, str, value);
+                 }else{
+                   templ = this.replaceVariablesWithValue(templ, dateVariable, value);
+                 }
+               }
+
+             }
+         });
+       }
+
       this.setState({
         templateName: templ.name,
         templateSubject: templ.subject,
@@ -217,6 +320,8 @@ class Variables extends React.Component {
           templateName: tmp.name,
           templateSubject: tmp.subject,
           templateBody: RichTextEditor.createValueFromString(tmp.body, 'html'),
+          uploadedPDF:[],
+          upload_file:[]
       });
       this.applyVariables(tmp.id);
     }
@@ -235,13 +340,27 @@ class Variables extends React.Component {
         errName: '',
         errSubject: '',
         openSendMailDialog:false,
+        recipient:[]
+      });
+    }
+    handleCloseDialog1(){
+      this.setState({
+        openDialog: false,
+        templateId: '',
+        templateName: '',
+        templateSubject: '',
+        templateBody: RichTextEditor.createEmptyValue(),
+        errName: '',
+        errSubject: '',
+        openSendMailDialog:false,
         recipient:[],
-      })
+        uploadedPDF:[]
+      });
     }
     toggleDialog(back, front){
-        $('#' + back).toggle()
-        $('#' + front).toggle()
-      }
+      $('#' + back).toggle()
+      $('#' + front).toggle()
+    }
     filterList(searchText){
       let usersList = this.props.usersList.users,
           list = [];
@@ -254,38 +373,76 @@ class Variables extends React.Component {
         usersList: list
       })
     }
-    selectUser(data, status){
-      let recipient = this.state.recipient;
-      status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
-      this.setState({
-        recipient: recipient
-      });
-      this.applyVariables(this.state.templateId);
+    selectUser(data, status, recipientType = this.state.recipientType){
+      if(recipientType == "Recipient"){
+        let recipient = this.state.recipient;
+        //status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+        status ? recipient[0] = data : _.pullAllBy(recipient, [data], 'email');
+        this.setState({
+          recipient: recipient
+        });
+        this.applyVariables(this.state.templateId);
+      }else if(recipientType == "CC"){
+        let recipient = this.state.cc;
+        status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+        this.setState({
+          cc: recipient
+        });
+      }else if(recipientType == "BCC"){
+        let recipient = this.state.bcc;
+        status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
+        this.setState({
+          bcc: recipient
+        });
+      }
     }
-    selectAll(){
-      let recipient = this.state.recipient;
-      _.remove(recipient)
-      this.state.usersList.map((user)=>{
-        recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
-      });
-      this.setState({
-        recipient: recipient,
-      });
-      this.applyVariables(this.state.templateId);
+
+    submitEmail(email){
+      var pattern = /^\w[a-zA-Z1-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      email = email.trim();
+      if(_.isEmpty(email)){
+        this.setState({emailValidationError:"Empty field"});
+      }else if(!email.match(pattern)){
+        this.setState({emailValidationError:"Not a valid email"})
+      }else{
+        this.setState({emailValidationError:"",recipientEmailId:""})
+        this.selectUser({user_Id:"#", name: email, email: email}, true, this.state.recipientType)
+      }
     }
-    onclearFilter(){
-      let recipient = this.state.recipient;
-      _.remove(recipient)
-      this.setState({ recipient: recipient});
-      this.applyVariables(this.state.templateId);
+    // selectAll(){
+    //   let recipient = this.state.recipient;
+    //   _.remove(recipient)
+    //   this.state.usersList.map((user)=>{
+    //     recipient.push({user_Id:user.user_Id, name: user.name, email: user.work_email})
+    //   });
+    //   this.setState({
+    //     recipient: recipient,
+    //   });
+    //   this.applyVariables(this.state.templateId);
+    // }
+    // onclearFilter(){
+    //   let recipient = this.state.recipient;
+    //   _.remove(recipient)
+    //   this.setState({ recipient: recipient});
+    //   this.applyVariables(this.state.templateId);
+    // }
+    onClickLabel(label, indexLabel, recipientType) {
+       this.selectUser(label, false, recipientType);
     }
-    onClickLabel(label, indexLabel) {
-       this.selectUser(label, false);
+    download_mail_preview(e){
+      let fileName = 'mail-preview';
+      this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
+        var link = document.createElement('a');
+        link.href = CONFIG.pdf_url+succ.message;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+      }).catch((err)=>{
+      })
     }
     //------editors
     handleContentChange(value) {
       this.setState({templateBody: value});
-      //this.setState({templateBody:e.target.value});
     }
     closeMailPreview(){
       this.setState({
@@ -293,158 +450,241 @@ class Variables extends React.Component {
         sentMail:{},
       });
     }
+    showError(id, errorMsg){
+      $('#'+id+ " span").remove();
+      $('#'+id).fadeIn().append("<span>"+errorMsg+"<span>")
+    }
+    hideError(e, id){
+      e.preventDefault();
+      $('#'+id).fadeOut(0);
+      $('#'+id+ " span").remove();
+    }
     openMailPreview(){
+      console.log('openMailPreview');
       let recipient = this.state.recipient,
           templateName = this.state.templateName.trim(),
           templateSubject = this.state.templateSubject.trim(),
           templateBody = this.state.templateBody.toString('html'),
-          state = true;
+          state = true,
+          error = '';
           if(recipient.length === 0){
             state = false;
-            alert("Please select a recipient");
+            error = "Please select a recipient"
           }
           if(state && _.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
             state = false;
-            alert("Please select a template");
+            error = "Please select a template";
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
-            let regx = /(?:^|\W)#(\w+)(?!\w)/g;
+            let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
+            let pendingVariables = []; //_.remove(this.state.pValue);
+            console.log('result out');
             if(result !== null && result.length > 0){
+              console.log('result');
               state = false;
+              error = "Please put all variable's value";
               result = _.uniq(result);
-             this.variables = result.map((str)=>{
-                 return str.substring(1);
+
+              result.map((str)=>{
+                 pendingVariables.push({name:str});
                });
                this.setState({
+                 pValue: pendingVariables,
                  openVarDialog: true,
                });
              }
            }
         if(state){
+          let cc_detail = _.map(this.state.cc,(cc)=>{
+                        return [cc.email, cc.name]
+                    });
+          let bcc_detail = _.map(this.state.bcc,(bcc)=>{
+                        return [bcc.email, bcc.name]
+                    });
           let email = [{
-              email_id: recipient[0].email,
-              name: recipient[0].name,
-              subject: templateSubject,
-              body: templateBody
+                email_id: recipient[0].email,
+                name: recipient[0].name,
+                subject: templateSubject,
+                body: templateBody,
+                cc_detail: cc_detail,
+                bcc_detail: bcc_detail,
               }]
+              console.log('email');
           this.setState({
             openPreview: true,
             sentMail:{status:state, email:email}
           })
+        }else{
+          this.showError('previewalert',error);
         }
     }
+
     sendMail(){
       this.closeMailPreview();
-      // let recipient = this.state.recipient,
-      //     templateName = this.state.templateName.trim(),
-      //     templateSubject = this.state.templateSubject.trim(),
-      //     templateBody = this.state.templateBody.toString('html'),
-      //     state = true;
-      //     if(recipient.length === 0){
-      //       state = false;
-      //       alert("Please select a recipient");
-      //     }
-      //     if(_.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
-      //       state = false;
-      //       alert("Please select a template");
-      //     }else{
-      //         let string = templateName.concat(" ",templateSubject," ", templateBody);
-      //         let regx = /(?:^|\W)#(\w+)(?!\w)/g;
-      //         let result = string.match(regx);
-      //         if(result !== null && result.length > 0){
-      //           state = false;
-      //           result = _.uniq(result);
-      //          this.variables = result.map((str)=>{
-      //              return str.substring(1);
-      //          });
-      //          this.setState({
-      //           openVarDialog: true,
-      //          });
-      //        }else{
-      //          this.setState({
-      //            openPreview: true,
-      //          })
-      //        }
-      //     }
       let sentMail = this.state.sentMail;
-          if(sentMail.status){
-            // let email = [{
-            //     email_id: recipient[0].email,
-            //     name: recipient[0].name,
-            //     subject: templateSubject,
-            //     body: templateBody
-            //     }]
-            this.props.onSendMail(sentmail.email).then(()=>{
-              alert('Mail sent');
-              this.handleCloseDialog();
-            }).catch(()=>{
-              alert('Error mail not sent.')
-            })
-          }
+      let files = this.state.upload_file;
+      sentMail.email[0].upload_file = files;
+      if(sentMail.status){
+        this.props.onSendMail(sentMail.email).then(()=>{
+          this.handleCloseDialog();
+          this.showError('mailsentsuccessfully','Mail sent successfully.');
+        }).catch(()=>{
+          this.showError('previewalert','Mail not sent. try again')
+        })
+      }
     }
     handleClose(){
+      console.log('handleClose');
       this.setState({
         openVarDialog: false,
-        pValue: [],
+        pValue: _.remove(this.state.pValue),
       });
-      this.variables = [];
     }
     setVariable(){
+      console.log('hhhhhhhhhhhhhh');
       let pValue = this.state.pValue,
-          templateName = this.state.templateName.trim(),
-          templateSubject = this.state.templateSubject.trim(),
-          templateBody = this.state.templateBody.toString('html');
-      _.map(this.variables, (variable, i)=>{
-           templateName = _.replace(templateName, variable, pValue[i]);
-           templateSubject = _.replace(templateSubject, variable, pValue[i]);
-           templateBody = _.replace(templateBody, variable, pValue[i]);
-       });
-       this.setState({
-         templateName: templateName,
-         templateSubject: templateSubject,
-         templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
-       });
-       this.handleClose();
+          // template = {
+          //   name:this.state.templateName.trim(),
+          //   subject:this.state.templateSubject.trim(),
+          //   body:this.state.templateBody.toString('html'),
+          // };
+            templateName = this.state.templateName.trim(),
+            templateSubject = this.state.templateSubject.trim(),
+            templateBody = this.state.templateBody.toString('html');
+
+      _.map(pValue, (variable, i)=>{
+        if(typeof variable.value !== 'undefined'){
+          console.log('inside');
+          templateName = _.replace(templateName, variable.name, variable.value);
+          templateSubject = _.replace(templateSubject, variable.name, variable.value);
+          templateBody = _.replace(templateBody, variable.name, variable.value);
+          //template = this.replaceVariablesWithValue(template, variable.name, variable.value)
+        }
+      });
+
+     this.setState({
+       templateName: templateName, //template.name,
+       templateSubject: templateSubject, // template.subject,
+       templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
+     });
+     console.log('templateBody',templateBody);
+     console.log('lllllllllllllll',this.state.templateBody.toString('html'));
+     this.handleClose();
+     this.openMailPreview();
+    }
+    uploadPDF(e){
+      let self = this
+        var file_data = $("#file_image").prop("files");
+        var form_data = new FormData();
+        var LinearProgressBar = [];
+        for( var i in file_data){
+          form_data.append(i.toString(), file_data[i])
+        }
+        for(i=0;i<file_data['length'];i++){
+          LinearProgressBar.push(<div key={i} className="row" style={styles.uploadedPdfBlock}>
+            <div className="col-xs-7">
+              {file_data[i].name}
+            </div>
+            <div className="col-xs-5">
+              <LinearProgress mode="indeterminate"/>
+            </div>
+            </div>)
+        }
+        self.setState({
+          LinearProgressBar:LinearProgressBar
+        })
+
+      $.ajax({
+          url: CONFIG.upload_email_attachment,
+          contentType: false,
+          processData: false,
+          data: form_data,
+          type: 'post',
+          success: function(data) {
+            let obj = JSON.parse(data);
+            let uploadedPDF = self.state.uploadedPDF;
+            let upload_file_path = self.state.upload_file;
+            let preKey = uploadedPDF.length
+             if(obj.error == 0){
+               let data = obj.data
+               _.map(data,(file, key)=>{
+                   uploadedPDF.push(file.name);
+                   upload_file_path.push(file.path)
+                 })
+             }
+             self.setState({
+              uploadedPDF:uploadedPDF,
+              upload_file:upload_file_path,
+              LinearProgressBar:[]
+             })
+          },
+          error: function(error) {
+            //console.log(error,"error")
+          }
+        });
+    }
+    deleteAttachment(filekey){
+      let uploadedPDF = this.state.uploadedPDF;
+      let newuploadedPDF = []
+      let upload_file_path = this.state.upload_file;
+      let newupload_file_path = []
+      _.map(uploadedPDF,(file, k)=>{
+       if(filekey != k){
+         newuploadedPDF.push(uploadedPDF[k])
+         newupload_file_path.push(upload_file_path[k])
+       }
+     })
+      // _.map(uploadedPDF,(file, key)=>{
+      //   if(filekey != key){
+      //     newuploadedPDF.push(uploadedPDF[key])
+      //     newupload_file_path.push(upload_file_path[key])
+      //   }
+      // })
+      this.setState({
+        uploadedPDF:newuploadedPDF,
+        upload_file:newupload_file_path
+      })
     }
     render(){
-      console.log('this.state',this.state,'props',this.props);
-          //let sendMail = this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0];
-          //console.log(sendMail);
+        //console.log('this.state',this.state,'this.props', this.props);
+            let fileList = []
+         _.map(this.state.uploadedPDF,(name, key)=>{
+           fileList.push(
+             <div key={key} style={styles.uploadedPdfBlock}>
+               {name}
+               <i
+                 onClick={()=>{this.deleteAttachment(key)}}
+                 style={styles.crossButton}
+                 className="fa fa-remove">
+               </i>
+             </div>)
+         })
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
           ];
           const actionsSendMail = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
-            <RaisedButton label={"Send"} primary={true} onClick={this.openMailPreview} />
+            <RaisedButton label={"Preview"} primary={true} onClick={this.openMailPreview} />
           ];
-          //-------------------toolbarConfig for editor--------------------
-          const toolbarConfig = {
-          // Optionally specify the groups to display (displayed in the order listed).
-          display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-          INLINE_STYLE_BUTTONS: [
-            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
-            {label: 'Italic', style: 'ITALIC'},
-            {label: 'Underline', style: 'UNDERLINE'}
-          ],
-          BLOCK_TYPE_DROPDOWN: [
-            {label: 'Normal', style: 'unstyled'},
-            {label: 'Heading Large', style: 'header-one'},
-            {label: 'Heading Medium', style: 'header-two'},
-            {label: 'Heading Small', style: 'header-three'}
-          ],
-          BLOCK_TYPE_BUTTONS: [
-            {label: 'UL', style: 'unordered-list-item'},
-            {label: 'OL', style: 'ordered-list-item'}
-          ]
-        };
+
         //------------------------------------
-        let listChartItems = [];
+        let listChartItems = [],
+        recipientType = this.state.recipientType, //$('input[name="recipientType"]:checked').val(),
+        recipient = [];
+        if(recipientType == "Recipient"){
+          recipient = this.state.recipient;
+        }else if(recipientType == "CC"){
+          recipient = this.state.cc;
+        }else if(recipientType == "BCC"){
+          recipient = this.state.bcc;
+        }
+
         this.state.usersList.map((user, i)=>{
           let check = false;
-          if(_.filter(this.state.recipient, _.matches({user_Id:user.user_Id })).length > 0) {
+          if(_.filter(recipient, _.matches({user_Id:user.user_Id })).length > 0) {
             check = true;
           }
         listChartItems.push(
@@ -456,18 +696,18 @@ class Variables extends React.Component {
         });
         //-----------------pending Variables
         let pendingVar = [];
-        _.map(this.variables,(variable, i)=>{
+        _.map(this.state.pValue,(variable, i)=>{
           pendingVar.push(
           <div className="form-group" key={i}>
-           <label>Enter value for {variable} :</label>
+           <label>Enter value for {variable.name} :</label>
            <input type="text" className="form-control" onChange={(e)=>{
                let pValue = this.state.pValue;
-               pValue[i] = e.target.value;
+               pValue[i].value = e.target.value;
              this.setState({
                  pValue: pValue,
              });
            }}
-           value={this.state.pValue[i]} />
+           value={this.state.pValue[i].value} />
           </div>)
         })
     	return(
@@ -489,6 +729,11 @@ class Variables extends React.Component {
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}
             >
+            <div className="row">
+              <div className="col-xs-12">
+                <LoadingIcon {...this.props}/>
+              </div>
+            </div>
             <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
               <form className="form-inline">
               <div className="form-group" style={styles.formInput}>
@@ -526,7 +771,6 @@ class Variables extends React.Component {
               <div className="form-group" style={styles.formInput}>
                 <RichTextEditor
                    style={styles.editorStyle}
-                   toolbarConfig={toolbarConfig}
                    value={this.state.templateBody}
                    onChange={this.handleContentChange}
                  />
@@ -537,7 +781,7 @@ class Variables extends React.Component {
               <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
               <Divider />
                 {_.map(this.props.templates.variable, (vari) => {
-                  if(vari.variable_type === 'system' || vari.value == ''){
+                  if(vari.variable_type === 'system'){
                     return (
                       <div key={vari.id}>
                         <span className="select-variable">{vari.name}</span>
@@ -550,7 +794,7 @@ class Variables extends React.Component {
                 <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
                 <Divider />
                   {_.map(this.props.templates.variable, (vari) => {
-                    if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                    if(vari.variable_type == 'user'){
                       return(
                         <div key={vari.id}>
                           <span className="select-variable">{vari.name}</span>
@@ -565,11 +809,16 @@ class Variables extends React.Component {
                  <div className="row" style={{margin:'0px 4px 0px'}}>
                    <div className="col-xs-12">
                      <div className='row'>
-                      <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px'}}>
+                      <div className='col-xs-12' style={{paddingTop:'16px',paddingRight:'0px'}}>
                       <button
                        className="md-btn md-raised m-b-sm indigo"
                        onClick={this.openCreateTemplate}
                       >Create New Template</button>
+                      </div>
+                      <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
+                        <div id="mailsentsuccessfully" className="alert alert-success pull-left" style={styles.errorAlert}>
+                          <a href="#" className="close" onClick={(e)=>this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
+                        </div>
                       </div>
                       <div className={this.state.paper} style={{"marginTop":"8%"}}>
                         {_.map(this.props.templates.templates, (tmp, i) => (
@@ -626,8 +875,10 @@ class Variables extends React.Component {
                </Dialog>
                <Dialog
                  title={"Mail Preview"}
-                 actions={[<FlatButton label="Close" primary={true} onTouchTap={this.handleClose} style={{marginRight:5}} />,
-                            <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>]}
+                 titleStyle={{padding:'5px 24px 0px',textAlign:'center',fontSize:'18px',fontWeight:'500'}}
+                 actions={[<FlatButton label="Cancel" primary={true} onTouchTap={this.closeMailPreview} style={{marginRight:5}} />,
+                            <RaisedButton label={"Continue"} primary={true} onClick={this.sendMail}/>,
+                            <FlatButton label={"Download Preview"} primary={true} style={{"float":'left'}} onClick={(e)=>{this.download_mail_preview(e)}}/>]}
                  modal={false}
                  bodyStyle={{minHeight:'70vh'}}
                  contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
@@ -636,41 +887,86 @@ class Variables extends React.Component {
                  autoDetectWindowHeight={true}
                  autoScrollBodyContent={true}
                >
-               <div>
-                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].subject}}></div>
-                 <div dangerouslySetInnerHTML={{__html: this.state.sendMail && this.state.sendMail.email && this.state.sendMail.email[0].body}}></div>
+                <div className="row">
+                  <div className="col-xs-12">
+                    <LoadingIcon {...this.props}/>
+                  </div>
+                </div>
+               <div id="dialogContent">
+                 <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">
-                     <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
+                     <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#0000FF',cursor:'pointer',display:'block',width:'100%',textAlign:'right'}} onClick={()=>this.toggleDialog("FilterBack", "Filter")}>Add recipient</span>
                        <div className="dropdown">
                         <div id={"FilterBack"} className="dropdown-backdrop-custom" style={{'display':'none','opacity':0.5}} onClick={()=>this.toggleDialog("FilterBack","Filter")}></div>
                         <div id={"Filter"} className="dropdown-menu has-child has-arrow selectUser">
                               <ul className="list-unstyled pt-xs">
                               <li className="mb-sm b-b p-t p-b">
-                                  <div className="form-group" style={{width:'50%'}}>
-                                    <input type="checkbox" id="selectAll" className="select-all" checked={this.state.recipient.length === this.state.usersList.length ? true : false} onChange={(e)=>this.selectAll()} /> Select all
-                                  </div>
-                                  <div className="form-group" style={{width:'50%'}}>
-                                    <input type="checkbox" id="clearAll" className="clear-all" checked={this.state.recipient.length > 0 ? false : true} onChange={(e)=>this.onclearFilter()} /> Clear all
+                                  <div className="form-group" style={{width:'100%'}}>
+                                    <input type="checkbox" id="notListed" className="not-listed" checked={this.state.recipientNotFound} onChange={(e)=>this.setState({recipientNotFound:e.target.checked})} /> Recipient Not Listed
                                   </div>
                               </li>
                               <li className="mb-sm b-b p-t p-b">
+                                <div className="form-group" style={{width:"40%",paddingLeft:"0px"}}>
+                                  <input type="radio" id="recipient" className="recipient" name="recipientType" checked={recipientType == "Recipient" ? true : false} value="Recipient" onChange={(e)=>{this.setState({recipientType:e.target.value})}}/> Recipient
+                                </div>
+                                <div className="form-group" style={{width:"30%",paddingLeft:"0px"}} >
+                                  <input type="radio" id="cc" className="cc" name="recipientType" checked={recipientType == "CC" ? true : false} value="CC" onChange={(e)=>{this.setState({recipientType:e.target.value})}}/> CC
+                                </div>
+                                <div className="form-group" style={{width:"30%",paddingLeft:"0px"}}>
+                                  <input type="radio" id="bcc" className="bcc" name="recipientType" checked={recipientType == "BCC" ? true : false} value="BCC" onChange={(e)=>{this.setState({recipientType:e.target.value})}}/> BCC
+                                </div>
+                              </li>
+                              {this.state.recipientNotFound ?
+                              <li className="mb-sm b-b p-t p-b">
                                 <div className="form-group" style={{width:'100%'}}>
-                                  <input type="text" id={'selectAll'} style={{width:'100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e)=>this.filterList(e.target.value)} />
+                                  <label>Enter Email Id:</label>
+                                  <input type="text"  style={{width:'100%'}} className="form-control" placeholder="enter email..." onChange={(e)=>this.setState({recipientEmailId: e.target.value})} value={this.state.recipientEmailId} />
+                                  <span style={{color:'#FF0000',padding:'5px',display:'block'}}>{this.state.emailValidationError}</span>
+                                  <button type="button" className="btn m-t btn-primary btn-block" onClick={()=>this.submitEmail(this.state.recipientEmailId)}>Submit</button>
+                                </div>
+                              </li>
+                              :
+                              <span>
+                              <li className="mb-sm b-b p-t p-b">
+                                <div className="form-group" style={{width:'100%'}}>
+                                  <input type="text"  style={{width:'100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e)=>this.filterList(e.target.value)} />
                                 </div>
                               </li>
                                   {listChartItems}
+                                </span>
+                                }
                               </ul>
                           </div>
                       </div>
-                   <div className="form-group selected-recipient" style={styles.formInput}>
+                    <div id="previewalert" className="alert alert-danger pull-left" style={styles.errorAlert}>
+                      <a href="#" className="close" onClick={(e)=>this.hideError(e, 'previewalert')} aria-label="close">&times;</a>
+                    </div>
+                    <div className="form-group selected-recipient" style={styles.formInput}>
                       <div className="pull-left to">To</div>
-                      <div className="pull-left filter-tags" style={{textTransform: 'capitalize',fontSize:'12px'}}>
-                        {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={this.onClickLabel} onClear={this.onclearFilter} /> : ""}
+                      <div className="pull-left filter-tags" style={{fontSize:'12px'}}>
+                        {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={(label, indexLabel)=>this.onClickLabel(label, indexLabel, "Recipient")} onClear={this.onclearFilter} /> : ""}
                       </div>
                     </div>
+                    {this.state.cc.length > 0 ?
+                      <div className="form-group selected-recipient" style={styles.formInput}>
+                      <div className="pull-left to">CC</div>
+                      <div className="pull-left filter-tags" style={{fontSize:'12px'}}>
+                        <FilterLabel data={this.state.cc} onClick={(label, indexLabel)=>this.onClickLabel(label, indexLabel, "CC")} onClear={this.onclearFilter} />
+                      </div>
+                    </div>
+                     : ""}
+                    {this.state.bcc.length > 0 ?
+                      <div className="form-group selected-recipient" style={styles.formInput}>
+                      <div className="pull-left to">BCC</div>
+                      <div className="pull-left filter-tags" style={{fontSize:'12px'}}>
+                        <FilterLabel data={this.state.bcc} onClick={(label, indexLabel)=>this.onClickLabel(label, indexLabel, "BCC")} onClear={this.onclearFilter} />
+                      </div>
+                    </div>
+                     : ""}
                    <div className="form-group" style={styles.formInput}>
                    <TextField
                          ref='value'
@@ -707,19 +1003,35 @@ class Variables extends React.Component {
                    <div className="form-group" style={styles.formInput}>
                    <RichTextEditor
                       style={styles.editorStyle}
-                      toolbarConfig={toolbarConfig}
+                      id={"editor"}
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
                     />
-                </div>
+                  </div>
+                  </form>
 
-                   </form>
+                  <div className="row">
+                    <div className="col-md-2">
+                      {this.state.LinearProgressBar}
+                      {fileList}
+                    </div>
+                  </div>
+
+                  <form action={''} method="POST" encType="multipart/form-data">
+                    <div className="form-group">
+                      <button style={styles.uploadButton} className="btn btn-blue" >
+                      <i className="fa fa-file-pdf-o" style={{'marginRight':'5px','cursor':'pointer'}}></i>
+                      <input onChange={(e)=>{this.uploadPDF(e)}} style={styles.uploadInput} id="file_image" type="file" name="image[]" ref="file" className="form-control" multiple={true}/>Attachment
+                      </button>
+                    </div>
+                  </form>
+
                  </div>
                  <div className="col-xs-3">
                    <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>
                    <Divider />
                      {_.map(this.props.templates.variable, (vari) => {
-                       if(vari.variable_type === 'system' || vari.value == ''){
+                       if(vari.variable_type === 'system'){
                          return (
                            <div key={vari.id}>
                              <span className="select-variable">{vari.name}</span>
@@ -732,7 +1044,7 @@ class Variables extends React.Component {
                      <h5 style={{textAlign:'center', color:'#000'}}>User Variables</h5>
                      <Divider />
                        {_.map(this.props.templates.variable, (vari) => {
-                         if(vari.variable_type == 'user' || !_.isEmpty(vari.value)){
+                         if(vari.variable_type == 'user'){
                            return(
                              <div key={vari.id}>
                                <span className="select-variable">{vari.name}</span>

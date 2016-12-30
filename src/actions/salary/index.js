@@ -35,6 +35,7 @@ export function getSalaryDetails() {
         if (typeof json.data != 'undefined' && typeof json.data.salary_details != 'undefind') {
           //let data = json.data.salary_details.reverse()
           //dispatch( success_salary_details( data ) )
+          resolve(json.data)
           dispatch(success_salary_details(json.data))
         } else {
           dispatch(empty_salary_details([]))

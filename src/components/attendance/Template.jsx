@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
 
 import RichTextEditor from 'react-rte';
-
+import update from 'react/lib/update';
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import FilterLabel from '../../components/generic/FilterLabel'
@@ -489,7 +489,6 @@ class Variables extends React.Component {
       $('#'+id+ " span").remove();
     }
     openMailPreview(){
-      console.log('openMailPreview');
       let recipient = this.state.recipient,
           templateName = this.state.templateName.trim(),
           templateSubject = this.state.templateSubject.trim(),
@@ -508,10 +507,8 @@ class Variables extends React.Component {
             let string = templateName.concat(" ",templateSubject," ", templateBody);
             let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
-            let pendingVariables = []; //_.remove(this.state.pValue);
-            console.log('result out');
+            let pendingVariables = [];
             if(result !== null && result.length > 0){
-              console.log('result');
               state = false;
               error = "Please put all variable's value";
               result = _.uniq(result);
@@ -540,7 +537,6 @@ class Variables extends React.Component {
                 cc_detail: cc_detail,
                 bcc_detail: bcc_detail,
               }]
-              console.log('email');
           this.setState({
             openPreview: true,
             sentMail:{status:state, email:email}
@@ -565,47 +561,35 @@ class Variables extends React.Component {
       }
     }
     handleClose(){
-      console.log('handleClose');
       this.setState({
         openVarDialog: false,
         pValue: _.remove(this.state.pValue),
       });
     }
     setVariable(){
-      console.log('hhhhhhhhhhhhhh');
       let pValue = this.state.pValue,
-          // template = {
-          //   name:this.state.templateName.trim(),
-          //   subject:this.state.templateSubject.trim(),
-          //   body:this.state.templateBody.toString('html'),
-          // };
-            templateName = this.state.templateName,
-            templateSubject = this.state.templateSubject,
-            templateBody = this.state.templateBody.toString('html');
+          template = {
+            name:this.state.templateName.trim(),
+            subject:this.state.templateSubject.trim(),
+            body:this.state.templateBody.toString('html'),
+          };
 
       _.map(pValue, (variable, i)=>{
         if(typeof variable.value !== 'undefined'){
-          console.log('inside');
-          templateName = _.replace(templateName, variable.name, variable.value);
-          templateSubject = _.replace(templateSubject, variable.name, variable.value);
-          templateBody = _.replace(templateBody, variable.name, variable.value);
-          //template = this.replaceVariablesWithValue(template, variable.name, variable.value)
-        //   let setResult = update(this.state.templateBody.toString('html'), {
-        //   result: {$set: data}
-        // });
-        // this.setState({templateBody:RichTextEditor.createValueFromString(setResult, 'html'),})
+          template = this.replaceVariablesWithValue(template, variable.name, variable.value)
         }
       });
 
      this.setState({
-       templateName: templateName, //template.name,
-       templateSubject: templateSubject, // template.subject,
-       templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
+       templateName: template.name,
+       templateSubject: template.subject,
+       templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
+       pValue: null,
+     },
+     ()=>{
+       this.handleClose();
+       this.openMailPreview();
      });
-     console.log('templateBody',templateBody);
-     console.log('lllllllllllllll',this.state.templateBody.toString('html'));
-     this.handleClose();
-     this.openMailPreview();
     }
     uploadPDF(e){
       let self = this
@@ -669,19 +653,12 @@ class Variables extends React.Component {
          newupload_file_path.push(upload_file_path[k])
        }
      })
-      // _.map(uploadedPDF,(file, key)=>{
-      //   if(filekey != key){
-      //     newuploadedPDF.push(uploadedPDF[key])
-      //     newupload_file_path.push(upload_file_path[key])
-      //   }
-      // })
       this.setState({
         uploadedPDF:newuploadedPDF,
         upload_file:newupload_file_path
       })
     }
     render(){
-        //console.log('this.state',this.state,'this.props', this.props);
             let fileList = []
          _.map(this.state.uploadedPDF,(name, key)=>{
            fileList.push(
@@ -734,13 +711,12 @@ class Variables extends React.Component {
           <div className="form-group" key={i}>
            <label>Enter value for {variable.name} :</label>
            <input type="text" className="form-control" onChange={(e)=>{
-               let pValue = this.state.pValue;
-               pValue[i].value = e.target.value;
+              variable.value = e.target.value;
              this.setState({
-                 pValue: pValue,
+                 pValue: this.state.pValue,
              });
            }}
-           value={this.state.pValue[i].value} />
+           value={variable.value} />
           </div>)
         })
     	return(

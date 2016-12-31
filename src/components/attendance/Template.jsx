@@ -122,7 +122,7 @@ const styles = {
   },
   span_bold: {
     fontWeight: '600',
-    fontSize: '16px',
+    fontSize: '14px',
   },
   pdfFooter: {
     fontSize:'12px',
@@ -579,8 +579,8 @@ class Variables extends React.Component {
           //   subject:this.state.templateSubject.trim(),
           //   body:this.state.templateBody.toString('html'),
           // };
-            templateName = this.state.templateName.trim(),
-            templateSubject = this.state.templateSubject.trim(),
+            templateName = this.state.templateName,
+            templateSubject = this.state.templateSubject,
             templateBody = this.state.templateBody.toString('html');
 
       _.map(pValue, (variable, i)=>{
@@ -590,6 +590,10 @@ class Variables extends React.Component {
           templateSubject = _.replace(templateSubject, variable.name, variable.value);
           templateBody = _.replace(templateBody, variable.name, variable.value);
           //template = this.replaceVariablesWithValue(template, variable.name, variable.value)
+        //   let setResult = update(this.state.templateBody.toString('html'), {
+        //   result: {$set: data}
+        // });
+        // this.setState({templateBody:RichTextEditor.createValueFromString(setResult, 'html'),})
         }
       });
 
@@ -922,14 +926,14 @@ class Variables extends React.Component {
                   </div>
                 </div>
                <div id="dialogContent">
-             
-                 
+
+
                 <table className="tab1"  style={styles.pdfHeader}>
                     <tbody>
                         <tr>
                             <td style={styles.tab1}>
                               <p style={styles.para}>Excellence Technologies</p>
-                              <span className="span_bold" style={styles.span_bold}>Salary Statement For the Month of </span></td>
+                              <span className="span_bold" style={styles.span_bold}> C84-A, Sector 8, Noida, U.P. - 201301 </span></td>
                             <td style={{borderCollapse: 'collapse',minHeight: '50px',textAlign:'right'}}>
                               <img className="pull-right" src="Excelogo-black.jpg" height="50px"/>
                             </td>
@@ -939,8 +943,8 @@ class Variables extends React.Component {
                         </tr>
                     </tbody>
                   </table>
-                 <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
-                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                 <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'600',fontSize:'18px',marginTop: '20px',textAlign:'center'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                 <div className="p-t p-b" style={{height:'750px'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
                   <table style={styles.pdfFooter}>
                     <tbody>
                         <tr>
@@ -954,7 +958,7 @@ class Variables extends React.Component {
                                 <b>Excellence Technosoft Pvt Ltd</b>
                             </td>
                             <td style={{textAlign: 'right'}}>
-                                <a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a> 
+                                <a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a>
                             </td>
                         </tr>
                         <tr>

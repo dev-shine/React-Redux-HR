@@ -468,14 +468,17 @@ class Variables extends React.Component {
           state = true,
           error = '';
           if(recipient.length === 0){
+            console.log("11111")
             state = false;
             error = "Please select a recipient"
           }
           if(state && _.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
+            console.log("222222")
             state = false;
             error = "Please select a template";
           }
           if(state){
+            console.log("3333333")
             let string = templateName.concat(" ",templateSubject," ", templateBody);
             let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
@@ -496,6 +499,7 @@ class Variables extends React.Component {
              }
            }
         if(state){
+          console.log("4444444")
           let cc_detail = _.map(this.state.cc,(cc)=>{
                         return [cc.email, cc.name]
                     });
@@ -515,6 +519,7 @@ class Variables extends React.Component {
             sentMail:{status:state, email:email}
           })
         }else{
+          console.log("55555")
           this.showError('previewalert',error);
         }
     }

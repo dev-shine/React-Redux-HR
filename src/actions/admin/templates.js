@@ -330,7 +330,7 @@ export function download_pdf(template,fileName){
 						resolve(json.data)
 					},
 					(error) =>{
-					    dispatch(hide_loading())
+						dispatch(hide_loading())
 						reject('error occurs!!')
 					}
 				)

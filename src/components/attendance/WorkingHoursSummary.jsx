@@ -5,7 +5,7 @@ import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance
 import * as _ from 'lodash'
 
 import * as actions_login from '../../actions/login/index'
-import {CONFIG} from '../../config/index'
+
 import Day from '../../components/generic/Day'
 import UserDetails from './UserDetails'
 import MonthSummary from './MonthSummary'

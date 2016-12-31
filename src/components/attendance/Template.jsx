@@ -95,12 +95,41 @@ const styles = {
       'fontStyle':'italic',
       'fontWeight':'bold',
       'color':'#0099cc'
-  },
-  crossButton:{
+    },
+    crossButton:{
     'color':'red',
     'float':'right',
     'marginTop':'3px',
     'cursor':'pointer'
+  },
+  pdfHeader: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    //padding:'2px 10px',
+    minHeight: '50px'
+  },
+  tab1: {
+    borderCollapse: 'collapse',
+    //padding:'2px 10px',
+    minHeight: '50px'
+  },
+  para: {
+    fontSize: '29px',
+    fontWeight:'800',
+    paddingTop:'10px',
+    marginBottom: '12px',
+    marginTop: '-20px',
+  },
+  span_bold: {
+    fontWeight: '600',
+    fontSize: '16px',
+  },
+  pdfFooter: {
+    fontSize:'12px',
+    fontFamily: "sans-serif",
+    width:'100%',
+    bottom:'50px',
+    borderTop:'3px sold',
   }
 };
 
@@ -286,9 +315,8 @@ class Variables extends React.Component {
                  }
                }
 
-               if(variable.variable_type === 'system' && !_.isEmpty(recipient)){
+               if(variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date') ){
                  let value;
-
                  if(variable.name == '#joining_date'){
                    value = recipient.dateofjoining
                    value = moment(value).format(format);
@@ -297,13 +325,13 @@ class Variables extends React.Component {
                  }else if(variable.name == '#employee_name'){
                    value = recipient.name
                  }
-
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
                  }else{
                    templ = this.replaceVariablesWithValue(templ, dateVariable, value);
                  }
                }
+
              }
          });
        }
@@ -468,22 +496,18 @@ class Variables extends React.Component {
           state = true,
           error = '';
           if(recipient.length === 0){
-            console.log("11111")
             state = false;
             error = "Please select a recipient"
           }
           if(state && _.isEmpty(templateName) || _.isEmpty(templateSubject) || _.isEmpty(templateBody)){
-            console.log("222222")
             state = false;
             error = "Please select a template";
           }
           if(state){
-            console.log("3333333")
             let string = templateName.concat(" ",templateSubject," ", templateBody);
             let regx = /#[\w\|-]*/g;
             let result = string.match(regx);
             let pendingVariables = []; //_.remove(this.state.pValue);
-
             if(result !== null && result.length > 0){
               state = false;
               error = "Please put all variable's value";
@@ -499,7 +523,6 @@ class Variables extends React.Component {
              }
            }
         if(state){
-          console.log("4444444")
           let cc_detail = _.map(this.state.cc,(cc)=>{
                         return [cc.email, cc.name]
                     });
@@ -519,7 +542,6 @@ class Variables extends React.Component {
             sentMail:{status:state, email:email}
           })
         }else{
-          console.log("55555")
           this.showError('previewalert',error);
         }
     }
@@ -546,33 +568,37 @@ class Variables extends React.Component {
     }
     setVariable(){
       let pValue = this.state.pValue,
-        result = this.state.result,
-          template = {
-            name:this.state.templateName.trim(),
-            subject:this.state.templateSubject.trim(),
-            body:this.state.templateBody.toString('html'),
-          };
+          // template = {
+          //   name:this.state.templateName.trim(),
+          //   subject:this.state.templateSubject.trim(),
+          //   body:this.state.templateBody.toString('html'),
+          // };
+            templateName = this.state.templateName.trim(),
+            templateSubject = this.state.templateSubject.trim(),
+            templateBody = this.state.templateBody.toString('html');
 
       _.map(pValue, (variable, i)=>{
         if(typeof variable.value !== 'undefined'){
-          template = this.replaceVariablesWithValue(template, variable.name, variable.value)
+          templateName = _.replace(templateName, variable.name, variable.value);
+          templateSubject = _.replace(templateSubject, variable.name, variable.value);
+          templateBody = _.replace(templateBody, variable.name, variable.value);
+          //template = this.replaceVariablesWithValue(template, variable.name, variable.value)
         }
       });
 
      this.setState({
-       templateName: template.name,
-       templateSubject: template.subject,
-       templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
+       templateName: templateName, //template.name,
+       templateSubject: templateSubject, // template.subject,
+       templateBody: RichTextEditor.createValueFromString(templateBody, 'html'),
      });
-
      this.handleClose();
      this.openMailPreview();
     }
     uploadPDF(e){
       let self = this
         var file_data = $("#file_image").prop("files");
-        var form_data = new FormData(); 
-        var LinearProgressBar = []
+        var form_data = new FormData();
+        var LinearProgressBar = [];
         for( var i in file_data){
           form_data.append(i.toString(), file_data[i])
         }
@@ -589,6 +615,7 @@ class Variables extends React.Component {
         self.setState({
           LinearProgressBar:LinearProgressBar
         })
+
       $.ajax({
           url: CONFIG.upload_email_attachment,
           contentType: false,
@@ -599,12 +626,13 @@ class Variables extends React.Component {
             let obj = JSON.parse(data);
             let uploadedPDF = self.state.uploadedPDF;
             let upload_file_path = self.state.upload_file;
+            let preKey = uploadedPDF.length
              if(obj.error == 0){
-              let data = obj.data
-              _.map(data,(file, key)=>{
-                  uploadedPDF.push(file.name);
-                  upload_file_path.push(file.path)
-                })
+               let data = obj.data
+               _.map(data,(file, key)=>{
+                   uploadedPDF.push(file.name);
+                   upload_file_path.push(file.path)
+                 })
              }
              self.setState({
               uploadedPDF:uploadedPDF,
@@ -623,29 +651,35 @@ class Variables extends React.Component {
       let upload_file_path = this.state.upload_file;
       let newupload_file_path = []
       _.map(uploadedPDF,(file, k)=>{
-        if(filekey != k){
-          newuploadedPDF.push(uploadedPDF[k])
-          newupload_file_path.push(upload_file_path[k])
-        }
-      })
+       if(filekey != k){
+         newuploadedPDF.push(uploadedPDF[k])
+         newupload_file_path.push(upload_file_path[k])
+       }
+     })
+      // _.map(uploadedPDF,(file, key)=>{
+      //   if(filekey != key){
+      //     newuploadedPDF.push(uploadedPDF[key])
+      //     newupload_file_path.push(upload_file_path[key])
+      //   }
+      // })
       this.setState({
         uploadedPDF:newuploadedPDF,
         upload_file:newupload_file_path
       })
     }
     render(){
-      let fileList = []
-      _.map(this.state.uploadedPDF,(name, key)=>{
-        fileList.push(
-          <div key={key} style={styles.uploadedPdfBlock}>
-            {name}
-            <i 
-              onClick={()=>{this.deleteAttachment(key)}} 
-              style={styles.crossButton} 
-              className="fa fa-remove">
-            </i>
-          </div>)
-      })
+            let fileList = []
+         _.map(this.state.uploadedPDF,(name, key)=>{
+           fileList.push(
+             <div key={key} style={styles.uploadedPdfBlock}>
+               {name}
+               <i
+                 onClick={()=>{this.deleteAttachment(key)}}
+                 style={styles.crossButton}
+                 className="fa fa-remove">
+               </i>
+             </div>)
+         })
           const actionsCreateTemplate = [
             <FlatButton label="Close" primary={true} onTouchTap={this.handleCloseDialog} style={{marginRight:5}} />,
             <RaisedButton label={_.isEmpty(this.state.templateId) ? "SAVE" : "Update"} primary={true} onClick={this.saveTemplate} />
@@ -697,6 +731,11 @@ class Variables extends React.Component {
         })
     	return(
 				<div className="app-body" id="view" style={{'marginTop':10}}>
+        {/*<div className="row">
+                    <div className="col-12">
+                      <LoadingIcon {...this.props}/>
+                    </div>
+                  </div>*/""}
 					<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
             <Dialog
               title={_.isEmpty(this.state.templateId) ? "Create Template" : "Edit Template"}
@@ -861,7 +900,7 @@ class Variables extends React.Component {
                             <FlatButton label={"Download Preview"} primary={true} style={{"float":'left'}} onClick={(e)=>{this.download_mail_preview(e)}}/>]}
                  modal={false}
                  bodyStyle={{minHeight:'70vh'}}
-                 contentStyle={{maxWidth:'90%',width:"50%",transform: 'translate(0px, 0px)'}}
+                 contentStyle={{maxWidth:'90%',width:"70%",transform: 'translate(0px, 0px)'}}
                  open={this.state.openPreview}
                  onRequestClose={this.closeMailPreview}
                  autoDetectWindowHeight={true}
@@ -873,8 +912,58 @@ class Variables extends React.Component {
                   </div>
                 </div>
                <div id="dialogContent">
+             
+                 
+                <table className="tab1"  style={styles.pdfHeader}>
+                    <tbody>
+                        <tr>
+                            <td style={styles.tab1}>
+                              <p style={styles.para}>Excellence Technologies</p>
+                              <span className="span_bold" style={styles.span_bold}>Salary Statement For the Month of </span></td>
+                            <td style={{borderCollapse: 'collapse',minHeight: '50px',textAlign:'right'}}>
+                              <img className="pull-right" src="Excelogo-black.jpg" height="50px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2" style={styles.tab1} ><hr /></td>
+                        </tr>
+                    </tbody>
+                  </table>
                  <div className="p-t p-b" style={{borderBottom:'1px solid gainsboro',fontWeight:'500'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                  <table style={styles.pdfFooter}>
+                    <tbody>
+                        <tr>
+                            <td colSpan="2">
+                                <div  style={{backgroundColor: '#622423',height:'5px'}}></div>
+                                <div  style={{backgroundColor: '#622423',height:'1px',marginTop:'2px'}}></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Excellence Technosoft Pvt Ltd</b>
+                            </td>
+                            <td style={{textAlign: 'right'}}>
+                                <a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Corp Office:</b> C84-A, Sector 8, Noida, U.P. - 201301
+                            </td>
+                            <td style={{textAlign: 'right'}}>
+                                <b>CIN:</b> U72200DL2010PTC205087
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <b>Regd Office:</b> 328 GAGAN VIHAR IST MEZZAZINE,NEW DELHI-110051
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
@@ -1005,7 +1094,7 @@ class Variables extends React.Component {
                       </button>
                     </div>
                   </form>
-                  
+
                  </div>
                  <div className="col-xs-3">
                    <h5 style={{textAlign:'center', color:'#000'}}>System Variables</h5>

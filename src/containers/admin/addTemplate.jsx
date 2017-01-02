@@ -21,9 +21,13 @@ class TemplateContainer extends React.Component {
         }
     }
     componentWillMount(){
-        this.props.onFetchTemplate()
-        this.props.onFetchVariables()
-        this.props.onUsersList()
+      this.props.onFetchUserSalaryDetails().then(()=>{
+        this.props.onFetchTemplate();
+        this.props.onFetchVariables();
+      })
+
+        // this.props.onUsersList();
+
     }
     componentWillReceiveProps( props ){
 
@@ -71,7 +75,8 @@ function mapStateToProps( state ){
     	  frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         templates : state.template.toJS(),
-        usersList: state.usersList.toJS()
+        //usersList: state.usersList.toJS(),
+        employee: state.empSalaryList.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -79,9 +84,9 @@ const mapDispatchToProps = (dispatch) => {
     	  onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
-        onUsersList: () => {
-          return dispatch(actions_usersList.get_users_list())
-        },
+        // onUsersList: () => {
+        //   return dispatch(actions_usersList.get_users_list())
+        // },
         onFetchTemplate: ()=>{
             return dispatch(actions_templates.get_templates())
         },
@@ -99,6 +104,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDownloadPdf: (template,fileName)=>{
             return dispatch(actions_templates.download_pdf(template,fileName))
+        },
+        onFetchUserSalaryDetails: () =>{
+            return dispatch( actions_salary.fetchUserSalaryDetails())
         }
     }
 }

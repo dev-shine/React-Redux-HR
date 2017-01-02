@@ -141,7 +141,7 @@ class Variables extends React.Component {
       let varVal = this.state.variableValue.toString('html'); //replace(/^\s+|\s+$/gm,'');
       let varType = this.state.variableType.trim();
       let id = this.state.varId;
-      let state = true;
+       let state = true;
 
       var span= document.createElement('span');
       span.innerHTML= varCode;
@@ -170,6 +170,11 @@ class Variables extends React.Component {
       //  varVal = '<img src="Excelogo-black.jpg" height="30" width="160">',
       //  varType = "system",
       //  id = "39";
+      //-------------create new system variables -----------
+      //  let  varCode = "#salary",
+      //  varVal = '',
+      //  varType = "system",
+      //  id = '';
 
       if( state){
         varCode = varCode.toLowerCase();

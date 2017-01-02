@@ -48,6 +48,7 @@ class Menu extends React.Component {
     let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
     let link_my_profile = <Link to='/my_profile'>My Profile</Link>
     let link_salary = <Link to='/salary'>My Salary</Link>
+    let link_policy_documents = <Link to='/policy_documents'>Policy Documents</Link>
 
     //admin
     let link_users_list = <Link to='/home'>Employees Attendance</Link>
@@ -86,6 +87,9 @@ class Menu extends React.Component {
       </li>
       <li className="hidden-folded">
         <span >{link_documents}</span>
+      </li>
+      <li className="hidden-folded">
+        <span >{link_policy_documents}</span>
       </li>
       <li className="hidden-folded">
         <span >{link_logout}</span>

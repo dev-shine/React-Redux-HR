@@ -31,6 +31,16 @@ class Login extends React.Component {
     this.doLogin = this.doLogin.bind(this)
     this.doGuestLogin = this.doGuestLogin.bind(this)
   }
+  componentWillMount(){
+    this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
+      if(msg == "true"){
+        //this.props.router.push('/monthly_attendance');
+        alert('read doc');
+      }else{
+        alert('read all docs');
+      }
+    })
+  }
   componentWillReceiveProps(props) {
     let logged_user = props.logged_user
 
@@ -38,6 +48,7 @@ class Login extends React.Component {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
         this.props.router.push('/home');
       } else {
+        console.log('monthly_attendance');
         this.props.router.push('/monthly_attendance');
       }
     } else {
@@ -134,6 +145,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onIsAlreadyLogin: () => {
       return dispatch(actions_login.isAlreadyLogin())
+    },
+    onIsUserAcceptedDocumentPolicy: () => {
+      return dispatch(actions_login.isUserAcceptedDocumentPolicy())
     }
   }
 }

@@ -33,6 +33,14 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount() {
     this.props.onIsAlreadyLogin()
+    this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
+      if(msg == "true"){
+        //this.props.router.push('/monthly_attendance');
+        alert('read doc');
+      }else{
+        alert('read all docs');
+      }
+    })
     console.log(localStorage.getItem("userid"));
     let user_id = this.props.logged_user.userid;
     this.setState({"defaultUserDisplay": user_id})
@@ -127,6 +135,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.userUpdateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
+    },
+    onIsUserAcceptedDocumentPolicy: () => {
+      return dispatch(actions_login.isUserAcceptedDocumentPolicy())
     }
   }
 }

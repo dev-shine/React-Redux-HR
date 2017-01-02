@@ -282,7 +282,7 @@ class Variables extends React.Component {
 
       let format = 'YYYY-MM-DD';
       let string = templ.name.concat(" ",templ.subject," ", templ.body);
-      let regx = /#[\w\|-]*/g;
+      let regx = /#[\w\/|-]*/g;
       let variables = string.match(regx);
 
       if(variables !== null && variables.length > 0){
@@ -505,7 +505,7 @@ class Variables extends React.Component {
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
-            let regx = /#[\w\|-]*/g;
+            let regx = /#[\w\/|-]*/g;
             let result = string.match(regx);
             let pendingVariables = [];
             if(result !== null && result.length > 0){
@@ -920,7 +920,7 @@ class Variables extends React.Component {
                     </tbody>
                   </table>
                  <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '20px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
-                 <div className="p-t p-b" style={{minheight:'750px'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                 <div className="p-t p-b" style={{height:'750px'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
                   <table style={styles.pdfFooter}>
                     <tbody>
                         <tr>
@@ -1065,6 +1065,7 @@ class Variables extends React.Component {
                       id={"editor"}
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
+                      readOnly={true}
                     />
                   </div>
                   </form>

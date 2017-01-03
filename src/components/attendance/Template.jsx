@@ -125,11 +125,14 @@ const styles = {
     fontSize: '14px',
   },
   pdfFooter: {
-    fontSize:'12px',
-    fontFamily: "sans-serif",
-    width:'100%',
-    bottom:'50px',
-    borderTop:'3px sold',
+    //fontSize:'12px',
+    //fontFamily: "sans-serif",
+    //width:'100%',
+    //bottom:'50px',
+    //borderTop:'3px sold',
+    //marginBottom:'8px'
+    borderTop:'3px solid', 
+    marginBottom:'8px'
   }
 };
 
@@ -160,7 +163,8 @@ class Variables extends React.Component {
           emailValidationError: '',
           upload_file:[],
           uploadedPDF:[],
-          LinearProgressBar:[]
+          LinearProgressBar:[],
+          header:''
         }
 
         this.openCreateTemplate = this.openCreateTemplate.bind(this)
@@ -199,7 +203,12 @@ class Variables extends React.Component {
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-
+              if(props.templates.variable.length !=0){
+                let aa = jQuery.parseHTML(props.templates.variable[7].value)
+                this.setState({
+                  header:aa[0].innerText
+                })
+              }
             }else{
                 this.props.router.push('/home');
             }
@@ -460,6 +469,7 @@ class Variables extends React.Component {
     }
     download_mail_preview(e){
       let fileName = 'mail-preview';
+      console.log($('#dialogContent').html(),"++++++++++++++")
       this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
         var link = document.createElement('a');
         link.href = CONFIG.pdf_url+succ.message;
@@ -901,59 +911,9 @@ class Variables extends React.Component {
                     <LoadingIcon {...this.props}/>
                   </div>
                 </div>
-               <div id="dialogContent">
-
-
-                <table className="tab1"  style={styles.pdfHeader}>
-                    <tbody>
-                        <tr>
-                            <td style={styles.tab1}>
-                              <p style={styles.para}>Excellence Technologies</p>
-                              <span className="span_bold" style={styles.span_bold}> C84-A, Sector 8, Noida, U.P. - 201301 </span></td>
-                            <td style={{borderCollapse: 'collapse',minHeight: '50px',textAlign:'right'}}>
-                              <img className="pull-right" src="Excelogo-black.jpg" height="50px"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2" style={styles.tab1} ><hr /></td>
-                        </tr>
-                    </tbody>
-                  </table>
-                 <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '20px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
-                 <div className="p-t p-b" style={{minheight:'750px'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
-                  <table style={styles.pdfFooter}>
-                    <tbody>
-                        <tr>
-                            <td colSpan="2">
-                                <div  style={{backgroundColor: '#622423',height:'5px'}}></div>
-                                <div  style={{backgroundColor: '#622423',height:'1px',marginTop:'2px'}}></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Excellence Technosoft Pvt Ltd</b>
-                            </td>
-                            <td style={{textAlign: 'right'}}>
-                                <a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Corp Office:</b> C84-A, Sector 8, Noida, U.P. - 201301
-                            </td>
-                            <td style={{textAlign: 'right'}}>
-                                <b>CIN:</b> U72200DL2010PTC205087
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                <b>Regd Office:</b> 328 GAGAN VIHAR IST MEZZAZINE,NEW DELHI-110051
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
+               <div id="dialogContent" style={{'fontFamily':'sans-serif','margin':'1.5cm 0 0','textAlign':'justify'}}>
+                 <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '60px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
               </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>

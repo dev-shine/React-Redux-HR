@@ -320,20 +320,19 @@ class Variables extends React.Component {
                  />
                  </div>
                  <div className={this.state.textArea}>
-                 <TextField
-                  hintText="Write html code for header/footer"
-                  multiLine={true}
-                  rows={2}
-                  textareaStyle={{'height':'200px'}}
-                  rowsMax={100}
-                  fullWidth={true}
-                  value={this.state.variableValue_forTextArea}
-                  onChange={(e)=>{
+                 <textarea 
+                 style={{'width':'100%'}}
+                 placeholder="Write html code for header/footer"
+                 className="form-control" 
+                 rows="4" 
+                 ref="client_address" 
+                 onChange={(e)=>{
                     this.setState({
                       variableValue_forTextArea: e.target.value,
                     });
-                  }}
-                 />
+                  }} 
+                  value={this.state.variableValue_forTextArea}
+                  />
                  </div>
               </div>
               </form>

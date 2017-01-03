@@ -66,16 +66,20 @@ class Variables extends React.Component {
             hintCode:'',
             varCodeError:'',
             variableValue: RichTextEditor.createEmptyValue(),
+            variableValue_forTextArea:'',
             floatingLabelValue:'',
             hintValue:'',
             varValError:'',
-            varId:''
+            varId:'',
+            editor:'show',
+            textArea:'hidden'
         }
         this.openCreateVariable = this.openCreateVariable.bind(this);
         this.saveVariable = this.saveVariable.bind(this);
         this.deleteVariable = this.deleteVariable.bind(this);
         this.editVariable = this.editVariable.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.changeEditor = this.changeEditor.bind(this)
     }
     componentWillMount(){
       /*this.setState({
@@ -110,11 +114,25 @@ class Variables extends React.Component {
     onChange (value){
       this.setState({variableValue: value});
     }
+    changeEditor(e){
+      if(e.target.value == 'textArea'){
+        this.setState({
+          textArea:'show',
+          editor:'hidden'
+        })
+      }else{
+        this.setState({
+          textArea:'hidden',
+          editor:'show'
+        })
+      }
+    }
     openCreateVariable(){
         this.setState({
             variableCode: '',
             varCodeError:'',
             variableValue: RichTextEditor.createEmptyValue(),
+            variableValue_forTextArea: '',
             varValError:'',
             openDialog:true,
             varId:'',
@@ -133,12 +151,19 @@ class Variables extends React.Component {
             varValError:'',
             openDialog:false,
             dialogTitle:'',
-            hintValue:''
+            hintValue:'',
+            textArea:'hidden',
+            editor:'show'
         })
     }
     saveVariable() {
       let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm,'').trim();
-      let varVal = this.state.variableValue.toString('html'); //replace(/^\s+|\s+$/gm,'');
+      let varVal = '';
+      if(this.state.editor == 'show'){
+        varVal = this.state.variableValue.toString('html'); //replace(/^\s+|\s+$/gm,'');
+      }else{
+        varVal = this.state.variableValue_forTextArea;
+      }
       let varType = this.state.variableType.trim();
       let id = this.state.varId;
        let state = true;
@@ -190,14 +215,16 @@ class Variables extends React.Component {
           this.setState({
             variableCode: '',
             variableValue: RichTextEditor.createEmptyValue(),
+            variableValue_forTextArea:'',
             varId:''
           })
         this.gotoVariablePage()
       }).catch( (error) => {
         this.setState({
-          variableCode: '',
-          variableValue:RichTextEditor.createEmptyValue(),
-        })
+            variableCode: '',
+            variableValue:RichTextEditor.createEmptyValue(),
+            variableValue_forTextArea:''
+          })
       })
       }
     }
@@ -206,6 +233,7 @@ class Variables extends React.Component {
             variableCode: data.name,
             varCodeError:'',
             variableValue:RichTextEditor.createValueFromString(data.value, 'html'),
+            variableValue_forTextArea:data.value,
             varValError:'',
             openDialog:true,
             varId:data.id,
@@ -269,12 +297,44 @@ class Variables extends React.Component {
                 />
               </div>
               <div className="form-group" style={styles.formInput}>
+              <RadioButtonGroup name="shipSpeed" defaultSelected="richEditor" onChange={(e)=>{this.changeEditor(e)}}>
+              <RadioButton
+                value="textArea"
+                label="Add header/footer"
+                style={styles.radioButton}
+              />
+              <RadioButton
+                value="richEditor"
+                label="Otherthen header/footer"
+                style={styles.radioButton}
+              />
+              </RadioButtonGroup>
+              </div>
+              <div className="form-group" style={styles.formInput}>
                 <label style={{fontSize:'13px',color:'#BFBFBF'}}>Enter Variable Value</label>
+                <div className={this.state.editor}>
                 <RichTextEditor
                    style={styles.editorStyle}
                    value={this.state.variableValue}
                    onChange={this.onChange}
                  />
+                 </div>
+                 <div className={this.state.textArea}>
+                 <TextField
+                  hintText="Write html code for header/footer"
+                  multiLine={true}
+                  rows={2}
+                  textareaStyle={{'height':'200px'}}
+                  rowsMax={100}
+                  fullWidth={true}
+                  value={this.state.variableValue_forTextArea}
+                  onChange={(e)=>{
+                    this.setState({
+                      variableValue_forTextArea: e.target.value,
+                    });
+                  }}
+                 />
+                 </div>
               </div>
               </form>
             </div>

@@ -201,12 +201,6 @@ class Variables extends React.Component {
             this.props.router.push('/logout');
         }else{
             if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-              if(props.templates.variable.length !=0){
-                let aa = jQuery.parseHTML(props.templates.variable[7].value)
-                this.setState({
-                  header:aa[0].innerText
-                })
-              }
             }else{
                 this.props.router.push('/home');
             }
@@ -468,7 +462,6 @@ class Variables extends React.Component {
     }
     download_mail_preview(e){
       let fileName = 'mail-preview';
-      console.log($('#dialogContent').html(),"++++++++++++++")
       this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
         var link = document.createElement('a');
         link.href = CONFIG.pdf_url+succ.message;
@@ -911,7 +904,7 @@ class Variables extends React.Component {
                   </div>
                 </div>
                 <div id="dialogContent" style={{'fontFamily':'sans-serif','margin':'1.5cm 0 0','textAlign':'justify'}}>
-                  <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '60px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                  <div className="p-t p-b" style={{fontWeight:'600',fontSize:'17px',marginTop: '5px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                   <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
                 </div>
              </Dialog>

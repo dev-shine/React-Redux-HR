@@ -7,7 +7,6 @@ import * as _ from 'lodash'
 import * as actions_login from '../../actions/login/index'
 
 import Day from '../../components/generic/Day'
-import {CONFIG} from '../../config/index'
 import UserDetails from './UserDetails'
 import MonthSummary from './MonthSummary'
 

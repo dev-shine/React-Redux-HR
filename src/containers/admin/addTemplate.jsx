@@ -6,8 +6,9 @@ import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
+import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_salary from '../../actions/salary/index'
-import * as actions_variable from '../../actions/variable'
+import * as actions_templates from '../../actions/admin/templates'
 import Template from '../../components/attendance/Template'
 import { CONFIG } from '../../config/index'
 
@@ -20,7 +21,13 @@ class TemplateContainer extends React.Component {
         }
     }
     componentWillMount(){
-        //this.props.onFetchVariables( )
+      this.props.onFetchUserSalaryDetails().then(()=>{
+        this.props.onFetchTemplate();
+        this.props.onFetchVariables();
+      })
+
+        // this.props.onUsersList();
+
     }
     componentWillReceiveProps( props ){
 
@@ -38,7 +45,6 @@ class TemplateContainer extends React.Component {
     componentDidUpdate(){
     }
     render(){
-    	//let table =(this.state.empList.length>0)? <SalaryList {...this.props} empList={this.state.empList}/>:""
     	return(
     		<div>
             <Menu {...this.props }/>
@@ -52,6 +58,11 @@ class TemplateContainer extends React.Component {
     			       Email Template
     			    </div>
 			    </div>
+                <div className="row no-gutter">
+                    <div className="col-12">
+                        <LoadingIcon {...this.props}/>
+                    </div>
+                </div>
 				</div>
 				<Template {...this.props }/>
     		</div>
@@ -61,14 +72,41 @@ class TemplateContainer extends React.Component {
 }
 function mapStateToProps( state ){
     return {
-    	frontend : state.frontend.toJS(),
-        logged_user : state.logged_user.toJS()
+    	  frontend : state.frontend.toJS(),
+        logged_user : state.logged_user.toJS(),
+        templates : state.template.toJS(),
+        //usersList: state.usersList.toJS(),
+        employee: state.empSalaryList.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-    	onIsAlreadyLogin : () => {
+    	  onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
+        },
+        // onUsersList: () => {
+        //   return dispatch(actions_usersList.get_users_list())
+        // },
+        onFetchTemplate: ()=>{
+            return dispatch(actions_templates.get_templates())
+        },
+        onFetchVariables:()=>{
+            return dispatch(actions_templates.get_variable())
+        },
+        onSaveTemplate: (t_id, t_name, t_subject, t_body) =>{
+          return dispatch(actions_templates.save_templates(t_id, t_name, t_subject, t_body))
+        },
+        onDeleteTemplate: (t_id) =>{
+          return dispatch(actions_templates.delete_template(t_id))
+        },
+        onSendMail: (email) =>{
+          return dispatch(actions_templates.send_mail(email))
+        },
+        onDownloadPdf: (template,fileName)=>{
+            return dispatch(actions_templates.download_pdf(template,fileName))
+        },
+        onFetchUserSalaryDetails: () =>{
+            return dispatch( actions_salary.fetchUserSalaryDetails())
         }
     }
 }

@@ -7,12 +7,12 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
-import * as actions_templates from '../../actions/admin/templates'
+import * as actions_variable from '../../actions/variable'
 import Variables from '../../components/attendance/Variable'
 import { CONFIG } from '../../config/index'
 
 
-class VariablesContainer extends React.Component {
+class PolicyDocumentContainer extends React.Component {
      constructor( props ){
         super( props );
         this.props.onIsAlreadyLogin()
@@ -52,11 +52,6 @@ class VariablesContainer extends React.Component {
     			       Template Variable
     			    </div>
 			    </div>
-                <div className="row no-gutter">
-                    <div className="col-12">
-                        <LoadingIcon {...this.props}/>
-                    </div>
-                </div>
 				</div>
 				<Variables {...this.props }/>
     		</div>
@@ -68,31 +63,31 @@ function mapStateToProps( state ){
     return {
     	frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
-        variable : state.template.toJS()
+        variable : state.variable.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-    	 onIsAlreadyLogin: () => {
+    	onIsAlreadyLogin : () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
-        onFetchVariables: ()=>{
-            return dispatch(actions_templates.get_variable())
+        onFetchVariables:()=>{
+            return dispatch(actions_variable.get_variable())
         },
-        onSaveVariable: (id, variable)=>{
-            return dispatch(actions_templates.saveVariable(id,variable))
+        onSaveVariable:(id,variable)=>{
+            return dispatch(actions_variable.saveVariable(id,variable))
         },
-        onDeleteVariable: (id)=>{
-            return dispatch(actions_templates.deleteVariable(id))
+        onDeleteVariable:(id)=>{
+            return dispatch(actions_variable.deleteVariable(id))
         }
     }
 }
 
-const VisibleVariablesContainer = connect(
+const VisiblePolicyDocumentContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)( VariablesContainer )
+)( PolicyDocumentContainer )
 
-const RouterVisibleVariablesContainer = withRouter( VisibleVariablesContainer )
+const RouterVisiblePolicyDocumentContainer = withRouter( VisiblePolicyDocumentContainer )
 
-export default RouterVisibleVariablesContainer
+export default RouterVisiblePolicyDocumentContainer

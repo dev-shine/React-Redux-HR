@@ -25,6 +25,7 @@ import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
 import Page_ForgotPassword from './containers/user/forgotPassword'
+import Page_PolicyDocument from './containers/user/PolicyDocumentContainer'
 
 //-admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
@@ -38,6 +39,7 @@ import Page_ManagePayslips from './containers/admin/managePayslips'
 import Page_ViewSalary from './containers/admin/viewSalary'
 import Page_DisabledEmployes from './containers/admin/disabledEmployes'
 import Page_UploadAttendance from './containers/admin/uploadAttendance'
+import Page_UploadPolicyDocument from './containers/admin/uploadPolicyDocument'
 
 //-user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
@@ -151,6 +153,8 @@ let render = (routerKey = null) => {
             <Route path="documents" component={Page_MyDocuments}/>
             <Route path="uploadAttendance" component={Page_UploadAttendance}/>
             <Route path="view_salary" component={Page_ViewSalary}/>
+            <Route path="policy_documents" component={Page_PolicyDocument}/>
+            <Route path="upload_policy_documents" component={Page_UploadPolicyDocument}/>
           </Route>
         </Router>
       </Provider>

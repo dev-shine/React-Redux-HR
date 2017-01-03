@@ -175,7 +175,7 @@ export function forgotPassword( username ){
 
 function async_isUserAcceptedDocumentPolicy(){
 	return fireAjax( 'POST', '', {
-		'action' : 'checkPolicyDocument',
+		action: 'get_user_document'
 	})
 }
 
@@ -186,7 +186,8 @@ export function isUserAcceptedDocumentPolicy(){
 			// dispatch( show_loading() ); // show loading icon
 			// async_isUserAcceptedDocumentPolicy().then(
 			// 	( json ) => {
-			// 		dispatch( hide_loading() ) // hide loading icon
+			// 		console.log('====',json);
+			// 		dispatch( hide_loading()) // hide loading icon
 			// 		if( typeof json.error != 'undefined' && json.error == 0 ){
 			// 			//dispatch( success_forgot_password( json.data.message ) )
 			// 			resolve( json.data.message )
@@ -196,6 +197,7 @@ export function isUserAcceptedDocumentPolicy(){
 			// 		}
 			// 	},
 			// 	( error ) =>{
+			// 		console.log('******',error);
 			// 		dispatch( hide_loading() ) // hide loading icon
 			// 		//dispatch( error_forgot_password( 'error occurs') )
 			// 		reject( 'error occurs' )

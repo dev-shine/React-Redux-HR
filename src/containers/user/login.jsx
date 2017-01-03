@@ -35,9 +35,9 @@ class Login extends React.Component {
     this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
       if(msg == "true"){
         //this.props.router.push('/monthly_attendance');
-        alert('read doc');
+        //alert('read doc');
       }else{
-        alert('read all docs');
+        //alert('read all docs');
       }
     })
   }

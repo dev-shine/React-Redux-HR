@@ -60,11 +60,12 @@ class Menu extends React.Component {
     let link_manage_salary = <Link to='/manage_salary'>Salaries</Link>
     let link_manage_users = <Link to='/manage_users'>Profile</Link>
     let link_manage_clients = <Link to='/manage_clients'>Manage Clients</Link>
-    let link_manage_payslips = <Link to='/manage_payslips'>
-      Payslips</Link>
+    let link_manage_payslips = <Link to='/manage_payslips'>Payslips</Link>
     let link_documents = <Link to='/documents'>My Documents</Link>
     let link_view_salary = <Link to='/view_salary'>View Salary</Link>
     let link_disabled_employes = <Link to='/disabled_employes'>Disable Employee</Link>
+    let link_Upload_policy_document = <Link to='/upload_policy_documents'>Upload Documents</Link>
+    let link_user_policy_document = <Link to='/user_policy_documents'>User Policy Documents</Link>
 
     let links_to_show = <ul className="nav">
       <li className="hidden-folded">
@@ -231,6 +232,31 @@ class Menu extends React.Component {
                 'fontSize': 11,
                 'fontWeight': 600
               }}>{link_manage_payslips}</span>
+            </li>
+          </ul>
+        </li>
+        <li id="PolicyDocs" onClick={() => {
+          let p = "PolicyDocs";
+          this.click(p)
+        }} className="">
+          <a>
+            <span className="nav-caret text-muted">
+              <i className="fa fa-caret-down"></i>
+            </span>
+            <span className="nav-text">Policy Documents</span>
+          </a>
+          <ul className="nav-sub">
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_Upload_policy_document}</span>
+            </li>
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_user_policy_document}</span>
             </li>
           </ul>
         </li>

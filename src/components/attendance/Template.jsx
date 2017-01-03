@@ -105,12 +105,10 @@ const styles = {
   pdfHeader: {
     width: '100%',
     borderCollapse: 'collapse',
-    //padding:'2px 10px',
     minHeight: '50px'
   },
   tab1: {
     borderCollapse: 'collapse',
-    //padding:'2px 10px',
     minHeight: '50px'
   },
   para: {
@@ -214,7 +212,8 @@ class Variables extends React.Component {
             }
         }
         this.setState({
-          usersList: props.usersList.users,
+          //usersList: props.usersList.users,
+          usersList: props.employee.employee,
         })
     }
     componentDidUpdate(){
@@ -282,16 +281,14 @@ class Variables extends React.Component {
       });
 
       if(this.state.recipient.length > 0){
-        this.state.usersList.map((user)=>{
-          if(user.user_Id == this.state.recipient[0].user_Id){
-            recipient = user;
-          }
-        });
+        let id = this.state.recipient[0].user_Id;
+        recipient = _.find(this.state.usersList, function(o) { return o.user_Id == id });
       }
+
 
       let format = 'YYYY-MM-DD';
       let string = templ.name.concat(" ",templ.subject," ", templ.body);
-      let regx = /#[\w\|-]*/g;
+      let regx = /#[\w\/|-]*/g;
       let variables = string.match(regx);
 
       if(variables !== null && variables.length > 0){
@@ -333,6 +330,8 @@ class Variables extends React.Component {
                    value = recipient.jobtitle
                  }else if(variable.name == '#employee_name'){
                    value = recipient.name
+                 }else if(variable.name == '#salary'){
+                   value = recipient.salary_detail
                  }
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
@@ -400,7 +399,7 @@ class Variables extends React.Component {
       $('#' + front).toggle()
     }
     filterList(searchText){
-      let usersList = this.props.usersList.users,
+      let usersList = this.props.employee.employee,//this.props.usersList.users,
           list = [];
       usersList.map((user)=>{
         if(user.name.toLowerCase().indexOf(searchText) !== -1){
@@ -515,7 +514,7 @@ class Variables extends React.Component {
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
-            let regx = /#[\w\|-]*/g;
+            let regx = /#[\w\/|-]*/g;
             let result = string.match(regx);
             let pendingVariables = [];
             if(result !== null && result.length > 0){
@@ -702,7 +701,7 @@ class Variables extends React.Component {
           recipient = this.state.bcc;
         }
 
-        this.state.usersList.map((user, i)=>{
+        _.map(this.state.usersList, (user, i)=>{
           let check = false;
           if(_.filter(recipient, _.matches({user_Id:user.user_Id })).length > 0) {
             check = true;
@@ -911,10 +910,10 @@ class Variables extends React.Component {
                     <LoadingIcon {...this.props}/>
                   </div>
                 </div>
-               <div id="dialogContent" style={{'fontFamily':'sans-serif','margin':'1.5cm 0 0','textAlign':'justify'}}>
-                 <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '60px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
-                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
-              </div>
+                <div id="dialogContent" style={{'fontFamily':'sans-serif','margin':'1.5cm 0 0','textAlign':'justify'}}>
+                  <div className="p-t p-b" style={{fontWeight:'600',fontSize:'18px',marginTop: '60px',textAlign:'center','textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                  <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
+                </div>
              </Dialog>
                  <div className="col-xs-9" style={{borderRight:'1px solid gainsboro'}}>
                    <form className="form-inline">
@@ -1025,6 +1024,7 @@ class Variables extends React.Component {
                       id={"editor"}
                       value={this.state.templateBody}
                       onChange={this.handleContentChange}
+                      readOnly={true}
                     />
                   </div>
                   </form>

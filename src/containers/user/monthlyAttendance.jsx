@@ -1,15 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
+
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
+import * as actions_policy from '../../actions/policyDocuments/index'
+
 import {CONFIG} from '../../config/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
@@ -70,12 +72,12 @@ class MonthlyAttendance extends React.Component {
   }
   render() {
     let mainDivs = <div className="row">
+                      <div className="col-md-1"></div>
+                      <div className="col-md-10">
+                        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
+                      </div>
+                   </div>
 
-      <div className="col-md-1"></div>
-      <div className="col-md-10">
-        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
-      </div>
-    </div>
     return (
       <div >
         <Menu {...this.props}/>
@@ -137,7 +139,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions_userDaySummary.userUpdateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
     },
     onIsUserAcceptedDocumentPolicy: () => {
-      return dispatch(actions_login.isUserAcceptedDocumentPolicy())
+      return dispatch(actions_policy.isUserAcceptedDocumentPolicy())
     }
   }
 }

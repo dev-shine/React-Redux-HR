@@ -24,10 +24,11 @@ import { manageClients } from './admin/manageClients'
 import { managePayslips } from './admin/managePayslips'
 import { empSalaryList } from './admin/empSalaryDetails'
 import {variable} from './admin/variable'
+import {policyDocuments} from './admin/policyDocuments'
 
 
 export default combineReducers({
-	frontend,
+		frontend,
     logged_user,
     monthlyAttendance,
     attendanceSummary,
@@ -50,5 +51,6 @@ export default combineReducers({
     manageClients,
     managePayslips,
     empSalaryList,
-    variable
+    variable,
+		policyDocuments
 })

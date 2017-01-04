@@ -25,7 +25,7 @@ import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
 import Page_Logout from './containers/user/logout'
 import Page_ForgotPassword from './containers/user/forgotPassword'
-import Page_PolicyDocument from './containers/user/PolicyDocumentContainer'
+import Page_PolicyDocument from './containers/user/PolicyDocument'
 
 //-admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'

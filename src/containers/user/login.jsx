@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as actions_login from '../../actions/login/index'
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 import { CONFIG } from '../../config/index'
@@ -32,14 +33,14 @@ class Login extends React.Component {
     this.doGuestLogin = this.doGuestLogin.bind(this)
   }
   componentWillMount(){
-    this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
-      if(msg == "true"){
-        //this.props.router.push('/monthly_attendance');
-        //alert('read doc');
-      }else{
-        //alert('read all docs');
-      }
-    })
+    // this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
+    //   if(msg == "true"){
+    //     //this.props.router.push('/monthly_attendance');
+    //     //alert('read doc');
+    //   }else{
+    //     //alert('read all docs');
+    //   }
+    // })
   }
   componentWillReceiveProps(props) {
     let logged_user = props.logged_user
@@ -147,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions_login.isAlreadyLogin())
     },
     onIsUserAcceptedDocumentPolicy: () => {
-      return dispatch(actions_login.isUserAcceptedDocumentPolicy())
+      return dispatch(actions_policy.fetchPolicyDocument())
     }
   }
 }

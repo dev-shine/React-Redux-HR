@@ -6,9 +6,8 @@ import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
-import * as actions_salary from '../../actions/salary/index'
-import * as actions_variable from '../../actions/variable'
-import Variables from '../../components/attendance/Variable'
+import * as actions_policy from '../../actions/policyDocuments/index'
+import DocumentsList from '../../components/policyDocuments/documentsList'
 import { CONFIG } from '../../config/index'
 
 
@@ -17,10 +16,18 @@ class PolicyDocumentContainer extends React.Component {
         super( props );
         this.props.onIsAlreadyLogin()
         this.state = {
+          docs:[
+            {id:"111", name:"Policy document 1", link:"http://www.material-ui.com/#/components/card", unread:0},
+            {id:"112", name:"Policy document 2", link:"http://www.material-ui.com/#/components/card", unread:0},
+            {id:"113", name:"Policy document 3", link:"http://www.material-ui.com/#/components/card", unread:1},
+            {id:"114", name:"Policy document 4", link:"http://www.material-ui.com/#/components/card", unread:0},
+          ],
         }
     }
     componentWillMount(){
-      this.props.onIsUserAcceptedDocumentPolicy()
+      // this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
+      //   console.log(msg);
+      // })
     }
     componentWillReceiveProps( props ){
 
@@ -47,7 +54,7 @@ class PolicyDocumentContainer extends React.Component {
     			    </div>
 			    </div>
 				</div>
-				gfhfghfg
+				<DocumentsList docs={this.state.docs} {...this.props} />
     		</div>
     		</div>
     		)
@@ -65,7 +72,10 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch( actions_login.isAlreadyLogin())
         },
         onIsUserAcceptedDocumentPolicy: () => {
-          return dispatch(actions_login.isUserAcceptedDocumentPolicy())
+          return dispatch(actions_policy.isUserAcceptedDocumentPolicy())
+        },
+        onUpdateReadStatus: (doc_id)=>{
+          return dispatch(actions_policy.updateReadStatus())
         }
     }
 }

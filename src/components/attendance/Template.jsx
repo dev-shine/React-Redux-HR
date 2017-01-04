@@ -232,10 +232,12 @@ class Variables extends React.Component {
           })
       if(!_.isEmpty(t_name) && !_.isEmpty(t_subject) && !_.isEmpty(t_body)){
         this.props.onSaveTemplate(t_id, t_name, t_subject, t_body).then((succ)=>{
-          alert(succ)
+          //alert(succ)
+          this.showError('mailsentsuccessfully',succ);
           this.handleCloseDialog();
         }).catch((err)=>{
-          alert(err)
+          //alert(err)
+          this.showError('previewalert',err);
         })
       }
     }
@@ -253,17 +255,29 @@ class Variables extends React.Component {
         this.props.onDeleteTemplate(tmp.id).then(()=>{
 
         }).catch((err)=>{
-          alert(err)
+          this.showError('previewalert',err);
         })
       }
     }
     replaceVariablesWithValue(templ, str, value){
-      // templ.name = templ.name.split(str).join(value);
-      // templ.subject = templ.subject.split(str).join(value);
-      // templ.body = templ.body.split(str).join(value);
+      if(value != undefined){
+      if(value.indexOf("<p>") > -1){
+        let no_lines = value.split("\n").length;
+        if(no_lines > 1){
+          value = value.replace(/<p/img, "<div");
+          value = value.replace(/<\/p/img, "</div");
+        }else{
+          value = value.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
+        }
+        //value = value.replace(/<p/img, "<div");
+        //value = value.replace(/<\/p/img, "</div");
+        //value = value.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
+        //console.log(ss,"replaced value")
+      }
       templ.name = _.replace(templ.name, str, value);
       templ.subject = _.replace(templ.subject, str, value);
       templ.body = _.replace(templ.body, str, value);
+    }
       return templ;
     }
     applyVariables(templateId){
@@ -326,6 +340,12 @@ class Variables extends React.Component {
                    value = recipient.name
                  }else if(variable.name == '#salary'){
                    value = recipient.salary_detail
+                 }else if(variable.name == '#employee_user_name'){
+                   value = recipient.username
+                 }else if(variable.name == '#employee_email_id'){
+                   value = recipient.work_email
+                 }else if(variable.name == '#page_break'){
+                   value = "<div style='page-break-after:always;'></div>"
                  }
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
@@ -514,9 +534,11 @@ class Variables extends React.Component {
               state = false;
               error = "Please put all variable's value";
               result = _.uniq(result);
-
               result.map((str)=>{
-                 pendingVariables.push({name:str});
+                 let start_pos = str.indexOf('|') + 1;
+                 let end_pos = str.indexOf('|',start_pos);
+                 let defaultValue = str.substring(start_pos,end_pos)
+                 pendingVariables.push({name:str,value:defaultValue});
                });
                this.setState({
                  pValue: pendingVariables,
@@ -839,7 +861,7 @@ class Variables extends React.Component {
                               <span className="pull-right" style={{fontSize:'13px',fontStyle:'italic',color:'#000',cursor:'pointer',padding:'5px 10px'}} onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>
                               <div id={tmp.id+"_menuBack"} className="dropdown-backdrop-custom" style={{'display':'none','opacity':0.5}} onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}></div>
                               <div id={tmp.id+"_menu"} className="menuOptions" onClick={()=>this.toggleDialog(tmp.id+"_menuBack",tmp.id+"_menu")}>
-                                <span className="b-b" onClick={()=>this.forwardTemplate(tmp)} ><i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" title="forword"></i>Forword Mail</span>
+                                <span className="b-b" onClick={()=>this.forwardTemplate(tmp)} ><i className="fa fa-share tempalate-btn forward-mail" aria-hidden="true" title="forword"></i>Forward Mail</span>
                                 <span className="b-b" onClick={()=>this.editTemplate(tmp)} ><i className="fa fa-pencil-square-o tempalate-btn edit" aria-hidden="true" title="Edit"></i>Edit Template</span>
                                 <span className="b-b" onClick={()=>this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                               </div>

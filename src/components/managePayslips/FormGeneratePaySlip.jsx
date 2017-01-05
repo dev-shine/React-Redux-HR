@@ -427,16 +427,27 @@ class FormGeneratePaySlip extends React.Component {
           <br/>
 
           <div className="row  p-t">
-            <div className="col-xs-6 p-r">
+            <div className="col-xs-4 p-r">
               <input type="submit" value="Create Payslip" className="col-xs-12 md-btn md-raised indigo"/>
             </div>
-            <div className="col-xs-6 p-r">
+            <div className="col-xs-4 p-r">
               <button type="button" className="col-xs-12 md-btn md-raised info" onClick={() => {
                 let s = this.state;
-                s.send_email = 1;
-                this.props.callCreateUserPayslip(this.state)
+                s.send_email_only = 1;
+                s.send_slack_message = 0;
+                this.props.callCreateUserPayslip(s)
               }}>
                 Create & Email Payslip
+              </button>
+            </div>
+            <div className="col-xs-4 p-r">
+              <button type="button" className="col-xs-12 md-btn md-raised info" onClick={() => {
+                let s = this.state;
+                s.send_email_only = 0;
+                s.send_slack_message = 1;
+                this.props.callCreateUserPayslip(s)
+              }}>
+                create and send slack message
               </button>
             </div>
           </div>

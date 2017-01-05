@@ -86,7 +86,7 @@ export function error_create_user_salary_slip(data) {
   return createAction(ACTION_ERROR_CREATE_USER_SALARY_SLIP)(data)
 }
 
-function async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designation, n_joining_date, n_total_working_days, n_days_present, n_paid_leaves, n_unpaid_leaves, n_total_leave_taken, n_allocated_leaves, n_leave_balance, n_final_leave_balance, n_basic, n_epf, n_hra, n_loan, n_conveyance, n_advance, n_medical_allowance, n_misc_deduction, n_misc_deduction_2, n_special_allowance, n_tds, n_arrear, n_bonus, n_total_earning, n_total_deduction, n_net_salary, n_send_email) {
+function async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designation, n_joining_date, n_total_working_days, n_days_present, n_paid_leaves, n_unpaid_leaves, n_total_leave_taken, n_allocated_leaves, n_leave_balance, n_final_leave_balance, n_basic, n_epf, n_hra, n_loan, n_conveyance, n_advance, n_medical_allowance, n_misc_deduction, n_misc_deduction_2, n_special_allowance, n_tds, n_arrear, n_bonus, n_total_earning, n_total_deduction, n_net_salary, n_send_email,send_slack_msg) {
 
   return fireAjax('POST', '', {
     action: 'create_employee_salary_slip',
@@ -120,7 +120,8 @@ function async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designat
     total_earning: n_total_earning,
     total_deduction: n_total_deduction,
     net_salary: n_net_salary,
-    send_email: n_send_email
+    send_email: n_send_email,
+    send_slack_msg:send_slack_msg
   })
 }
 
@@ -157,6 +158,7 @@ export function create_user_payslip(new_salary_slip_data) {
     let n_total_deduction = ""
     let n_net_salary = ""
     let n_send_email = ""
+    let send_slack_msg = ""
 
     if (typeof new_salary_slip_data.user_id == 'undefined' || new_salary_slip_data.user_id == '') {
       return Promise.reject('User Id is empty')
@@ -338,13 +340,16 @@ export function create_user_payslip(new_salary_slip_data) {
       n_net_salary = new_salary_slip_data.net_salary
     }
 
-    if (typeof new_salary_slip_data.send_email != 'undefined') {
-      n_send_email = new_salary_slip_data.send_email
+    if (typeof new_salary_slip_data.send_email_only != 'undefined') {
+      n_send_email = new_salary_slip_data.send_email_only
+    }
+    if (typeof new_salary_slip_data.send_slack_message != 'undefined') {
+      send_slack_msg = new_salary_slip_data.send_slack_message
     }
 
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designation, n_joining_date, n_total_working_days, n_days_present, n_paid_leaves, n_unpaid_leaves, n_total_leave_taken, n_allocated_leaves, n_leave_balance, n_final_leave_balance, n_basic, n_epf, n_hra, n_loan, n_conveyance, n_advance, n_medical_allowance, n_misc_deduction, n_misc_deduction_2, n_special_allowance, n_tds, n_arrear, n_bonus, n_total_earning, n_total_deduction, n_net_salary, n_send_email).then((json) => {
+      async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designation, n_joining_date, n_total_working_days, n_days_present, n_paid_leaves, n_unpaid_leaves, n_total_leave_taken, n_allocated_leaves, n_leave_balance, n_final_leave_balance, n_basic, n_epf, n_hra, n_loan, n_conveyance, n_advance, n_medical_allowance, n_misc_deduction, n_misc_deduction_2, n_special_allowance, n_tds, n_arrear, n_bonus, n_total_earning, n_total_deduction, n_net_salary, n_send_email,send_slack_msg).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
           //dispatch( success_create_user_salary_slip( json.data ) )

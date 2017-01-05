@@ -15,31 +15,27 @@ import { CONFIG } from '../../config/index'
 class PolicyDocumentContainer extends React.Component {
      constructor( props ){
         super( props );
-        this.props.onIsAlreadyLogin()
+        this.props.onIsAlreadyLogin();
         this.state = {
-          docs:[
-            {id:"111", name:"Policy document 1", link:"http://www.material-ui.com/#/components/card", unread:0},
-            {id:"112", name:"Policy document 2", link:"http://www.material-ui.com/#/components/card", unread:0},
-            {id:"113", name:"Policy document 3", link:"http://www.material-ui.com/#/components/card", unread:1},
-            {id:"114", name:"Policy document 4", link:"http://www.material-ui.com/#/components/card", unread:0},
-          ],
-          userDoc:['bvnvbn']
+          docs:[],
         }
     }
     componentWillMount(){
-      this.props.onFetchPolicyDocument();
-      this.props.onMyProfileDetails();
+      this.props.onFetchUserPolicyDocument();
     }
     componentWillReceiveProps( props ){
       //window.scrollTo(0, 0);
+      console.log('this.props.policy_documents',props.policy_documents);
       if (props.logged_user.logged_in == -1) {
         this.props.router.push('/logout');
       } else {
-        _.map(props.policy_documents.policyDocuments,(doc)=>{
-          if(!_.includes(this.state.userDoc,doc.name)){
+        let unread = _.find(props.policy_documents.policyDocuments, function(o) { return o.read == 0; });
+        console.log('unread',unread);
+        //_.map(props.policy_documents.policyDocuments,(doc)=>{
+          if(unread.length > 0){
             //this.props.router.push('/policy_documents');
           }
-        });
+        //});
       }
       this.setState({
         docs:props.policy_documents.policyDocuments,
@@ -48,7 +44,7 @@ class PolicyDocumentContainer extends React.Component {
     componentDidUpdate(){
     }
     render(){
-      console.log('-------------------');
+
     	return(
     		<div>
             <Menu {...this.props }/>
@@ -73,7 +69,6 @@ function mapStateToProps( state ){
     return {
     	frontend : state.frontend.toJS(),
       logged_user : state.logged_user.toJS(),
-      myProfile: state.myProfile.toJS(),
       policy_documents: state.policyDocuments.toJS(),
     }
 }
@@ -82,11 +77,8 @@ const mapDispatchToProps = (dispatch) => {
     	  onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin())
         },
-        onFetchPolicyDocument: ()=>{
-          return dispatch(actions_policy.fetchPolicyDocument());
-        },
-        onMyProfileDetails: () => {
-          return dispatch(actions_myProfile.getMyProfileDetails())
+        onFetchUserPolicyDocument: ()=>{
+          return dispatch(actions_policy.fetchUserPolicyDocument());
         },
         onUpdateReadStatus: (doc_id)=>{
           return dispatch(actions_policy.updateReadStatus())

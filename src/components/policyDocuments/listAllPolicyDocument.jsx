@@ -37,7 +37,6 @@ class ListAllPolicyDocument extends React.Component {
 
     }
     deleteDocument(position){
-      //_.pullAllBy(this.props.policyDocuments, [{ 'x': 1 }, { 'x': 3 }], 'x');
       let newList = _.pullAt(this.state.policyDocuments, [position]);
       this.props.onSubmitDocs(newList).then(()=>{
         alert("deleted");

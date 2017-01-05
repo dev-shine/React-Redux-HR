@@ -18,7 +18,7 @@ export function error_fetch_policy_documents( data ){
 	return createAction( ACTION_POLICY_DOCUMENT_FAIL )( data )
 }
 
-
+//-------------get policy documents for admin section-------------
 function async_fetchPolicyDocument(){
 	return fireAjax( 'POST', '', {
 		action: 'get_policy_document'
@@ -48,7 +48,45 @@ export function fetchPolicyDocument(){
 		})
 	}
 }
+//-----------get policy documents for user-----------------
+function async_fetchUserPolicyDocument(){
+	return fireAjax( 'POST', '', {
+		action: 'get_user_policy_document'
+	})
+}
 
+export function fetchUserPolicyDocument(){
+	return function (dispatch, getState){
+		return new Promise((resolve, reject) => {
+			dispatch( show_loading() ); // show loading icon
+			async_fetchUserPolicyDocument().then(
+				( json ) => {
+          console.log('typeof json.error != "undefined"',typeof json.error != 'undefined','json.error == 0',json.error == 0);
+					dispatch( hide_loading()) // hide loading icon
+					if( typeof json.error != 'undefined' || json.error == 0 ){
+            console.log('async_fetchUserPolicyDocument',json);
+						dispatch( success_fetch_user_policy_documents( json.data ) )
+						resolve()
+					}else{
+						dispatch( error_fetch_user_policy_documents( json.data.message ) )
+						reject( json.data.message )
+					}
+				},
+				( error ) =>{
+					dispatch( hide_loading() ) // hide loading icon
+					reject( 'error occurs' )
+				}
+			)
+		})
+	}
+}
+
+export function success_fetch_user_policy_documents( data ){
+	return createAction( ACTION_POLICY_DOCUMENT_SUCCESS )( data )
+}
+export function error_fetch_user_policy_documents( data ){
+	return createAction( ACTION_POLICY_DOCUMENT_FAIL )( data )
+}
 //-----------Submit policy document info-----------
 
 function async_submitDocs(docs){

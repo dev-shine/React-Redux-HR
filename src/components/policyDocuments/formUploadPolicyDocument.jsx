@@ -162,7 +162,7 @@ class FormUploadPolicyDocument extends React.Component {
             </div>
           {this.state.docs.length > 0 ?
             _.map(this.state.docs,(doc, i)=>(
-              <div className="m-b p-l" style={{overflow:'hidden',textOverflow:'ellipsis'}}>
+              <div className="m-b p-l" key={i} style={{overflow:'hidden',textOverflow:'ellipsis'}}>
                 <div><strong>Name :</strong><span>{doc.name}</span></div>
                 <div><strong>Link :</strong><span>{doc.link}</span></div>
               </div>

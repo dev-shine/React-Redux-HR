@@ -25,17 +25,10 @@ class PolicyDocumentContainer extends React.Component {
     }
     componentWillReceiveProps( props ){
       //window.scrollTo(0, 0);
-      console.log('this.props.policy_documents',props.policy_documents);
       if (props.logged_user.logged_in == -1) {
         this.props.router.push('/logout');
       } else {
-        let unread = _.find(props.policy_documents.policyDocuments, function(o) { return o.read == 0; });
-        console.log('unread',unread);
-        //_.map(props.policy_documents.policyDocuments,(doc)=>{
-          if(unread.length > 0){
-            //this.props.router.push('/policy_documents');
-          }
-        //});
+
       }
       this.setState({
         docs:props.policy_documents.policyDocuments,
@@ -47,22 +40,22 @@ class PolicyDocumentContainer extends React.Component {
 
     	return(
     		<div>
-            <Menu {...this.props }/>
-    		<div id="content" className="app-content box-shadow-z0" role="main">
-    		  <div className="app-header white box-shadow">
-                <div className="navbar">
-    			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      				   <i className="material-icons">&#xe5d2;</i>
-    				</a>
-    			    <div className="navbar-item pull-left h5" id="pageTitle">
-    			       Policy Documents
+          <Menu {...this.props }/>
+      		<div id="content" className="app-content box-shadow-z0" role="main">
+      		  <div className="app-header white box-shadow">
+              <div className="navbar">
+      			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+        				   <i className="material-icons">&#xe5d2;</i>
+      				  </a>
+      			    <div className="navbar-item pull-left h5" id="pageTitle">
+      			       Policy Documents
+      			    </div>
     			    </div>
-			    </div>
-				</div>
-				<DocumentsList policyDocuments={this.state.docs} {...this.props} />
+    				</div>
+    				<DocumentsList policyDocuments={this.state.docs} {...this.props} />
+      		</div>
     		</div>
-    		</div>
-    		)
+    	)
     }
 }
 function mapStateToProps( state ){
@@ -80,8 +73,8 @@ const mapDispatchToProps = (dispatch) => {
         onFetchUserPolicyDocument: ()=>{
           return dispatch(actions_policy.fetchUserPolicyDocument());
         },
-        onUpdateReadStatus: (doc_id)=>{
-          return dispatch(actions_policy.updateReadStatus())
+        onUpdateReadStatus: (updateDoc)=>{
+          return dispatch(actions_policy.updateReadStatus(updateDoc))
         }
     }
 }

@@ -9,7 +9,6 @@ let initialState = {
 export function policyDocuments( state = Immutable.fromJS(initialState), action ){
 
 	if( action.type == 'ACTION_POLICY_DOCUMENT_SUCCESS' ){
-    console.log('action.payload',action.payload);
         return state.set( 'policyDocuments' , action.payload )
 
     }else if( action.type == 'ACTION_POLICY_DOCUMENT_FAIL' ){

@@ -11,6 +11,7 @@ import HolidaysList from '../../components/attendance/HolidaysList'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_holidaysList from '../../actions/user/holidaysList'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 class Holidays extends React.Component {
   constructor(props) {
@@ -18,13 +19,19 @@ class Holidays extends React.Component {
     this.props.onIsAlreadyLogin()
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     this.props.onHolidaysList()
   }
   componentWillReceiveProps(props) {
     //window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
-    } else {}
+    } else {
+      let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+      if(unread.length > 0){
+        this.props.router.push('/policy_documents');
+      }
+    }
   }
   render() {
 
@@ -70,7 +77,12 @@ class Holidays extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), holidaysList: state.holidaysList.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    holidaysList: state.holidaysList.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -79,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onHolidaysList: () => {
       return dispatch(actions_holidaysList.get_holidays_list())
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   }
 }

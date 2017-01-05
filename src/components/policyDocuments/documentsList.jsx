@@ -19,29 +19,18 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import { CONFIG } from '../../config/index'
 
 const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  lable:{
-    fontWeight:'normal',
-    fontSize:15
-  },
-  container: {
-    position: 'relative',
-    textAlign:'center',
-    paddingTop:'200px'
-  },
-  formInput:{
+  errorAlert: {
     "marginLeft": "5%",
     "marginRight": "5%",
-    "width": "60%"
+    "width": "90%",
+    "display":"none",
   },
-};
-
+}
 class DocumentsList extends React.Component {
      constructor( props ){
         super( props );
         this.state = {
+          policyDocuments: [],
         };
         this.updateReadStatus = this.updateReadStatus.bind(this);
     }
@@ -49,20 +38,52 @@ class DocumentsList extends React.Component {
 
     }
     componentWillReceiveProps( props ){
-
+      this.setState({
+        policyDocuments: props.policyDocuments,
+      });
     }
     componentDidUpdate(){
 
     }
-    updateReadStatus(doc_id, e){
-      this.props.onUpdateReadStatus(doc_id)
+    showError(id, errorMsg){
+      $('#'+id+ " span").remove();
+      $('#'+id).fadeIn().append("<span>"+errorMsg+"<span>")
     }
+    hideError(e, id){
+      e.preventDefault();
+      $('#'+id).fadeOut(0);
+      $('#'+id+ " span").remove();
+    }
+    updateReadStatus(doc, e){
+      let updateDoc = [];
+      _.map(this.state.policyDocuments,(document, i)=>{
+        if(document.read !== 0){
+          updateDoc.push(document.name);
+        }
+      });
+      updateDoc.push(doc.name);
+
+      this.props.onUpdateReadStatus(updateDoc)
+      .then((updated)=>{
+        this.showError('updateSuccessful',updated);
+      })
+      .catch((err)=>{
+        this.showError('updateFailed',err);
+      })
+    }
+
     render(){
+      console.log('this.state',this.state);
     	return(
         <div className="app-body" id="view" style={{'marginTop':10}}>
           <div className="row">
             <div className="col-12">
               <LoadingIcon {...this.props}/>
+            </div>
+          </div>
+          <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
+            <div id="mailsentsuccessfully" className="alert alert-success pull-left" style={styles.errorAlert}>
+              <a href="#" className="close" onClick={(e)=>this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
             </div>
           </div>
 					<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
@@ -73,13 +94,13 @@ class DocumentsList extends React.Component {
                      title="Policy Documents List"
                    />
                  </Card>
-                 {_.map(this.props.policyDocuments, (doc, i) => (
+                 {_.map(this.state.policyDocuments, (doc, i) => (
                    <Card key={i}>
                      <CardHeader
                        title={doc.name}
-                       subtitle={<a href={doc.link} target="_blanck" onClick={(e)=>{this.updateReadStatus(doc.id, e)}}>{doc.link}</a>}
+                       subtitle={<a href={doc.link} target="_blanck" onClick={()=>{this.updateReadStatus(doc)}}>{doc.link}</a>}
                        style={{marginTop:'10px'}}
-                       titleStyle={{color:doc.unread ? '#000' : 'rgba(125, 137, 230, 0.84)', fontSize:'18px'}}
+                       titleStyle={{color:doc.read ? 'rgba(125, 137, 230, 0.84)' : '#000' , fontSize:'18px'}}
                      />
                    </Card>
                  ))

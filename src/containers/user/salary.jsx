@@ -10,6 +10,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import SalaryDetails from '../../components/salary/SalaryDetails'
 import SalaryHistory from '../../components/salary/SalaryHistory'
@@ -31,6 +32,7 @@ class Salary extends React.Component {
   }
   componentDidMount() {}
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps(props) {
@@ -39,6 +41,11 @@ class Salary extends React.Component {
     } else {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
+      }else{
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       }
     }
 
@@ -137,7 +144,12 @@ Salary.styles = {
 };
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), salary: state.salary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    salary: state.salary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -146,7 +158,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails())
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

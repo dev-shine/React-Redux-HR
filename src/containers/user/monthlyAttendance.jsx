@@ -37,8 +37,7 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount() {
     this.props.onIsAlreadyLogin()
-    this.props.onFetchPolicyDocument();
-    this.props.onMyProfileDetails();
+    this.props.onFetchUserPolicyDocument();
 
     let user_id = this.props.logged_user.userid;
     this.setState({"defaultUserDisplay": user_id})
@@ -56,13 +55,10 @@ class MonthlyAttendance extends React.Component {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
       }else{
-        _.map(props.policy_documents.policyDocuments,(doc)=>{
-          console.log('MonthlyAttendance called',_.includes(this.state.userDoc,doc.name),doc.name);
-          if(!_.includes(this.state.userDoc,doc.name)){
-            console.log('redirected to policy_documents');
-            this.props.router.push('/policy_documents');
-          }
-        });
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       }
     }
   }
@@ -130,7 +126,6 @@ function mapStateToProps(state) {
     userDaySummary: state.userDaySummary.toJS(),
     logged_user: state.logged_user.toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
-    myProfile: state.myProfile.toJS(),
     policy_documents: state.policyDocuments.toJS(),
   }
 }
@@ -149,11 +144,8 @@ const mapDispatchToProps = (dispatch) => {
     onUserUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.userUpdateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
     },
-    onFetchPolicyDocument: ()=>{
-      return dispatch(actions_policy.fetchPolicyDocument());
-    },
-    onMyProfileDetails: () => {
-      return dispatch(actions_myProfile.getMyProfileDetails())
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
     },
   }
 }

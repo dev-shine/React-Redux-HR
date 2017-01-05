@@ -16,6 +16,8 @@ import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword'
 import * as actions_login from '../../actions/login/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
 import * as actions_salary from '../../actions/salary/index'
+import * as actions_policy from '../../actions/policyDocuments/index'
+
 import PayslipHistory from '../../components/salary/PayslipHistory'
 
 class MyProfile extends React.Component {
@@ -33,13 +35,19 @@ class MyProfile extends React.Component {
     this.callUpdatePassword = this.callUpdatePassword.bind(this)
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     this.props.onMyProfileDetails()
     this.props.onSalaryDetails()
   }
   componentWillReceiveProps(props) {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
-    } else {}
+    } else {
+      let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+      if(unread.length > 0){
+        this.props.router.push('/policy_documents');
+      }
+    }
     let s_payslip_history = []
 
     if (typeof props.salary.payslip_history != 'undefined' && props.salary.payslip_history.length > 0) {
@@ -129,7 +137,13 @@ class MyProfile extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), myProfile: state.myProfile.toJS(), salary: state.salary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    myProfile: state.myProfile.toJS(),
+    salary: state.salary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -150,7 +164,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails())
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

@@ -129,7 +129,7 @@ const styles = {
     //bottom:'50px',
     //borderTop:'3px sold',
     //marginBottom:'8px'
-    borderTop:'3px solid', 
+    borderTop:'3px solid',
     marginBottom:'8px'
   }
 };
@@ -232,11 +232,9 @@ class Variables extends React.Component {
           })
       if(!_.isEmpty(t_name) && !_.isEmpty(t_subject) && !_.isEmpty(t_body)){
         this.props.onSaveTemplate(t_id, t_name, t_subject, t_body).then((succ)=>{
-          //alert(succ)
           this.showError('mailsentsuccessfully',succ);
           this.handleCloseDialog();
         }).catch((err)=>{
-          //alert(err)
           this.showError('previewalert',err);
         })
       }

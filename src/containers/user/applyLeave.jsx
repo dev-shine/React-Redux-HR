@@ -10,9 +10,11 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import ApplyLeaveForm from '../../components/generic/ApplyLeaveForm'
 import {CONFIG} from '../../config/index'
+
 import * as actions_login from '../../actions/login/index'
 import * as actions_apply_leave from '../../actions/leave/applyLeave'
 import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 import UsersList from '../../components/attendance/UsersList'
@@ -39,7 +41,9 @@ class ApplyLeave extends React.Component {
     this.doApplyLeave = this.doApplyLeave.bind(this)
   }
   componentDidMount() {}
-  componentWillMount() {}
+  componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
+  }
   componentWillReceiveProps(props) {
     window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
@@ -51,6 +55,11 @@ class ApplyLeave extends React.Component {
         if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
           if (this.state.defaultUserDisplay == '') {
             props.onUsersList()
+          }
+        }else{
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+          if(unread.length > 0){
+            this.props.router.push('/policy_documents');
           }
         }
       }
@@ -169,7 +178,14 @@ ApplyLeave.styles = {
 };
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), applyLeave: state.applyLeave.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    applyLeave: state.applyLeave.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -184,7 +200,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list())
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

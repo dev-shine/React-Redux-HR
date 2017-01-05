@@ -11,6 +11,7 @@ import UserLeavesList from '../../components/leaves/UserLeavesList'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myLeaves from '../../actions/leave/myLeaves'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 class MyLeaves extends React.Component {
     constructor( props ){
@@ -18,14 +19,18 @@ class MyLeaves extends React.Component {
         this.props.onIsAlreadyLogin()
     }
     componentWillMount(){
-        this.props.onMyLeavesList(  )
+      this.props.onFetchUserPolicyDocument();
+      this.props.onMyLeavesList(  )
     }
     componentWillReceiveProps( props ){
         window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
-            this.props.router.push('/logout');
+          this.props.router.push('/logout');
         }else{
-
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+	        if(unread.length > 0){
+	          this.props.router.push('/policy_documents');
+	        }
         }
     }
     render(){
@@ -78,6 +83,7 @@ function mapStateToProps( state ){
         holidaysList : state.holidaysList.toJS(),
         userLeaves : state.userLeaves.toJS(),
         applyLeave : state.applyLeave.toJS(),
+        policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -90,7 +96,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onCancelLeave : (userId, from_date) => {
           return dispatch( actions_myLeaves.cancelLeave(userId, from_date) )
-        }
+        },
+        onFetchUserPolicyDocument: ()=>{
+		      return dispatch(actions_policy.fetchUserPolicyDocument());
+		    },
     }
 }
 

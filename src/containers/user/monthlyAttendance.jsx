@@ -11,6 +11,7 @@ import * as actions_login from '../../actions/login/index'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_myProfile from '../../actions/user/myProfile'
 
 import {CONFIG} from '../../config/index'
 
@@ -26,7 +27,8 @@ class MonthlyAttendance extends React.Component {
       "daysummary_date": "",
       year: "",
       month: '',
-      test: "show"
+      test: "show",
+      userDoc:['bvnvbn','efce','vbnvb','vbnvb']
     }
 
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
@@ -35,15 +37,9 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount() {
     this.props.onIsAlreadyLogin()
-    this.props.onIsUserAcceptedDocumentPolicy().then((msg)=>{
-      if(msg == "true"){
-        //this.props.router.push('/monthly_attendance');
-        //alert('read doc');
-      }else{
-        //alert('read all docs');
-      }
-    })
-    console.log(localStorage.getItem("userid"));
+    this.props.onFetchPolicyDocument();
+    this.props.onMyProfileDetails();
+
     let user_id = this.props.logged_user.userid;
     this.setState({"defaultUserDisplay": user_id})
     let d = new Date();
@@ -59,6 +55,14 @@ class MonthlyAttendance extends React.Component {
     } else {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
+      }else{
+        _.map(props.policy_documents.policyDocuments,(doc)=>{
+          console.log('MonthlyAttendance called',_.includes(this.state.userDoc,doc.name),doc.name);
+          if(!_.includes(this.state.userDoc,doc.name)){
+            console.log('redirected to policy_documents');
+            this.props.router.push('/policy_documents');
+          }
+        });
       }
     }
   }
@@ -121,7 +125,14 @@ MonthlyAttendance.styles = {
 };
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), userDaySummary: state.userDaySummary.toJS(), logged_user: state.logged_user.toJS(), monthlyAttendance: state.monthlyAttendance.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    userDaySummary: state.userDaySummary.toJS(),
+    logged_user: state.logged_user.toJS(),
+    monthlyAttendance: state.monthlyAttendance.toJS(),
+    myProfile: state.myProfile.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -138,9 +149,12 @@ const mapDispatchToProps = (dispatch) => {
     onUserUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.userUpdateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
     },
-    onIsUserAcceptedDocumentPolicy: () => {
-      return dispatch(actions_policy.isUserAcceptedDocumentPolicy())
-    }
+    onFetchPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchPolicyDocument());
+    },
+    onMyProfileDetails: () => {
+      return dispatch(actions_myProfile.getMyProfileDetails())
+    },
   }
 }
 

@@ -49,7 +49,6 @@ class Login extends React.Component {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
         this.props.router.push('/home');
       } else {
-        console.log('monthly_attendance');
         this.props.router.push('/monthly_attendance');
       }
     } else {

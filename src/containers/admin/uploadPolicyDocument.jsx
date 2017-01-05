@@ -15,6 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import FormUploadPolicyDocument from '../../components/policyDocuments/formUploadPolicyDocument';
+import ListAllPolicyDocument from '../../components/policyDocuments/listAllPolicyDocument';
 
 
 class UploadPolicyDocumentContainer extends React.Component {
@@ -49,18 +50,22 @@ class UploadPolicyDocumentContainer extends React.Component {
           <Menu {...this.props }/>
       		<div id="content" className="app-content box-shadow-z0" role="main">
       		  <div className="app-header white box-shadow">
-                  <div className="navbar">
-          			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-            				   <i className="material-icons">&#xe5d2;</i>
-          				  </a>
-          			    <div className="navbar-item pull-left h5" id="pageTitle">
-          			       Upload Policy Documents
-          			    </div>
-  			          </div>
-  				  </div><div className="app-body" style={{'marginTop':10}}>
+              <div className="navbar">
+      			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+        				   <i className="material-icons">&#xe5d2;</i>
+      				  </a>
+      			    <div className="navbar-item pull-left h5" id="pageTitle">
+      			       Upload Policy Documents
+      			    </div>
+		          </div>
+  				  </div>
+            <div className="app-body" style={{'marginTop':10}}>
               <div className="row" style={{margin:'10px 4px 0px'}}>
-                <div className="col-xs-6">
+                <div className="col-xs-7">
                   <FormUploadPolicyDocument {...this.props}/>
+                </div>
+                <div className="col-xs-5">
+                  <ListAllPolicyDocument policyDocuments={this.props.policy_documents.policyDocuments} {...this.props}/>
                 </div>
               </div>
             </div>
@@ -70,10 +75,10 @@ class UploadPolicyDocumentContainer extends React.Component {
     }
 }
 function mapStateToProps( state ){
-  console.log(state.policyDocuments.toJS())
     return {
     	frontend : state.frontend.toJS(),
       logged_user : state.logged_user.toJS(),
+      policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {

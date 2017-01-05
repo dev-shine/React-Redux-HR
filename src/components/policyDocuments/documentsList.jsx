@@ -55,12 +55,7 @@ class DocumentsList extends React.Component {
 
     }
     updateReadStatus(doc_id, e){
-      //e.preventDefault();
-//       action: update_read_document
-// document_id : id of the document
-// token.
-console.log('*********');
-      //this.props.onUpdateReadStatus(doc_id)
+      this.props.onUpdateReadStatus(doc_id)
     }
     render(){
     	return(
@@ -78,49 +73,17 @@ console.log('*********');
                      title="Policy Documents List"
                    />
                  </Card>
-                 {_.map(this.props.docs, (doc, i) => (
+                 {_.map(this.props.policyDocuments, (doc, i) => (
                    <Card key={i}>
                      <CardHeader
                        title={doc.name}
                        subtitle={<a href={doc.link} target="_blanck" onClick={(e)=>{this.updateReadStatus(doc.id, e)}}>{doc.link}</a>}
                        style={{marginTop:'10px'}}
-                       titleStyle={{color:doc.unread ? '#000' : '#ccc', fontSize:'18px'}}
+                       titleStyle={{color:doc.unread ? '#000' : 'rgba(125, 137, 230, 0.84)', fontSize:'18px'}}
                      />
                    </Card>
-                   ))
+                 ))
                  }
-                    <Paper
-                      zDepth={3}
-                      style={{marginTop:'20px'}}
-                      >
-                    <Table
-                     fixedHeader={true}
-                     fixedFooter={true}
-                    >
-                    <TableHeader
-                     adjustForCheckbox={false}
-                     displaySelectAll={false}
-                    >
-                    <TableRow>
-                     <TableRowColumn style={{"fontWeight": "bold"}}>Sr. No</TableRowColumn>
-                     <TableRowColumn style={{"fontWeight": "bold"}}>Name</TableRowColumn>
-                     <TableRowColumn style={{"fontWeight": "bold",textAlign:'center'}}>Link</TableRowColumn>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody
-                     displayRowCheckbox={false}
-                    >
-                    {_.map(this.props.docs, (doc, i) => (
-                      <TableRow key={i}>
-                        <TableRowColumn>{i+1}</TableRowColumn>
-                        <TableRowColumn>{doc.name}</TableRowColumn>
-                        <TableRowColumn>{doc.link}</TableRowColumn>
-                      </TableRow>
-                      ))
-                    }
-                    </TableBody>
-                    </Table>
-                    </Paper>
                </div>
              </div>
           </div>

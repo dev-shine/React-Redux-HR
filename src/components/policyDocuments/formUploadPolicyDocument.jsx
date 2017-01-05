@@ -22,7 +22,7 @@ const styles = {
   formInput:{
     "marginLeft": "5%",
     "marginRight": "5%",
-    "width": "60%"
+    "width": "80%"
   },
 };
 
@@ -36,7 +36,7 @@ class FormUploadPolicyDocument extends React.Component {
           errName:'',
           errLink:'',
         };
-        this.saveDocs = this.saveDocs.bind(this);
+        this.addMoreDocs = this.addMoreDocs.bind(this);
         this.submitDocs = this.submitDocs.bind(this);
     }
     componentWillMount(){
@@ -48,7 +48,7 @@ class FormUploadPolicyDocument extends React.Component {
     componentDidUpdate(){
 
     }
-    saveDocs(){
+    addMoreDocs(){
       let name = this.state.nameofdoc.trim(),
           link = this.state.linkofdoc.trim(),
           state = true;
@@ -83,6 +83,8 @@ class FormUploadPolicyDocument extends React.Component {
     submitDocs(){
       let docs = this.state.docs;
       if(docs.length > 0){
+        let policyDocuments = this.props.policy_documents.policyDocuments;
+        let finalDoc = _.union(policyDocuments, docs);
         this.props.onSubmitDocs(docs).then(()=>{
           alert("submitted");
           this.setState({
@@ -99,12 +101,15 @@ class FormUploadPolicyDocument extends React.Component {
     render(){
       console.log('this.state',this.state);
     	return(
+        <div>
+        <div className="col-xs-7">
         <Paper  zDepth={1} >
-          <div>
+            <div>
             <form className="form-inline">
             <div className="form-group" style={styles.formInput}>
             <TextField
                   ref='name'
+                  style={{width:'100%'}}
                   floatingLabelText="Name of doc"
                   errorText={this.state.errName}
                   value={this.state.nameofdoc}
@@ -118,6 +123,7 @@ class FormUploadPolicyDocument extends React.Component {
             <div className="form-group" style={styles.formInput}>
             <TextField
                   ref='link'
+                  style={{width:'100%'}}
                   floatingLabelText="Link of doc"
                   errorText={this.state.errLink}
                   value={this.state.linkofdoc}
@@ -133,7 +139,7 @@ class FormUploadPolicyDocument extends React.Component {
                 label="Add More"
                 primary={true}
                 style={{margin:"20px 10px"}}
-                onTouchTap={this.saveDocs}
+                onTouchTap={this.addMoreDocs}
               />
               <RaisedButton
                 label="SUBMIT"
@@ -145,6 +151,33 @@ class FormUploadPolicyDocument extends React.Component {
             </form>
           </div>
         </Paper>
+        </div>
+        <div className="col-xs-5">
+          <Paper  zDepth={1}>
+            <div style={{padding:"15px"}}>
+
+            <div className="text-center p-t">
+              <strong>Documents in queue</strong>
+              <hr />
+            </div>
+          {this.state.docs.length > 0 ?
+            _.map(this.state.docs,(doc, i)=>(
+              <div className="m-b p-l" style={{overflow:'hidden',textOverflow:'ellipsis'}}>
+                <div><strong>Name :</strong><span>{doc.name}</span></div>
+                <div><strong>Link :</strong><span>{doc.link}</span></div>
+              </div>
+            ))
+            :
+            <div className="m-b p-l text-center">
+              No document queued for submit
+            </div>
+          }
+        </div>
+        </Paper>
+        </div>
+
+
+      </div>
     )
   }
 }

@@ -13,6 +13,7 @@ class FormUserProfileDetails extends React.Component {
       dob: "",
       gender: "",
       marital_status: "",
+      team_status:"",
       address1: "",
       address2: "",
       emergency_ph1: "",
@@ -136,6 +137,23 @@ class FormUserProfileDetails extends React.Component {
 
           </div>
         </div>
+        <div className="form-group">
+          <label>Team</label>
+
+          <select className="form-control" ref="team_status" onChange={() => this.setState({team_status: this.refs.team_status.value})} value={this.state.team_status}>
+            <option value="">--Select team--</option>
+            <option value="ReactJs">ReactJs</option>
+            <option value="AngularJs">AngularJs</option>
+            <option value="React Native">React Native</option>
+            <option value="Ionic">Ionic</option>
+            <option value="Magento1">Magento1</option>
+            <option value="Magento2">Magento2</option>
+            <option value="PHP">PHP</option>
+            <option value="Testing">Testing</option>
+            <option value="HR">HR</option>
+          </select>
+
+        </div>
 
         <div className="row no-gutter">
           <div className="col-md-6 p-r">
@@ -224,8 +242,8 @@ class FormUserProfileDetails extends React.Component {
 
           <select className="form-control" ref="blood_group" onChange={() => this.setState({blood_group: this.refs.blood_group.value})} value={this.state.blood_group}>
             <option value="">--select your blood group--</option>
-            <option value="O+">O-</option>
-            <option value="O-">O+</option>
+            <option value="O-">O-</option>
+            <option value="O+">O+</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>

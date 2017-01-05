@@ -66,6 +66,8 @@ class Menu extends React.Component {
     let link_disabled_employes = <Link to='/disabled_employes'>Disable Employee</Link>
     let link_Upload_policy_document = <Link to='/upload_policy_documents'>Upload Documents</Link>
     let link_user_policy_document = <Link to='/user_policy_documents'>User Policy Documents</Link>
+    let link_mail_templates = <Link to='/mail_templates'>Mail Templates</Link>
+    let link_template_variable = <Link to='/add_variables'>Add Variables</Link>
 
     let links_to_show = <ul className="nav">
       <li className="hidden-folded">
@@ -123,6 +125,7 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
         <li id="ManageEmp" onClick={() => {
           let m = "ManageEmp";
           this.click(m)
@@ -148,6 +151,7 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
         <li id="ManageHour" onClick={() => {
           let h = "ManageHour";
           this.click(h)
@@ -173,6 +177,7 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
         <li id="ManageLeave" onClick={() => {
           let l = "ManageLeave";
           this.click(l)
@@ -204,6 +209,7 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
         <li id="ManageSalary" onClick={() => {
           let s = "ManageSalary";
           this.click(s)
@@ -235,6 +241,33 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
+        <li id="Templates" onClick={() => {
+          let t = "Templates";
+          this.click(t);
+          }} className="">
+          <a>
+            <span className="nav-caret text-muted">
+              <i className="fa fa-caret-down"></i>
+            </span>
+            <span className="nav-text">Templates</span>
+          </a>
+          <ul className="nav-sub">
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_mail_templates}</span>
+            </li>
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_template_variable}</span>
+            </li>
+          </ul>
+        </li>
+
         <li id="PolicyDocs" onClick={() => {
           let p = "PolicyDocs";
           this.click(p)
@@ -260,12 +293,15 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
         <li className="hidden-folded">
           <span>{link_holidays}</span>
         </li>
+
         <li className="hidden-folded">
           <span>{link_logout}</span>
         </li>
+
       </ul>
     } else if (this.props.logged_user.role == CONFIG.HR) {
       links_to_show = <ul className="nav">
@@ -334,6 +370,31 @@ class Menu extends React.Component {
                 'fontSize': 11,
                 'fontWeight': 600
               }}>{link_apply_leave}</span>
+            </li>
+          </ul>
+        </li>
+        <li id="Templates" onClick={() => {
+          let t = "Templates";
+          this.click(t);
+        }} className="">
+          <a>
+            <span className="nav-caret text-muted">
+              <i className="fa fa-caret-down"></i>
+            </span>
+            <span className="nav-text">Templates</span>
+          </a>
+          <ul className="nav-sub">
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_mail_templates}</span>
+            </li>
+            <li className="hidden-folded">
+              <span style={{
+                'fontSize': 11,
+                'fontWeight': 600
+              }}>{link_template_variable}</span>
             </li>
           </ul>
         </li>

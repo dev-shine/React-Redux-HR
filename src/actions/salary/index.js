@@ -72,11 +72,14 @@ export function fetchUserSalaryDetails() {
         dispatch(hide_loading())
         if (typeof json.data != 'undefined' && json.data.length > 0) {
           dispatch(success_user_salary_details(json.data))
+          resolve();
         } else {
           dispatch(empty__user_salary_details([]))
+          resolve();
         }
       }, (error) => {
         dispatch(hide_loading())
+        resolve();
         dispatch(error_user_salary_details([]))
       })
     })

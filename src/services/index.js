@@ -66,7 +66,16 @@ export function fireAjax(method, url, data) {
   // 		body: JSON.stringify(data),
   // 	}
   // 	URL = CONFIG.api_url_salary +'/user_bank_detail.php'}
-else if (data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail" || data.action == "get_all_clients" || data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice' || data.action == 'update_client_details' || data.action == "delete_invoice" || data.action == "get_user_manage_payslips_data" || data.action == "create_employee_salary_slip" || data.action == "delete_salary" || data.action == 'send_payslips_to_employees' || data.action == 'get_user_document' || data.action == 'insert_user_document' || data.action == "delete_user_document" || data.action == 'get_all_users_detail' || data.action == "create_template_variable" || data.action == "get_template_variable" || data.action == "delete_template_variable" || data.action == "update_template_variable" || data.action == "get_policy_document" || data.action == "save_policy_document") { //generic other new api url
+
+else if (data.action == "get_user_profile_detail" || data.action == "update_user_bank_detail" || data.action == "update_user_profile_detail"
+|| data.action == "get_all_clients" || data.action == "get_client_detail" || data.action == 'create_new_client' || data.action == 'create_client_invoice'
+|| data.action == 'update_client_details' || data.action == "delete_invoice" || data.action == "get_user_manage_payslips_data"
+|| data.action == "create_employee_salary_slip" || data.action == "delete_salary" || data.action == 'send_payslips_to_employees'
+|| data.action == 'get_user_document' || data.action == 'insert_user_document' || data.action == "delete_user_document" || data.action == 'get_all_users_detail'
+|| data.action == "create_template_variable" || data.action == "get_template_variable" || data.action == "delete_template_variable"
+|| data.action == "update_template_variable" || data.action == "create_email_template" || data.action == "get_email_template" || data.action == "delete_email_template"
+|| data.action == "update_email_template" || data.action == "send_employee_email"  || data.action == "create_pdf" || data.action == "get_policy_document"
+|| data.action == "save_policy_document") { //generic other new api url
     let token = localStorage.getItem('hr_logged_user')
     data.token = token
     headers = {

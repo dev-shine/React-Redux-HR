@@ -13,8 +13,9 @@ const css = {
     "backgroundColor": "#284665",
     "padding": "30px 40px 30px 40px",
     "width": "300px",
-    "marginLeft": "10px",
-    "borderRadius": "6px"
+    "marginLeft": "5px",
+    "borderRadius": "6px",
+    paddingBottom: '20px',
   }
 }
 

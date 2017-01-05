@@ -1,6 +1,6 @@
   import React from 'react';
   import * as _ from 'lodash'
-  
+
   import { CONFIG } from '../../config/index'
   import {notify} from '../../services/index'
 
@@ -28,7 +28,7 @@
     }
     callUpdateDocuments(e){
       let type = this.state.doc_type
-      let link1 = this.refs.file.value 
+      let link1 = this.refs.file.value
       let stop = false
       if(type == ''){
         stop = true
@@ -43,7 +43,7 @@
       if(stop){
         e.preventDefault()
       }
-      
+
     }
       deleteDocument( doc_id ){
       this.props.onDeleteDocument( doc_id ).then((msg)=>{
@@ -57,7 +57,7 @@
         let styles = _.cloneDeep(this.constructor.styles);
 
         let user_id = this.props.user_id
-        let page_url = window.location.href 
+        let page_url = window.location.href
         //---------display document
                 let my_doc = []
                   _.map(this.props.my_documents,(doc, key)=>{
@@ -68,7 +68,7 @@
                       </div>
                      {typeof doc.link_1 == 'undefined'?'':<span className="text-muted"><div dangerouslySetInnerHTML={{__html:doc.link_1}}></div><br /></span>}
                    </div></li>)
-                  }) 
+                  })
         return (
           <div>
             <div className="row">
@@ -110,13 +110,13 @@
             <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo"  onClick={(e)=>{this.callUpdateDocuments(e)}}/>
           </div>
           </form>
-          </div>  
+          </div>
 
           <div className="col-xs-6">
           <h6 className="text-center">Uploaded Documents</h6>
           <div className="b-r p-r">
             <ul className="list-group m-b ">
-                {my_doc.length == 0 ? <li className="list-group-item text-center"><span>No document uploaded</span></li>:my_doc}    
+                {my_doc.length == 0 ? <li className="list-group-item text-center"><span>No document uploaded</span></li>:my_doc}
             </ul>
           </div>
           </div>
@@ -141,5 +141,3 @@ FormMyDocuments.styles = {
 
 
 export default FormMyDocuments
-
-

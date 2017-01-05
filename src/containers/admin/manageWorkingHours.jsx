@@ -58,6 +58,7 @@ class ManageWorkingHours extends React.Component {
 
   }
   onWorkingHoursChange(date, hours) {
+    console.log('date, hours',date, hours);
     if (hours == '') {} else {
       this.props.onUpdateDayWorkingHours(date, hours).then((data) => {}, (error) => {
         notify(error);

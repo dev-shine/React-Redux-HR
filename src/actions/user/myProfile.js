@@ -75,7 +75,7 @@ export function updateProfileDetails(new_profile_details) {
     let n_em_contact2 = ""
     let n_blood_group = ""
     let n_medical_con = ""
-    console.log('new_profile_details', new_profile_details)
+    
     if (typeof new_profile_details.marital_status != 'undefined') {
       n_marital_status = new_profile_details.marital_status
     }

@@ -14,7 +14,7 @@ class FormProfileDetails extends React.Component {
       dateofjoining: "",
       dob: "",
       gender: "",
-      marital_status: "",
+      marital_status: "Single",
       address1: "",
       address2: "",
       emr_con_1: "",
@@ -26,19 +26,19 @@ class FormProfileDetails extends React.Component {
   }
   componentWillReceiveProps(props) {
     this.setState({
-      name: props.user_profile_detail.name,
-      jobtitle: props.user_profile_detail.jobtitle,
-      dateofjoining: props.user_profile_detail.dateofjoining,
-      dob: props.user_profile_detail.dob,
-      gender: props.user_profile_detail.gender,
-      marital_status: props.user_profile_detail.marital_status,
-      address1: props.user_profile_detail.current_address,
-      address2: props.user_profile_detail.permanent_address,
-      emr_con_1: props.user_profile_detail.emergency_ph1,
-      emr_con_2: props.user_profile_detail.emergency_ph2,
-      work_email: props.user_profile_detail.work_email,
-      blood_group: props.user_profile_detail.blood_group,
-      medical_con: props.user_profile_detail.medical_condition
+      name: props.user_profile_detail.name || "",
+      jobtitle: props.user_profile_detail.jobtitle || "",
+      dateofjoining: props.user_profile_detail.dateofjoining || "",
+      dob: props.user_profile_detail.dob || "",
+      gender: props.user_profile_detail.gender || "",
+      marital_status: props.user_profile_detail.marital_status || 'Single',
+      address1: props.user_profile_detail.current_address || "",
+      address2: props.user_profile_detail.permanent_address || "",
+      emr_con_1: props.user_profile_detail.emergency_ph1 || "",
+      emr_con_2: props.user_profile_detail.emergency_ph2 || "",
+      work_email: props.user_profile_detail.work_email || "",
+      blood_group: props.user_profile_detail.blood_group || "",
+      medical_con: props.user_profile_detail.medical_condition || "",
     })
   }
 

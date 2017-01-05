@@ -431,7 +431,7 @@ class FormGeneratePaySlip extends React.Component {
               <input type="submit" value="Create Payslip" className="col-xs-12 md-btn md-raised indigo"/>
             </div>
             <div className="col-xs-6 p-r">
-              <button className="col-xs-12 md-btn md-raised info" onClick={() => {
+              <button type="button" className="col-xs-12 md-btn md-raised info" onClick={() => {
                 let s = this.state;
                 s.send_email = 1;
                 this.props.callCreateUserPayslip(this.state)

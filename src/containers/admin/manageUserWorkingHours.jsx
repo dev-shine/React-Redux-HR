@@ -9,6 +9,7 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import UsersList from '../../components/generic/UsersList'
+import Header from '../../components/generic/header'
 
 import ListUserWorkingHours from '../../components/manageUserWorkingHours/ListUserWorkingHours'
 import FormAddUserWorkingHours from '../../components/manageUserWorkingHours/FormAddUserWorkingHours'
@@ -157,19 +158,7 @@ class ManageUserWorkingHours extends React.Component {
 
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Manage Employees Working Hours &nbsp;&nbsp;&nbsp; {status_message}</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Manage Employees Working Hours"+status_message} {...this.props} />
 
           <div className="app-body" id="view">
 

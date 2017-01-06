@@ -8,6 +8,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import * as actions_login from '../../actions/login/index'
 import * as actions_policy from '../../actions/policyDocuments/index'
 import { CONFIG } from '../../config/index'
+import Header from '../../components/generic/header'
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
@@ -17,13 +18,26 @@ import IconButton from 'material-ui/IconButton';
 import FormUploadPolicyDocument from '../../components/policyDocuments/formUploadPolicyDocument';
 import ListAllPolicyDocument from '../../components/policyDocuments/listAllPolicyDocument';
 
+const styles = {
+  errorAlert: {
+    "marginLeft": "5%",
+    "marginRight": "5%",
+    "width": "90%",
+    "display":"none",
+  },
+}
 
 class UploadPolicyDocumentContainer extends React.Component {
      constructor( props ){
         super( props );
         this.props.onIsAlreadyLogin();
         this.state = {
+          docs:[],
         };
+        this.submitDocs = this.submitDocs.bind(this);
+        this.showError = this.showError.bind(this);
+        this.hideError = this.hideError.bind(this);
+        this.submitNewListofDocs = this.submitNewListofDocs.bind(this);
     }
     componentWillMount(){
         this.props.onFetchPolicyDocument()
@@ -43,29 +57,75 @@ class UploadPolicyDocumentContainer extends React.Component {
     }
     componentDidUpdate(){
     }
-
+    showError(id, errorMsg){
+      $('#'+id+ " span").remove();
+      $('#'+id).fadeIn().append("<span>"+errorMsg+"<span>")
+    }
+    hideError(e, id){
+      e.preventDefault();
+      $('#'+id).fadeOut(0);
+      $('#'+id+ " span").remove();
+    }
+    submitNewListofDocs(newList){
+      this.props.onSubmitDocs(newList).then(()=>{
+        //this.hideError('e','updateFailed');
+        this.showError('updateSuccessful','Documents deleted successfully');
+      })
+      .catch(()=>{
+        //this.hideError('e','updateSuccessful');
+        this.showError('updateFailed','Documents not deleted');
+      });
+    }
+    submitDocs(docs){
+      if(docs.length > 0){
+        this.setState({
+          docs:docs,
+        });
+        let policyDocuments = this.props.policy_documents.policyDocuments;
+        let finalDoc = _.union(policyDocuments, docs);
+        this.props.onSubmitDocs(finalDoc).then(()=>{
+          //this.hideError('e','updateFailed');
+          this.showError('updateSuccessful','Documents submitted successfully');
+          this.setState({
+            docs:[],
+          });
+        })
+        .catch(()=>{
+          //this.hideError('e','updateSuccessful');
+          this.showError('updateFailed','Documents submition faild');
+        });
+      }else{
+        //this.hideError('e','updateSuccessful');
+        this.showError('updateFailed','Please add the doc data first');
+      }
+    }
     render(){
     	return(
     		<div>
           <Menu {...this.props }/>
       		<div id="content" className="app-content box-shadow-z0" role="main">
-      		  <div className="app-header white box-shadow">
-              <div className="navbar">
-      			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-        				   <i className="material-icons">&#xe5d2;</i>
-      				  </a>
-      			    <div className="navbar-item pull-left h5" id="pageTitle">
-      			       Upload Policy Documents
-      			    </div>
-		          </div>
-  				  </div>
+            
+            <Header pageTitle={"Upload Policy Documents"} {...this.props} />
+
             <div className="app-body" style={{'marginTop':10}}>
               <div className="row" style={{margin:'10px 4px 0px'}}>
+                <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
+                  <div id="updateSuccessful" className="alert alert-success pull-left" style={styles.errorAlert}>
+                    <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateSuccessful')} aria-label="close">&times;</a>
+                  </div>
+                  <div id="updateFailed" className="alert alert-danger pull-left" style={styles.errorAlert}>
+                    <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateFailed')} aria-label="close">&times;</a>
+                  </div>
+                </div>
                 <div className="col-xs-7">
-                  <FormUploadPolicyDocument {...this.props}/>
+                  <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props}/>
                 </div>
                 <div className="col-xs-5">
-                  <ListAllPolicyDocument policyDocuments={this.props.policy_documents.policyDocuments} {...this.props}/>
+                  <ListAllPolicyDocument
+                    policyDocuments={this.props.policy_documents.policyDocuments}
+                    submitNewListofDocs={this.submitNewListofDocs}
+                    {...this.props}
+                    />
                 </div>
               </div>
             </div>

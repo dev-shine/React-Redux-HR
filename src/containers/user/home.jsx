@@ -8,6 +8,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UsersList from '../../components/attendance/UsersList'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
@@ -100,20 +101,8 @@ class Home extends React.Component {
         <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props}/>
 
         <div id="content" className="app-content box-shadow-z0" role="main">
+          <Header pageTitle={"Users"} {...this.props} />
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Users</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
 
           <div className="app-body" id="view">
 

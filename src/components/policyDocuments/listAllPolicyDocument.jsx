@@ -36,17 +36,14 @@ class ListAllPolicyDocument extends React.Component {
     componentDidUpdate(){
 
     }
-    deleteDocument(position){
-      let newList = _.pullAt(this.state.policyDocuments, [position]);
-      this.props.onSubmitDocs(newList).then(()=>{
-        alert("deleted");
-        this.setState({
-          docs:[],
-        });
+    deleteDocument(delDoc){
+      let newList = [];
+      _.map(this.state.policyDocuments, (doc,i)=>{
+        if(doc.name !== delDoc.name){
+          newList.push(doc);
+        }
       })
-      .catch(()=>{
-        alert("delete faild");
-      });
+      this.props.submitNewListofDocs(newList);
     }
     render(){
     	return(
@@ -61,7 +58,7 @@ class ListAllPolicyDocument extends React.Component {
                <Card key={i}>
                  <CardHeader
                    title={doc.name}
-                   subtitle={<a href={doc.link} target="_blanck" onClick={(e)=>{this.updateReadStatus(doc.id, e)}}>{doc.link}</a>}
+                   subtitle={<span>{doc.link}</span>}
                    children={
                      <IconButton
                      tooltip="Delete Document"
@@ -74,13 +71,16 @@ class ListAllPolicyDocument extends React.Component {
                    onClick= {
                     (evt) => {
                       evt.stopPropagation();
-                      this.deleteDocument(i)
+                      this.deleteDocument(doc)
                     }
                   }
                   />
                    }
+                   textStyle={{width:'310px',paddingRight:'0px'}}
+                   containerStyle={{marginLeft:'1px'}}
                    style={{marginTop:'10px'}}
-                   titleStyle={{color:doc.unread ? '#000' : '#ccc', fontSize:'18px'}}
+                   titleStyle={{color:'#000000' , fontSize:'18px'}}
+                   subtitleStyle={{fontSize:'12px',fontStyle:'italic',overflow:'hidden',textOverflow:'ellipsis'}}
                  />
                </Card>
                ))

@@ -5,6 +5,8 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
+
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_salary from '../../actions/salary/index'
@@ -47,25 +49,11 @@ class TemplateContainer extends React.Component {
     render(){
     	return(
     		<div>
-            <Menu {...this.props }/>
-    		<div id="content" className="app-content box-shadow-z0" role="main">
-    		  <div className="app-header white box-shadow">
-                <div className="navbar">
-    			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      				   <i className="material-icons">&#xe5d2;</i>
-    				</a>
-    			    <div className="navbar-item pull-left h5" id="pageTitle">
-    			       Email Template
-    			    </div>
-			    </div>
-                <div className="row no-gutter">
-                    <div className="col-12">
-                        <LoadingIcon {...this.props}/>
-                    </div>
-                </div>
-				</div>
-				<Template {...this.props }/>
-    		</div>
+          <Menu {...this.props }/>
+      		<div id="content" className="app-content box-shadow-z0" role="main">
+            <Header pageTitle={"Email Template"} {...this.props} />
+    				<Template {...this.props }/>
+      		</div>
     		</div>
     		)
     }

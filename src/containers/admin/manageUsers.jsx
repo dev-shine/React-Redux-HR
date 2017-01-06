@@ -11,6 +11,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import AlertNotification from '../../components/generic/AlertNotification'
+import Header from '../../components/generic/header'
 
 //-----------------------------------------
 import * as actions_login from '../../actions/login/index'
@@ -145,20 +146,8 @@ class ManageUsers extends React.Component {
 
         <Menu {...this.props }/>
         <div id="content" className="app-content box-shadow-z0" role="main">
-
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Manage Employees Profile</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          
+          <Header pageTitle={"Manage Employees Profile"} {...this.props} />
 
           <div className="app-body" id="view">
             <div className="padding">

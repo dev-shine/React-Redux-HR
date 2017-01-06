@@ -7,6 +7,7 @@ import {notify} from '../../services/index'
 import {CONFIG} from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
@@ -84,19 +85,7 @@ class Salary extends React.Component {
 
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Salary</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Salary"} {...this.props} />
 
           <div className="app-body" id="view">
 

@@ -8,6 +8,7 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UserLeavesList from '../../components/leaves/UserLeavesList'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myLeaves from '../../actions/leave/myLeaves'
@@ -36,41 +37,22 @@ class MyLeaves extends React.Component {
     render(){
 
         let mainDivs = <div className="row">
-            <div className="col-md-12">
-                <UserLeavesList {...this.props}/>
-            </div>
-        </div>
+                        <div className="col-md-12">
+                          <UserLeavesList {...this.props}/>
+                        </div>
+                      </div>
 
 		return(
     		<div>
     			<Menu {...this.props }/>
-
-                <div id="content" className="app-content box-shadow-z0" role="main">
-
-                    <div className="app-header white box-shadow">
-                <div className="navbar">
-                  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                    <i className="material-icons">&#xe5d2;</i>
-                  </a>
-                  <div className="navbar-item pull-left h5" id="pageTitle">My Leaves</div>
-                </div>
-                <div className="row no-gutter">
-                  <div className="col-12">
-                    <LoadingIcon {...this.props}/>
-                  </div>
-                </div>
+          <div id="content" className="app-content box-shadow-z0" role="main">
+            <Header pageTitle={"My Leaves"} {...this.props} />
+  					<div className="app-body" id="view">
+        			<div className="padding">
+          			{mainDivs}
               </div>
-
-
-					<div className="app-body" id="view">
-
-            			<div className="padding">
-	            				{mainDivs}
-                        </div>
-
-						</div>
-					</div>
-
+  					</div>
+		      </div>
     		</div>
     	)
     }

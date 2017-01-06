@@ -7,6 +7,7 @@ import {notify} from '../../services/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
 import HolidaysList from '../../components/attendance/HolidaysList'
 
 import * as actions_login from '../../actions/login/index'
@@ -46,14 +47,7 @@ class Holidays extends React.Component {
         <Menu {...this.props }/>
 
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Holidays List</div>
-            </div>
-          </div>
+          <Header pageTitle={"Holidays List"} {...this.props} />
           <div className="app-footer">
             <div></div>
           </div>

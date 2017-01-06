@@ -43,7 +43,9 @@ class FormUploadPolicyDocument extends React.Component {
 
     }
     componentWillReceiveProps( props ){
-
+      this.setState({
+        docs:props.docs,
+      });
     }
     componentDidUpdate(){
 
@@ -82,24 +84,24 @@ class FormUploadPolicyDocument extends React.Component {
     }
     submitDocs(){
       let docs = this.state.docs;
-      if(docs.length > 0){
-        let policyDocuments = this.props.policy_documents.policyDocuments;
-        let finalDoc = _.union(policyDocuments, docs);
-        this.props.onSubmitDocs(docs).then(()=>{
-          alert("submitted");
-          this.setState({
-            docs:[],
-          });
-        })
-        .catch(()=>{
-          alert("submit faild");
-        });
-      }else{
-        alert("Please save the doc data first");
-      }
+      this.props.submitDocs(docs)
+      // if(docs.length > 0){
+      //   let policyDocuments = this.props.policy_documents.policyDocuments;
+      //   let finalDoc = _.union(policyDocuments, docs);
+      //   this.props.submitDocs(finalDoc).then(()=>{
+      //     alert("submitted");
+      //     this.setState({
+      //       docs:[],
+      //     });
+      //   })
+      //   .catch(()=>{
+      //     alert("submit faild");
+      //   });
+      // }else{
+      //   alert("Please save the doc data first");
+      // }
     }
     render(){
-      console.log('this.state',this.state);
     	return(
         <div>
         <div className="col-xs-7">
@@ -148,6 +150,7 @@ class FormUploadPolicyDocument extends React.Component {
                 onClick={this.submitDocs}
               />
             </div>
+            <div style={{color:"rgba(255, 0, 0, 0.66)",fontSize:'12px',fontStyle:'italic',textAlign:'center',paddingBottom:'5px'}}>(NOTE:Please add all the docs before submitting)</div>
             </form>
           </div>
         </Paper>

@@ -5,6 +5,8 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
+
 import * as actions_login from '../../actions/login/index'
 import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_myProfile from '../../actions/user/myProfile'
@@ -42,16 +44,7 @@ class PolicyDocumentContainer extends React.Component {
     		<div>
           <Menu {...this.props }/>
       		<div id="content" className="app-content box-shadow-z0" role="main">
-      		  <div className="app-header white box-shadow">
-              <div className="navbar">
-      			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-        				   <i className="material-icons">&#xe5d2;</i>
-      				  </a>
-      			    <div className="navbar-item pull-left h5" id="pageTitle">
-      			       Policy Documents
-      			    </div>
-    			    </div>
-    				</div>
+            <Header pageTitle={"Policy Documents"} {...this.props} />
     				<DocumentsList policyDocuments={this.state.docs} {...this.props} />
       		</div>
     		</div>

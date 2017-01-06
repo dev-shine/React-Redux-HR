@@ -72,7 +72,7 @@ export function fetchUserPolicyDocument(){
 				},
 				( error ) =>{
 					dispatch( hide_loading() ) // hide loading icon
-					reject( 'error occurs' )
+					//reject( 'error occurs' )
 				}
 			)
 		})
@@ -115,7 +115,6 @@ export function submitDocs(docs){
 //-----------update Read Status of policy document-----------
 
 function async_updateReadStatus(updateDoc){
-  console.log('async_updateReadStatus',updateDoc)
 	return fireAjax( 'POST', '', {
 		action: 'update_user_policy_document',
 		policy_document: JSON.stringify(updateDoc),
@@ -130,14 +129,13 @@ export function updateReadStatus(updateDoc){
 				( json ) => {
 					dispatch( hide_loading()) // hide loading icon
 					if( typeof json.error != 'undefined' && json.error == 0 ){
-            dispatch(fetchPolicyDocument())
+            dispatch(fetchUserPolicyDocument())
 						resolve(json.data.message)
 					}else{
 						reject( json.data.message )
 					}
 				},
 				( error ) =>{
-					console.log('******',error);
 					dispatch( hide_loading() ) // hide loading icon
 					reject( 'error occurs' )
 				}

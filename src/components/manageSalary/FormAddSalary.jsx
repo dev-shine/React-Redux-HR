@@ -12,6 +12,8 @@ class FormAddSalary extends React.Component {
         user_id : "",
         applicable_from : null,
         total_salary : '0',
+        total_earning: '0',
+        total_deduction: '0',
         leave : '0',
         basic : '0',
         hra : '0',
@@ -38,7 +40,7 @@ class FormAddSalary extends React.Component {
         applicable_till : date
       })
     }
-    
+
     componentDidUpdate(){
 
       let e_basic = this.state.basic
@@ -57,21 +59,24 @@ class FormAddSalary extends React.Component {
       let n_total_deduction = +e_epf + +e_loan + +e_advance + +e_misc_deduction + +e_tds
 
       let n_total_salary = n_total_earning - n_total_deduction
-      
-      if( n_total_salary != this.state.total_salary ){
+
+      if( n_total_salary != this.state.total_salary
+        || n_total_earning != this.state.total_earning
+        || n_total_deduction != this.state.total_deduction){
         this.setState({
-          total_salary : n_total_salary
+          total_earning: n_total_earning,
+          total_salary : n_total_salary,
+          total_deduction: n_total_deduction,
         })
       }
 
     }
 
     componentWillReceiveProps( props ){
-
       let applicable_from = null
       let applicable_till = null
       let total_salary = "0"
-      let leave = '0' 
+      let leave = '0'
       let basic = '0'
       let hra = '0'
       let conveyance = '0'
@@ -154,7 +159,7 @@ class FormAddSalary extends React.Component {
       })
 
     }
-    
+
     render(){
       let styles = _.cloneDeep(this.constructor.styles);
 
@@ -167,9 +172,9 @@ class FormAddSalary extends React.Component {
             <div className="col-xs-6 p-r">
               <div className="form-group">
                 <label>Applicable From : {this.state.applicable_from}</label>
-                <DateField 
-                  dateFormat="YYYY-MM-DD" 
-                  onChange={this.handleApplicableFrom} 
+                <DateField
+                  dateFormat="YYYY-MM-DD"
+                  onChange={this.handleApplicableFrom}
                   className="form-control"
                 />
               </div>
@@ -181,14 +186,25 @@ class FormAddSalary extends React.Component {
               </div>
             </div>
           </div>
-          
+
           <div className="row no-gutter">
-            <div className="col-xs-12 p-r">
-              <div className="form-group">
+            <div className="col-xs-12 p-r b-b">
+              <div className="col-xs-4">
                 <label>Total Salary</label>
-                <h5>{ this.state.total_salary }</h5>
-                
+                <h5>{ this.state.total_earning }</h5>
               </div>
+
+              <div className="col-xs-4">
+                <label>Total Deduction</label>
+                <h5>{ this.state.total_deduction }</h5>
+              </div>
+
+              <div className="col-xs-4">
+                <label>Salary in hand</label>
+                <h5>{ this.state.total_salary }</h5>
+              </div>
+            </div>
+            <div className="col-xs-12 p-r">
               <div className="form-group">
                 <label>Leaves</label>
                 <input type="text" className="form-control" ref="leave" onChange={ () => this.setState({ leave : this.refs.leave.value }) } value={ this.state.leave }/>
@@ -197,7 +213,7 @@ class FormAddSalary extends React.Component {
           </div>
 
           <div className="row no-gutter">
-            
+
             <div className="col-xs-6 p-r">
               <h5 className="text-center">Earnings</h5>
               <div className="form-group">
@@ -225,7 +241,7 @@ class FormAddSalary extends React.Component {
                 <input type="text" className="form-control" ref="arrear" onChange={ () => this.setState({ arrear : this.refs.arrear.value }) } value={ this.state.arrear }/>
               </div>
             </div>
-            
+
             <div className="col-xs-6 p-r">
               <h5 className="text-center">Deductions</h5>
                 <div className="form-group">
@@ -270,5 +286,3 @@ FormAddSalary.styles = {
 
 
 export default FormAddSalary
-
-

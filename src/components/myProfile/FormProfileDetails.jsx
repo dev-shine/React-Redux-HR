@@ -62,6 +62,16 @@ class FormProfileDetails extends React.Component {
           </select>
         </div>
 
+        <div className="form-group">
+          <label>Date of Birth</label>
+            <DateField
+              dateFormat="YYYY-MM-DD"
+              value={this.state.dob}
+              onChange={ ( date ) => { this.setState({ dob : date }) }}
+              className="form-control"
+            />
+        </div>
+
         <div className="row no-gutter">
           <div className="col-md-6 p-r">
             <div className="form-group">
@@ -112,7 +122,6 @@ class FormProfileDetails extends React.Component {
           <label>Any Medical Conditions</label>
           <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={() => this.setState({medical_con: this.refs.medical_con.value})} value={this.state.medical_con}></textarea>
         </div>
-
         <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateProfileDetails(this.state)}>Update Profile Details</button>
       </div>
     )

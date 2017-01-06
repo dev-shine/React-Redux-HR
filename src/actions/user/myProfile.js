@@ -52,7 +52,7 @@ export function error_update_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_PROFILE_DETAILS)(data)
 }
 
-function async_updateProfileDetails(n_marital_status, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con) {
+function async_updateProfileDetails(n_marital_status, n_dob, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con) {
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     "permanent_address": n_address2,
@@ -61,6 +61,7 @@ function async_updateProfileDetails(n_marital_status, n_address1, n_address2, n_
     "emergency_ph2": n_em_contact2,
     "blood_group": n_blood_group,
     "medical_condition": n_medical_con,
+    "dob":n_dob,
     'marital_status': n_marital_status
   })
 }
@@ -69,15 +70,19 @@ export function updateProfileDetails(new_profile_details) {
   return function(dispatch, getState) {
 
     let n_marital_status = ""
+    let n_dob = ""
     let n_address1 = ""
     let n_address2 = ""
     let n_em_contact1 = ""
     let n_em_contact2 = ""
     let n_blood_group = ""
     let n_medical_con = ""
-    
+
     if (typeof new_profile_details.marital_status != 'undefined') {
       n_marital_status = new_profile_details.marital_status
+    }
+    if (typeof new_profile_details.dob != 'undefined') {
+      n_dob = new_profile_details.dob
     }
     if (typeof new_profile_details.address1 != 'undefined') {
       n_address1 = new_profile_details.address1
@@ -101,6 +106,9 @@ export function updateProfileDetails(new_profile_details) {
     if (n_marital_status.trim() === "") {
       return Promise.reject('Marital status is empty')
     }
+    if (n_dob.trim() === "") {
+      return Promise.reject('Date of birth is empty')
+    }
     if (n_address1.trim() === "") {
       return Promise.reject('Current address is empty')
     }
@@ -122,7 +130,7 @@ export function updateProfileDetails(new_profile_details) {
 
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_updateProfileDetails(n_marital_status, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con).then((json) => {
+      async_updateProfileDetails(n_marital_status, n_dob, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getMyProfileDetails())

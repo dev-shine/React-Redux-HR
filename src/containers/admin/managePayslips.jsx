@@ -8,6 +8,7 @@ import {notify} from '../../services/index'
 import {CONFIG} from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
 
 //-----------------------------------------
 import * as actions_login from '../../actions/login/index'

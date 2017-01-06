@@ -47,7 +47,7 @@ class FormAddNewEmployee extends React.Component {
       <div>
 
         <button className="btn btn-fw info" onTouchTap={this.handleOpen} >Add New Employee</button>
-        
+
         <Dialog
           title="Add New Employee"
           modal={false}
@@ -62,33 +62,33 @@ class FormAddNewEmployee extends React.Component {
         <div className="text-info">
            *Default password is : java@123
         </div>
-       
-      
+
+
 
 
            <table className="table">
-            <tbody>
+            <tbody> 
             <tr>
               <td>
                 Date of Joining
-                <DateField 
-                  dateFormat="YYYY-MM-DD" 
-                  onChange={ ( date ) => { this.setState({ dateofjoining : date }) }} 
+                <DateField
+                  dateFormat="YYYY-MM-DD"
+                  onChange={ ( date ) => { this.setState({ dateofjoining : date }) }}
                   className="form-control"
                 />
               </td>
                <td colSpan={2}>
                 Date of Birth
-                <DateField 
-                  dateFormat="YYYY-MM-DD" 
-                  onChange={ ( date ) => { this.setState({ dob : date }) }} 
+                <DateField
+                  dateFormat="YYYY-MM-DD"
+                  onChange={ ( date ) => { this.setState({ dob : date }) }}
                   className="form-control"
                 />
 
               </td>
-              
-              
-              
+
+
+
             </tr>
 
 
@@ -102,7 +102,7 @@ class FormAddNewEmployee extends React.Component {
                   <option value="Male">Male</option>
                   <option value="Other">Other</option>
                 </select>
-                
+
               </td>
 
               <td>
@@ -113,7 +113,7 @@ class FormAddNewEmployee extends React.Component {
                   onChange={ (e) => ( this.setState({ name : e.target.value  })) }
                   value = {this.state.name}
                 />
-                
+
               </td>
 
                <td>
@@ -124,10 +124,10 @@ class FormAddNewEmployee extends React.Component {
                   onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
                   value = {this.state.jobtitle}
                 />
-                
+
               </td>
-              
-              
+
+
             </tr>
 
 
@@ -150,8 +150,8 @@ class FormAddNewEmployee extends React.Component {
                   value = {this.state.workemail}
                 />
               </td>
-              
-              
+
+
             </tr>
 
 
@@ -175,5 +175,3 @@ class FormAddNewEmployee extends React.Component {
 // };
 
 export default FormAddNewEmployee
-
-

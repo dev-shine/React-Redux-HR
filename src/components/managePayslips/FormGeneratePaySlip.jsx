@@ -289,8 +289,10 @@ class FormGeneratePaySlip extends React.Component {
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from
+    let noofleaves = this.props.pending_leaves && this.props.pending_leaves.length
     return (
       <div>
+        <div className="text-center" style={{display:'block',background:'rgba(255, 0, 0, 0.08)',padding:'5px 10px',border:'1px solid rgba(255, 0, 0, 0.58)'}}><strong>{this.state.name} has {noofleaves} leave pending</strong></div>
         <form onSubmit={(evt) => {
           evt.preventDefault();
           let s = this.state;
@@ -320,7 +322,7 @@ class FormGeneratePaySlip extends React.Component {
                 </td>
               </tr>
               <tr>
-                <td>{'Loyalty Bonus'}<input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}} 
+                <td>{'Loyalty Bonus'}<input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}
                 onChange={(e)=>{this.loyalty_bonus(e)}}/></td>
                 <td></td>
                 <td></td>

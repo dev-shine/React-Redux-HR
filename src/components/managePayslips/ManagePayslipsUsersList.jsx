@@ -236,7 +236,7 @@ class ManagePayslipsUsersList extends React.Component {
               <button className="md-btn md-raised m-b-sm indigo" onClick={() => (this.props.callEmailPayslips(this.state.email_paylsips_ids))}>Email Payslips</button>
             </div>
             <div className="col-lg-6 col-md-6">
-              <form style={styles.form} action="http://excellencemagentoblog.com/hr/attendance/sal_info/display_user_info.php" method="POST" target='_blank' onSubmit={(e) => this.validate(e)}>
+              <form style={styles.form} action={CONFIG.transfer_link} method="POST" target='_blank' onSubmit={(e) => this.validate(e)}>
                 {list_item}
                 <input type="hidden" name="token" value={this.state.user_token}/>
                 <input type='submit' className="md-btn md-raised m-b-sm indigo m-l-sm-xs " name="submit" value="Transfer"/>

@@ -20,6 +20,7 @@ export function managePayslips( state = Immutable.fromJS(initialState), action )
         .set( 'all_users_latest_payslip' , action.payload.all_users_latest_payslip )
         .set( 'google_drive_emailid' , action.payload.google_drive_emailid )
         .set( 'employee_actual_salary' , action.payload.employee_actual_salary )
+        .set( 'pending_leaves' , action.payload.employee_pending_leave )
 
     }else if( action.type == 'ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA'){
 
@@ -32,7 +33,7 @@ export function managePayslips( state = Immutable.fromJS(initialState), action )
     }else if( action.type == 'ACTION_ERROR_GET_TRANSFER'){
 
         return state.set( 'employee_account_no', [] )
-        
+
     }else{
     	return state.set( 'status_message' , '')
     }

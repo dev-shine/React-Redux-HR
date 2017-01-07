@@ -61,7 +61,7 @@ function async_updateProfileDetails(n_marital_status, n_dob, n_address1, n_addre
     "emergency_ph2": n_em_contact2,
     "blood_group": n_blood_group,
     "medical_condition": n_medical_con,
-    "dob":n_dob,
+    "dob": n_dob,
     'marital_status': n_marital_status
   })
 }

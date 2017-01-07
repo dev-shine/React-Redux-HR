@@ -289,10 +289,25 @@ class FormGeneratePaySlip extends React.Component {
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from
-    let noofleaves = this.props.pending_leaves && this.props.pending_leaves.length
+
     return (
       <div>
-        <div className="text-center" style={{display:'block',background:'rgba(255, 0, 0, 0.08)',padding:'5px 10px',border:'1px solid rgba(255, 0, 0, 0.58)'}}><strong>{this.state.name} has {noofleaves} leave pending</strong></div>
+        <div className="col-xs-12 text-center" style={{display:'block',background:'rgba(255, 0, 0, 0.08)',padding:'5px 10px',border:'1px solid rgba(255, 0, 0, 0.58)'}}>
+          <div className="col-xs-4">
+            <strong>No. of Panding Leaves</strong>
+            <div className="text-center">{this.props.pending_leaves && this.props.pending_leaves.length}</div>
+          </div>
+          <div className="col-xs-8">
+            <strong>Dates of Leave</strong>
+            <div className="col-xs-12 text-center">
+              {
+                _.map(this.props.pending_leaves,(leave)=>(
+                  <span style={{width:'25%',display:'inline-block',padding:'2px'}}>{leave}</span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
         <form onSubmit={(evt) => {
           evt.preventDefault();
           let s = this.state;

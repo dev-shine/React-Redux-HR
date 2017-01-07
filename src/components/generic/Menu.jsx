@@ -288,7 +288,8 @@ class Menu extends React.Component {
             <li className="hidden-folded">
               <span style={{
                 'fontSize': 11,
-                'fontWeight': 600
+                'fontWeight': 600,
+                'display':'none'
               }}>{link_user_policy_document}</span>
             </li>
           </ul>

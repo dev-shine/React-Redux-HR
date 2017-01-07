@@ -20,9 +20,9 @@ import ListAllPolicyDocument from '../../components/policyDocuments/listAllPolic
 
 const styles = {
   errorAlert: {
-    "marginLeft": "5%",
-    "marginRight": "5%",
-    "width": "90%",
+    // "marginLeft": "5%",
+    // "marginRight": "5%",
+    "width": "100%",
     "display":"none",
   },
 }
@@ -112,7 +112,8 @@ class UploadPolicyDocumentContainer extends React.Component {
 
             <div className="app-body" style={{'marginTop':10}}>
               <div className="row" style={{margin:'10px 4px 0px'}}>
-                <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
+
+                <div className='col-xs-12' style={{padding:'10px 24px 0px',textAlign:'center'}}>
                   <div id="updateSuccessful" className="alert alert-success pull-left" style={styles.errorAlert}>
                     <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateSuccessful')} aria-label="close">&times;</a>
                   </div>
@@ -120,6 +121,7 @@ class UploadPolicyDocumentContainer extends React.Component {
                     <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateFailed')} aria-label="close">&times;</a>
                   </div>
                 </div>
+
                 <div className="col-xs-6">
                   <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props}/>
                 </div>

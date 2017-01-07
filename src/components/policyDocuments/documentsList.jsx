@@ -10,9 +10,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 const styles = {
   errorAlert: {
-    "marginLeft": "5%",
-    "marginRight": "5%",
-    "width": "90%",
+    "width": "100%",
     "display":"none",
   },
 }
@@ -65,7 +63,6 @@ class DocumentsList extends React.Component {
     }
 
     render(){
-      //console.log('this.state',this.state);
     	return(
         <div className="app-body" id="view" style={{'marginTop':10}}>
           <div className="row">
@@ -73,18 +70,23 @@ class DocumentsList extends React.Component {
               <LoadingIcon {...this.props}/>
             </div>
           </div>
-          <div className='col-xs-12' style={{paddingTop:'10px',paddingRight:'0px',textAlign:'center'}}>
-            <div id="updateSuccessful" className="alert alert-success pull-left" style={styles.errorAlert}>
-              <a href="#" className="close" onClick={(e)=>this.hideError(e, 'updateSuccessful')} aria-label="close">&times;</a>
-            </div>
-            <div id="updateFailed" className="alert alert-danger pull-left" style={styles.errorAlert}>
-              <a href="#" className="close" onClick={(e)=>this.hideError(e, 'updateFailed')} aria-label="close">&times;</a>
-            </div>
-          </div>
+
 					<div className="col-xs-12 col-sm-12" style={{ "float":"right"}}>
              <div className="row" style={{margin:'0px 4px 0px'}}>
+
+               <div className='col-xs-12' style={{paddingTop:'10px',textAlign:'center'}}>
+                 <div id="updateSuccessful" className="alert alert-success pull-left" style={styles.errorAlert}>
+                   <a href="#" className="close" onClick={(e)=>this.hideError(e, 'updateSuccessful')} aria-label="close">&times;</a>
+                 </div>
+                 <div id="updateFailed" className="alert alert-danger pull-left" style={styles.errorAlert}>
+                   <a href="#" className="close" onClick={(e)=>this.hideError(e, 'updateFailed')} aria-label="close">&times;</a>
+                 </div>
+               </div>
+
                <div className="col-xs-12">
-                 <Card>
+                 <Card
+                   style={{boxShadow:'rgba(0, 0, 0, 0.117647) 0px 0px 1px, rgba(0, 0, 0, 0.117647) 0px 0px 0px'}}
+                   >
                    <CardHeader
                      title="Policy Documents List"
                      subtitle={<span>(Please read all the policy documents to get access to this site)</span>}
@@ -92,19 +94,19 @@ class DocumentsList extends React.Component {
                      style={{marginBottom:'10px'}}
                    />
                  </Card>
-                 <Paper zDepth={2}>
                  {_.map(this.state.policyDocuments, (doc, i) => (
-                   <Card key={i}>
+                   <Card key={i}
+                     style={{boxShadow:'rgba(0, 0, 0, 0.117647) 0px 0px 1px, rgba(0, 0, 0, 0.117647) 0px 0px 0px'}}
+                     >
                      <CardHeader
-                       title={<span>{doc.name}<sup className="badge" style={{color:'red', background:'#FFF',border:'1px solid gray',fontWeight: '400'}} >{doc.read ? "" : "unread"}</sup></span>}
+                       title={<span>{doc.name}</span>}
                        subtitle={<a href={doc.link} target="_blanck" onClick={()=>{this.updateReadStatus(doc)}}>{doc.link}</a>}
-                       style={{marginTop:'0px',background: 'linear-gradient(rgb(253, 253, 253),rgb(90, 199, 228)250%)'}}
+                       style={{marginTop:'10px',borderLeft:doc.read ? '5px solid rgb(76, 175, 80)' : '5px solid rgb(255, 0, 0)'}}
                        titleStyle={{color:doc.read ? 'rgba(12, 12, 12, 0.54)' : '#000000' , fontSize:'18px'}}
                      />
                    </Card>
                  ))
                  }
-                 </Paper>
                </div>
              </div>
           </div>

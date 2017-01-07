@@ -7,6 +7,9 @@ import {show_loading, hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA = "ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA"
 export const ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA = "ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA"
+export const ACTION_SUCCESS_TEAM_LIST = "ACTION_SUCCESS_TEAM_LIST"
+export const ACTION_EMPTY_TEAM_LIST = "ACTION_EMPTY_TEAM_LIST"
+export const ACTION_ERROR_TEAM_LIST = "ACTION_ERROR_TEAM_LIST"
 
 export function success_user_manage_payslips_data(data) {
   return createAction(ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA)(data)

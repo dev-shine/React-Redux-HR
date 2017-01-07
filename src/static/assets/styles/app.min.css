@@ -2771,7 +2771,7 @@ body {
 
 .nav-active-primary .nav-link.active, .nav-active-primary .nav>li.active>a {
   color: rgba(255, 255, 255, .87)!important;
-  background-color: #0cc2aa!important
+  background-color: rgb(3, 169, 244)!important
 }
 
 .nav-active-accent .nav-link.active, .nav-active-accent .nav>li.active>a {
@@ -4070,7 +4070,7 @@ body {
 }
 
 .b-accent {
-  border-color: #a88add
+  border-color: rgb(3, 169, 244)
 }
 
 .b-t-accent {

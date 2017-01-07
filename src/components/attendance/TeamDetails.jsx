@@ -6,67 +6,40 @@ class TeamDetails extends React.Component {
     constructor( props ){
         super( props );
         this.state = {
-          empList: this.props.empList.empList,
-          all_Teams: this.props.empList.all_Teams,
         }
         this.onSelectTeam = this.onSelectTeam.bind(this)
     }
     onSelectTeam(e){
       let selectedTeam = e.target.value
-      if(selectedTeam == ""){
-        this.setState({
-          empList: this.props.empList.empList
-        })
-      }else{
-        var emps = []
-        _.forEach(this.props.empList.empList,function(emp,i){
-          if(emp.team == selectedTeam){
-            emps.push({
-              "image": emp.image,
-              "empName": emp.empName,
-              "designation": emp.designation,
-              "salary":emp.salary,
-              "holdingAmountDetail":emp.holdingAmountDetail,
-              "dateOfJoining":emp.dateOfJoining,
-              "noOfDaysSinceJoined":emp.noOfDaysSinceJoined,
-              "preSalaryIncDetail":emp.preSalaryIncDetail,
-              "nextSallaryInc":emp.nextSallaryInc,
-              "team":emp.team
-            })
-          }
-        })
-        this.setState({
-          empList:emps
-        })
-      }
+      this.props.onFetchUserDetails(selectedTeam).then( (data) => {
+      }).catch( (error) => {
+      })
     }
     render(){
-      let selection_options =  _.map( this.state.all_Teams , ( team, key ) => {
-        return(<option key={key} value={team}>{team}</option>)
-      })
-      let row =  _.map( this.state.empList , ( emp, key ) => {
+      let teams = this.props.teamList.teams
+      let row =  _.map( this.props.teamList.candidateByTeam , ( emp, key ) => {
         return (
             <tr key={key}>
               <td><div className="list-left">
                 <span className="w-40 avatar">
-                  <img src={emp.image} />
+                  <img src={emp.slack_image} />
                 </span>
               </div></td>
-              <td>{emp.empName}</td>
-              <td>{emp.designation}</td>
-              <td>{emp.salary}</td>
-              <td>{emp.holdingAmountDetail!=""?
+              <td>{emp.name}</td>
+              <td>{emp.jobtitle}</td>
+              <td>{emp.salary_detail}</td>
+              <td>{emp.holdin_amt_detail!=""?
                 <ul>
-                  <li>Holding amount : {emp.holdingAmountDetail.holding_amt}</li>
-                  <li>Start date : {emp.holdingAmountDetail.holding_start_date}</li>
-                  <li>End date : {emp.holdingAmountDetail.holding_end_date}</li>
-                  <li>Reason : {emp.holdingAmountDetail.reason}</li>
+                  <li>Holding amount : {emp.holdin_amt_detail.holding_amt}</li>
+                  <li>Start date : {emp.holdin_amt_detail.holding_start_date}</li>
+                  <li>End date : {emp.holdin_amt_detail.holding_end_date}</li>
+                  <li>Reason : {emp.holdin_amt_detail.reason}</li>
                 </ul>:""
               }</td>
-              <td>{emp.dateOfJoining}</td>
-              <td>{emp.noOfDaysSinceJoined}</td>
+              <td>{emp.dateofjoining}</td>
+              <td>{emp.no_of_days_join}</td>
               <td>{emp.team}</td>
-              <td>{emp.nextSallaryInc}</td>
+              <td>{emp.next_increment_date}</td>
             </tr>
         )
       })
@@ -78,7 +51,9 @@ class TeamDetails extends React.Component {
                 <label style={{'fontSize':15}}>Select Team:</label>
                   <select className="form-control" ref="team_status" onChange={(e)=>{this.onSelectTeam(e)}}>
                     <option value="">--Select team--</option>
-                    {selection_options}
+                    {_.map( teams , ( team, key ) => {
+                      return(<option key={key} value={team}>{team}</option>)
+                    })}
                   </select>
                 </div>
               </div>
@@ -92,7 +67,7 @@ class TeamDetails extends React.Component {
                   <table className="table" >
                     <thead>
                       <tr>
-                        <th >Image</th>
+                        <th>Image</th>
                         <th>Employe name</th>
                         <th>Designation</th>
                         <th>Salary</th>
@@ -106,7 +81,7 @@ class TeamDetails extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {row}
+                      {row==""?<tr><td colSpan="9" style={{'textAlign':'center'}}>No any employee in this team</td></tr>:row}
                     </tbody>
                   </table>
                 </div>

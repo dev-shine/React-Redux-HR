@@ -13,7 +13,7 @@ class FormUserProfileDetails extends React.Component {
       dob: "",
       gender: "",
       marital_status: "",
-      team_status:"",
+      team:"",
       address1: "",
       address2: "",
       emergency_ph1: "",
@@ -28,6 +28,7 @@ class FormUserProfileDetails extends React.Component {
     let user_id = ""
     let name = ""
     let jobtitle = ""
+    let team = ""
     let dateofjoining = ""
     let dob = " "
     let gender = " "
@@ -65,6 +66,9 @@ class FormUserProfileDetails extends React.Component {
     if (typeof props.user_profile_detail.marital_status != 'undefined' && props.user_profile_detail.marital_status != null) {
       marital_status = props.user_profile_detail.marital_status
     }
+    if (typeof props.user_profile_detail.team != 'undefined' && props.user_profile_detail.team != null) {
+      team = props.user_profile_detail.team
+    }
     if (typeof props.user_profile_detail.current_address != 'undefined' && props.user_profile_detail.current_address != null) {
       address1 = props.user_profile_detail.current_address
     }
@@ -92,6 +96,7 @@ class FormUserProfileDetails extends React.Component {
       user_id: user_id,
       name: name,
       jobtitle: jobtitle,
+      team:team,
       dateofjoining: dateofjoining,
       dob: dob,
       gender: gender,
@@ -107,6 +112,7 @@ class FormUserProfileDetails extends React.Component {
   }
 
   render() {
+    let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
     return (
       <div>
 
@@ -140,17 +146,12 @@ class FormUserProfileDetails extends React.Component {
         <div className="form-group">
           <label>Team</label>
 
-          <select className="form-control" ref="team_status" onChange={() => this.setState({team_status: this.refs.team_status.value})} value={this.state.team_status}>
+          <select className="form-control" ref="team" onChange={() => this.setState({team: this.refs.team.value})} value={this.state.team}>
             <option value="">--Select team--</option>
-            <option value="ReactJs">ReactJs</option>
-            <option value="AngularJs">AngularJs</option>
-            <option value="React Native">React Native</option>
-            <option value="Ionic">Ionic</option>
-            <option value="Magento1">Magento1</option>
-            <option value="Magento2">Magento2</option>
-            <option value="PHP">PHP</option>
-            <option value="Testing">Testing</option>
-            <option value="HR">HR</option>
+            {_.map(teams, (tm, i) => (
+              <option key={i} value={tm}>{tm}</option>
+            )
+            )}
           </select>
 
         </div>

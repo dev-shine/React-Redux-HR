@@ -24,6 +24,7 @@ import { manageClients } from './admin/manageClients'
 import { managePayslips } from './admin/managePayslips'
 import { empSalaryList } from './admin/empSalaryDetails'
 import {template} from './admin/template'
+import {teamList} from './admin/teamList'
 
 
 export default combineReducers({
@@ -50,5 +51,6 @@ export default combineReducers({
     manageClients,
     managePayslips,
     empSalaryList,
-    template
+    template,
+    teamList
 })

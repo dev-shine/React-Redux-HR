@@ -9,110 +9,9 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import TeamDetails from '../../components/attendance/TeamDetails'
 import * as actions_login from '../../actions/login/index'
+import * as actions_getTeamData from '../../actions/admin/teamList'
+import TeamList from '../../components/attendance/TeamList'
 //import * as actions_salary from '../../actions/salary/index'
-
-const details = [{
-  slack_image:"https://avatars.slack-edge.com/2016-11-15/104728004914_d2281a242d28195a4891_72.jpg",
-  name:"Deepak Mishra",
-  jobtitle:"Sr. PHP Developer",
-  salary_detail:"7511.54",
-  holdin_amt_detail:{
-    holding_amt:"100",
-    holding_end_date:"2016-09-26",
-    holding_start_date:"2016-09-04",
-    id:"18",
-    last_updated_on:"2016-09-23",
-    reason:"a",
-    user_Id:"288"
-  },
-  dateofjoining:"2010-07-01",
-  no_of_days_join:"6 years, 6 months, 5 days ",
-  previous_increment:1,
-  next_increment_date:"2016-10-01",
-  team:'PHP'
-},
-{
-  slack_image:"https://avatars.slack-edge.com/2016-11-07/101943188647_b50876a3f25604bb78b2_72.jpg",
-  name:"Arun Kumar",
-  jobtitle:"Sr. PHP Developer",
-  salary_detail:"7511.54",
-  holdin_amt_detail:{
-    holding_amt:"100",
-    holding_end_date:"2016-09-26",
-    holding_start_date:"2016-09-04",
-    id:"18",
-    last_updated_on:"2016-09-23",
-    reason:"a",
-    user_Id:"288"
-  },
-  dateofjoining:"2010-07-01",
-  no_of_days_join:"6 years, 6 months, 5 days ",
-  previous_increment:1,
-  next_increment_date:"2016-10-01",
-  team:'ReactJs'
-},
-{
-  slack_image:"https://avatars.slack-edge.com/2016-06-30/55725060256_a9fb4121b09b62f5943c_72.jpg",
-  name:"Saurabh Khatri",
-  jobtitle:"Sr. PHP Developer",
-  salary_detail:"7511.54",
-  holdin_amt_detail:{
-    holding_amt:"100",
-    holding_end_date:"2016-09-26",
-    holding_start_date:"2016-09-04",
-    id:"18",
-    last_updated_on:"2016-09-23",
-    reason:"a",
-    user_Id:"288"
-  },
-  dateofjoining:"2010-07-01",
-  no_of_days_join:"6 years, 6 months, 5 days ",
-  previous_increment:1,
-  next_increment_date:"2016-10-01",
-  team:'AngularJs'
-},
-{
-  slack_image:"https://avatars.slack-edge.com/2016-10-11/89681924850_f02d5572097e326302a9_72.jpg",
-  name:"Shubham Mathur",
-  jobtitle:"Sr. PHP Developer",
-  salary_detail:"7511.54",
-  holdin_amt_detail:{
-    holding_amt:"100",
-    holding_end_date:"2016-09-26",
-    holding_start_date:"2016-09-04",
-    id:"18",
-    last_updated_on:"2016-09-23",
-    reason:"a",
-    user_Id:"288"
-  },
-  dateofjoining:"2010-07-01",
-  no_of_days_join:"6 years, 6 months, 5 days ",
-  previous_increment:1,
-  next_increment_date:"2016-10-01",
-  team:'Magento1'
-},
-{
-  slack_image:"https://avatars.slack-edge.com/2016-10-16/91874934646_82c2e1255fab3f3e7f22_72.jpg",
-  name:"Abhishek singh",
-  jobtitle:"Jr. PHP Developer",
-  salary_detail:"7511.54",
-  holdin_amt_detail:{
-    holding_amt:"100",
-    holding_end_date:"2016-09-26",
-    holding_start_date:"2016-09-04",
-    id:"18",
-    last_updated_on:"2016-09-23",
-    reason:"a",
-    user_Id:"288"
-  },
-  dateofjoining:"2010-07-01",
-  no_of_days_join:"6 years, 6 months, 5 days ",
-  previous_increment:1,
-  next_increment_date:"2016-10-01",
-  team:'ReactJs'
-}]
-
-const all_Teams = ['ReactJs','Magento1','AngularJs','PHP']
 
 class ViewTeam extends React.Component {
      constructor( props ){
@@ -120,32 +19,18 @@ class ViewTeam extends React.Component {
         this.props.onIsAlreadyLogin()
         this.state = {
             empList:[],
-            all_Teams:''
+            all_Teams:'',
+            active:'active',
+            addNewTeam:'row',
+            viewTeam:'hidden',
+            firstArrow:'show',
+            secondArrow:'hidden'
         }
+        this.openPage = this.openPage.bind(this)
     }
     componentWillMount(){
-        //this.props.onFetchUserSalaryDetails( )
-        let emp = []
-        if(details.length>0){
-            _.forEach(details, function(ob, i) {
-                emp.push({
-                    "image": ob.slack_image,
-                    "empName": ob.name,
-                    "designation": ob.jobtitle,
-                    "salary":ob.salary_detail,
-                    "holdingAmountDetail":ob.holdin_amt_detail,
-                    "dateOfJoining":ob.dateofjoining,
-                    "noOfDaysSinceJoined":String(ob.no_of_days_join),
-                    "preSalaryIncDetail":String(ob.previous_increment),
-                    "nextSallaryInc":ob.next_increment_date,
-                    "team":ob.team
-                })
-            })
-            this.setState({
-                empList:emp,
-                all_Teams:all_Teams
-            })
-        }
+        this.props.onFetchTeam()
+        this.props.onFetchUserDetails('')
     }
     componentWillReceiveProps( props ){
       window.scrollTo(0, 0);
@@ -158,31 +43,29 @@ class ViewTeam extends React.Component {
                 this.props.router.push('/home');
             }
         }
-        let emp = []
-        if(details.length>0){
-            _.forEach(details, function(ob, i) {
-                emp.push({
-                    "image": ob.slack_image,
-                    "empName": ob.name,
-                    "designation": ob.jobtitle,
-                    "salary":ob.salary_detail,
-                    "holdingAmountDetail":ob.holdin_amt_detail,
-                    "dateOfJoining":ob.dateofjoining,
-                    "noOfDaysSinceJoined":String(ob.no_of_days_join),
-                    "preSalaryIncDetail":String(ob.previous_increment),
-                    "nextSallaryInc":ob.next_increment_date,
-                    "team":ob.team
-                })
-            })
-            this.setState({
-                empList:emp
-            })
-        }
     }
     componentDidUpdate(){
     }
+    openPage(toDisplay){
+      if(toDisplay=='add_new_team'){
+        this.setState({
+          addNewTeam:'row',
+          viewTeam:'hidden',
+          firstArrow:'show',
+          secondArrow:'hidden'
+        })
+      }else{
+        this.setState({
+          addNewTeam:'hidden',
+          viewTeam:'row',
+          firstArrow:'hidden',
+          secondArrow:'show'
+        })
+      }
+    }
     render(){
-      let table =(this.state.empList.length > 0 && this.state.all_Teams.length > 0)? <TeamDetails {...this.props} empList={this.state}/>:""
+      let view_team =<TeamDetails {...this.props}/>
+      let add_new_team = <TeamList {...this.props }/>
       return(
         <div>
             <Menu {...this.props }/>
@@ -203,8 +86,33 @@ class ViewTeam extends React.Component {
               <LoadingIcon {...this.props}/>
             </div>
           </div>
+          <div className="dker p-x">
+            <div className="row">
+              <div className="col-sm-6 pull-sm-6">
+                <div className="p-y-md clearfix nav-active-primary">
+                  <ul className="nav nav-pills nav-sm">
+                    <li onClick={()=>{this.openPage('add_new_team')}} className={`nav-item ${this.state.active}`}>
+                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">All Team</a>
+                      <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
+                    </li>
+                    <li onClick={()=>{this.openPage('view_team')}} className="nav-item" style={{'marginLeft':'20px'}}>
+                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Team Details</a>
+                      <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="padding">
-            {table}
+            <div className={this.state.addNewTeam}>
+                {add_new_team}
+            </div>
+            <div className={this.state.viewTeam}>
+              <div className="col-xs-12 p-t p-r b-r">
+                {view_team}
+              </div>
+            </div>
           </div>
         </div>
         </div>
@@ -217,7 +125,8 @@ function mapStateToProps( state ){
       frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         usersList : state.usersList.toJS(),
-        employee: state.empSalaryList.toJS()
+        employee: state.empSalaryList.toJS(),
+        teamList: state.teamList.toJS()
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -225,9 +134,15 @@ const mapDispatchToProps = (dispatch) => {
       onIsAlreadyLogin : () => {
         return dispatch( actions_login.isAlreadyLogin(  ))
       },
-      /*onFetchUserSalaryDetails: () =>{
-        return dispatch( actions_salary.fetchUserSalaryDetails(  ))
-      }*/
+      onFetchTeam: () => {
+        return dispatch(actions_getTeamData.get_all_team())
+      },
+      onFetchUserDetails: (selectedTeam) => {
+        return dispatch(actions_getTeamData.get_team_candidate(selectedTeam))
+      },
+      onSaveTeam: (teams) => {
+        return dispatch(actions_getTeamData.saveTeam(teams))
+      }
     }
 }
 

@@ -32,7 +32,7 @@ class UploadPolicyDocumentContainer extends React.Component {
         super( props );
         this.props.onIsAlreadyLogin();
         this.state = {
-          docs:[],
+          submitStatus:0,
         };
         this.submitDocs = this.submitDocs.bind(this);
         this.showError = this.showError.bind(this);
@@ -79,7 +79,7 @@ class UploadPolicyDocumentContainer extends React.Component {
     submitDocs(docs){
       if(docs.length > 0){
         this.setState({
-          docs:docs,
+          submitStatus:0,
         });
         let policyDocuments = this.props.policy_documents.policyDocuments;
         let finalDoc = _.union(policyDocuments, docs);
@@ -87,11 +87,14 @@ class UploadPolicyDocumentContainer extends React.Component {
           //this.hideError('e','updateFailed');
           this.showError('updateSuccessful','Documents submitted successfully');
           this.setState({
-            docs:[],
+            submitStatus:1,
           });
         })
         .catch(()=>{
           //this.hideError('e','updateSuccessful');
+          this.setState({
+            submitStatus:-1,
+          });
           this.showError('updateFailed','Documents submition faild');
         });
       }else{
@@ -104,7 +107,7 @@ class UploadPolicyDocumentContainer extends React.Component {
     		<div>
           <Menu {...this.props }/>
       		<div id="content" className="app-content box-shadow-z0" role="main">
-            
+
             <Header pageTitle={"Upload Policy Documents"} {...this.props} />
 
             <div className="app-body" style={{'marginTop':10}}>
@@ -117,10 +120,10 @@ class UploadPolicyDocumentContainer extends React.Component {
                     <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateFailed')} aria-label="close">&times;</a>
                   </div>
                 </div>
-                <div className="col-xs-7">
+                <div className="col-xs-6">
                   <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props}/>
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-6">
                   <ListAllPolicyDocument
                     policyDocuments={this.props.policy_documents.policyDocuments}
                     submitNewListofDocs={this.submitNewListofDocs}

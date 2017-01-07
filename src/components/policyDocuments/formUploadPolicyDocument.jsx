@@ -43,21 +43,62 @@ class FormUploadPolicyDocument extends React.Component {
 
     }
     componentWillReceiveProps( props ){
-      this.setState({
-        docs:props.docs,
-      });
+      if(props.submitStatus == 1){
+        this.setState({
+          nameofdoc:'',
+          linkofdoc:'',
+          docs:props.policy_documents.policyDocuments,
+        });
+      }else{
+        this.setState({
+          docs:props.policy_documents.policyDocuments,
+        });
+      }
     }
     componentDidUpdate(){
 
     }
     addMoreDocs(){
+      // let name = this.state.nameofdoc.trim(),
+      //     link = this.state.linkofdoc.trim(),
+      //     state = true;
+      //     this.setState({
+      //       errName:'',
+      //       errLink:'',
+      //     });
+      //     if(state && _.isEmpty(name)){
+      //       state = false;
+      //       this.setState({
+      //         errName:"Please enter document name",
+      //       });
+      //     }
+      //     if(state && _.isEmpty(link)){
+      //       state = false;
+      //       this.setState({
+      //         errLink:"Please enter document link",
+      //       });
+      //     }
+      //     if(state){
+      //       let docs = this.state.docs;
+      //       docs.push({name:name, link:link});
+      //       this.setState({
+      //         docs: docs,
+      //         errName: '',
+      //         errLink: '',
+      //         nameofdoc:'',
+      //         linkofdoc:'',
+      //       });
+      //     }
+    }
+    submitDocs(){
+      let docs = this.state.docs;
       let name = this.state.nameofdoc.trim(),
           link = this.state.linkofdoc.trim(),
           state = true;
-          this.setState({
-            errName:'',
-            errLink:'',
-          });
+          // this.setState({
+          //   errName:'',
+          //   errLink:'',
+          // });
           if(state && _.isEmpty(name)){
             state = false;
             this.setState({
@@ -73,18 +114,15 @@ class FormUploadPolicyDocument extends React.Component {
           if(state){
             let docs = this.state.docs;
             docs.push({name:name, link:link});
+            this.props.submitDocs(docs);
             this.setState({
-              docs: docs,
               errName: '',
               errLink: '',
               nameofdoc:'',
               linkofdoc:'',
             });
           }
-    }
-    submitDocs(){
-      let docs = this.state.docs;
-      this.props.submitDocs(docs)
+      // this.props.submitDocs(docs)
       // if(docs.length > 0){
       //   let policyDocuments = this.props.policy_documents.policyDocuments;
       //   let finalDoc = _.union(policyDocuments, docs);
@@ -104,7 +142,7 @@ class FormUploadPolicyDocument extends React.Component {
     render(){
     	return(
         <div>
-        <div className="col-xs-7">
+        <div className="col-xs-12">
         <Paper  zDepth={1} >
             <div>
             <form className="form-inline">
@@ -137,47 +175,50 @@ class FormUploadPolicyDocument extends React.Component {
             />
             </div>
             <div className="form-group" style={styles.formInput}>
-              <FlatButton
-                label="Add More"
-                primary={true}
-                style={{margin:"20px 10px"}}
-                onTouchTap={this.addMoreDocs}
-              />
+              {
+              //   <FlatButton
+              //   label="Add More"
+              //   primary={true}
+              //   style={{margin:"20px 10px"}}
+              //   onTouchTap={this.addMoreDocs}
+              // />
+              }
               <RaisedButton
                 label="SUBMIT"
                 primary={true}
-                style={{margin:"20px 10px"}}
+                style={{margin:"20px 10px",float:'right'}}
                 onClick={this.submitDocs}
               />
             </div>
-            <div style={{color:"rgba(255, 0, 0, 0.66)",fontSize:'12px',fontStyle:'italic',textAlign:'center',paddingBottom:'5px'}}>(NOTE:Please add all the docs before submitting)</div>
             </form>
           </div>
         </Paper>
         </div>
-        <div className="col-xs-5">
-          <Paper  zDepth={1}>
-            <div style={{padding:"15px"}}>
-
-            <div className="text-center p-t">
-              <strong>Documents in queue</strong>
-              <hr />
-            </div>
-          {this.state.docs.length > 0 ?
-            _.map(this.state.docs,(doc, i)=>(
-              <div className="m-b p-l" key={i} style={{overflow:'hidden',textOverflow:'ellipsis'}}>
-                <div><strong>Name :</strong><span>{doc.name}</span></div>
-                <div><strong>Link :</strong><span>{doc.link}</span></div>
-              </div>
-            ))
-            :
-            <div className="m-b p-l text-center">
-              No document queued for submit
-            </div>
-          }
-        </div>
-        </Paper>
-        </div>
+       {
+      // <div className="col-xs-5">
+      //     <Paper  zDepth={1}>
+      //       <div style={{padding:"15px"}}>
+      //
+      //       <div className="text-center p-t">
+      //         <strong>Documents in queue</strong>
+      //         <hr />
+      //       </div>
+      //     {this.state.docs.length > 0 ?
+      //       _.map(this.state.docs,(doc, i)=>(
+      //         <div className="m-b p-l" key={i} style={{overflow:'hidden',textOverflow:'ellipsis'}}>
+      //           <div><strong>Name :</strong><span>{doc.name}</span></div>
+      //           <div><strong>Link :</strong><span>{doc.link}</span></div>
+      //         </div>
+      //       ))
+      //       :
+      //       <div className="m-b p-l text-center">
+      //         No document queued for submit
+      //       </div>
+      //     }
+      //   </div>
+      //   </Paper>
+      //   </div>
+    }
 
 
       </div>

@@ -65,7 +65,7 @@ class DocumentsList extends React.Component {
     }
 
     render(){
-      console.log('this.state',this.state);
+      //console.log('this.state',this.state);
     	return(
         <div className="app-body" id="view" style={{'marginTop':10}}>
           <div className="row">
@@ -96,7 +96,7 @@ class DocumentsList extends React.Component {
                  {_.map(this.state.policyDocuments, (doc, i) => (
                    <Card key={i}>
                      <CardHeader
-                       title={<span>doc.name<sup className="badge" style={{color:'red', background:'#FFF',border:'1px solid gray',fontWeight: '400'}} >{doc.read ? "read" : "unread"}</sup></span>}
+                       title={<span>{doc.name}<sup className="badge" style={{color:'red', background:'#FFF',border:'1px solid gray',fontWeight: '400'}} >{doc.read ? "" : "unread"}</sup></span>}
                        subtitle={<a href={doc.link} target="_blanck" onClick={()=>{this.updateReadStatus(doc)}}>{doc.link}</a>}
                        style={{marginTop:'0px',background: 'linear-gradient(rgb(253, 253, 253),rgb(90, 199, 228)250%)'}}
                        titleStyle={{color:doc.read ? 'rgba(12, 12, 12, 0.54)' : '#000000' , fontSize:'18px'}}

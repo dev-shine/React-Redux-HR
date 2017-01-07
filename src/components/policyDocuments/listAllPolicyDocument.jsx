@@ -58,7 +58,7 @@ class ListAllPolicyDocument extends React.Component {
                <Card key={i}>
                  <CardHeader
                    title={doc.name}
-                   subtitle={<span>{doc.link}</span>}
+                   subtitle={<a href={doc.link} target="_blanck">{doc.link}</a>}
                    children={
                      <IconButton
                      tooltip="Delete Document"
@@ -68,16 +68,15 @@ class ListAllPolicyDocument extends React.Component {
                      children={
                        <Delete color='#B71C1C'/>
                      }
-                   onClick= {
-                    (evt) => {
+                     onClick= {
+                      (evt) => {
                       evt.stopPropagation();
                       this.deleteDocument(doc)
                     }
-                  }
-                  />
+                    }
+                    />
                    }
                    textStyle={{width:'310px',paddingRight:'0px'}}
-                   containerStyle={{marginLeft:'1px'}}
                    style={{marginTop:'10px'}}
                    titleStyle={{color:'#000000' , fontSize:'18px'}}
                    subtitleStyle={{fontSize:'12px',fontStyle:'italic',overflow:'hidden',textOverflow:'ellipsis'}}

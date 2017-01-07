@@ -289,8 +289,25 @@ class FormGeneratePaySlip extends React.Component {
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from
+
     return (
       <div>
+        <div className="col-xs-12 text-center" style={{display:'block',background:'rgba(255, 0, 0, 0.08)',padding:'5px 10px',border:'1px solid rgba(255, 0, 0, 0.58)'}}>
+          <div className="col-xs-4">
+            <strong>No. of Panding Leaves</strong>
+            <div className="text-center">{this.props.pending_leaves && this.props.pending_leaves.length}</div>
+          </div>
+          <div className="col-xs-8">
+            <strong>Dates of Leave</strong>
+            <div className="col-xs-12 text-center">
+              {
+                _.map(this.props.pending_leaves,(leave)=>(
+                  <span style={{width:'25%',display:'inline-block',padding:'2px'}}>{leave}</span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
         <form onSubmit={(evt) => {
           evt.preventDefault();
           let s = this.state;
@@ -320,7 +337,7 @@ class FormGeneratePaySlip extends React.Component {
                 </td>
               </tr>
               <tr>
-                <td>{'Loyalty Bonus'}<input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}} 
+                <td>{'Loyalty Bonus'}<input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}
                 onChange={(e)=>{this.loyalty_bonus(e)}}/></td>
                 <td></td>
                 <td></td>

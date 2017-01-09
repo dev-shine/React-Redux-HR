@@ -1,6 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash'
 const classNames = require('classnames');
+var moment = require('moment');
 
 class SalaryList extends React.Component {
     constructor( props ){
@@ -64,10 +65,10 @@ class SalaryList extends React.Component {
                   <li>Reason : {emp.holdingAmountDetail.reason}</li>
                 </ul>:""
               }</td>
-              <td>{emp.dateOfJoining}</td>
+              <td>{moment(emp.dateOfJoining).format("Do MMMM YYYY")}</td>
               <td>{emp.noOfDaysSinceJoined}</td>
               <td>{emp.preSalaryIncDetail}</td>
-              <td>{emp.nextSallaryInc}</td>
+              <td>{moment(emp.nextSallaryInc).format("Do MMMM YYYY")}</td>
             </tr>
         )
       })

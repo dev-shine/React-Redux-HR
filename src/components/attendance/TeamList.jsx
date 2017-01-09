@@ -65,14 +65,12 @@ class TeamList extends React.Component {
     			teamError:'Required'
     		})
     	}else{
-    		//let dataToSend = this.props.teamList.teams
             let dataToSend =  this.props.teamList && this.props.teamList.teams || [];
     		dataToSend.push(teamName)
     		this.callSaveApi(dataToSend)
     	}
     }
     deleteTeam(teamName){
-    	//let teams = this.props.teamList.teams
         let teams = this.props.teamList && this.props.teamList.teams || []
     	let newdata = []
     	_.map(teams, (vari, i) => {

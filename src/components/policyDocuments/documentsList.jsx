@@ -89,7 +89,7 @@ class DocumentsList extends React.Component {
                    >
                    <CardHeader
                      title="Policy Documents List"
-                     subtitle={<span>(Please read all the policy documents to get access to this site)</span>}
+                     subtitle={<span>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</span>}
                      subtitleStyle={{color:"rgba(255, 0, 0, 0.66)",fontSize:'12px',fontStyle:'italic'}}
                      style={{marginBottom:'10px'}}
                    />

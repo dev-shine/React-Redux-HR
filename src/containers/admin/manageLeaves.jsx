@@ -18,7 +18,7 @@ import * as actions_login from '../../actions/login/index'
 
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_listLeaves from '../../actions/leave/listLeaves'
 import * as actions_manageLeave from '../../actions/leave/manageLeave'
 
@@ -31,7 +31,8 @@ class ManageLeaves extends React.Component {
 
     }
     componentDidMount(){
-        this.props.onListLeaves( )
+      this.props.onFetchUserPolicyDocument();
+      this.props.onListLeaves();
     }
     componentWillMount(){
         //this.props.onListLeaves( )
@@ -41,8 +42,14 @@ class ManageLeaves extends React.Component {
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR ){
-            }else{
+          if( props.logged_user.role == CONFIG.ADMIN ||  props.logged_user.role == CONFIG.GUEST ){
+
+          } else if (props.logged_user.role == CONFIG.HR){
+            let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+            if(unread.length > 0){
+              this.props.router.push('/policy_documents');
+            }
+          }else{
                 this.props.router.push('/monthly_attendance');
             }
         }
@@ -97,7 +104,8 @@ function mapStateToProps( state ){
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         listLeaves : state.listLeaves.toJS(),
-        manageLeave : state.manageLeave.toJS()
+        manageLeave : state.manageLeave.toJS(),
+        policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -116,7 +124,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onChangeLeaveStatus : ( leaveid, newstatus , messagetouser ) => {
             return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus, messagetouser ) )
-        }
+        },
+        onFetchUserPolicyDocument: ()=>{
+          return dispatch(actions_policy.fetchUserPolicyDocument());
+        },
     }
 }
 

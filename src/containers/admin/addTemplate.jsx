@@ -8,9 +8,10 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_salary from '../../actions/salary/index'
 import * as actions_templates from '../../actions/admin/templates'
+import * as actions_policy from '../../actions/policyDocuments/index'
+
 import Template from '../../components/attendance/Template'
 import { CONFIG } from '../../config/index'
 
@@ -18,18 +19,16 @@ import { CONFIG } from '../../config/index'
 class TemplateContainer extends React.Component {
      constructor( props ){
         super( props );
-        this.props.onIsAlreadyLogin()
+        this.props.onIsAlreadyLogin();
         this.state = {
         }
     }
     componentWillMount(){
+      this.props.onFetchUserPolicyDocument();
       this.props.onFetchUserSalaryDetails().then(()=>{
         this.props.onFetchTemplate();
         this.props.onFetchVariables();
-      })
-
-        // this.props.onUsersList();
-
+      });
     }
     componentWillReceiveProps( props ){
 
@@ -38,7 +37,13 @@ class TemplateContainer extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
+            if( props.logged_user.role == CONFIG.ADMIN ){
+
+            } else if (props.logged_user.role == CONFIG.HR){
+              let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+              if(unread.length > 0){
+                this.props.router.push('/policy_documents');
+              }
             }else{
                 this.props.router.push('/home');
             }
@@ -63,8 +68,8 @@ function mapStateToProps( state ){
     	  frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         templates : state.template.toJS(),
-        //usersList: state.usersList.toJS(),
-        employee: state.empSalaryList.toJS()
+        employee: state.empSalaryList.toJS(),
+        policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -72,9 +77,9 @@ const mapDispatchToProps = (dispatch) => {
     	  onIsAlreadyLogin: () => {
             return dispatch( actions_login.isAlreadyLogin(  ))
         },
-        // onUsersList: () => {
-        //   return dispatch(actions_usersList.get_users_list())
-        // },
+        onFetchUserPolicyDocument: ()=>{
+          return dispatch(actions_policy.fetchUserPolicyDocument());
+        },
         onFetchTemplate: ()=>{
             return dispatch(actions_templates.get_templates())
         },

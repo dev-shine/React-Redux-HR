@@ -49,7 +49,7 @@ class UploadPolicyDocumentContainer extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
+            if( props.logged_user.role == CONFIG.ADMIN ){
             }else{
                 this.props.router.push('/home');
             }

@@ -17,6 +17,7 @@ import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import AttendanceSheatForm from '../../components/uploadAttendance/AttendanceSheatForm'
 import LoadingIcon from '../../components/generic/LoadingIcon'
@@ -30,7 +31,8 @@ class UploadAttendance extends React.Component {
     this.state = {}
   }
   componentWillMount() {
-    this.props.onUsersList()
+    this.props.onFetchUserPolicyDocument();
+    this.props.onUsersList();
   }
   componentWillReceiveProps(props) {
     window.scrollTo(0, 0);
@@ -38,8 +40,13 @@ class UploadAttendance extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
-        //this.props.onUsersList( )
+      if( props.logged_user.role == CONFIG.ADMIN ){
+
+      } else if (props.logged_user.role == CONFIG.HR){
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/home');
       }
@@ -79,7 +86,14 @@ class UploadAttendance extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), managePayslips: state.managePayslips.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), manageUsers: state.manageUsers.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    manageUsers: state.manageUsers.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -115,7 +129,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserManagePayslipsData: (userid) => {
       return dispatch(actions_managePayslips.get_user_manage_payslips_data(userid))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
 
   }
 }

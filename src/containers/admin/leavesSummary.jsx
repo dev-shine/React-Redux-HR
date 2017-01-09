@@ -13,6 +13,7 @@ import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_leavesSummary from '../../actions/admin/leavesSummary'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import ViewLeavesSummary from '../../components/leavesSummary/ViewLeavesSummary'
 
@@ -31,6 +32,7 @@ class LeavesSummary extends React.Component {
     }
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1 // +1 since getMonth starts from 0
@@ -42,8 +44,13 @@ class LeavesSummary extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
-        //this.props.onUsersList( )
+      if( props.logged_user.role == CONFIG.ADMIN ||  props.logged_user.role == CONFIG.GUEST ){
+
+      } else if (props.logged_user.role == CONFIG.HR){
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -69,7 +76,12 @@ class LeavesSummary extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), leavesSummary: state.leavesSummary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    leavesSummary: state.leavesSummary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -78,7 +90,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     on_all_leaves_summary: (year, month) => {
       return dispatch(actions_leavesSummary.get_all_leaves_summary(year, month))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

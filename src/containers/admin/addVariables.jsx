@@ -10,6 +10,8 @@ import Header from '../../components/generic/header'
 import * as actions_login from '../../actions/login/index'
 import * as actions_salary from '../../actions/salary/index'
 import * as actions_templates from '../../actions/admin/templates'
+import * as actions_policy from '../../actions/policyDocuments/index'
+
 import Variables from '../../components/attendance/Variable'
 import { CONFIG } from '../../config/index'
 
@@ -22,7 +24,8 @@ class VariablesContainer extends React.Component {
         }
     }
     componentWillMount(){
-        this.props.onFetchVariables( )
+      this.props.onFetchUserPolicyDocument();
+      this.props.onFetchVariables();
     }
     componentWillReceiveProps( props ){
 
@@ -31,8 +34,14 @@ class VariablesContainer extends React.Component {
       if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR){
-            }else{
+          if( props.logged_user.role == CONFIG.ADMIN ){
+
+          } else if (props.logged_user.role == CONFIG.HR){
+            let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+            if(unread.length > 0){
+              this.props.router.push('/policy_documents');
+            }
+          }else{
                 this.props.router.push('/home');
             }
         }
@@ -55,8 +64,9 @@ class VariablesContainer extends React.Component {
 function mapStateToProps( state ){
     return {
     	frontend : state.frontend.toJS(),
-        logged_user : state.logged_user.toJS(),
-        variable : state.template.toJS()
+      logged_user : state.logged_user.toJS(),
+      variable : state.template.toJS(),
+      policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -72,7 +82,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDeleteVariable: (id)=>{
             return dispatch(actions_templates.deleteVariable(id))
-        }
+        },
+        onFetchUserPolicyDocument: ()=>{
+          return dispatch(actions_policy.fetchUserPolicyDocument());
+        },
     }
 }
 

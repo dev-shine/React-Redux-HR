@@ -53,7 +53,15 @@ class ApplyLeave extends React.Component {
       if (props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
       } else {
-        if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
+        if (props.logged_user.role == CONFIG.ADMIN) {
+          if (this.state.defaultUserDisplay == '') {
+            props.onUsersList()
+          }
+        } else if (props.logged_user.role == CONFIG.HR){
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+          if(unread.length > 0){
+            this.props.router.push('/policy_documents');
+          }
           if (this.state.defaultUserDisplay == '') {
             props.onUsersList()
           }

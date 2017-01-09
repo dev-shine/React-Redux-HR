@@ -14,6 +14,7 @@ import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 
@@ -39,7 +40,8 @@ class Home extends React.Component {
     this.monthToggle = this.monthToggle.bind(this)
   }
   componentWillMount() {
-    this.props.onUsersList()
+    this.props.onFetchUserPolicyDocument();
+    this.props.onUsersList();
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1 // +1 since getMonth starts from 0
@@ -50,8 +52,14 @@ class Home extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST ){
+
+      }else if (props.logged_user.role == CONFIG.HR) {
         //this.props.onUsersList( )
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -120,7 +128,14 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), monthlyAttendance: state.monthlyAttendance.toJS(), userDaySummary: state.userDaySummary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    monthlyAttendance: state.monthlyAttendance.toJS(),
+    userDaySummary: state.userDaySummary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -138,7 +153,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.updateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

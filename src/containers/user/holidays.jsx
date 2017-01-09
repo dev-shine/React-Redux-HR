@@ -13,6 +13,7 @@ import HolidaysList from '../../components/attendance/HolidaysList'
 import * as actions_login from '../../actions/login/index'
 import * as actions_holidaysList from '../../actions/user/holidaysList'
 import * as actions_policy from '../../actions/policyDocuments/index'
+import { CONFIG } from '../../config/index'
 
 class Holidays extends React.Component {
   constructor(props) {
@@ -28,9 +29,12 @@ class Holidays extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
-      if(unread.length > 0){
-        this.props.router.push('/policy_documents');
+      if( props.logged_user.role == CONFIG.ADMIN ){
+      }else{
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       }
     }
   }

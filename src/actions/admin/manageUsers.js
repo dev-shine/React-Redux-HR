@@ -54,7 +54,7 @@ export function success_update_user_profile_details(data) {
 export function error_update_user_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
-function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition) {
+function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,n_send_slack_msg) {
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,
@@ -71,7 +71,8 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
     "emergency_ph1": n_emergency_ph1,
     "emergency_ph2": n_emergency_ph2,
     "blood_group": n_blood_group,
-    "medical_condition": n_medical_condition
+    "medical_condition": n_medical_condition,
+    "send_slack_msg":n_send_slack_msg
   })
 }
 
@@ -94,6 +95,7 @@ export function updateUserProfileDetails(new_profile_details) {
     let n_emergency_ph2 = ""
     let n_blood_group = ""
     let n_medical_condition = ""
+    let n_send_slack_msg = new_profile_details.send_slack_msg
 
     if (typeof new_profile_details.user_id != 'undefined') {
       n_user_id = new_profile_details.user_id
@@ -188,7 +190,7 @@ export function updateUserProfileDetails(new_profile_details) {
 
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition).then((json) => {
+      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_send_slack_msg).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getUserProfileDetails(n_user_id))

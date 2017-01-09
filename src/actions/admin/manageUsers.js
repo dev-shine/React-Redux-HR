@@ -54,7 +54,9 @@ export function success_update_user_profile_details(data) {
 export function error_update_user_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
-function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition) {
+function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
+  n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
+  n_training_completion_date, n_termination_date,n_holding_comments) {
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,
@@ -71,7 +73,10 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
     "emergency_ph1": n_emergency_ph1,
     "emergency_ph2": n_emergency_ph2,
     "blood_group": n_blood_group,
-    "medical_condition": n_medical_condition
+    "medical_condition": n_medical_condition,
+    "training_completion_date": n_training_completion_date,
+    "termination_date": n_termination_date,
+    "holding_comments": n_holding_comments,
   })
 }
 
@@ -94,6 +99,10 @@ export function updateUserProfileDetails(new_profile_details) {
     let n_emergency_ph2 = ""
     let n_blood_group = ""
     let n_medical_condition = ""
+
+    let n_training_completion_date = ""
+    let n_termination_date = ""
+    let n_holding_comments = ""
 
     if (typeof new_profile_details.user_id != 'undefined') {
       n_user_id = new_profile_details.user_id
@@ -142,6 +151,15 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.medical_condition != 'undefined') {
       n_medical_condition = new_profile_details.medical_condition
     }
+    if (typeof new_profile_details.training_completion_date != 'undefined') {
+      n_training_completion_date = new_profile_details.training_completion_date
+    }
+    if (typeof new_profile_details.termination_date != 'undefined') {
+      n_termination_date = new_profile_details.termination_date
+    }
+    if (typeof new_profile_details.holding_comments != 'undefined') {
+      n_holding_comments = new_profile_details.holding_comments
+    }
 
     if (n_user_id.trim() === "") {
       return Promise.reject('User id is empty')
@@ -185,10 +203,18 @@ export function updateUserProfileDetails(new_profile_details) {
     if (n_medical_condition.trim() === "") {
       return Promise.reject('Any medical conditions is empty')
     }
-
+    if (n_training_completion_date.trim() === "") {
+      return Promise.reject('Transaction Completion Date  is empty')
+    }
+    if (n_termination_date.trim() === "") {
+      return Promise.reject('Termination date empty')
+    }
+    if (n_holding_comments.trim() === "") {
+      return Promise.reject('Holding amount comment is empty')
+    }
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition).then((json) => {
+      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date, n_termination_date, n_holding_comments).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getUserProfileDetails(n_user_id))

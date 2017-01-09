@@ -65,13 +65,15 @@ class TeamList extends React.Component {
     			teamError:'Required'
     		})
     	}else{
-    		let dataToSend = this.props.teamList.teams
+    		//let dataToSend = this.props.teamList.teams
+            let dataToSend =  this.props.teamList && this.props.teamList.teams || [];
     		dataToSend.push(teamName)
     		this.callSaveApi(dataToSend)
     	}
     }
     deleteTeam(teamName){
-    	let teams = this.props.teamList.teams
+    	//let teams = this.props.teamList.teams
+        let teams = this.props.teamList && this.props.teamList.teams || []
     	let newdata = []
     	_.map(teams, (vari, i) => {
     		if(vari != teamName){
@@ -95,7 +97,13 @@ class TeamList extends React.Component {
         })
     }
     render(){
-    	let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
+        let teams;
+        if(this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0){
+            teams = this.props.teamList.teams;
+        }else{
+            teams = [];
+        }
+    	//let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
     	const actions = [
       <FlatButton
         label="Back"

@@ -54,13 +54,14 @@ export function success_update_user_profile_details(data) {
 export function error_update_user_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
-function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition) {
+function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition) {
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,
     'marital_status': n_marital_status,
     'name': n_name,
     'jobtitle': n_jobtitle,
+    'team':n_team,
     'dateofjoining': n_dateofjoining,
     'work_email': n_work_email,
     'gender': n_gender,
@@ -80,6 +81,7 @@ export function updateUserProfileDetails(new_profile_details) {
 
     let n_name = ""
     let n_jobtitle = ""
+    let n_team = ""
     let n_dateofjoining = ""
     let n_work_email = ""
     let n_gender = ""
@@ -101,6 +103,9 @@ export function updateUserProfileDetails(new_profile_details) {
     }
     if (typeof new_profile_details.jobtitle != 'undefined') {
       n_jobtitle = new_profile_details.jobtitle
+    }
+    if (typeof new_profile_details.team != 'undefined') {
+      n_team = new_profile_details.team
     }
     if (typeof new_profile_details.dateofjoining != 'undefined') {
       n_dateofjoining = new_profile_details.dateofjoining
@@ -183,7 +188,7 @@ export function updateUserProfileDetails(new_profile_details) {
 
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition).then((json) => {
+      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getUserProfileDetails(n_user_id))

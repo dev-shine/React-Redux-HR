@@ -75,7 +75,9 @@ else if (data.action == "get_user_profile_detail" || data.action == "update_user
 || data.action == "create_template_variable" || data.action == "get_template_variable" || data.action == "delete_template_variable"
 || data.action == "update_template_variable" || data.action == "create_email_template" || data.action == "get_email_template" || data.action == "delete_email_template"
 || data.action == "update_email_template" || data.action == "send_employee_email"  || data.action == "create_pdf" || data.action == "get_policy_document"
-|| data.action == "save_policy_document" || data.action == "get_user_policy_document" || data.action == "update_user_policy_document") { //generic other new api url
+|| data.action == "save_policy_document" || data.action == "get_user_policy_document" || data.action == "update_user_policy_document"
+|| data.action == "add_team_list" || data.action == "get_team_list" || data.action == "get_team_users_detail") { //generic other new api url
+
     let token = localStorage.getItem('hr_logged_user')
     data.token = token
     headers = {

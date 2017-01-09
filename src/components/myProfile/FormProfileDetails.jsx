@@ -107,8 +107,8 @@ class FormProfileDetails extends React.Component {
           <label>Blood Group</label>
           <select className="form-control" ref="blood_group" onChange={(evt) => this.setState({blood_group: evt.target.value})} value={this.state.blood_group}>
             <option value="">--select your blood group--</option>
-            <option value="o+">O-</option>
-            <option value="o-">O+</option>
+            <option value="o+">O+</option>
+            <option value="o-">O-</option>
             <option value="a+">A+</option>
             <option value="a-">A-</option>
             <option value="b+">B+</option>

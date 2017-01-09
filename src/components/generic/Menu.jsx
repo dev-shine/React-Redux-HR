@@ -68,6 +68,7 @@ class Menu extends React.Component {
     let link_user_policy_document = <Link to='/user_policy_documents'>User Policy Documents</Link>
     let link_mail_templates = <Link to='/mail_templates'>Mail Templates</Link>
     let link_template_variable = <Link to='/add_variables'>Add Variables</Link>
+    let link_team_view = <Link to='/team_view'>Team</Link>
 
     let links_to_show = <ul className="nav">
       <li className="hidden-folded">
@@ -299,6 +300,9 @@ class Menu extends React.Component {
           <span>{link_holidays}</span>
         </li>
 
+        <li className="hidden-folded">
+          <span>{link_team_view}</span>
+        </li>
         <li className="hidden-folded">
           <span>{link_logout}</span>
         </li>

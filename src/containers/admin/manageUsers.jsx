@@ -19,6 +19,7 @@ import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
 import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_getTeamData from '../../actions/admin/teamList'
 
 import UsersList from '../../components/generic/UsersList'
 
@@ -56,6 +57,7 @@ class ManageUsers extends React.Component {
   componentWillMount() {
     this.props.onFetchUserPolicyDocument();
     this.props.onUsersList()
+    this.props.onFetchTeam()
   }
   componentWillReceiveProps(props) {
     //window.scrollTo(0, 0);
@@ -176,7 +178,7 @@ class ManageUsers extends React.Component {
                 <div className="col-md-10 p">
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
-                      <FormUserProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails} username={this.state.username}/>
+                      <FormUserProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails} username={this.state.username} {...this.props}/>
                     </div>
                     <div className="col-md-5 p-t p-b">
                       <div className="col-md-12">
@@ -212,7 +214,8 @@ function mapStateToProps(state) {
     usersList: state.usersList.toJS(),
     manageUsers: state.manageUsers.toJS(),
     policy_documents: state.policyDocuments.toJS(),
-}
+    teamList: state.teamList.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -252,7 +255,9 @@ const mapDispatchToProps = (dispatch) => {
     onFetchUserPolicyDocument: ()=>{
       return dispatch(actions_policy.fetchUserPolicyDocument());
     },
-
+    onFetchTeam: () => {
+      return dispatch(actions_getTeamData.get_all_team())
+    }
   }
 }
 

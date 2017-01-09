@@ -42,6 +42,7 @@ import Page_UploadAttendance from './containers/admin/uploadAttendance'
 import Page_UploadPolicyDocument from './containers/admin/uploadPolicyDocument'
 import Page_mail_template from './containers/admin/addTemplate'
 import Page_AddVariables from './containers/admin/addVariables'
+import Page_TeamView from './containers/admin/viewTeam'
 
 
 //-user
@@ -140,6 +141,7 @@ let render = (routerKey = null) => {
             <Route path="manage_working_hours" component={Page_ManageWorkingHours}/>
             <Route path="logout" component={Page_Logout}/>
             <Route path="holidays" component={Page_Holidays}/>
+            <Route path="team_view" component={Page_TeamView}/>
             <Route path="apply_leave" component={Page_ApplyLeave}/>
             <Route path="manage_leaves" component={Page_ManageLeaves}/>
             <Route path="my_leaves" component={Page_MyLeaves}/>

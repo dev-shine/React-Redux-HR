@@ -63,7 +63,11 @@ class FormUserProfileDetails extends React.Component {
     }
     if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
       var mydate = new Date(props.user_profile_detail.dob);
-      dob = (mydate.getDate() + '/' + (mydate.getMonth() + 1) + '/' +  mydate.getFullYear());
+      if(mydate == 'Invalid Date'){
+        dob = ''
+      }else{
+        dob = (mydate.getDate() + '/' + (mydate.getMonth() + 1) + '/' +  mydate.getFullYear());
+      }
     }
     if (typeof props.user_profile_detail.gender != 'undefined' && props.user_profile_detail.gender != null) {
       gender = props.user_profile_detail.gender

@@ -55,6 +55,7 @@ export function error_update_user_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
 function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,n_send_slack_msg) {
+  console.log(n_dob,"n_dob")
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,

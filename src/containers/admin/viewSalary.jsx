@@ -6,6 +6,8 @@ import * as _ from 'lodash'
 import {notify} from '../../services/index'
 import { CONFIG } from '../../config/index'
 import Menu from '../../components/generic/Menu'
+import Header from '../../components/generic/header'
+
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import SalaryList from '../../components/attendance/SalaryList'
 import * as actions_login from '../../actions/login/index'
@@ -60,29 +62,15 @@ class ViewSalary extends React.Component {
     	let table =(this.state.empList.length>0)? <SalaryList {...this.props} empList={this.state.empList}/>:""
     	return(
     		<div>
-            <Menu {...this.props }/>
-    		<div id="content" className="app-content box-shadow-z0" role="main">
-    		  <div className="app-header white box-shadow">
-                <div className="navbar">
-    			    <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-      				   <i className="material-icons">&#xe5d2;</i>
-    				</a>
-    			    <div className="navbar-item pull-left h5" id="pageTitle">
-    			       View Salary
-    			    </div>
-			    </div>
-				</div>
-				<div className="app-body" id="view">
-                        <div className="row">
-            				<div className="col-12">
-            					<LoadingIcon {...this.props}/>
-            				</div>
-            			</div>
-						<div className="padding">
-	            				{table}
-                        </div>
-    		  </div>
-    		</div>
+          <Menu {...this.props }/>
+      		<div id="content" className="app-content box-shadow-z0" role="main">
+            <Header pageTitle={"View Salary"+status_message} {...this.props} />
+    				<div className="app-body" id="view">
+      				<div className="padding">
+              	{table}
+              </div>
+        		</div>
+      		</div>
     		</div>
     		)
     }

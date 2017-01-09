@@ -8,12 +8,13 @@ import {CONFIG} from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UsersList from '../../components/generic/UsersList'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_workingHoursSummary from '../../actions/admin/workingHoursSummary'
 
 import WorkingHoursSummary from '../../components/attendance/WorkingHoursSummary'
@@ -35,6 +36,7 @@ class ManageWorkingHours extends React.Component {
     this.onWorkingHoursChange = this.onWorkingHoursChange.bind(this)
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1
@@ -45,8 +47,14 @@ class ManageWorkingHours extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST ){
+
+      }else if (props.logged_user.role == CONFIG.HR) {
         //this.props.onUsersList( )
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -58,7 +66,6 @@ class ManageWorkingHours extends React.Component {
 
   }
   onWorkingHoursChange(date, hours) {
-    console.log('date, hours',date, hours);
     if (hours == '') {} else {
       this.props.onUpdateDayWorkingHours(date, hours).then((data) => {}, (error) => {
         notify(error);
@@ -73,19 +80,7 @@ class ManageWorkingHours extends React.Component {
 
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Manage Working Hours</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Manage Working Hours"} {...this.props} />
 
           <div className="app-body" id="view">
 
@@ -111,7 +106,9 @@ function mapStateToProps(state) {
     frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(),
     //monthlyAttendance : state.monthlyAttendance.toJS(),
     userDaySummary: state.userDaySummary.toJS(),
-    workingHoursSummary: state.workingHoursSummary.toJS()
+    workingHoursSummary: state.workingHoursSummary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -124,7 +121,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDayWorkingHours: (date, time) => {
       return dispatch(actions_workingHoursSummary.update_day_working_hours(date, time))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

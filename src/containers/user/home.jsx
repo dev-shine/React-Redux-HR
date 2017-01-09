@@ -8,11 +8,13 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UsersList from '../../components/attendance/UsersList'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 
@@ -38,7 +40,8 @@ class Home extends React.Component {
     this.monthToggle = this.monthToggle.bind(this)
   }
   componentWillMount() {
-    this.props.onUsersList()
+    this.props.onFetchUserPolicyDocument();
+    this.props.onUsersList();
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1 // +1 since getMonth starts from 0
@@ -49,8 +52,14 @@ class Home extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST ){
+
+      }else if (props.logged_user.role == CONFIG.HR) {
         //this.props.onUsersList( )
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -100,20 +109,8 @@ class Home extends React.Component {
         <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props}/>
 
         <div id="content" className="app-content box-shadow-z0" role="main">
+          <Header pageTitle={"Users"} {...this.props} />
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Users</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
 
           <div className="app-body" id="view">
 
@@ -131,7 +128,14 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), monthlyAttendance: state.monthlyAttendance.toJS(), userDaySummary: state.userDaySummary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    monthlyAttendance: state.monthlyAttendance.toJS(),
+    userDaySummary: state.userDaySummary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -149,7 +153,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.updateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

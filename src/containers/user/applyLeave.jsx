@@ -9,10 +9,13 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import ApplyLeaveForm from '../../components/generic/ApplyLeaveForm'
+import Header from '../../components/generic/header'
 import {CONFIG} from '../../config/index'
+
 import * as actions_login from '../../actions/login/index'
 import * as actions_apply_leave from '../../actions/leave/applyLeave'
 import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
 import UsersList from '../../components/attendance/UsersList'
@@ -39,7 +42,9 @@ class ApplyLeave extends React.Component {
     this.doApplyLeave = this.doApplyLeave.bind(this)
   }
   componentDidMount() {}
-  componentWillMount() {}
+  componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
+  }
   componentWillReceiveProps(props) {
     window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
@@ -48,9 +53,22 @@ class ApplyLeave extends React.Component {
       if (props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
       } else {
-        if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
+        if (props.logged_user.role == CONFIG.ADMIN) {
           if (this.state.defaultUserDisplay == '') {
             props.onUsersList()
+          }
+        } else if (props.logged_user.role == CONFIG.HR){
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+          if(unread.length > 0){
+            this.props.router.push('/policy_documents');
+          }
+          if (this.state.defaultUserDisplay == '') {
+            props.onUsersList()
+          }
+        }else{
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+          if(unread.length > 0){
+            this.props.router.push('/policy_documents');
           }
         }
       }
@@ -135,19 +153,7 @@ class ApplyLeave extends React.Component {
         <Menu {...this.props }/>
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Apply Leave &nbsp;&nbsp;&nbsp; {status_message}</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Apply Leave"+ status_message} {...this.props} />
 
           <div className="app-body" id="view">
             <div style={styles.content} className="padding">
@@ -169,7 +175,14 @@ ApplyLeave.styles = {
 };
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), applyLeave: state.applyLeave.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    applyLeave: state.applyLeave.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -184,7 +197,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list())
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

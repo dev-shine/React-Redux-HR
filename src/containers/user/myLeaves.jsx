@@ -8,9 +8,11 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import UserLeavesList from '../../components/leaves/UserLeavesList'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_myLeaves from '../../actions/leave/myLeaves'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 class MyLeaves extends React.Component {
     constructor( props ){
@@ -18,54 +20,39 @@ class MyLeaves extends React.Component {
         this.props.onIsAlreadyLogin()
     }
     componentWillMount(){
-        this.props.onMyLeavesList(  )
+      this.props.onFetchUserPolicyDocument();
+      this.props.onMyLeavesList(  )
     }
     componentWillReceiveProps( props ){
         window.scrollTo(0, 0);
         if( props.logged_user.logged_in == -1 ){
-            this.props.router.push('/logout');
+          this.props.router.push('/logout');
         }else{
-
+          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+	        if(unread.length > 0){
+	          this.props.router.push('/policy_documents');
+	        }
         }
     }
     render(){
 
         let mainDivs = <div className="row">
-            <div className="col-md-12">
-                <UserLeavesList {...this.props}/>
-            </div>
-        </div>
+                        <div className="col-md-12">
+                          <UserLeavesList {...this.props}/>
+                        </div>
+                      </div>
 
 		return(
     		<div>
     			<Menu {...this.props }/>
-
-                <div id="content" className="app-content box-shadow-z0" role="main">
-
-                    <div className="app-header white box-shadow">
-                <div className="navbar">
-                  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                    <i className="material-icons">&#xe5d2;</i>
-                  </a>
-                  <div className="navbar-item pull-left h5" id="pageTitle">My Leaves</div>
-                </div>
-                <div className="row no-gutter">
-                  <div className="col-12">
-                    <LoadingIcon {...this.props}/>
-                  </div>
-                </div>
+          <div id="content" className="app-content box-shadow-z0" role="main">
+            <Header pageTitle={"My Leaves"} {...this.props} />
+  					<div className="app-body" id="view">
+        			<div className="padding">
+          			{mainDivs}
               </div>
-
-
-					<div className="app-body" id="view">
-
-            			<div className="padding">
-	            				{mainDivs}
-                        </div>
-
-						</div>
-					</div>
-
+  					</div>
+		      </div>
     		</div>
     	)
     }
@@ -78,6 +65,7 @@ function mapStateToProps( state ){
         holidaysList : state.holidaysList.toJS(),
         userLeaves : state.userLeaves.toJS(),
         applyLeave : state.applyLeave.toJS(),
+        policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -90,7 +78,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onCancelLeave : (userId, from_date) => {
           return dispatch( actions_myLeaves.cancelLeave(userId, from_date) )
-        }
+        },
+        onFetchUserPolicyDocument: ()=>{
+		      return dispatch(actions_policy.fetchUserPolicyDocument());
+		    },
     }
 }
 

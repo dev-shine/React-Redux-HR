@@ -43,6 +43,7 @@ class FormProfileDetails extends React.Component {
   }
 
   render() {
+    console.log('this.state',this.state);
     return (
       <div>
         <h6 className="text-center">Personal Details</h6>
@@ -121,7 +122,6 @@ class FormProfileDetails extends React.Component {
           <label>Any Medical Conditions</label>
           <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={() => this.setState({medical_con: this.refs.medical_con.value})} value={this.state.medical_con}></textarea>
         </div>
-
         <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateProfileDetails(this.state)}>Update Profile Details</button>
       </div>
     )

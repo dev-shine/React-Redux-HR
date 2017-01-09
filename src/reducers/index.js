@@ -23,12 +23,13 @@ import { clientsList } from './admin/clientsList'
 import { manageClients } from './admin/manageClients'
 import { managePayslips } from './admin/managePayslips'
 import { empSalaryList } from './admin/empSalaryDetails'
+import {policyDocuments} from './admin/policyDocuments'
 import {template} from './admin/template'
 import {teamList} from './admin/teamList'
 
 
 export default combineReducers({
-	frontend,
+		frontend,
     logged_user,
     monthlyAttendance,
     attendanceSummary,
@@ -51,6 +52,7 @@ export default combineReducers({
     manageClients,
     managePayslips,
     empSalaryList,
+		policyDocuments,
     template,
     teamList
 })

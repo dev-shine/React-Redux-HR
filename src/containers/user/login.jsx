@@ -32,6 +32,9 @@ class Login extends React.Component {
     this.doLogin = this.doLogin.bind(this)
     this.doGuestLogin = this.doGuestLogin.bind(this)
   }
+  componentWillMount(){
+    
+  }
   componentWillReceiveProps(props) {
     let logged_user = props.logged_user
 

@@ -11,12 +11,14 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import AlertNotification from '../../components/generic/AlertNotification'
+import Header from '../../components/generic/header'
 
 //-----------------------------------------
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_getTeamData from '../../actions/admin/teamList'
 
 import UsersList from '../../components/generic/UsersList'
@@ -53,6 +55,7 @@ class ManageUsers extends React.Component {
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this)
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     this.props.onUsersList()
     this.props.onFetchTeam()
   }
@@ -62,8 +65,13 @@ class ManageUsers extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
-        //this.props.onUsersList( )
+      if( props.logged_user.role == CONFIG.ADMIN ||  props.logged_user.role == CONFIG.GUEST ){
+
+      } else if (props.logged_user.role == CONFIG.HR){
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/home');
       }
@@ -148,19 +156,7 @@ class ManageUsers extends React.Component {
         <Menu {...this.props }/>
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Manage Employees Profile</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Manage Employees Profile"} {...this.props} />
 
           <div className="app-body" id="view">
             <div className="padding">
@@ -212,12 +208,13 @@ class ManageUsers extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    frontend: state.frontend.toJS(), 
-    managePayslips: state.managePayslips.toJS(), 
-    logged_user: state.logged_user.toJS(), 
-    usersList: state.usersList.toJS(), 
+    frontend: state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
     manageUsers: state.manageUsers.toJS(),
-    teamList: state.teamList.toJS()
+    policy_documents: state.policyDocuments.toJS(),
+    teamList: state.teamList.toJS(),
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -255,10 +252,12 @@ const mapDispatchToProps = (dispatch) => {
     onUserManagePayslipsData: (userid) => {
       return dispatch(actions_managePayslips.get_user_manage_payslips_data(userid))
     },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
     onFetchTeam: () => {
       return dispatch(actions_getTeamData.get_all_team())
     }
-
   }
 }
 

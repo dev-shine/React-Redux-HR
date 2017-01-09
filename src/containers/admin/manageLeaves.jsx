@@ -7,6 +7,8 @@ import {notify} from '../../services/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
+
 import { CONFIG } from '../../config/index'
 import ListLeaves from '../../components/manageLeaves/ListLeaves'
 import ViewLeave from '../../components/manageLeaves/ViewLeave'
@@ -16,7 +18,7 @@ import * as actions_login from '../../actions/login/index'
 
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_listLeaves from '../../actions/leave/listLeaves'
 import * as actions_manageLeave from '../../actions/leave/manageLeave'
 
@@ -29,7 +31,8 @@ class ManageLeaves extends React.Component {
 
     }
     componentDidMount(){
-        this.props.onListLeaves( )
+      this.props.onFetchUserPolicyDocument();
+      this.props.onListLeaves();
     }
     componentWillMount(){
         //this.props.onListLeaves( )
@@ -39,8 +42,14 @@ class ManageLeaves extends React.Component {
         if( props.logged_user.logged_in == -1 ){
             this.props.router.push('/logout');
         }else{
-            if( props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR ){
-            }else{
+          if( props.logged_user.role == CONFIG.ADMIN ||  props.logged_user.role == CONFIG.GUEST ){
+
+          } else if (props.logged_user.role == CONFIG.HR){
+            let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+            if(unread.length > 0){
+              this.props.router.push('/policy_documents');
+            }
+          }else{
                 this.props.router.push('/monthly_attendance');
             }
         }
@@ -65,53 +74,26 @@ class ManageLeaves extends React.Component {
 		return(
     		<div>
     			<Menu {...this.props }/>
-
-                <div id="content" className="app-content box-shadow-z0" role="main">
-
-                     <div className="app-header white box-shadow">
-                <div className="navbar">
-                  <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                    <i className="material-icons">&#xe5d2;</i>
-                  </a>
-                  <div className="navbar-item pull-left h5" id="pageTitle">Manage Leaves &nbsp;&nbsp;&nbsp; {status_message}</div>
-                </div>
-                <div className="row no-gutter">
+            <div id="content" className="app-content box-shadow-z0" role="main">
+            <Header pageTitle={"Manage Leaves"+status_message} {...this.props} />
+    				<div className="app-body" id="view">
+  						<div className="padding">
+                <div className="row">
                   <div className="col-12">
-                    <LoadingIcon {...this.props}/>
+                    <LeaveColorReference {...this.props}/>
                   </div>
                 </div>
-              </div>
-
-
-
-
-    				<div className="app-body" id="view">
-
-
-
-						<div className="padding">
-
-                            <div className="row">
-                                <div className="col-12">
-                                    <LeaveColorReference {...this.props}/>
-                                </div>
-                            </div>
-
-                            <div className="row-col row-col-xs b-b">
-                                <div className="col-sm-3 light bg b-r">
-                                    <ListLeaves {...this.props}/>
-                                </div>
-                                <div className="col-sm-9 light bg b-r">
-                                    <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
-                                </div>
-                            </div>
-
-
-	            		</div>
-
+                <div className="row-col row-col-xs b-b">
+                  <div className="col-sm-3 light bg b-r">
+                    <ListLeaves {...this.props}/>
+                  </div>
+                  <div className="col-sm-9 light bg b-r">
+                    <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                  </div>
+                </div>
+  	          </div>
 						</div>
 					</div>
-
     		</div>
     	)
     }
@@ -122,7 +104,8 @@ function mapStateToProps( state ){
         frontend : state.frontend.toJS(),
         logged_user : state.logged_user.toJS(),
         listLeaves : state.listLeaves.toJS(),
-        manageLeave : state.manageLeave.toJS()
+        manageLeave : state.manageLeave.toJS(),
+        policy_documents: state.policyDocuments.toJS(),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -141,7 +124,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onChangeLeaveStatus : ( leaveid, newstatus , messagetouser ) => {
             return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus, messagetouser ) )
-        }
+        },
+        onFetchUserPolicyDocument: ()=>{
+          return dispatch(actions_policy.fetchUserPolicyDocument());
+        },
     }
 }
 

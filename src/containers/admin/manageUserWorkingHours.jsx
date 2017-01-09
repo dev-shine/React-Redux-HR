@@ -9,13 +9,14 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
 import UsersList from '../../components/generic/UsersList'
+import Header from '../../components/generic/header'
 
 import ListUserWorkingHours from '../../components/manageUserWorkingHours/ListUserWorkingHours'
 import FormAddUserWorkingHours from '../../components/manageUserWorkingHours/FormAddUserWorkingHours'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
-
+import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_manageUserWorkingHours from '../../actions/admin/manageUserWorkingHours'
 
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
@@ -41,6 +42,7 @@ class ManageUserWorkingHours extends React.Component {
     this.callAddUserWorkingHours = this.callAddUserWorkingHours.bind(this)
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     this.props.onUsersList()
   }
   componentWillReceiveProps(props) {
@@ -48,8 +50,14 @@ class ManageUserWorkingHours extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST ){
+
+      }else if (props.logged_user.role == CONFIG.HR) {
         //this.props.onUsersList( )
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -157,19 +165,7 @@ class ManageUserWorkingHours extends React.Component {
 
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Manage Employees Working Hours &nbsp;&nbsp;&nbsp; {status_message}</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"Manage Employees Working Hours"+status_message} {...this.props} />
 
           <div className="app-body" id="view">
 
@@ -186,7 +182,13 @@ class ManageUserWorkingHours extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), manageUserWorkingHours: state.manageUserWorkingHours.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    usersList: state.usersList.toJS(),
+    manageUserWorkingHours: state.manageUserWorkingHours.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -201,7 +203,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddUserWorkingHours: (userid, date, working_hours, reason) => {
       return dispatch(actions_manageUserWorkingHours.add_user_working_hours(userid, date, working_hours, reason))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
 
   }
 }

@@ -7,10 +7,13 @@ import {notify} from '../../services/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
+
 import {CONFIG} from '../../config/index'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_leavesSummary from '../../actions/admin/leavesSummary'
+import * as actions_policy from '../../actions/policyDocuments/index'
 
 import ViewLeavesSummary from '../../components/leavesSummary/ViewLeavesSummary'
 
@@ -29,6 +32,7 @@ class LeavesSummary extends React.Component {
     }
   }
   componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
     let d = new Date();
     let year = d.getFullYear()
     let month = d.getMonth() + 1 // +1 since getMonth starts from 0
@@ -40,8 +44,13 @@ class LeavesSummary extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST || props.logged_user.role == CONFIG.HR) {
-        //this.props.onUsersList( )
+      if( props.logged_user.role == CONFIG.ADMIN ||  props.logged_user.role == CONFIG.GUEST ){
+
+      } else if (props.logged_user.role == CONFIG.HR){
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       } else {
         this.props.router.push('/monthly_attendance');
       }
@@ -53,40 +62,26 @@ class LeavesSummary extends React.Component {
     return (
       <div>
         <Menu {...this.props }/>
-
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">Leaves Summary</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
-
+          <Header pageTitle={"Leaves Summary"} {...this.props} />
           <div className="app-body" id="view">
-
             <div className="padding">
-
               <ViewLeavesSummary componentData={this.props.leavesSummary} {...this.props}/>
-
             </div>
-
           </div>
         </div>
-
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), leavesSummary: state.leavesSummary.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    logged_user: state.logged_user.toJS(),
+    leavesSummary: state.leavesSummary.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -95,7 +90,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     on_all_leaves_summary: (year, month) => {
       return dispatch(actions_leavesSummary.get_all_leaves_summary(year, month))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

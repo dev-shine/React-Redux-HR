@@ -1,15 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
+
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
+import Header from '../../components/generic/header'
 
 import * as actions_login from '../../actions/login/index'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
+import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_myProfile from '../../actions/user/myProfile'
+
 import {CONFIG} from '../../config/index'
 
 import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
@@ -24,7 +28,8 @@ class MonthlyAttendance extends React.Component {
       "daysummary_date": "",
       year: "",
       month: '',
-      test: "show"
+      test: "show",
+      userDoc:['bvnvbn','efce','vbnvb','vbnvb']
     }
 
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
@@ -33,7 +38,8 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount() {
     this.props.onIsAlreadyLogin()
-    console.log(localStorage.getItem("userid"));
+    this.props.onFetchUserPolicyDocument();
+
     let user_id = this.props.logged_user.userid;
     this.setState({"defaultUserDisplay": user_id})
     let d = new Date();
@@ -49,6 +55,11 @@ class MonthlyAttendance extends React.Component {
     } else {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         this.props.router.push('/home');
+      }else{
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
+        }
       }
     }
   }
@@ -62,31 +73,19 @@ class MonthlyAttendance extends React.Component {
   }
   render() {
     let mainDivs = <div className="row">
+                      <div className="col-md-1"></div>
+                      <div className="col-md-10">
+                        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
+                      </div>
+                   </div>
 
-      <div className="col-md-1"></div>
-      <div className="col-md-10">
-        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
-      </div>
-    </div>
     return (
       <div >
         <Menu {...this.props}/>
 
         <div id="content" className="app-content box-shadow-z0" role="main">
 
-          <div className="app-header white box-shadow">
-            <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
-                <i className="material-icons">&#xe5d2;</i>
-              </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">My Attendance</div>
-            </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
-              </div>
-            </div>
-          </div>
+          <Header pageTitle={"My Attendance"} {...this.props} />
 
           <div className="app-body" id="view">
 
@@ -111,7 +110,13 @@ MonthlyAttendance.styles = {
 };
 
 function mapStateToProps(state) {
-  return {frontend: state.frontend.toJS(), userDaySummary: state.userDaySummary.toJS(), logged_user: state.logged_user.toJS(), monthlyAttendance: state.monthlyAttendance.toJS()}
+  return {
+    frontend: state.frontend.toJS(),
+    userDaySummary: state.userDaySummary.toJS(),
+    logged_user: state.logged_user.toJS(),
+    monthlyAttendance: state.monthlyAttendance.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+  }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -127,7 +132,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserUpdateDaySummary: (userid, date, entry_time, exit_time, reason, year, month) => {
       return dispatch(actions_userDaySummary.userUpdateUserDaySummary(userid, date, entry_time, exit_time, reason, year, month))
-    }
+    },
+    onFetchUserPolicyDocument: ()=>{
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    },
   }
 }
 

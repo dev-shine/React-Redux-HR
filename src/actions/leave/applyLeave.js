@@ -23,29 +23,31 @@ export function leave_error( err ){
 	return createAction( ACTION_LEAVE_ERROR )( 'Error Occurs !!' )
 }
 
-function async_apply_leave( from_date, to_date, no_of_days, reason ){
+function async_apply_leave( from_date, to_date, no_of_days, reason, day_status ){
 	return fireAjax( 'POST', '', {
 		'action' : 'apply_leave',
 		'from_date' : from_date,
 		'to_date' : to_date,
 		'no_of_days' : no_of_days,
-		'reason' : reason
+		'reason' : reason,
+		'day_status':day_status
 	})
 }
 
 
-function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId ){
+function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status ){
 	return fireAjax( 'POST', '', {
 		'action' : 'admin_user_apply_leave',
 		'from_date' : from_date,
 		'to_date' : to_date,
 		'no_of_days' : no_of_days,
 		'reason' : reason,
-		'user_id' : userId
+		'user_id' : userId,
+		'day_status':day_status
 	})
 }
 
-export function apply_leave( from_date, to_date, no_of_days, reason, userId ){
+export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_status ){
 
 	return function (dispatch,getState){
 		if(_.isEmpty(from_date)){
@@ -64,7 +66,7 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId ){
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			if(userId==""){
-				async_apply_leave( from_date, to_date, no_of_days, reason ).then(
+				async_apply_leave( from_date, to_date, no_of_days, reason,day_status ).then(
 				    ( json ) => {
 					    dispatch( hide_loading() ) // hide loading icon
 					    if( json.error == 0 ){
@@ -79,7 +81,7 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId ){
 				    }
 			    )
 			}else{
-				async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId ).then(
+				async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status ).then(
 				    ( json ) => {
 					    dispatch( hide_loading() ) // hide loading icon
 					    if( json.error == 0 ){

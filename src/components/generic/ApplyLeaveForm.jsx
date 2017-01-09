@@ -13,12 +13,13 @@ class ApplyLeaveForm extends React.Component {
       form_to_date: '',
       form_no_of_days: '',
       form_reason: '',
+      day_status:'',
       show_half_day_button: ''
     }
     this.doApplyLeave = this.doApplyLeave.bind(this)
     this.handleStartDate = this.handleStartDate.bind(this)
     this.handleEndDate = this.handleEndDate.bind(this)
-    this._apply_half_day = this._apply_half_day.bind(this)
+    this._apply_half_day_1 = this._apply_half_day_1.bind(this)
 
   }
   componentDidMount() {}
@@ -30,8 +31,19 @@ class ApplyLeaveForm extends React.Component {
 
   }
 
-  _apply_half_day() {
-    this.setState({form_no_of_days: "0.5"})
+  _apply_half_day_1(shift) {
+    if(shift == 1){
+      this.setState({
+        form_no_of_days: "0.5",
+        day_status:'1'
+      })
+    }else if(shift == 2){
+      this.setState({
+        form_no_of_days: "0.5",
+        day_status:'2'
+      })
+    }
+    
   }
 
   handleStartDate(date) {
@@ -50,12 +62,26 @@ class ApplyLeaveForm extends React.Component {
   doApplyLeave(evt) {
     evt.preventDefault();
     if (this.props.forAdmin == true) {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId)
-      this.setState({form_from_date: '', form_to_date: '', form_no_of_days: '', form_reason: '', show_half_day_button: ''});
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId,this.state.day_status)
+      this.setState({
+        form_from_date: '', 
+        form_to_date: '', 
+        form_no_of_days: '', 
+        form_reason: '', 
+        show_half_day_button: '',
+        day_status:''
+      });
       //notify("leave Applied");
     } else {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "")
-      this.setState({form_from_date: '', form_to_date: '', form_no_of_days: '', form_reason: '', show_half_day_button: ''});
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "",this.state.day_status)
+      this.setState({
+        form_from_date: '', 
+        form_to_date: '', 
+        form_no_of_days: '', 
+        form_reason: '', 
+        show_half_day_button: '',
+        day_status:''
+      });
     }
   }
   componentWillReceiveProps(props) {
@@ -69,9 +95,11 @@ class ApplyLeaveForm extends React.Component {
   }
   render() {
 
-    let apply_half_day_button = ""
+    let apply_half_day_button_1 = ""
+    let apply_half_day_button_2 = ""
     if (this.state.form_no_of_days == 1) {
-      apply_half_day_button = <button className="md-btn md-flat text-accent" onClick= { () => this._apply_half_day() }>Apply Half Day</button>
+      apply_half_day_button_1 = <button className="md-btn md-flat text-accent" onClick= { () => this._apply_half_day_1(1) }>Apply Leave For First Half</button>
+      apply_half_day_button_2 = <button className="md-btn md-flat text-accent" onClick= { () => this._apply_half_day_1(2) }>Apply Leave For Second Half</button>
     }
 
     return (
@@ -112,7 +140,8 @@ class ApplyLeaveForm extends React.Component {
                     <div className="sl-date text-muted">No. of days</div>
                     <div>
                       {this.state.form_no_of_days}
-                      {apply_half_day_button}
+                      {apply_half_day_button_1}
+                      {apply_half_day_button_2}
                     </div>
                   </div>
                 </div>

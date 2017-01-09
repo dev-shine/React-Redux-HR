@@ -1,7 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash'
 const classNames = require('classnames');
-//import Holiday from '../../components/holidaysList/Holiday'
 
 class SalaryList extends React.Component {
     constructor( props ){

@@ -117,7 +117,6 @@ class ManageUsers extends React.Component {
   }
   callUpdateUserProfileDetails(new_profile_details) {
     this.props.onUpdateUserProfileDetails(new_profile_details).then((data) => {}, (error) => {
-      console.log('error',error);
       notify(error);
     })
   }

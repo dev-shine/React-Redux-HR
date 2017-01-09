@@ -3,7 +3,6 @@ import * as _ from 'lodash'
 
 import { DateField } from 'react-date-picker'
 import 'react-date-picker/index.css'
-var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {
   constructor(props) {
@@ -28,6 +27,7 @@ class FormUserProfileDetails extends React.Component {
       training_completion_date: "",
       termination_date: "",
       holding_comments: "",
+      send_slack_msg:''
     }
   }
   componentWillReceiveProps(props) {
@@ -330,7 +330,21 @@ class FormUserProfileDetails extends React.Component {
           <label>Any Medical Conditions</label>
           <textarea placeholder="your medical conditions..." className="form-control" ref="medical_condition" onChange={() => this.setState({medical_condition: this.refs.medical_condition.value})} value={this.state.medical_condition}></textarea>
         </div>
-
+        <div className="form-group">
+        <label>Don’t post on slack</label>
+        <input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}
+          onChange={(e)=>{
+            if(e.target.checked){
+              this.setState({
+                send_slack_msg:'1'
+              })
+            }else{
+              this.setState({
+                send_slack_msg:''
+              })
+            }
+          }}/>
+        </div>
         <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)}>Update Profile Details</button>
 
       </div>

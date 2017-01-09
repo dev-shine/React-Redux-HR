@@ -16,7 +16,7 @@ class TeamDetails extends React.Component {
       })
     }
     render(){
-      let teams = this.props.teamList.teams
+      let teams = this.props.teamList && this.props.teamList.teams || []
       let row =  _.map( this.props.teamList.candidateByTeam , ( emp, key ) => {
         return (
             <tr key={key}>

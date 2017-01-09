@@ -410,6 +410,9 @@ class Menu extends React.Component {
           <span>{link_manage_users}</span>
         </li>
         <li className="hidden-folded">
+          <span >{link_policy_documents}</span>
+        </li>
+        <li className="hidden-folded">
           <span>{link_logout}</span>
         </li>
 

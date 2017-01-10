@@ -344,6 +344,24 @@ class Variables extends React.Component {
                    value = recipient.work_email
                  }else if(variable.name == '#page_break'){
                    value = "<div style='page-break-after:always;'></div>"
+                 }else if(variable.name == '#employee_user_id'){
+                   value = recipient.user_Id
+                 }else if(variable.name == '#employee_number'){
+                   value = recipient.emergency_ph1
+                 }else if(variable.name == '#training_completion_date'){
+                    var mydate = new Date(recipient.training_completion_date);
+                    if(mydate != 'Invalid Date'){
+                      value = moment(mydate).format("DD/MM/YYYY");
+                    }else{
+                      value = '#training_completion_date'
+                    }
+                 }else if(variable.name == '#termination_date'){
+                   var mydate = new Date(recipient.termination_date);
+                    if(mydate != 'Invalid Date'){
+                      value = moment(mydate).format("DD/MM/YYYY");
+                    }else{
+                      value = '#termination_date'
+                    }
                  }
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
@@ -526,7 +544,7 @@ class Variables extends React.Component {
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
             //let regx = /#[\w\/|-]*/g;
-            let regx = /#[\w-]+\|[\w -]+\||#[\w-]+/ig;
+            let regx = /#[\w-]+\|[\w -\.,@$%&*!%^]+\||#[\w-]+/ig;
             let result = string.match(regx);
             let pendingVariables = [];
             if(result !== null && result.length > 0){

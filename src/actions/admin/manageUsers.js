@@ -215,9 +215,9 @@ export function updateUserProfileDetails(new_profile_details) {
     // if (n_termination_date.trim() === "") {
     //   return Promise.reject('Termination date empty')
     // }
-    if (n_holding_comments.trim() === "") {
-      return Promise.reject('Holding amount comment is empty')
-    }
+    // if (n_holding_comments.trim() === "") {
+    //   return Promise.reject('Holding amount comment is empty')
+    // }
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
       async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,

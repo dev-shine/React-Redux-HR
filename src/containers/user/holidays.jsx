@@ -29,7 +29,7 @@ class Holidays extends React.Component {
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if( props.logged_user.role == CONFIG.ADMIN ){
+      if( props.logged_user.role == CONFIG.ADMIN  || props.logged_user.role == CONFIG.GUEST ){
       }else{
         let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
         if(unread.length > 0){

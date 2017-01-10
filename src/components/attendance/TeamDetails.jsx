@@ -19,7 +19,6 @@ class TeamDetails extends React.Component {
     render(){
       let teams = this.props.teamList && this.props.teamList.teams || []
       let row =  _.map( this.props.teamList.candidateByTeam , ( emp, key ) => {
-        console.log(emp,"*******")
         return (
             <tr key={key}>
               <td><div className="list-left">

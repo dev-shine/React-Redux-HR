@@ -525,7 +525,8 @@ class Variables extends React.Component {
           }
           if(state){
             let string = templateName.concat(" ",templateSubject," ", templateBody);
-            let regx = /#[\w\/|-]*/g;
+            //let regx = /#[\w\/|-]*/g;
+            let regx = /#[\w-]+\|[\w -]+\||#[\w-]+/ig;
             let result = string.match(regx);
             let pendingVariables = [];
             if(result !== null && result.length > 0){

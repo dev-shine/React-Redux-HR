@@ -43,7 +43,6 @@ class FormProfileDetails extends React.Component {
   }
 
   render() {
-    console.log('this.state',this.state);
     return (
       <div>
         <h6 className="text-center">Personal Details</h6>

@@ -75,7 +75,6 @@ class ViewLeave extends React.Component {
     
     render(){
 
-
       let styles = _.cloneDeep(this.constructor.styles);
 
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
@@ -118,6 +117,7 @@ class ViewLeave extends React.Component {
             <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
+            {this.props.listLeaves.selectedLeave.day_status == ""?"":<div>Leave apply for - <i><b>{this.props.listLeaves.selectedLeave.day_status == "1"?"First Half":"Second Half"}</b></i></div>}
             <div>Reason - <i><b>{this.props.listLeaves.selectedLeave.reason}</b></i></div>
             <br/>
 

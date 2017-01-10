@@ -66,7 +66,6 @@ class UserLeavesList extends React.Component {
 
     }
     render(){
-
       let leavesList = this._getLeavesList( this.props.userLeaves.leaves )
        return (
         <div className = "row">

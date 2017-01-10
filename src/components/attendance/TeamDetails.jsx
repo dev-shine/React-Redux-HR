@@ -19,6 +19,7 @@ class TeamDetails extends React.Component {
     render(){
       let teams = this.props.teamList && this.props.teamList.teams || []
       let row =  _.map( this.props.teamList.candidateByTeam , ( emp, key ) => {
+        console.log(emp,"*******")
         return (
             <tr key={key}>
               <td><div className="list-left">
@@ -37,6 +38,7 @@ class TeamDetails extends React.Component {
                   <li>Reason : {emp.holdin_amt_detail.reason}</li>
                 </ul>:""
               }</td>
+              <td>{emp.holding_comments}</td>
               <td>{moment(emp.dateofjoining).format("Do MMMM YYYY")}</td>
               <td>{emp.no_of_days_join}</td>
               <td>{emp.team}</td>
@@ -75,6 +77,7 @@ class TeamDetails extends React.Component {
                         <th style={{'textAlign':'center'}} >
                           Holding Amount Details
                         </th>
+                        <th style={{'width':'100px'}}>Holding Comments</th>
                         <th>Date of Joining</th>
                         <th >No of Days Since Joined</th>
                         <th >Team</th>

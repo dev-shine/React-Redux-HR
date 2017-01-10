@@ -64,7 +64,7 @@ class FormUserProfileDetails extends React.Component {
     if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
       var mydate = new Date(props.user_profile_detail.dob);
       if(mydate == 'Invalid Date'){
-        dob = ''
+        dob = '' 
       }else{
         dob = (mydate.getDate() + '/' + (mydate.getMonth() + 1) + '/' +  mydate.getFullYear());
       }

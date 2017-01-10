@@ -3,6 +3,7 @@ import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 import {show_loading, hide_loading} from '../generic/frontend'
+var moment = require('moment');
 
 export const ACTION_SUCCESS_USER_PROFILE = "ACTION_SUCCESS_USER_PROFILE"
 export const ACTION_EMPTY_USER_PROFILE = "ACTION_EMPTY_USER_PROFILE"
@@ -129,7 +130,10 @@ export function updateUserProfileDetails(new_profile_details) {
     }
     if (typeof new_profile_details.dob != 'undefined') {
       var mydate = new Date(new_profile_details.dob);
-      n_dob = (mydate.getFullYear() + '-' + (mydate.getMonth() + 1) + '-' + mydate.getDate());
+      n_dob = new_profile_details.dob;
+      if(mydate != 'Invalid Date'){
+        n_dob = moment(mydate).format("YYYY-MM-DD");
+      }
     }
 
     if (typeof new_profile_details.marital_status != 'undefined') {
@@ -206,11 +210,11 @@ export function updateUserProfileDetails(new_profile_details) {
       return Promise.reject('Any medical conditions is empty')
     }
     if (n_training_completion_date.trim() === "") {
-      return Promise.reject('Transaction Completion Date  is empty')
+      return Promise.reject('Training Completion Date  is empty')
     }
-    if (n_termination_date.trim() === "") {
-      return Promise.reject('Termination date empty')
-    }
+    // if (n_termination_date.trim() === "") {
+    //   return Promise.reject('Termination date empty')
+    // }
     if (n_holding_comments.trim() === "") {
       return Promise.reject('Holding amount comment is empty')
     }

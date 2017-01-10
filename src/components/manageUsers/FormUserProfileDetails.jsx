@@ -1,8 +1,11 @@
 import React from 'react';
 import * as _ from 'lodash'
+import {CONFIG} from '../../config/index'
 
 import { DateField } from 'react-date-picker'
 import 'react-date-picker/index.css'
+
+var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {
   constructor(props) {
@@ -64,15 +67,16 @@ class FormUserProfileDetails extends React.Component {
       jobtitle = props.user_profile_detail.jobtitle
     }
     if (typeof props.user_profile_detail.dateofjoining != 'undefined' && props.user_profile_detail.dateofjoining != null) {
-      dateofjoining = props.user_profile_detail.dateofjoining
+      var mydate = new Date(props.user_profile_detail.dateofjoining);
+      if(mydate != 'Invalid Date'){
+        dateofjoining = props.user_profile_detail.dateofjoining;
+      }
     }
     if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
-
       var mydate = new Date(props.user_profile_detail.dob);
-      if(!isNaN(mydate.getDate()) && !isNaN(mydate.getMonth()) && !isNaN(mydate.getFullYear())){
-        dob = ( mydate.getDate()  + '/' + (mydate.getMonth() + 1) + '/' +  mydate.getFullYear());
+      if(mydate != 'Invalid Date'){
+        dob = moment(mydate).format("DD/MM/YYYY");
       }
-
     }
     if (typeof props.user_profile_detail.gender != 'undefined' && props.user_profile_detail.gender != null) {
       gender = props.user_profile_detail.gender
@@ -105,10 +109,16 @@ class FormUserProfileDetails extends React.Component {
       work_email = props.user_profile_detail.work_email
     }
     if (typeof props.user_profile_detail.training_completion_date != 'undefined' && props.user_profile_detail.training_completion_date != null) {
-      training_completion_date = props.user_profile_detail.training_completion_date
+      var mydate = new Date(props.user_profile_detail.training_completion_date);
+      if(mydate != 'Invalid Date'){
+        training_completion_date = props.user_profile_detail.training_completion_date;
+      }
     }
     if (typeof props.user_profile_detail.termination_date != 'undefined' && props.user_profile_detail.termination_date != null) {
-      termination_date = props.user_profile_detail.termination_date
+      var mydate = new Date(props.user_profile_detail.termination_date);
+      if(mydate != 'Invalid Date'){
+        termination_date = props.user_profile_detail.termination_date;
+      }
     }
     if (typeof props.user_profile_detail.holding_comments != 'undefined' && props.user_profile_detail.holding_comments != null) {
       holding_comments = props.user_profile_detail.holding_comments
@@ -139,6 +149,7 @@ class FormUserProfileDetails extends React.Component {
 
   render() {
     let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
+    let userLevel = this.props.logged_user.role == CONFIG.ADMIN ? true : false;
     return (
       <div>
 
@@ -238,13 +249,13 @@ class FormUserProfileDetails extends React.Component {
         </div>
 
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className={userLevel ? "col-md-6 p-r" : "col-md-12 p-r"}>
             <div className="form-group">
               <label>Work Email</label>
               <input type="text" className="form-control" ref="work_email" onChange={() => this.setState({work_email: this.refs.work_email.value})} value={this.state.work_email}/>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className={userLevel ? "col-md-6" : "hide"}>
             <div className="form-group">
               <label>Employee Holding Comment</label>
               <textarea placeholder="enter employee holding comment..." className="form-control" ref="holdingcomments" onChange={() => this.setState({holding_comments: this.refs.holdingcomments.value})} value={this.state.holding_comments}></textarea>

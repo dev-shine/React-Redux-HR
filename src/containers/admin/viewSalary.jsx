@@ -64,7 +64,7 @@ class ViewSalary extends React.Component {
     		<div>
           <Menu {...this.props }/>
       		<div id="content" className="app-content box-shadow-z0" role="main">
-            <Header pageTitle={"View Salary"+status_message} {...this.props} />
+            <Header pageTitle={"View Salary"} {...this.props} />
     				<div className="app-body" id="view">
       				<div className="padding">
               	{table}

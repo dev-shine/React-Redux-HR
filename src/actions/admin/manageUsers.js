@@ -119,7 +119,7 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.team != 'undefined') {
       n_team = new_profile_details.team
     }
-    if (typeof new_profile_details.dateofjoining != 'undefined') {
+    if (typeof new_profile_details.dateofjoining != 'undefined' && new_profile_details.dateofjoining != null) {
       n_dateofjoining = new_profile_details.dateofjoining
     }
     if (typeof new_profile_details.work_email != 'undefined') {
@@ -128,11 +128,10 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.gender != 'undefined') {
       n_gender = new_profile_details.gender
     }
-    if (typeof new_profile_details.dob != 'undefined') {
+    if (typeof new_profile_details.dob != 'undefined' && new_profile_details.dob != null) {
       var mydate = new Date(new_profile_details.dob);
-      n_dob = new_profile_details.dob;
-      if(mydate != 'Invalid Date'){
-        n_dob = moment(mydate).format("YYYY-MM-DD");
+      if(mydate){
+        n_dob = moment(mydate).format("YYYY-MM-DD")
       }
     }
 
@@ -157,10 +156,10 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.medical_condition != 'undefined') {
       n_medical_condition = new_profile_details.medical_condition
     }
-    if (typeof new_profile_details.training_completion_date != 'undefined') {
+    if (typeof new_profile_details.training_completion_date != 'undefined' && new_profile_details.training_completion_date != null) {
       n_training_completion_date = new_profile_details.training_completion_date
     }
-    if (typeof new_profile_details.termination_date != 'undefined') {
+    if (typeof new_profile_details.termination_date != 'undefined' && new_profile_details.termination_date != null) {
       n_termination_date = new_profile_details.termination_date
     }
     if (typeof new_profile_details.holding_comments != 'undefined') {
@@ -209,9 +208,9 @@ export function updateUserProfileDetails(new_profile_details) {
     if (n_medical_condition.trim() === "") {
       return Promise.reject('Any medical conditions is empty')
     }
-    if (n_training_completion_date.trim() === "") {
-      return Promise.reject('Training Completion Date  is empty')
-    }
+    // if (n_training_completion_date.trim() === "") {
+    //   return Promise.reject('Training Completion Date  is empty')
+    // }
     // if (n_termination_date.trim() === "") {
     //   return Promise.reject('Termination date empty')
     // }

@@ -40,7 +40,7 @@ class FormUserProfileDetails extends React.Component {
     let jobtitle = ""
     let team = ""
     let dateofjoining = ""
-    let dob = " "
+    let dob = ""
     let gender = " "
     let marital_status = " "
     let address1 = " "
@@ -75,7 +75,7 @@ class FormUserProfileDetails extends React.Component {
     if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
       var mydate = new Date(props.user_profile_detail.dob);
       if(mydate != 'Invalid Date'){
-        dob = moment(mydate).format("DD/MM/YYYY");
+        dob = moment(mydate);
       }
     }
     if (typeof props.user_profile_detail.gender != 'undefined' && props.user_profile_detail.gender != null) {
@@ -200,7 +200,9 @@ class FormUserProfileDetails extends React.Component {
               <label>Date Of Birth ( eg. 27/1/1988 )</label>
                 <DateField
                   dateFormat="DD/MM/YYYY"
-                  onChange={(date) => this.setState({dob: date})}
+                  onChange={(date,{ dateMoment, timestamp }) => {
+                    this.setState({dob: dateMoment})
+                  }}
                   value={this.state.dob}
                   className="form-control"
                 />

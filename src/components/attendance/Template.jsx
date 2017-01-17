@@ -272,9 +272,16 @@ class Variables extends React.Component {
         //value = value.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
         //console.log(ss,"replaced value")
       }
+      var index = templ.body.indexOf(str);
+       var i
+        for(i=0;i<=20;i++){
+         if(templ.body.indexOf(str) == -1){
+           break;
+         }
+         templ.body = _.replace(templ.body, str, value);
+        }
       templ.name = _.replace(templ.name, str, value);
       templ.subject = _.replace(templ.subject, str, value);
-      templ.body = _.replace(templ.body, str, value);
     }
       return templ;
     }
@@ -497,10 +504,11 @@ class Variables extends React.Component {
        this.selectUser(label, false, recipientType);
     }
     download_mail_preview(e){
-      let fileName = 'mail-preview';
+      let currentTimeStamp = moment().unix()
+      let fileName = 'mail-preview'
       this.props.onDownloadPdf($('#dialogContent').html(),fileName).then((succ)=>{
         var link = document.createElement('a');
-        link.href = CONFIG.pdf_url+succ.message;
+        link.href = CONFIG.pdf_url+succ.message+'?'+currentTimeStamp;
         link.target = "_blank";
         document.body.appendChild(link);
         link.click();

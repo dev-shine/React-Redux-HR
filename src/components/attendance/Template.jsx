@@ -645,6 +645,8 @@ class Variables extends React.Component {
         var file_data = $("#file_image").prop("files");
         var form_data = new FormData();
         var LinearProgressBar = [];
+        let token = localStorage.getItem('hr_logged_user')
+        form_data.append('token', token)
         for( var i in file_data){
           form_data.append(i.toString(), file_data[i])
         }

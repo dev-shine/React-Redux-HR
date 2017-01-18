@@ -25,10 +25,10 @@ export const CONFIG = {
   // google_login_btn_page_url: "https://hr.excellencetechnologies.in/attendance/sal_info/google-api/drive_file/index.php?token=" + token,
   // login_page_url: "https://hr.excellencetechnologies.in/",
   // upload_url: "https://hr.excellencetechnologies.in/attendance/sal_info/upload_file.php",
-  // upload_attendance_url: "http://hr.excellencetechnologies.in/attendance/upload_form.php",
+  // upload_attendance_url: "https://hr.excellencetechnologies.in/attendance/upload_form.php",
   // pdf_url : 'https://hr.excellencetechnologies.in/attendance/sal_info/',
-  // upload_email_attachment : 'http://hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
-  // transfer_link: "http://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php",
+  // upload_email_attachment : 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
+  // transfer_link: "https://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php",
 
   jwt_secret_key: 'HR_APP'
 

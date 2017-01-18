@@ -663,7 +663,10 @@ class Variables extends React.Component {
         self.setState({
           LinearProgressBar:LinearProgressBar
         })
-
+        /*form_data.forEach(function(d,i){
+          console.log({d,i})
+        })
+        console.log(form_data,"form_data")*/
       $.ajax({
           url: CONFIG.upload_email_attachment,
           contentType: false,

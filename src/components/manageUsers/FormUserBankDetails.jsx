@@ -24,6 +24,13 @@
         bank_address : props.user_bank_detail.bank_address,
         ifsc : props.user_bank_detail.ifsc,
         })
+      }else{
+        this.setState({
+        bank_account_no : '',
+        bank_name : '',
+        bank_address : '',
+        ifsc : '',
+        })
       }
     }
       

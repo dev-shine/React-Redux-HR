@@ -25,8 +25,8 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.onIsAlreadyLogin()
-
+    this.props.onIsAlreadyLogin();
+    this.props.onFetchUserPolicyDocument();
     this.state = {
       "defaultUserDisplay": "",
       "daysummary_userid": "",
@@ -39,8 +39,8 @@ class Home extends React.Component {
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
     this.monthToggle = this.monthToggle.bind(this)
   }
-  componentWillMount() {
-    this.props.onFetchUserPolicyDocument();
+  componentDidMount() {
+
     this.props.onUsersList();
     let d = new Date();
     let year = d.getFullYear()

@@ -272,9 +272,16 @@ class Variables extends React.Component {
         //value = value.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
         //console.log(ss,"replaced value")
       }
+      var index = templ.body.indexOf(str);
+      var i
+      for(i=0;i<=20;i++){
+        if(templ.body.indexOf(str) == -1){
+          break;
+        }
+        templ.body = _.replace(templ.body, str, value);
+      }
       templ.name = _.replace(templ.name, str, value);
       templ.subject = _.replace(templ.subject, str, value);
-      templ.body = _.replace(templ.body, str, value);
     }
       return templ;
     }
@@ -292,11 +299,10 @@ class Variables extends React.Component {
       }
 
 
-      let format = 'YYYY-MM-DD';
+      let format = 'DD-MM-YYYY';
       let string = templ.name.concat(" ",templ.subject," ", templ.body);
       let regx = /#[\w\/|-]*/g;
       let variables = string.match(regx);
-
       if(variables !== null && variables.length > 0){
         variables = _.uniq(variables);
         variables.map((str,i)=>{
@@ -319,6 +325,7 @@ class Variables extends React.Component {
 
                if(_.includes(variable.name, '#date')){
                  let value = new Date();
+                 format = format.toUpperCase();
                  value = moment(value).format(format);
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
@@ -330,6 +337,7 @@ class Variables extends React.Component {
                if(variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date') ){
                  let value;
                  if(variable.name == '#joining_date'){
+                   format = format.toUpperCase();
                    value = recipient.dateofjoining
                    value = moment(value).format(format);
                  }else if(variable.name == '#employee_title'){
@@ -344,6 +352,29 @@ class Variables extends React.Component {
                    value = recipient.work_email
                  }else if(variable.name == '#page_break'){
                    value = "<div style='page-break-after:always;'></div>"
+                 }else if(variable.name == '#training_completion_date'){
+                  format = format.toUpperCase();
+                  value = recipient.training_completion_date
+                  value = moment(value).format(format);
+                  if(value == "Invalid date"){
+                    if(dateVariable === false){
+                      value = str
+                    }else{
+                      value = dateVariable
+                    }
+                    
+                  }
+                 }else if(variable.name == '#termination_date'){
+                  format = format.toUpperCase();
+                  value = recipient.termination_date
+                  value = moment(value).format(format);
+                  if(value == "Invalid date"){
+                    if(dateVariable === false){
+                      value = str
+                    }else{
+                      value = dateVariable
+                    }
+                  }
                  }
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);

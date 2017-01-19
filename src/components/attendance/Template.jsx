@@ -352,31 +352,6 @@ class Variables extends React.Component {
                    value = recipient.work_email
                  }else if(variable.name == '#page_break'){
                    value = "<div style='page-break-after:always;'></div>"
-<<<<<<< HEAD
-                 }else if(variable.name == '#training_completion_date'){
-                  format = format.toUpperCase();
-                  value = recipient.training_completion_date
-                  value = moment(value).format(format);
-                  if(value == "Invalid date"){
-                    if(dateVariable === false){
-                      value = str
-                    }else{
-                      value = dateVariable
-                    }
-                    
-                  }
-                 }else if(variable.name == '#termination_date'){
-                  format = format.toUpperCase();
-                  value = recipient.termination_date
-                  value = moment(value).format(format);
-                  if(value == "Invalid date"){
-                    if(dateVariable === false){
-                      value = str
-                    }else{
-                      value = dateVariable
-                    }
-                  }
-=======
                  }else if(variable.name == '#employee_user_id'){
                    value = recipient.user_Id
                  }else if(variable.name == '#employee_number'){
@@ -395,7 +370,6 @@ class Variables extends React.Component {
                     }else{
                       value = '#termination_date'
                     }
->>>>>>> 06a1c9d77193017243d7cbcb8b3364bddcc354a1
                  }
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);

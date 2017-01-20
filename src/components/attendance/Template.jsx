@@ -297,8 +297,7 @@ class Variables extends React.Component {
         let id = this.state.recipient[0].user_Id;
         recipient = _.find(this.state.usersList, function(o) { return o.user_Id == id });
       }
-
-
+      
       let format = 'DD-MM-YYYY';
       let string = templ.name.concat(" ",templ.subject," ", templ.body);
       let regx = /#[\w\/|-]*/g;
@@ -325,7 +324,6 @@ class Variables extends React.Component {
 
                if(_.includes(variable.name, '#date')){
                  let value = new Date();
-                 format = format.toUpperCase();
                  value = moment(value).format(format);
                  if(dateVariable === false){
                    templ = this.replaceVariablesWithValue(templ, str, value);
@@ -333,11 +331,9 @@ class Variables extends React.Component {
                    templ = this.replaceVariablesWithValue(templ, dateVariable, value);
                  }
                }
-
                if(variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date') ){
                  let value;
                  if(variable.name == '#joining_date'){
-                   format = format.toUpperCase();
                    value = recipient.dateofjoining
                    value = moment(value).format(format);
                  }else if(variable.name == '#employee_title'){
@@ -359,14 +355,14 @@ class Variables extends React.Component {
                  }else if(variable.name == '#training_completion_date'){
                     var mydate = new Date(recipient.training_completion_date);
                     if(mydate != 'Invalid Date'){
-                      value = moment(mydate).format("DD/MM/YYYY");
+                      value = moment(mydate).format(format);
                     }else{
                       value = '#training_completion_date'
                     }
                  }else if(variable.name == '#termination_date'){
                    var mydate = new Date(recipient.termination_date);
                     if(mydate != 'Invalid Date'){
-                      value = moment(mydate).format("DD/MM/YYYY");
+                      value = moment(mydate).format(format);
                     }else{
                       value = '#termination_date'
                     }

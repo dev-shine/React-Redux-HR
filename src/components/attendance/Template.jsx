@@ -342,6 +342,7 @@ class Variables extends React.Component {
                    value = recipient.name
                  }else if(variable.name == '#salary'){
                    value = recipient.salary_detail
+                   value = value.toString()
                  }else if(variable.name == '#employee_user_name'){
                    value = recipient.username
                  }else if(variable.name == '#employee_email_id'){

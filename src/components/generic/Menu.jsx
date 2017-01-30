@@ -4,7 +4,6 @@ import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as _ from 'lodash'
 import {CONFIG} from '../../config/index'
 import * as actions_login from '../../actions/login/index'
-
 import LoggedUserInfo from '../../components/menu/LoggedUserInfo'
 
 const styles = {
@@ -378,6 +377,39 @@ class Menu extends React.Component {
             </li>
           </ul>
         </li>
+
+      <li id="ManageSalary" onClick={() => {
+        let s = "ManageSalary";
+        this.click(s)
+      }} className="">
+        <a>
+          <span className="nav-caret text-muted">
+            <i className="fa fa-caret-down"></i>
+          </span>
+          <span className="nav-text">Manage Salary</span>
+        </a>
+        <ul className="nav-sub">
+          <li className="hidden-folded">
+            <span style={{
+              'fontSize': 11,
+              'fontWeight': 600
+            }}>{link_manage_salary}</span>
+          </li>
+          <li className="hidden-folded">
+            <span style={{
+              'fontSize': 11,
+              'fontWeight': 600
+            }}>{link_view_salary}</span>
+          </li>
+          <li className="hidden-folded">
+            <span style={{
+              'fontSize': 11,
+              'fontWeight': 600
+            }}>{link_manage_payslips}</span>
+          </li>
+        </ul>
+      </li>
+      
         <li id="Templates" onClick={() => {
           let t = "Templates";
           this.click(t);
@@ -417,6 +449,7 @@ class Menu extends React.Component {
         </li>
 
       </ul>
+
     } else if (this.props.logged_user.role == CONFIG.GUEST) {
       links_to_show = <ul className="nav">
         <li className="hidden-folded">

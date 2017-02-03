@@ -1,23 +1,24 @@
 import Immutable from 'immutable'
 
 let initialState = {
-    "employee" : [],
+  "employee": [],
 }
 
-export function empSalaryList( state = Immutable.fromJS(initialState), action ){
+export function empSalaryList(state = Immutable.fromJS(initialState), action) {
 
-    if( action.type == 'ACTION_SUCCESS_USER_SALARY_DETAILS' ){
-        return state.set( 'employee' , action.payload )
 
-    }else if( action.type == 'ACTION_EMPTY_USER_SALARY_DETAILS' ){
+  if (action.type == 'ACTION_SUCCESS_USER_SALARY_DETAILS') {
+    return state.set('employee', action.payload)
 
-        return state.set( 'employee' , action.payload )
+  } else if (action.type == 'ACTION_EMPTY_USER_SALARY_DETAILS') {
 
-    }else if( action.type == 'ACTION_ERROR_USER_SALARY_DETAILS' ){
+    return state.set('employee', action.payload)
 
-        return state.set( 'employee' , action.payload )
+  } else if (action.type == 'ACTION_ERROR_USER_SALARY_DETAILS') {
 
-    }else{
-    	return state
-    }
+    return state.set('employee', action.payload)
+
+  } else {
+    return state
+  }
 }

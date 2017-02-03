@@ -307,6 +307,9 @@ class Menu extends React.Component {
         </li>
 
       </ul>
+
+// Hr---
+
     } else if (this.props.logged_user.role == CONFIG.HR) {
       links_to_show = <ul className="nav">
         <li className="hidden-folded">
@@ -395,21 +398,9 @@ class Menu extends React.Component {
               'fontWeight': 600
             }}>{link_manage_salary}</span>
           </li>
-          <li className="hidden-folded">
-            <span style={{
-              'fontSize': 11,
-              'fontWeight': 600
-            }}>{link_view_salary}</span>
-          </li>
-          <li className="hidden-folded">
-            <span style={{
-              'fontSize': 11,
-              'fontWeight': 600
-            }}>{link_manage_payslips}</span>
-          </li>
         </ul>
       </li>
-      
+
         <li id="Templates" onClick={() => {
           let t = "Templates";
           this.click(t);

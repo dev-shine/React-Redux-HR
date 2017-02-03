@@ -57,6 +57,11 @@ class ManagePayslips extends React.Component {
       } else {
         this.props.router.push('/home');
       }
+      if(props.logged_user.role == CONFIG.HR){
+
+      }else {
+        this.props.router.push('/')
+      }
     }
     //////////////////
     let s_google_drive_emailid = ""

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import ReactDOM from 'react-dom'
+import moment from 'moment'
 
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
@@ -36,7 +37,11 @@ class ManageSalary extends React.Component {
       "salary_history": [],
       "holding_history": [],
       "user_latest_salary_details": {},
-      "user_latest_holding_details": {}
+      "user_latest_holding_details": {},
+      "user_date_of_joining": {},
+      "msg": '',
+      "current_date": {},
+      "subList":[]
     }
 
     this.onUserClick = this.onUserClick.bind(this)
@@ -44,23 +49,33 @@ class ManageSalary extends React.Component {
     this.callAddUserHolding = this.callAddUserHolding.bind(this)
     this.viewSalarySummary = this.viewSalarySummary.bind(this)
     this.callDeleteUserSalary = this.callDeleteUserSalary.bind(this)
+
   }
   componentWillMount() {
     this.props.onUsersList()
+    var current_date = moment().format("YYYY-MM-DD");
+
   }
+
   componentWillReceiveProps(props) {
 
-    //window.scrollTo(0, 0);
+  let userListHR = _.filter( this.props.usersList.users, ( user ) =>  {
+        return ( moment().diff( moment(user.dateofjoining), 'months') < 8 ) ;
+  })
+  this.setState( { subList: userListHR } );
+
+
+//window.scrollTo(0, 0);
 
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-        //this.props.onUsersList( )
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
       } else {
         this.props.router.push('/home');
       }
     }
+
 
     //////////////////
     let s_salary_history = []
@@ -81,20 +96,24 @@ class ManageSalary extends React.Component {
     this.setState({salary_history: s_salary_history, user_latest_salary_details: s_user_latest_salary_details, holding_history: s_holding_history, user_latest_holding_details: s_user_latest_holding_details})
 
   }
+
   componentDidUpdate() {
+
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
-        let firstUser = this.props.usersList.users[0]
+        let firstUser = this.props.logged_user.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0]
         let defaultUserId = firstUser.user_Id
         this.onUserClick(defaultUserId)
       }
     }
   }
+
   onUserClick(userid) {
     let selected_user_name = ""
     let selected_user_image = ""
     let selected_user_jobtitle = ""
     let selected_user_id = ""
+    let selected_user_date_of_joining = ""
 
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid})
@@ -103,10 +122,22 @@ class ManageSalary extends React.Component {
         selected_user_image = userDetails.slack_profile.image_192
         selected_user_jobtitle = userDetails.jobtitle
         selected_user_id = userDetails.user_Id
+        selected_user_date_of_joining = userDetails.dateofjoining
+
       }
     }
-    this.setState({"defaultUserDisplay": userid, "selected_user_name": selected_user_name, "selected_user_image": selected_user_image, "selected_user_jobtitle": selected_user_jobtitle, "selected_user_id": selected_user_id})
-    this.props.onUserSalaryDetails(userid)
+    this.setState({
+      "defaultUserDisplay": userid,
+      "selected_user_name": selected_user_name,
+      "selected_user_image": selected_user_image,
+      "selected_user_jobtitle": selected_user_jobtitle,
+      "selected_user_id": selected_user_id,
+      "selected_user_date_of_joining": selected_user_date_of_joining
+    })
+
+    this.props.onUserSalaryDetails(userid).then((val) => {
+      this.setState({msg: val.data.message})
+    })
   }
 
   callAddUserSalary(new_salary_details) {
@@ -114,6 +145,7 @@ class ManageSalary extends React.Component {
       notify(error);
     })
   }
+
   callAddUserHolding(new_holding_details) {
     this.props.onAddNewHolding(new_holding_details).then((data) => {}, (error) => {
       notify(error);
@@ -138,22 +170,21 @@ class ManageSalary extends React.Component {
 
   render() {
 
-    let status_message = ""
+let status_message = ""
     if (this.props.manageSalary.status_message != '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
         <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>
     }
 
     let selectedUserId = ""
-
     let mainDivs = <div className="row">
-
       <div className="col-md-2">
-        <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props }/>
+        <UsersList users={this.props.logged_user.role == CONFIG.HR? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props }/>
       </div>
 
-      <div className="col-md-10">
 
+
+      <div className="col-md-10">
         <div className="box">
           <div className="p-a text-center">
             <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
@@ -169,7 +200,7 @@ class ManageSalary extends React.Component {
               <h6 className="text-center">Salary Revision</h6>
               <hr/>
 
-              <UserSalaryHistory data={this.state.salary_history} viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary}/>
+              <UserSalaryHistory data={this.state.salary_history} key='' message={this.state.msg} viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary}/>
 
             </div>
           </div>
@@ -177,6 +208,7 @@ class ManageSalary extends React.Component {
             <div className="p-a block">
               <h6 className="text-center">Add New</h6>
               <hr/>
+
               <FormAddSalary {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
             </div>
           </div>
@@ -205,7 +237,7 @@ class ManageSalary extends React.Component {
       <div>
         <Menu {...this.props }/>
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={"Manage Salaries"+status_message} {...this.props} />
+          <Header pageTitle={"Manage Salaries" + status_message} {...this.props}/>
           <div className="app-body" id="view">
             <div className="padding">
               {mainDivs}

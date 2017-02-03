@@ -1,9 +1,9 @@
-import {createAction} from 'redux-actions'
+import {  createAction} from 'redux-actions'
 import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 
-import {show_loading, hide_loading} from '../generic/frontend'
+import {  show_loading,hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_SALARY_DETAILS = "ACTION_SUCCESS_SALARY_DETAILS"
 export const ACTION_EMPTY_SALARY_DETAILS = "ACTION_EMPTY_SALARY_DETAILS"
@@ -21,7 +21,9 @@ export function empty_salary_details(data) {
 }
 
 function async_get_salary_details() {
-  return fireAjax('GET', '', {'action': 'get_salary_details'})
+  return fireAjax('GET', '', {
+    'action': 'get_salary_details'
+  })
 }
 
 export function getSalaryDetails() {
@@ -61,7 +63,9 @@ export function error_user_salary_details(data) {
 }
 
 function async_fetch_users_salary_details() {
-  return fireAjax('POST', '', {'action': 'get_all_users_detail'})
+  return fireAjax('POST', '', {
+    'action': 'get_all_users_detail'
+  })
 }
 
 export function fetchUserSalaryDetails() {
@@ -69,6 +73,7 @@ export function fetchUserSalaryDetails() {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
       async_fetch_users_salary_details().then((json) => {
+        // console.log(json, "////////////////////");
         dispatch(hide_loading())
         if (typeof json.data != 'undefined' && json.data.length > 0) {
           dispatch(success_user_salary_details(json.data))

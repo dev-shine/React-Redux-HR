@@ -2,7 +2,6 @@ import {createAction} from 'redux-actions'
 import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-
 import {show_loading, hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA = "ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA"
@@ -65,20 +64,24 @@ export function get_user_month_manage_payslips_data(userid, year, month) {
         dispatch(hide_loading()) // hide loading icon
         if (typeof json.data != 'undefined') {
           //let data = json.data.salary_details.reverse()
+
+
           let data = json.data
           dispatch(success_user_manage_payslips_data(data))
         } else {
           dispatch(success_user_manage_payslips_data([]))
         }
       }, (error) => {
-        dispatch(hide_loading()) // hide loading icon
+         dispatch(hide_loading()) // hide loading icon
         dispatch(error_user_manage_payslips_data([]))
       })
     })
   }
 }
+
 ///-------------------
 //create user payslip
+
 export const ACTION_SUCCESS_CREATE_USER_SALARY_SLIP = "ACTION_SUCCESS_CREATE_USER_SALARY_SLIP"
 export const ACTION_ERROR_CREATE_USER_SALARY_SLIP = "ACTION_ERROR_CREATE_USER_SALARY_SLIP"
 

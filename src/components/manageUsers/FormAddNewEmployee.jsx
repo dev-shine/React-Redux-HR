@@ -20,7 +20,8 @@ class FormAddNewEmployee extends React.Component {
       gender : "",
       dob : "",
       username : "",
-      workemail : ""
+      workemail : "",
+      training : ""
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -34,7 +35,8 @@ class FormAddNewEmployee extends React.Component {
       gender : "",
       dob : "",
       username : "",
-      workemail : ""
+      workemail : "",
+      trainig : ""
     });
   }
   handleClose(){
@@ -54,8 +56,8 @@ class FormAddNewEmployee extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           contentStyle={ {width: '70%',maxWidth: 'none'}}
-          autoScrollBodyContent={true}
-        >
+          autoScrollBodyContent={true}>
+
           <div className="text-danger">
            <i>*Create a slack profile first and enter email in Work Email</i>
         </div>
@@ -67,34 +69,40 @@ class FormAddNewEmployee extends React.Component {
 
 
            <table className="table">
-            <tbody> 
+            <tbody>
             <tr>
               <td>
                 Date of Joining
                 <DateField
                   dateFormat="YYYY-MM-DD"
                   onChange={ ( date ) => { this.setState({ dateofjoining : date }) }}
-                  className="form-control"
-                />
+                  className="form-control"/>
               </td>
+
                <td colSpan={2}>
                 Date of Birth
                 <DateField
                   dateFormat="YYYY-MM-DD"
                   onChange={ ( date ) => { this.setState({ dob : date }) }}
-                  className="form-control"
-                />
+                  className="form-control"/>
 
               </td>
-
-
-
             </tr>
 
+        <tr>
+            <td>
+                Trainig Period
+                <select className="form-control" ref="gender" onChange={ () => this.setState({ training : this.refs.trainig.value }) } value={this.state.training} >
+                <option value="">-Select Month-</option>
+                <option value="tm0">0</option>
+                <option value="tm1">1</option>
+                <option value="tm2">2</option>
+                <option value="tm3">3</option>
+                <option value="tm4">4</option>
+              </select>
+            </td>
 
-            <tr>
-              <td>
-
+            <td>
                  Gender
                   <select className="form-control" ref="gender" onChange={ () => this.setState({ gender : this.refs.gender.value }) } value={this.state.gender} >
                   <option value="">--Select gender--</option>
@@ -105,14 +113,17 @@ class FormAddNewEmployee extends React.Component {
 
               </td>
 
+            </tr>
+
+
+          <tr>
               <td>
                 <TextField
                   floatingLabelText="Name"
                   floatingLabelFixed={true}
                   fullWidth={true}
                   onChange={ (e) => ( this.setState({ name : e.target.value  })) }
-                  value = {this.state.name}
-                />
+                  value = {this.state.name}/>
 
               </td>
 
@@ -122,14 +133,9 @@ class FormAddNewEmployee extends React.Component {
                   floatingLabelFixed={true}
                   fullWidth={true}
                   onChange={ (e) => ( this.setState({ jobtitle : e.target.value  })) }
-                  value = {this.state.jobtitle}
-                />
-
+                  value = {this.state.jobtitle}/>
               </td>
-
-
             </tr>
-
 
              <tr>
               <td>
@@ -138,20 +144,17 @@ class FormAddNewEmployee extends React.Component {
                   floatingLabelFixed={true}
                   fullWidth={true}
                   onChange={ (e) => ( this.setState({ username : e.target.value  })) }
-                  value = {this.state.username}
-                />
+                  value = {this.state.username}/>
               </td>
+
                <td colSpan={2}>
                 <TextField
                   floatingLabelText="Work Email"
                   floatingLabelFixed={true}
                   fullWidth={true}
                   onChange={ (e) => ( this.setState({ workemail : e.target.value  })) }
-                  value = {this.state.workemail}
-                />
+                  value = {this.state.workemail}/>
               </td>
-
-
             </tr>
 
 

@@ -255,7 +255,7 @@ class FormUserProfileDetails extends React.Component {
               <div className="form-group">
               <label>Training Month ( eg. 0-4 month ) </label>
               <select className="form-control" ref="training_month" onChange={() => this.setState({training_month: this.refs.training_month.value})} value={this.state.training_month}>
-                    console.log(this.state.training_month);
+                  
                     <option disabled>--select month--</option>
                     <option value="0">0 month </option>
                     <option value="1">1 month</option>

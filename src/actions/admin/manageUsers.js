@@ -72,7 +72,7 @@ export function error_update_user_profile_details(data) {
 function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
   n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg) {
-  console.log(n_training_month);
+
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,
@@ -99,7 +99,7 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
 }
 
 export function updateUserProfileDetails(new_profile_details) {
-  console.log(new_profile_details);
+
   return function(dispatch, getState) {
     let n_user_id = ""
 
@@ -244,7 +244,7 @@ export function updateUserProfileDetails(new_profile_details) {
     //   return Promise.reject('Holding amount comment is empty')
     // }
     return new Promise((reslove, reject) => {
-      console.log(n_training_month);
+
       dispatch(show_loading()); // show loading icon
       async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,
         n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date,

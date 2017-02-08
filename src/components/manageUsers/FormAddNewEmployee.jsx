@@ -80,9 +80,7 @@ class FormAddNewEmployee extends React.Component {
               <tr>
                 <td>
                   Training Month
-                  <select className="form-control" ref="training_month" onChange={(evt) => { this.setState({training_month: evt.target.value})
-                    console.log(this.state.training_month);
-                  }}>
+                  <select className="form-control" ref="training_month" onChange={(evt) => { this.setState({training_month: evt.target.value})}}>
                     <option disabled>--select month--</option>
                       <option value="0">0 month </option>
                       <option value="1">1 month</option>

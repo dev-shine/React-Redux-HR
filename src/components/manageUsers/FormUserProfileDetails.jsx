@@ -6,6 +6,7 @@ import { DateField } from 'react-date-picker'
 import 'react-date-picker/index.css'
 
 var moment = require('moment');
+var dateFormat = require('dateformat');
 
 class FormUserProfileDetails extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class FormUserProfileDetails extends React.Component {
       dateofjoining: "",
       dob: "",
       gender: "",
+      training_month:"",
       marital_status: "",
       team:"",
       address1: "",
@@ -42,6 +44,7 @@ class FormUserProfileDetails extends React.Component {
     let dateofjoining = ""
     let dob = ""
     let gender = " "
+    let training_month =""
     let marital_status = " "
     let address1 = " "
     let address2 = " "
@@ -66,18 +69,30 @@ class FormUserProfileDetails extends React.Component {
     if (typeof props.user_profile_detail.jobtitle != 'undefined' && props.user_profile_detail.jobtitle != null) {
       jobtitle = props.user_profile_detail.jobtitle
     }
+
+    if (typeof props.user_profile_detail.training_month !='undefined' && props.user_profile_detail.training_month != null){
+      training_month = props.user_profile_detail.training_month
+}
+
     if (typeof props.user_profile_detail.dateofjoining != 'undefined' && props.user_profile_detail.dateofjoining != null) {
       var mydate = new Date(props.user_profile_detail.dateofjoining);
       if(mydate != 'Invalid Date'){
         dateofjoining = props.user_profile_detail.dateofjoining;
       }
     }
-    if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
+
+  if (typeof props.user_profile_detail.dob != 'undefined' && props.user_profile_detail.dob != null) {
       var mydate = new Date(props.user_profile_detail.dob);
       if(mydate != 'Invalid Date'){
         dob = moment(mydate);
       }
     }
+
+    if (typeof props.user_profile_detail.training_month != 'undefined' && props.user_profile_detail.training_month != null) {
+      training_month = props.user_profile_detail.training_month
+    }
+
+
     if (typeof props.user_profile_detail.gender != 'undefined' && props.user_profile_detail.gender != null) {
       gender = props.user_profile_detail.gender
     }
@@ -114,12 +129,14 @@ class FormUserProfileDetails extends React.Component {
         training_completion_date = props.user_profile_detail.training_completion_date;
       }
     }
+
     if (typeof props.user_profile_detail.termination_date != 'undefined' && props.user_profile_detail.termination_date != null) {
       var mydate = new Date(props.user_profile_detail.termination_date);
       if(mydate != 'Invalid Date'){
         termination_date = props.user_profile_detail.termination_date;
       }
     }
+
     if (typeof props.user_profile_detail.holding_comments != 'undefined' && props.user_profile_detail.holding_comments != null) {
       holding_comments = props.user_profile_detail.holding_comments
     }
@@ -133,6 +150,7 @@ class FormUserProfileDetails extends React.Component {
       dateofjoining: dateofjoining,
       dob: dob,
       gender: gender,
+      training_month : training_month,
       marital_status: marital_status,
       address1: address1,
       address2: address2,
@@ -164,6 +182,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <hr/>
+
         <div className="row no-gutter">
           <div className="col-md-6 p-r">
             <div className="form-group">
@@ -177,37 +196,27 @@ class FormUserProfileDetails extends React.Component {
               <label>Job Title</label>
               <input type="text" className="form-control" ref="jobtitle" onChange={() => this.setState({jobtitle: this.refs.jobtitle.value})} value={this.state.jobtitle}/>
             </div>
-
           </div>
         </div>
+
         <div className="form-group">
           <label>Team</label>
-
           <select className="form-control" ref="team" onChange={() => this.setState({team: this.refs.team.value})} value={this.state.team}>
             <option value="">--Select team--</option>
-            {_.map(teams, (tm, i) => (
-              <option key={i} value={tm}>{tm}</option>
-            )
-            )}
+            {_.map(teams, (tm, i) => (<option key={i} value={tm}>{tm}</option>))}
           </select>
-
         </div>
 
-        <div className="row no-gutter">
 
+        <div className="row no-gutter">
           <div className="col-md-6 p-r">
             <div className="form-group">
               <label>Date Of Birth ( eg. 27/1/1988 )</label>
                 <DateField
                   dateFormat="DD/MM/YYYY"
-                  onChange={(date,{ dateMoment, timestamp }) => {
-                    this.setState({dob: dateMoment})
-                  }}
-                  value={this.state.dob}
-                  className="form-control"
-                />
+                  onChange={(date,{ dateMoment, timestamp }) => {this.setState({dob: dateMoment})}} value={this.state.dob} className="form-control"/>
+              </div>
             </div>
-          </div>
 
           <div className="col-md-6">
             <div className="form-group">
@@ -216,23 +225,18 @@ class FormUserProfileDetails extends React.Component {
                   dateFormat="YYYY-MM-DD"
                   onChange={(date) => this.setState({dateofjoining: date})}
                   value={this.state.dateofjoining}
-                  className="form-control"
-                />
+                  className="form-control"/>
+              </div>
             </div>
           </div>
 
-        </div>
         <div className="row no-gutter">
-
           <div className="col-md-6 p-r">
             <div className="form-group">
               <label>Training Completion Date </label>
                 <DateField
-                  dateFormat="YYYY-MM-DD"
-                  onChange={(date) => this.setState({training_completion_date: date})}
-                  value={this.state.training_completion_date}
-                  className="form-control"
-                />
+                  onChange={(date) => this.setState({training_completion_date: date})} value={this.state.training_completion_date}
+                  className="form-control"/>
             </div>
           </div>
 
@@ -241,14 +245,28 @@ class FormUserProfileDetails extends React.Component {
               <label>Date Of Termination  ( eg. 2016-12-30 )</label>
                 <DateField
                   dateFormat="YYYY-MM-DD"
-                  onChange={(date) => this.setState({termination_date: date})}
-                  value={this.state.termination_date}
-                  className="form-control"
-                />
+                  onChange={(date) => this.setState({termination_date: date})} value={this.state.termination_date}
+                  className="form-control"/>
             </div>
           </div>
 
-        </div>
+
+            <div className="col-md-6 p-r">
+              <div className="form-group">
+              <label>Training Month ( eg. 0-4 month ) </label>
+              <select className="form-control" ref="training_month" onChange={() => this.setState({training_month: this.refs.training_month.value})} value={this.state.training_month}>
+                    console.log(this.state.training_month);
+                    <option disabled>--select month--</option>
+                    <option value="0">0 month </option>
+                    <option value="1">1 month</option>
+                    <option value="2">2 month</option>
+                    <option value="3">3 month</option>
+                    <option value="4">4 month</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
 
         <div className="row no-gutter">
           <div className={userLevel ? "col-md-6 p-r" : "col-md-12 p-r"}>
@@ -278,6 +296,7 @@ class FormUserProfileDetails extends React.Component {
               </select>
             </div>
           </div>
+
           <div className="col-md-6">
             <div className="form-group">
               <label>Marital Status</label>
@@ -298,6 +317,7 @@ class FormUserProfileDetails extends React.Component {
               <textarea placeholder="your current address..." className="form-control" ref="address1" onChange={() => this.setState({address1: this.refs.address1.value})} value={this.state.address1}></textarea>
             </div>
           </div>
+
           <div className="col-md-6">
             <div className="form-group">
               <label>Permanent Address</label>

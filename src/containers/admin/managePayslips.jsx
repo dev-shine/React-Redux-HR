@@ -57,12 +57,8 @@ class ManagePayslips extends React.Component {
       } else {
         this.props.router.push('/home');
       }
-      if(props.logged_user.role == CONFIG.HR){
-
-      }else {
-        this.props.router.push('/')
-      }
     }
+
     //////////////////
     let s_google_drive_emailid = ""
     let s_user_data_for_payslip = {}
@@ -125,7 +121,7 @@ class ManagePayslips extends React.Component {
 
   callCreateUserPayslip(payslipData, evt) {
     //evt.preventDefault();
-    this.props.onCreateUserPayslip(payslipData).then((data) => {
+    this.props.onCreateUserPayslip (payslipData).then((data) => {
       this.onUserClick(this.state.selected_user_id)
     }, (error) => {
       notify(error);
@@ -179,6 +175,7 @@ class ManagePayslips extends React.Component {
                 <div className="col-md-3">
                   <ManagePayslipsUsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} all_users_latest_payslip={this.state.all_users_latest_payslip} callEmailPayslips={this.callEmailPayslips} onGetTransferList={this.props.onGetTransferList} google_drive_emailid={this.state.google_drive_emailid} {...this.props }/>
                 </div>
+
                 <div className="col-md-9">
 
                   <div className="row no-gutter b-t">

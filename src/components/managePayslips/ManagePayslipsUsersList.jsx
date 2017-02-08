@@ -106,6 +106,7 @@ class ManagePayslipsUsersList extends React.Component {
         }
       }
     })
+
     if (stop_user !== '') {
       let res = confirm('Payslip not generated for user ID :' + stop_user + '\n Do you want to submit')
       if (!res) {
@@ -116,14 +117,18 @@ class ManagePayslipsUsersList extends React.Component {
 
   render() {
     let styles = _.cloneDeep(this.constructor.styles)
+
     //----account no.
+
     let employee_account_no = this.props.managePayslips.employee_account_no
 
     let Account_list = []
     _.map(employee_account_no, (empAcc, key) => {
       Account_list.push(employee_account_no[key] + <br/>)
     })
-    //------user list
+
+//------user list
+
     let usersList = _.map(this.props.users, (user, keyval) => {
       let userid = user.user_Id
 
@@ -145,6 +150,7 @@ class ManagePayslipsUsersList extends React.Component {
 
         }
       }
+
       let selectedUserId = this.props.selectedUserId
       let styles = _.cloneDeep(this.constructor.styles);
       let key = parseInt(userid)
@@ -183,7 +189,7 @@ class ManagePayslipsUsersList extends React.Component {
               <img src={profileImae}/>
             </span>
             <br/>
-            <input type="checkbox" onChange={(e) => this.change(userid, e)} className="m-t" name="employee" value={userid}/>
+            <input type="checkbox" onChange={(e) => this.change(userid, e)} className="m-t" name="employee" value={userid||""}/>
           </div>
           <div className="list-body">
             <div onClick={() => this.props.onUserClick(userid)}>
@@ -246,8 +252,7 @@ class ManagePayslipsUsersList extends React.Component {
 
           <br/>
           <Dialog title="Google authentication for drive" modal={false} open={this.state.openIframe} onRequestClose={this.handleCloseIframe} contentStyle={{
-            'width': '80%'
-          }}>
+            'width': '80%' }}>
             <iframe ref="myIframe" src={CONFIG.google_login_btn_page_url} style={{
               'width': '100%',
               'height': '300px'

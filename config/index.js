@@ -1,7 +1,9 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
 import _debug from 'debug'
-import {argv} from 'yargs'
+import {
+  argv
+} from 'yargs'
 import ip from 'ip'
 
 const localip = ip.address()
@@ -12,7 +14,7 @@ debug('Creating default configuration.')
 // ========================================================
 const config = {
   env: process.env.NODE_ENV || 'development',
-  //env: process.env.NODE_ENV || 'production',
+  // env: process.env.NODE_ENV || 'production',
   // ----------------------------------
   // Project Structure
   // ----------------------------------
@@ -55,14 +57,12 @@ const config = {
   // ----------------------------------
   // Test Configuration
   // ----------------------------------
-  coverage_reporters: [
-    {
-      type: 'text-summary'
-    }, {
-      type: 'lcov',
-      dir: 'coverage'
-    }
-  ]
+  coverage_reporters: [{
+    type: 'text-summary'
+  }, {
+    type: 'lcov',
+    dir: 'coverage'
+  }]
 }
 
 /************************************************

@@ -1,8 +1,17 @@
-import {createAction} from 'redux-actions'
-import {CONFIG} from '../../config/index'
+import {
+  createAction
+} from 'redux-actions'
+import {
+  CONFIG
+} from '../../config/index'
 import * as _ from 'lodash'
-import {fireAjax} from '../../services/index'
-import {show_loading, hide_loading} from '../generic/frontend'
+import {
+  fireAjax
+} from '../../services/index'
+import {
+  show_loading,
+  hide_loading
+} from '../generic/frontend'
 var moment = require('moment');
 
 export const ACTION_SUCCESS_USER_PROFILE = "ACTION_SUCCESS_USER_PROFILE"
@@ -10,13 +19,17 @@ export const ACTION_EMPTY_USER_PROFILE = "ACTION_EMPTY_USER_PROFILE"
 export const ACTION_ERROR_USER_PROFILE = "ACTION_ERROR_USER_PROFILE"
 
 export function success_user_profile(data, username) {
-  return {type: 'ACTION_SUCCESS_USER_PROFILE', payload: data, username: username}
+  return {
+    type: 'ACTION_SUCCESS_USER_PROFILE',
+    payload: data,
+    username: username
+  }
 }
 export function empty_user_profile(data) {
   return createAction(ACTION_EMPTY_USER_PROFILE)(data)
 }
 export function error_user_profile(ACTION_ERROR_USER_PROFILE) {
-  return createAction(ACTION_ERROR_MY_PROFILE)(data)
+  return createAction(ACTION_ERROR_USER_PROFILE)(data)
 }
 
 function async_getUserProfileDetails(userid) {
@@ -55,16 +68,18 @@ export function success_update_user_profile_details(data) {
 export function error_update_user_profile_details(data) {
   return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
+
 function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
-  n_training_completion_date, n_termination_date, n_holding_comments, n_send_slack_msg) {
+  n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg) {
+
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
     'user_id': n_user_id,
     'marital_status': n_marital_status,
     'name': n_name,
     'jobtitle': n_jobtitle,
-    'team':n_team,
+    'team': n_team,
     'dateofjoining': n_dateofjoining,
     'work_email': n_work_email,
     'gender': n_gender,
@@ -77,12 +92,14 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
     "medical_condition": n_medical_condition,
     "training_completion_date": n_training_completion_date,
     "termination_date": n_termination_date,
+    "training_month": n_training_month,
     "holding_comments": n_holding_comments,
-    "send_slack_msg":n_send_slack_msg
+    "send_slack_msg": n_send_slack_msg
   });
 }
 
 export function updateUserProfileDetails(new_profile_details) {
+
   return function(dispatch, getState) {
     let n_user_id = ""
 
@@ -93,7 +110,6 @@ export function updateUserProfileDetails(new_profile_details) {
     let n_work_email = ""
     let n_gender = ""
     let n_dob = ""
-
     let n_marital_status = ""
     let n_address1 = ""
     let n_address2 = ""
@@ -102,10 +118,10 @@ export function updateUserProfileDetails(new_profile_details) {
     let n_blood_group = ""
     let n_medical_condition = ""
     let n_send_slack_msg = new_profile_details.send_slack_msg
-
     let n_training_completion_date = ""
     let n_termination_date = ""
     let n_holding_comments = ""
+    let n_training_month = ""
 
     if (typeof new_profile_details.user_id != 'undefined') {
       n_user_id = new_profile_details.user_id
@@ -122,6 +138,11 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.dateofjoining != 'undefined' && new_profile_details.dateofjoining != null) {
       n_dateofjoining = new_profile_details.dateofjoining
     }
+
+    if (typeof new_profile_details.training_month != 'undefined' && new_profile_details.training_month != null) {
+      n_training_month = new_profile_details.training_month
+    }
+
     if (typeof new_profile_details.work_email != 'undefined') {
       n_work_email = new_profile_details.work_email
     }
@@ -130,7 +151,7 @@ export function updateUserProfileDetails(new_profile_details) {
     }
     if (typeof new_profile_details.dob != 'undefined' && new_profile_details.dob != null) {
       var mydate = new Date(new_profile_details.dob);
-      if(mydate){
+      if (mydate) {
         n_dob = moment(mydate).format("YYYY-MM-DD")
       }
     }
@@ -138,6 +159,7 @@ export function updateUserProfileDetails(new_profile_details) {
     if (typeof new_profile_details.marital_status != 'undefined') {
       n_marital_status = new_profile_details.marital_status
     }
+
     if (typeof new_profile_details.address1 != 'undefined') {
       n_address1 = new_profile_details.address1
     }
@@ -208,6 +230,10 @@ export function updateUserProfileDetails(new_profile_details) {
     if (n_medical_condition.trim() === "") {
       return Promise.reject('Any medical conditions is empty')
     }
+
+    if (n_training_month.trim() === "") {
+      return Promise.reject('Training month is Empty')
+    }
     // if (n_training_completion_date.trim() === "") {
     //   return Promise.reject('Training Completion Date  is empty')
     // }
@@ -218,10 +244,11 @@ export function updateUserProfileDetails(new_profile_details) {
     //   return Promise.reject('Holding amount comment is empty')
     // }
     return new Promise((reslove, reject) => {
+
       dispatch(show_loading()); // show loading icon
-      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle,n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,
+      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,
         n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date,
-        n_termination_date, n_holding_comments, n_send_slack_msg).then((json) => {
+        n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getUserProfileDetails(n_user_id))
@@ -244,11 +271,12 @@ export const ACTION_ERROR_ADD_NEW_EMPLOYEE = "ACTION_ERROR_ADD_NEW_EMPLOYEE"
 export function success_add_new_employee(data) {
   return createAction(ACTION_SUCCESS_ADD_NEW_EMPLOYEE)(data)
 }
+
 export function error_add_new_employee(data) {
   return createAction(ACTION_ERROR_ADD_NEW_EMPLOYEE)(data)
 }
 
-function async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail) {
+function async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail) {
   return fireAjax('POST', '', {
     'action': 'add_new_employee',
     'dateofjoining': n_dateofjoining,
@@ -257,6 +285,7 @@ function async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_d
     'gender': n_gender,
     'dob': n_dob,
     'username': n_username,
+    'training_month': n_training_month,
     'workemail': n_workemail
   })
 }
@@ -269,7 +298,9 @@ export function addNewEmployee(new_employee_details) {
     let n_gender = ""
     let n_dob = ""
     let n_username = ""
+    let n_training_month = ""
     let n_workemail = ""
+
 
     if (typeof new_employee_details.dateofjoining == 'undefined' || new_employee_details.dateofjoining == '') {
       return Promise.reject('Date of Joining is empty')
@@ -288,6 +319,7 @@ export function addNewEmployee(new_employee_details) {
     } else {
       n_jobtitle = new_employee_details.jobtitle
     }
+
 
     if (typeof new_employee_details.gender == 'undefined' || new_employee_details.gender == '') {
       return Promise.reject('Gender is empty')
@@ -313,15 +345,23 @@ export function addNewEmployee(new_employee_details) {
       n_username = new_employee_details.username
     }
 
+    if (typeof new_employee_details.training_month == 'undefined' || new_employee_details.training_month == '') {
+      return Promise.reject('training month is empty')
+    } else {
+      n_training_month = new_employee_details.training_month
+    }
+
     if (typeof new_employee_details.workemail == 'undefined' || new_employee_details.workemail == '') {
       return Promise.reject('Work email is empty')
     } else {
       n_workemail = new_employee_details.workemail
     }
 
+
+
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_workemail).then((json) => {
+      async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(success_add_new_employee(json.data.message))

@@ -55,7 +55,7 @@ class FormGeneratePaySlip extends React.Component {
       $('#yearpicker').append($('<option value=' + i + '>' + i + '</option>'));
     }
     var j;
-    for (j = 12; j > 1; j--) {
+    for (j = 12; j >= 1; j--) {
       $('#monthpicker').append($('<option value=' + j + '>' + j + '</option>'));
     }
   }
@@ -295,15 +295,15 @@ class FormGeneratePaySlip extends React.Component {
         {pending_leaves > 0 ?
         <div className="col-xs-12 text-center" style={{display:'block',background:'rgba(255, 0, 0, 0.08)',padding:'5px 10px',border:'1px solid rgba(255, 0, 0, 0.58)'}}>
           <div className="col-xs-4">
-            <strong>No Of Panding Leaves</strong>
+            <strong>No Of Pending Leaves</strong>
             <div className="text-center">{this.props.pending_leaves && this.props.pending_leaves.length}</div>
           </div>
           <div className="col-xs-8">
             <strong>Dates of Leave</strong>
             <div className="col-xs-12 text-center">
               {
-                _.map(this.props.pending_leaves,(leave)=>(
-                  <span style={{width:'25%',display:'inline-block',padding:'2px'}}>{leave}</span>
+                _.map(this.props.pending_leaves,(leave, key)=>(
+                  <span key={key} style={{width:'25%',display:'inline-block',padding:'2px'}}>{leave}</span>
                 ))
               }
             </div>
@@ -311,7 +311,7 @@ class FormGeneratePaySlip extends React.Component {
         </div>
         :
         <div className="col-xs-12 text-center" style={{display:'block',background:'rgba(76, 175, 80, 0.15)',padding:'5px 10px',border:'1px solid rgba(76, 175, 80, 0.74)'}}>
-          <strong>No Panding Leaves</strong>
+          <strong>No Pending Leaves</strong>
         </div>
         }
         <form onSubmit={(evt) => {
@@ -325,22 +325,18 @@ class FormGeneratePaySlip extends React.Component {
               <tr>
                 <td>Year</td>
                 <td>
-                  ( {this.state.year}
-                  )
-                  <select id="yearpicker" value={this.state.year} onChange={(evt) => {
-                    this.props.callMonthlyPayslip(this.props.user_id, evt.target.value, this.state.month)
-                  }}></select>
+                <select id="yearpicker" value={this.state.year} onChange={(evt) => {
+                    this.props.callMonthlyPayslip(this.props.user_id, evt.target.value, this.state.month)}}></select>
                 </td>
+
+
                 <td>Month</td>
                 <td>
                   <label className={this.state.visible}>{this.state.month_name}</label>
-                  ( {this.state.month}
-                  )
-                  <select id="monthpicker" value={this.state.month} onChange={(evt) => {
-                    this.setState({visible: "hidden"});
-                    this.props.callMonthlyPayslip(this.props.user_id, this.state.year, evt.target.value)
-                  }}></select>
+                  <select id="monthpicker" value={this.state.month} onChange={(evt) => {this.setState({visible: "show"});
+                    this.props.callMonthlyPayslip(this.props.user_id, this.state.year, evt.target.value)}}></select>
                 </td>
+
               </tr>
               <tr>
                 <td>{'Loyalty Bonus'}<input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}

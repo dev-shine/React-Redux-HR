@@ -43,6 +43,7 @@ class ManagePayslips extends React.Component {
     this.callEmailPayslips = this.callEmailPayslips.bind(this)
     this.callMonthlyPayslip = this.callMonthlyPayslip.bind(this)
     this.responseGoogle = this.responseGoogle.bind(this)
+    this.saveArrer = this.saveArrer.bind(this)
   }
   componentWillMount() {
     this.props.onUsersList()
@@ -60,6 +61,7 @@ class ManagePayslips extends React.Component {
     }
 
     //////////////////
+
     let s_google_drive_emailid = ""
     let s_user_data_for_payslip = {}
     let s_user_payslip_history = []
@@ -69,21 +71,26 @@ class ManagePayslips extends React.Component {
     if (typeof props.managePayslips.user_data_for_payslip != 'undefined') {
       s_user_data_for_payslip = props.managePayslips.user_data_for_payslip
     }
+
     if (typeof props.managePayslips.user_payslip_history != 'undefined') {
       s_user_payslip_history = props.managePayslips.user_payslip_history
     }
+
     if (typeof props.managePayslips.all_users_latest_payslip != 'undefined') {
       s_all_users_latest_payslip = props.managePayslips.all_users_latest_payslip
     }
+
     if (typeof props.managePayslips.google_drive_emailid != 'undefined') {
       s_google_drive_emailid = props.managePayslips.google_drive_emailid
     }
+
     if (typeof props.managePayslips.employee_actual_salary != 'undefined') {
       s_employee_actual_salary = props.managePayslips.employee_actual_salary
     }
 
     this.setState({user_data_for_payslip: s_user_data_for_payslip, user_payslip_history: s_user_payslip_history, all_users_latest_payslip: s_all_users_latest_payslip, google_drive_emailid: s_google_drive_emailid, employee_actual_salary: s_employee_actual_salary})
   }
+
   componentDidUpdate() {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
@@ -93,6 +100,7 @@ class ManagePayslips extends React.Component {
       }
     }
   }
+
   onUserClick(userid) {
     let selected_user_name = ""
     let selected_user_image = ""
@@ -118,7 +126,10 @@ class ManagePayslips extends React.Component {
       this.props.onUserMonthlyManagePayslipsData(userid, this.state.year, this.state.month);
     }
   }
-
+  saveArrer(user_id,extra_arrear,arrear_for_month){
+    console.log(user_id,extra_arrear,arrear_for_month);
+    this.props.onCreateArrer (user_id,extra_arrear,arrear_for_month)
+  }
   callCreateUserPayslip(payslipData, evt) {
     //evt.preventDefault();
     this.props.onCreateUserPayslip (payslipData).then((data) => {
@@ -127,7 +138,8 @@ class ManagePayslips extends React.Component {
       notify(error);
     })
   }
-  callMonthlyPayslip(userid, year, month) {
+
+    callMonthlyPayslip(userid, year, month) {
     this.setState({year: year, month: month})
     this.props.onUserMonthlyManagePayslipsData(userid, year, month);
   }
@@ -143,15 +155,15 @@ class ManagePayslips extends React.Component {
       }, (error) => {
         notify(error);
       })
-
     }
-
   }
-  responseGoogle(response) {
+
+    responseGoogle(response) {
     let accessToken = response.getAuthResponse().access_token;
     if (accessToken == '') {
       notify("Access token is empty!!!");
-    } else {
+    }
+    else {
       this.props.onSaveGoogleAccessToken(accessToken).then((data) => {
         notify(data);
       }, (error) => {
@@ -177,7 +189,6 @@ class ManagePayslips extends React.Component {
                 </div>
 
                 <div className="col-md-9">
-
                   <div className="row no-gutter b-t">
                     <div className="col-xs-12 b-l">
                       <div className="p-a block box">
@@ -185,7 +196,7 @@ class ManagePayslips extends React.Component {
                         <h6>Employee Id : {this.state.selected_user_id}</h6>
                         <h6 className="text-center">Generate Payslip</h6>
                         <hr/>
-                        <FormGeneratePaySlip user_id={this.state.selected_user_id} name={this.state.selected_user_name} designation={this.state.selected_user_jobtitle} user_data_for_payslip={this.state.user_data_for_payslip} callCreateUserPayslip={this.callCreateUserPayslip} callMonthlyPayslip={this.callMonthlyPayslip} pending_leaves={this.props.managePayslips.pending_leaves} />
+                        <FormGeneratePaySlip user_id={this.state.selected_user_id} name={this.state.selected_user_name} designation={this.state.selected_user_jobtitle} user_data_for_payslip={this.state.user_data_for_payslip} callCreateUserPayslip={this.callCreateUserPayslip} callMonthlyPayslip={this.callMonthlyPayslip} pending_leaves={this.props.managePayslips.pending_leaves} saveArrer={this.saveArrer} />
                       </div>
 
                       <div className="p-a block box">
@@ -204,13 +215,9 @@ class ManagePayslips extends React.Component {
                             <hr/>
                             <UserPayslipsHistory user_payslip_history={this.state.user_payslip_history}/>
                           </div>
-
                         </div>
-
                       </div>
-
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -248,9 +255,13 @@ const mapDispatchToProps = (dispatch) => {
     onSaveGoogleAccessToken: (accessToken) => {
       return dispatch(actions_managePayslips.save_google_access_token(accessToken))
     },
+    onCreateArrer: (user_id,extra_arrear,arrear_for_month) => {
+        return dispatch(actions_managePayslips.create_arrear(user_id,extra_arrear,arrear_for_month))
+      },
     onGetTransferList: (userIds) => {
       return dispatch(actions_managePayslips.getTransferList(userIds))
-    }
+    },
+
   }
 }
 

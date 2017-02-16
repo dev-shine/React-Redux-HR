@@ -43,7 +43,7 @@ class ManagePayslips extends React.Component {
     this.callEmailPayslips = this.callEmailPayslips.bind(this)
     this.callMonthlyPayslip = this.callMonthlyPayslip.bind(this)
     this.responseGoogle = this.responseGoogle.bind(this)
-    this.saveArrer = this.saveArrer.bind(this)
+    this.saveArrear = this.saveArrear.bind(this)
   }
   componentWillMount() {
     this.props.onUsersList()
@@ -60,8 +60,7 @@ class ManagePayslips extends React.Component {
       }
     }
 
-    //////////////////
-
+    //////////////
     let s_google_drive_emailid = ""
     let s_user_data_for_payslip = {}
     let s_user_payslip_history = []
@@ -126,10 +125,11 @@ class ManagePayslips extends React.Component {
       this.props.onUserMonthlyManagePayslipsData(userid, this.state.year, this.state.month);
     }
   }
-  saveArrer(user_id,extra_arrear,arrear_for_month){
+  saveArrear(user_id,extra_arrear,arrear_for_month){
     console.log(user_id,extra_arrear,arrear_for_month);
-    this.props.onCreateArrer (user_id,extra_arrear,arrear_for_month)
+    this.props.onCreateArrear (user_id,extra_arrear,arrear_for_month)
   }
+
   callCreateUserPayslip(payslipData, evt) {
     //evt.preventDefault();
     this.props.onCreateUserPayslip (payslipData).then((data) => {
@@ -196,7 +196,7 @@ class ManagePayslips extends React.Component {
                         <h6>Employee Id : {this.state.selected_user_id}</h6>
                         <h6 className="text-center">Generate Payslip</h6>
                         <hr/>
-                        <FormGeneratePaySlip user_id={this.state.selected_user_id} name={this.state.selected_user_name} designation={this.state.selected_user_jobtitle} user_data_for_payslip={this.state.user_data_for_payslip} callCreateUserPayslip={this.callCreateUserPayslip} callMonthlyPayslip={this.callMonthlyPayslip} pending_leaves={this.props.managePayslips.pending_leaves} saveArrer={this.saveArrer} />
+                        <FormGeneratePaySlip user_id={this.state.selected_user_id} name={this.state.selected_user_name} designation={this.state.selected_user_jobtitle} user_data_for_payslip={this.state.user_data_for_payslip} callCreateUserPayslip={this.callCreateUserPayslip} callMonthlyPayslip={this.callMonthlyPayslip} pending_leaves={this.props.managePayslips.pending_leaves} saveArrear={this.saveArrear} actualSalary={this.state.employee_actual_salary} />
                       </div>
 
                       <div className="p-a block box">
@@ -255,7 +255,7 @@ const mapDispatchToProps = (dispatch) => {
     onSaveGoogleAccessToken: (accessToken) => {
       return dispatch(actions_managePayslips.save_google_access_token(accessToken))
     },
-    onCreateArrer: (user_id,extra_arrear,arrear_for_month) => {
+    onCreateArrear: (user_id,extra_arrear,arrear_for_month) => {
         return dispatch(actions_managePayslips.create_arrear(user_id,extra_arrear,arrear_for_month))
       },
     onGetTransferList: (userIds) => {

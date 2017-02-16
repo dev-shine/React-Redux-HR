@@ -4,6 +4,8 @@ import * as _ from 'lodash'
 import {DateField} from 'react-date-picker'
 import 'react-date-picker/index.css'
 
+
+
 class FormGeneratePaySlip extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,6 @@ class FormGeneratePaySlip extends React.Component {
       arrear: "",
       extra_arrear:"",
       arrear_for_month:"",
-      extraTimeBonus:"",
       bonus: "",
       extra_work:"",
       total_earning: "",
@@ -73,7 +74,7 @@ class FormGeneratePaySlip extends React.Component {
     let e_extra_arrear = this.state.extra_arrear
     let e_arrear_for_month = this.state.arrear_for_month
     let e_extra_work = this.state.extra_work
-    let e_bonus = this.state.extraTimeBonus
+    let e_bonus = this.state.bonus
     let n_total_earning = +e_basic + + e_hra + + e_conveyance + + e_medical_allowance + + e_special_allowance + + e_arrear + + e_bonus
 
     let e_epf = this.state.epf
@@ -90,9 +91,7 @@ class FormGeneratePaySlip extends React.Component {
     if (n_net_salary != this.state.net_salary) {
       this.setState({total_earning: n_total_earning, total_deduction: n_total_deduction, net_salary: n_net_salary})
     }
-    // if(this.state.extraTimeBonus != null){
-    //   this.setState({total_earning:n_total_earning + this.state.extraTimeBonus})
-    // }
+
   }
   componentWillReceiveProps(props) {
     let user_id = ""
@@ -362,13 +361,12 @@ class FormGeneratePaySlip extends React.Component {
               <td>{'Loyalty Bonus'} <input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'0px'}}onChange={(e)=>{this.loyalty_bonus(e)}}/></td>
               <td></td>
 
-
               <td>{'Extra Days Worked'}</td>
                 <td><input type="text" name="extra_work" placeholder="Extra Working Days"
                 onChange={(e)=>{
-                  let test = ((this.state.total_earning / this.state.total_working_days) * e.target.value );
-                  console.log(test);
-                  this.setState({extraTimeBonus:test})}}/>
+                  let test = ((this.props.actualSalary.net_salary / this.state.total_working_days) * e.target.value );
+                  // console.log(test);
+                  this.setState({bonus: parseInt(test)})}}/>
                 </td>
 
               </tr>
@@ -379,10 +377,10 @@ class FormGeneratePaySlip extends React.Component {
                     </td>
                     <td>
                       {'Arrear for Month'}</td>
-                    <td><input type="text" name="arrear_for_month" value={this.state.arrear_for_month} ref="arrear_for_month"  onChange={(evt) => this.setState({arrear_for_month: evt.target.value})}/>
+                    <td><input type="text" name="arrear_for_month" value={this.state.arrear_for_month} ref="arrear_for_month"  onChange={(evt) => this.setState({arrear_for_month: evt.target.value})} />
                   </td>
                   <td>
-                    <input type="submit" className="col-s-12 md-btn md-raised info" onClick={()=>this.props.saveArrer(this.state.user_id,this.state.extra_arrear, this.state.arrear_for_month)}></input>
+                  <input type="submit" value="Add Arrear" id="arrear1" className="col-s-12 md-btn md-raised info" onClick={()=>this.props.saveArrear(this.state.user_id,this.state.extra_arrear, this.state.arrear_for_month)}></input>
                   </td>
                   </tr>
                   <tr>
@@ -467,7 +465,8 @@ class FormGeneratePaySlip extends React.Component {
               </tr>
               <tr>
                 <td>Arrears</td>
-                <td>{this.state.arrear}</td>
+                <td>{this.state.arrear}
+                </td>
                 <td>Misc Deductions</td>
                 <td>
                   <input className="col-md-6" type="text" value={this.state.misc_deduction_2} ref="misc_deduction_2" onChange={(evt) => this.setState({misc_deduction_2: evt.target.value})}/>
@@ -476,7 +475,7 @@ class FormGeneratePaySlip extends React.Component {
               <tr>
                 <td>Bonus</td>
                 <td>
-                  <input className="col-md-6" type="text" value={this.state.extraTimeBonus} ref="bonus" placeholder="Bonus Salary" onChange={(evt) => this.setState({bonus: evt.target.value})}/>
+                  <input className="col-md-6" type="text" value={this.state.bonus} ref="bonus" placeholder="Bonus Salary" onChange={(evt) => this.setState({bonus: evt.target.value})} />
                 </td>
                 <td></td>
                 <td></td>

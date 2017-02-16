@@ -54,6 +54,7 @@ export function get_user_manage_payslips_data(userid) {
     })
   }
 }
+
 ///month payslip genrater
 
 function async_get_user_month_manage_payslips_data(userid, year, month) {
@@ -73,8 +74,6 @@ export function get_user_month_manage_payslips_data(userid, year, month) {
         dispatch(hide_loading()) // hide loading icon
         if (typeof json.data != 'undefined') {
           //let data = json.data.salary_details.reverse()
-
-
           let data = json.data
           dispatch(success_user_manage_payslips_data(data))
         } else {
@@ -87,7 +86,8 @@ export function get_user_month_manage_payslips_data(userid, year, month) {
     })
   }
 }
-//////-------------
+
+
 ///create arrear
 
 function async_create_arrear(userid, extraA, arrearMonth) {
@@ -98,37 +98,26 @@ function async_create_arrear(userid, extraA, arrearMonth) {
     arrear_for_month: arrearMonth
   })
 }
-
 export function create_arrear(userid, extraA, arrearMonth) {
-  console.log(userid, extraA, arrearMonth);
   return function(dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
       async_create_arrear(userid, extraA, arrearMonth).then((json) => {
-        console.log(json);
         dispatch(hide_loading()) // hide loading icon
         if (typeof json.data != 'undefined') {
-          //let data = json.data.salary_details.reverse()
-
-
           let data = json.data
-          console.log(data);
           dispatch(success_user_manage_payslips_data(data))
         } else {
-          create_employee_salary_slip
           dispatch(success_user_manage_payslips_data([]))
         }
       }, (error) => {
         dispatch(hide_loading()) // hide loading icon
       })
-      // async_get_user_month_manage_payslips_data(userid, 2017, 1).then((json) => {
-      //   console.log(json);
-      // })
     })
   }
 }
-//////-------------
-///-------------------
+
+
 //create user payslip
 
 export const ACTION_SUCCESS_CREATE_USER_SALARY_SLIP = "ACTION_SUCCESS_CREATE_USER_SALARY_SLIP"
@@ -380,6 +369,7 @@ export function create_user_payslip(new_salary_slip_data) {
       return Promise.reject('Bonus is empty')
     } else {
       n_bonus = new_salary_slip_data.bonus
+
     }
 
     if (typeof new_salary_slip_data.total_earning == 'undefined' || new_salary_slip_data.total_earning === '') {
@@ -398,6 +388,7 @@ export function create_user_payslip(new_salary_slip_data) {
       return Promise.reject('Net salary is empty')
     } else {
       n_net_salary = new_salary_slip_data.net_salary
+
     }
 
     if (typeof new_salary_slip_data.send_email_only != 'undefined') {
@@ -415,7 +406,7 @@ export function create_user_payslip(new_salary_slip_data) {
       async_create_user_payslip(n_userid, n_year, n_month, n_name, n_designation, n_joining_date, n_total_working_days, n_days_present, n_paid_leaves, n_unpaid_leaves, n_total_leave_taken, n_allocated_leaves, n_leave_balance, n_final_leave_balance, n_basic, n_epf, n_hra, n_loan, n_conveyance, n_advance, n_medical_allowance, n_misc_deduction, n_misc_deduction_2, n_special_allowance, n_tds, n_arrear, n_bonus, n_total_earning, n_total_deduction, n_net_salary, n_send_email, send_slack_msg, n_key).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
-          //dispatch( success_create_user_salary_slip( json.data ) )
+          dispatch(success_create_user_salary_slip(json.data))
           resolve('Payslip generated!!')
         } else {
           dispatch(error_create_user_salary_slip(json.data.message))
@@ -423,7 +414,6 @@ export function create_user_payslip(new_salary_slip_data) {
         }
       }, (error) => {
         console.log('Tell Arun error occurs on Action - create_user_payslip')
-        console.log(error)
         dispatch(hide_loading()) // hide loading icon
         dispatch(error_create_user_salary_slip('error occurs!!'))
         reject('error occurs!!')

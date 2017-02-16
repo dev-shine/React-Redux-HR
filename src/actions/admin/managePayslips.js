@@ -1,17 +1,8 @@
-import {
-  createAction
-} from 'redux-actions'
-import {
-  CONFIG
-} from '../../config/index'
+import {createAction} from 'redux-actions'
+import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
-import {
-  fireAjax
-} from '../../services/index'
-import {
-  show_loading,
-  hide_loading
-} from '../generic/frontend'
+import {fireAjax} from '../../services/index'
+import {show_loading,hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA = "ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA"
 export const ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA = "ACTION_ERROR_USER_MANAGE_PAYSLIPS_DATA"

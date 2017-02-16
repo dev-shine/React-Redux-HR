@@ -40,8 +40,8 @@ class FormGeneratePaySlip extends React.Component {
       special_allowance: "",
       tds: "",
       arrear: "",
-      extra_arrear:"",
-      arrear_for_month:"",
+      extra_arrear: "",
+      arrear_for_month: "",
       bonus: "",
       extra_work:"",
       total_earning: "",
@@ -121,8 +121,8 @@ class FormGeneratePaySlip extends React.Component {
     let special_allowance = 0
     let tds = 0
     let arrear = 0
-    let extra_arrear = 0
-    let arrear_for_month = 0
+    let extra_arrear = ""
+    let arrear_for_month = ""
     let bonus = 0
     let extra_work = 0
     let total_earning = 0
@@ -242,19 +242,21 @@ class FormGeneratePaySlip extends React.Component {
           arrear = SalaryDetails.Arrears
         }
 
-        if (typeof SalaryDetails.extra_arrear != 'undefined') {
-          extra_arrear = SalaryDetails.extra_arrear
-        }
-
-        if (typeof SalaryDetails.arrear_for_month != 'undefined') {
-          arrear_for_month = SalaryDetails.arrear_for_month
-        }
 
         if (typeof SalaryDetails.bonus != 'undefined') {
           bonus = SalaryDetails.bonus
         }
       }
     }
+
+    if (typeof props.user_data_for_payslip.extra_arrear != 'undefined') {
+      extra_arrear = props.user_data_for_payslip.extra_arrear
+    }
+
+    if (typeof props.user_data_for_payslip.arrear_for_month != 'undefined') {
+      arrear_for_month = props.user_data_for_payslip.arrear_for_month
+    }
+
 
     this.setState({
       user_id: user_id,
@@ -357,9 +359,11 @@ class FormGeneratePaySlip extends React.Component {
                       this.props.callMonthlyPayslip(this.props.user_id, this.state.year, evt.target.value)}}></select>
                   </td>
             </tr>
+
+
             <tr>
-              <td>{'Loyalty Bonus'} <input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'0px'}}onChange={(e)=>{this.loyalty_bonus(e)}}/></td>
-              <td></td>
+              <td>{'Loyalty Bonus'}</td>
+                <td><input value= {true} type="checkbox" name="loyalty_Bonus" onChange={(e)=>{this.loyalty_bonus(e)}}/></td>
 
               <td>{'Extra Days Worked'}</td>
                 <td><input type="text" name="extra_work" placeholder="Extra Working Days"
@@ -372,23 +376,26 @@ class FormGeneratePaySlip extends React.Component {
               </tr>
               <tr className="well well-lg">
                 <td>
-                    {'Extra Arrear'}</td>
-                  <td><input type="text" name="extra_arrear" placeholder="Extra Arrears" value={this.state.extra_arrear} ref="extra_arrear"  onChange={(evt) => this.setState({extra_arrear: evt.target.value})}/>
+                {'Extra Arrear'}</td>
+              <td>
+                <input required={true} onChange={(evt) => this.setState({extra_arrear: evt.target.value})}
+                  type="text" name="extra_arrear" placeholder="Extra Arrears" value={this.state.extra_arrear}/>
                     </td>
                     <td>
                       {'Arrear for Month'}</td>
-                    <td><input type="text" name="arrear_for_month" value={this.state.arrear_for_month} ref="arrear_for_month"  onChange={(evt) => this.setState({arrear_for_month: evt.target.value})} />
+                    <td><input required={true} onChange={(evt) => this.setState({arrear_for_month: evt.target.value})}
+                    type="text" name="arrear_for_month"  placeholder=" Arrears Month" value={this.state.arrear_for_month}/>
                   </td>
                   <td>
-                  <input type="submit" value="Add Arrear" id="arrear1" className="col-s-12 md-btn md-raised info" onClick={()=>this.props.saveArrear(this.state.user_id,this.state.extra_arrear, this.state.arrear_for_month)}></input>
+                  <input type="button" onClick={()=>this.props.saveArrear(this.state.user_id,this.state.extra_arrear, this.state.arrear_for_month)} id="arrear1" value="Add Arrear" className="col-xs-12 md-btn md-raised info" ></input>
                   </td>
                   </tr>
                   <tr>
                     <td></td>
                     </tr>
+                    <tr>
 
-              <tr>
-                <td>Employee Name</td>
+                  <td>Employee Name</td>
                 <td>{this.state.name}</td>
                 <td>Joining Date</td>
                 <td>{this.state.joining_date}</td>
@@ -524,8 +531,7 @@ class FormGeneratePaySlip extends React.Component {
                 let s = this.state;
                 s.send_email_only = 0;
                 s.send_slack_message = 1;
-                this.props.callCreateUserPayslip(s)
-              }}>
+                this.props.callCreateUserPayslip(s)}}>
                 create and send slack message
               </button>
             </div>

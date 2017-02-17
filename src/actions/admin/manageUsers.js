@@ -71,7 +71,7 @@ export function error_update_user_profile_details(data) {
 
 function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
-  n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg) {
+  n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg) {
 
   return fireAjax('POST', '', {
     'action': 'update_user_profile_detail',
@@ -95,6 +95,7 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
     "training_month": n_training_month,
     "holding_comments": n_holding_comments,
     "send_slack_msg": n_send_slack_msg,
+    "slack_msg": n_slack_msg
   });
 }
 
@@ -117,6 +118,7 @@ export function updateUserProfileDetails(new_profile_details) {
     let n_blood_group = ""
     let n_medical_condition = ""
     let n_send_slack_msg = new_profile_details.send_slack_msg
+    let n_slack_msg = new_profile_details.slack_msg
     let n_training_completion_date = ""
     let n_termination_date = ""
     let n_holding_comments = ""
@@ -247,7 +249,7 @@ export function updateUserProfileDetails(new_profile_details) {
       dispatch(show_loading()); // show loading icon
       async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,
         n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date,
-        n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg).then((json) => {
+        n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg).then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(getUserProfileDetails(n_user_id))

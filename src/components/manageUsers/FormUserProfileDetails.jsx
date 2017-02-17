@@ -33,6 +33,7 @@ class FormUserProfileDetails extends React.Component {
       termination_date: "",
       holding_comments: "",
       send_slack_msg:'',
+      slack_msg:''
     }
   }
   componentWillReceiveProps(props) {
@@ -56,6 +57,7 @@ class FormUserProfileDetails extends React.Component {
     let training_completion_date: ""
     let termination_date: ""
     let holding_comments: ""
+    let slack_msg: ""
 
     if (typeof props.username != 'undefined' && props.username != null) {
       username = props.username
@@ -141,6 +143,10 @@ class FormUserProfileDetails extends React.Component {
       holding_comments = props.user_profile_detail.holding_comments
     }
 
+    if (typeof props.user_profile_detail.slack_msg != 'undefined' && props.user_profile_detail.slack_msg != null) {
+      slack_msg = props.user_profile_detail.slack_msg
+    }
+
     this.setState({
       username: username,
       user_id: user_id,
@@ -162,6 +168,7 @@ class FormUserProfileDetails extends React.Component {
       training_completion_date: training_completion_date,
       termination_date: termination_date,
       holding_comments: holding_comments,
+      slack_msg : slack_msg,
     })
   }
 
@@ -378,6 +385,23 @@ class FormUserProfileDetails extends React.Component {
               })
             }
           }}/>
+
+        <label className= "checkbox-inline">
+        <b><i className="fa fa-bell-slash" aria-hidden="true"></i> Silence Notifications </b>
+        </label>
+
+        <input value={true} type="checkbox" name="notification" id ="2" checked={this.state.slack_msg === '1'} style={{'verticalAlign': 'middle','marginLeft':'18px'}}
+          onChange={(e)=>{
+            if(e.target.checked){
+              this.setState({
+                slack_msg:'1'
+              })
+            } else {
+            this.setState({
+            slack_msg:'0'
+              })
+          }
+        }}/>
       </div>
 
   <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)}>Update Profile Details</button>

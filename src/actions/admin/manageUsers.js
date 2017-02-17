@@ -94,7 +94,7 @@ function async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n
     "termination_date": n_termination_date,
     "training_month": n_training_month,
     "holding_comments": n_holding_comments,
-    "send_slack_msg": n_send_slack_msg
+    "send_slack_msg": n_send_slack_msg,
   });
 }
 
@@ -102,7 +102,6 @@ export function updateUserProfileDetails(new_profile_details) {
 
   return function(dispatch, getState) {
     let n_user_id = ""
-
     let n_name = ""
     let n_jobtitle = ""
     let n_team = ""

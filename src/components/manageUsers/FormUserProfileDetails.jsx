@@ -32,7 +32,7 @@ class FormUserProfileDetails extends React.Component {
       training_completion_date: "",
       termination_date: "",
       holding_comments: "",
-      send_slack_msg:''
+      send_slack_msg:'',
     }
   }
   componentWillReceiveProps(props) {
@@ -255,7 +255,7 @@ class FormUserProfileDetails extends React.Component {
               <div className="form-group">
               <label>Training Month ( eg. 0-4 month ) </label>
               <select className="form-control" ref="training_month" onChange={() => this.setState({training_month: this.refs.training_month.value})} value={this.state.training_month}>
-                  
+
                     <option disabled>--select month--</option>
                     <option value="0">0 month </option>
                     <option value="1">1 month</option>
@@ -363,9 +363,10 @@ class FormUserProfileDetails extends React.Component {
           <label>Any Medical Conditions</label>
           <textarea placeholder="your medical conditions..." className="form-control" ref="medical_condition" onChange={() => this.setState({medical_condition: this.refs.medical_condition.value})} value={this.state.medical_condition}></textarea>
         </div>
+
         <div className="form-group">
-        <label>Don’t post on slack</label>
-        <input value={true} type="checkbox" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}
+        <label><i className="fa fa-slack" aria-hidden="true"></i> Don’t post on Slack</label>
+        <input value={true} type="checkbox" id ="1" name="loyalty_Bonus" style={{'verticalAlign': 'middle','marginLeft':'20px'}}
           onChange={(e)=>{
             if(e.target.checked){
               this.setState({
@@ -377,13 +378,13 @@ class FormUserProfileDetails extends React.Component {
               })
             }
           }}/>
-        </div>
-        <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)}>Update Profile Details</button>
-
       </div>
 
+  <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)}>Update Profile Details</button>
+  </div>
     )
   }
 }
+
 
 export default FormUserProfileDetails

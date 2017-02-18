@@ -7,6 +7,7 @@ import 'react-date-picker/index.css'
 
 var moment = require('moment');
 var dateFormat = require('dateformat');
+import ToggleButton from 'react-toggle-button'
 
 class FormUserProfileDetails extends React.Component {
   constructor(props) {
@@ -33,8 +34,9 @@ class FormUserProfileDetails extends React.Component {
       termination_date: "",
       holding_comments: "",
       send_slack_msg:'',
-      slack_msg:''
+      slack_msg: ''
     }
+    this.handleTest = this.handleTest.bind(this);
   }
   componentWillReceiveProps(props) {
     let username : ""
@@ -171,7 +173,15 @@ class FormUserProfileDetails extends React.Component {
       slack_msg : slack_msg,
     })
   }
-
+  handleTest(){
+    if(this.props.user_profile_detail.slack_msg === "1"){
+      this.setState({slack_msg : "0"});
+    }else{
+      this.setState({slack_msg : "1"})
+    }
+    console.log(this.state);
+    this.props.callUpdateUserProfileDetails(this.state)
+  }
   render() {
     let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
     let userLevel = this.props.logged_user.role == CONFIG.ADMIN ? true : false;
@@ -179,6 +189,7 @@ class FormUserProfileDetails extends React.Component {
       <div>
 
         <h6 className="text-center">Personal Details</h6>
+
         <br/>
         <div className="row no-gutter">
           <div className="col-md-6">
@@ -385,23 +396,6 @@ class FormUserProfileDetails extends React.Component {
               })
             }
           }}/>
-
-        <label className= "checkbox-inline">
-        <b><i className="fa fa-bell-slash" aria-hidden="true"></i> Silence Notifications </b>
-        </label>
-
-        <input value={true} type="checkbox" name="notification" id ="2" checked={this.state.slack_msg === '1'} style={{'verticalAlign': 'middle','marginLeft':'18px'}}
-          onChange={(e)=>{
-            if(e.target.checked){
-              this.setState({
-                slack_msg:'1'
-              })
-            } else {
-            this.setState({
-            slack_msg:'0'
-              })
-          }
-        }}/>
       </div>
 
   <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)}>Update Profile Details</button>

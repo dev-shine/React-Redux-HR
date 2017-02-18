@@ -29,6 +29,10 @@ import FormAddNewEmployee from '../../components/manageUsers/FormAddNewEmployee'
 import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
 import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
 
+//---------------------------------------------
+import ToggleButton from 'react-toggle-button'
+
+
 class ManageUsers extends React.Component {
   constructor(props) {
     super(props);
@@ -149,6 +153,7 @@ class ManageUsers extends React.Component {
     this.setState({openIframe: false});
   };
   render() {
+
     return (
       <div>
 
@@ -164,11 +169,29 @@ class ManageUsers extends React.Component {
               <div className="row">
                 <div className="col-md-4 p-b">
                   <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee}/>
-                </div>
+                    </div>
+
+          <div style={{'margin-top':' 7px'}} className="col-md-4 pull-left">
+            <label style={{'float': 'inherit'}}><i className="fa fa-slack fa-lg" aria-hidden="true">
+              </i> Silent Slack Notifications</label>
+              <div style={{'margin': '0 0 0 10px'}} className='pull-left'>
+
+              <ToggleButton
+                value={this.state.user_profile_detail.slack_msg === '1' || false }
+                onToggle={() => {
+                let user = this.refs.userForm.state;
+                if( user.slack_msg == '0') user.slack_msg = '1';
+                else if( user.slack_msg == '1') user.slack_msg = '0';
+                this.callUpdateUserProfileDetails( user );
+                }}/>
+              </div>
+            </div>
+            
                 <div className="col-md-4 text-center"></div>
                 <div className="col-md-4 text-right">
                   <button className="btn btn-fw btn-danger" onTouchTap={() => this.changeEmployeeStatus(this.state.selected_user_id, 'Disabled')}>Disable Selected User</button>
                 </div>
+
               </div>
               <div className="row">
 
@@ -179,7 +202,7 @@ class ManageUsers extends React.Component {
                 <div className="col-md-10 p">
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
-                      <FormUserProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails} username={this.state.username} {...this.props}/>
+                      <FormUserProfileDetails ref="userForm" user_profile_detail={this.state.user_profile_detail} callUpdateUserProfileDetails={this.callUpdateUserProfileDetails} username={this.state.username} {...this.props}/>
                     </div>
                     <div className="col-md-5 p-t p-b">
                       <div className="col-md-12">

@@ -172,12 +172,12 @@ class ManageUsers extends React.Component {
                     </div>
 
           <div style={{'margin-top':' 7px'}} className="col-md-4 pull-left">
-            <label style={{'float': 'inherit'}}><i className="fa fa-slack fa-lg" aria-hidden="true">
-              </i> Silent Slack Notifications</label>
+            <label style={{'float': 'inherit'}}><i className="fa fa-bell-slash fa-lg" aria-hidden="true">
+            </i> Slack Notifications</label>
               <div style={{'margin': '0 0 0 10px'}} className='pull-left'>
 
               <ToggleButton
-                value={this.state.user_profile_detail.slack_msg === '1' || false }
+                value={this.state.user_profile_detail.slack_msg === '0' || false }
                 onToggle={() => {
                 let user = this.refs.userForm.state;
                 if( user.slack_msg == '0') user.slack_msg = '1';
@@ -186,7 +186,7 @@ class ManageUsers extends React.Component {
                 }}/>
               </div>
             </div>
-            
+
                 <div className="col-md-4 text-center"></div>
                 <div className="col-md-4 text-right">
                   <button className="btn btn-fw btn-danger" onTouchTap={() => this.changeEmployeeStatus(this.state.selected_user_id, 'Disabled')}>Disable Selected User</button>

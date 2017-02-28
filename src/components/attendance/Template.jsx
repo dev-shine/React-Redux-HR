@@ -470,7 +470,7 @@ class Variables extends React.Component {
     }
 
     submitEmail(email){
-      var pattern = /^\w[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      var pattern = /^\w[a-zA-Z_.1-9]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
       email = email.trim();
       if(_.isEmpty(email)){
         this.setState({emailValidationError:"Empty field"});

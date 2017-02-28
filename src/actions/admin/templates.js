@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions'
 import * as _ from 'lodash'
 import {show_loading, hide_loading} from '../generic/frontend'
 import {fireAjax} from '../../services/index'
-
+import 'whatwg-fetch'
 //export const ACTION_SUCCESS_FETCH_VARIABLE = "ACTION_SUCCESS_FETCH_VARIABLE"
 export const ACTION_SUCCESS_ADD_VARIABLE = "ACTION_SUCCESS_ADD_VARIABLE"
 export const ACTION_ERROR_ADD_VARIABLE = "ACTION_ERROR_ADD_VARIABLE"

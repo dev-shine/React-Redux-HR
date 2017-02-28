@@ -297,7 +297,7 @@ class Variables extends React.Component {
         let id = this.state.recipient[0].user_Id;
         recipient = _.find(this.state.usersList, function(o) { return o.user_Id == id });
       }
-      
+
       let format = 'DD-MM-YYYY';
       let string = templ.name.concat(" ",templ.subject," ", templ.body);
       let regx = /#[\w\/|-]*/g;
@@ -470,7 +470,7 @@ class Variables extends React.Component {
     }
 
     submitEmail(email){
-      var pattern = /^\w[a-zA-Z1-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      var pattern = /^\w[a-zA-Z_.1-9]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
       email = email.trim();
       if(_.isEmpty(email)){
         this.setState({emailValidationError:"Empty field"});

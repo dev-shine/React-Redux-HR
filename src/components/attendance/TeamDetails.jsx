@@ -2,6 +2,7 @@ import React from 'react';
 import * as _ from 'lodash'
 const classNames = require('classnames');
 var moment = require('moment');
+import 'whatwg-fetch'
 
 class TeamDetails extends React.Component {
     constructor( props ){

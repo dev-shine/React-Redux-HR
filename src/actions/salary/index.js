@@ -2,7 +2,7 @@ import {  createAction} from 'redux-actions'
 import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-
+import 'whatwg-fetch'
 import {  show_loading,hide_loading} from '../generic/frontend'
 
 export const ACTION_SUCCESS_SALARY_DETAILS = "ACTION_SUCCESS_SALARY_DETAILS"

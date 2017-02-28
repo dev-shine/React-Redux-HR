@@ -54,8 +54,12 @@ import Page_MyLeaves from './containers/user/myLeaves'
 import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
 import Page_MyDocuments from './containers/user/myDocuments'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import 'whatwg-fetch'
+// -for iPhone iPad safari engine
+ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)){
+   fetch = require('whatwg-fetch');
+ }
 
 export class APP extends React.Component {
   render() {

@@ -63,7 +63,7 @@ class Page_DisabledEmployes extends React.Component {
       props.router.push('/logout');
     }
     let disabledUserList = []
-    if (props.logged_user.role == CONFIG.ADMIN) {} else {
+    if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {} else {
       this.props.router.push('/home');
     }
     this.setState({user_payslip_history: props.managePayslips.user_payslip_history, user_documents: props.manageUsers.user_documents})
@@ -96,6 +96,11 @@ class Page_DisabledEmployes extends React.Component {
   changeEmployeeStatus(userid, status) {
     this.props.onChangeEmployeeStatus(userid, status).then(() => {
       this.props.onFetchDisabledEmployee()
+      if (this.props.usersList.disabled_users.length > 0) {
+        let user_list = this.props.usersList.disabled_users
+        let firstUser = user_list[0];
+        this.onUserClick(firstUser)
+      }
     })
   }
   render() {
@@ -107,9 +112,7 @@ class Page_DisabledEmployes extends React.Component {
       <div className="col-md-9">
         <div className="box">
           <div className="box-body">
-            {this.state.userDetails == ""
-              ? ""
-              : <DisabledUserDetails userDetails={this.state.userDetails} changeEmployeeStatus={this.changeEmployeeStatus} {...this.props }/>}
+            {this.state.userDetails == "" ? "" : <DisabledUserDetails userDetails={this.state.userDetails} changeEmployeeStatus={this.changeEmployeeStatus} {...this.props }/>}
           </div>
         </div>
         <div className="box">

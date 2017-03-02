@@ -63,7 +63,7 @@ class Page_DisabledEmployes extends React.Component {
       props.router.push('/logout');
     }
     let disabledUserList = []
-    if (props.logged_user.role == CONFIG.ADMIN) {} else {
+    if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {} else {
       this.props.router.push('/home');
     }
     this.setState({user_payslip_history: props.managePayslips.user_payslip_history, user_documents: props.manageUsers.user_documents})

@@ -87,10 +87,17 @@ class ViewLeave extends React.Component {
 
         )
     }
+    _notify(){
+      if(this.props.listLeaves.selectedLeave.doc_require === "1"){
+        return (<div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+              <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
+            </div>)
+      }
+    }
 
     render(){
       let styles = _.cloneDeep(this.constructor.styles);
-
+      let notify = this._notify()
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
 
       let key = parseInt( this.props.keyval )
@@ -161,10 +168,8 @@ class ViewLeave extends React.Component {
             }
             {
               this.props.listLeaves.selectedLeave.doc_link === '' ?
-              <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
-                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
-                </div>:
-                <form method="get" action= {this.props.listLeaves.selectedLeave.doc_link  }>
+                notify :
+                <form method="get" action= {this.props.listLeaves.selectedLeave.doc_link }>
                 <div className=" text-left" style={{marginTop:'10px'}}>
                 <button className="md-btn md-raised indigo" >View Document</button>
               </div>

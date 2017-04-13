@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {notify} from '../../services/index'
+import moment from 'moment'
 
 import LoadingIcon from '../../components/generic/LoadingIcon'
 
@@ -14,7 +15,9 @@ class ApplyLeaveForm extends React.Component {
       form_no_of_days: '',
       form_reason: '',
       day_status:'',
-      show_half_day_button: ''
+      show_half_day_button: '',
+      leaveType:'',
+      late_reason:''
     }
     this.doApplyLeave = this.doApplyLeave.bind(this)
     this.handleStartDate = this.handleStartDate.bind(this)
@@ -31,6 +34,7 @@ class ApplyLeaveForm extends React.Component {
 
   }
 
+
   _apply_half_day_1(shift) {
     if(shift == 1){
       this.setState({
@@ -43,7 +47,7 @@ class ApplyLeaveForm extends React.Component {
         day_status:'2'
       })
     }
-    
+
   }
 
   handleStartDate(date) {
@@ -62,25 +66,29 @@ class ApplyLeaveForm extends React.Component {
   doApplyLeave(evt) {
     evt.preventDefault();
     if (this.props.forAdmin == true) {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId,this.state.day_status)
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId,this.state.day_status,this.state.leaveType,this.state.late_reason)
       this.setState({
-        form_from_date: '', 
-        form_to_date: '', 
-        form_no_of_days: '', 
-        form_reason: '', 
+        form_from_date: '',
+        form_to_date: '',
+        form_no_of_days: '',
+        form_reason: '',
         show_half_day_button: '',
-        day_status:''
+        day_status:'',
+        leaveType:'',
+        late_reason:''
       });
       //notify("leave Applied");
     } else {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "",this.state.day_status)
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, "",this.state.day_status,this.state.leaveType,this.state.late_reason)
       this.setState({
-        form_from_date: '', 
-        form_to_date: '', 
-        form_no_of_days: '', 
-        form_reason: '', 
+        form_from_date: '',
+        form_to_date: '',
+        form_no_of_days: '',
+        form_reason: '',
         show_half_day_button: '',
-        day_status:''
+        day_status:'',
+        leaveType:'',
+        late_reason:''
       });
     }
   }
@@ -94,14 +102,17 @@ class ApplyLeaveForm extends React.Component {
     this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days})
   }
   render() {
-
+    let dateDiff = moment(moment().format("YYYY-MM-DD")).diff(this.state.form_from_date || moment().format("YYYY-MM-DD") , 'days')
     let apply_half_day_button_1 = ""
     let apply_half_day_button_2 = ""
     if (this.state.form_no_of_days == 1) {
       apply_half_day_button_1 = <button className="md-btn md-flat text-accent" onClick= { () => this._apply_half_day_1(1) }>Apply Leave For First Half</button>
       apply_half_day_button_2 = <button className="md-btn md-flat text-accent" onClick= { () => this._apply_half_day_1(2) }>Apply Leave For Second Half</button>
     }
-
+    let width = '63%';
+    if(this.props.forAdmin == true){
+      width = '82%'
+    }
     return (
 
       <div className="row">
@@ -137,6 +148,17 @@ class ApplyLeaveForm extends React.Component {
                 </div>
                 <div className="sl-item b-info">
                   <div className="sl-content">
+                    <div style={{width:width}}>
+                      <select value={this.state.leaveType} onChange={(e)=>{this.setState({leaveType:e.target.value})}} className="form-control">
+                    		<option value = '' disabled>Select Option</option>
+                        <option value = 'Casual Leave'> Casual Leave </option>
+                    		<option value = 'Sick Leave'> Sick Leave </option>
+                    	</select>
+                    </div>
+                  </div>
+                </div>
+                <div className="sl-item b-info">
+                  <div className="sl-content">
                     <div className="sl-date text-muted">No. of days</div>
                     <div>
                       {this.state.form_no_of_days}
@@ -145,7 +167,15 @@ class ApplyLeaveForm extends React.Component {
                     </div>
                   </div>
                 </div>
-
+                {
+                  dateDiff > 0 ?
+                   <div className="sl-item b-warning">
+                      <div className="sl-content">
+                        <div className="sl-date text-muted">Reason For Late Applying</div>
+                        <div><input type="text" onChange={(e) => this.setState({late_reason: e.target.value})} value={this.state.late_reason}/></div>
+                      </div>
+                    </div> : null
+                }
                 <div className="sl-item b-warning">
                   <div className="sl-content">
                     <div className="sl-date text-muted">Reason</div>
@@ -163,7 +193,6 @@ class ApplyLeaveForm extends React.Component {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
 

@@ -125,6 +125,9 @@ const mapDispatchToProps = (dispatch) => {
         onChangeLeaveStatus : ( leaveid, newstatus , messagetouser ) => {
             return dispatch( actions_manageLeave.changeLeaveStatus( leaveid, newstatus, messagetouser ) )
         },
+        onDocRequired : ( leaveid,data,comment ) => {
+            return dispatch( actions_manageLeave.docRequired(leaveid,data,comment ) )
+        },
         onFetchUserPolicyDocument: ()=>{
           return dispatch(actions_policy.fetchUserPolicyDocument());
         },

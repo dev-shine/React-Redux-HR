@@ -5,21 +5,33 @@ class ViewLeave extends React.Component {
     constructor( props ){
 		  super( props );
       this.state = {
-        messagetouser : ""
+        messagetouser : "",
+        notifyMsg:'Document Required Notification Sent',
+        document_required:true
       }
-      
+      this.handleNotify = this.handleNotify.bind(this);
+      this.handleComment = this.handleComment.bind(this);
     }
 
+    componentWillReceiveProps(props){
+      this.setState ({ messagetouser : "" })
+    }
 
+    handleNotify() {
+      this.props.onDocRequired(this.props.listLeaves.selectedLeave.id , "1" , '')
+    }
+    handleComment(){
+      this.props.onDocRequired(this.props.listLeaves.selectedLeave.id , '' , this.state.messagetouser)
+    }
 
     changeStatus( leaveid, newstatus ){
       this.props.doLeaveStatusChange( leaveid, newstatus, this.state.messagetouser )
     }
 
-   
+
     _getChangeStatusButtons( leaveid, status ){
       let statusList = [ "Approved", "Pending", "Rejected" ]
-      
+
       let soptions = _.map( statusList, ( s, k  ) => {
 
         let leaveStatusColor = ""
@@ -33,7 +45,7 @@ class ViewLeave extends React.Component {
         }else if( s == 'Rejected'){
           return <button key={k} className="md-btn md-flat m-b-sm text-danger" onClick={ () => this.changeStatus( leaveid, s ) }>Reject</button>
         }
-        
+
       })
 
       return soptions
@@ -44,8 +56,8 @@ class ViewLeave extends React.Component {
     _getLastAppliedLeaves( dd ){
 
       let prev_leaves = _.map( dd, ( d, k  ) => {
-          
-          return( 
+
+          return(
                <div className="sl-item b-info"  key={k}>
                   <div className="sl-content">
                     <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
@@ -63,18 +75,15 @@ class ViewLeave extends React.Component {
              <div className="box-body">
             <div className="streamline b-l m-l">
                 {prev_leaves}
-                
+
             </div>
         </div>
 
         )
     }
-    componentWillReceiveProps(){
-      this.setState ({ messagetouser : "" })
-    }
-    
-    render(){
 
+    render(){
+      console.log(this.props);
       let styles = _.cloneDeep(this.constructor.styles);
 
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
@@ -89,15 +98,15 @@ class ViewLeave extends React.Component {
         let aa  = this._getLastAppliedLeaves( this.props.listLeaves.selectedLeave.last_applied_leaves )
         last_applied_leaves_html = <div><hr/><h5>Leave history</h5>{aa}</div>
 
-          
+
       }
 
-      
+
 
       return (
           <div className="item">
     <div className="item-bg">
-      
+
     </div>
     <div className="p-a-md">
       <div className="row m-t">
@@ -119,10 +128,51 @@ class ViewLeave extends React.Component {
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
             {this.props.listLeaves.selectedLeave.day_status == ""?"":<div>Leave apply for - <i><b>{this.props.listLeaves.selectedLeave.day_status == "1"?"First Half":"Second Half"}</b></i></div>}
             <div>Reason - <i><b>{this.props.listLeaves.selectedLeave.reason}</b></i></div>
+            {
+              this.props.listLeaves.selectedLeave.leave_type != '' ?
+              <div>Leave Type - <i><b>{this.props.listLeaves.selectedLeave.leave_type}</b></i></div> : null
+            }
+            {
+              this.props.listLeaves.selectedLeave.late_reason != '' ?
+              <div>Reason For Late Applying - <i><b>{this.props.listLeaves.selectedLeave.late_reason}</b></i></div> : null
+            }
+            {/* {
+              this.state.document_required ?
+              <div className="text-left" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
+              </div>:<div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
+                  </div>
+            } */}
+            {
+              this.props.listLeaves.selectedLeave.doc_require === '0' ?
+              <div className="text-left" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
+              </div> : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
+                  </div>
+            }
+            {/* {
+              this.props.listLeaves.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
+                  </div>
+            } */}
             <br/>
-
-            <b>Enter message for employee</b><br/>
-            <input type="text" className="md-input" ref="messagetouser" onChange={ () => this.setState({ messagetouser : this.refs.messagetouser.value }) } value={ this.state.messagetouser }/>
+            {
+              this.props.listLeaves.selectedLeave.comment === '' ?
+              <div>
+              <b>Enter message for employee</b><br/>
+              <input type="text" className="md-input" onChange={ (e) => this.setState({ messagetouser : e.target.value}) } value={ this.state.messagetouser }/>
+              <div className="text-right" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" onTouchTap={this.handleComment}>Comment</button>
+              </div>
+            </div> : <div>
+            <b>Comment</b><br/>
+            <div className="text-left" style={{marginTop:'10px',border:"1px dotted #514eff",width:"56%",padding:"11px 5px 5px",background:'rgb(191, 195, 245)',color:'rgb(64, 78, 247)',borderRadius:"7px"}}>
+               <label style={{fontWeight:"500"}}>{this.props.listLeaves.selectedLeave.comment}</label>
+               </div>
+            </div>
+            }
             <br/>
             <br/>
 
@@ -132,7 +182,7 @@ class ViewLeave extends React.Component {
       </div>
     </div>
   </div>
-         
+
 	    )
     }
 }
@@ -146,5 +196,3 @@ ViewLeave.styles = {
 
 
 export default ViewLeave
-
-

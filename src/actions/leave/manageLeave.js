@@ -37,7 +37,7 @@ function async_changeLeaveStatus( leaveid, newstatus, messagetouser ){
 export function changeLeaveStatus( leaveid, newstatus, messagetouser ){
 
 	return function (dispatch,getState){
-		
+
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			async_changeLeaveStatus( leaveid, newstatus, messagetouser ).then(
@@ -55,9 +55,42 @@ export function changeLeaveStatus( leaveid, newstatus, messagetouser ){
 					dispatch( leave_status_change_error( 'error occurs' ) )
 				}
 			)
-			
+
 		})
 
 	}
-    
+
+}
+
+function async_docRequired( leaveid, data, comment ){
+	return fireAjax( 'POST', '', {
+		'action' : 'send_request_for_doc',
+		'leaveid' : leaveid,
+		'doc_request' : data,
+		'comment' : comment
+	})
+}
+
+export function docRequired( leaveid, data, comment ){
+	return function (dispatch,getState){
+				return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_docRequired( leaveid, data, comment ).then(
+				( json ) => {
+					resolve(json);
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( actions_listLeaves.getAllLeaves() )
+		 			}
+				},
+				( error ) => {
+					dispatch( actions_listLeaves.getAllLeaves() )
+					dispatch( hide_loading() ) // hide loading icon
+				}
+			)
+
+		})
+
+	}
+
 }

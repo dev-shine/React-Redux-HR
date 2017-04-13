@@ -7,16 +7,22 @@ class ViewLeave extends React.Component {
       this.state = {
         messagetouser : "",
         notifyMsg:'Document Required Notification Sent',
-        document_required:true
+        document_required:true,
+        user_token:''
       }
       this.handleNotify = this.handleNotify.bind(this);
       this.handleComment = this.handleComment.bind(this);
+      this.handleExtraDay = this.handleExtraDay.bind(this);
     }
 
     componentWillReceiveProps(props){
+      let token = localStorage.getItem('hr_logged_user')
+      this.setState({user_token: token})
       this.setState ({ messagetouser : "" })
     }
-
+    handleExtraDay(day) {
+      this.props.onAddExtraDay(this.props.listLeaves.selectedLeave.id , this.state.user_token , day)
+    }
     handleNotify() {
       this.props.onDocRequired(this.props.listLeaves.selectedLeave.id , "1" , '')
     }
@@ -83,7 +89,6 @@ class ViewLeave extends React.Component {
     }
 
     render(){
-      console.log(this.props);
       let styles = _.cloneDeep(this.constructor.styles);
 
       let changeStatusButton = this._getChangeStatusButtons(  this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status )
@@ -136,6 +141,10 @@ class ViewLeave extends React.Component {
               this.props.listLeaves.selectedLeave.late_reason != '' ?
               <div>Reason For Late Applying - <i><b>{this.props.listLeaves.selectedLeave.late_reason}</b></i></div> : null
             }
+            {
+              this.props.listLeaves.selectedLeave.extra_day != '0' ?
+              <div>Extra Day Added - <i><b>{this.props.listLeaves.selectedLeave.extra_day}</b></i></div> : null
+            }
             {/* {
               this.state.document_required ?
               <div className="text-left" style={{marginTop:'10px'}}>
@@ -148,10 +157,39 @@ class ViewLeave extends React.Component {
               this.props.listLeaves.selectedLeave.doc_require === '0' ?
               <div className="text-left" style={{marginTop:'10px'}}>
                 <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
-              </div> : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
-                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
-                  </div>
+              </div> : null
             }
+            {
+              this.props.listLeaves.selectedLeave.doc_link === '' ?
+              <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+                  <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
+                </div>:
+                <form method="get" action= {this.props.listLeaves.selectedLeave.doc_link  }>
+                <div className=" text-left" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" >View Document</button>
+              </div>
+            </form>
+            }
+              <div className='row m-0'>
+                <div className='col-sm-3 p-0 pt-5'>
+                  <div className=" text-left" style={{marginTop:'10px'}}>
+                    <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleExtraDay("0.5")}}>Add Half Day</button>
+                  </div>
+                </div>
+                <div className='col-sm-3 p-0'>
+                  <div className="text-left" style={{marginTop:'10px'}}>
+                    <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleExtraDay("1")}}>Add Full Day</button>
+                  </div>
+                </div>
+                {
+                  this.props.listLeaves.selectedLeave.extra_day == "0" ? null :
+                  <div className='col-sm-4 p-0'>
+                    <div className="text-left" style={{marginTop:'10px'}}>
+                      <button className="md-btn md-raised red" onTouchTap={()=>{this.handleExtraDay("0")}}>Remove Extra Day</button>
+                    </div>
+                  </div>
+                }
+              </div>
             {/* {
               this.props.listLeaves.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
@@ -186,6 +224,7 @@ class ViewLeave extends React.Component {
 	    )
     }
 }
+
 
 ViewLeave.styles = {
   leaveDiv: {

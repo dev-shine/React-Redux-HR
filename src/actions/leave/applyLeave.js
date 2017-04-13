@@ -23,19 +23,21 @@ export function leave_error( err ){
 	return createAction( ACTION_LEAVE_ERROR )( 'Error Occurs !!' )
 }
 
-function async_apply_leave( from_date, to_date, no_of_days, reason, day_status ){
+function async_apply_leave( from_date, to_date, no_of_days, reason, day_status ,leaveType,late_reason){
 	return fireAjax( 'POST', '', {
 		'action' : 'apply_leave',
 		'from_date' : from_date,
 		'to_date' : to_date,
 		'no_of_days' : no_of_days,
 		'reason' : reason,
-		'day_status':day_status
+		'day_status':day_status,
+		'leave_type':leaveType,
+		'late_reason':late_reason
 	})
 }
 
 
-function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status ){
+function async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status,leaveType,late_reason ){
 	return fireAjax( 'POST', '', {
 		'action' : 'admin_user_apply_leave',
 		'from_date' : from_date,
@@ -43,11 +45,13 @@ function async_apply_employe_leave( from_date, to_date, no_of_days, reason, user
 		'no_of_days' : no_of_days,
 		'reason' : reason,
 		'user_id' : userId,
-		'day_status':day_status
+		'day_status':day_status,
+		'leave_type':leaveType,
+		'late_reason':late_reason
 	})
 }
 
-export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_status ){
+export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_status ,leaveType,late_reason){
 
 	return function (dispatch,getState){
 		if(_.isEmpty(from_date)){
@@ -66,7 +70,7 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_
 		return new Promise(( reslove, reject ) => {
 			dispatch( show_loading() ); // show loading icon
 			if(userId==""){
-				async_apply_leave( from_date, to_date, no_of_days, reason,day_status ).then(
+				async_apply_leave( from_date, to_date, no_of_days, reason,day_status,leaveType,late_reason ).then(
 				    ( json ) => {
 					    dispatch( hide_loading() ) // hide loading icon
 					    if( json.error == 0 ){
@@ -81,7 +85,7 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_
 				    }
 			    )
 			}else{
-				async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status ).then(
+				async_apply_employe_leave( from_date, to_date, no_of_days, reason, userId, day_status,leaveType,late_reason ).then(
 				    ( json ) => {
 					    dispatch( hide_loading() ) // hide loading icon
 					    if( json.error == 0 ){
@@ -99,11 +103,11 @@ export function apply_leave( from_date, to_date, no_of_days, reason, userId,day_
 				    }
 			    )
 			}
-			
+
 		})
 
 	}
-    
+
 }
 
 
@@ -153,9 +157,9 @@ export function getDaysBetweenLeaves( startDate, endDate){
 					dispatch( days_between_leaves_error( 'error occurs' ) )
 				}
 			)
-			
+
 		})
 
 	}
-    
+
 }

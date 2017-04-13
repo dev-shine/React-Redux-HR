@@ -101,15 +101,27 @@ class UserLeavesList extends React.Component {
             </div>
             {
               leave.doc_require != '0'?
-              <div className="text-center" style={{marginTop:'10px',width:"29%"}}>
-                <button className="btn info" onTouchTap={()=>{this.handleOpen(leave.id)}}>Upload Leave Documents</button>
-              </div>: null
+              <div className='row m-0'>
+                <div className='col-sm-3 p-0 pt-5'>
+                  <div className="text-right" style={{marginTop:'10px'}}>
+                    <button className="btn info" onTouchTap={()=>{this.handleOpen(leave.id)}}>Upload Leave Documents</button>
+                  </div>
+                </div>
+                <div className='col-sm-3 p-0'>
+                  {
+                    leave.doc_link == "" ? null : <form method="get" action= {leave.doc_link  }>
+                      <div className=" text-left" style={{marginTop:'10px'}}>
+                        <button className="md-btn md-raised indigo" >View Document</button>
+                      </div>
+                    </form>
+                  }
+                </div>
+              </div>
+            : null
             }
           </div>
-
           )
       })
-
     }
 
     callUpdateDocuments(e) {
@@ -118,7 +130,7 @@ class UserLeavesList extends React.Component {
       if (docProof == '') {
         stop = true
         notify('Please select a file')
-      } 
+      }
       if (stop) {
         e.preventDefault()
       }

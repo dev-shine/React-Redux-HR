@@ -77,7 +77,38 @@ export function docRequired( leaveid, data, comment ){
 			dispatch( show_loading() ); // show loading icon
 			async_docRequired( leaveid, data, comment ).then(
 				( json ) => {
-					resolve(json);
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( actions_listLeaves.getAllLeaves() )
+		 			}
+				},
+				( error ) => {
+					dispatch( actions_listLeaves.getAllLeaves() )
+					dispatch( hide_loading() ) // hide loading icon
+				}
+			)
+
+		})
+
+	}
+
+}
+
+function async_onAddExtraDay( leaveid ,token , data ){
+	return fireAjax( 'POST', '', {
+		'action' : 'add_extra_leave_day',
+		'leaveid' : leaveid,
+		'token' : token,
+		'extra_day' : data
+	})
+}
+
+export function onAddExtraDay( leaveid ,token , data ){
+	return function (dispatch,getState){
+				return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_onAddExtraDay(leaveid ,token , data).then(
+				( json ) => {
 					dispatch( hide_loading() ) // hide loading icon
 					if( json.error == 0 ){
 						dispatch( actions_listLeaves.getAllLeaves() )

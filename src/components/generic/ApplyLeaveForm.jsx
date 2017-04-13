@@ -102,6 +102,12 @@ class ApplyLeaveForm extends React.Component {
     this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days})
   }
   render() {
+    console.log(this.props);
+    let policyLink = this.props.policy_documents.policyDocuments.map((val,i)=>{
+      if(val.name == "Leave Policy"){
+        return <a key={i} href={val.link}><label key={i} style={{cursor:"pointer" ,marginTop:"6px"}}>Leave Policy</label></a>
+      }
+    });
     let dateDiff = moment(moment().format("YYYY-MM-DD")).diff(this.state.form_from_date || moment().format("YYYY-MM-DD") , 'days')
     let apply_half_day_button_1 = ""
     let apply_half_day_button_2 = ""
@@ -173,6 +179,7 @@ class ApplyLeaveForm extends React.Component {
                       <div className="sl-content">
                         <div className="sl-date text-muted">Reason For Late Applying</div>
                         <div><input type="text" onChange={(e) => this.setState({late_reason: e.target.value})} value={this.state.late_reason}/></div>
+                        <div style={{marginTop: "10px",width: '63%',paddingLeft: '10px',background: 'blanchedalmond'}}>{policyLink}</div>
                       </div>
                     </div> : null
                 }

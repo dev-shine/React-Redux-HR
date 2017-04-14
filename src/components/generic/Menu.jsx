@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as _ from 'lodash'
@@ -13,43 +13,42 @@ const styles = {
   textWhite: {
     color: 'white'
   }
-};
+}
 
-//module.exports = menu;
+// module.exports = menu;
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       role: props.logged_user.role
     }
     this.click = this.click.bind(this)
   }
-  click(a) {
-    let id = a;
-    if ($("ul #" + id).hasClass("active") && $("ul li").hasClass("active")) {
-      $("ul li").removeClass("active")
-      $("ul #" + id).removeClass("active")
+  click (a) {
+    let id = a
+    if ($('ul #' + id).hasClass('active') && $('ul li').hasClass('active')) {
+      $('ul li').removeClass('active')
+      $('ul #' + id).removeClass('active')
     } else {
-      $("ul li").removeClass("active")
-      $("ul #" + id).addClass("active")
+      $('ul li').removeClass('active')
+      $('ul #' + id).addClass('active')
     }
   }
-  render() {
-
+  render () {
     let link_attendance_summary = <Link to='/attendance_summary'>Attendance Summary</Link>
     let link_logout = <Link to='/logout'>Logout</Link>
     let link_holidays = <Link to='/holidays'>Holidays</Link>
     let link_apply_leave = <Link to='/apply_leave'>Apply Leave</Link>
 
-    //user
+    // user
     let link_my_calendar = <Link to='/monthly_attendance'>My Attendance</Link>
     let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
     let link_my_profile = <Link to='/my_profile'>My Profile</Link>
     let link_salary = <Link to='/salary'>My Salary</Link>
     let link_policy_documents = <Link to='/policy_documents'>Policy Documents</Link>
 
-    //admin
+    // admin
     let link_users_list = <Link to='/home'>Employees Attendance</Link>
     let link_user_attendance_upload = <Link to='/uploadAttendance'>Upload Attendance</Link>
     let link_leaves_summary = <Link to='/leaves_summary'>Leaves Summary</Link>
@@ -68,6 +67,7 @@ class Menu extends React.Component {
     let link_mail_templates = <Link to='/mail_templates'>Mail Templates</Link>
     let link_template_variable = <Link to='/add_variables'>Add Variables</Link>
     let link_team_view = <Link to='/team_view'>Team</Link>
+    let link_inventory_system = <Link to='/inventory_system'>Inventory</Link>
 
     let links_to_show = <ul className="nav">
       <li className="hidden-folded">
@@ -101,8 +101,8 @@ class Menu extends React.Component {
     if (this.props.logged_user.role == CONFIG.ADMIN) {
       links_to_show = <ul className="nav">
         <li id="Attendance" onClick={() => {
-          let a = "Attendance";
-          this.click(a);
+          let a = 'Attendance'
+          this.click(a)
         }} className="">
           <a>
             <span className="nav-caret text-muted">
@@ -127,7 +127,7 @@ class Menu extends React.Component {
         </li>
 
         <li id="ManageEmp" onClick={() => {
-          let m = "ManageEmp";
+          let m = 'ManageEmp'
           this.click(m)
         }} className="">
           <a>
@@ -153,7 +153,7 @@ class Menu extends React.Component {
         </li>
 
         <li id="ManageHour" onClick={() => {
-          let h = "ManageHour";
+          let h = 'ManageHour'
           this.click(h)
         }} className="">
           <a>
@@ -179,7 +179,7 @@ class Menu extends React.Component {
         </li>
 
         <li id="ManageLeave" onClick={() => {
-          let l = "ManageLeave";
+          let l = 'ManageLeave'
           this.click(l)
         }} className="">
           <a>
@@ -211,7 +211,7 @@ class Menu extends React.Component {
         </li>
 
         <li id="ManageSalary" onClick={() => {
-          let s = "ManageSalary";
+          let s = 'ManageSalary'
           this.click(s)
         }} className="">
           <a>
@@ -243,9 +243,9 @@ class Menu extends React.Component {
         </li>
 
         <li id="Templates" onClick={() => {
-          let t = "Templates";
-          this.click(t);
-          }} className="">
+          let t = 'Templates'
+          this.click(t)
+        }} className="">
           <a>
             <span className="nav-caret text-muted">
               <i className="fa fa-caret-down"></i>
@@ -269,7 +269,7 @@ class Menu extends React.Component {
         </li>
 
         <li id="PolicyDocs" onClick={() => {
-          let p = "PolicyDocs";
+          let p = 'PolicyDocs'
           this.click(p)
         }} className="">
           <a>
@@ -289,7 +289,7 @@ class Menu extends React.Component {
               <span style={{
                 'fontSize': 11,
                 'fontWeight': 600,
-                'display':'none'
+                'display': 'none'
               }}>{link_user_policy_document}</span>
             </li>
           </ul>
@@ -297,6 +297,9 @@ class Menu extends React.Component {
 
         <li className="hidden-folded">
           <span>{link_holidays}</span>
+        </li>
+        <li className="hidden-folded">
+          <span>{link_inventory_system}</span>
         </li>
 
         <li className="hidden-folded">
@@ -309,7 +312,6 @@ class Menu extends React.Component {
       </ul>
 
 // Hr---
-
     } else if (this.props.logged_user.role == CONFIG.HR) {
       links_to_show = <ul className="nav">
         <li className="hidden-folded">
@@ -319,7 +321,7 @@ class Menu extends React.Component {
           <span>{link_user_attendance_upload}</span>
         </li>
         <li id="ManageHour" onClick={() => {
-          let h = "ManageHour";
+          let h = 'ManageHour'
           this.click(h)
         }} className="">
           <a>
@@ -347,7 +349,7 @@ class Menu extends React.Component {
           </ul>
         </li>
         <li id="ManageLeave" onClick={() => {
-          let l = "ManageLeave";
+          let l = 'ManageLeave'
           this.click(l)
         }} className="">
           <a>
@@ -382,7 +384,7 @@ class Menu extends React.Component {
         </li>
 
       <li id="ManageSalary" onClick={() => {
-        let s = "ManageSalary";
+        let s = 'ManageSalary'
         this.click(s)
       }} className="">
         <a>
@@ -402,8 +404,8 @@ class Menu extends React.Component {
       </li>
 
         <li id="Templates" onClick={() => {
-          let t = "Templates";
-          this.click(t);
+          let t = 'Templates'
+          this.click(t)
         }} className="">
           <a>
             <span className="nav-caret text-muted">
@@ -430,6 +432,9 @@ class Menu extends React.Component {
           <span>{link_holidays}</span>
         </li>
         <li className="hidden-folded">
+          <span>{link_inventory_system}</span>
+        </li>
+        <li className="hidden-folded">
           <span>{link_manage_users}</span>
         </li>
         <li className="hidden-folded">
@@ -444,7 +449,6 @@ class Menu extends React.Component {
         </li>
 
       </ul>
-
     } else if (this.props.logged_user.role == CONFIG.GUEST) {
       links_to_show = <ul className="nav">
         <li className="hidden-folded">
@@ -476,7 +480,7 @@ class Menu extends React.Component {
         <div className="left navside dark dk">
           <div className="navbar no-radius">
             <a className="navbar-brand">
-              <img src="./favicon.ico"/>
+              <img src="./favicon.ico" />
               <span className="hidden-folded inline">HR</span>
             </a>
           </div>
@@ -486,14 +490,13 @@ class Menu extends React.Component {
             </nav>
           </div>
 
-          <LoggedUserInfo {...this.props}/>
+          <LoggedUserInfo {...this.props} />
 
         </div>
 
       </div>
 
     )
-
   }
 }
 

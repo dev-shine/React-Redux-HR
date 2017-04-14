@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 import * as _ from 'lodash'
 import Holiday from '../../components/holidaysList/Holiday'
 
 class HolidaysList extends React.Component {
-    constructor( props ){
-        super( props );
-    }
-    render(){
-      let holidaysList =  _.map( this.props.holidaysList.holidays , ( holiday, keyval ) => {
-        return (
-          <Holiday holiday={holiday} key={keyval}/>
-        )
-      })
+  constructor (props) {
+    super(props)
+  }
+  render () {
+    let holidaysList = _.map(this.props.holidaysList.holidays, (holiday, keyval) => {
       return (
-        <div className = "row">
+          <Holiday holiday={holiday} key={keyval} />
+      )
+    })
+    return (
+        <div className="row">
           <div className="col-12">
             <div className="box">
 
@@ -28,20 +28,17 @@ class HolidaysList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            
+
             {holidaysList}
           </tbody>
         </table>
       </div>
 
-              
             </div>
           </div>
         </div>
-      )
-    }
+    )
+  }
 }
 
 export default HolidaysList
-
-

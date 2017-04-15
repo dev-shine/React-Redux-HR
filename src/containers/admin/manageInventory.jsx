@@ -2,9 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
 
+import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
-import { CONFIG } from '../../config/index'
+
+import * as actions_manageDevice from '../../actions/admin/inventory'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
@@ -21,6 +23,7 @@ class InventorySystem extends React.Component {
       firstArrow: 'show',
       secondArrow: 'hidden'
     }
+    this.callAddNewMachine = this.callAddNewMachine.bind(this)
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -34,6 +37,16 @@ class InventorySystem extends React.Component {
       }
     }
   }
+
+  callAddNewMachine (new_machine_details) {
+    console.log('--------,')
+    this.props.onAddNewMachine(new_machine_details).then((data) => {
+      notify(data)
+    }, (error) => {
+      notify(error)
+    })
+  }
+
   render () {
     return (
         <div>
@@ -74,7 +87,7 @@ class InventorySystem extends React.Component {
                     </div>
                   </div>
                   <div className="col-md-offset-10" style={{marginTop: '2%'}}>
-                  <FormAddNewInventory {...this.props}></FormAddNewInventory>
+                  <FormAddNewInventory callAddNewMachine={this.callAddNewMachine} {...this.props}></FormAddNewInventory>
                   </div>
                 </div>
               </div>
@@ -89,13 +102,17 @@ function mapStateToProps (state) {
   return {
     frontend: state.frontend.toJS(),
     logged_user: state.logged_user.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents: state.policyDocuments.toJS(),
+    manageDevice: state.manageDevice.toJS()
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
       return dispatch(actions_login.isAlreadyLogin())
+    },
+    onAddNewMachine: (new_machine_details) => {
+      return dispatch(actions_manageDevice.addNewMachine(new_machine_details))
     }
   }
 }

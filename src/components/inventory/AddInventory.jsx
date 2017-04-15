@@ -13,6 +13,7 @@ export default class FormAddNewInventory extends React.Component {
     super(props)
     this.state = {
       open: false,
+      autoOk: true,
       machine_type: '',
       machine_name: '',
       machine_price: '',
@@ -25,10 +26,12 @@ export default class FormAddNewInventory extends React.Component {
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleChangeDate = this.handleChangeDate.bind(this)
   }
   handleOpen () {
     this.setState({
       open: true,
+      autoOk: true,
       machine_type: '',
       machine_name: '',
       machine_price: '',
@@ -40,11 +43,17 @@ export default class FormAddNewInventory extends React.Component {
       comments: ''
     })
   }
+  handleChangeDate = (event, date) => {
+    this.setState({
+      date_of_purchase: date
+    })
+  };
   handleClose () {
     this.setState({open: false})
   }
   componentWillReceiveProps (props) {}
   render () {
+    console.log(this.state.machine_type, '-----machine_type')
     return (
       <div>
 
@@ -62,9 +71,16 @@ export default class FormAddNewInventory extends React.Component {
             <tbody>
               <tr>
                 <td>
-                   <DatePicker floatingLabelText="Date of Purchase" mode="landscape" onChange={(date) => {
-                     this.setState({date_of_purchase: date})
-                   }}></DatePicker>
+                   <DatePicker
+                     floatingLabelText="Date of Purchase"
+                     fullWidth
+                     value={this.state.date_of_purchase}
+                     autoOk={this.state.autoOk}
+                     mode="landscape"
+                     container="inline"
+                     onChange={this.handleChangeDate}>
+
+                   </DatePicker>
                 </td>
 
                 <td colSpan={2}>
@@ -82,23 +98,27 @@ export default class FormAddNewInventory extends React.Component {
                   Machine/Device Type
                   <select className="form-control" ref="machine_type"
                     onChange={(evt) => { this.setState({machine_type: evt.target.value}) }}>
-                    <option disabled>--select month--</option>
-                      <option value="0">Laptop </option>
-                      <option value="1">Mobile</option>
-                      <option value="2">Keyboard</option>
-                      <option value="3">Mouse</option>
+                    <option >--select device--</option>
+                      <option value="Laptop">Laptop </option>
+                      <option value="Mobile">Mobile</option>
+                      <option value="Keyboard">Keyboard</option>
+                      <option value="Mouse">Mouse</option>
                   </select>
                  </td>
-
-                <td style={{opacity: '0.56'}}>
+                 {
+                   this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile'
+                 ? <td style={{opacity: '0.56'}}>
                   Operating System
                   <select className="form-control" ref="operating_system"
                     onChange={(evt) => { this.setState({operating_system: evt.target.value}) }}>
-                    <option disabled>--select month--</option>
-                      <option value="0">Linux </option>
-                      <option value="1">Windows</option>
+                    <option >--select os--</option>
+                      <option value="Linux">Linux </option>
+                      <option value="Windows">Windows</option>
+                        <option value="Windows">iOS</option>
                   </select>
                 </td>
+                : null
+              }
               </tr>
               <tr>
                 <td>
@@ -152,7 +172,8 @@ export default class FormAddNewInventory extends React.Component {
             </tbody>
           </table>
           <button
-            className="col-md-12 md-btn md-raised m-b-sm indigo">Add Device</button>
+            className="col-md-12 md-btn md-raised m-b-sm indigo"
+            onClick={() => this.props.callAddNewMachine(this.state)}>Add Device</button>
         </Dialog>
       </div>
     )

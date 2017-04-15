@@ -151,64 +151,64 @@ class TeamList extends React.Component {
   onClick={this.openCreateTeam}
                                 >Add Team</button>
 				                </div>
-				                <div style={{'marginTop': '8%'}}>
-				                    <Paper zDepth={1} style={{marginBottom: '10px'}} >
-				                        <Table
-  fixedHeader
-  fixedFooter
-                                        >
-                                        <TableHeader
-                                          adjustForCheckbox={false}
-                                          displaySelectAll={false}
-                                        >
-                                        <TableRow>
-                                        <TableRowColumn colSpan="3" >
-                                            <h4 style={{float: 'left', 'marginLeft': '-5%', 'paddingTop': '1%', 'paddingBottom': '1%', 'paddingLeft': '5%', 'paddingRight': '3%', 'fontWeight': 'bold'}}>Team(s)</h4>
-                                        </TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Sr. no.</TableRowColumn>
-                                            <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Teams Name</TableRowColumn>
-                                            <TableRowColumn colSpan={1} style={{'fontWeight': 'bold', textAlign: 'center'}}>Delete</TableRowColumn>
-                                        </TableRow>
-                                        </TableHeader>
-                                        <TableBody
-                                          displayRowCheckbox={false}
-                                        >
-                                        {_.map(teams, (vari, i) => (
-                                            <TableRow key={i}
-                                              style={{'cursor': 'pointer'}}
-                                            >
-                                            <TableRowColumn colSpan={1} >{i + 1}</TableRowColumn>
-                                            <TableRowColumn colSpan={1} >{vari}</TableRowColumn>
-                                            <TableRowColumn colSpan={1} style={{textAlign: 'center'}}>
-                                            <IconButton
-                                              tooltip="Delete Team"
-                                              tooltipPosition="top-right"
-                                              iconStyle={{'color': '#B71C1C'}}
-                                              children={
-                                                    <Delete color='#B71C1C' />
-                                                }
-                                              onClick={
-                                                    (evt) => {
-                                                      evt.stopPropagation()
-                                                      this.deleteTeam(vari)
-                                                    }
-                                                }
-                                            />
-                                            </TableRowColumn>
-                                            </TableRow>
-                                        )
-                                        )}
-                                        </TableBody>
-                                        </Table>
-				                    </Paper>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-		    </div>
+                        <div style={{'marginTop': '8%'}}>
+                          <Paper zDepth={1} style={{marginBottom: '10px'}} >
+                            <Table
+                              fixedHeader
+                              fixedFooter
+                              >
+                              <TableHeader
+                                adjustForCheckbox={false}
+                                displaySelectAll={false}
+                                >
+                                <TableRow>
+                                  <TableRowColumn colSpan="3" >
+                                    <h4 style={{float: 'left', 'marginLeft': '-5%', 'paddingTop': '1%', 'paddingBottom': '1%', 'paddingLeft': '5%', 'paddingRight': '3%', 'fontWeight': 'bold'}}>Team(s)</h4>
+                                  </TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                  <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Sr. no.</TableRowColumn>
+                                  <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Teams Name</TableRowColumn>
+                                  <TableRowColumn colSpan={1} style={{'fontWeight': 'bold', textAlign: 'center'}}>Delete</TableRowColumn>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                displayRowCheckbox={false}
+                                >
+                                {_.map(teams, (vari, i) => (
+                                  <TableRow key={i}
+                                    style={{'cursor': 'pointer'}}
+                                    >
+                                    <TableRowColumn colSpan={1} >{i + 1}</TableRowColumn>
+                                    <TableRowColumn colSpan={1} >{vari}</TableRowColumn>
+                                    <TableRowColumn colSpan={1} style={{textAlign: 'center'}}>
+                                      <IconButton
+                                        tooltip="Delete Team"
+                                        tooltipPosition="top-right"
+                                        iconStyle={{'color': '#B71C1C'}}
+                                        children={
+                                          <Delete color='#B71C1C' />
+                                        }
+                                        onClick={
+                                          (evt) => {
+                                            evt.stopPropagation()
+                                            this.deleteTeam(vari)
+                                          }
+                                        }
+                                        />
+                                    </TableRowColumn>
+                                  </TableRow>
+                                )
+                              )}
+                            </TableBody>
+                          </Table>
+                        </Paper>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
     )
   }
 }

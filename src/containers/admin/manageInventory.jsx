@@ -11,7 +11,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 import * as actions_login from '../../actions/login/index'
 
-import InventoryList from '../../components/attendance/InventoryList'
+import FormAddNewInventory from '../../components/inventory/AddInventory'
 
 class InventorySystem extends React.Component {
   constructor (props) {
@@ -73,9 +73,8 @@ class InventorySystem extends React.Component {
 
                     </div>
                   </div>
-                  <div className="col-md-offset-11">
-                  <button style={{marginTop: '2%'}}
-                    className="md-btn lg-raised m-b-sm indigo">Add New</button>
+                  <div className="col-md-offset-10" style={{marginTop: '2%'}}>
+                  <FormAddNewInventory {...this.props}></FormAddNewInventory>
                   </div>
                 </div>
               </div>

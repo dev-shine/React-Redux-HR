@@ -122,6 +122,9 @@ const mapDispatchToProps = (dispatch) => {
         onSelectLeave : ( leaveid ) => {
             return dispatch( actions_listLeaves.onSelectLeave( leaveid ))
         },
+        onAddDescription : ( leaveid,hr,data ) => {
+            return dispatch( actions_manageLeave.onAddDescription( leaveid ,hr , data ))
+        },
         onAddExtraDay : ( leaveid,token,data ) => {
             return dispatch( actions_manageLeave.onAddExtraDay( leaveid ,token , data ))
         },

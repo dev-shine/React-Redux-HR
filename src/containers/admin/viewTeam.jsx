@@ -92,15 +92,11 @@ class ViewTeam extends React.Component {
                 <div className="p-y-md clearfix nav-active-primary">
                   <ul className="nav nav-pills nav-sm">
                     <li onClick={() => { this.openPage('add_new_team') }} className={`nav-item ${this.state.active}`}>
-                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true"></a>
+                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">All Team</a>
                       <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
                     </li>
                     <li onClick={() => { this.openPage('view_team') }} className="nav-item" style={{'marginLeft': '20px'}}>
-                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false"></a>
-                      <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
-                    </li>
-                    <li onClick={() => { this.openPage('view_team') }} className="nav-item" style={{'marginLeft': '20px'}}>
-                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false"></a>
+                      <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Team Details</a>
                       <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
                     </li>
                   </ul>

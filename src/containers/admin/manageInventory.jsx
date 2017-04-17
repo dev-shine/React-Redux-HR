@@ -1,29 +1,34 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Router, browserHistory, Link, withRouter} from 'react-router'
-
 import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 
 import * as actions_manageDevice from '../../actions/admin/inventory'
+import * as actions_login from '../../actions/login/index'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
-import * as actions_login from '../../actions/login/index'
-
 import FormAddNewInventory from '../../components/inventory/AddInventory'
+import InventoryList from '../../components/attendance/InventoryList'
 
 class InventorySystem extends React.Component {
   constructor (props) {
     super(props)
     this.props.onIsAlreadyLogin()
     this.state = {
+      active: 'active',
       firstArrow: 'show',
-      secondArrow: 'hidden'
+      secondArrow: 'hidden',
+      deviceList: 'show'
     }
+    this.openPage = this.openPage.bind(this)
     this.callAddNewMachine = this.callAddNewMachine.bind(this)
+  }
+  componentWillMount () {
+    this.props.onFetchDevice()
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -39,15 +44,29 @@ class InventorySystem extends React.Component {
   }
 
   callAddNewMachine (new_machine_details) {
-    console.log('--------,')
     this.props.onAddNewMachine(new_machine_details).then((data) => {
       notify(data)
     }, (error) => {
       notify(error)
     })
   }
-
+  openPage (toDisplay) {
+    if (toDisplay === 'device_list') {
+      this.setState({
+        device_list: 'show',
+        firstArrow: 'show',
+        secondArrow: 'hidden'
+      })
+    } else {
+      this.setState({
+        device_list: 'hidden',
+        firstArrow: 'hidden',
+        secondArrow: 'show'
+      })
+    }
+  }
   render () {
+    let device_list = <InventoryList {...this.props} />
     return (
         <div>
           <Menu {...this.props} />
@@ -68,18 +87,21 @@ class InventorySystem extends React.Component {
                   <div className="col-sm-6 pull-sm-6">
                     <div className="p-y-md clearfix nav-active-primary">
                       <ul className="nav nav-pills nav-sm">
-                        <li className={`nav-item ${this.state.active}`}>
+                        <li onClick={() => { this.openPage('device_list') }}
+                          className={`nav-item ${this.state.active}`}>
                           <a className="nav-link"
                             href=""
                             data-toggle="tab"
                             data-target="#tab_1"
-                            aria-expanded="true">Inventory</a>
-                          <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
+                            aria-expanded="true">Inventory Details</a>
+                          <div className={this.state.firstArrow}>
+                            <span className="arrow bottom b-accent"></span></div>
                         </li>
-                        <li className="nav-item" style={{'marginLeft': '20px'}}>
+
+                        <li className="nav-item" onClick={() => { this.openPage('device_list') }} style={{'marginLeft': '20px'}}>
                           <a className="nav-link" href=""
                             data-toggle="tab" data-target="#tab_2"
-                            aria-expanded="false">Inventory Details</a>
+                            aria-expanded="false">Assign Device</a>
                           <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
                         </li>
                       </ul>
@@ -89,6 +111,11 @@ class InventorySystem extends React.Component {
                   <div className="col-md-offset-10" style={{marginTop: '2%'}}>
                   <FormAddNewInventory callAddNewMachine={this.callAddNewMachine} {...this.props}></FormAddNewInventory>
                   </div>
+                </div>
+              </div>
+              <div className="padding">
+                <div className={this.state.deviceList}>
+                {device_list}
                 </div>
               </div>
             </div>
@@ -113,6 +140,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddNewMachine: (new_machine_details) => {
       return dispatch(actions_manageDevice.addNewMachine(new_machine_details))
+    },
+    onFetchDevice: () => {
+      return dispatch(actions_manageDevice.get_machines_detail())
     }
   }
 }

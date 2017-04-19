@@ -68,19 +68,22 @@ export function addNewMachine (new_machine_details) {
       n_serial_no = new_machine_details.serial_no
     }
 
-    if (typeof new_machine_details.purchase_date === 'undefined' || new_machine_details.purchase_date == '') {
+    if (typeof new_machine_details.purchase_date === 'undefined' || new_machine_details.purchase_date === '') {
       return Promise.reject('Date of Purchase is empty')
     } else {
       n_purchase_date = new_machine_details.purchase_date
     }
-
-    if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.mac_address == '') {
-      return Promise.reject('Mac Address is empty')
-    } else {
+    if (new_machine_details.machine_type === 'Keyboard' || new_machine_details.machine_type == 'Mouse') {
       n_mac_address = new_machine_details.mac_address
+    } else {
+      if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.mac_address === '') {
+        return Promise.reject('Mac Address is empty')
+      } else {
+        n_mac_address = new_machine_details.mac_address
+      }
     }
 
-    if (typeof new_machine_details.operating_system === 'undefined' || new_machine_details.operating_system == '') {
+    if (typeof new_machine_details.operating_system === 'undefined') {
       return Promise.reject('Operating System is empty')
     } else {
       n_operating_system = new_machine_details.operating_system
@@ -98,14 +101,15 @@ export function addNewMachine (new_machine_details) {
       n_comment = new_machine_details.comment
     }
 
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading())
       async_addNewMachine(n_machine_type, n_machine_name, n_machine_price, n_serial_no, n_purchase_date, n_mac_address, n_operating_system, n_status, n_comment).then((json) => {
         dispatch(hide_loading())
-        if (json.error == 0) {
+        console.log(json)
+        if (json.error === 0) {
           // console.log(json, '----action wala-----')
           dispatch(success_add_new_machine(json.message))
-          reslove(json.message)
+          resolve(json.message)
         } else {
           dispatch(error_add_new_machine(json.message))
           reject(json.message)
@@ -156,6 +160,153 @@ export function get_machines_detail () {
       }, (error) => {
         dispatch(hide_loading()) // hide loading icon
         dispatch(error_device_list([]))
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_GET_DEVICELIST = 'ACTION_SUCCESS_GET_DEVICELIST'
+
+export function success_getDevice (data) {
+  return createAction(ACTION_SUCCESS_GET_DEVICELIST)(data)
+}
+
+function getAsync_getDeviceById (id) {
+  return fireAjax('POST', '', {
+    'action': 'get_machine',
+    'id': id
+  })
+}
+
+export function getDeviceById (id) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_getDeviceById(id).then((res) => {
+        dispatch(hide_loading())
+        console.log(res)
+        if (res.data) {
+          resolve(res.data)
+          dispatch(success_getDevice(res.data))
+        }
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_UPDATE_DEVICELIST = 'ACTION_SUCCESS_UPDATE_DEVICELIST'
+
+export function success_updateDevice (data) {
+  return createAction(ACTION_SUCCESS_UPDATE_DEVICELIST)(data)
+}
+
+function getAsync_updateDeviceById (deviceId, data) {
+  return fireAjax('POST', '', {
+    'action': 'update_office_machine',
+    'id': deviceId,
+    'machine_type': data.machine_type,
+    'machine_name': data.machine_name,
+    'machine_price': data.machine_price,
+    'serial_no': data.serial_no,
+    'purchase_date': data.purchase_date,
+    'mac_address': data.mac_address,
+    'operating_system': data.operating_system,
+    'status': data.status,
+    'comment': data.comment
+  })
+}
+
+export function updateDevice (id, data) {
+  console.log(id, '//////////////')
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_updateDeviceById(id, data).then((res) => {
+        dispatch(hide_loading())
+        if (res.error === 0) {
+          dispatch(success_updateDevice(res.message))
+          resolve(res.message)
+        }
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_DELETE_DEVICELIST = 'ACTION_SUCCESS_DELETE_DEVICELIST'
+
+export function success_deleteDevice (data) {
+  return createAction(ACTION_SUCCESS_DELETE_DEVICELIST)(data)
+}
+
+function getAsync_deleteDeviceById (deviceId) {
+  return fireAjax('POST', '', {
+    'action': 'remove_machine_detail',
+    'id': deviceId
+  })
+}
+
+export function deleteDevice (id) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_deleteDeviceById(id).then((res) => {
+        dispatch(hide_loading())
+        if (res.error === 0) {
+          dispatch(success_deleteDevice(res.message))
+          resolve(res.message)
+        }
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_ASSIGN_DEVICE = 'ACTION_SUCCESS_ASSIGN_DEVICE'
+export const ACTION_ERROR_ASSIGN_DEVICE = 'ACTION_ERROR_ASSIGN_DEVICE'
+
+export function success_assignDevice (data) {
+  return createAction(ACTION_SUCCESS_ASSIGN_DEVICE)(data)
+}
+
+export function error_assignDevice (data) {
+  return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
+}
+
+function getAsync_assignDeviceToUser (deviceId, userId) {
+  console.log(deviceId, '-----------------')
+  return fireAjax('POST', '', {
+    'action': 'assign_user_machine',
+    'machine_id': deviceId,
+    'user_id': userId
+  })
+}
+
+export function assignDevice (deviceId, id) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_assignDeviceToUser(deviceId, id).then((res) => {
+        dispatch(hide_loading())
+        resolve(res.message)
+        // if (res.error === 0) {
+        //   // dispatch(success_assignDevice(res.message))
+        //   resolve(res.message)
+        // } else {
+        //   // dispatch(error_assignDevice(res.message))
+        //   reject(res.message)
+        // }
+      }, (error) => {
+        dispatch(hide_loading())
+        dispatch(error_assignDevice('error occurs!!!'))
+        reject('error occurs!!!')
       })
     })
   }

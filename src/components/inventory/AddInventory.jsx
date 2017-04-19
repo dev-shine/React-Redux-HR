@@ -5,7 +5,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import {notify} from '../../services/index'
 import DatePicker from 'material-ui/DatePicker'
+import {DateField} from 'react-date-picker'
+import AlertNotification from '../../components/generic/AlertNotification'
 import 'react-date-picker/index.css'
 var moment = require('moment')
 
@@ -14,6 +17,8 @@ export default class FormAddNewInventory extends React.Component {
     super(props)
     this.state = {
       open: false,
+      edit: false,
+      id: '',
       autoOk: true,
       machine_type: '',
       machine_name: '',
@@ -22,28 +27,51 @@ export default class FormAddNewInventory extends React.Component {
       purchase_date: '',
       mac_address: '',
       operating_system: '',
-      status: '',
-      comment: ''
+      comment: '',
+      msg: ''
     }
     this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
     this.handleChangeDate = this.handleChangeDate.bind(this)
     this.handleAddDevice = this.handleAddDevice.bind(this)
   }
-  handleOpen () {
+
+  componentWillReceiveProps (props) {
     this.setState({
-      open: true,
-      autoOk: true,
-      machine_type: '',
-      machine_name: '',
-      machine_price: '',
-      serial_no: '',
-      purchase_date: '',
-      mac_address: '',
-      operating_system: '',
-      status: '',
-      comment: ''
+      open: props.open,
+      edit: props.edit
     })
+    if (props.edit) {
+      this.setState({
+        id: props.getByIdData.id,
+        machine_type: props.getByIdData.machine_type,
+        machine_name: props.getByIdData.machine_name,
+        machine_price: props.getByIdData.machine_price,
+        serial_no: props.getByIdData.serial_number,
+        purchase_date: props.getByIdData.date_of_purchase,
+        mac_address: props.getByIdData.mac_address,
+        operating_system: props.getByIdData.operating_system,
+        status: props.getByIdData.status,
+        comment: props.getByIdData.comments
+      })
+    } else {
+      this.setState({
+        id: '',
+        machine_type: '',
+        machine_name: '',
+        machine_price: '',
+        serial_no: '',
+        purchase_date: '',
+        mac_address: '',
+        operating_system: '',
+        status: '',
+        comment: ''
+      })
+    }
+  }
+
+  handleOpen (e) {
+    e.stopPropagation()
+    this.props.handleAddDialog()
   }
 
   handleAddDevice () {
@@ -52,13 +80,42 @@ export default class FormAddNewInventory extends React.Component {
       machine_name: this.state.machine_name,
       machine_price: this.state.machine_price,
       serial_no: this.state.serial_no,
-      purchase_date: moment(this.state.purchase_date).format('YYYY-MM-DD'),
-      mac_address: this.state.serial_no,
+      purchase_date: this.state.purchase_date,
+      mac_address: this.state.mac_address,
       operating_system: this.state.operating_system,
       status: this.state.status,
       comment: this.state.comment
     }
-    this.props.callAddNewMachine(apiData)
+    if (!this.props.edit) {
+      this.props.onAddNewMachine(apiData).then((val) => {
+        console.log(val)
+        this.props.handleClose()
+        this.setState({
+          machine_type: '',
+          machine_name: '',
+          machine_price: '',
+          serial_no: '',
+          purchase_date: '',
+          mac_address: '',
+          operating_system: '',
+          status: '',
+          comment: ''
+        })
+        this.props.onFetchDevice()
+      }, (error) => {
+        notify(error)
+      })
+    } else {
+      this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
+        this.props.handleClose()
+        this.props.onFetchDevice()
+      }).catch((message) => {
+        console.log(message, '--------')
+        this.setState({
+          msg: message
+        })
+      })
+    }
   }
 
   handleChangeDate = (event, date) => {
@@ -67,20 +124,16 @@ export default class FormAddNewInventory extends React.Component {
     })
   };
 
-  handleClose () {
-    this.setState({open: false})
-  }
-  componentWillReceiveProps (props) {}
   render () {
     return (
       <div>
-
-        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add New Device </button>
-
-        <Dialog title="Add New Device"
+        <AlertNotification alert_message={this.state.msg} />
+        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add New Inventory </button>
+        <Dialog
+          title={this.state.edit ? 'UPDATE INVENTORY' : 'ADD INVENTORY'}
           titleStyle={{opacity: '0.56'}}
           modal={false}
-          open={this.state.open} onRequestClose={this.handleClose} contentStyle={{
+          open={this.state.open} onRequestClose={this.props.handleClose} contentStyle={{
             width: '70%',
             maxWidth: 'none'
           }} autoScrollBodyContent>
@@ -88,18 +141,14 @@ export default class FormAddNewInventory extends React.Component {
           <table className="table">
             <tbody>
               <tr>
-                <td>
-                   <DatePicker
-                     floatingLabelText="Date of Purchase"
-                     fullWidth
-                     value={this.state.purchase_date}
-                     autoOk={this.state.autoOk}
-                     mode="landscape"
-                     container="inline"
-                     formatDate={this.handleDateChange}
-                     onChange={this.handleChangeDate}>
-
-                   </DatePicker>
+            <td>
+                  <DateField style={{marginTop: '8%'}}
+                    dateFormat="YYYY-MM-DD"
+                    placeholder="Date Of Purchase"
+                    onChange={(date) => { this.setState({purchase_date: date}) }}
+                    value={this.state.purchase_date}
+                    className="form-control"
+                    required />
                 </td>
 
                 <td colSpan={2}>
@@ -107,7 +156,8 @@ export default class FormAddNewInventory extends React.Component {
                     floatingLabelText="Machine Name"
                     fullWidth
                     onChange={(e) => (this.setState({machine_name: e.target.value}))}
-                    value={this.state.machine_name} />
+                    value={this.state.machine_name}
+                    required />
 
                 </td>
               </tr>
@@ -115,48 +165,54 @@ export default class FormAddNewInventory extends React.Component {
               <tr>
                 <td style={{opacity: '0.56'}}>
                   Machine/Device Type
-                  <select className="form-control" ref="machine_type"
+                  <select className="form-control" ref="machine_type" value={this.state.machine_type}
                     onChange={(evt) => { this.setState({machine_type: evt.target.value}) }}>
                     <option >--select device--</option>
                       <option value="Laptop">Laptop </option>
                       <option value="Mobile">Mobile</option>
                       <option value="Keyboard">Keyboard</option>
                       <option value="Mouse">Mouse</option>
+                      <option value="Desktop">Desktop</option>
+                      <option value="Router">Router</option>
                   </select>
                  </td>
                  {
-                   this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile'
-                 ? <td style={{opacity: '0.56'}}>
+                   this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop'
+                   ? <td style={{opacity: '0.56'}}>
                   Operating System
-                  <select className="form-control" ref="operating_system"
+                  <select className="form-control" ref="operating_system" value={this.state.operating_system}
                     onChange={(evt) => { this.setState({operating_system: evt.target.value}) }}>
                     <option >--select os--</option>
-                    <option value="linux">Linux </option>
-                    <option value="windows">Windows</option>
-                    <option value="ios">iOS</option>
-                    <option value="android">Android</option>
+                    <option value="Linux">Linux </option>
+                    <option value="Windows">Windows</option>
+                    <option value="Ios">iOS</option>
+                    <option value="Android">Android</option>
                   </select>
                 </td>
                 : null
               }
               </tr>
+
               <tr>
-                <td>
+                {
+                this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop' || this.state.machine_type == 'Router'
+                  ? <td>
                   <TextField
                     floatingLabelText="Mac Address"
                     hintText='00:25:96:FF:FE:12:34:56'
                     fullWidth
-                    onChange={(e) => (this.setState({mac_address: e.target.value}))}
-                    value={this.state.mac_address} />
+                    onChange={(e) => { this.setState({mac_address: e.target.value}) }}
+                    value={this.state.mac_address} required />
                 </td>
-
+                : null
+              }
                 <td>
                   <TextField
                     floatingLabelText="Price"
                     hintText='₹'
                     fullWidth
                     onChange={(e) => (this.setState({machine_price: e.target.value}))}
-                    value={this.state.machine_price} />
+                    value={this.state.machine_price} required />
                 </td>
               </tr>
 
@@ -166,7 +222,7 @@ export default class FormAddNewInventory extends React.Component {
                     floatingLabelText="Serial No"
                     fullWidth
                     onChange={(e) => (this.setState({serial_no: e.target.value}))}
-                    value={this.state.serial_no} />
+                    value={this.state.serial_no} required />
                 </td>
 
                 <td colSpan={2}>
@@ -181,7 +237,7 @@ export default class FormAddNewInventory extends React.Component {
               <tr>
               <td>
                 <TextField
-                  floatingLabelText="comment"
+                  floatingLabelText="Comments"
                   fullWidth
                   hintText="add your comment here"
                   onChange={(e) => (this.setState({comment: e.target.value}))}
@@ -193,7 +249,7 @@ export default class FormAddNewInventory extends React.Component {
           </table>
           <button
             className="col-md-12 md-btn md-raised m-b-sm indigo"
-            onClick={this.handleAddDevice}>Add Device</button>
+            onClick={this.handleAddDevice}>{this.state.edit ? 'Update Inventory' : 'Add Inventory'}</button>
         </Dialog>
       </div>
     )

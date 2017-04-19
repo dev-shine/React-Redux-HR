@@ -14,7 +14,15 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
     return state.set('status_message', action.payload)
   } else if (action.type == 'ACTION_ERROR_ADD_NEW_MACHINE') {
     return state.set('status_message', action.payload)
+  } else if (action.type == 'ACTION_SUCCESS_UPDATE_DEVICELIST') {
+    return state.set('status_message', action.payload)
+  } else if (action.type == 'ACTION_SUCCESS_ASSIGN_DEVICE') {
+    return state.set('status_message', action.payload)
+  } else if (action.type == 'ACTION_ERRORR_ASSIGN_DEVICE') {
+    return state.set('status_message', action.payload)
+  } else if (action.type == 'ACTION_SUCCESS_DELETE_DEVICELIST') {
+    return state.set('status_message', action.payload)
   } else {
-    	return state
+    return state
   }
 }

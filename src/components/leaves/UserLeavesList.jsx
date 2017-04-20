@@ -109,7 +109,7 @@ class UserLeavesList extends React.Component {
                 </div>
                 <div className='col-sm-3 p-0'>
                   {
-                    leave.doc_link == "" ? null : <form method="get" action= {leave.doc_link  }>
+                    leave.doc_link == "" ? null : <form method="get" target="_blank" action= {leave.doc_link  }>
                       <div className=" text-left" style={{marginTop:'10px'}}>
                         <button className="md-btn md-raised indigo" >View Document</button>
                       </div>

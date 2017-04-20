@@ -125,3 +125,37 @@ export function onAddExtraDay( leaveid ,token , data ){
 	}
 
 }
+
+
+
+function async_onAddDescription( leaveid, hr, data ){
+	return fireAjax( 'POST', '', {
+		'action' : 'add_hr_comment',
+		'leaveid' : leaveid,
+		'hr_comment' : hr,
+		'hr_approve' : data
+	})
+}
+
+export function onAddDescription( leaveid, hr, data ){
+	return function (dispatch,getState){
+				return new Promise(( reslove, reject ) => {
+			dispatch( show_loading() ); // show loading icon
+			async_onAddDescription( leaveid, hr, data ).then(
+				( json ) => {
+					dispatch( hide_loading() ) // hide loading icon
+					if( json.error == 0 ){
+						dispatch( actions_listLeaves.getAllLeaves() )
+		 			}
+				},
+				( error ) => {
+					dispatch( actions_listLeaves.getAllLeaves() )
+					dispatch( hide_loading() ) // hide loading icon
+				}
+			)
+
+		})
+
+	}
+
+}

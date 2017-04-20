@@ -8,17 +8,22 @@ class ViewLeave extends React.Component {
         messagetouser : "",
         notifyMsg:'Document Required Notification Sent',
         document_required:true,
-        user_token:''
+        user_token:'',
+        messageByHr:''
       }
       this.handleNotify = this.handleNotify.bind(this);
       this.handleComment = this.handleComment.bind(this);
       this.handleExtraDay = this.handleExtraDay.bind(this);
+      this.handleSave = this.handleSave.bind(this);
     }
 
     componentWillReceiveProps(props){
       let token = localStorage.getItem('hr_logged_user')
       this.setState({user_token: token})
       this.setState ({ messagetouser : "" })
+    }
+    handleSave(data) {
+      this.props.onAddDescription(this.props.listLeaves.selectedLeave.id , this.state.messageByHr , data)
     }
     handleExtraDay(day) {
       this.props.onAddExtraDay(this.props.listLeaves.selectedLeave.id , this.state.user_token , day)
@@ -167,14 +172,24 @@ class ViewLeave extends React.Component {
               </div> : null
             }
             {
+              this.props.listLeaves.selectedLeave.hr_approved === '0' ?
+              <div className="text-left" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleSave("1")}}>HR Approval</button>
+              </div> : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+                    <label style={{fontWeight:"500"}}>Approved By HR</label>
+                  </div>
+            }
+            {
               this.props.listLeaves.selectedLeave.doc_link === '' ?
                 notify :
-                <form method="get" action= {this.props.listLeaves.selectedLeave.doc_link }>
+                <form method="get" target="_blank" action= {this.props.listLeaves.selectedLeave.doc_link }>
                 <div className=" text-left" style={{marginTop:'10px'}}>
                 <button className="md-btn md-raised indigo" >View Document</button>
               </div>
             </form>
             }
+            {
+              this.props.listLeaves.selectedLeave.late_reason == '' ? null :
               <div className='row m-0'>
                 <div className='col-sm-3 p-0 pt-5'>
                   <div className=" text-left" style={{marginTop:'10px'}}>
@@ -195,6 +210,7 @@ class ViewLeave extends React.Component {
                   </div>
                 }
               </div>
+            }
             {/* {
               this.props.listLeaves.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
@@ -213,6 +229,33 @@ class ViewLeave extends React.Component {
             <b>Comment</b><br/>
             <div className="text-left" style={{marginTop:'10px',border:"1px dotted #514eff",width:"56%",padding:"11px 5px 5px",background:'rgb(191, 195, 245)',color:'rgb(64, 78, 247)',borderRadius:"7px"}}>
                <label style={{fontWeight:"500"}}>{this.props.listLeaves.selectedLeave.comment}</label>
+               </div>
+            </div>
+            }
+            {
+              this.props.listLeaves.selectedLeave.hr_comment === '' ?
+              <div>
+              <b>Description (HR)</b><br/>
+              <input type="text" className="md-input" onChange={ (e) => this.setState({ messageByHr : e.target.value}) } value={ this.state.messageByHr }/>
+              <div className="text-right" style={{marginTop:'10px'}}>
+                <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleSave('')}}>Save</button>
+              </div>
+            </div> : <div>
+            <b>Description By HR</b><br/>
+            <div className="text-left" style={{marginTop:'10px',border:"1px dotted #514eff",width:"56%",padding:"11px 5px 5px",background:'rgb(191, 195, 245)',color:'rgb(64, 78, 247)',borderRadius:"7px"}}>
+               <label style={{fontWeight:"500"}}>{this.props.listLeaves.selectedLeave.hr_comment}</label>
+               </div>
+               <div className='row m-0'>
+                 <div className='col-sm-3 p-0 pt-5'>
+                   <div className=" text-left" style={{marginTop:'10px'}}>
+                     <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleSave('')}}>Edit</button>
+                   </div>
+                 </div>
+                 <div className='col-sm-3 p-0'>
+                   <div className="text-left" style={{marginTop:'10px'}}>
+                     <button className="md-btn md-raised indigo" onTouchTap={()=>{this.handleSave('')}}>Save</button>
+                   </div>
+                 </div>
                </div>
             </div>
             }

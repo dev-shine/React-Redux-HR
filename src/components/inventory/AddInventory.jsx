@@ -9,6 +9,8 @@ import {notify} from '../../services/index'
 import DatePicker from 'material-ui/DatePicker'
 import {DateField} from 'react-date-picker'
 import AlertNotification from '../../components/generic/AlertNotification'
+import AssignUser from './AssignUser'
+
 import 'react-date-picker/index.css'
 var moment = require('moment')
 
@@ -28,6 +30,10 @@ export default class FormAddNewInventory extends React.Component {
       mac_address: '',
       operating_system: '',
       comment: '',
+      warranty_comment: '',
+      repair_comment: '',
+      bill_no: '',
+      warranty: '',
       msg: ''
     }
     this.handleOpen = this.handleOpen.bind(this)
@@ -51,7 +57,11 @@ export default class FormAddNewInventory extends React.Component {
         mac_address: props.getByIdData.mac_address,
         operating_system: props.getByIdData.operating_system,
         status: props.getByIdData.status,
-        comment: props.getByIdData.comments
+        comment: props.getByIdData.comments,
+        warranty_comment: props.getByIdData.warranty_comment,
+        repair_comment: props.getByIdData.repair_comment,
+        bill_no: props.getByIdData.bill_no,
+        warranty: props.getByIdData.warranty_end_date
       })
     } else {
       this.setState({
@@ -64,7 +74,12 @@ export default class FormAddNewInventory extends React.Component {
         mac_address: '',
         operating_system: '',
         status: '',
-        comment: ''
+        comment: '',
+        warranty_comment: '',
+        repair_comment: '',
+        bill_no: '',
+        warranty: ''
+
       })
     }
   }
@@ -84,7 +99,12 @@ export default class FormAddNewInventory extends React.Component {
       mac_address: this.state.mac_address,
       operating_system: this.state.operating_system,
       status: this.state.status,
-      comment: this.state.comment
+      comment: this.state.comment,
+      warranty_comment: this.state.warranty_comment,
+      repair_comment: this.state.repair_comment,
+      bill_no: this.state.bill_no,
+      warranty: this.state.warranty
+
     }
     if (!this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
@@ -98,8 +118,11 @@ export default class FormAddNewInventory extends React.Component {
           purchase_date: '',
           mac_address: '',
           operating_system: '',
-          status: '',
-          comment: ''
+          comment: '',
+          warranty_comment: '',
+          repair_comment: '',
+          bill_no: '',
+          warranty: ''
         })
         this.props.onFetchDevice()
       }, (error) => {
@@ -127,6 +150,7 @@ export default class FormAddNewInventory extends React.Component {
   render () {
     return (
       <div>
+
         <AlertNotification alert_message={this.state.msg} />
         <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add New Inventory </button>
         <Dialog
@@ -142,11 +166,27 @@ export default class FormAddNewInventory extends React.Component {
             <tbody>
               <tr>
             <td>
+              <DateField
+                style={{marginTop: '8%'}}
+                dateFormat="YYYY-MM-DD"
+                placeholder="Date Of Purchase"
+                onChange={(date) => { this.setState({purchase_date: date}) }}
+                value={this.state.purchase_date}
+                className="form-control"
+                required />
+                </td>
+                <td style={{opacity: '0.56'}}>
+                  Assign Device
+                  <AssignUser {...this.props} />
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <DateField style={{marginTop: '8%'}}
                     dateFormat="YYYY-MM-DD"
-                    placeholder="Date Of Purchase"
-                    onChange={(date) => { this.setState({purchase_date: date}) }}
-                    value={this.state.purchase_date}
+                    placeholder="Date of Warranty Expiry "
+                    onChange={(date) => { this.setState({warranty: date}) }}
+                    value={this.state.warranty}
                     className="form-control"
                     required />
                 </td>
@@ -222,27 +262,55 @@ export default class FormAddNewInventory extends React.Component {
                     floatingLabelText="Serial No"
                     fullWidth
                     onChange={(e) => (this.setState({serial_no: e.target.value}))}
-                    value={this.state.serial_no} required />
+                    value={this.state.serial_no} />
                 </td>
 
-                <td colSpan={2}>
+                <td colSpan={2} >
                   <TextField
-                    floatingLabelText="Status"
+                    floatingLabelText="Bill No"
                     fullWidth
-                    onChange={(e) => (this.setState({status: e.target.value}))}
-                    value={this.state.status} />
+                    onChange={(e) => (this.setState({bill_no: e.target.value}))}
+                    value={this.state.bill_no} />
                 </td>
               </tr>
+              <tr>
+                <td style={{opacity: '0.56'}}>
+                  Status
+                  <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
+                    onChange={(e) => (this.setState({status: e.target.value}))}>
+                    <option >-Device Status-</option>
+                    <option style={{color: '#005ce6'}} value="New">New </option>
+                    <option style={{color: '#00802b'}} value="Assigned">Assigned</option>
+                    <option value="Unassigned">Unassigned</option>
+                    <option style={{color: ' #999900'}} value="Not Working">Not Working</option>
+                  </select>
+                </td>
+
+              <td colSpan={2}>
+                <TextField
+                  floatingLabelText="Working Comments"
+                  fullWidth
+                  onChange={(e) => (this.setState({comment: e.target.value}))}
+                  value={this.state.comment} />
+              </td>
+            </tr>
 
               <tr>
               <td>
                 <TextField
-                  floatingLabelText="Comments"
+                  floatingLabelText="Extended Warranty Comments"
                   fullWidth
-                  hintText="add your comment here"
-                  onChange={(e) => (this.setState({comment: e.target.value}))}
-                  value={this.state.comment} />
+                  onChange={(e) => { this.setState({warranty_comment: e.target.value}) }}
+                  value={this.state.warranty_comment}
+                />
               </td>
+              <td>
+              <TextField
+                floatingLabelText="Any Previous Repair Comments"
+                fullWidth
+                onChange={(e) => { this.setState({repair_comment: e.target.value}) }}
+                value={this.state.repair_comment} />
+            </td>
             </tr>
 
             </tbody>

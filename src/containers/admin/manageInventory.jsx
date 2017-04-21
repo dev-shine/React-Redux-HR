@@ -135,6 +135,16 @@ class InventorySystem extends React.Component {
                           <div className={this.state.firstArrow}>
                             <span className="arrow bottom b-accent"></span></div>
                         </li>
+                        <li
+                          className={'nav-item'}>
+                          <a className="nav-link"
+                            href=""
+                            data-toggle="tab"
+                            data-target="#tab_1"
+                            aria-expanded="true">User Inventory</a>
+                          <div >
+                            <span className="arrow bottom b-accent"></span></div>
+                        </li>
                       </ul>
 
                     </div>

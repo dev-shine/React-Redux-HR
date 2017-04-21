@@ -5,6 +5,7 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import Paper from 'material-ui/Paper'
 var moment = require('moment')
 import FormAddNewInventory from '../../components/inventory/AddInventory'
+import AddDeviceDialoge from '../../components/inventory/AddDeviceDialoge'
 import { CONFIG } from '../../config/index'
 
 class InventoryList extends React.Component {
@@ -59,44 +60,47 @@ class InventoryList extends React.Component {
   }
 
   render () {
-    let userList = this.props.usersList.users.map((val, i) => {
-      return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>
-    })
     let rows = []
     _.map(this.props.manageDevice.device, (device, i) => {
       rows.push(<tr key={i}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
             <td>{device.machine_type}</td>
             <td>{device.machine_name}</td>
-            <td>{moment(device.date_of_purchase).format('Do MMMM YYYY')}</td>
+            <td>
+              {<label>Purchase Date:</label>}
+              {moment(device.date_of_purchase).format('Do MMMM YYYY')}
+              <br /> <br />
+              {<label>Warranty Expire : </label>}
+              {moment(device.warranty).format('Do MMMM YYYY')}
+            </td>
             {
              device.machine_type === 'Keyboard' || device.machine_type === 'Mouse' ? <td></td>
              : <td>{<label>Mac : </label>}
-               {device.mac_address || ' '} <br />
+               {device.mac_address || ' '}
+               <br /> <br />
              {<label>OS : </label>}
              {device.operating_system || ''}
            </td>
             }
-              <td>{device.machine_price}</td>
-            <td>{device.serial_number}</td>
+              <td>{'₹'}{device.machine_price}</td>
+            <td>{device.serial_number}
+              <br />
+              {<label>Bill No : </label>}
+              {device.bill_number}</td>
+
             <td>{<label>Status : </label>}
               {device.status} <br />
-            {<label>Comments : </label>}
-            {device.comments}</td>
+            {<label>Working Comments : </label>}
+            {device.comments}
+          {<label>Extended Warranty : </label>}
+            {device.warranty_comment}
+          {<label>Pre Repair Comments : </label>}
+            {device.repair_comment}</td>
+          <td>
+            {device.name}
+          </td>
 
-          <td style={{width: '18%'}}>
-            <select className="form-control"
-              value={device.user_Id === null ? '' : device.user_Id}
-              onChange={(e) => {
-                let id = e.target.value
-                this.handleAssign(device.id, id)
-              }}>
-              <option value=''>---assign user---</option>
-              {userList}
-            </select>
-
-        </td>
-        <td>
+        <td style={{marginTop: '5%'}}>
           <i onClick={() => {
             this.openEditDevice(device.id)
           }}
@@ -105,7 +109,7 @@ class InventoryList extends React.Component {
             aria-hidden="true"></i>
         </td>
 
-            <td><i
+            <td style={{marginTop: '5%'}} ><i
               onClick={() => {
                 this.deleteDevices(device.id)
               }}
@@ -121,6 +125,9 @@ class InventoryList extends React.Component {
           <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
             <div className="row">
               <div className="col-xs-12">
+                <div className="col-md-offset-10" style={{'float': 'right'}}>
+                <AddDeviceDialoge{...this.props} />
+                </div>
                 <div className='row'>
                   <div className='col-xs-12'>
                     <div style={{'marginTop': '2%'}}>
@@ -133,12 +140,12 @@ class InventoryList extends React.Component {
                               <th>Sr. No</th>
                               <th>Device Type</th>
                               <th>Name</th>
-                              <th>Date Of Purchase</th>
+                              <th>Dates</th>
                               <th>Mac/OS</th>
                               <th>Price</th>
-                              <th>Serial Number</th>
+                              <th>Serial No</th>
                               <th>Status/Commments</th>
-                              <th>Assign Device</th>
+                              <th>Assigned UserName</th>
                             </tr>
                           </thead>
                           <tbody>

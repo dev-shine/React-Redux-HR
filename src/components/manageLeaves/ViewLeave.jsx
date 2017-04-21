@@ -89,26 +89,25 @@ class ViewLeave extends React.Component {
   _getLastAppliedLeaves (dd) {
     let prev_leaves = _.map(dd, (d, k) => {
       return (
-               <div className="sl-item b-info" key={k}>
-                  <div className="sl-content">
-                    <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
-                    <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}</div>
-                    <div>
-                      {d.status} - {d.reason}
-                    </div>
-                  </div>
-                </div>
+        <div className="sl-item b-info" key={k}>
+          <div className="sl-content">
+            <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
+              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}
+              </div>
+              <div>
+            {d.status} - {d.reason}
+              </div>
+            </div>
+        </div>
       )
     })
 
     return (
-
-             <div className="box-body">
-            <div className="streamline b-l m-l">
-                {prev_leaves}
-
-            </div>
-        </div>
+  <div className="box-body">
+    <div className="streamline b-l m-l">
+      {prev_leaves}
+    </div>
+  </div>
 
     )
   }
@@ -124,7 +123,6 @@ class ViewLeave extends React.Component {
     let styles = _.cloneDeep(this.constructor.styles)
     let notify = this._notify()
     let changeStatusButton = this._getChangeStatusButtons(this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status)
-
     let key = parseInt(this.props.keyval)
 
       // previoud leaves
@@ -144,9 +142,8 @@ class ViewLeave extends React.Component {
     }
 
     return (
-          <div className="item">
-    <div className="item-bg">
-
+      <div className="item">
+        <div className="item-bg">
     </div>
     <div className="p-a-md">
       <div className="row m-t">
@@ -162,7 +159,7 @@ class ViewLeave extends React.Component {
           </div>
         </div>
         <div className="col-sm-8">
-            <div>Status - <i><b>{this.props.listLeaves.selectedLeave.status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </i></div>
+            <div>Status - <i><b>{this.props.listLeaves.selectedLeave.status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </i></div>
             <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
@@ -176,6 +173,7 @@ class ViewLeave extends React.Component {
               this.props.listLeaves.selectedLeave.late_reason != ''
               ? <div>Reason For Late Applying - <i><b>{this.props.listLeaves.selectedLeave.late_reason}</b></i></div> : null
             }
+
             {
               this.props.listLeaves.selectedLeave.extra_day != '0'
               ? <div>Extra Day Added - <i><b>{this.props.listLeaves.selectedLeave.extra_day}</b></i></div> : null
@@ -195,7 +193,7 @@ class ViewLeave extends React.Component {
               </div> : null
             }
             {
-              this.props.listLeaves.selectedLeave.hr_approved === '0' && this.props.logged_user.role == CONFIG.HR
+              this.props.listLeaves.selectedLeave.hr_approved === '0' && this.props.logged_user.role === CONFIG.HR
               ? <div className="text-left" style={{marginTop: '10px'}}>
                 <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleSave('1') }}>HR Approval</button>
               </div> : <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
@@ -211,9 +209,10 @@ class ViewLeave extends React.Component {
               </div>
             </form>
             }
+
             {
               this.props.listLeaves.selectedLeave.late_reason == '' ? null
-              : <div className='row m-0'>
+              : <div className='row m-0' style={{display: display}}>
                 <div className='col-sm-3 p-0 pt-5'>
                   <div className=" text-left" style={{marginTop: '10px'}}>
                     <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleExtraDay('0.5') }}>Add Half Day</button>

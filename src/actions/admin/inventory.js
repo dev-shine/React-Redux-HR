@@ -17,7 +17,22 @@ export function error_add_new_machine (data) {
   return createAction(ACTION_ERROR_ADD_NEW_MACHINE)(data)
 }
 
-function async_addNewMachine (n_machine_type, n_machine_name, n_machine_price, n_serial_no, n_purchase_date, n_mac_address, n_operating_system, n_status, n_comment) {
+function async_addNewMachine (
+  n_machine_type,
+  n_machine_name,
+  n_machine_price,
+  n_serial_no,
+  n_purchase_date,
+  n_mac_address,
+  n_operating_system,
+  n_status,
+  n_comment,
+  n_warranty,
+  n_warranty_comment,
+  n_repair_comment,
+  n_bill_no
+
+) {
   return fireAjax('POST', '', {
     'action': 'add_office_machine',
     'machine_type': n_machine_type,
@@ -28,7 +43,11 @@ function async_addNewMachine (n_machine_type, n_machine_name, n_machine_price, n
     'mac_address': n_mac_address,
     'operating_system': n_operating_system,
     'status': n_status,
-    'comment': n_comment
+    'comment': n_comment,
+    'warranty': n_warranty,
+    'warranty_comment': n_warranty_comment,
+    'repair_comment': n_repair_comment,
+    'bill_no': n_bill_no
   })
 }
 
@@ -43,6 +62,10 @@ export function addNewMachine (new_machine_details) {
     let n_operating_system = ''
     let n_status = ''
     let n_comment = ''
+    let n_warranty = ''
+    let n_warranty_comment = ''
+    let n_repair_comment = ''
+    let n_bill_no = ''
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type == '') {
       return Promise.reject('Machine Type is empty')
@@ -94,37 +117,70 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_status = new_machine_details.status
     }
-
-    if (typeof new_machine_details.comment === 'undefined' || new_machine_details.comment == '') {
-      return Promise.reject('comment is empty')
+    if (typeof new_machine_details.comment === 'undefined') {
+      return Promise.reject('Comment is empty')
     } else {
       n_comment = new_machine_details.comment
     }
 
+    if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no == '') {
+      return Promise.reject('Bill No is empty')
+    } else {
+      n_bill_no = new_machine_details.bill_no
+    }
+
+    if (typeof new_machine_details.warranty === 'undefined' || new_machine_details.warranty == '') {
+      return Promise.reject('Warranty Expire Date is empty')
+    } else {
+      n_warranty = new_machine_details.warranty
+    }
+
+    if (typeof new_machine_details.warranty_comment === 'undefined') {
+      return Promise.reject('Warranty Comment is empty')
+    } else {
+      n_warranty_comment = new_machine_details.warranty_comment
+    }
+
+    if (typeof new_machine_details.repair_comment === 'undefined') {
+      return Promise.reject('Repair Comment is empty')
+    } else {
+      n_repair_comment = new_machine_details.repair_comment
+    }
+
     return new Promise((resolve, reject) => {
       dispatch(show_loading())
-      async_addNewMachine(n_machine_type, n_machine_name, n_machine_price, n_serial_no, n_purchase_date, n_mac_address, n_operating_system, n_status, n_comment).then((json) => {
-        dispatch(hide_loading())
-        console.log(json)
-        if (json.error === 0) {
-          // console.log(json, '----action wala-----')
-          dispatch(success_add_new_machine(json.message))
-          resolve(json.message)
-        } else {
-          dispatch(error_add_new_machine(json.message))
-          reject(json.message)
-        }
-      }, (error) => {
-        dispatch(hide_loading())
-        dispatch(error_add_new_machine('error occurs!!!'))
-        reject('error occurs!!!')
-      })
+      async_addNewMachine(n_machine_type,
+        n_machine_name,
+        n_machine_price,
+        n_serial_no,
+        n_purchase_date,
+        n_mac_address,
+        n_operating_system,
+        n_status,
+        n_comment,
+        n_warranty,
+        n_warranty_comment,
+        n_repair_comment,
+        n_bill_no).then((json) => {
+          dispatch(hide_loading())
+          console.log(json)
+          if (json.error === 0) {
+            dispatch(success_add_new_machine(json.message))
+            resolve(json.message)
+          } else {
+            dispatch(error_add_new_machine(json.message))
+            reject(json.message)
+          }
+        }, (error) => {
+          dispatch(hide_loading())
+          dispatch(error_add_new_machine('error occurs!!!'))
+          reject('error occurs!!!')
+        })
     })
   }
 }
 
 // Get Devicelist
-
 export const ACTION_SUCCESS_DEVICE_LIST = 'ACTION_SUCCESS_DEVICE_LIST'
 export const ACTION_EMPTY_DEVICE_LIST = 'ACTION_EMPTY_DEVICE_LIST'
 export const ACTION_ERROR_DEVICE_LIST = 'ACTION_ERROR_DEVICE_LIST'
@@ -215,12 +271,15 @@ function getAsync_updateDeviceById (deviceId, data) {
     'mac_address': data.mac_address,
     'operating_system': data.operating_system,
     'status': data.status,
-    'comment': data.comment
+    'comment': data.comment,
+    'warranty': data.warranty,
+    'warranty_comment': data.warranty_comment,
+    'repair_comment': data.repair_comment,
+    'bill_no': data.bill_no
   })
 }
 
 export function updateDevice (id, data) {
-  console.log(id, '//////////////')
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
@@ -295,14 +354,7 @@ export function assignDevice (deviceId, id) {
       dispatch(show_loading())
       return getAsync_assignDeviceToUser(deviceId, id).then((res) => {
         dispatch(hide_loading())
-        resolve(res.message)
-        // if (res.error === 0) {
-        //   // dispatch(success_assignDevice(res.message))
-        //   resolve(res.message)
-        // } else {
-        //   // dispatch(error_assignDevice(res.message))
-        //   reject(res.message)
-        // }
+        resolve(res.message)// }
       }, (error) => {
         dispatch(hide_loading())
         dispatch(error_assignDevice('error occurs!!!'))

@@ -30,7 +30,8 @@ function async_addNewMachine (
   n_warranty,
   n_warranty_comment,
   n_repair_comment,
-  n_bill_no
+  n_bill_no,
+  n_user_Id
 
 ) {
   return fireAjax('POST', '', {
@@ -47,7 +48,8 @@ function async_addNewMachine (
     'warranty': n_warranty,
     'warranty_comment': n_warranty_comment,
     'repair_comment': n_repair_comment,
-    'bill_no': n_bill_no
+    'bill_no': n_bill_no,
+    'user_id': n_user_Id
   })
 }
 
@@ -66,6 +68,7 @@ export function addNewMachine (new_machine_details) {
     let n_warranty_comment = ''
     let n_repair_comment = ''
     let n_bill_no = ''
+    let n_user_Id = ''
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type == '') {
       return Promise.reject('Machine Type is empty')
@@ -146,6 +149,11 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_repair_comment = new_machine_details.repair_comment
     }
+    if (typeof new_machine_details.user_Id === 'undefined' || new_machine_details.user_Id == '') {
+      return Promise.reject('User Not Assign')
+    } else {
+      n_user_Id = new_machine_details.user_Id
+    }
 
     return new Promise((resolve, reject) => {
       dispatch(show_loading())
@@ -161,7 +169,8 @@ export function addNewMachine (new_machine_details) {
         n_warranty,
         n_warranty_comment,
         n_repair_comment,
-        n_bill_no).then((json) => {
+        n_bill_no,
+        n_user_Id).then((json) => {
           dispatch(hide_loading())
           console.log(json)
           if (json.error === 0) {
@@ -275,7 +284,8 @@ function getAsync_updateDeviceById (deviceId, data) {
     'warranty': data.warranty,
     'warranty_comment': data.warranty_comment,
     'repair_comment': data.repair_comment,
-    'bill_no': data.bill_no
+    'bill_no': data.bill_no,
+    'user_id': data.user_Id
   })
 }
 
@@ -339,12 +349,12 @@ export function error_assignDevice (data) {
   return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
 }
 
-function getAsync_assignDeviceToUser (deviceId, userId) {
-  console.log(deviceId, '-----------------')
+function getAsync_assignDeviceToUser (deviceId, user_Id) {
+  console.log(deviceId, 'deviceId', user_Id, '-----------------')
   return fireAjax('POST', '', {
     'action': 'assign_user_machine',
     'machine_id': deviceId,
-    'user_id': userId
+    'user_id': user_Id
   })
 }
 

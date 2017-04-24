@@ -9,7 +9,6 @@ import {notify} from '../../services/index'
 import DatePicker from 'material-ui/DatePicker'
 import {DateField} from 'react-date-picker'
 import AlertNotification from '../../components/generic/AlertNotification'
-import AssignUser from './AssignUser'
 
 import 'react-date-picker/index.css'
 var moment = require('moment')
@@ -21,6 +20,7 @@ export default class FormAddNewInventory extends React.Component {
       open: false,
       edit: false,
       id: '',
+      user: '',
       autoOk: true,
       machine_type: '',
       machine_name: '',
@@ -34,11 +34,13 @@ export default class FormAddNewInventory extends React.Component {
       repair_comment: '',
       bill_no: '',
       warranty: '',
+      user_Id: '',
       msg: ''
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleChangeDate = this.handleChangeDate.bind(this)
     this.handleAddDevice = this.handleAddDevice.bind(this)
+    this.handleAssign = this.handleAssign.bind(this)
   }
 
   componentWillReceiveProps (props) {
@@ -47,6 +49,7 @@ export default class FormAddNewInventory extends React.Component {
       edit: props.edit
     })
     if (props.edit) {
+      console.log(props)
       this.setState({
         id: props.getByIdData.id,
         machine_type: props.getByIdData.machine_type,
@@ -61,7 +64,8 @@ export default class FormAddNewInventory extends React.Component {
         warranty_comment: props.getByIdData.warranty_comment,
         repair_comment: props.getByIdData.repair_comment,
         bill_no: props.getByIdData.bill_no,
-        warranty: props.getByIdData.warranty_end_date
+        warranty: props.getByIdData.warranty_end_date,
+        user_Id: props.getByIdData.user_Id
       })
     } else {
       this.setState({
@@ -78,7 +82,8 @@ export default class FormAddNewInventory extends React.Component {
         warranty_comment: '',
         repair_comment: '',
         bill_no: '',
-        warranty: ''
+        warranty: '',
+        user_Id: ''
 
       })
     }
@@ -103,8 +108,8 @@ export default class FormAddNewInventory extends React.Component {
       warranty_comment: this.state.warranty_comment,
       repair_comment: this.state.repair_comment,
       bill_no: this.state.bill_no,
-      warranty: this.state.warranty
-
+      warranty: this.state.warranty,
+      user_Id: this.state.user_Id
     }
     if (!this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
@@ -122,7 +127,8 @@ export default class FormAddNewInventory extends React.Component {
           warranty_comment: '',
           repair_comment: '',
           bill_no: '',
-          warranty: ''
+          warranty: '',
+          user_Id: ''
         })
         this.props.onFetchDevice()
       }, (error) => {
@@ -133,12 +139,15 @@ export default class FormAddNewInventory extends React.Component {
         this.props.handleClose()
         this.props.onFetchDevice()
       }).catch((message) => {
-        console.log(message, '--------')
         this.setState({
           msg: message
         })
       })
     }
+  }
+  handleAssign (deviceId, Userid) {
+    this.setState({userId: Userid})
+    this.props.callAssign(deviceId, Userid)
   }
 
   handleChangeDate = (event, date) => {
@@ -148,10 +157,14 @@ export default class FormAddNewInventory extends React.Component {
   };
 
   render () {
+    let userList = this.props.usersList.users.map((val, i) => {
+      return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>
+    })
     return (
       <div>
 
         <AlertNotification alert_message={this.state.msg} />
+
         <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add New Inventory </button>
         <Dialog
           title={this.state.edit ? 'UPDATE INVENTORY' : 'ADD INVENTORY'}
@@ -175,10 +188,22 @@ export default class FormAddNewInventory extends React.Component {
                 className="form-control"
                 required />
                 </td>
-                <td style={{opacity: '0.56'}}>
-                  Assign Device
-                  <AssignUser {...this.props} />
-                </td>
+
+             <td style={{opacity: '0.56'}}>
+                Assign User
+                <select className="form-control" style={{marginTop: '4%'}}
+                  value={this.state.user_Id}
+                  onChange={(evt) => {
+                    let id = evt.target.value
+                    this.setState({user_Id: evt.target.value})
+                    if (this.state.edit) {
+                      this.handleAssign(this.state.id, id)
+                    }
+                  }}>
+                  <option value=''>--select user--</option>
+                  {userList}
+                </select>
+              </td>
               </tr>
               <tr>
                 <td>
@@ -198,7 +223,6 @@ export default class FormAddNewInventory extends React.Component {
                     onChange={(e) => (this.setState({machine_name: e.target.value}))}
                     value={this.state.machine_name}
                     required />
-
                 </td>
               </tr>
 
@@ -279,10 +303,9 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
                     onChange={(e) => (this.setState({status: e.target.value}))}>
                     <option >-Device Status-</option>
-                    <option style={{color: '#005ce6'}} value="New">New </option>
-                    <option style={{color: '#00802b'}} value="Assigned">Assigned</option>
-                    <option value="Unassigned">Unassigned</option>
-                    <option style={{color: ' #999900'}} value="Not Working">Not Working</option>
+                    <option value="New">New </option>
+                    <option value="Working">Working</option>
+                    <option value="Not Working">Not Working</option>
                   </select>
                 </td>
 

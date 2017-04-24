@@ -9,11 +9,15 @@ import AlertNotification from '../../components/generic/AlertNotification'
 import * as actions_manageDevice from '../../actions/admin/inventory'
 import * as actions_login from '../../actions/login/index'
 import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_manageUsers from '../../actions/admin/manageUsers'
+
+import UsersList from '../../components/generic/UsersList'
 
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
+import ViewUserDevice from '../../components/inventory/ViewUser'
 import InventoryList from '../../components/attendance/InventoryList'
 
 class InventorySystem extends React.Component {
@@ -24,17 +28,24 @@ class InventorySystem extends React.Component {
       status_message: '',
       active: 'active',
       firstArrow: 'show',
+      secondArrow: 'hidden',
       deviceList: 'show',
+      viewUser: 'hidden',
       open: false,
       edit: false,
       deviceId: '',
+      user_profile_detail: {},
+      user_assign_machine: [],
       getByIdData: {}
     }
+    this.onUserClick = this.onUserClick.bind(this)
+    this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this)
     this.openEditDevice = this.openEditDevice.bind(this)
     this.handleAddDialog = this.handleAddDialog.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.deleteDevices = this.deleteDevices.bind(this)
     this.callAssign = this.callAssign.bind(this)
+    this.openPage = this.openPage.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDevice()
@@ -50,6 +61,54 @@ class InventorySystem extends React.Component {
       } else {
         this.props.router.push('/home')
       }
+    }
+  }
+  onUserClick (userid, username) {
+    let selected_user_name = ''
+    let selected_user_image = ''
+    let selected_user_jobtitle = ''
+    let selected_user_id = ''
+    // this.setState({username: username})
+
+    if (this.props.usersList.users.length > 0) {
+      let userDetails = _.find(this.props.usersList.users, {'user_Id': userid})
+      if (typeof userDetails !== 'undefined') {
+        selected_user_name = userDetails.name
+        selected_user_image = userDetails.slack_profile.image_192
+        selected_user_jobtitle = userDetails.jobtitle
+        selected_user_id = userDetails.user_Id
+      }
+    }
+    this.setState({'defaultUserDisplay': userid,
+      'selected_user_name': selected_user_name,
+      'selected_user_image': selected_user_image,
+      'selected_user_jobtitle': selected_user_jobtitle,
+      'selected_user_id': selected_user_id})
+    this.props.onUserProfileDetails(userid, username)
+  }
+  componentDidUpdate () {
+  }
+  callUpdateUserDeviceDetails (new_device_details) {
+    this.props.onUpdateUserDeviceDetails(new_device_details).then((data) => {}, (error) => {
+      notify(error)
+    })
+  }
+  openPage (toDisplay) {
+    console.log(toDisplay)
+    if (toDisplay === 'device_list') {
+      this.setState({
+        deviceList: 'row',
+        firstArrow: 'show',
+        viewUser: 'hidden',
+        secondArrow: 'hidden'
+      })
+    } else {
+      this.setState({
+        deviceList: 'hidden',
+        firstArrow: 'hidden',
+        viewUser: 'row',
+        secondArrow: 'show'
+      })
     }
   }
   openEditDevice (id) {
@@ -102,8 +161,14 @@ class InventorySystem extends React.Component {
     let device_list = <InventoryList
       openEditDevice={this.openEditDevice}
       deleteDevices={this.deleteDevices}
-      callAssign={this.callAssign}
       {...this.props} />
+    let view_user_device = <UsersList
+      users={this.props.usersList.users}
+      selectedUserId={this.state.selected_user_id}
+      onUserClick={this.onUserClick}
+      callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
+      {...this.props} />
+
     return (
     <div>
           <AlertNotification alert_message={this.state.status_message} />
@@ -126,6 +191,7 @@ class InventorySystem extends React.Component {
                     <div className="p-y-md clearfix nav-active-primary">
                       <ul className="nav nav-pills nav-sm">
                         <li
+                          onClick={() => { this.openPage('device_list') }}
                           className={`nav-item ${this.state.active}`}>
                           <a className="nav-link"
                             href=""
@@ -136,21 +202,31 @@ class InventorySystem extends React.Component {
                             <span className="arrow bottom b-accent"></span></div>
                         </li>
                         <li
+                          onClick={() => { this.openPage('view_user') }}
                           className={'nav-item'}>
                           <a className="nav-link"
                             href=""
                             data-toggle="tab"
-                            data-target="#tab_1"
-                            aria-expanded="true">User Inventory</a>
-                          <div >
-                            <span className="arrow bottom b-accent"></span></div>
+                            data-target="#tab_2"
+                            aria-expanded="false">User Device Details</a>
+                          <div className={this.state.secondArrow}>
+                          <span className="arrow bottom b-accent"></span></div>
                         </li>
                       </ul>
 
                     </div>
                   </div>
                   <div className="col-md-offset-10" style={{marginTop: '2%'}}>
-                  <FormAddNewInventory deviceId={this.state.id} handleClose={this.handleClose} callAddNewMachine={this.callAddNewMachine} handleAddDialog={this.handleAddDialog} open={this.state.open} edit={this.state.edit} getByIdData={this.state.getByIdData} {...this.props} />
+                  <FormAddNewInventory
+                    deviceId={this.state.id}
+                    handleClose={this.handleClose}
+                    callAddNewMachine={this.callAddNewMachine}
+                    handleAddDialog={this.handleAddDialog}
+                    open={this.state.open}
+                    edit={this.state.edit}
+                    callAssign={this.callAssign}
+                    getByIdData={this.state.getByIdData}
+                    {...this.props} />
                   </div>
                 </div>
               </div>
@@ -158,10 +234,16 @@ class InventorySystem extends React.Component {
                 <div className={this.state.deviceList}>
                 {device_list}
                 </div>
+                <div className={this.state.viewUser}>
+                  <div className="col-md-2">
+                    {view_user_device}
+                  </div>
+                  <ViewUserDevice {...this.props} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+    </div>
     )
   }
   }
@@ -170,6 +252,7 @@ function mapStateToProps (state) {
   return {
     frontend: state.frontend.toJS(),
     usersList: state.usersList.toJS(),
+    manageUsers: state.manageUsers.toJS(),
     logged_user: state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS(),
     manageDevice: state.manageDevice.toJS()
@@ -179,6 +262,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
       return dispatch(actions_login.isAlreadyLogin())
+    },
+    onUsersList: () => {
+      return dispatch(actions_usersList.get_users_list())
+    },
+    onUserProfileDetails: (userid, username) => {
+      return dispatch(actions_manageUsers.getUserProfileDetails(userid, username))
+    },
+    onUpdateUserDeviceDetails: (new_device_details) => {
+      return dispatch(actions_manageUsers.updateUserDeviceDetails(new_device_details))
     },
     onAddNewMachine: (new_machine_details) => {
       return dispatch(actions_manageDevice.addNewMachine(new_machine_details))

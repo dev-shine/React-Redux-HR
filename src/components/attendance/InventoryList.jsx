@@ -17,7 +17,8 @@ class InventoryList extends React.Component {
       open: false,
       id: '',
       openSnackbar: false,
-      user: ''
+      user: '',
+      search: ''
     }
 
     this.openEditDevice = this.openEditDevice.bind(this)
@@ -60,8 +61,13 @@ class InventoryList extends React.Component {
   }
 
   render () {
+    let devices = this.props.manageDevice.device
+    if (this.state.search !== '') {
+      devices = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
+    }
+    let machine = []
     let rows = []
-    _.map(this.props.manageDevice.device, (device, i) => {
+    _.map(devices, (device, i) => {
       rows.push(<tr key={i}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
             <td>{device.machine_type}</td>
@@ -117,16 +123,31 @@ class InventoryList extends React.Component {
               style={{color: '#B71C1C', cursor: 'pointer'}}
               aria-hidden="true"></i>
             </td>
-
           </tr>)
     })
     return (
+      <div>
         <div className="app-body" id="view">
           <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
             <div className="row">
-              <div className="col-xs-12">
-                <div className="col-md-offset-10" style={{'float': 'right'}}>
-                <AddDeviceDialoge{...this.props} />
+              <div className="row no-gutter">
+                <div className="col-md-6 p-r">
+                  <div className="form-group">
+                    <label style={{'fontSize': 15}}>Select Device Type:</label>
+                      <select className="form-control" ref="device_status" value={this.state.search}
+                        onChange={(e) => {
+                          this.setState({search: e.target.value})
+                        }}>
+                        <option value="">--Select Device Type--</option>
+                      {_.map(this.props.manageDevice.device, (device, key) => {
+                        return (<option key={key} value={device.machine_type}>{device.machine_type}</option>)
+                      })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-md-6-offset-9 p-r" style={{'float': 'right', marginTop: '3%'}}>
+                    <AddDeviceDialoge{...this.props} />
+                  </div>
                 </div>
                 <div className='row'>
                   <div className='col-xs-12'>
@@ -149,7 +170,7 @@ class InventoryList extends React.Component {
                             </tr>
                           </thead>
                           <tbody>
-                            {rows}
+                              {rows}
                           </tbody>
                         </table>
                         </Paper>

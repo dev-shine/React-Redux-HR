@@ -31,6 +31,12 @@
     }
 
     render () {
+      // _.map(this.props.user_assign_machine, (device, i) => {
+      //   return (<div key={i}>
+      //     console.log(device.machine_type,"---------");
+      //   </div>)
+      // })
+
       return (
           <div>
             <h6 className="text-center">Asssigned Device Details</h6>
@@ -40,7 +46,7 @@
 
             <li className="list-group-item">
             <div className="clear">
-            <div className="_500 block">{this.state.machine_type}</div>
+            <div className="_500 block"></div>
             <span className="text-muted">Device Type</span>
           </div>
         </li>

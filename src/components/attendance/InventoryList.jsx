@@ -18,12 +18,19 @@ class InventoryList extends React.Component {
       id: '',
       openSnackbar: false,
       user: '',
-      search: ''
+      search: '',
+      deviceTypeList: []
     }
 
     this.openEditDevice = this.openEditDevice.bind(this)
     this.deleteDevices = this.deleteDevices.bind(this)
     this.handleAssign = this.handleAssign.bind(this)
+  }
+  componentWillMount () {
+    this.props.onFetchDeviceType().then((val) => {
+      console.log(val)
+      this.setState({deviceTypeList: val})
+    })
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -46,6 +53,8 @@ class InventoryList extends React.Component {
         openSnackbar: false
       })
     }
+    console.log(props.manageDevice.deviceList)
+    this.setState({deviceTypeList: props.manageDevice.deviceList})
   }
   openEditDevice (id) {
     this.props.openEditDevice(id)
@@ -61,14 +70,24 @@ class InventoryList extends React.Component {
   }
 
   render () {
+    console.log(this.state.deviceTypeList)
+    let listDrop = this.state.deviceTypeList.map((val, i) => {
+      console.log(val)
+      return (<option value={val} key={i}>{val}</option>)
+    })
+
     let devices = this.props.manageDevice.device
     if (this.state.search !== '') {
       devices = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
     }
+    let rowColor = ''
     let machine = []
     let rows = []
     _.map(devices, (device, i) => {
-      rows.push(<tr key={i}>
+      if (device.status === 'New') {
+        rowColor = 'green'
+      }
+      rows.push(<tr key={i} style={{background: rowColor}}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
             <td>{device.machine_type}</td>
             <td>{device.machine_name}</td>
@@ -96,12 +115,13 @@ class InventoryList extends React.Component {
 
             <td>{<label>Status : </label>}
               {device.status} <br />
-            {<label>Working Comments : </label>}
+            {<label>Working Comments :</label>}
             {device.comments}
-          {<label>Extended Warranty : </label>}
-            {device.warranty_comment}
-          {<label>Pre Repair Comments : </label>}
-            {device.repair_comment}</td>
+          {<label>Extended Warranty :</label>}
+            {device.warranty_comment} <br />
+          {<label>Pre Repair Comments :</label>}
+            {device.repair_comment}
+          </td>
           <td>
             {device.name}
           </td>
@@ -139,9 +159,7 @@ class InventoryList extends React.Component {
                           this.setState({search: e.target.value})
                         }}>
                         <option value="">--Select Device Type--</option>
-                      {_.map(this.props.manageDevice.device, (device, key) => {
-                        return (<option key={key} value={device.machine_type}>{device.machine_type}</option>)
-                      })}
+                        {listDrop}
                       </select>
                     </div>
                   </div>

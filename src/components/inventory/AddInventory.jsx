@@ -165,7 +165,8 @@ export default class FormAddNewInventory extends React.Component {
 
         <AlertNotification alert_message={this.state.msg} />
 
-        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add New Inventory </button>
+        <button className="md-btn md-raised m-b-sm indigo"
+          onTouchTap={this.handleOpen}>Add New Inventory </button>
         <Dialog
           title={this.state.edit ? 'UPDATE INVENTORY' : 'ADD INVENTORY'}
           titleStyle={{opacity: '0.56'}}
@@ -196,9 +197,9 @@ export default class FormAddNewInventory extends React.Component {
                   onChange={(evt) => {
                     let id = evt.target.value
                     this.setState({user_Id: evt.target.value})
-                    if (this.state.edit) {
-                      this.handleAssign(this.state.id, id)
-                    }
+                    // if (this.state.edit) {
+                    //   this.handleAssign(this.state.id, id)
+                    // }
                   }}>
                   <option value=''>--select user--</option>
                   {userList}

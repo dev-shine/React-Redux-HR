@@ -12,22 +12,57 @@ export default class AddDeviceDialoge extends React.Component {
     super(props)
     this.state = {
       deviceType: '',
-      open: false
+      open: false,
+      deviceList: []
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.addMoreDevice = this.addMoreDevice.bind(this)
+    this.addDeviceType = this.addDeviceType.bind(this)
   }
+
   handleOpen (e) {
     e.stopPropagation()
     this.setState({
-      open: true
+      open: true,
+      array: [1]
     })
   }
+
+  addMoreDevice () {
+    if (!_.isEmpty(this.state.deviceType)) {
+      var deviceList = this.state.deviceList
+      deviceList.push(this.state.deviceType)
+      this.setState({
+        deviceType: '',
+        deviceList: deviceList
+      })
+    }
+  }
+  addDeviceType () {
+    this.props.callAddDevice(this.state.deviceList)
+  }
+
   handleClose = () => {
     this.setState({open: false})
   };
 
   render () {
+    console.log(this.state.deviceList)
+    var text = <div>
+          <TextField
+            ref='value'
+            floatingLabelText={'Add Device Type'}
+            fullWidth
+            onChange={(e) => {
+              this.setState({
+                deviceType: e.target.value
+              })
+            }}
+            value={this.state.deviceType}
+          />
+      </div>
+
     const actions = [
       <FlatButton
         label="Cancle"
@@ -38,7 +73,7 @@ export default class AddDeviceDialoge extends React.Component {
       <RaisedButton
         label="Submit"
         primary
-        onTouchTap={this.handleClose}
+        onTouchTap={this.addDeviceType}
     />
     ]
     return (
@@ -52,19 +87,10 @@ export default class AddDeviceDialoge extends React.Component {
             open={this.state.open}
             onRequestClose={this.handleClose.bind(this)}
                   >
-                  <div>
-                      <TextField
-                        ref='value'
-                        floatingLabelText={'Add Device Type'}
-                        hintText={'device type'}
-                        fullWidth
-                        onChange={(e) => {
-                          this.setState({
-                            deviceType: e.target.value
-                          })
-                        }}
-                      />
-                  </div>
+                  {text}
+                  <button className="md-btn md-raised m-b-sm indigo" onTouchTap={() => {
+                    this.addMoreDevice()
+                  }}>Add More Device</button>
                   </Dialog>
                 </div>
     )

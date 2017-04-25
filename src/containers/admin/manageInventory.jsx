@@ -25,6 +25,7 @@ class InventorySystem extends React.Component {
     super(props)
     this.props.onIsAlreadyLogin()
     this.state = {
+      'defaultUserDisplay': '',
       status_message: '',
       active: 'active',
       firstArrow: 'show',
@@ -46,6 +47,8 @@ class InventorySystem extends React.Component {
     this.deleteDevices = this.deleteDevices.bind(this)
     this.callAssign = this.callAssign.bind(this)
     this.openPage = this.openPage.bind(this)
+    this.callFetchDeviceType = this.callFetchDeviceType.bind(this)
+    this.callAddDevice = this.callAddDevice.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDevice()
@@ -60,6 +63,19 @@ class InventorySystem extends React.Component {
       if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
       } else {
         this.props.router.push('/home')
+      }
+    }
+    this.setState({username: props.manageUsers.username,
+      user_profile_detail: props.manageUsers.user_profile_detail,
+      user_assign_machine: props.manageUsers.user_assign_machine})
+  }
+  componentDidUpdate () {
+    if (this.state.defaultUserDisplay == '') {
+      if (this.props.usersList.users.length > 0) {
+        let firstUser = this.props.usersList.users[0]
+        let defaultUserId = firstUser.user_Id
+        let defaultUserName = firstUser.username
+        this.onUserClick(defaultUserId, defaultUserName)
       }
     }
   }
@@ -86,15 +102,16 @@ class InventorySystem extends React.Component {
       'selected_user_id': selected_user_id})
     this.props.onUserProfileDetails(userid, username)
   }
-  componentDidUpdate () {
-  }
+
   callUpdateUserDeviceDetails (new_device_details) {
     this.props.onUpdateUserDeviceDetails(new_device_details).then((data) => {}, (error) => {
       notify(error)
     })
   }
+  callFetchDeviceType () {
+    this.onFetchDeviceType()
+  }
   openPage (toDisplay) {
-    console.log(toDisplay)
     if (toDisplay === 'device_list') {
       this.setState({
         deviceList: 'row',
@@ -146,6 +163,17 @@ class InventorySystem extends React.Component {
       edit: false
     })
   }
+  callAddDevice (deviceType) {
+    this.props.onCallDeviceType(deviceType).then((message) => {
+      console.log(message)
+      // this.setState({
+      //   status_message: message
+      // })
+      this.props.onFetchDeviceType()
+    }, (error) => {
+      notify(error)
+    })
+  }
   callAssign (id, userId) {
     this.setState({user: userId})
     this.props.onCallAssign(id, userId).then((message) => {
@@ -161,6 +189,8 @@ class InventorySystem extends React.Component {
     let device_list = <InventoryList
       openEditDevice={this.openEditDevice}
       deleteDevices={this.deleteDevices}
+      callAddDevice={this.callAddDevice}
+      callFetchDevice={this.callFetchDevice}
       {...this.props} />
     let view_user_device = <UsersList
       users={this.props.usersList.users}
@@ -213,10 +243,10 @@ class InventorySystem extends React.Component {
                           <span className="arrow bottom b-accent"></span></div>
                         </li>
                       </ul>
-
                     </div>
                   </div>
-                  <div className="col-md-offset-10" style={{marginTop: '2%'}}>
+
+                <div className="col-md-offset-10" style={{marginTop: '2%'}}>
                   <FormAddNewInventory
                     deviceId={this.state.id}
                     handleClose={this.handleClose}
@@ -225,9 +255,11 @@ class InventorySystem extends React.Component {
                     open={this.state.open}
                     edit={this.state.edit}
                     callAssign={this.callAssign}
+                    callAddDevice={this.callAddDevice}
                     getByIdData={this.state.getByIdData}
                     {...this.props} />
                   </div>
+
                 </div>
               </div>
               <div className="padding">
@@ -243,12 +275,13 @@ class InventorySystem extends React.Component {
               </div>
             </div>
           </div>
-    </div>
+        </div>
     )
   }
   }
 
 function mapStateToProps (state) {
+  console.log(state)
   return {
     frontend: state.frontend.toJS(),
     usersList: state.usersList.toJS(),
@@ -292,7 +325,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCallAssign: (deviceId, id) => {
       return dispatch(actions_manageDevice.assignDevice(deviceId, id))
+    },
+    onCallDeviceType: (deviceList) => {
+      return dispatch(actions_manageDevice.assignDeviceType(deviceList))
+    },
+    onFetchDeviceType: (data) => {
+      return dispatch(actions_manageDevice.getDeviceType(data))
     }
+
   }
 }
 

@@ -350,7 +350,6 @@ export function error_assignDevice (data) {
 }
 
 function getAsync_assignDeviceToUser (deviceId, user_Id) {
-  console.log(deviceId, 'deviceId', user_Id, '-----------------')
   return fireAjax('POST', '', {
     'action': 'assign_user_machine',
     'machine_id': deviceId,
@@ -369,6 +368,77 @@ export function assignDevice (deviceId, id) {
         dispatch(hide_loading())
         dispatch(error_assignDevice('error occurs!!!'))
         reject('error occurs!!!')
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_DEVICE_TYPE = 'ACTION_SUCCESS_DEVICE_TYPE'
+export const ACTION_ERROR_DEVICE_TYPE = 'ACTION_ERROR_DEVICE_TYPE'
+
+export function success_deviceType (data) {
+  return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
+}
+
+// var json = JSON.stringify(eval('(' + deviceList + ')'))
+
+export function error_deviceType (data) {
+  return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
+}
+
+function getAsync_assignDeviceType (deviceList) {
+  var ab = JSON.stringify(deviceList)
+
+  return fireAjax('POST', '', {
+    'action': 'add_machine_type',
+    'type': 'machine_type',
+    'value': ab
+  })
+}
+
+export function assignDeviceType (ab) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_assignDeviceType(ab).then((res) => {
+        dispatch(getDeviceType())
+        resolve(res.message)
+        dispatch(hide_loading())
+      }, (error) => {
+        dispatch(hide_loading())
+        dispatch(error_deviceType('error occurs!!!'))
+        reject('error occurs!!!')
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_GET_DEVICE_TYPE_LIST = 'ACTION_SUCCESS_GET_DEVICE_TYPE_LIST'
+
+export function success_getDeviceType (data) {
+  return createAction(ACTION_SUCCESS_GET_DEVICE_TYPE_LIST)(data)
+}
+
+function getAsync_getDeviceType () {
+  return fireAjax('POST', '', {
+    'action': 'get_machine_type_list'
+  })
+}
+
+export function getDeviceType () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_getDeviceType().then((res) => {
+        dispatch(hide_loading())
+        if (res.data) {
+          var a = JSON.parse(res.data.value)
+          resolve(a)
+          dispatch(success_getDeviceType(a))
+        }
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
       })
     })
   }

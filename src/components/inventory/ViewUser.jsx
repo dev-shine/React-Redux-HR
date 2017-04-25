@@ -34,10 +34,10 @@ export default class ViewUserDevice extends React.Component {
           <div className='row'>
               <div className='col-xs-12'>
                 <div style={{'marginTop': '2%'}}>
-                   <Paper zDepth={3} style={{marginBottom: '10px'}} >
-                     {
-                       rows.length > 0
-                       ? <table key='' className="table table-striped table-hover">
+                  {
+                    rows.length > 0
+                  ? <Paper zDepth={3} style={{marginBottom: '10px'}} >
+                        <table key='' className="table table-striped table-hover">
                          <thead>
                            <tr>
                            </tr>
@@ -52,9 +52,12 @@ export default class ViewUserDevice extends React.Component {
                          <tbody>
                            {rows}
                          </tbody>
-                       </table> : null
-                     }
+                       </table>
                     </Paper>
+                    : <div className="well">
+                    <h5 style={{marginLeft: '42%'}}>{'Device not Asssigned'}</h5>
+                  </div>
+                  }
                   </div>
                 </div>
               </div>

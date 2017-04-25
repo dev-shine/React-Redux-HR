@@ -31,51 +31,45 @@
     }
 
     render () {
-      // _.map(this.props.user_assign_machine, (device, i) => {
-      //   return (<div key={i}>
-      //     console.log(device.machine_type,"---------");
-      //   </div>)
-      // })
-
+      let machine = this.props.user_assign_machine
+      let machineData = machine.map((val, i) => {
+        return (<tr key={i}>
+              <td>{val.machine_type}</td>
+              <td>{val.machine_name}</td>
+              <td>{val.mac_address}</td>
+              <td>{val.assign_date}</td>
+            </tr>)
+      })
       return (
           <div>
             <h6 className="text-center">Asssigned Device Details</h6>
             <br />
-
             <ul className="list-group m-b">
-
             <li className="list-group-item">
             <div className="clear">
-            <div className="_500 block"></div>
-            <span className="text-muted">Device Type</span>
+              {
+                machineData.length > 0
+                ? <table key='' style={{fontSize: '9px'}}className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                    </tr>
+                    <tr>
+                      <th>Device Type</th>
+                      <th>Name</th>
+                      <th>Mac Address</th>
+                      <th>Assign Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {machineData}
+                  </tbody>
+                </table>
+                : <h6>{'Device Not Asssigned'}</h6>
+              }
           </div>
         </li>
-
-        <li className="list-group-item">
-          <div className="clear">
-            <div className="_500 block">{this.state.machine_name}</div>
-            <span className="text-muted">Device Name</span>
-          </div>
-        </li>
-
-         <li className="list-group-item">
-          <div className="clear">
-            <div className="_500 block">{this.state.mac_address}</div>
-            <span className="text-muted">Mac Adress</span>
-          </div>
-        </li>
-
-        <li className="list-group-item">
-
-          <div className="clear">
-            <div className="_500 block">{this.state.assign_date}</div>
-            <span className="text-muted">Assign Date</span>
-          </div>
-        </li>
-
       </ul>
-
-      </div>
+  </div>
 
       )
     }

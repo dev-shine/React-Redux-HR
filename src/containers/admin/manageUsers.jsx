@@ -177,7 +177,7 @@ class ManageUsers extends React.Component {
                   <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee} />
                     </div>
 
-          <div style={{'margin-top': ' 7px'}} className="col-md-4 pull-left">
+          <div style={{'marginTop': ' 7px'}} className="col-md-4 pull-left">
             <label style={{'float': 'inherit'}}><i className="fa fa-bell-slash fa-lg" aria-hidden="true">
             </i> Slack Notifications</label>
               <div style={{'margin': '0 0 0 10px'}} className='pull-left'>

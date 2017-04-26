@@ -35,7 +35,8 @@ export default class FormAddNewInventory extends React.Component {
       bill_no: '',
       warranty: '',
       user_Id: '',
-      msg: ''
+      msg: '',
+      deviceTypeList: []
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleChangeDate = this.handleChangeDate.bind(this)
@@ -46,10 +47,11 @@ export default class FormAddNewInventory extends React.Component {
   componentWillReceiveProps (props) {
     this.setState({
       open: props.open,
-      edit: props.edit
+      edit: props.edit,
+      deviceTypeList: props.manageDevice.deviceList
     })
     if (props.edit) {
-      console.log(props)
+      // console(props)
       this.setState({
         id: props.getByIdData.id,
         machine_type: props.getByIdData.machine_type,
@@ -113,7 +115,7 @@ export default class FormAddNewInventory extends React.Component {
     }
     if (!this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
-        console.log(val)
+        // console(val)
         this.props.handleClose()
         this.setState({
           machine_type: '',
@@ -233,25 +235,22 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control" ref="machine_type" value={this.state.machine_type}
                     onChange={(evt) => { this.setState({machine_type: evt.target.value}) }}>
                     <option >--select device--</option>
-                      <option value="Laptop">Laptop </option>
-                      <option value="Mobile">Mobile</option>
-                      <option value="Keyboard">Keyboard</option>
-                      <option value="Mouse">Mouse</option>
-                      <option value="Desktop">Desktop</option>
-                      <option value="Router">Router</option>
+                    {this.state.deviceTypeList.map((val, i) => {
+                      return <option key={i} value={val}> {val}</option>
+                    })}
                   </select>
                  </td>
                  {
-                   this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop'
+                   this.state.machine_type == 'laptop' || this.state.machine_type == 'mobile' || this.state.machine_type == 'desktop'
                    ? <td style={{opacity: '0.56'}}>
                   Operating System
                   <select className="form-control" ref="operating_system" value={this.state.operating_system}
                     onChange={(evt) => { this.setState({operating_system: evt.target.value}) }}>
                     <option >--select os--</option>
-                    <option value="Linux">Linux </option>
-                    <option value="Windows">Windows</option>
-                    <option value="Ios">iOS</option>
-                    <option value="Android">Android</option>
+                    <option value="linux">Linux </option>
+                    <option value="windows">Windows</option>
+                    <option value="ios">iOS</option>
+                    <option value="android">Android</option>
                   </select>
                 </td>
                 : null
@@ -260,7 +259,7 @@ export default class FormAddNewInventory extends React.Component {
 
               <tr>
                 {
-                this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop' || this.state.machine_type == 'Router'
+                this.state.machine_type == 'laptop' || this.state.machine_type == 'mobile' || this.state.machine_type == 'desktop' || this.state.machine_type == 'Router'
                   ? <td>
                   <TextField
                     floatingLabelText="Mac Address"

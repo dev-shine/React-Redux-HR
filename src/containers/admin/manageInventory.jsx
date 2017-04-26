@@ -48,11 +48,11 @@ class InventorySystem extends React.Component {
     this.callAssign = this.callAssign.bind(this)
     this.openPage = this.openPage.bind(this)
     this.callFetchDeviceType = this.callFetchDeviceType.bind(this)
-    this.callAddDevice = this.callAddDevice.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDevice()
     this.props.onUsersList()
+    this.props.onFetchDeviceType()
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -163,17 +163,7 @@ class InventorySystem extends React.Component {
       edit: false
     })
   }
-  callAddDevice (deviceType) {
-    this.props.onCallDeviceType(deviceType).then((message) => {
-      console.log(message)
-      // this.setState({
-      //   status_message: message
-      // })
-      this.props.onFetchDeviceType()
-    }, (error) => {
-      notify(error)
-    })
-  }
+
   callAssign (id, userId) {
     this.setState({user: userId})
     this.props.onCallAssign(id, userId).then((message) => {
@@ -189,7 +179,6 @@ class InventorySystem extends React.Component {
     let device_list = <InventoryList
       openEditDevice={this.openEditDevice}
       deleteDevices={this.deleteDevices}
-      callAddDevice={this.callAddDevice}
       callFetchDevice={this.callFetchDevice}
       {...this.props} />
     let view_user_device = <UsersList
@@ -238,7 +227,7 @@ class InventorySystem extends React.Component {
                             href=""
                             data-toggle="tab"
                             data-target="#tab_2"
-                            aria-expanded="false">User Device Details</a>
+                            aria-expanded="false">User Inventory Page</a>
                           <div className={this.state.secondArrow}>
                           <span className="arrow bottom b-accent"></span></div>
                         </li>
@@ -247,7 +236,8 @@ class InventorySystem extends React.Component {
                   </div>
 
                 <div className="col-md-offset-10" style={{marginTop: '2%'}}>
-                  <FormAddNewInventory
+                  {this.state.firstArrow == 'show'
+                  ? <FormAddNewInventory
                     deviceId={this.state.id}
                     handleClose={this.handleClose}
                     callAddNewMachine={this.callAddNewMachine}
@@ -258,6 +248,8 @@ class InventorySystem extends React.Component {
                     callAddDevice={this.callAddDevice}
                     getByIdData={this.state.getByIdData}
                     {...this.props} />
+                  : null
+              }
                   </div>
 
                 </div>
@@ -281,7 +273,7 @@ class InventorySystem extends React.Component {
   }
 
 function mapStateToProps (state) {
-  console.log(state)
+  // console.log(state)
   return {
     frontend: state.frontend.toJS(),
     usersList: state.usersList.toJS(),
@@ -320,17 +312,14 @@ const mapDispatchToProps = (dispatch) => {
     onDeleteDevice: (id) => {
       return dispatch(actions_manageDevice.deleteDevice(id))
     },
-    onUsersList: () => {
-      return dispatch(actions_usersList.get_users_list())
-    },
     onCallAssign: (deviceId, id) => {
       return dispatch(actions_manageDevice.assignDevice(deviceId, id))
     },
     onCallDeviceType: (deviceList) => {
       return dispatch(actions_manageDevice.assignDeviceType(deviceList))
     },
-    onFetchDeviceType: (data) => {
-      return dispatch(actions_manageDevice.getDeviceType(data))
+    onFetchDeviceType: () => {
+      return dispatch(actions_manageDevice.getDeviceType())
     }
 
   }

@@ -25,10 +25,12 @@ class InventoryList extends React.Component {
     this.openEditDevice = this.openEditDevice.bind(this)
     this.deleteDevices = this.deleteDevices.bind(this)
     this.handleAssign = this.handleAssign.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.callAddDevice = this.callAddDevice.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDeviceType().then((val) => {
-      console.log(val)
       this.setState({deviceTypeList: val})
     })
   }
@@ -53,7 +55,6 @@ class InventoryList extends React.Component {
         openSnackbar: false
       })
     }
-    console.log(props.manageDevice.deviceList)
     this.setState({deviceTypeList: props.manageDevice.deviceList})
   }
   openEditDevice (id) {
@@ -64,15 +65,36 @@ class InventoryList extends React.Component {
     this.props.deleteDevices(id)
   }
 
+  handleOpen (e) {
+    e.stopPropagation()
+    this.setState({
+      open: true
+    })
+  }
+
+  callAddDevice (deviceType) {
+    this.props.onCallDeviceType(deviceType).then((message) => {
+      // this.setState({
+      //   status_message: message
+      // })
+      this.handleClose()
+      this.props.onFetchDeviceType()
+    }, (error) => {
+      notify(error)
+    })
+  }
+
+  handleClose = () => {
+    this.setState({open: false})
+  };
+
   handleAssign (id, userId) {
     this.setState({user: userId})
     this.props.callAssign(id, userId)
   }
 
   render () {
-    console.log(this.state.deviceTypeList)
     let listDrop = this.state.deviceTypeList.map((val, i) => {
-      console.log(val)
       return (<option value={val} key={i}>{val}</option>)
     })
 
@@ -80,14 +102,20 @@ class InventoryList extends React.Component {
     if (this.state.search !== '') {
       devices = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
     }
-    let rowColor = ''
+    let rowColor
     let machine = []
     let rows = []
     _.map(devices, (device, i) => {
       if (device.status === 'New') {
-        rowColor = 'green'
+        rowColor = '#f3f34a'
+      } else if (device.status === 'Not Working') {
+        rowColor = '#e88e8e'
+      } else if (device.status === 'Working') {
+        rowColor = '#a9dcaf'
+      } else {
+        rowColor = 'none'
       }
-      rows.push(<tr key={i} style={{background: rowColor}}>
+      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
             <td>{device.machine_type}</td>
             <td>{device.machine_name}</td>
@@ -164,7 +192,7 @@ class InventoryList extends React.Component {
                     </div>
                   </div>
                   <div className="col-md-6-offset-9 p-r" style={{'float': 'right', marginTop: '3%'}}>
-                    <AddDeviceDialoge{...this.props} />
+                    <AddDeviceDialoge callAddDevice={this.callAddDevice} handleClose={this.handleClose} handleOpen={this.handleOpen} open={this.state.open} deviceTypeList={this.state.deviceTypeList} {...this.props} />
                   </div>
                 </div>
                 <div className='row'>

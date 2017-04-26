@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import {notify} from '../../services/index'
 import 'react-date-picker/index.css'
 var moment = require('moment')
+import { CONFIG } from '../../config/index'
 
 export default class AddDeviceDialoge extends React.Component {
   constructor (props) {
@@ -15,18 +16,24 @@ export default class AddDeviceDialoge extends React.Component {
       open: false,
       deviceList: []
     }
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+
     this.addMoreDevice = this.addMoreDevice.bind(this)
     this.addDeviceType = this.addDeviceType.bind(this)
   }
+  componentWillReceiveProps (props) {
+    this.setState({deviceList: props.deviceTypeList, open: props.open})
 
-  handleOpen (e) {
-    e.stopPropagation()
-    this.setState({
-      open: true,
-      array: [1]
-    })
+    window.scrollTo(0, 0)
+
+    if (props.logged_user.logged_in == -1) {
+      this.props.router.push('/logout')
+    } else {
+      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
+
+      } else {
+        this.props.router.push('/home')
+      }
+    }
   }
 
   addMoreDevice () {
@@ -43,12 +50,7 @@ export default class AddDeviceDialoge extends React.Component {
     this.props.callAddDevice(this.state.deviceList)
   }
 
-  handleClose = () => {
-    this.setState({open: false})
-  };
-
   render () {
-    console.log(this.state.deviceList)
     var text = <div>
           <TextField
             ref='value'
@@ -65,9 +67,9 @@ export default class AddDeviceDialoge extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Cancle"
+        label="Cancel"
         primary
-        onTouchTap={this.handleClose}
+        onTouchTap={this.props.handleClose}
         style={{marginRight: 5}}
     />,
       <RaisedButton
@@ -78,19 +80,34 @@ export default class AddDeviceDialoge extends React.Component {
     ]
     return (
       <div>
-          <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.handleOpen}>Add Device Type</button>
-          <Dialog
-            title={'ADD DEVICE TYPE'}
-            titleStyle={{opacity: '0.56'}}
-            actions={actions}
-            modal={false}
-            open={this.state.open}
-            onRequestClose={this.handleClose.bind(this)}
-                  >
-                  {text}
-                  <button className="md-btn md-raised m-b-sm indigo" onTouchTap={() => {
-                    this.addMoreDevice()
-                  }}>Add More Device</button>
+
+        {
+          this.props.logged_user.role === CONFIG.HR
+          ? <div></div>
+          : <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button>
+}
+        <Dialog
+          title={'ADD DEVICE TYPE'}
+          titleStyle={{opacity: '0.56'}}
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.props.handleClose}
+                  ><div className="row m-0">
+                  <div className='col-sm-3' style={{overFlowY: 'show'}}>
+                    <ul>
+                  {this.state.deviceList.map((val, i) => {
+                    return <li key={i}><input type='checkbox'></input>{val}</li>
+                  })}
+                </ul>
+                </div>
+                <div className='col-sm-9'>
+                {text}
+                <button className="md-btn md-raised m-b-sm indigo" onTouchTap={() => {
+                  this.addMoreDevice()
+                }}>Add</button>
+              </div>
+                </div>
                   </Dialog>
                 </div>
     )

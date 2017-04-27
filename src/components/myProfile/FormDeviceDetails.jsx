@@ -37,6 +37,7 @@ export default class FormDeviceDetails extends React.Component {
             <td>{val.machine_type}</td>
             <td>{val.machine_name}</td>
             <td>{val.mac_address}</td>
+            <td>{val.serial_number}</td>
             <td>{val.assign_date}</td>
           </tr>)
     })
@@ -49,7 +50,7 @@ export default class FormDeviceDetails extends React.Component {
           <div className="clear">
             {
               machineData.length > 0
-              ? <table key='' style={{fontSize: '9px'}}className="table table-striped table-hover">
+              ? <table key='' className="table table-striped table-hover">
                 <thead>
                   <tr>
                   </tr>
@@ -57,6 +58,7 @@ export default class FormDeviceDetails extends React.Component {
                     <th>Device Type</th>
                     <th>Name</th>
                     <th>Mac Address</th>
+                    <th>Serial Number</th>
                     <th>Assign Date</th>
                   </tr>
                 </thead>

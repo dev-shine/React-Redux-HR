@@ -45,6 +45,7 @@ class Menu extends React.Component {
     let link_my_calendar = <Link to='/monthly_attendance'>My Attendance</Link>
     let link_my_leaves = <Link to='/my_leaves'>My Leaves</Link>
     let link_my_profile = <Link to='/my_profile'>My Profile</Link>
+    let link_my_inventory = <Link to='/my_inventory'>My Inventory</Link>
     let link_salary = <Link to='/salary'>My Salary</Link>
     let link_policy_documents = <Link to='/policy_documents'>Policy Documents</Link>
 
@@ -87,6 +88,9 @@ class Menu extends React.Component {
       </li>
       <li className="hidden-folded">
         <span >{link_my_profile}</span>
+      </li>
+      <li className="hidden-folded">
+        <span >{link_my_inventory}</span>
       </li>
       <li className="hidden-folded">
         <span >{link_documents}</span>

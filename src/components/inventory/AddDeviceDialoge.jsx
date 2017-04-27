@@ -118,7 +118,7 @@ export default class AddDeviceDialoge extends React.Component {
           open={this.state.open}
           onRequestClose={this.props.handleClose}
                   ><div className="row m-0">
-                  <div className='col-sm-3' style={{overFlowY: 'show'}}>
+                  <div className='col-sm-3' style={{overFlowY: 'scroll'}}>
                     <ol>
                   {this.state.deviceList.map((val, i) => {
                     return <li key={i}><input type='checkbox' value={val} onChange={(e) => {

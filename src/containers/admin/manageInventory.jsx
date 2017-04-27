@@ -19,6 +19,7 @@ import Header from '../../components/generic/header'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
 import ViewUserDevice from '../../components/inventory/ViewUser'
 import InventoryList from '../../components/attendance/InventoryList'
+import InventoryColorReference from '../../components/inventory/InventoryColorReference'
 
 class InventorySystem extends React.Component {
   constructor (props) {
@@ -204,6 +205,13 @@ class InventorySystem extends React.Component {
                   <LoadingIcon {...this.props} />
                 </div>
               </div>
+              {this.state.secondArrow == 'show' ? null
+                : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
+                <div className="col-md-11 col-xs-offset-0">
+                  <InventoryColorReference {...this.props} />
+                </div>
+              </div>
+}
               <div className="dker p-x">
                 <div className="row">
                   <div className="col-sm-6 pull-sm-6">

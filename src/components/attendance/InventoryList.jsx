@@ -19,7 +19,8 @@ class InventoryList extends React.Component {
       openSnackbar: false,
       user: '',
       search: '',
-      deviceTypeList: []
+      deviceTypeList: [],
+      device_status: ''
     }
 
     this.openEditDevice = this.openEditDevice.bind(this)
@@ -97,21 +98,22 @@ class InventoryList extends React.Component {
     let listDrop = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
-
     let devices = this.props.manageDevice.device
     if (this.state.search !== '') {
       devices = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
     }
+    if (this.state.device_status !== '') {
+      devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.search)
+    }
     let rowColor
-    let machine = []
     let rows = []
     _.map(devices, (device, i) => {
       if (device.status === 'New') {
-        rowColor = '#f3f34a'
+        rowColor = '#bbdefb'
       } else if (device.status === 'Not Working') {
-        rowColor = '#e88e8e'
+        rowColor = '#FF7043'
       } else if (device.status === 'Working') {
-        rowColor = '#a9dcaf'
+        rowColor = '#69f0ae'
       } else {
         rowColor = 'none'
       }
@@ -128,11 +130,9 @@ class InventoryList extends React.Component {
             </td>
             {
              device.machine_type === 'Keyboard' || device.machine_type === 'Mouse' ? <td></td>
-             : <td>{<label>Mac : </label>}
+             : <td>
                {device.mac_address || ' '}
-               <br /> <br />
-             {<label>OS : </label>}
-             {device.operating_system || ''}
+               <br />
            </td>
             }
               <td>{'₹'}{device.machine_price}</td>
@@ -179,9 +179,9 @@ class InventoryList extends React.Component {
           <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
             <div className="row">
               <div className="row no-gutter">
-                <div className="col-md-6 p-r">
+                <div className="col-md-3 p-r">
                   <div className="form-group">
-                    <label style={{'fontSize': 15}}>Select Device Type:</label>
+                    <label style={{'fontSize': 15}}>Filter:</label>
                       <select className="form-control" ref="device_status" value={this.state.search}
                         onChange={(e) => {
                           this.setState({search: e.target.value})
@@ -191,8 +191,27 @@ class InventoryList extends React.Component {
                       </select>
                     </div>
                   </div>
+                  <div className="col-md-3 p-r">
+                    <div className="form-group">
+                      <label style={{marginTop: '6%'}}> </label>
+                        <select className="form-control" ref="device_status" value={this.state.device_status}
+                          onChange={(e) => {
+                            this.setState({device_status: e.target.value})
+                          }}>
+                          <option value="">--Select Device Status--</option>
+                          <option value="New">New</option>
+                          <option value="Working">Working</option>
+                          <option value="Not Working">Not Working</option>
+                        </select>
+                      </div>
+                    </div>
                   <div className="col-md-6-offset-9 p-r" style={{'float': 'right', marginTop: '3%'}}>
-                    <AddDeviceDialoge callAddDevice={this.callAddDevice} handleClose={this.handleClose} handleOpen={this.handleOpen} open={this.state.open} deviceTypeList={this.state.deviceTypeList} {...this.props} />
+                    <AddDeviceDialoge callAddDevice={this.callAddDevice}
+                      handleClose={this.handleClose}
+                      handleOpen={this.handleOpen}
+                      open={this.state.open}
+                      deviceTypeList={this.state.deviceTypeList}
+                      {...this.props} />
                   </div>
                 </div>
                 <div className='row'>
@@ -208,7 +227,7 @@ class InventoryList extends React.Component {
                               <th>Device Type</th>
                               <th>Name</th>
                               <th>Dates</th>
-                              <th>Mac/OS</th>
+                              <th>Mac Adress</th>
                               <th>Price</th>
                               <th>Serial No</th>
                               <th>Status/Commments</th>

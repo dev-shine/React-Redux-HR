@@ -53,6 +53,7 @@ import Page_ApplyLeave from './containers/user/applyLeave'
 import Page_MyLeaves from './containers/user/myLeaves'
 import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
+import Page_MyInventory from './containers/user/myInventory'
 import Page_MyDocuments from './containers/user/myDocuments'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import 'whatwg-fetch'
@@ -155,6 +156,7 @@ let render = (routerKey = null) => {
             <Route path="salary" component={Page_Salary} />
             <Route path="manage_salary" component={Page_ManageSalary} />
             <Route path="my_profile" component={Page_MyProfile} />
+            <Route path="my_inventory" component={Page_MyInventory} />
             <Route path="manage_users" component={Page_ManageUsers} />
             <Route path="manage_clients" component={Page_ManageClients} />
             <Route path="manage_payslips" component={Page_ManagePayslips} />

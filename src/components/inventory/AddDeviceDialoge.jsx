@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react'
 import Dialog from 'material-ui/Dialog'
+import _ from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
@@ -14,11 +15,14 @@ export default class AddDeviceDialoge extends React.Component {
     this.state = {
       deviceType: '',
       open: false,
-      deviceList: []
+      deviceList: [],
+      checkValue: []
     }
 
     this.addMoreDevice = this.addMoreDevice.bind(this)
     this.addDeviceType = this.addDeviceType.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.setValue = this.setValue.bind(this)
   }
   componentWillReceiveProps (props) {
     this.setState({deviceList: props.deviceTypeList, open: props.open})
@@ -34,6 +38,20 @@ export default class AddDeviceDialoge extends React.Component {
         this.props.router.push('/home')
       }
     }
+  }
+  handleDelete () {
+    let checkValue = this.state.checkValue
+    let deviceList = this.state.deviceList
+    checkValue.map((val) => {
+      _.pull(deviceList, val)
+    })
+    this.setState({deviceList, checkValue: []})
+  }
+
+  setValue (e) {
+    let array = this.state.checkValue
+    array.push(e.target.value)
+    this.setState({checkValue: array})
   }
 
   addMoreDevice () {
@@ -67,6 +85,12 @@ export default class AddDeviceDialoge extends React.Component {
 
     const actions = [
       <FlatButton
+        label="Delete"
+        secondary
+        onTouchTap={this.handleDelete}
+        style={{marginRight: 5}}
+    />,
+      <FlatButton
         label="Cancel"
         primary
         onTouchTap={this.props.handleClose}
@@ -95,11 +119,13 @@ export default class AddDeviceDialoge extends React.Component {
           onRequestClose={this.props.handleClose}
                   ><div className="row m-0">
                   <div className='col-sm-3' style={{overFlowY: 'show'}}>
-                    <ul>
+                    <ol>
                   {this.state.deviceList.map((val, i) => {
-                    return <li key={i}><input type='checkbox'></input>{val}</li>
+                    return <li key={i}><input type='checkbox' value={val} onChange={(e) => {
+                      this.setValue(e)
+                    }}></input> {val}</li>
                   })}
-                </ul>
+                </ol>
                 </div>
                 <div className='col-sm-9'>
                 {text}

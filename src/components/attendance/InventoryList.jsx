@@ -1,12 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import * as _ from 'lodash'
-import LoadingIcon from '../../components/generic/LoadingIcon'
 import Paper from 'material-ui/Paper'
-var moment = require('moment')
+
+import LoadingIcon from '../../components/generic/LoadingIcon'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
 import AddDeviceDialoge from '../../components/inventory/AddDeviceDialoge'
+import AddDeviceStatus from '../../components/inventory/AddDeviceStatus'
+import AlertNotification from '../../components/generic/AlertNotification'
+
+import { connect } from 'react-redux'
 import { CONFIG } from '../../config/index'
+import {notify} from '../../services/index'
+
+var moment = require('moment')
 
 class InventoryList extends React.Component {
   constructor (props) {
@@ -15,12 +21,16 @@ class InventoryList extends React.Component {
     this.state = {
       edit: false,
       open: false,
+      openStatus: false,
       id: '',
       openSnackbar: false,
       user: '',
       search: '',
+      status_message: '',
       deviceTypeList: [],
-      device_status: ''
+      deviceStatusList: [],
+      device_status: '',
+      deviceList: []
     }
 
     this.openEditDevice = this.openEditDevice.bind(this)
@@ -28,11 +38,17 @@ class InventoryList extends React.Component {
     this.handleAssign = this.handleAssign.bind(this)
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleStatusOpen = this.handleStatusOpen.bind(this)
+    this.handleStatusClose = this.handleStatusClose.bind(this)
     this.callAddDevice = this.callAddDevice.bind(this)
+    this.callAddStatus = this.callAddStatus.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDeviceType().then((val) => {
       this.setState({deviceTypeList: val})
+    })
+    this.props.onFetchDeviceStatus().then((val) => {
+      this.setState({deviceStatusList: val})
     })
   }
   componentWillReceiveProps (props) {
@@ -56,7 +72,8 @@ class InventoryList extends React.Component {
         openSnackbar: false
       })
     }
-    this.setState({deviceTypeList: props.manageDevice.deviceList})
+    this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device})
+    this.setState({deviceStatusList: props.manageDevice.statusList})
   }
   openEditDevice (id) {
     this.props.openEditDevice(id)
@@ -65,19 +82,23 @@ class InventoryList extends React.Component {
   deleteDevices (id) {
     this.props.deleteDevices(id)
   }
-
-  handleOpen (e) {
-    e.stopPropagation()
-    this.setState({
-      open: true
+  callAddStatus (statusType) {
+    this.props.onCallDeviceStatus(statusType).then((message) => {
+      // this.setState({
+      //   status_message: message
+      // })
+      this.handleClose()
+      this.props.onFetchDeviceStatus()
+    }, (error) => {
+      notify(error)
     })
   }
 
   callAddDevice (deviceType) {
     this.props.onCallDeviceType(deviceType).then((message) => {
-      // this.setState({
-      //   status_message: message
-      // })
+      this.setState({
+        status_message: message
+      })
       this.handleClose()
       this.props.onFetchDeviceType()
     }, (error) => {
@@ -85,8 +106,26 @@ class InventoryList extends React.Component {
     })
   }
 
-  handleClose = () => {
-    this.setState({open: false})
+  handleStatusClose () {
+    this.setState({openStatus: false})
+  }
+  handleStatusOpen () {
+    console.log('----------------')
+    this.setState({
+      openStatus: true
+    })
+  }
+
+  handleOpen (e) {
+    e.stopPropagation()
+    this.setState({
+      open: true
+    })
+  }
+  handleClose () {
+    this.setState({
+      open: false
+    })
   };
 
   handleAssign (id, userId) {
@@ -95,16 +134,19 @@ class InventoryList extends React.Component {
   }
 
   render () {
+    console.log(this.state.deviceStatusList, '-----console-')
+    let statusDrop = this.state.deviceStatusList.map((val, i) => {
+      return (<option value={val} key={i}>{val}</option>)
+    })
+
     let listDrop = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
-    let devices = this.props.manageDevice.device
+    let devices = this.state.deviceList
     if (this.state.search !== '') {
-      devices = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
+      devices = _.filter(devices, row => row.machine_type === this.state.search)
     }
-    if (this.state.device_status !== '') {
-      devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.search)
-    }
+
     let rowColor
     let rows = []
     _.map(devices, (device, i) => {
@@ -182,7 +224,9 @@ class InventoryList extends React.Component {
                 <div className="col-md-3 p-r">
                   <div className="form-group">
                     <label style={{'fontSize': 15}}>Filter:</label>
-                      <select className="form-control" ref="device_status" value={this.state.search}
+                      <select className="form-control"
+                        ref="device_status"
+                        value={this.state.search}
                         onChange={(e) => {
                           this.setState({search: e.target.value})
                         }}>
@@ -194,25 +238,43 @@ class InventoryList extends React.Component {
                   <div className="col-md-3 p-r">
                     <div className="form-group">
                       <label style={{marginTop: '6%'}}> </label>
-                        <select className="form-control" ref="device_status" value={this.state.device_status}
+                        <select className="form-control" ref="device_status" value={this.state.search}
                           onChange={(e) => {
-                            this.setState({device_status: e.target.value})
+                            this.setState({search: e.target.value})
                           }}>
                           <option value="">--Select Device Status--</option>
-                          <option value="New">New</option>
-                          <option value="Working">Working</option>
-                          <option value="Not Working">Not Working</option>
+                          {statusDrop}
                         </select>
                       </div>
                     </div>
-                  <div className="col-md-6-offset-9 p-r" style={{'float': 'right', marginTop: '3%'}}>
-                    <AddDeviceDialoge callAddDevice={this.callAddDevice}
-                      handleClose={this.handleClose}
-                      handleOpen={this.handleOpen}
-                      open={this.state.open}
-                      deviceTypeList={this.state.deviceTypeList}
-                      {...this.props} />
-                  </div>
+
+                    <div className='row m-0'>
+                      <div className='buttonbox'>
+                      <div className='col-sm-2 p-0 pt-5'>
+                        <div className=" text-left" style={{marginTop: '25px'}}>
+                            <AddDeviceStatus
+                              callAddStatus={this.callAddStatus}
+                              handleStatusClose={this.handleStatusClose}
+                              handleStatusOpen={this.handleStatusOpen}
+                              open={this.state.openStatus}
+                              deviceStatusList={this.state.deviceStatusList}
+                              {...this.props} />
+                        </div>
+                      </div>
+                      <div className='col-sm-2 p-0 pt-5'>
+                        <div className="text-left" style={{marginTop: '25px'}}>
+                          <AddDeviceDialoge callAddDevice={this.callAddDevice}
+                            handleClose={this.handleClose}
+                            handleOpen={this.handleOpen}
+                            open={this.state.open}
+                            deviceTypeList={this.state.deviceTypeList}
+                            {...this.props} />
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+
+                </div>
                 </div>
                 <div className='row'>
                   <div className='col-xs-12'>
@@ -227,7 +289,7 @@ class InventoryList extends React.Component {
                               <th>Device Type</th>
                               <th>Name</th>
                               <th>Dates</th>
-                              <th>Mac Adress</th>
+                              <th>Mac Address</th>
                               <th>Price</th>
                               <th>Serial No</th>
                               <th>Status/Commments</th>
@@ -245,7 +307,7 @@ class InventoryList extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+
     )
   }
 }

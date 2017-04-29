@@ -3,7 +3,8 @@ import Immutable from 'immutable'
 let initialState = {
   'device': [],
   'status_message': '',
-  'deviceList': []
+  'deviceList': [],
+  'statusList': []
 }
 
 export function manageDevice (state = Immutable.fromJS(initialState), action) {
@@ -27,6 +28,8 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
     return state.set('status_message', action.payload)
   } else if (action.type == 'ACTION_SUCCESS_GET_DEVICE_TYPE_LIST') {
     return state.set('deviceList', action.payload)
+  } else if (action.type == 'ACTION_SUCCESS_GET_DEVICE_STATUS_LIST') {
+    return state.set('statusList', action.payload)
   } else {
     return state
   }

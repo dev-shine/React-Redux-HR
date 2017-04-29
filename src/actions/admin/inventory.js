@@ -379,13 +379,13 @@ export const ACTION_SUCCESS_DEVICE_TYPE = 'ACTION_SUCCESS_DEVICE_TYPE'
 export const ACTION_ERROR_DEVICE_TYPE = 'ACTION_ERROR_DEVICE_TYPE'
 
 export function success_deviceType (data) {
-  return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
+  return createAction(ACTION_SUCCESS_DEVICE_TYPE)(data)
 }
 
 // var json = JSON.stringify(eval('(' + deviceList + ')'))
 
 export function error_deviceType (data) {
-  return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
+  return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
 }
 
 function getAsync_assignDeviceType (deviceList) {
@@ -434,9 +434,81 @@ export function getDeviceType () {
       return getAsync_getDeviceType().then((res) => {
         dispatch(hide_loading())
         if (res.data) {
-          var a = JSON.parse(res.data.value)
-          resolve(a)
-          dispatch(success_getDeviceType(a))
+          var list = JSON.parse(res.data.value)
+          resolve(list)
+          dispatch(success_getDeviceType(list))
+        }
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+// Device Status---
+
+export const ACTION_SUCCESS_DEVICE_STATUS = 'ACTION_SUCCESS_DEVICE_STATUS'
+export const ACTION_ERROR_DEVICE_STATUS = 'ACTION_ERROR_DEVICE_STATUS'
+
+export function success_deviceStatus (data) {
+  return createAction(ACTION_SUCCESS_DEVICE_STATUS)(data)
+}
+
+// var json = JSON.stringify(eval('(' + deviceList + ')'))
+
+export function error_deviceStatus (data) {
+  return createAction(ACTION_ERROR_DEVICE_STATUS)(data)
+}
+
+function getAsync_assignDeviceStatus (statusList) {
+  var status = JSON.stringify(statusList)
+  return fireAjax('POST', '', {
+    'action': 'add_machine_status',
+    'type': 'machine_status',
+    'value': status
+  })
+}
+
+export function assignDeviceStatus (status) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_assignDeviceStatus(status).then((res) => {
+        dispatch(getDeviceStatus())
+        resolve(res.data.message)
+        dispatch(hide_loading())
+      }, (error) => {
+        dispatch(hide_loading())
+        dispatch(error_deviceType('error occurs!!!'))
+        reject('error occurs!!!')
+      })
+    })
+  }
+}
+
+export const ACTION_SUCCESS_GET_DEVICE_STATUS_LIST = 'ACTION_SUCCESS_GET_DEVICE_STATUS_LIST'
+
+export function success_getDeviceStatus (data) {
+  return createAction(ACTION_SUCCESS_GET_DEVICE_STATUS_LIST)(data)
+}
+
+function getAsync_getDeviceStatus () {
+  return fireAjax('POST', '', {
+    'action': 'get_machine_status_list'
+  })
+}
+
+export function getDeviceStatus () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_getDeviceStatus().then((res) => {
+        dispatch(hide_loading())
+        if (res.data) {
+          var b = JSON.parse(res.data.value)
+          resolve(b)
+          console.log(res.data.value, 'list status')
+          dispatch(success_getDeviceStatus(b))
         }
       }, (error) => {
         dispatch(hide_loading())

@@ -36,7 +36,8 @@ export default class FormAddNewInventory extends React.Component {
       warranty: '',
       user_Id: '',
       msg: '',
-      deviceTypeList: []
+      deviceTypeList: [],
+      deviceStatusList: []
     }
     this.handleOpen = this.handleOpen.bind(this)
     this.handleChangeDate = this.handleChangeDate.bind(this)
@@ -48,7 +49,8 @@ export default class FormAddNewInventory extends React.Component {
     this.setState({
       open: props.open,
       edit: props.edit,
-      deviceTypeList: props.manageDevice.deviceList
+      deviceTypeList: props.manageDevice.deviceList,
+      deviceStatusList: props.manageDevice.statusList
     })
     if (props.edit) {
       // console(props)
@@ -240,22 +242,7 @@ export default class FormAddNewInventory extends React.Component {
                     })}
                   </select>
                  </td>
-                 {
-                   this.state.machine_type == 'laptop' || this.state.machine_type == 'mobile' || this.state.machine_type == 'desktop'
-                   ? <td style={{opacity: '0.56'}}>
-                  Operating System
-                  <select className="form-control" ref="operating_system" value={this.state.operating_system}
-                    onChange={(evt) => { this.setState({operating_system: evt.target.value}) }}>
-                    <option >--select os--</option>
-                    <option value="linux">Linux </option>
-                    <option value="windows">Windows</option>
-                    <option value="ios">iOS</option>
-                    <option value="android">Android</option>
-                  </select>
-                </td>
-                : null
-              }
-              </tr>
+               </tr>
 
               <tr>
                 {
@@ -303,34 +290,34 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
                     onChange={(e) => (this.setState({status: e.target.value}))}>
                     <option >-Device Status-</option>
-                    <option value="New">New </option>
-                    <option value="Working">Working</option>
-                    <option value="Not Working">Not Working</option>
+                      {this.state.deviceStatusList.map((val, i) => {
+                        return <option key={i} value={val}> {val}</option>
+                      })}
                   </select>
                 </td>
 
-              <td colSpan={2}>
-                <TextField
-                  floatingLabelText="Working Comments"
-                  fullWidth
+              <td colSpan={2} style={{opacity: '0.56'}}>
+                {'Working Comments'}
+                <textarea
+                  style={{width: '100%'}}
                   onChange={(e) => (this.setState({comment: e.target.value}))}
                   value={this.state.comment} />
               </td>
             </tr>
 
-              <tr>
-              <td>
-                <TextField
-                  floatingLabelText="Extended Warranty Comments"
-                  fullWidth
+              <tr style={{opacity: '0.56'}}>
+              <td >
+                {'Extended Warranty Comments'}
+                <textarea
+                  style={{width: '100%'}}
                   onChange={(e) => { this.setState({warranty_comment: e.target.value}) }}
                   value={this.state.warranty_comment}
                 />
               </td>
               <td>
-              <TextField
-                floatingLabelText="Any Previous Repair Comments"
-                fullWidth
+                {'Previous Repair Comments'}
+              <textarea
+                style={{width: '100%'}}
                 onChange={(e) => { this.setState({repair_comment: e.target.value}) }}
                 value={this.state.repair_comment} />
             </td>

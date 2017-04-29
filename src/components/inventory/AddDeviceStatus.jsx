@@ -9,24 +9,23 @@ import 'react-date-picker/index.css'
 var moment = require('moment')
 import { CONFIG } from '../../config/index'
 
-export default class AddDeviceDialoge extends React.Component {
+export default class AddDeviceStatus extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      deviceType: '',
+      statusType: '',
       open: false,
-      deviceList: [],
+      statusList: [],
       checkValue: []
     }
 
-    this.addMoreDevice = this.addMoreDevice.bind(this)
-    this.addDeviceType = this.addDeviceType.bind(this)
+    this.addMoreStatus = this.addMoreStatus.bind(this)
+    this.addStatusType = this.addStatusType.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.setValue = this.setValue.bind(this)
   }
   componentWillReceiveProps (props) {
-    this.setState({deviceList: props.deviceTypeList, open: props.open})
-
+    this.setState({statusList: props.deviceStatusList, open: props.open})
     window.scrollTo(0, 0)
 
     if (props.logged_user.logged_in == -1) {
@@ -41,11 +40,11 @@ export default class AddDeviceDialoge extends React.Component {
   }
   handleDelete () {
     let checkValue = this.state.checkValue
-    let deviceList = this.state.deviceList
+    let statusList = this.state.statusList
     checkValue.map((val) => {
-      _.pull(deviceList, val)
+      _.pull(statusList, val)
     })
-    this.setState({deviceList, checkValue: []})
+    this.setState({statusList, checkValue: []})
   }
 
   setValue (e) {
@@ -54,32 +53,32 @@ export default class AddDeviceDialoge extends React.Component {
     this.setState({checkValue: array})
   }
 
-  addMoreDevice () {
-    if (!_.isEmpty(this.state.deviceType)) {
-      var deviceList = this.state.deviceList
-      deviceList.push(this.state.deviceType)
+  addMoreStatus () {
+    if (!_.isEmpty(this.state.statusType)) {
+      var statusList = this.state.statusList
+      statusList.push(this.state.statusType)
       this.setState({
-        deviceType: '',
-        deviceList: deviceList
+        statusType: '',
+        statusList: statusList
       })
     }
   }
-  addDeviceType () {
-    this.props.callAddDevice(this.state.deviceList)
+  addStatusType () {
+    this.props.callAddStatus(this.state.statusList)
   }
 
   render () {
     var text = <div>
           <TextField
             ref='value'
-            floatingLabelText={'Device Type'}
+            floatingLabelText={'Status Type'}
             fullWidth
             onChange={(e) => {
               this.setState({
-                deviceType: e.target.value
+                statusType: e.target.value
               })
             }}
-            value={this.state.deviceType}
+            value={this.state.statusType}
           />
       </div>
 
@@ -93,13 +92,13 @@ export default class AddDeviceDialoge extends React.Component {
       <FlatButton
         label="Cancel"
         primary
-        onTouchTap={this.props.handleClose}
+        onTouchTap={this.props.handleStatusClose}
         style={{marginRight: 5}}
     />,
       <RaisedButton
         label="Submit"
         primary
-        onTouchTap={this.addDeviceType}
+        onTouchTap={this.addStatusType}
     />
     ]
     return (
@@ -109,25 +108,25 @@ export default class AddDeviceDialoge extends React.Component {
           this.props.logged_user.role === CONFIG.HR
           ? <div></div>
           : <button className="md-btn md-raised m-b-sm indigo"
-            onTouchTap={this.props.handleOpen}>Add Device Type</button>
+            onTouchTap={this.props.handleStatusOpen}>Add Status Type</button>
 }
         <Dialog
-          title={'ADD DEVICE TYPE'}
+          title={'ADD STATUS TYPE'}
           titleStyle={{opacity: '0.56'}}
           actions={actions}
           modal={false}
-          open={this.state.open}
+          open={this.props.open}
           onRequestClose={this.props.handleClose}
                   ><div className="row m-0">
                   <div className='col-sm-3'>
                     <label>Device Type List</label>
                     <ol>
-                  {this.state.deviceList.map((val, i) => {
+                  {this.state.statusList.map((val, i) => {
                     return <li key={i}>
-                      <input type='checkbox' value={val} onChange={(e) => {
-                        this.setValue(e)
-                      }}>
-
+                      <input type='checkbox' value={val}
+                        onChange={(e) => {
+                          this.setValue(e)
+                        }}>
                       </input> {val}</li>
                   })}
                 </ol>
@@ -135,7 +134,7 @@ export default class AddDeviceDialoge extends React.Component {
                 <div className='col-sm-9' style={{marginTop: '5%'}}>
                 {text}
                 <button className="md-btn md-raised m-b-sm indigo " style={{float: 'right '}} onTouchTap={() => {
-                  this.addMoreDevice()
+                  this.addMoreStatus()
                 }}> Add </button>
               </div>
             </div>

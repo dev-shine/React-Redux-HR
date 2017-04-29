@@ -49,11 +49,13 @@ class InventorySystem extends React.Component {
     this.callAssign = this.callAssign.bind(this)
     this.openPage = this.openPage.bind(this)
     this.callFetchDeviceType = this.callFetchDeviceType.bind(this)
+    this.callFetchDeviceStatus = this.callFetchDeviceStatus.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDevice()
     this.props.onUsersList()
     this.props.onFetchDeviceType()
+    this.props.onFetchDeviceStatus()
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -111,6 +113,9 @@ class InventorySystem extends React.Component {
   }
   callFetchDeviceType () {
     this.onFetchDeviceType()
+  }
+  callFetchDeviceStatus () {
+    this.onFetchDeviceStatus()
   }
   openPage (toDisplay) {
     if (toDisplay === 'device_list') {
@@ -326,10 +331,15 @@ const mapDispatchToProps = (dispatch) => {
     onCallDeviceType: (deviceList) => {
       return dispatch(actions_manageDevice.assignDeviceType(deviceList))
     },
+    onCallDeviceStatus: (statusList) => {
+      return dispatch(actions_manageDevice.assignDeviceStatus(statusList))
+    },
     onFetchDeviceType: () => {
       return dispatch(actions_manageDevice.getDeviceType())
+    },
+    onFetchDeviceStatus: () => {
+      return dispatch(actions_manageDevice.getDeviceStatus())
     }
-
   }
 }
 

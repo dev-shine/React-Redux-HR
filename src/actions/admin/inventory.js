@@ -174,7 +174,7 @@ export function addNewMachine (new_machine_details) {
         n_bill_no,
         n_user_Id).then((json) => {
           dispatch(hide_loading())
-          console.log(json)
+
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message))
             resolve(json.message)
@@ -251,7 +251,6 @@ export function getDeviceById (id) {
       dispatch(show_loading())
       return getAsync_getDeviceById(id).then((res) => {
         dispatch(hide_loading())
-        console.log(res)
         if (res.data) {
           resolve(res.data)
           dispatch(success_getDevice(res.data))
@@ -507,7 +506,6 @@ export function getDeviceStatus () {
         if (res.data) {
           var b = JSON.parse(res.data.value)
           resolve(b)
-          console.log(res.data.value, 'list status')
           dispatch(success_getDeviceStatus(b))
         }
       }, (error) => {

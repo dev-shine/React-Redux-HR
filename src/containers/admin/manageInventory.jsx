@@ -286,7 +286,6 @@ class InventorySystem extends React.Component {
   }
 
 function mapStateToProps (state) {
-  // console.log(state)
   return {
     frontend: state.frontend.toJS(),
     usersList: state.usersList.toJS(),

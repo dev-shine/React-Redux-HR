@@ -30,7 +30,8 @@ class InventoryList extends React.Component {
       deviceTypeList: [],
       deviceStatusList: [],
       device_status: '',
-      deviceList: []
+      deviceList: [],
+      statusList: []
     }
 
     this.openEditDevice = this.openEditDevice.bind(this)
@@ -42,6 +43,8 @@ class InventoryList extends React.Component {
     this.handleStatusClose = this.handleStatusClose.bind(this)
     this.callAddDevice = this.callAddDevice.bind(this)
     this.callAddStatus = this.callAddStatus.bind(this)
+    this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this)
+    this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDeviceType().then((val) => {
@@ -73,7 +76,7 @@ class InventoryList extends React.Component {
       })
     }
     this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device})
-    this.setState({deviceStatusList: props.manageDevice.statusList})
+    this.setState({deviceStatusList: props.manageDevice.statusList, statusList: props.manageDevice.device})
   }
   openEditDevice (id) {
     this.props.openEditDevice(id)
@@ -87,7 +90,7 @@ class InventoryList extends React.Component {
       // this.setState({
       //   status_message: message
       // })
-      this.handleClose()
+      this.handleStatusClose()
       this.props.onFetchDeviceStatus()
     }, (error) => {
       notify(error)
@@ -110,7 +113,6 @@ class InventoryList extends React.Component {
     this.setState({openStatus: false})
   }
   handleStatusOpen () {
-    console.log('----------------')
     this.setState({
       openStatus: true
     })
@@ -133,19 +135,54 @@ class InventoryList extends React.Component {
     this.props.callAssign(id, userId)
   }
 
+  handleDeviceTypeFilter (deviceType) {
+    let devices = this.props.manageDevice.device
+    if (this.state.device_status != '') {
+      devices = this.state.deviceList
+    }
+    if (deviceType != '') {
+      devices = _.filter(devices, row => row.machine_type === deviceType)
+    } else {
+      if (this.state.device_status != '') {
+        devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.device_status)
+      }
+    }
+    this.setState({
+      deviceList: devices,
+      search: deviceType
+
+    })
+  }
+  handleStatusTypeFilter (statusType) {
+    let status = this.props.manageDevice.device
+    if (this.state.search != '') {
+      status = this.state.deviceList
+    }
+    if (statusType != '') {
+      status = _.filter(status, row => row.status === statusType)
+    } else {
+      if (this.state.search != '') {
+        status = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
+      }
+    }
+    this.setState({
+      deviceList: status,
+      device_status: statusType
+
+    })
+  }
+
   render () {
-    console.log(this.state.deviceStatusList, '-----console-')
     let statusDrop = this.state.deviceStatusList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
-
     let listDrop = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
     let devices = this.state.deviceList
-    if (this.state.search !== '') {
-      devices = _.filter(devices, row => row.machine_type === this.state.search)
-    }
+    // if (this.state.search !== '') {
+    //   devices = _.filter(devices, row => row.machine_type === this.state.search)
+    // }
 
     let rowColor
     let rows = []
@@ -225,10 +262,10 @@ class InventoryList extends React.Component {
                   <div className="form-group">
                     <label style={{'fontSize': 15}}>Filter:</label>
                       <select className="form-control"
-                        ref="device_status"
+                        ref="device_type"
                         value={this.state.search}
                         onChange={(e) => {
-                          this.setState({search: e.target.value})
+                          this.handleDeviceTypeFilter(e.target.value)
                         }}>
                         <option value="">--Select Device Type--</option>
                         {listDrop}
@@ -238,9 +275,10 @@ class InventoryList extends React.Component {
                   <div className="col-md-3 p-r">
                     <div className="form-group">
                       <label style={{marginTop: '6%'}}> </label>
-                        <select className="form-control" ref="device_status" value={this.state.search}
+                        <select className="form-control" ref="device_status"
+                          value={this.state.device_status}
                           onChange={(e) => {
-                            this.setState({search: e.target.value})
+                            this.handleStatusTypeFilter(e.target.value)
                           }}>
                           <option value="">--Select Device Status--</option>
                           {statusDrop}

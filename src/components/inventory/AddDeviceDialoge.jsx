@@ -53,17 +53,22 @@ export default class AddDeviceDialoge extends React.Component {
     array.push(e.target.value)
     this.setState({checkValue: array})
   }
-
   addMoreDevice () {
     if (!_.isEmpty(this.state.deviceType)) {
       var deviceList = this.state.deviceList
-      deviceList.push(this.state.deviceType)
-      this.setState({
-        deviceType: '',
-        deviceList: deviceList
-      })
+      let arr = _.filter(deviceList, device => device === this.state.deviceType)
+      if (arr.length > 0) {
+        return
+      } else {
+        deviceList.push(this.state.deviceType)
+        this.setState({
+          deviceType: '',
+          deviceList: deviceList
+        })
+      }
     }
   }
+
   addDeviceType () {
     this.props.callAddDevice(this.state.deviceList)
   }
@@ -87,7 +92,13 @@ export default class AddDeviceDialoge extends React.Component {
       <FlatButton
         label="Delete"
         secondary
-        onTouchTap={this.handleDelete}
+        onTouchTap={() => {
+          if (this.state.checkValue != '') {
+            if (confirm('Are you sure you want to delete this Device Type ?')) {
+              this.handleDelete()
+            };
+          }
+        }}
         style={{marginRight: 5}}
     />,
       <FlatButton

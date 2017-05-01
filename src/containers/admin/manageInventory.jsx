@@ -221,7 +221,7 @@ class InventorySystem extends React.Component {
                 <div className="row">
                   <div className="col-sm-6 pull-sm-6">
                     <div className="p-y-md clearfix nav-active-primary">
-                      <ul className="nav nav-pills nav-sm">
+                      <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
                         <li
                           onClick={() => { this.openPage('device_list') }}
                           className={`nav-item ${this.state.active}`}>

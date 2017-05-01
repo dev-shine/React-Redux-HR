@@ -237,7 +237,7 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control" ref="machine_type" value={this.state.machine_type}
                     onChange={(evt) => { this.setState({machine_type: evt.target.value}) }}>
                     <option >--select device--</option>
-                    {this.state.deviceTypeList.map((val, i) => {
+                    {this.state.deviceTypeList.reverse().map((val, i) => {
                       return <option key={i} value={val}> {val}</option>
                     })}
                   </select>

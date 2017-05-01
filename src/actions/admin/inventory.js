@@ -104,7 +104,7 @@ export function addNewMachine (new_machine_details) {
       new_machine_details.machine_type == 'laptop' || new_machine_details.machine_type == 'mobile' || new_machine_details.machine_type == 'desktop') {
       n_mac_address = new_machine_details.mac_address
     } else {
-      if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.status == '') {
+      if (typeof new_machine_details.mac_address === 'undefined') {
         return Promise.reject('Mac Address is empty')
       } else {
         n_mac_address = new_machine_details.mac_address

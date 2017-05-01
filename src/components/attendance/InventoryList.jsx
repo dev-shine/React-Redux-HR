@@ -162,7 +162,8 @@ class InventoryList extends React.Component {
       status = _.filter(status, row => row.status === statusType)
     } else {
       if (this.state.search != '') {
-        status = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
+        status = _.filter(this.props.manageDevice.device,
+          row => row.machine_type === this.state.search)
       }
     }
     this.setState({
@@ -173,10 +174,10 @@ class InventoryList extends React.Component {
   }
 
   render () {
-    let statusDrop = this.state.deviceStatusList.map((val, i) => {
+    let statusDrop = this.state.deviceStatusList.reverse().map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
-    let listDrop = this.state.deviceTypeList.map((val, i) => {
+    let listDrop = this.state.deviceTypeList.reverse().map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
     let devices = this.state.deviceList
@@ -244,7 +245,9 @@ class InventoryList extends React.Component {
 
             <td style={{marginTop: '5%'}} ><i
               onClick={() => {
-                this.deleteDevices(device.id)
+                if (confirm('Are you sure you want to delete this record?')) {
+                  this.deleteDevices(device.id)
+                };
               }}
               className="fa fa-lg fa fa-trash"
               style={{color: '#B71C1C', cursor: 'pointer'}}
@@ -258,8 +261,8 @@ class InventoryList extends React.Component {
           <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
             <div className="row">
               <div className="row no-gutter">
-                <div className="col-md-3 p-r">
-                  <div className="form-group">
+                <div className="col-md-3 p-r" >
+                  <div className="form-group" style={{marginLeft: '4%'}}>
                     <label style={{'fontSize': 15}}>Filter:</label>
                       <select className="form-control"
                         ref="device_type"
@@ -288,8 +291,8 @@ class InventoryList extends React.Component {
 
                     <div className='row m-0'>
                       <div className='buttonbox'>
-                      <div className='col-sm-2 p-0 pt-5'>
-                        <div className=" text-left" style={{marginTop: '25px'}}>
+                      <div className='col-sm-2 p-0 pt-5' style={{marginLeft: '16%', paddingLeft: '8%'}}>
+                        <div className=" text-left" style={{marginTop: '26px'}}>
                             <AddDeviceStatus
                               callAddStatus={this.callAddStatus}
                               handleStatusClose={this.handleStatusClose}
@@ -300,7 +303,7 @@ class InventoryList extends React.Component {
                         </div>
                       </div>
                       <div className='col-sm-2 p-0 pt-5'>
-                        <div className="text-left" style={{marginTop: '25px'}}>
+                        <div className="text-left" style={{marginTop: '26px', paddingLeft: '43px'}}>
                           <AddDeviceDialoge callAddDevice={this.callAddDevice}
                             handleClose={this.handleClose}
                             handleOpen={this.handleOpen}

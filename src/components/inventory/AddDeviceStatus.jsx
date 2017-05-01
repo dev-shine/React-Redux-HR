@@ -48,19 +48,32 @@ export default class AddDeviceStatus extends React.Component {
   }
 
   setValue (e) {
-    let array = this.state.checkValue
-    array.push(e.target.value)
-    this.setState({checkValue: array})
+    if (e.target.checked) {
+      let array = this.state.checkValue
+      array.push(e.target.value)
+      this.setState({checkValue: array})
+    } else if (!e.target.checked) {
+      let array = this.state.checkValue
+      _.pull(array, e.target.value)
+      this.setState({
+        checkValue: array
+      })
+    }
   }
 
   addMoreStatus () {
     if (!_.isEmpty(this.state.statusType)) {
       var statusList = this.state.statusList
-      statusList.push(this.state.statusType)
-      this.setState({
-        statusType: '',
-        statusList: statusList
-      })
+      let arr = _.filter(statusList, status => status === this.state.statusType)
+      if (arr.length > 0) {
+        return
+      } else {
+        statusList.push(this.state.statusType)
+        this.setState({
+          statusType: '',
+          statusList: statusList
+        })
+      }
     }
   }
   addStatusType () {
@@ -86,7 +99,13 @@ export default class AddDeviceStatus extends React.Component {
       <FlatButton
         label="Delete"
         secondary
-        onTouchTap={this.handleDelete}
+        onTouchTap={() => {
+          if (this.state.checkValue != '') {
+            if (confirm('Are you sure you want to delete this Device Status ?')) {
+              this.handleDelete()
+            };
+          }
+        }}
         style={{marginRight: 5}}
     />,
       <FlatButton

@@ -44,8 +44,21 @@ export default class AddDeviceStatus extends React.Component {
     checkValue.map((val) => {
       _.pull(statusList, val)
     })
-    this.setState({statusList, checkValue: []})
+    this.props.onCallDeviceStatus(statusList).then((val) => {
+      if (val.data.not_delete) {
+        this.setState({statusList: this.state.statusList, checkValue: []})
+        alert('Device Status in Use')
+      } else {
+        this.setState({statusList, checkValue: []})
+      }
+    })
   }
+  handleClose () {
+    this.setState({
+      open: false,
+      statusType: ''
+    })
+  };
 
   setValue (e) {
     if (e.target.checked) {
@@ -64,11 +77,14 @@ export default class AddDeviceStatus extends React.Component {
   addMoreStatus () {
     if (!_.isEmpty(this.state.statusType)) {
       var statusList = this.state.statusList
-      let arr = _.filter(statusList, status => status === this.state.statusType)
+      let arr = _.filter(statusList, status => status === this.state.statusType.toLowerCase())
       if (arr.length > 0) {
-        return
+        alert('This Device Status Already In Use')
+        this.setState({
+          statusType: ''
+        })
       } else {
-        statusList.push(this.state.statusType)
+        statusList.push(this.state.statusType.toLowerCase())
         this.setState({
           statusType: '',
           statusList: statusList
@@ -135,7 +151,7 @@ export default class AddDeviceStatus extends React.Component {
           actions={actions}
           modal={false}
           open={this.props.open}
-          onRequestClose={this.props.handleClose}
+          onRequestClose={this.props.handleStatusClose}
                   ><div className="row m-0">
                   <div className='col-sm-3'>
                     <label>Device Type List</label>

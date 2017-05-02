@@ -322,7 +322,6 @@ export default class FormAddNewInventory extends React.Component {
                 value={this.state.repair_comment} />
             </td>
             </tr>
-
             </tbody>
           </table>
           <button

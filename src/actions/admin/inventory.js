@@ -381,8 +381,6 @@ export function success_deviceType (data) {
   return createAction(ACTION_SUCCESS_DEVICE_TYPE)(data)
 }
 
-// var json = JSON.stringify(eval('(' + deviceList + ')'))
-
 export function error_deviceType (data) {
   return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
 }
@@ -403,7 +401,7 @@ export function assignDeviceType (ab) {
       dispatch(show_loading())
       return getAsync_assignDeviceType(ab).then((res) => {
         dispatch(getDeviceType())
-        resolve(res.message)
+        resolve(res)
         dispatch(hide_loading())
       }, (error) => {
         dispatch(hide_loading())
@@ -414,6 +412,7 @@ export function assignDeviceType (ab) {
   }
 }
 
+// Device Type List
 export const ACTION_SUCCESS_GET_DEVICE_TYPE_LIST = 'ACTION_SUCCESS_GET_DEVICE_TYPE_LIST'
 
 export function success_getDeviceType (data) {
@@ -453,8 +452,6 @@ export function success_deviceStatus (data) {
   return createAction(ACTION_SUCCESS_DEVICE_STATUS)(data)
 }
 
-// var json = JSON.stringify(eval('(' + deviceList + ')'))
-
 export function error_deviceStatus (data) {
   return createAction(ACTION_ERROR_DEVICE_STATUS)(data)
 }
@@ -474,7 +471,7 @@ export function assignDeviceStatus (status) {
       dispatch(show_loading())
       return getAsync_assignDeviceStatus(status).then((res) => {
         dispatch(getDeviceStatus())
-        resolve(res.data.message)
+        resolve(res)
         dispatch(hide_loading())
       }, (error) => {
         dispatch(hide_loading())

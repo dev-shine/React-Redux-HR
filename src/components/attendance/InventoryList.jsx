@@ -87,9 +87,9 @@ class InventoryList extends React.Component {
   }
   callAddStatus (statusType) {
     this.props.onCallDeviceStatus(statusType).then((message) => {
-      // this.setState({
-      //   status_message: message
-      // })
+      this.setState({
+        status_message: message
+      })
       this.handleStatusClose()
       this.props.onFetchDeviceStatus()
     }, (error) => {
@@ -127,6 +127,7 @@ class InventoryList extends React.Component {
   handleClose () {
     this.setState({
       open: false
+
     })
   };
 
@@ -181,18 +182,14 @@ class InventoryList extends React.Component {
       return (<option value={val} key={i}>{val}</option>)
     })
     let devices = this.state.deviceList
-    // if (this.state.search !== '') {
-    //   devices = _.filter(devices, row => row.machine_type === this.state.search)
-    // }
-
     let rowColor
     let rows = []
     _.map(devices, (device, i) => {
-      if (device.status === 'New') {
+      if (device.status === 'new') {
         rowColor = '#bbdefb'
-      } else if (device.status === 'Not Working') {
+      } else if (device.status === 'not working') {
         rowColor = '#FF7043'
-      } else if (device.status === 'Working') {
+      } else if (device.status === 'working') {
         rowColor = '#69f0ae'
       } else {
         rowColor = 'none'

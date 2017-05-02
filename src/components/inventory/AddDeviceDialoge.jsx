@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField'
 import {notify} from '../../services/index'
 import 'react-date-picker/index.css'
 var moment = require('moment')
+import AlertNotification from '../../components/generic/AlertNotification'
 import { CONFIG } from '../../config/index'
 
 export default class AddDeviceDialoge extends React.Component {
@@ -45,22 +46,41 @@ export default class AddDeviceDialoge extends React.Component {
     checkValue.map((val) => {
       _.pull(deviceList, val)
     })
-    this.setState({deviceList, checkValue: []})
+    this.props.onCallDeviceType(deviceList).then((val) => {
+      if (val.data.not_delete) {
+        this.setState({deviceList: this.state.deviceList, checkValue: []})
+        alert('This Device Type Is In Use')
+      } else {
+        this.setState({deviceList, deviceType: '', checkValue: []})
+      }
+    })
   }
 
   setValue (e) {
-    let array = this.state.checkValue
-    array.push(e.target.value)
-    this.setState({checkValue: array})
+    if (e.target.checked) {
+      let array = this.state.checkValue
+      array.push(e.target.value)
+      this.setState({checkValue: array})
+    } else if (!e.target.checked) {
+      let array = this.state.checkValue
+      _.pull(array, e.target.value)
+      this.setState({
+        checkValue: array
+      })
+    }
   }
+
   addMoreDevice () {
     if (!_.isEmpty(this.state.deviceType)) {
       var deviceList = this.state.deviceList
-      let arr = _.filter(deviceList, device => device === this.state.deviceType)
+      let arr = _.filter(deviceList, device => device === this.state.deviceType.toLowerCase())
       if (arr.length > 0) {
-        return
+        alert('This Device Type Already In Use')
+        this.setState({
+          deviceType: ''
+        })
       } else {
-        deviceList.push(this.state.deviceType)
+        deviceList.push(this.state.deviceType.toLowerCase())
         this.setState({
           deviceType: '',
           deviceList: deviceList
@@ -79,13 +99,13 @@ export default class AddDeviceDialoge extends React.Component {
             ref='value'
             floatingLabelText={'Device Type'}
             fullWidth
+            value={this.state.deviceType}
             onChange={(e) => {
               this.setState({
                 deviceType: e.target.value
               })
             }}
-            value={this.state.deviceType}
-          />
+            />
       </div>
 
     const actions = [
@@ -145,9 +165,11 @@ export default class AddDeviceDialoge extends React.Component {
                 </div>
                 <div className='col-sm-9' style={{marginTop: '5%'}}>
                 {text}
-                <button className="md-btn md-raised m-b-sm indigo " style={{float: 'right '}} onTouchTap={() => {
-                  this.addMoreDevice()
-                }}> Add </button>
+                <button className="md-btn md-raised m-b-sm indigo "
+                  style={{float: 'right '}}
+                  onTouchTap={() => {
+                    this.addMoreDevice()
+                  }}> Add </button>
               </div>
             </div>
           </Dialog>

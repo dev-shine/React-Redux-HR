@@ -95,8 +95,7 @@ config.globals = {
 const pkg = require('../package.json')
 
 config.compiler_vendor = config.compiler_vendor.filter((dep) => {
-  if (pkg.dependencies[dep])
-    return true
+  if (pkg.dependencies[dep]) { return true }
 
   debug(`Package "${dep}" was not found as an npm dependency in package.json; ` + `it wont be included in the webpack vendor bundle.
        Consider removing it from vendor_dependencies in ~/config/index.js`)

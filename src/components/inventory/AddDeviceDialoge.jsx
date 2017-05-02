@@ -27,18 +27,6 @@ export default class AddDeviceDialoge extends React.Component {
   }
   componentWillReceiveProps (props) {
     this.setState({deviceList: props.deviceTypeList, open: props.open})
-
-    window.scrollTo(0, 0)
-
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout')
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
-
-      } else {
-        this.props.router.push('/home')
-      }
-    }
   }
   handleDelete () {
     let checkValue = this.state.checkValue
@@ -136,12 +124,9 @@ export default class AddDeviceDialoge extends React.Component {
     return (
       <div>
 
-        {
-          this.props.logged_user.role === CONFIG.HR
-          ? <div></div>
-          : <button className="md-btn md-raised m-b-sm indigo"
-            onTouchTap={this.props.handleOpen}>Add Device Type</button>
-}
+         <button className="md-btn md-raised m-b-sm indigo"
+           onTouchTap={this.props.handleOpen}>Add Device Type</button>
+
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}

@@ -148,6 +148,9 @@ class InventoryList extends React.Component {
         devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.device_status)
       }
     }
+    if (this.state.device_status != '' && deviceType != '') {
+      devices = _.filter(this.props.manageDevice.device, row => (row.machine_type === deviceType && row.status === this.state.device_status))
+    }
     this.setState({
       deviceList: devices,
       search: deviceType
@@ -163,9 +166,11 @@ class InventoryList extends React.Component {
       status = _.filter(status, row => row.status === statusType)
     } else {
       if (this.state.search != '') {
-        status = _.filter(this.props.manageDevice.device,
-          row => row.machine_type === this.state.search)
+        status = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
       }
+    }
+    if (statusType != '' && this.state.search != '') {
+      status = _.filter(this.props.manageDevice.device, row => (row.machine_type === this.state.search && row.status === statusType))
     }
     this.setState({
       deviceList: status,

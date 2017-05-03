@@ -208,7 +208,7 @@ class InventoryList extends React.Component {
               {moment(device.date_of_purchase).format('Do MMMM YYYY')}
               <br /> <br />
               {<label>Warranty Expire : </label>}
-              {moment(device.warranty).format('Do MMMM YYYY')}
+              {moment(device.warranty_end_date).format('Do MMMM YYYY')}
             </td>
             {
              device.machine_type === 'Keyboard' || device.machine_type === 'Mouse' ? <td></td>

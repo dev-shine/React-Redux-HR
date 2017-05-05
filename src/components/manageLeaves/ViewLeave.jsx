@@ -94,7 +94,7 @@ class ViewLeave extends React.Component {
         <div className="sl-item b-info" key={k}>
           <div className="sl-content">
             <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
-              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}
+              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}
               </div>
               <div>
             {d.status} - {d.reason}
@@ -165,7 +165,7 @@ class ViewLeave extends React.Component {
           </div>
         </div>
         <div className="col-sm-8">
-            <div>Status - <i><b>{this.props.listLeaves.selectedLeave.status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </i></div>
+            <div>Status - <i><b>{this.props.listLeaves.selectedLeave.status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </i></div>
             <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
@@ -199,13 +199,18 @@ class ViewLeave extends React.Component {
               </div> : null
             }
             {
-              this.props.listLeaves.selectedLeave.hr_approved === '0'
+              this.props.listLeaves.selectedLeave.hr_approved === '0' && this.props.listLeaves.selectedLeave.hr_comment != ''
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
                 <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleSave('1') }}>HR Approval</button>
               </div>
-               : <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
-                    <label style={{fontWeight: '500'}}>Approved By HR</label>
-                  </div>
+               : null
+            }
+            {
+                this.props.listLeaves.selectedLeave.hr_approved != '0'
+              ? <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
+                   <label style={{fontWeight: '500'}}>Approved By HR</label>
+                 </div>
+                 : null
             }
             {
               this.props.listLeaves.selectedLeave.doc_link === ''

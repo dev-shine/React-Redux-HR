@@ -15,7 +15,7 @@ let initialState = {
 }
 
 export function monthlyAttendance (state = Immutable.fromJS(initialState), action) {
-  if (action.type == 'ACTION_SUCCESS_USER_ATTENDANCE') {
+  if (action.type === 'ACTION_SUCCESS_USER_ATTENDANCE') {
     return state.set('userName', action.payload.userName)
         .set('userProfileImage', action.payload.userProfileImage)
         .set('userjobtitle', action.payload.userjobtitle)
@@ -27,9 +27,9 @@ export function monthlyAttendance (state = Immutable.fromJS(initialState), actio
         .set('nextMonth', action.payload.nextMonth)
         .set('previousMonth', action.payload.previousMonth)
         .set('attendance', action.payload.attendance)
-  } else if (action.type == 'ACTION_EMPTY_USER_ATTENDANCE') {
+  } else if (action.type === 'ACTION_EMPTY_USER_ATTENDANCE') {
     return state
-  } else if (action.type == 'ACTION_ERROR_USER_ATTENDANCE') {
+  } else if (action.type === 'ACTION_ERROR_USER_ATTENDANCE') {
     return state
   } else {
     return state

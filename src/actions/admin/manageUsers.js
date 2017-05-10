@@ -1,35 +1,22 @@
-import {
-  createAction
-} from 'redux-actions'
-import {
-  CONFIG
-} from '../../config/index'
+import {createAction} from 'redux-actions'
 import * as _ from 'lodash'
-import {
-  fireAjax
-} from '../../services/index'
-import {
-  show_loading,
-  hide_loading
-} from '../generic/frontend'
+import {fireAjax} from '../../services/index'
+import {show_loading, hide_loading} from '../generic/frontend'
 var moment = require('moment')
-
-export const ACTION_SUCCESS_USER_PROFILE = 'ACTION_SUCCESS_USER_PROFILE'
-export const ACTION_EMPTY_USER_PROFILE = 'ACTION_EMPTY_USER_PROFILE'
-export const ACTION_ERROR_USER_PROFILE = 'ACTION_ERROR_USER_PROFILE'
+import * as constants from '../constants'
 
 export function success_user_profile (data, username) {
   return {
-    type: 'ACTION_SUCCESS_USER_PROFILE',
+    type: constants.ACTION_SUCCESS_USER_PROFILE,
     payload: data,
     username: username
   }
 }
 export function empty_user_profile (data) {
-  return createAction(ACTION_EMPTY_USER_PROFILE)(data)
+  return createAction(constants.ACTION_EMPTY_USER_PROFILE)(data)
 }
-export function error_user_profile (ACTION_ERROR_USER_PROFILE) {
-  return createAction(ACTION_ERROR_USER_PROFILE)(data)
+export function error_user_profile (data) {
+  return createAction(constants.ACTION_ERROR_USER_PROFILE)(data)
 }
 
 function async_getUserProfileDetails (userid) {
@@ -59,14 +46,12 @@ export function getUserProfileDetails (userid, username) {
 }
 
 // -------update profile details
-export const ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS = 'ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS'
-export const ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS = 'ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS'
 
 export function success_update_user_profile_details (data) {
-  return createAction(ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS)(data)
+  return createAction(constants.ACTION_SUCCESS_UPDATE_USER_PROFILE_DETAILS)(data)
 }
 export function error_update_user_profile_details (data) {
-  return createAction(ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
+  return createAction(constants.ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data)
 }
 
 function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
@@ -263,15 +248,13 @@ export function updateUserProfileDetails (new_profile_details) {
 }
 
 // -------add New employee
-export const ACTION_SUCCESS_ADD_NEW_EMPLOYEE = 'ACTION_SUCCESS_ADD_NEW_EMPLOYEE'
-export const ACTION_ERROR_ADD_NEW_EMPLOYEE = 'ACTION_ERROR_ADD_NEW_EMPLOYEE'
 
 export function success_add_new_employee (data) {
-  return createAction(ACTION_SUCCESS_ADD_NEW_EMPLOYEE)(data)
+  return createAction(constants.ACTION_SUCCESS_ADD_NEW_EMPLOYEE)(data)
 }
 
 export function error_add_new_employee (data) {
-  return createAction(ACTION_ERROR_ADD_NEW_EMPLOYEE)(data)
+  return createAction(constants.ACTION_ERROR_ADD_NEW_EMPLOYEE)(data)
 }
 
 function async_addNewEmployee (n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail) {
@@ -375,10 +358,10 @@ export function addNewEmployee (new_employee_details) {
 // ---------get user document
 
 export function success_user_document (data) {
-  return createAction('ACTION_SUCCESS_USER_DOCUMENT')(data)
+  return createAction(constants.ACTION_SUCCESS_USER_DOCUMENT)(data)
 }
 export function error_user_document (data) {
-  return createAction('ACTION_ERROR_USER_DOCUMENT')(data)
+  return createAction(constants.ACTION_ERROR_USER_DOCUMENT)(data)
 }
 
 function async_getUserDocument (userid) {

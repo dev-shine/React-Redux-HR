@@ -67,7 +67,7 @@ export default class FormAddNewInventory extends React.Component {
         comment: props.getByIdData.comments,
         warranty_comment: props.getByIdData.warranty_comment,
         repair_comment: props.getByIdData.repair_comment,
-        bill_no: props.getByIdData.bill_no,
+        bill_no: props.getByIdData.bill_number,
         warranty: props.getByIdData.warranty_end_date,
         user_Id: props.getByIdData.user_Id
       })
@@ -88,7 +88,6 @@ export default class FormAddNewInventory extends React.Component {
         bill_no: '',
         warranty: '',
         user_Id: ''
-
       })
     }
   }
@@ -111,7 +110,7 @@ export default class FormAddNewInventory extends React.Component {
       comment: this.state.comment,
       warranty_comment: this.state.warranty_comment,
       repair_comment: this.state.repair_comment,
-      bill_no: this.state.bill_no,
+      bill_number: this.state.bill_no,
       warranty: this.state.warranty,
       user_Id: this.state.user_Id
     }
@@ -183,11 +182,12 @@ export default class FormAddNewInventory extends React.Component {
           <table className="table">
             <tbody>
               <tr>
-            <td>
+           <td>
+              Date Of Purchase
               <DateField
-                style={{marginTop: '8%'}}
+                style={{marginTop: '4%'}}
                 dateFormat="YYYY-MM-DD"
-                placeholder="Date Of Purchase"
+                placeholder="YYYY-MM-DD"
                 onChange={(date) => { this.setState({purchase_date: date}) }}
                 value={this.state.purchase_date}
                 className="form-control"
@@ -211,10 +211,11 @@ export default class FormAddNewInventory extends React.Component {
               </td>
               </tr>
               <tr>
-                <td>
-                  <DateField style={{marginTop: '8%'}}
+                 <td>
+                  Date Of Warrenty Expiry
+                  <DateField style={{marginTop: '4%'}}
                     dateFormat="YYYY-MM-DD"
-                    placeholder="Date of Warranty Expiry "
+                    placeholder="YYYY-MM-DD"
                     onChange={(date) => { this.setState({warranty: date}) }}
                     value={this.state.warranty}
                     className="form-control"
@@ -246,7 +247,7 @@ export default class FormAddNewInventory extends React.Component {
 
               <tr>
                 {
-                this.state.machine_type == 'laptop' || this.state.machine_type == 'mobile' || this.state.machine_type == 'desktop' || this.state.machine_type == 'Router'
+                this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop' || this.state.machine_type == 'Router'
                   ? <td>
                   <TextField
                     floatingLabelText="Mac Address"

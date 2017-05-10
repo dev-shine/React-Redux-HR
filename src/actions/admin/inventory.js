@@ -4,17 +4,15 @@ import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 import {show_loading, hide_loading} from '../generic/frontend'
 var moment = require('moment')
-
+import * as constants from '../constants'
 // -------add New machine
-export const ACTION_SUCCESS_ADD_NEW_MACHINE = 'ACTION_SUCCESS_ADD_NEW_MACHINE'
-export const ACTION_ERROR_ADD_NEW_MACHINE = 'ACTION_ERROR_ADD_NEW_MACHINE'
 
 export function success_add_new_machine (data) {
-  return createAction(ACTION_SUCCESS_ADD_NEW_MACHINE)(data)
+  return createAction(constants.ACTION_SUCCESS_ADD_NEW_MACHINE)(data)
 }
 
 export function error_add_new_machine (data) {
-  return createAction(ACTION_ERROR_ADD_NEW_MACHINE)(data)
+  return createAction(constants.ACTION_ERROR_ADD_NEW_MACHINE)(data)
 }
 
 function async_addNewMachine (
@@ -192,20 +190,17 @@ export function addNewMachine (new_machine_details) {
 }
 
 // Get Devicelist
-export const ACTION_SUCCESS_DEVICE_LIST = 'ACTION_SUCCESS_DEVICE_LIST'
-export const ACTION_EMPTY_DEVICE_LIST = 'ACTION_EMPTY_DEVICE_LIST'
-export const ACTION_ERROR_DEVICE_LIST = 'ACTION_ERROR_DEVICE_LIST'
 
 export function success_device_list (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_LIST)(data)
 }
 
 export function empty_device_list (data) {
-  return createAction(ACTION_EMPTY_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_EMPTY_DEVICE_LIST)(data)
 }
 
 export function error_device_list (data) {
-  return createAction(ACTION_ERROR_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_LIST)(data)
 }
 
 function async_get_AllDevice () {
@@ -232,10 +227,8 @@ export function get_machines_detail () {
   }
 }
 
-export const ACTION_SUCCESS_GET_DEVICELIST = 'ACTION_SUCCESS_GET_DEVICELIST'
-
 export function success_getDevice (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICELIST)(data)
 }
 
 function getAsync_getDeviceById (id) {
@@ -263,10 +256,8 @@ export function getDeviceById (id) {
   }
 }
 
-export const ACTION_SUCCESS_UPDATE_DEVICELIST = 'ACTION_SUCCESS_UPDATE_DEVICELIST'
-
 export function success_updateDevice (data) {
-  return createAction(ACTION_SUCCESS_UPDATE_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_UPDATE_DEVICELIST)(data)
 }
 
 function getAsync_updateDeviceById (deviceId, data) {
@@ -308,10 +299,8 @@ export function updateDevice (id, data) {
   }
 }
 
-export const ACTION_SUCCESS_DELETE_DEVICELIST = 'ACTION_SUCCESS_DELETE_DEVICELIST'
-
 export function success_deleteDevice (data) {
-  return createAction(ACTION_SUCCESS_DELETE_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_DELETE_DEVICELIST)(data)
 }
 
 function getAsync_deleteDeviceById (deviceId) {
@@ -339,15 +328,12 @@ export function deleteDevice (id) {
   }
 }
 
-export const ACTION_SUCCESS_ASSIGN_DEVICE = 'ACTION_SUCCESS_ASSIGN_DEVICE'
-export const ACTION_ERROR_ASSIGN_DEVICE = 'ACTION_ERROR_ASSIGN_DEVICE'
-
 export function success_assignDevice (data) {
-  return createAction(ACTION_SUCCESS_ASSIGN_DEVICE)(data)
+  return createAction(constants.ACTION_SUCCESS_ASSIGN_DEVICE)(data)
 }
 
 export function error_assignDevice (data) {
-  return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
+  return createAction(constants.ACTION_ERROR_ASSIGN_DEVICE)(data)
 }
 
 function getAsync_assignDeviceToUser (deviceId, user_Id) {
@@ -374,15 +360,12 @@ export function assignDevice (deviceId, id) {
   }
 }
 
-export const ACTION_SUCCESS_DEVICE_TYPE = 'ACTION_SUCCESS_DEVICE_TYPE'
-export const ACTION_ERROR_DEVICE_TYPE = 'ACTION_ERROR_DEVICE_TYPE'
-
 export function success_deviceType (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_TYPE)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_TYPE)(data)
 }
 
 export function error_deviceType (data) {
-  return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_TYPE)(data)
 }
 
 function getAsync_assignDeviceType (deviceList) {
@@ -413,10 +396,8 @@ export function assignDeviceType (ab) {
 }
 
 // Device Type List
-export const ACTION_SUCCESS_GET_DEVICE_TYPE_LIST = 'ACTION_SUCCESS_GET_DEVICE_TYPE_LIST'
-
 export function success_getDeviceType (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICE_TYPE_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICE_TYPE_LIST)(data)
 }
 
 function getAsync_getDeviceType () {
@@ -445,15 +426,12 @@ export function getDeviceType () {
 }
 // Device Status---
 
-export const ACTION_SUCCESS_DEVICE_STATUS = 'ACTION_SUCCESS_DEVICE_STATUS'
-export const ACTION_ERROR_DEVICE_STATUS = 'ACTION_ERROR_DEVICE_STATUS'
-
 export function success_deviceStatus (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_STATUS)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_STATUS)(data)
 }
 
 export function error_deviceStatus (data) {
-  return createAction(ACTION_ERROR_DEVICE_STATUS)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_STATUS)(data)
 }
 
 function getAsync_assignDeviceStatus (statusList) {
@@ -482,10 +460,8 @@ export function assignDeviceStatus (status) {
   }
 }
 
-export const ACTION_SUCCESS_GET_DEVICE_STATUS_LIST = 'ACTION_SUCCESS_GET_DEVICE_STATUS_LIST'
-
 export function success_getDeviceStatus (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICE_STATUS_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICE_STATUS_LIST)(data)
 }
 
 function getAsync_getDeviceStatus () {

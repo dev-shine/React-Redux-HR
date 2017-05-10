@@ -50,9 +50,10 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceType().then((val) => {
       this.setState({deviceTypeList: val})
     })
-    this.props.onFetchDeviceStatus().then((val) => {
-      this.setState({deviceStatusList: val})
-    })
+    // this.props.onFetchDeviceStatus().then((val) => {
+    //   console.log('varlll', val)
+    //   this.setState({deviceStatusList: val})
+    // })
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
@@ -75,6 +76,7 @@ class InventoryList extends React.Component {
         openSnackbar: false
       })
     }
+    console.log(props.manageDevice.statusList, 'props.manageDevice.statusList')
     this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device})
     this.setState({deviceStatusList: props.manageDevice.statusList, statusList: props.manageDevice.device})
   }
@@ -102,7 +104,6 @@ class InventoryList extends React.Component {
       this.setState({
         status_message: message
       })
-      this.handleClose()
       this.props.onFetchDeviceType()
     }, (error) => {
       notify(error)
@@ -180,12 +181,15 @@ class InventoryList extends React.Component {
   }
 
   render () {
-    let statusDrop = this.state.deviceStatusList.reverse().map((val, i) => {
+    var statusList = this.state.deviceStatusList
+    statusList = statusList.reverse()
+    let statusDrop = statusList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
     let listDrop = this.state.deviceTypeList.reverse().map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)
     })
+
     let devices = this.state.deviceList
     let rowColor
     let rows = []

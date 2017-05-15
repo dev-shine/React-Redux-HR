@@ -71,6 +71,12 @@ class ViewLeave extends React.Component {
     if (this.props.logged_user.role == CONFIG.HR) {
       HRDisplay = 'none'
     }
+    if (this.props.listLeaves.selectedLeave.status === 'Approved') {
+      HRDisplay = 'none'
+    }
+    if (this.props.listLeaves.selectedLeave.status === 'Rejected') {
+      HRDisplay = 'none'
+    }
     let soptions = _.map(statusList, (s, k) => {
       let leaveStatusColor = ''
 
@@ -94,7 +100,7 @@ class ViewLeave extends React.Component {
         <div className="sl-item b-info" key={k}>
           <div className="sl-content">
             <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
-              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}</div>
+              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}</div>
               <div>
             {d.status} - {d.reason}
               </div>
@@ -109,23 +115,19 @@ class ViewLeave extends React.Component {
           {prev_leaves}
         </div>
       </div>
-
     )
   }
   _notify () {
-    if (this.props.listLeaves.selectedLeave.doc_required === '1') {
+    if (this.props.listLeaves.selectedLeave.doc_required != '0') {
       return (
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
-              <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
-            </div>)
+            <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
+          </div>
+      )
     }
   }
 
   render () {
-    // let test = ['testnew_blue', 'test2_red']
-    // console.log(test.toString())
-    // let test2 = test.toString()
-    // console.log(test2.split(',')[0].split('_'))
     let styles = _.cloneDeep(this.constructor.styles)
     let notify = this._notify()
     let changeStatusButton = this._getChangeStatusButtons(this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status)
@@ -173,7 +175,7 @@ class ViewLeave extends React.Component {
           </div>
         </div>
         <div className="col-sm-8">
-            <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </i></div>
+            <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </i></div>
             <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
@@ -195,14 +197,14 @@ class ViewLeave extends React.Component {
             {/* {
               this.state.document_required ?
               <div className="text-left" style={{marginTop:'10px'}}>
-                <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
+                <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>ent Required</button>
               </div>:<div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
                   </div>
             } */}
             {
-              this.props.listLeaves.selectedLeave.doc_require === '0' && this.props.listLeaves.selectedLeave.hr_approved != '2'
-              ? <div className="text-left" style={{marginTop: '10px'}}>
+              this.props.listLeaves.selectedLeave.doc_require == '0' && this.props.listLeaves.selectedLeave.hr_approved !== '2' && this.props.listLeaves.selectedLeave.status !== 'Approved'
+              ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
                 <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
               </div> : null
             }
@@ -231,8 +233,13 @@ class ViewLeave extends React.Component {
                  : null
             }
             {
-              this.props.listLeaves.selectedLeave.doc_link === ''
+              this.props.listLeaves.selectedLeave.doc_link === '' && this.props.listLeaves.selectedLeave.doc_require === '1'
                 ? notify
+                : null
+            }
+            {
+              this.props.listLeaves.selectedLeave.doc_link === ''
+                ? null
                 : <form method="get" target="_blank" action={this.props.listLeaves.selectedLeave.doc_link}>
                 <div className=" text-left" style={{marginTop: '10px'}}>
                 <button className="md-btn md-raised indigo" >View Document</button>

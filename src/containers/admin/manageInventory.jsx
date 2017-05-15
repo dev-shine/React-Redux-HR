@@ -330,14 +330,17 @@ const mapDispatchToProps = (dispatch) => {
     onCallDeviceType: (deviceList) => {
       return dispatch(actions_manageDevice.assignDeviceType(deviceList))
     },
-    onCallDeviceStatus: (statusList) => {
-      return dispatch(actions_manageDevice.assignDeviceStatus(statusList))
+    onCallDeviceStatus: (statusValue, colorValue) => {
+      return dispatch(actions_manageDevice.assignDeviceStatus(statusValue, colorValue))
     },
     onFetchDeviceType: () => {
       return dispatch(actions_manageDevice.getDeviceType())
     },
     onFetchDeviceStatus: () => {
       return dispatch(actions_manageDevice.getDeviceStatus())
+    },
+    onDeleteDeviceStatus: (checkValue) => {
+      return dispatch(actions_manageDevice.deleteDeviceStatus(checkValue))
     }
   }
 }

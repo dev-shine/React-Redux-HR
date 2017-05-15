@@ -20,7 +20,7 @@ class LeaveColorReference extends React.Component {
                onClick={() => this.props.onApplyFilter('Pending by HR')} >
                 <div className="p-a blue">
                   <h4></h4>
-                  <div className="text-u-c _600 text-sm" >Not Approved By HR</div>
+                  <div className="text-u-c _600 text-sm" >Approved By HR</div>
                 </div>
               </div>
 
@@ -28,7 +28,7 @@ class LeaveColorReference extends React.Component {
                 onClick={() => this.props.onApplyFilter('HR')} >
                 <div className="p-a yellow-A200">
                   <h4></h4>
-                  <div className=" text-u-c _600 text-sm" >Approved By HR</div>
+                  <div className=" text-u-c _600 text-sm" >Not Approved By HR</div>
                 </div>
               </div>
 
@@ -58,7 +58,14 @@ class LeaveColorReference extends React.Component {
                 </div>
               </div>
 
-            </div>
+              <div className="col-xs-3 text-center" style={styles.cursor}
+                onClick={() => this.props.onApplyFilter('ApprovedByHr')} >
+                <div className="p-a green-A200">
+                  <h4></h4>
+                  <div className=" text-u-c _600 text-sm" >Approved By HR</div>
+                </div>
+          </div>
+        </div>
           }
         </div>
       </div>

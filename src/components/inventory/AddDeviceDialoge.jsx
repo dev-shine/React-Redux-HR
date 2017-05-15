@@ -31,6 +31,7 @@ export default class AddDeviceDialoge extends React.Component {
   componentWillReceiveProps (props) {
     this.setState({deviceList: props.deviceTypeList, open: props.open})
   }
+
   handleDelete () {
     let checkValue = this.state.checkValue
     let deviceList = this.state.deviceList
@@ -41,6 +42,7 @@ export default class AddDeviceDialoge extends React.Component {
       if (val.data.not_delete) {
         this.setState({deviceList: this.state.deviceList, checkValue: []})
         alert('This Device Type Is In Use')
+        this.props.handleClose()
       } else {
         this.setState({deviceList, deviceType: '', checkValue: []})
       }
@@ -146,7 +148,7 @@ export default class AddDeviceDialoge extends React.Component {
                     <ol>
                   {this.state.deviceList.map((val, i) => {
                     return <li key={i}>
-                      <input type='checkbox' value={val} onChange={(e) => {
+                      <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => {
                         this.setValue(e)
                       }}>
 

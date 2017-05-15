@@ -6,7 +6,8 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
 import AddDeviceDialoge from '../../components/inventory/AddDeviceDialoge'
 import AddDeviceStatus from '../../components/inventory/AddDeviceStatus'
-import AlertNotification from '../../components/generic/AlertNotification'
+
+import Snackbar from 'material-ui/Snackbar'
 
 import { connect } from 'react-redux'
 import { CONFIG } from '../../config/index'
@@ -43,18 +44,19 @@ class InventoryList extends React.Component {
     this.handleStatusClose = this.handleStatusClose.bind(this)
     this.callAddDevice = this.callAddDevice.bind(this)
     this.callAddStatus = this.callAddStatus.bind(this)
+    this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this)
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this)
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this)
   }
   componentWillMount () {
     this.props.onFetchDeviceType().then((val) => {
-      this.setState({deviceTypeList: val})
+      this.setState({deviceTypeList: val, deviceStatusList: val})
     })
-    // this.props.onFetchDeviceStatus().then((val) => {
-    //   console.log('varlll', val)
-    //   this.setState({deviceStatusList: val})
-    // })
+    this.props.onFetchDeviceStatus().then((val) => {
+      this.setState({deviceStatusList: val})
+    })
   }
+
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
 
@@ -68,6 +70,7 @@ class InventoryList extends React.Component {
       }
     }
     if (props.manageDevice.status_message !== this.state.status_message) {
+      // console.log(props.manageDevice.status_message, 'messages')
       this.setState({
         openSnackbar: true
       })
@@ -76,9 +79,12 @@ class InventoryList extends React.Component {
         openSnackbar: false
       })
     }
-    console.log(props.manageDevice.statusList, 'props.manageDevice.statusList')
+
     this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device})
-    this.setState({deviceStatusList: props.manageDevice.statusList, statusList: props.manageDevice.device})
+    this.setState({
+      deviceStatusList: props.manageDevice.statusList,
+      statusList: props.manageDevice.statusList
+    })
   }
   openEditDevice (id) {
     this.props.openEditDevice(id)
@@ -87,11 +93,14 @@ class InventoryList extends React.Component {
   deleteDevices (id) {
     this.props.deleteDevices(id)
   }
-  callAddStatus (statusType) {
-    this.props.onCallDeviceStatus(statusType).then((message) => {
+  callAddStatus (statusValue, colorValue) {
+    this.props.onCallDeviceStatus(statusValue, colorValue).then((message) => {
       this.setState({
-        status_message: message
+        statusType: '',
+        background: '',
+        checkValue: ''
       })
+      alert(message)
       this.handleStatusClose()
       this.props.onFetchDeviceStatus()
     }, (error) => {
@@ -109,9 +118,12 @@ class InventoryList extends React.Component {
       notify(error)
     })
   }
-
   handleStatusClose () {
-    this.setState({openStatus: false})
+    this.setState({
+      openStatus: false,
+      statusType: '',
+      background: ''
+    })
   }
   handleStatusOpen () {
     this.setState({
@@ -137,6 +149,34 @@ class InventoryList extends React.Component {
     this.props.callAssign(id, userId)
   }
 
+  callDeleteDeviceStatus (checkValue) {
+    this.props.onDeleteDeviceStatus(checkValue).then((val) => {
+      if (val.error === 1) {
+        this.setState({
+          statusType: '',
+          background: '',
+          checkValue: ''
+        })
+        alert('This Device Status Type Is In Use')
+        this.handleStatusClose()
+      } else if (val.message) {
+        this.setState({
+          status_message: val.message
+        })
+        alert(this.state.status_message)
+        this.handleStatusClose()
+      } else {
+        this.setState({
+          statusType: '',
+          background: '',
+          checkValue: ''
+        })
+        this.handleStatusClose()
+      }
+    })
+    this.props.onFetchDeviceStatus()
+  }
+
   handleDeviceTypeFilter (deviceType) {
     let devices = this.props.manageDevice.device
     if (this.state.device_status != '') {
@@ -158,6 +198,7 @@ class InventoryList extends React.Component {
 
     })
   }
+
   handleStatusTypeFilter (statusType) {
     let status = this.props.manageDevice.device
     if (this.state.search != '') {
@@ -176,32 +217,43 @@ class InventoryList extends React.Component {
     this.setState({
       deviceList: status,
       device_status: statusType
-
     })
   }
 
   render () {
-    var statusList = this.state.deviceStatusList
-    statusList = statusList.reverse()
-    let statusDrop = statusList.map((val, i) => {
-      return (<option value={val} key={i}>{val}</option>)
-    })
-    let listDrop = this.state.deviceTypeList.reverse().map((val, i) => {
-      return (<option value={val} key={i}>{val}</option>)
+    var statusList = this.state.deviceStatusList || []
+
+    let statusDropMap = statusList.map((val, i) => {
+      let col = this.state.deviceStatusList.filter(data => data.status === val.status)
+      let statusColor
+      if (col.length > 0) {
+        statusColor = col[0].color
+      }
+      return (
+        <option value={val.status} key={i} style={{background: statusColor}}>{val.status}</option>)
     })
 
+    let statusDrop = statusDropMap.reverse()
+
+    let listDropMap = this.state.deviceTypeList.map((val, i) => {
+      return (<option value={val} key={i}>{val}</option>)
+    })
+    let listDrop = listDropMap.reverse()
     let devices = this.state.deviceList
+    let statusVal = this.state.deviceStatusList
+    let colorNew
+    _.map(statusVal, (val, i) => {
+      return (
+      colorNew = val.color
+      )
+    })
+
     let rowColor
     let rows = []
     _.map(devices, (device, i) => {
-      if (device.status === 'new') {
-        rowColor = '#bbdefb'
-      } else if (device.status === 'not working') {
-        rowColor = '#FF7043'
-      } else if (device.status === 'working') {
-        rowColor = '#69f0ae'
-      } else {
-        rowColor = 'none'
+      let rowColorData = statusVal.filter(val => val.status === device.status)
+      if (rowColorData.length > 0) {
+        rowColor = rowColorData[0].color
       }
       rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
@@ -304,6 +356,7 @@ class InventoryList extends React.Component {
                               handleStatusClose={this.handleStatusClose}
                               handleStatusOpen={this.handleStatusOpen}
                               open={this.state.openStatus}
+                              callDeleteDeviceStatus={this.callDeleteDeviceStatus}
                               deviceStatusList={this.state.deviceStatusList}
                               {...this.props} />
                         </div>
@@ -356,6 +409,16 @@ class InventoryList extends React.Component {
             </div>
 
     )
+  }
+}
+var styles = {
+  box: {
+    'color': 'blue',
+    'float': 'left',
+    'width': '20px',
+    'height': '20px',
+    'margin': '5px',
+    'border': '1px solid rgba(0, 0, 0, .2)'
   }
 }
 export default InventoryList

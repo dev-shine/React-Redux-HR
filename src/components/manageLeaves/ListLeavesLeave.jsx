@@ -4,11 +4,24 @@ import * as _ from 'lodash'
 class LeavesListLeave extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      isSelectedDiv: '',
+      'defaultUserDisplay': ''
+    }
   }
+  // componentDidUpdate () {
+  //   console.log(this.props.leave)
+  //   if (this.state.isSelectedDiv == '') {
+  //     if (this.props.leave.length > 0) {
+  //       let firstUser = this.props.leave[0]
+  //       let defaultUserId = firstUser.id
+  //       let defaultUserName = firstUser.username
+  //     }
+  //   }
+  // }
 
   render () {
     let styles = _.cloneDeep(this.constructor.styles)
-
     let leaveStatusColor = ''
     if (this.props.leave.status == 'Approved') {
       leaveStatusColor = 'green-A200'
@@ -20,15 +33,15 @@ class LeavesListLeave extends React.Component {
 
     let key = parseInt(this.props.keyval)
 
-    let isSelectedDiv = 0
+    let isSelectedDiv = ''
     let selectedDivClass = ''
+
     if (typeof this.props.leave.option_select !== 'undefined') {
       isSelectedDiv = this.props.leave.option_select
       if (isSelectedDiv == 1) {
         selectedDivClass = 'yellow'
       }
     }
-
     return (
       <div className={`list-item pointer b-l b-l-2x b-${leaveStatusColor} ${selectedDivClass}`} key={key} style={styles.leaveDiv} onClick={() => this.props.onSelectLeave(this.props.leave.id)}>
             <div className="list-left">

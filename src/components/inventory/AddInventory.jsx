@@ -46,12 +46,14 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   componentWillReceiveProps (props) {
+    console.log(props)
     this.setState({
       open: props.open,
       edit: props.edit,
       deviceTypeList: props.manageDevice.deviceList,
       deviceStatusList: props.manageDevice.statusList
     })
+
     if (props.edit) {
       // console(props)
       this.setState({
@@ -110,7 +112,7 @@ export default class FormAddNewInventory extends React.Component {
       comment: this.state.comment,
       warranty_comment: this.state.warranty_comment,
       repair_comment: this.state.repair_comment,
-      bill_number: this.state.bill_no,
+      bill_no: this.state.bill_no,
       warranty: this.state.warranty,
       user_Id: this.state.user_Id
     }
@@ -246,9 +248,7 @@ export default class FormAddNewInventory extends React.Component {
                </tr>
 
               <tr>
-                {
-                this.state.machine_type == 'Laptop' || this.state.machine_type == 'Mobile' || this.state.machine_type == 'Desktop' || this.state.machine_type == 'Router'
-                  ? <td>
+              <td>
                   <TextField
                     floatingLabelText="Mac Address"
                     hintText='00:25:96:FF:FE:12:34:56'
@@ -256,8 +256,6 @@ export default class FormAddNewInventory extends React.Component {
                     onChange={(e) => { this.setState({mac_address: e.target.value}) }}
                     value={this.state.mac_address} required />
                 </td>
-                : null
-              }
                 <td>
                   <TextField
                     floatingLabelText="Price"
@@ -291,18 +289,19 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
                     onChange={(e) => (this.setState({status: e.target.value}))}>
                     <option >-Device Status-</option>
+                    console.log(this.state.deviceStatusList,"this.state.deviceStatusList");
                       {this.state.deviceStatusList.map((val, i) => {
-                        return <option key={i} value={val}> {val}</option>
+                        return <option key={i} value={val.status}> {val.status}</option>
                       })}
                   </select>
-                </td>
-
-              <td colSpan={2} style={{opacity: '0.56'}}>
-                {'Working Comments'}
+              </td>
+              <td style={{opacity: '0.56'}} >
+                {'Comment'}
                 <textarea
                   style={{width: '100%'}}
-                  onChange={(e) => (this.setState({comment: e.target.value}))}
-                  value={this.state.comment} />
+                  onChange={(e) => { this.setState({comment: e.target.value}) }}
+                  value={this.state.comment}
+                />
               </td>
             </tr>
 

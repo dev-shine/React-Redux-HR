@@ -72,7 +72,7 @@ export function docRequired (leaveid, data, comment) {
   dispatch(hide_loading()) // hide loading icon
   if (json.error == 0) {
     dispatch(actions_listLeaves.getAllLeaves())
-		 			}
+  }
 },
 				(error) => {
   dispatch(actions_listLeaves.getAllLeaves())
@@ -127,10 +127,12 @@ export function onAddDescription (leaveid, hr, data) {
       dispatch(show_loading()) // show loading icon
       async_onAddDescription(leaveid, hr, data).then(
 				(json) => {
+  reslove(json.data.leaveid)
+  console.log(json.data.leaveid, 'leaveid of comments added')
   dispatch(hide_loading()) // hide loading icon
   if (json.error == 0) {
     dispatch(actions_listLeaves.getAllLeaves())
-		 			}
+  }
 },
 				(error) => {
   dispatch(actions_listLeaves.getAllLeaves())

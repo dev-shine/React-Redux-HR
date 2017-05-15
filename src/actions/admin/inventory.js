@@ -98,15 +98,10 @@ export function addNewMachine (new_machine_details) {
       n_purchase_date = new_machine_details.purchase_date
     }
 
-    if (
-      new_machine_details.machine_type == 'laptop' || new_machine_details.machine_type == 'mobile' || new_machine_details.machine_type == 'desktop') {
-      n_mac_address = new_machine_details.mac_address
+    if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.mac_address === '') {
+      return Promise.reject('Mac Address is empty')
     } else {
-      if (typeof new_machine_details.mac_address === 'undefined') {
-        return Promise.reject('Mac Address is empty')
-      } else {
-        n_mac_address = new_machine_details.mac_address
-      }
+      n_mac_address = new_machine_details.mac_address
     }
 
     if (typeof new_machine_details.operating_system === 'undefined') {
@@ -125,7 +120,6 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_comment = new_machine_details.comment
     }
-
     if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no == '') {
       return Promise.reject('Bill No is empty')
     } else {
@@ -434,22 +428,26 @@ export function error_deviceStatus (data) {
   return createAction(constants.ACTION_ERROR_DEVICE_STATUS)(data)
 }
 
-function getAsync_assignDeviceStatus (statusList) {
-  var status = JSON.stringify(statusList)
+function getAsync_assignDeviceStatus (statusValue, colorValue) {
+  // var statusNew = JSON.stringify(statusType)
+  // var colors = JSON.stringify(background)
   return fireAjax('POST', '', {
     'action': 'add_machine_status',
     'type': 'machine_status',
-    'value': status
+    'status': statusValue,
+    'color': colorValue
+
   })
 }
 
-export function assignDeviceStatus (status) {
+export function assignDeviceStatus (statusValue, colorValue) {
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
-      return getAsync_assignDeviceStatus(status).then((res) => {
-        dispatch(getDeviceStatus())
-        resolve(res)
+      return getAsync_assignDeviceStatus(statusValue, colorValue).then((res) => {
+        // dispatch(getDeviceStatus())
+        console.log(res.data, 'action')
+        resolve(res.data.message)
         dispatch(hide_loading())
       }, (error) => {
         dispatch(hide_loading())
@@ -476,11 +474,37 @@ export function getDeviceStatus () {
       dispatch(show_loading())
       return getAsync_getDeviceStatus().then((res) => {
         dispatch(hide_loading())
-        if (res.data) {
-          var b = JSON.parse(res.data.value)
-          resolve(b)
-          dispatch(success_getDeviceStatus(b))
-        }
+        console.log(res.data, 'action-----')
+        resolve(res.data)
+        dispatch(success_getDeviceStatus(res.data))
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+
+export function success_deleteDeviceStatus (data) {
+  return createAction(constants.ACTION_SUCCESS_DELETE_DEVICE_STATUS_LIST)(data)
+}
+
+function getAsync_deleteDeviceStatus (checkValue) {
+  return fireAjax('POST', '', {
+    'action': 'delete_machine_status',
+    'status': checkValue
+  })
+}
+
+export function deleteDeviceStatus (checkValue) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_deleteDeviceStatus(checkValue).then((res) => {
+        dispatch(hide_loading())
+        console.log(res, 'action-----')
+        resolve(res)
+        dispatch(success_deleteDeviceStatus(res))
       }, (error) => {
         dispatch(hide_loading())
         reject(error)

@@ -100,9 +100,9 @@ class InventoryList extends React.Component {
         background: '',
         checkValue: ''
       })
-      alert(message)
-      this.handleStatusClose()
+      notify(message)
       this.props.onFetchDeviceStatus()
+      this.handleStatusClose()
     }, (error) => {
       notify(error)
     })
@@ -219,21 +219,15 @@ class InventoryList extends React.Component {
       device_status: statusType
     })
   }
-
   render () {
     var statusList = this.state.deviceStatusList || []
 
     let statusDropMap = statusList.map((val, i) => {
-      let col = this.state.deviceStatusList.filter(data => data.status === val.status)
-      let statusColor
-      if (col.length > 0) {
-        statusColor = col[0].color
-      }
       return (
-        <option value={val.status} key={i} style={{background: statusColor}}>{val.status}</option>)
+        <option value={val.status} key={i}>{val.status}</option>)
     })
 
-    let statusDrop = statusDropMap.reverse()
+    let statusDrop = statusDropMap
 
     let listDropMap = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>)

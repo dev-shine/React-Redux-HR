@@ -53,14 +53,11 @@ export default class AddDeviceStatus extends React.Component {
         statusType: '',
         background: ''
       })
+    }else{
+      notify('First Fill Status Type & Color')
     }
   }
 
-  // setValue (e) {
-  //    if (e.target.checked) {
-  //      this.setState({checkValue: e.target.value})
-  //    }
-  //  }
   handleChangeComplete (color) {
     this.setState({ background: color.hex })
   };

@@ -363,20 +363,20 @@ export function error_deviceType (data) {
 }
 
 function getAsync_assignDeviceType (deviceList) {
-  var ab = JSON.stringify(deviceList)
+  var newDevice = JSON.stringify(deviceList)
 
   return fireAjax('POST', '', {
     'action': 'add_machine_type',
     'type': 'machine_type',
-    'value': ab
+    'value': newDevice
   })
 }
 
-export function assignDeviceType (ab) {
+export function assignDeviceType (newDevice) {
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
-      return getAsync_assignDeviceType(ab).then((res) => {
+      return getAsync_assignDeviceType(newDevice).then((res) => {
         dispatch(getDeviceType())
         resolve(res)
         dispatch(hide_loading())
@@ -446,7 +446,6 @@ export function assignDeviceStatus (statusValue, colorValue) {
       dispatch(show_loading())
       return getAsync_assignDeviceStatus(statusValue, colorValue).then((res) => {
         // dispatch(getDeviceStatus())
-        console.log(res.data, 'action')
         resolve(res.data.message)
         dispatch(hide_loading())
       }, (error) => {
@@ -474,7 +473,6 @@ export function getDeviceStatus () {
       dispatch(show_loading())
       return getAsync_getDeviceStatus().then((res) => {
         dispatch(hide_loading())
-        console.log(res.data, 'action-----')
         resolve(res.data)
         dispatch(success_getDeviceStatus(res.data))
       }, (error) => {
@@ -502,7 +500,6 @@ export function deleteDeviceStatus (checkValue) {
       dispatch(show_loading())
       return getAsync_deleteDeviceStatus(checkValue).then((res) => {
         dispatch(hide_loading())
-        console.log(res, 'action-----')
         resolve(res)
         dispatch(success_deleteDeviceStatus(res))
       }, (error) => {

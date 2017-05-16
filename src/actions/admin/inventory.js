@@ -4,17 +4,15 @@ import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 import {show_loading, hide_loading} from '../generic/frontend'
 var moment = require('moment')
-
+import * as constants from '../constants'
 // -------add New machine
-export const ACTION_SUCCESS_ADD_NEW_MACHINE = 'ACTION_SUCCESS_ADD_NEW_MACHINE'
-export const ACTION_ERROR_ADD_NEW_MACHINE = 'ACTION_ERROR_ADD_NEW_MACHINE'
 
 export function success_add_new_machine (data) {
-  return createAction(ACTION_SUCCESS_ADD_NEW_MACHINE)(data)
+  return createAction(constants.ACTION_SUCCESS_ADD_NEW_MACHINE)(data)
 }
 
 export function error_add_new_machine (data) {
-  return createAction(ACTION_ERROR_ADD_NEW_MACHINE)(data)
+  return createAction(constants.ACTION_ERROR_ADD_NEW_MACHINE)(data)
 }
 
 function async_addNewMachine (
@@ -100,15 +98,10 @@ export function addNewMachine (new_machine_details) {
       n_purchase_date = new_machine_details.purchase_date
     }
 
-    if (
-      new_machine_details.machine_type == 'laptop' || new_machine_details.machine_type == 'mobile' || new_machine_details.machine_type == 'desktop') {
-      n_mac_address = new_machine_details.mac_address
+    if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.mac_address === '') {
+      return Promise.reject('Mac Address is empty')
     } else {
-      if (typeof new_machine_details.mac_address === 'undefined') {
-        return Promise.reject('Mac Address is empty')
-      } else {
-        n_mac_address = new_machine_details.mac_address
-      }
+      n_mac_address = new_machine_details.mac_address
     }
 
     if (typeof new_machine_details.operating_system === 'undefined') {
@@ -127,7 +120,6 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_comment = new_machine_details.comment
     }
-
     if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no == '') {
       return Promise.reject('Bill No is empty')
     } else {
@@ -192,20 +184,17 @@ export function addNewMachine (new_machine_details) {
 }
 
 // Get Devicelist
-export const ACTION_SUCCESS_DEVICE_LIST = 'ACTION_SUCCESS_DEVICE_LIST'
-export const ACTION_EMPTY_DEVICE_LIST = 'ACTION_EMPTY_DEVICE_LIST'
-export const ACTION_ERROR_DEVICE_LIST = 'ACTION_ERROR_DEVICE_LIST'
 
 export function success_device_list (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_LIST)(data)
 }
 
 export function empty_device_list (data) {
-  return createAction(ACTION_EMPTY_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_EMPTY_DEVICE_LIST)(data)
 }
 
 export function error_device_list (data) {
-  return createAction(ACTION_ERROR_DEVICE_LIST)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_LIST)(data)
 }
 
 function async_get_AllDevice () {
@@ -232,10 +221,8 @@ export function get_machines_detail () {
   }
 }
 
-export const ACTION_SUCCESS_GET_DEVICELIST = 'ACTION_SUCCESS_GET_DEVICELIST'
-
 export function success_getDevice (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICELIST)(data)
 }
 
 function getAsync_getDeviceById (id) {
@@ -263,10 +250,8 @@ export function getDeviceById (id) {
   }
 }
 
-export const ACTION_SUCCESS_UPDATE_DEVICELIST = 'ACTION_SUCCESS_UPDATE_DEVICELIST'
-
 export function success_updateDevice (data) {
-  return createAction(ACTION_SUCCESS_UPDATE_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_UPDATE_DEVICELIST)(data)
 }
 
 function getAsync_updateDeviceById (deviceId, data) {
@@ -308,10 +293,8 @@ export function updateDevice (id, data) {
   }
 }
 
-export const ACTION_SUCCESS_DELETE_DEVICELIST = 'ACTION_SUCCESS_DELETE_DEVICELIST'
-
 export function success_deleteDevice (data) {
-  return createAction(ACTION_SUCCESS_DELETE_DEVICELIST)(data)
+  return createAction(constants.ACTION_SUCCESS_DELETE_DEVICELIST)(data)
 }
 
 function getAsync_deleteDeviceById (deviceId) {
@@ -339,15 +322,12 @@ export function deleteDevice (id) {
   }
 }
 
-export const ACTION_SUCCESS_ASSIGN_DEVICE = 'ACTION_SUCCESS_ASSIGN_DEVICE'
-export const ACTION_ERROR_ASSIGN_DEVICE = 'ACTION_ERROR_ASSIGN_DEVICE'
-
 export function success_assignDevice (data) {
-  return createAction(ACTION_SUCCESS_ASSIGN_DEVICE)(data)
+  return createAction(constants.ACTION_SUCCESS_ASSIGN_DEVICE)(data)
 }
 
 export function error_assignDevice (data) {
-  return createAction(ACTION_ERROR_ASSIGN_DEVICE)(data)
+  return createAction(constants.ACTION_ERROR_ASSIGN_DEVICE)(data)
 }
 
 function getAsync_assignDeviceToUser (deviceId, user_Id) {
@@ -374,32 +354,29 @@ export function assignDevice (deviceId, id) {
   }
 }
 
-export const ACTION_SUCCESS_DEVICE_TYPE = 'ACTION_SUCCESS_DEVICE_TYPE'
-export const ACTION_ERROR_DEVICE_TYPE = 'ACTION_ERROR_DEVICE_TYPE'
-
 export function success_deviceType (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_TYPE)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_TYPE)(data)
 }
 
 export function error_deviceType (data) {
-  return createAction(ACTION_ERROR_DEVICE_TYPE)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_TYPE)(data)
 }
 
 function getAsync_assignDeviceType (deviceList) {
-  var ab = JSON.stringify(deviceList)
+  var newDevice = JSON.stringify(deviceList)
 
   return fireAjax('POST', '', {
     'action': 'add_machine_type',
     'type': 'machine_type',
-    'value': ab
+    'value': newDevice
   })
 }
 
-export function assignDeviceType (ab) {
+export function assignDeviceType (newDevice) {
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
-      return getAsync_assignDeviceType(ab).then((res) => {
+      return getAsync_assignDeviceType(newDevice).then((res) => {
         dispatch(getDeviceType())
         resolve(res)
         dispatch(hide_loading())
@@ -413,10 +390,8 @@ export function assignDeviceType (ab) {
 }
 
 // Device Type List
-export const ACTION_SUCCESS_GET_DEVICE_TYPE_LIST = 'ACTION_SUCCESS_GET_DEVICE_TYPE_LIST'
-
 export function success_getDeviceType (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICE_TYPE_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICE_TYPE_LIST)(data)
 }
 
 function getAsync_getDeviceType () {
@@ -445,33 +420,33 @@ export function getDeviceType () {
 }
 // Device Status---
 
-export const ACTION_SUCCESS_DEVICE_STATUS = 'ACTION_SUCCESS_DEVICE_STATUS'
-export const ACTION_ERROR_DEVICE_STATUS = 'ACTION_ERROR_DEVICE_STATUS'
-
 export function success_deviceStatus (data) {
-  return createAction(ACTION_SUCCESS_DEVICE_STATUS)(data)
+  return createAction(constants.ACTION_SUCCESS_DEVICE_STATUS)(data)
 }
 
 export function error_deviceStatus (data) {
-  return createAction(ACTION_ERROR_DEVICE_STATUS)(data)
+  return createAction(constants.ACTION_ERROR_DEVICE_STATUS)(data)
 }
 
-function getAsync_assignDeviceStatus (statusList) {
-  var status = JSON.stringify(statusList)
+function getAsync_assignDeviceStatus (statusValue, colorValue) {
+  // var statusNew = JSON.stringify(statusType)
+  // var colors = JSON.stringify(background)
   return fireAjax('POST', '', {
     'action': 'add_machine_status',
     'type': 'machine_status',
-    'value': status
+    'status': statusValue,
+    'color': colorValue
+
   })
 }
 
-export function assignDeviceStatus (status) {
+export function assignDeviceStatus (statusValue, colorValue) {
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
-      return getAsync_assignDeviceStatus(status).then((res) => {
-        dispatch(getDeviceStatus())
-        resolve(res)
+      return getAsync_assignDeviceStatus(statusValue, colorValue).then((res) => {
+        // dispatch(getDeviceStatus())
+        resolve(res.data.message)
         dispatch(hide_loading())
       }, (error) => {
         dispatch(hide_loading())
@@ -482,10 +457,8 @@ export function assignDeviceStatus (status) {
   }
 }
 
-export const ACTION_SUCCESS_GET_DEVICE_STATUS_LIST = 'ACTION_SUCCESS_GET_DEVICE_STATUS_LIST'
-
 export function success_getDeviceStatus (data) {
-  return createAction(ACTION_SUCCESS_GET_DEVICE_STATUS_LIST)(data)
+  return createAction(constants.ACTION_SUCCESS_GET_DEVICE_STATUS_LIST)(data)
 }
 
 function getAsync_getDeviceStatus () {
@@ -500,11 +473,35 @@ export function getDeviceStatus () {
       dispatch(show_loading())
       return getAsync_getDeviceStatus().then((res) => {
         dispatch(hide_loading())
-        if (res.data) {
-          var b = JSON.parse(res.data.value)
-          resolve(b)
-          dispatch(success_getDeviceStatus(b))
-        }
+        resolve(res.data)
+        dispatch(success_getDeviceStatus(res.data))
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}
+
+export function success_deleteDeviceStatus (data) {
+  return createAction(constants.ACTION_SUCCESS_DELETE_DEVICE_STATUS_LIST)(data)
+}
+
+function getAsync_deleteDeviceStatus (checkValue) {
+  return fireAjax('POST', '', {
+    'action': 'delete_machine_status',
+    'status': checkValue
+  })
+}
+
+export function deleteDeviceStatus (checkValue) {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsync_deleteDeviceStatus(checkValue).then((res) => {
+        dispatch(hide_loading())
+        resolve(res)
+        dispatch(success_deleteDeviceStatus(res))
       }, (error) => {
         dispatch(hide_loading())
         reject(error)

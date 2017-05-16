@@ -119,6 +119,7 @@ class ApplyLeave extends React.Component {
   }
 
   render () {
+    console.log(status_message)
     let status_message = ''
     if (this.props.applyLeave.status_message != '' && this.state.show_status_message == true) {
       status_message = <span className="well" style={{background: '#60cffa', padding: '5px', marginLeft: '8px'}}>

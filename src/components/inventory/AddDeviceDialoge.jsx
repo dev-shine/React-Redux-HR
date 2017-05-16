@@ -5,15 +5,18 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import {notify} from '../../services/index'
-import 'react-date-picker/index.css'
-var moment = require('moment')
-import AlertNotification from '../../components/generic/AlertNotification'
 import { CONFIG } from '../../config/index'
+import 'react-date-picker/index.css'
+
+import AlertNotification from '../../components/generic/AlertNotification'
+
+var moment = require('moment')
 
 export default class AddDeviceDialoge extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      background: '',
       deviceType: '',
       open: false,
       deviceList: [],
@@ -21,13 +24,14 @@ export default class AddDeviceDialoge extends React.Component {
     }
 
     this.addMoreDevice = this.addMoreDevice.bind(this)
-    this.addDeviceType = this.addDeviceType.bind(this)
+    // this.addDeviceType = this.addDeviceType.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.setValue = this.setValue.bind(this)
   }
   componentWillReceiveProps (props) {
     this.setState({deviceList: props.deviceTypeList, open: props.open})
   }
+
   handleDelete () {
     let checkValue = this.state.checkValue
     let deviceList = this.state.deviceList
@@ -38,8 +42,10 @@ export default class AddDeviceDialoge extends React.Component {
       if (val.data.not_delete) {
         this.setState({deviceList: this.state.deviceList, checkValue: []})
         alert('This Device Type Is In Use')
+        this.props.handleClose()
       } else {
         this.setState({deviceList, deviceType: '', checkValue: []})
+        this.props.handleClose()
       }
     })
   }
@@ -61,25 +67,26 @@ export default class AddDeviceDialoge extends React.Component {
   addMoreDevice () {
     if (!_.isEmpty(this.state.deviceType)) {
       var deviceList = this.state.deviceList
-      let arr = _.filter(deviceList, device => device === this.state.deviceType.toLowerCase())
+      let arr = _.filter(deviceList, device => device === this.state.deviceType)
       if (arr.length > 0) {
         alert('This Device Type Already In Use')
         this.setState({
           deviceType: ''
         })
       } else {
-        deviceList.push(this.state.deviceType.toLowerCase())
+        deviceList.push(this.state.deviceType)
         this.setState({
           deviceType: '',
           deviceList: deviceList
         })
       }
     }
-  }
-
-  addDeviceType () {
     this.props.callAddDevice(this.state.deviceList)
   }
+
+  // addDeviceType () {
+  //   this.props.callAddDevice(this.state.deviceList)
+  // }
 
   render () {
     var text = <div>
@@ -118,15 +125,17 @@ export default class AddDeviceDialoge extends React.Component {
       <RaisedButton
         label="Submit"
         primary
-        onTouchTap={this.addDeviceType}
+        onTouchTap={this.addMoreDevice}
     />
     ]
     return (
       <div>
-
-         <button className="md-btn md-raised m-b-sm indigo"
+        {
+          this.props.logged_user.role === CONFIG.ADMIN
+         ? <button className="md-btn md-raised m-b-sm indigo"
            onTouchTap={this.props.handleOpen}>Add Device Type</button>
-
+         : null
+       }
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}
@@ -135,12 +144,12 @@ export default class AddDeviceDialoge extends React.Component {
           open={this.state.open}
           onRequestClose={this.props.handleClose}
                   ><div className="row m-0">
-                  <div className='col-sm-3'>
+                  <div className='col-sm-3'style={{overflowY: 'auto', maxHeight: '200px'}}>
                     <label>Device Type List</label>
                     <ol>
-                  {this.state.deviceList.map((val, i) => {
+                  {this.state.deviceList.reverse().map((val, i) => {
                     return <li key={i}>
-                      <input type='checkbox' value={val} onChange={(e) => {
+                      <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => {
                         this.setValue(e)
                       }}>
 
@@ -150,13 +159,8 @@ export default class AddDeviceDialoge extends React.Component {
                 </div>
                 <div className='col-sm-9' style={{marginTop: '5%'}}>
                 {text}
-                <button className="md-btn md-raised m-b-sm indigo "
-                  style={{float: 'right '}}
-                  onTouchTap={() => {
-                    this.addMoreDevice()
-                  }}> Add </button>
-              </div>
             </div>
+              </div>
           </Dialog>
         </div>
     )

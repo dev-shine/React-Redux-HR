@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions'
 import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
+import * as constants from '../constants'
 
 import * as jwt from 'jwt-simple'
 
@@ -9,153 +10,135 @@ import {show_loading, hide_loading} from '../generic/frontend'
 
 import * as actions_listLeaves from '../../actions/leave/listLeaves'
 
-export const ACTION_LEAVE_STATUS_CHANGE_SUCCESS = "ACTION_LEAVE_STATUS_CHANGE_SUCCESS"
-export const ACTION_LEAVE_STATUS_CHANGE_FAIL = "ACTION_LEAVE_STATUS_CHANGE_FAIL"
-export const ACTION_LEAVE_STATUS_CHANGE_ERROR = "ACTION_LEAVE_STATUS_CHANGE_ERROR"
-
-export function leave_status_change_success( data ){
-	return createAction( ACTION_LEAVE_STATUS_CHANGE_SUCCESS )( data )
+export function leave_status_change_success (data) {
+  return createAction(constants.ACTION_LEAVE_STATUS_CHANGE_SUCCESS)(data)
 }
 
-export function leave_status_change_fail( data ){
-	return createAction( ACTION_LEAVE_STATUS_CHANGE_FAIL )( data )
+export function leave_status_change_fail (data) {
+  return createAction(constants.ACTION_LEAVE_STATUS_CHANGE_FAIL)(data)
 }
 
-export function leave_status_change_error( err ){
-	return createAction( ACTION_LEAVE_STATUS_CHANGE_ERROR )( data )
+export function leave_status_change_error (err) {
+  return createAction(constants.ACTION_LEAVE_STATUS_CHANGE_ERROR)(data)
 }
 
-function async_changeLeaveStatus( leaveid, newstatus, messagetouser ){
-	return fireAjax( 'POST', '', {
-		'action' : 'change_leave_status',
-		'leaveid' : leaveid,
-		'newstatus' : newstatus,
-		'messagetouser' : messagetouser
-	})
+function async_changeLeaveStatus (leaveid, newstatus, messagetouser) {
+  return fireAjax('POST', '', {
+    'action': 'change_leave_status',
+    'leaveid': leaveid,
+    'newstatus': newstatus,
+    'messagetouser': messagetouser
+  })
 }
 
-export function changeLeaveStatus( leaveid, newstatus, messagetouser ){
-
-	return function (dispatch,getState){
-
-		return new Promise(( reslove, reject ) => {
-			dispatch( show_loading() ); // show loading icon
-			async_changeLeaveStatus( leaveid, newstatus, messagetouser ).then(
-				( json ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					if( json.error == 0 ){
-						dispatch( leave_status_change_success( json.data.message ) )
-						dispatch( actions_listLeaves.getAllLeaves() )
-		 			}else{
-		 				dispatch( leave_status_change_fail( json.data.message ) )
+export function changeLeaveStatus (leaveid, newstatus, messagetouser) {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()) // show loading icon
+      async_changeLeaveStatus(leaveid, newstatus, messagetouser).then(
+				(json) => {
+  dispatch(hide_loading()) // hide loading icon
+  if (json.error == 0) {
+    dispatch(leave_status_change_success(json.data.message))
+    dispatch(actions_listLeaves.getAllLeaves())
+		 			} else {
+		 				dispatch(leave_status_change_fail(json.data.message))
 		 			}
-				},
-				( error ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					dispatch( leave_status_change_error( 'error occurs' ) )
-				}
+},
+				(error) => {
+  dispatch(hide_loading()) // hide loading icon
+  dispatch(leave_status_change_error('error occurs'))
+}
 			)
-
-		})
-
-	}
-
+    })
+  }
 }
 
-function async_docRequired( leaveid, data, comment ){
-	return fireAjax( 'POST', '', {
-		'action' : 'send_request_for_doc',
-		'leaveid' : leaveid,
-		'doc_request' : data,
-		'comment' : comment
-	})
+function async_docRequired (leaveid, data, comment) {
+  return fireAjax('POST', '', {
+    'action': 'send_request_for_doc',
+    'leaveid': leaveid,
+    'doc_request': data,
+    'comment': comment
+  })
 }
 
-export function docRequired( leaveid, data, comment ){
-	return function (dispatch,getState){
-				return new Promise(( reslove, reject ) => {
-			dispatch( show_loading() ); // show loading icon
-			async_docRequired( leaveid, data, comment ).then(
-				( json ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					if( json.error == 0 ){
-						dispatch( actions_listLeaves.getAllLeaves() )
+export function docRequired (leaveid, data, comment) {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()) // show loading icon
+      async_docRequired(leaveid, data, comment).then(
+				(json) => {
+  dispatch(hide_loading()) // hide loading icon
+  if (json.error == 0) {
+    dispatch(actions_listLeaves.getAllLeaves())
+  }
+},
+				(error) => {
+  dispatch(actions_listLeaves.getAllLeaves())
+  dispatch(hide_loading()) // hide loading icon
+}
+			)
+    })
+  }
+}
+
+function async_onAddExtraDay (leaveid, token, data) {
+  return fireAjax('POST', '', {
+    'action': 'add_extra_leave_day',
+    'leaveid': leaveid,
+    'token': token,
+    'extra_day': data
+  })
+}
+
+export function onAddExtraDay (leaveid, token, data) {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()) // show loading icon
+      async_onAddExtraDay(leaveid, token, data).then(
+				(json) => {
+  dispatch(hide_loading()) // hide loading icon
+  if (json.error == 0) {
+    dispatch(actions_listLeaves.getAllLeaves())
 		 			}
-				},
-				( error ) => {
-					dispatch( actions_listLeaves.getAllLeaves() )
-					dispatch( hide_loading() ) // hide loading icon
-				}
+},
+				(error) => {
+  dispatch(actions_listLeaves.getAllLeaves())
+  dispatch(hide_loading()) // hide loading icon
+}
 			)
-
-		})
-
-	}
-
+    })
+  }
 }
 
-function async_onAddExtraDay( leaveid ,token , data ){
-	return fireAjax( 'POST', '', {
-		'action' : 'add_extra_leave_day',
-		'leaveid' : leaveid,
-		'token' : token,
-		'extra_day' : data
-	})
+function async_onAddDescription (leaveid, hr, data) {
+  return fireAjax('POST', '', {
+    'action': 'add_hr_comment',
+    'leaveid': leaveid,
+    'hr_comment': hr,
+    'hr_approve': data
+  })
 }
 
-export function onAddExtraDay( leaveid ,token , data ){
-	return function (dispatch,getState){
-				return new Promise(( reslove, reject ) => {
-			dispatch( show_loading() ); // show loading icon
-			async_onAddExtraDay(leaveid ,token , data).then(
-				( json ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					if( json.error == 0 ){
-						dispatch( actions_listLeaves.getAllLeaves() )
-		 			}
-				},
-				( error ) => {
-					dispatch( actions_listLeaves.getAllLeaves() )
-					dispatch( hide_loading() ) // hide loading icon
-				}
+export function onAddDescription (leaveid, hr, data) {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()) // show loading icon
+      async_onAddDescription(leaveid, hr, data).then(
+				(json) => {
+  reslove(json.data.leaveid)
+  console.log(json.data.leaveid, 'leaveid of comments added')
+  dispatch(hide_loading()) // hide loading icon
+  if (json.error == 0) {
+    dispatch(actions_listLeaves.getAllLeaves())
+  }
+},
+				(error) => {
+  dispatch(actions_listLeaves.getAllLeaves())
+  dispatch(hide_loading()) // hide loading icon
+}
 			)
-
-		})
-
-	}
-
-}
-
-
-
-function async_onAddDescription( leaveid, hr, data ){
-	return fireAjax( 'POST', '', {
-		'action' : 'add_hr_comment',
-		'leaveid' : leaveid,
-		'hr_comment' : hr,
-		'hr_approve' : data
-	})
-}
-
-export function onAddDescription( leaveid, hr, data ){
-	return function (dispatch,getState){
-				return new Promise(( reslove, reject ) => {
-			dispatch( show_loading() ); // show loading icon
-			async_onAddDescription( leaveid, hr, data ).then(
-				( json ) => {
-					dispatch( hide_loading() ) // hide loading icon
-					if( json.error == 0 ){
-						dispatch( actions_listLeaves.getAllLeaves() )
-		 			}
-				},
-				( error ) => {
-					dispatch( actions_listLeaves.getAllLeaves() )
-					dispatch( hide_loading() ) // hide loading icon
-				}
-			)
-
-		})
-
-	}
-
+    })
+  }
 }

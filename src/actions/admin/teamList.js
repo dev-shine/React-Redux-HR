@@ -2,41 +2,32 @@ import {createAction} from 'redux-actions'
 import {CONFIG} from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
+import * as constants from '../constants'
 
 import {show_loading, hide_loading} from '../generic/frontend'
 
-export const ACTION_SUCCESS_ADD_TEAM = "ACTION_SUCCESS_ADD_TEAM"
-export const ACTION_ERROR_ADD_TEAM = "ACTION_ERROR_ADD_TEAM"
-export const ACTION_SUCCESS_TEAM_LIST = "ACTION_SUCCESS_TEAM_LIST"
-export const ACTION_EMPTY_TEAM_LIST = "ACTION_EMPTY_TEAM_LIST"
-export const ACTION_ERROR_TEAM_LIST = "ACTION_ERROR_TEAM_LIST"
-export const ACTION_SUCCESS_GET_TEAM_CANDIDATE = "ACTION_SUCCESS_GET_TEAM_CANDIDATE"
-export const ACTION_ERROR_GET_TEAM_CANDIDATE = "ACTION_ERROR_GET_TEAM_CANDIDATE"
-
-export function success_team_list(data) {
-  return createAction(ACTION_SUCCESS_TEAM_LIST)(data)
+export function success_team_list (data) {
+  return createAction(constants.ACTION_SUCCESS_TEAM_LIST)(data)
 }
 
-export function empty_team_list(data) {
-  return createAction(ACTION_EMPTY_TEAM_LIST)(data)
+export function empty_team_list (data) {
+  return createAction(constants.ACTION_EMPTY_TEAM_LIST)(data)
 }
 
-export function error_team_list(data) {
-  return createAction(ACTION_ERROR_TEAM_LIST)(data)
+export function error_team_list (data) {
+  return createAction(constants.ACTION_ERROR_TEAM_LIST)(data)
 }
 
 // get all team name
 
-function async_get_all_team() {
+function async_get_all_team () {
   return fireAjax('POST', '', {'action': 'get_team_list'})
 }
 
-export function get_all_team() {
-
-  return function(dispatch, getState) {
-
+export function get_all_team () {
+  return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading()) // show loading icon
       async_get_all_team().then((json) => {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
@@ -55,40 +46,40 @@ export function get_all_team() {
 
 // save team name//
 
-export function success_add_team( data ){
-  return createAction( ACTION_SUCCESS_ADD_TEAM )( data )
+export function success_add_team (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_TEAM)(data)
 }
-export function error_add_team( data ){
-  return createAction( ACTION_ERROR_ADD_TEAM )( data )
-}
-
-function async_saveTeam(team){
-     return fireAjax( 'POST', '', {
-      action : 'add_team_list',
-      type: 'team_list',
-      value: team
-     });
+export function error_add_team (data) {
+  return createAction(constants.ACTION_ERROR_ADD_TEAM)(data)
 }
 
-export function saveTeam(team){
-  return (dispatch,getState) => {
-    return new Promise( (resolve,reject) => {
-      dispatch( show_loading() );
-        async_saveTeam( team ).then(
-        ( json ) => {
-                dispatch( hide_loading() ) // hide loading icon
-          if( json.error == 0 ){
-                dispatch( success_add_team( json.data ) )
-                dispatch( get_all_team( ) )
-                resolve(json.data)
-                }else{
-                  dispatch( error_add_team( json.error[0] ) )
-                  reject(json.error[0])
-                }
+function async_saveTeam (team) {
+  return fireAjax('POST', '', {
+    action: 'add_team_list',
+    type: 'team_list',
+    value: team
+  })
+}
+
+export function saveTeam (team) {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading())
+      async_saveTeam(team).then(
+        (json) => {
+          dispatch(hide_loading()) // hide loading icon
+          if (json.error == 0) {
+            dispatch(success_add_team(json.data))
+            dispatch(get_all_team())
+            resolve(json.data)
+          } else {
+            dispatch(error_add_team(json.error[0]))
+            reject(json.error[0])
+          }
         },
-        ( error ) =>{
-          dispatch( hide_loading() ) // hide loading icon
-          dispatch( error_add_team( 'error occurs'  ) )
+        (error) => {
+          dispatch(hide_loading()) // hide loading icon
+          dispatch(error_add_team('error occurs'))
         }
         )
     })
@@ -97,38 +88,38 @@ export function saveTeam(team){
 
 // Get team candidate//
 
-export function success_get_team_candidate( data ){
-  return createAction( ACTION_SUCCESS_GET_TEAM_CANDIDATE )( data )
+export function success_get_team_candidate (data) {
+  return createAction(constants.ACTION_SUCCESS_GET_TEAM_CANDIDATE)(data)
 }
-export function error_get_team_candidate( data ){
-  return createAction( ACTION_ERROR_GET_TEAM_CANDIDATE )( data )
-}
-
-function async_get_team_candidate(selectedTeam){
-     return fireAjax( 'POST', '', {
-      action : 'get_team_users_detail',
-      team: selectedTeam
-     });
+export function error_get_team_candidate (data) {
+  return createAction(constants.ACTION_ERROR_GET_TEAM_CANDIDATE)(data)
 }
 
-export function get_team_candidate(selectedTeam){
-  return (dispatch,getState) => {
-    return new Promise( (resolve,reject) => {
-      dispatch( show_loading() );
-        async_get_team_candidate( selectedTeam ).then(
-        ( json ) => {
-          dispatch( hide_loading() ) // hide loading icon
-          if( json.error == 0 ){
-                dispatch( success_get_team_candidate( json.data ) )
-                resolve(json.data)
-                }else{
-                  dispatch( error_get_team_candidate( json.error[0] ) )
-                  reject(json.error[0])
-                }
+function async_get_team_candidate (selectedTeam) {
+  return fireAjax('POST', '', {
+    action: 'get_team_users_detail',
+    team: selectedTeam
+  })
+}
+
+export function get_team_candidate (selectedTeam) {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading())
+      async_get_team_candidate(selectedTeam).then(
+        (json) => {
+          dispatch(hide_loading()) // hide loading icon
+          if (json.error == 0) {
+            dispatch(success_get_team_candidate(json.data))
+            resolve(json.data)
+          } else {
+            dispatch(error_get_team_candidate(json.error[0]))
+            reject(json.error[0])
+          }
         },
-        ( error ) =>{
-          dispatch( hide_loading() ) // hide loading icon
-          dispatch( error_get_team_candidate( 'error occurs'  ) )
+        (error) => {
+          dispatch(hide_loading()) // hide loading icon
+          dispatch(error_get_team_candidate('error occurs'))
         }
         )
     })

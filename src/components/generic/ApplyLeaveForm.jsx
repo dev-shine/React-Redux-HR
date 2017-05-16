@@ -158,6 +158,8 @@ class ApplyLeaveForm extends React.Component {
                     <div className="sl-date text-muted">No. of days</div>
                     <div>
                       {this.state.form_no_of_days}
+                    </div>
+                    <div>
                       {apply_half_day_button_1}
                       {apply_half_day_button_2}
                     </div>

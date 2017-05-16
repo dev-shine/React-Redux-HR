@@ -46,12 +46,14 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   componentWillReceiveProps (props) {
+    console.log(props)
     this.setState({
       open: props.open,
       edit: props.edit,
       deviceTypeList: props.manageDevice.deviceList,
       deviceStatusList: props.manageDevice.statusList
     })
+
     if (props.edit) {
       // console(props)
       this.setState({
@@ -67,7 +69,7 @@ export default class FormAddNewInventory extends React.Component {
         comment: props.getByIdData.comments,
         warranty_comment: props.getByIdData.warranty_comment,
         repair_comment: props.getByIdData.repair_comment,
-        bill_no: props.getByIdData.bill_no,
+        bill_no: props.getByIdData.bill_number,
         warranty: props.getByIdData.warranty_end_date,
         user_Id: props.getByIdData.user_Id
       })
@@ -88,7 +90,6 @@ export default class FormAddNewInventory extends React.Component {
         bill_no: '',
         warranty: '',
         user_Id: ''
-
       })
     }
   }
@@ -183,11 +184,12 @@ export default class FormAddNewInventory extends React.Component {
           <table className="table">
             <tbody>
               <tr>
-            <td>
+           <td>
+              Date Of Purchase
               <DateField
-                style={{marginTop: '8%'}}
+                style={{marginTop: '4%'}}
                 dateFormat="YYYY-MM-DD"
-                placeholder="Date Of Purchase"
+                placeholder="YYYY-MM-DD"
                 onChange={(date) => { this.setState({purchase_date: date}) }}
                 value={this.state.purchase_date}
                 className="form-control"
@@ -211,10 +213,11 @@ export default class FormAddNewInventory extends React.Component {
               </td>
               </tr>
               <tr>
-                <td>
-                  <DateField style={{marginTop: '8%'}}
+                 <td>
+                  Date Of Warrenty Expiry
+                  <DateField style={{marginTop: '4%'}}
                     dateFormat="YYYY-MM-DD"
-                    placeholder="Date of Warranty Expiry "
+                    placeholder="YYYY-MM-DD"
                     onChange={(date) => { this.setState({warranty: date}) }}
                     value={this.state.warranty}
                     className="form-control"
@@ -245,9 +248,7 @@ export default class FormAddNewInventory extends React.Component {
                </tr>
 
               <tr>
-                {
-                this.state.machine_type == 'laptop' || this.state.machine_type == 'mobile' || this.state.machine_type == 'desktop' || this.state.machine_type == 'Router'
-                  ? <td>
+              <td>
                   <TextField
                     floatingLabelText="Mac Address"
                     hintText='00:25:96:FF:FE:12:34:56'
@@ -255,8 +256,6 @@ export default class FormAddNewInventory extends React.Component {
                     onChange={(e) => { this.setState({mac_address: e.target.value}) }}
                     value={this.state.mac_address} required />
                 </td>
-                : null
-              }
                 <td>
                   <TextField
                     floatingLabelText="Price"
@@ -290,18 +289,19 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
                     onChange={(e) => (this.setState({status: e.target.value}))}>
                     <option >-Device Status-</option>
+
                       {this.state.deviceStatusList.map((val, i) => {
-                        return <option key={i} value={val}> {val}</option>
+                        return <option key={i} value={val.status}> {val.status}</option>
                       })}
                   </select>
-                </td>
-
-              <td colSpan={2} style={{opacity: '0.56'}}>
-                {'Working Comments'}
+              </td>
+              <td style={{opacity: '0.56'}} >
+                {'Comment'}
                 <textarea
                   style={{width: '100%'}}
-                  onChange={(e) => (this.setState({comment: e.target.value}))}
-                  value={this.state.comment} />
+                  onChange={(e) => { this.setState({comment: e.target.value}) }}
+                  value={this.state.comment}
+                />
               </td>
             </tr>
 

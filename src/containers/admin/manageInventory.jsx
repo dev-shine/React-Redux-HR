@@ -19,7 +19,7 @@ import Header from '../../components/generic/header'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
 import ViewUserDevice from '../../components/inventory/ViewUser'
 import InventoryList from '../../components/attendance/InventoryList'
-import InventoryColorReference from '../../components/inventory/InventoryColorReference'
+// import InventoryColorReference from '../../components/inventory/InventoryColorReference'
 
 class InventorySystem extends React.Component {
   constructor (props) {
@@ -72,6 +72,7 @@ class InventorySystem extends React.Component {
       user_profile_detail: props.manageUsers.user_profile_detail,
       user_assign_machine: props.manageUsers.user_assign_machine})
   }
+
   componentDidUpdate () {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
@@ -213,7 +214,6 @@ class InventorySystem extends React.Component {
               {this.state.secondArrow == 'show' ? null
                 : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
                 <div className="col-md-11 col-xs-offset-0">
-                  <InventoryColorReference {...this.props} />
                 </div>
               </div>
 }
@@ -240,7 +240,7 @@ class InventorySystem extends React.Component {
                             href=""
                             data-toggle="tab"
                             data-target="#tab_2"
-                            aria-expanded="false">User Inventory Page</a>
+                            aria-expanded="false">User Inventory Details</a>
                           <div className={this.state.secondArrow}>
                           <span className="arrow bottom b-accent"></span></div>
                         </li>
@@ -283,7 +283,7 @@ class InventorySystem extends React.Component {
         </div>
     )
   }
-  }
+}
 
 function mapStateToProps (state) {
   return {
@@ -330,14 +330,17 @@ const mapDispatchToProps = (dispatch) => {
     onCallDeviceType: (deviceList) => {
       return dispatch(actions_manageDevice.assignDeviceType(deviceList))
     },
-    onCallDeviceStatus: (statusList) => {
-      return dispatch(actions_manageDevice.assignDeviceStatus(statusList))
+    onCallDeviceStatus: (statusValue, colorValue) => {
+      return dispatch(actions_manageDevice.assignDeviceStatus(statusValue, colorValue))
     },
     onFetchDeviceType: () => {
       return dispatch(actions_manageDevice.getDeviceType())
     },
     onFetchDeviceStatus: () => {
       return dispatch(actions_manageDevice.getDeviceStatus())
+    },
+    onDeleteDeviceStatus: (checkValue) => {
+      return dispatch(actions_manageDevice.deleteDeviceStatus(checkValue))
     }
   }
 }

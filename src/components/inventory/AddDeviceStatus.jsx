@@ -7,25 +7,30 @@ import TextField from 'material-ui/TextField'
 import {notify} from '../../services/index'
 import 'react-date-picker/index.css'
 var moment = require('moment')
+import AlertNotification from '../../components/generic/AlertNotification'
+import { GithubPicker } from 'react-color'
 import { CONFIG } from '../../config/index'
 
 export default class AddDeviceStatus extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      background: '',
+      colorPicker: 'hide',
       statusType: '',
-      open: false,
-      statusList: [],
-      checkValue: []
+      checkValue: '',
+      status_message: ''
     }
-
     this.addMoreStatus = this.addMoreStatus.bind(this)
-    this.addStatusType = this.addStatusType.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.setValue = this.setValue.bind(this)
+    // this.setValue = this.setValue.bind(this)
+    this.handleChangeComplete = this.handleChangeComplete.bind(this)
+    this.handleStatusClose = this.handleStatusClose.bind(this)
   }
+
   componentWillReceiveProps (props) {
-    this.setState({statusList: props.deviceStatusList, open: props.open})
+    this.setState({statusList: props.deviceStatusList,
+      open: props.open})
     window.scrollTo(0, 0)
 
     if (props.logged_user.logged_in == -1) {
@@ -38,62 +43,35 @@ export default class AddDeviceStatus extends React.Component {
       }
     }
   }
-  handleDelete () {
-    let checkValue = this.state.checkValue
-    let statusList = this.state.statusList
-    checkValue.map((val) => {
-      _.pull(statusList, val)
-    })
-    this.props.onCallDeviceStatus(statusList).then((val) => {
-      if (val.data.not_delete) {
-        this.setState({statusList: this.state.statusList, checkValue: []})
-        alert('Device Status in Use')
-      } else {
-        this.setState({statusList, checkValue: []})
-      }
-    })
+  addMoreStatus (event) {
+    event.preventDefault()
+    const statusValue = this.state.statusType
+    const colorValue = this.state.background
+    if (colorValue && statusValue != '') {
+      this.props.callAddStatus(statusValue, colorValue)
+      this.setState({
+        statusType: '',
+        background: ''
+      })
+    }else{
+      notify('First Fill Status Type & Color')
+    }
   }
-  handleClose () {
-    this.setState({
-      open: false,
-      statusType: ''
-    })
+
+  handleChangeComplete (color) {
+    this.setState({ background: color.hex })
   };
 
-  setValue (e) {
-    if (e.target.checked) {
-      let array = this.state.checkValue
-      array.push(e.target.value)
-      this.setState({checkValue: array})
-    } else if (!e.target.checked) {
-      let array = this.state.checkValue
-      _.pull(array, e.target.value)
-      this.setState({
-        checkValue: array
-      })
-    }
+  handleDelete () {
+    this.props.callDeleteDeviceStatus(this.state.checkValue)
   }
 
-  addMoreStatus () {
-    if (!_.isEmpty(this.state.statusType)) {
-      var statusList = this.state.statusList
-      let arr = _.filter(statusList, status => status === this.state.statusType.toLowerCase())
-      if (arr.length > 0) {
-        alert('This Device Status Already In Use')
-        this.setState({
-          statusType: ''
-        })
-      } else {
-        statusList.push(this.state.statusType.toLowerCase())
-        this.setState({
-          statusType: '',
-          statusList: statusList
-        })
-      }
-    }
-  }
-  addStatusType () {
-    this.props.callAddStatus(this.state.statusList)
+  handleStatusClose () {
+    this.setState({
+      openStatus: false,
+      statusType: '',
+      background: ''
+    })
   }
 
   render () {
@@ -104,6 +82,7 @@ export default class AddDeviceStatus extends React.Component {
             fullWidth
             onChange={(e) => {
               this.setState({
+                colorPicker: 'show',
                 statusType: e.target.value
               })
             }}
@@ -123,7 +102,7 @@ export default class AddDeviceStatus extends React.Component {
           }
         }}
         style={{marginRight: 5}}
-    />,
+      />,
       <FlatButton
         label="Cancel"
         primary
@@ -133,43 +112,80 @@ export default class AddDeviceStatus extends React.Component {
       <RaisedButton
         label="Submit"
         primary
-        onTouchTap={this.addStatusType}
+        onTouchTap={this.addMoreStatus}
     />
     ]
     return (
       <div>
-    <button className="md-btn md-raised m-b-sm indigo"
+
+      {
+      this.props.logged_user.role === CONFIG.ADMIN
+    ? <button className="md-btn md-raised m-b-sm indigo"
       onTouchTap={this.props.handleStatusOpen}>Add Status Type</button>
-        <Dialog
-          title={'ADD STATUS TYPE'}
-          titleStyle={{opacity: '0.56'}}
-          actions={actions}
-          modal={false}
-          open={this.props.open}
-          onRequestClose={this.props.handleStatusClose}
-                  ><div className="row m-0">
-                  <div className='col-sm-3'>
-                    <label>Device Type List</label>
-                    <ol>
-                  {this.state.statusList.map((val, i) => {
-                    return <li key={i}>
-                      <input type='checkbox' value={val}
-                        onChange={(e) => {
-                          this.setValue(e)
-                        }}>
-                      </input> {val}</li>
-                  })}
-                </ol>
-                </div>
-                <div className='col-sm-9' style={{marginTop: '5%'}}>
-                {text}
-                <button className="md-btn md-raised m-b-sm indigo " style={{float: 'right '}} onTouchTap={() => {
-                  this.addMoreStatus()
-                }}> Add </button>
-              </div>
-            </div>
+    : null
+  }
+      <Dialog
+        title={'ADD STATUS TYPE'}
+        titleStyle={{opacity: '0.56'}}
+        actions={actions}
+        modal={false}
+        open={this.props.open}
+        onRequestClose={this.handleStatusClose}>
+        <div className="row m-0">
+        <div className='col-sm-4' style={{overflowY: 'auto', maxHeight: '200px'}}>
+          <label>Device Type List</label>
+          <ol>
+        {this.props.manageDevice.statusList.map((val, i) => {
+          let col = this.props.deviceStatusList.filter(data => data.status === val.status)
+          let statusColor
+          if (col.length > 0) {
+            statusColor = col[0].color
+          }
+          return <li key={i}>
+            <input type='radio' name="first" value={val.status}
+              onChange={(e) => {
+                this.setState({checkValue: e.target.value})
+              }}>
+            </input>
+            {val.status}
+            <span style={{
+              background: statusColor,
+              marginLeft: '5%',
+              width: '45px',
+              height: '15px',
+              color: statusColor
+            }}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</li>
+        })}
+      </ol>
+      </div>
+    <div className='col-sm-8' style={{marginTop: '5%'}}>
+    {text}
+        {this.state.statusType
+          ? <div className='col-sm-12 well'>
+          <label>Add Color</label>
+          <div className='row'>
+        <div className='col-sm-6 '>
+          <GithubPicker
+            color={this.state.background}
+            onChangeComplete={this.handleChangeComplete}
+            triangle={'top-left'} />
+        </div>
+        <div className="col-sm-6">
+        <div className="panel panel-default">
+          <div className="panel-heading">Selected Color</div>
+          <div style={{backgroundColor: this.state.background, height: '41px'}}
+            value={this.state.background} className="panel-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  : null
+  }
+</div>
+</div>
           </Dialog>
         </div>
     )
   }
-}
+  }

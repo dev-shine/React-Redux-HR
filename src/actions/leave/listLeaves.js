@@ -28,47 +28,23 @@ function async_getAllLeaves (from_date, to_date, no_of_days, reason) {
 
 export function getAllLeaves (role) {
   return function (dispatch, getState) {
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading()) // show loading icon
       async_getAllLeaves().then(
 				(json) => {
-  dispatch(hide_loading()) // hide loading icon
-  if (json.error == 0) {
-    let aa = {
-      'data': json.data,
-      'role': role}
-    dispatch(list_leaves_sucess(aa))
-  } else {
-    dispatch(list_leaves_error(json.data.message))
-  }
-},
+          dispatch(hide_loading()) // hide loading icon
+          if (json.error == 0) {
+            dispatch(list_leaves_sucess(json.data))
+            resolve();
+          } else {
+            dispatch(list_leaves_error(json.data.message))
+          }
+        },
 				(error) => {
-  dispatch(hide_loading()) // hide loading icon
-  dispatch(list_leaves_error(json.data.message))
-}
+          dispatch(hide_loading()) // hide loading icon
+          dispatch(list_leaves_error(json.data.message))
+        }
 			)
     })
-  }
-}
-
-// ----
-export function selectLeave (leaveid) {
-  return createAction(constants.ACTION_SELECT_LEAVE)(leaveid)
-}
-
-export function onSelectLeave (leaveid) {
-  return function (dispatch, getState) {
-    dispatch(selectLeave(leaveid))
-  }
-}
-
-// ----filter leaves ----
-export function applyFilter (filter) {
-  return createAction(constants.ACTION_LEAVE_FILTER)(filter)
-}
-
-export function onApplyFilter (filter) {
-  return function (dispatch, getState) {
-    dispatch(applyFilter(filter))
   }
 }

@@ -147,7 +147,7 @@ export default class AddDeviceDialoge extends React.Component {
                   <div className='col-sm-3'style={{overflowY: 'auto', maxHeight: '200px'}}>
                     <label>Device Type List</label>
                     <ol>
-                  {this.state.deviceList.reverse().map((val, i) => {
+                  {this.state.deviceList.map((val, i) => {
                     return <li key={i}>
                       <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => {
                         this.setValue(e)

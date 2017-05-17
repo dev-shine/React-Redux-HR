@@ -29,7 +29,7 @@ class ViewLeave extends React.Component {
     this.setState({ messagetouser: '', edit: false })
   }
   handleSave (data) {
-    this.props.onAddDescription(this.props.listLeaves.selectedLeave.id, this.state.messageByHr, data)
+    this.props.onAddDescription(this.props.selectedLeave.id, this.state.messageByHr, data)
     this.setState({
       edit: false,
       messageByHr: ''
@@ -37,7 +37,7 @@ class ViewLeave extends React.Component {
   }
 
   handleUpdate (data) {
-    this.props.onAddDescription(this.props.listLeaves.selectedLeave.id, this.state.editedComment, data)
+    this.props.onAddDescription(this.props.selectedLeave.id, this.state.editedComment, data)
     this.setState({
       edit: false,
       editedComment: ''
@@ -45,16 +45,16 @@ class ViewLeave extends React.Component {
   }
 
   handleExtraDay (day) {
-    this.props.onAddExtraDay(this.props.listLeaves.selectedLeave.id, this.state.user_token, day)
+    this.props.onAddExtraDay(this.props.selectedLeave.id, this.state.user_token, day)
   }
   handleNotify () {
-    this.props.onDocRequired(this.props.listLeaves.selectedLeave.id, '1', '')
+    this.props.onDocRequired(this.props.selectedLeave.id, '1', '')
   }
   handleComment () {
-    this.props.onDocRequired(this.props.listLeaves.selectedLeave.id, '', this.state.messagetouser)
+    this.props.onDocRequired(this.props.selectedLeave.id, '', this.state.messagetouser)
   }
   handleEdit () {
-    let comments = this.props.listLeaves.selectedLeave.hr_comment
+    let comments = this.props.selectedLeave.hr_comment
     this.setState({
       edit: true,
       editedComment: comments
@@ -71,10 +71,10 @@ class ViewLeave extends React.Component {
     if (this.props.logged_user.role == CONFIG.HR) {
       HRDisplay = 'none'
     }
-    if (this.props.listLeaves.selectedLeave.status === 'Approved') {
+    if (this.props.selectedLeave.status === 'Approved') {
       HRDisplay = 'none'
     }
-    if (this.props.listLeaves.selectedLeave.status === 'Rejected') {
+    if (this.props.selectedLeave.status === 'Rejected') {
       HRDisplay = 'none'
     }
     let soptions = _.map(statusList, (s, k) => {
@@ -118,7 +118,7 @@ class ViewLeave extends React.Component {
     )
   }
   _notify () {
-    if (this.props.listLeaves.selectedLeave.doc_required != '0') {
+    if (this.props.selectedLeave.doc_required != '0') {
       return (
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
             <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
@@ -130,18 +130,18 @@ class ViewLeave extends React.Component {
   render () {
     let styles = _.cloneDeep(this.constructor.styles)
     let notify = this._notify()
-    let changeStatusButton = this._getChangeStatusButtons(this.props.listLeaves.selectedLeave.id, this.props.listLeaves.selectedLeave.status)
+    let changeStatusButton = this._getChangeStatusButtons(this.props.selectedLeave.id, this.props.selectedLeave.status)
     let key = parseInt(this.props.keyval)
 
       // previoud leaves
-    let last_applied_leaves = this.props.listLeaves.selectedLeave.last_applied_leaves
+    let last_applied_leaves = this.props.selectedLeave.last_applied_leaves
     let last_applied_leaves_html = ''
     if (typeof last_applied_leaves !== 'undefined' && last_applied_leaves.length > 0) {
-      let aa = this._getLastAppliedLeaves(this.props.listLeaves.selectedLeave.last_applied_leaves)
+      let aa = this._getLastAppliedLeaves(this.props.selectedLeave.last_applied_leaves)
       last_applied_leaves_html = <div><hr /><h5>Leave history</h5>{aa}</div>
     }
     let display = ''
-    if (this.props.logged_user.role == CONFIG.ADMIN && this.props.listLeaves.selectedLeave.hr_comment === '') {
+    if (this.props.logged_user.role == CONFIG.ADMIN && this.props.selectedLeave.hr_comment === '') {
       display = 'none'
     }
     let HRDisplay = ''
@@ -152,8 +152,8 @@ class ViewLeave extends React.Component {
     if (this.props.logged_user.role == CONFIG.HR) {
       adminDisplay = 'none'
     }
-    let status = this.props.listLeaves.selectedLeave.status
-    if (this.props.listLeaves.selectedLeave.status === 'Pending' && this.props.listLeaves.selectedLeave.hr_approved === '1') {
+    let status = this.props.selectedLeave.status
+    if (this.props.selectedLeave.status === 'Pending' && this.props.selectedLeave.hr_approved === '1') {
       status = 'Approved By HR'
     }
 
@@ -166,33 +166,33 @@ class ViewLeave extends React.Component {
         <div className="col-sm-4">
           <a href="" className="pull-left m-r-md">
             <span className="avatar w-96">
-              <img src={this.props.listLeaves.selectedLeave.user_profile_image} />
+              <img src={this.props.selectedLeave.user_profile_image} />
             </span>
           </a>
           <div className="clear m-b">
-            <h6 className="m-a-0 m-b-xs">{this.props.listLeaves.selectedLeave.user_profile_name}</h6>
-            <div>{this.props.listLeaves.selectedLeave.user_profile_jobtitle}</div>
+            <h6 className="m-a-0 m-b-xs">{this.props.selectedLeave.user_profile_name}</h6>
+            <div>{this.props.selectedLeave.user_profile_jobtitle}</div>
           </div>
         </div>
         <div className="col-sm-8">
             <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </i></div>
-            <div>Applied On <i><b>{this.props.listLeaves.selectedLeave.applied_on}</b></i></div>
-            <div><b>{this.props.listLeaves.selectedLeave.from_date} To {this.props.listLeaves.selectedLeave.to_date}</b></div>
-            <div>No. of Days - <i><b>{this.props.listLeaves.selectedLeave.no_of_days}</b></i></div>
-            {this.props.listLeaves.selectedLeave.day_status == '' ? '' : <div>Leave apply for - <i><b>{this.props.listLeaves.selectedLeave.day_status == '1' ? 'First Half' : 'Second Half'}</b></i></div>}
-            <div>Reason - <i><b>{this.props.listLeaves.selectedLeave.reason}</b></i></div>
+            <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
+            <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
+            <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>
+            {this.props.selectedLeave.day_status == '' ? '' : <div>Leave apply for - <i><b>{this.props.selectedLeave.day_status == '1' ? 'First Half' : 'Second Half'}</b></i></div>}
+            <div>Reason - <i><b>{this.props.selectedLeave.reason}</b></i></div>
             {
-              this.props.listLeaves.selectedLeave.leave_type != ''
-              ? <div>Leave Type - <i><b>{this.props.listLeaves.selectedLeave.leave_type}</b></i></div> : null
+              this.props.selectedLeave.leave_type != ''
+              ? <div>Leave Type - <i><b>{this.props.selectedLeave.leave_type}</b></i></div> : null
             }
             {
-              this.props.listLeaves.selectedLeave.late_reason != ''
-              ? <div>Reason For Late Applying - <i><b>{this.props.listLeaves.selectedLeave.late_reason}</b></i></div> : null
+              this.props.selectedLeave.late_reason != ''
+              ? <div>Reason For Late Applying - <i><b>{this.props.selectedLeave.late_reason}</b></i></div> : null
             }
 
             {
-              this.props.listLeaves.selectedLeave.extra_day != '0'
-              ? <div>Extra Day Added - <i><b>{this.props.listLeaves.selectedLeave.extra_day}</b></i></div> : null
+              this.props.selectedLeave.extra_day != '0'
+              ? <div>Extra Day Added - <i><b>{this.props.selectedLeave.extra_day}</b></i></div> : null
             }
             {/* {
               this.state.document_required ?
@@ -203,13 +203,13 @@ class ViewLeave extends React.Component {
                   </div>
             } */}
             {
-              this.props.listLeaves.selectedLeave.doc_require == '0' && this.props.listLeaves.selectedLeave.hr_approved !== '2' && this.props.listLeaves.selectedLeave.status !== 'Approved'
+              this.props.selectedLeave.doc_require == '0' && this.props.selectedLeave.hr_approved !== '2' && this.props.selectedLeave.status !== 'Approved'
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
                 <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
               </div> : null
             }
             {
-              this.props.listLeaves.selectedLeave.hr_approved === '0' && this.props.listLeaves.selectedLeave.hr_comment != ''
+              this.props.selectedLeave.hr_approved === '0' && this.props.selectedLeave.hr_comment != ''
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
                 <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleSave('1') }}>HR Approval</button>
                 <button className="md-btn md-raised indigo" style={{marginLeft: '3px'}} onTouchTap={() => { this.handleSave('2') }}>HR Rejected</button>
@@ -218,7 +218,7 @@ class ViewLeave extends React.Component {
                : null
             }
             {
-                this.props.listLeaves.selectedLeave.hr_approved != '0' && this.props.listLeaves.selectedLeave.hr_approved != '2'
+                this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '2'
               ? <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
                    <label style={{fontWeight: '500'}}>Approved By HR</label>
                  </div>
@@ -226,21 +226,21 @@ class ViewLeave extends React.Component {
             }
 
             {
-                this.props.listLeaves.selectedLeave.hr_approved != '0' && this.props.listLeaves.selectedLeave.hr_approved != '1'
+                this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '1'
               ? <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
                    <label style={{fontWeight: '500'}}>Rejected By HR</label>
                  </div>
                  : null
             }
             {
-              this.props.listLeaves.selectedLeave.doc_link === '' && this.props.listLeaves.selectedLeave.doc_require === '1'
+              this.props.selectedLeave.doc_link === '' && this.props.selectedLeave.doc_require === '1'
                 ? notify
                 : null
             }
             {
-              this.props.listLeaves.selectedLeave.doc_link === ''
+              this.props.selectedLeave.doc_link === ''
                 ? null
-                : <form method="get" target="_blank" action={this.props.listLeaves.selectedLeave.doc_link}>
+                : <form method="get" target="_blank" action={this.props.selectedLeave.doc_link}>
                 <div className=" text-left" style={{marginTop: '10px'}}>
                 <button className="md-btn md-raised indigo" >View Document</button>
               </div>
@@ -248,7 +248,7 @@ class ViewLeave extends React.Component {
             }
 
             {
-              this.props.listLeaves.selectedLeave.late_reason === '' && this.props.listLeaves.selectedLeave != 'Rejected' ? null
+              this.props.selectedLeave.late_reason === '' && this.props.selectedLeave != 'Rejected' ? null
               : <div className='row m-0' style={{display: adminDisplay}}>
                 <div className='col-sm-3 p-0 pt-5'>
                   <div className=" text-left" style={{marginTop: '10px'}}>
@@ -261,7 +261,7 @@ class ViewLeave extends React.Component {
                   </div>
                 </div>
                 {
-                  this.props.listLeaves.selectedLeave.extra_day == '0' ? null
+                  this.props.selectedLeave.extra_day == '0' ? null
                   : <div className='col-sm-4 p-0'>
                     <div className="text-left" style={{marginTop: '10px'}}>
                       <button className="md-btn md-raised red" onTouchTap={() => { this.handleExtraDay('0') }}>Remove Extra Day</button>
@@ -271,13 +271,13 @@ class ViewLeave extends React.Component {
               </div>
             }
             {/* {
-              this.props.listLeaves.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
+              this.props.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
                   </div>
             } */}
             <br />
             {
-              this.props.listLeaves.selectedLeave.comment === ''
+              this.props.selectedLeave.comment === ''
               ? <div style={{display: adminDisplay}}>
               <b>Enter message for employee</b><br />
               <input type="text" className="md-input" onChange={(e) => this.setState({ messagetouser: e.target.value})} value={this.state.messagetouser} />
@@ -287,12 +287,12 @@ class ViewLeave extends React.Component {
             </div> : <div>
             <b>Comment</b><br />
             <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
-               <label style={{fontWeight: '500'}}>{this.props.listLeaves.selectedLeave.comment}</label>
+               <label style={{fontWeight: '500'}}>{this.props.selectedLeave.comment}</label>
                </div>
             </div>
             }
             {
-              this.props.listLeaves.selectedLeave.hr_comment === '' && this.props.logged_user.role == CONFIG.HR
+              this.props.selectedLeave.hr_comment === '' && this.props.logged_user.role == CONFIG.HR
               ? <div>
               <b>Write Entire Leave Details After Talking To Employee</b><br />
               <input type="text" className="md-input"
@@ -306,11 +306,11 @@ class ViewLeave extends React.Component {
            }
            <div>
            <div>
-           {this.props.logged_user.role == CONFIG.HR && this.props.listLeaves.selectedLeave.hr_comment === ''
+           {this.props.logged_user.role == CONFIG.HR && this.props.selectedLeave.hr_comment === ''
              ? null : <div style={{display: display}}>
             <b>Description By HR</b><br />
             <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
-               <label style={{fontWeight: '500'}}>{this.props.listLeaves.selectedLeave.hr_comment}</label>
+               <label style={{fontWeight: '500'}}>{this.props.selectedLeave.hr_comment}</label>
                </div>
              </div>
              }
@@ -329,7 +329,7 @@ class ViewLeave extends React.Component {
                }
 
                {
-                  this.props.listLeaves.selectedLeave.hr_comment != ''
+                  this.props.selectedLeave.hr_comment != ''
                ? <div className='row m-0' style={{display: HRDisplay}}>
                  <div className='col-sm-3 p-0'>
                    {

@@ -36,14 +36,11 @@ class LeavesListLeave extends React.Component {
     let isSelectedDiv = ''
     let selectedDivClass = ''
 
-    if (typeof this.props.leave.option_select !== 'undefined') {
-      isSelectedDiv = this.props.leave.option_select
-      if (isSelectedDiv == 1) {
-        selectedDivClass = 'yellow'
-      }
+    if (this.props.leave.id === this.props.selectedLeave.id) {
+      selectedDivClass = 'yellow';
     }
     return (
-      <div className={`list-item pointer b-l b-l-2x b-${leaveStatusColor} ${selectedDivClass}`} key={key} style={styles.leaveDiv} onClick={() => this.props.onSelectLeave(this.props.leave.id)}>
+      <div className={`list-item pointer b-l b-l-2x b-${leaveStatusColor} ${selectedDivClass}`} key={key} style={styles.leaveDiv} onClick={() => this.props.selectLeave(this.props.leave.id)}>
             <div className="list-left">
               <span className="w-40 avatar">
                 <img src={this.props.leave.user_profile_image} className="img-circle" />

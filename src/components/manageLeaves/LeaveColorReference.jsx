@@ -17,7 +17,8 @@ class LeaveColorReference extends React.Component {
             ? <div className="row no-gutter m-b text-xs l-h-1x">
 
              <div className="col-xs-3 text-center" style={styles.cursor}
-               onClick={() => this.props.onApplyFilter('Pending by HR')} >
+               onClick={() => this.props.filterLeaveList('ApprovedByHr')} >
+               <div style={this.props.selectedTab === 'ApprovedByHr' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a blue">
                   <h4></h4>
                   <div className="text-u-c _600 text-sm" >Approved By HR</div>
@@ -25,7 +26,8 @@ class LeaveColorReference extends React.Component {
               </div>
 
               <div className="col-xs-3 text-center" style={styles.cursor}
-                onClick={() => this.props.onApplyFilter('HR')} >
+                onClick={() => this.props.filterLeaveList('Pending')} >
+                <div style={this.props.selectedTab === 'Pending' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a yellow-A200">
                   <h4></h4>
                   <div className=" text-u-c _600 text-sm" >Not Approved By HR</div>
@@ -33,7 +35,8 @@ class LeaveColorReference extends React.Component {
               </div>
 
               <div className="col-xs-3 text-center" style={styles.cursor}
-                onClick={() => this.props.onApplyFilter('Approved')} >
+                onClick={() => this.props.filterLeaveList('Approved')} >
+                <div style={this.props.selectedTab === 'Approved' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a green-A200">
                   <h4></h4>
                   <div className=" text-u-c _600 text-sm" >Approved</div>
@@ -41,7 +44,8 @@ class LeaveColorReference extends React.Component {
               </div>
 
               <div className="col-xs-3 text-center" style={styles.cursor}
-                onClick={() => this.props.onApplyFilter('Rejected')} >
+                onClick={() => this.props.filterLeaveList('Rejected')} >
+                <div style={this.props.selectedTab === 'Rejected' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a red-500">
                   <h4></h4>
                   <div className="text-u-c _600 text-sm" >Rejected</div>
@@ -51,7 +55,8 @@ class LeaveColorReference extends React.Component {
             : <div className="row no-gutter m-b text-xs l-h-1x">
 
               <div className="col-xs-4 text-center" style={styles.cursor}
-                onClick={() => this.props.onApplyFilter('Pending')} >
+                onClick={() => this.props.filterLeaveList('Pending')} >
+                <div style={this.props.selectedTab === 'Pending' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a blue">
                   <h4></h4>
                   <div className="text-u-c _600 text-sm" >Pending Leave Requests</div>
@@ -59,7 +64,8 @@ class LeaveColorReference extends React.Component {
               </div>
 
               <div className="col-xs-3 text-center" style={styles.cursor}
-                onClick={() => this.props.onApplyFilter('ApprovedByHr')} >
+                onClick={() => this.props.filterLeaveList('ApprovedByHr')} >
+                <div style={this.props.selectedTab === 'ApprovedByHr' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a green-A200">
                   <h4></h4>
                   <div className=" text-u-c _600 text-sm" >Approved By HR</div>
@@ -76,6 +82,14 @@ class LeaveColorReference extends React.Component {
 LeaveColorReference.styles = {
   cursor: {
     'cursor': 'Pointer'
+  },
+  selectedTab: {
+    'height': '3px',
+    'background': '#008000',
+    'borderRadius': '10px 10px 0px 0px',
+  },
+  nonSelectedTabs: {
+    'height': '3px'
   }
 }
 

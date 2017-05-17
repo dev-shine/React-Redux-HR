@@ -27,7 +27,8 @@ class ManageLeaves extends React.Component {
     super(props)
     this.props.onIsAlreadyLogin()
     this.state = {
-      selectedTab: 'ApprovedByHr',
+      loading: true,
+      selectedTab: '',
       leaveListItems: [],
       all_leaves: [],
       selectedLeave: {},
@@ -45,12 +46,14 @@ class ManageLeaves extends React.Component {
   }
   componentWillReceiveProps (props) {
       //  window.scrollTo(0, 0);
+    var selectedTab = ''
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout')
     } else {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-
+        selectedTab = 'ApprovedByHr';
       } else if (props.logged_user.role == CONFIG.HR) {
+        selectedTab = 'Pending';
         let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0 }) || []
         if (unread.length > 0) {
           this.props.router.push('/policy_documents')
@@ -62,6 +65,7 @@ class ManageLeaves extends React.Component {
     if (!_.isEqual(props.listLeaves.all_leaves,this.state.all_leaves)) {
       this.setState({
         all_leaves: props.listLeaves.all_leaves,
+        selectedTab: selectedTab,
       }, ()=>{
         this.filterLeaveList(this.state.selectedTab);
       });
@@ -91,7 +95,9 @@ class ManageLeaves extends React.Component {
     if (appliedFilter === 'Pending') {
       newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
     }  else if (appliedFilter === 'ApprovedByHr') {
-      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) > 0; });
+      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 1; });
+    } else if (appliedFilter === 'RejectedByHr') {
+      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 2; });
     } else {
       newLeavesList = _.filter(all_leaves, { 'status': appliedFilter })
     }
@@ -101,12 +107,14 @@ class ManageLeaves extends React.Component {
       selectedLeave = select[0]
     }
     this.setState({
+      loading: false,
       leaveListItems: newLeavesList,
       selectedTab: appliedFilter,
       selectedLeave: selectedLeave
     });
   }
-  	render () {
+	render () {
+    let styles = _.cloneDeep(this.constructor.styles);
     let status_message = ''
     if (this.props.manageLeave.status_message != '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
@@ -125,14 +133,17 @@ class ManageLeaves extends React.Component {
                     <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} {...this.props} />
                   </div>
                 </div>
-                <div className="row-col row-col-xs b-b">
+                {this.state.loading ? <div className="row-col row-col-xs b-b" style={styles.spinContainer}>
+                  <i className="fa fa-spinner fa-pulse fa-3x" style={styles.spiner} aria-hidden="true"></i>
+                  </div>
+                : <div className="row-col row-col-xs b-b">
                   <div className="col-sm-3 light bg b-r">
                     <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
                   </div>
                   <div className="col-sm-9 light bg b-r">
                     <ViewLeave selectedLeave={this.state.selectedLeave} doLeaveStatusChange={this.doLeaveStatusChange} {...this.props} />
                   </div>
-                </div>
+                </div>}
   	          </div>
 						</div>
 					</div>
@@ -141,6 +152,16 @@ class ManageLeaves extends React.Component {
   }
 }
 
+ManageLeaves.styles = {
+  spinContainer: {
+    'textAlign': 'center',
+    'fontSize': '50px',
+    'color': '#808080',
+  },
+  spiner: {
+    'margin': '50px auto'
+  }
+}
 function mapStateToProps (state) {
   return {
     frontend: state.frontend.toJS(),

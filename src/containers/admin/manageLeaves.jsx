@@ -45,8 +45,7 @@ class ManageLeaves extends React.Component {
 
   }
   componentWillReceiveProps (props) {
-      //  window.scrollTo(0, 0);
-    var selectedTab = ''
+    var selectedTab = '';
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout')
     } else {
@@ -65,7 +64,7 @@ class ManageLeaves extends React.Component {
     if (!_.isEqual(props.listLeaves.all_leaves,this.state.all_leaves)) {
       this.setState({
         all_leaves: props.listLeaves.all_leaves,
-        selectedTab: selectedTab,
+        selectedTab: this.state.loading ? selectedTab : this.state.selectedTab,
       }, ()=>{
         this.filterLeaveList(this.state.selectedTab);
       });

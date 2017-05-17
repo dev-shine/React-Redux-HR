@@ -62,11 +62,15 @@ class ManageLeaves extends React.Component {
       }
     }
     if (!_.isEqual(props.listLeaves.all_leaves,this.state.all_leaves)) {
+      let tab = localStorage.getItem("activeTab");
+      if (!_.isEmpty(tab))  {
+        selectedTab = tab;
+      }
       this.setState({
         all_leaves: props.listLeaves.all_leaves,
-        selectedTab: this.state.loading ? selectedTab : this.state.selectedTab,
+        selectedTab: selectedTab,
       }, ()=>{
-        this.filterLeaveList(this.state.selectedTab);
+        this.filterLeaveList(selectedTab);
       });
     }
   }
@@ -87,18 +91,18 @@ class ManageLeaves extends React.Component {
     }
   }
 
-  filterLeaveList(appliedFilter) {
+  filterLeaveList(activeTab) {
     var all_leaves = this.state.all_leaves;
     var selectedLeave = this.state.selectedLeave;
     let newLeavesList;
-    if (appliedFilter === 'Pending') {
+    if (activeTab === 'Pending') {
       newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
-    }  else if (appliedFilter === 'ApprovedByHr') {
+    }  else if (activeTab === 'ApprovedByHr') {
       newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 1; });
-    } else if (appliedFilter === 'RejectedByHr') {
-      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 2; });
+    } else if (activeTab === 'NotApprovedByHr') {
+      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && (parseInt(o.hr_approved) === 2 || parseInt(o.hr_approved) === 0); });
     } else {
-      newLeavesList = _.filter(all_leaves, { 'status': appliedFilter })
+      newLeavesList = _.filter(all_leaves, { 'status': activeTab })
     }
     var selectedLeave = newLeavesList[0];
     var select = _.filter(newLeavesList, { 'id': this.state.selectedLeave.id });
@@ -108,9 +112,10 @@ class ManageLeaves extends React.Component {
     this.setState({
       loading: false,
       leaveListItems: newLeavesList,
-      selectedTab: appliedFilter,
-      selectedLeave: selectedLeave
+      selectedLeave: selectedLeave,
+      selectedTab: activeTab
     });
+    localStorage.setItem("activeTab", activeTab);
   }
 	render () {
     let styles = _.cloneDeep(this.constructor.styles);

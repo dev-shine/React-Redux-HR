@@ -99,17 +99,19 @@ export function logout () {
   return function (dispatch, getState) {
     return new Promise((resolve, conflict) => {
       asyncLogout().then(
-				(json) => {
-  localStorage.setItem('hr_logged_user', '')
-  localStorage.setItem('userid', '')
-  dispatch(logout_sucess())
-},
-				(error) => {
-  localStorage.setItem('hr_logged_user', '')
-  localStorage.setItem('userid', '')
-  dispatch(logout_sucess())
-}
-			)
+        (json) => {
+          // localStorage.setItem('hr_logged_user', '')
+          // localStorage.setItem('userid', '')
+          localStorage.clear();
+          dispatch(logout_sucess())
+        },
+        (error) => {
+          // localStorage.setItem('hr_logged_user', '')
+          // localStorage.setItem('userid', '')
+          localStorage.clear();
+          dispatch(logout_sucess())
+        }
+      )
     })
   }
 }

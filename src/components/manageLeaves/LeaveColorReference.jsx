@@ -26,11 +26,11 @@ class LeaveColorReference extends React.Component {
               </div>
 
               <div className="col-xs-3 text-center" style={styles.cursor}
-                onClick={() => this.props.filterLeaveList('RejectedByHr')} >
-                <div style={selectedTab === 'RejectedByHr' ? styles.selectedTab : styles.nonSelectedTabs}></div>
+                onClick={() => this.props.filterLeaveList('NotApprovedByHr')} >
+                <div style={selectedTab === 'NotApprovedByHr' ? styles.selectedTab : styles.nonSelectedTabs}></div>
                 <div className="p-a yellow-A200">
                   <h4></h4>
-                  <div className=" text-u-c _600 text-sm" >Rejected By HR</div>
+                  <div className=" text-u-c _600 text-sm" >Not Approved By HR</div>
                 </div>
               </div>
 

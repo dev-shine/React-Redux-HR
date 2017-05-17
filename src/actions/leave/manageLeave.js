@@ -37,10 +37,10 @@ export function changeLeaveStatus (leaveid, newstatus, messagetouser) {
       dispatch(show_loading()) // show loading icon
       async_changeLeaveStatus(leaveid, newstatus, messagetouser).then(
 				(json) => {
-  dispatch(hide_loading()) // hide loading icon
-  if (json.error == 0) {
-    dispatch(leave_status_change_success(json.data.message))
-    dispatch(actions_listLeaves.getAllLeaves())
+        dispatch(hide_loading()) // hide loading icon
+        if (json.error == 0) {
+          dispatch(leave_status_change_success(json.data.message))
+          dispatch(actions_listLeaves.getAllLeaves())
 		 			} else {
 		 				dispatch(leave_status_change_fail(json.data.message))
 		 			}
@@ -128,7 +128,6 @@ export function onAddDescription (leaveid, hr, data) {
       async_onAddDescription(leaveid, hr, data).then(
 				(json) => {
   reslove(json.data.leaveid)
-  console.log(json.data.leaveid, 'leaveid of comments added')
   dispatch(hide_loading()) // hide loading icon
   if (json.error == 0) {
     dispatch(actions_listLeaves.getAllLeaves())

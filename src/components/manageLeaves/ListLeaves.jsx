@@ -19,9 +19,8 @@ class ListLeaves extends React.Component {
   //   }
   // }
   render () {
-    let LeavesList = _.map(this.props.listLeaves.leaves, (leave, keyval) => {
-      if (leave.option_select) {
-      }
+    var listItems = this.props.listItems;
+    let LeavesList = _.map(listItems, (leave, keyval) => {
       return (
             <ListLeavesLeave leave={leave} key={keyval} keyval={keyval} {...this.props} />
       )

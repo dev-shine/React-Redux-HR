@@ -26,14 +26,22 @@ class ManageLeaves extends React.Component {
   constructor (props) {
     super(props)
     this.props.onIsAlreadyLogin()
-    this.doLeaveStatusChange = this.doLeaveStatusChange.bind(this)
+    this.state = {
+      selectedTab: 'ApprovedByHr',
+      leaveListItems: [],
+      all_leaves: [],
+      selectedLeave: {},
+    }
+    this.doLeaveStatusChange = this.doLeaveStatusChange.bind(this);
+    this.filterLeaveList = this.filterLeaveList.bind(this);
+    this.selectLeave = this.selectLeave.bind(this);
   }
   componentDidMount () {
     this.props.onFetchUserPolicyDocument()
     this.props.onListLeaves(this.props.logged_user.role)
   }
   componentWillMount () {
-        // this.props.onListLeaves( )
+
   }
   componentWillReceiveProps (props) {
       //  window.scrollTo(0, 0);
@@ -51,6 +59,13 @@ class ManageLeaves extends React.Component {
         this.props.router.push('/monthly_attendance')
       }
     }
+    if (!_.isEqual(props.listLeaves.all_leaves,this.state.all_leaves)) {
+      this.setState({
+        all_leaves: props.listLeaves.all_leaves,
+      }, ()=>{
+        this.filterLeaveList(this.state.selectedTab);
+      });
+    }
   }
   doLeaveStatusChange (id, newstatus, messagetouser) {
     this.props.onChangeLeaveStatus(id, newstatus, messagetouser).then(
@@ -59,6 +74,37 @@ class ManageLeaves extends React.Component {
         }, (error) => {
             // notify( error );
     })
+  }
+  selectLeave (leaveId) {
+    if (leaveId !== this.state.selectedLeave.id) {
+      var select = _.find(this.state.leaveListItems, { 'id': leaveId });
+      this.setState({
+        selectedLeave: select,
+      });
+    }
+  }
+
+  filterLeaveList(appliedFilter) {
+    var all_leaves = this.state.all_leaves;
+    var selectedLeave = this.state.selectedLeave;
+    let newLeavesList;
+    if (appliedFilter === 'Pending') {
+      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
+    }  else if (appliedFilter === 'ApprovedByHr') {
+      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) > 0; });
+    } else {
+      newLeavesList = _.filter(all_leaves, { 'status': appliedFilter })
+    }
+    var selectedLeave = newLeavesList[0];
+    var select = _.filter(newLeavesList, { 'id': this.state.selectedLeave.id });
+    if (_.size(select) > 0) {
+      selectedLeave = select[0]
+    }
+    this.setState({
+      leaveListItems: newLeavesList,
+      selectedTab: appliedFilter,
+      selectedLeave: selectedLeave
+    });
   }
   	render () {
     let status_message = ''
@@ -76,15 +122,15 @@ class ManageLeaves extends React.Component {
   						<div className="padding">
                 <div className="row">
                   <div className="col-12">
-                    <LeaveColorReference {...this.props} />
+                    <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} {...this.props} />
                   </div>
                 </div>
                 <div className="row-col row-col-xs b-b">
                   <div className="col-sm-3 light bg b-r">
-                    <ListLeaves {...this.props} />
+                    <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
                   </div>
                   <div className="col-sm-9 light bg b-r">
-                    <ViewLeave {...this.props} doLeaveStatusChange={this.doLeaveStatusChange} />
+                    <ViewLeave selectedLeave={this.state.selectedLeave} doLeaveStatusChange={this.doLeaveStatusChange} {...this.props} />
                   </div>
                 </div>
   	          </div>
@@ -111,12 +157,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onListLeaves: (role) => {
       return dispatch(actions_listLeaves.getAllLeaves(role))
-    },
-    onApplyFilter: (filter) => {
-      return dispatch(actions_listLeaves.onApplyFilter(filter))
-    },
-    onSelectLeave: (leaveid) => {
-      return dispatch(actions_listLeaves.onSelectLeave(leaveid))
     },
     onAddDescription: (leaveid, hr, data) => {
       return dispatch(actions_manageLeave.onAddDescription(leaveid, hr, data))

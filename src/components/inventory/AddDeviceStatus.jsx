@@ -133,7 +133,7 @@ export default class AddDeviceStatus extends React.Component {
         onRequestClose={this.handleStatusClose}>
         <div className="row m-0">
         <div className='col-sm-4' style={{overflowY: 'auto', maxHeight: '200px'}}>
-          <label>Device Type List</label>
+          <label>Status Type List</label>
           <ol>
         {this.props.manageDevice.statusList.map((val, i) => {
           let col = this.props.deviceStatusList.filter(data => data.status === val.status)

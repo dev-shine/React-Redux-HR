@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
+import {Router, browserHistory, Link, withRouter} from 'react-router';
 import * as actions_login from '../../actions/login/index'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
@@ -33,7 +33,7 @@ class Login extends React.Component {
     this.doGuestLogin = this.doGuestLogin.bind(this)
   }
   componentWillMount(){
-    
+
   }
   componentWillReceiveProps(props) {
     let logged_user = props.logged_user

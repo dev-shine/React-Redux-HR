@@ -28,7 +28,10 @@ import {template} from './admin/template'
 import {teamList} from './admin/teamList'
 import {manageDevice} from './admin/inventory'
 
+import {logged_user_new} from '../newStructure/redux/auth/reducers/logged_user'
+
 export default combineReducers({
+  logged_user_new,
   frontend,
   logged_user,
   monthlyAttendance,

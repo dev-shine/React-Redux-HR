@@ -21,9 +21,11 @@ import reducer from './reducers/index'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // pages
-import Page_Login from './containers/user/login'
+// import Page_Login from './containers/user/login'
+import Page_Login from './newStructure/modules/auth/containers/login'
 import Page_Home from './containers/user/home'
-import Page_Logout from './containers/user/logout'
+// import Page_Logout from './containers/user/logout'
+import Page_Logout from './newStructure/modules/auth/containers/logout'
 import Page_ForgotPassword from './containers/user/forgotPassword'
 import Page_PolicyDocument from './containers/user/PolicyDocument'
 

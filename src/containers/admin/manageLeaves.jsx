@@ -109,6 +109,7 @@ class ManageLeaves extends React.Component {
     if (_.size(select) > 0) {
       selectedLeave = select[0]
     }
+    console.log('LeavesList',newLeavesList);
     this.setState({
       loading: false,
       leaveListItems: newLeavesList,

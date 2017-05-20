@@ -118,7 +118,7 @@ class ViewLeave extends React.Component {
     )
   }
   _notify () {
-    if (this.props.selectedLeave.doc_required != '0') {
+    if (!_.isUndefined(this.props.selectedLeave.doc_require) && this.props.selectedLeave.doc_require != '0') {
       return (
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
             <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>

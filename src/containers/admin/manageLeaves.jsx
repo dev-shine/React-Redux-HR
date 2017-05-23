@@ -93,7 +93,6 @@ class ManageLeaves extends React.Component {
 
   filterLeaveList(activeTab) {
     var all_leaves = this.state.all_leaves;
-    var selectedLeave = this.state.selectedLeave;
     let newLeavesList;
     if (activeTab === 'Pending') {
       newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
@@ -104,12 +103,15 @@ class ManageLeaves extends React.Component {
     } else {
       newLeavesList = _.filter(all_leaves, { 'status': activeTab })
     }
-    var selectedLeave = newLeavesList[0];
-    var select = _.filter(newLeavesList, { 'id': this.state.selectedLeave.id });
-    if (_.size(select) > 0) {
-      selectedLeave = select[0]
+
+    var selectedLeave = newLeavesList[0] || {};
+    if (!_.isEmpty(this.state.selectedLeave)) {
+      var select = _.filter(newLeavesList, { 'id': this.state.selectedLeave.id });
+      if (_.size(select) > 0) {
+        selectedLeave = select[0];
+      }
     }
-    console.log('LeavesList',newLeavesList);
+
     this.setState({
       loading: false,
       leaveListItems: newLeavesList,
@@ -126,6 +128,25 @@ class ManageLeaves extends React.Component {
           <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>
     }
 
+    let tabContent;
+    if (!this.state.loading && (_.isEmpty(this.state.selectedLeave) || _.isEmpty(this.state.leaveListItems))) {
+      tabContent = (<div className="row-col row-col-xs b-b" style={styles.spinContainer}>
+       <span className="" style={styles.spiner}>No data found</span>
+       </div>);
+    } else if (!this.state.loading && (!_.isEmpty(this.state.selectedLeave) && !_.isEmpty(this.state.leaveListItems))) {
+      tabContent = <div className="row-col row-col-xs b-b">
+        <div className="col-sm-3 light bg b-r">
+          <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
+        </div>
+        <div className="col-sm-9 light bg b-r">
+          <ViewLeave selectedLeave={this.state.selectedLeave} doLeaveStatusChange={this.doLeaveStatusChange} {...this.props} />
+        </div>
+      </div>;
+    } else if (this.state.loading) {
+      tabContent = <div className="row-col row-col-xs b-b" style={styles.spinContainer}>
+        <i className="fa fa-spinner fa-pulse fa-3x" style={styles.spiner} aria-hidden="true"></i>
+        </div>;
+    }
     return (
     		<div>
     			<Menu {...this.props} />
@@ -138,17 +159,7 @@ class ManageLeaves extends React.Component {
                     <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} {...this.props} />
                   </div>
                 </div>
-                {this.state.loading ? <div className="row-col row-col-xs b-b" style={styles.spinContainer}>
-                  <i className="fa fa-spinner fa-pulse fa-3x" style={styles.spiner} aria-hidden="true"></i>
-                  </div>
-                : <div className="row-col row-col-xs b-b">
-                  <div className="col-sm-3 light bg b-r">
-                    <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
-                  </div>
-                  <div className="col-sm-9 light bg b-r">
-                    <ViewLeave selectedLeave={this.state.selectedLeave} doLeaveStatusChange={this.doLeaveStatusChange} {...this.props} />
-                  </div>
-                </div>}
+                {tabContent}
   	          </div>
 						</div>
 					</div>

@@ -15,7 +15,6 @@ import * as actions_disabledEmployee from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 import * as actions_managePayslips from '../../actions/admin/managePayslips'
 
-import ViewLeavesSummary from '../../components/leavesSummary/ViewLeavesSummary'
 import UsersList from '../../components/generic/UsersList'
 import DisabledUserDetails from '../../components/attendance/DisabledUserDetails'
 import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'

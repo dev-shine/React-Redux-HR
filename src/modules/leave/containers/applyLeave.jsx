@@ -5,7 +5,6 @@ import * as _ from 'lodash'
 import {notify} from '../../../services/index'
 
 import Menu from '../../../components/generic/Menu'
-import LoadingIcon from '../../../components1/generic/LoadingIcon'
 import Header from '../../../components1/generic/Header'
 
 import ApplyLeaveForm from '../components/applyLeave/ApplyLeaveForm'

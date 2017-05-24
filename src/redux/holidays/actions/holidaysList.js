@@ -1,10 +1,11 @@
 import { createAction } from 'redux-actions'
-import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
-import {fireAjax} from '../../services/index'
-import * as constants from '../constants'
 
-import {show_loading, hide_loading} from '../generic/frontend'
+import { CONFIG } from '../../../config/index'
+import {fireAjax} from '../../../services/index'
+import * as constants from '../../../actions/constants'
+
+import {show_loading, hide_loading} from '../../../actions/generic/frontend'
 
 export function success_holidaysList (data) {
   return createAction(constants.ACTION_SUCCESS_HOLIDAYSLIST)(data)
@@ -30,17 +31,17 @@ export function get_holidays_list () {
       dispatch(show_loading()) // show loading icon
       async_get_holidays_list().then(
 				(json) => {
-  dispatch(hide_loading()) // hide loading icon
-  if (json.error === 0) {
-    dispatch(success_holidaysList(json.data))
-  } else {
-    dispatch(empty_holidaysList([]))
-  }
-},
-				(error) => {
-  dispatch(hide_loading()) // hide loading icon
-  dispatch(error_holidaysList([]))
-}
+          dispatch(hide_loading()) // hide loading icon
+          if (json.error === 0) {
+            dispatch(success_holidaysList(json.data))
+          } else {
+            dispatch(empty_holidaysList([]))
+          }
+        },
+        				(error) => {
+          dispatch(hide_loading()) // hide loading icon
+          dispatch(error_holidaysList([]))
+        }
 			)
     })
   }

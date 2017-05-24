@@ -1,19 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-
+import {withRouter} from 'react-router'
 import * as _ from 'lodash'
-import {notify} from '../../services/index'
 
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import Header from '../../components/generic/header'
-import HolidaysList from '../../components/attendance/HolidaysList'
+import {notify} from '../../../services/index'
+import { CONFIG } from '../../../config/index'
+import Menu from '../../../components/generic/Menu'
+import LoadingIcon from '../../../components1/generic/LoadingIcon'
+import Header from '../../../components1/generic/Header'
+import HolidaysList from '../../../components1/holidays/HolidaysList'
 
-import * as actions_login from '../../actions/login/index'
-import * as actions_holidaysList from '../../actions/user/holidaysList'
-import * as actions_policy from '../../actions/policyDocuments/index'
-import { CONFIG } from '../../config/index'
+import * as actions_login from '../../../redux/auth/actions/index'
+import * as actions_policy from '../../../redux/policyDocuments/actions/index'
+import * as actions_holidaysList from '../../../redux/holidays/actions/holidaysList'
+
 
 class Holidays extends React.Component {
   constructor(props) {
@@ -39,36 +39,24 @@ class Holidays extends React.Component {
     }
   }
   render() {
-
-    let mainDivs = <div className="row">
-      <div className="col-md-12">
-        <HolidaysList {...this.props}/>
-      </div>
-    </div>
-
     return (
       <div>
-        <Menu {...this.props }/>
-
+        <Menu {...this.props }/>0
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={"Holidays List"} {...this.props} />
+          <Header pageTitle={"Holidays List"} showLoading={this.props.frontend.show_loading} />
           <div className="app-footer">
             <div></div>
           </div>
           <div className="app-body" id="view">
-
-            <div className="row">
-              <div className="col-12">
-                <LoadingIcon {...this.props}/>
+            <div className="padding">
+              <div className="row">
+                <div className="col-md-12">
+                  <HolidaysList holidays={this.props.holidaysList.holidays}/>
+                </div>
               </div>
             </div>
-            <div className="padding">
-              {mainDivs}
-            </div>
-
           </div>
         </div>
-
       </div>
     )
   }

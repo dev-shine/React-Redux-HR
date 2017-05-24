@@ -30,19 +30,16 @@ import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
 import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
 import Page_ApplyLeave from './modules/leave/containers/applyLeave';
 import Page_MyLeaves from './modules/leave/containers/myLeaves';
+
+import Page_Holidays from './modules/holidays/containers/holidays';
 //-----------------------------
 
-// import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
-// import Page_Logout from './containers/user/logout'
-// import Page_ForgotPassword from './containers/user/forgotPassword'
 import Page_PolicyDocument from './containers/user/PolicyDocument'
 
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
-// import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
-// import Page_LeavesSummary from './containers/admin/leavesSummary'
 import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
@@ -59,9 +56,6 @@ import Page_InventorySystem from './containers/admin/manageInventory'
 // -user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
-import Page_Holidays from './containers/user/holidays'
-// import Page_ApplyLeave from './containers/user/applyLeave'
-// import Page_MyLeaves from './containers/user/myLeaves'
 import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
 import Page_MyInventory from './containers/user/myInventory'

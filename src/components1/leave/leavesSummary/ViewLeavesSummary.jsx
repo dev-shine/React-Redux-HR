@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
+import LeavesSummary from './LeavesSummary'
 
 const styles = {
   height100per: {
@@ -10,16 +11,16 @@ const styles = {
 const ViewLeavesSummary = ({componentData, on_all_leaves_summary}) => {
   const _onChangeMonth = (check) => {
       if (check == 'previous') {
-        on_all_leaves_summary(this.props.componentData.previousMonth.year, this.props.componentData.previousMonth.month)
+        on_all_leaves_summary(componentData.previousMonth.year, componentData.previousMonth.month)
       } else if (check == 'next') {
-        on_all_leaves_summary(this.props.componentData.nextMonth.year, this.props.componentData.nextMonth.month)
+        on_all_leaves_summary(componentData.nextMonth.year, componentData.nextMonth.month)
       }
     }
   let current_month = typeof componentData.month != 'undefined'? componentData.month : '';
   let current_year = typeof componentData.year != 'undefined' ? componentData.year : '';
   let current_monthName = typeof componentData.monthName != 'undefined'? componentData.monthName : '';
   let summaryHtml = _.map(componentData.leavesSummary, (userLeaveSummary, key) => {
-    <LeavesSummary key={key} userLeavesSummary={userLeaveSummary} />
+    return <LeavesSummary key={key} user={userLeaveSummary} />
   });
   return (
     <div className="app-body" id="view">

@@ -154,18 +154,14 @@ class ApplyLeave extends React.Component {
       <div >
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-
           <Header pageTitle={'Apply Leave'} status={status_message} showLoading={this.props.frontend.show_loading} />
-
           <div className="app-body" id="view">
             <div style={styles.content} className="padding">
               {mainDivs}
             </div>
           </div>
         </div>
-
       </div>
-
     )
   }
 }

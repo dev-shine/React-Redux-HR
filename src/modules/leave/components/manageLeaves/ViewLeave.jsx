@@ -1,6 +1,7 @@
 import React from 'react'
 import * as _ from 'lodash'
 import {CONFIG} from '../../../../config/index'
+import {ButtonRaised, ButtonFlat} from '../../../../components1/generic/buttons'
 
 class ViewLeave extends React.Component {
   constructor (props) {
@@ -83,11 +84,11 @@ class ViewLeave extends React.Component {
       if (s == status) {
 
       } else if (s == 'Approved') {
-        return <button key={k} style={{display: HRDisplay}} className="md-btn md-raised indigo" onClick={() => this.changeStatus(leaveid, s)} >Approve</button>
+        return <ButtonRaised key={k} style={{display: HRDisplay}} className="indigo" onClick={() => this.changeStatus(leaveid, s)} label="Approve"/>
       } else if (s == 'Pending') {
-        return <button key={k} style={{display: HRDisplay}} className="md-btn md-raised blue" onClick={() => this.changeStatus(leaveid, s)} >Mark Pending</button>
+        return <ButtonRaised key={k} style={{display: HRDisplay}} className="blue" onClick={() => this.changeStatus(leaveid, s)} label="Mark Pending"/>
       } else if (s == 'Rejected') {
-        return <button key={k} style={{display: HRDisplay}} className="md-btn md-flat m-b-sm text-danger" onClick={() => this.changeStatus(leaveid, s)}>Reject</button>
+        return <ButtonFlat key={k} style={{display: HRDisplay}} className="m-b-sm text-danger" onClick={() => this.changeStatus(leaveid, s)} label="Reject"/>
       }
     })
 
@@ -205,14 +206,14 @@ class ViewLeave extends React.Component {
             {
               this.props.selectedLeave.doc_require == '0' && this.props.selectedLeave.hr_approved !== '2' && this.props.selectedLeave.status !== 'Approved'
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <button className="md-btn md-raised indigo" onTouchTap={this.handleNotify}>Notify Document Required</button>
+                <ButtonRaised className="indigo" onClick={this.handleNotify} label="Notify Document Required"/>
               </div> : null
             }
             {
               this.props.selectedLeave.hr_approved === '0' && this.props.selectedLeave.hr_comment != ''
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleSave('1') }}>HR Approval</button>
-                <button className="md-btn md-raised indigo" style={{marginLeft: '3px'}} onTouchTap={() => { this.handleSave('2') }}>HR Rejected</button>
+                <ButtonRaised className="indigo" onClick={() => { this.handleSave('1') }} label="HR Approval"/>
+                <ButtonRaised className="indigo" style={{marginLeft: '3px'}} onClick={() => { this.handleSave('2') }} label="HR Rejected"/>
 
             </div>
                : null
@@ -242,8 +243,8 @@ class ViewLeave extends React.Component {
                 ? null
                 : <form method="get" target="_blank" action={this.props.selectedLeave.doc_link}>
                 <div className=" text-left" style={{marginTop: '10px'}}>
-                <button className="md-btn md-raised indigo" >View Document</button>
-              </div>
+                  <ButtonRaised className="indigo" label="View Document"/>
+                </div>
             </form>
             }
 
@@ -252,19 +253,19 @@ class ViewLeave extends React.Component {
               : <div className='row m-0' style={{display: adminDisplay}}>
                 <div className='col-sm-3 p-0 pt-5'>
                   <div className=" text-left" style={{marginTop: '10px'}}>
-                    <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleExtraDay('0.5') }}>Add Half Day</button>
+                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('0.5') }} label="Add Half Day"/>
                   </div>
                 </div>
                 <div className='col-sm-3 p-0'>
                   <div className="text-left" style={{marginTop: '10px'}}>
-                    <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleExtraDay('1') }}>Add Full Day</button>
+                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('1') }} label="Add Full Day"/>
                   </div>
                 </div>
                 {
                   this.props.selectedLeave.extra_day == '0' ? null
                   : <div className='col-sm-4 p-0'>
                     <div className="text-left" style={{marginTop: '10px'}}>
-                      <button className="md-btn md-raised red" onTouchTap={() => { this.handleExtraDay('0') }}>Remove Extra Day</button>
+                      <ButtonRaised className="red" onClick={() => { this.handleExtraDay('0') }} label="Remove Extra Day"/>
                     </div>
                   </div>
                 }
@@ -282,7 +283,7 @@ class ViewLeave extends React.Component {
               <b>Enter message for employee</b><br />
               <input type="text" className="md-input" onChange={(e) => this.setState({ messagetouser: e.target.value})} value={this.state.messagetouser} />
               <div className="text-right" style={{marginTop: '10px'}}>
-                <button className="md-btn md-raised indigo" onTouchTap={this.handleComment}>Comment</button>
+                <ButtonRaised className="indigo" onClick={this.handleComment} label="Comment"/>
               </div>
             </div> : <div>
             <b>Comment</b><br />
@@ -299,7 +300,7 @@ class ViewLeave extends React.Component {
                 onChange={(e) => this.setState({ messageByHr: e.target.value})}
                 value={this.state.messageByHr} />
               <div className="text-right" style={{marginTop: '10px'}}>
-                <button className="md-btn md-raised indigo" onTouchTap={() => { this.handleSave('') }}>Save</button>
+                <ButtonRaised className="indigo" onClick={() => { this.handleSave('') }} label="Save"/>
               </div>
             </div>
              : null
@@ -335,12 +336,10 @@ class ViewLeave extends React.Component {
                    {
                      this.state.edit
                      ? <div className="text-left" style={{marginTop: '10px'}}>
-                       <button className="md-btn md-raised indigo"
-                         onTouchTap={() => { this.handleUpdate('') }}>Save</button>
+                     <ButtonRaised className="indigo" onClick={() => { this.handleUpdate('') }} label="Save"/>
                      </div>
                      : <div className=" text-left" style={{marginTop: '10px'}}>
-                       <button className="md-btn md-raised indigo"
-                         onTouchTap={() => { this.handleEdit() }}>Edit</button>
+                     <ButtonRaised className="indigo" onClick={() => { this.handleEdit() }} label="Edit"/>
                      </div>
                    }
                  </div>

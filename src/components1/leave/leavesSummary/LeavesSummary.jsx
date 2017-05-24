@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-const LeaveSummary = ({userLeavesSummary}) => {
-  let pendingPunchingDays = _.map(userLeavesSummary.attendance, (day, key) => {
+const LeavesSummary = ({user}) => {
+  let pendingPunchingDays = _.map(user.attendance, (day, key) => {
     let check_class = "b-success"
     if (day.day_type == 'WORKING_DAY') {
       if (day.in_time == '' || day.out_time == '') {
@@ -46,4 +46,4 @@ const LeaveSummary = ({userLeavesSummary}) => {
   )
 }
 
-export default LeaveSummary;
+export default LeavesSummary;

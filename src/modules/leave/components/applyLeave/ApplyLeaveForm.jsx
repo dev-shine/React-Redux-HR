@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {notify} from '../../../../services/index'
 import moment from 'moment'
-
 import {Calendar} from 'react-date-range'
+import {Button, ButtonFlat} from '../../../../components1/generic/buttons'
 
 class ApplyLeaveForm extends React.Component {
   constructor (props) {
@@ -100,8 +100,8 @@ class ApplyLeaveForm extends React.Component {
     let apply_half_day_button_1 = ''
     let apply_half_day_button_2 = ''
     if (this.state.form_no_of_days == 1) {
-      apply_half_day_button_1 = <button className="md-btn md-flat text-accent" onClick={() => this._apply_half_day_1(1)}>Apply Leave For First Half</button>
-      apply_half_day_button_2 = <button className="md-btn md-flat text-accent" onClick={() => this._apply_half_day_1(2)}>Apply Leave For Second Half</button>
+      apply_half_day_button_1 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(1)} label="Apply Leave For First Half"/>
+      apply_half_day_button_2 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half"/>
     }
     let width = '63%'
     if (this.props.forAdmin == true) {
@@ -195,7 +195,7 @@ class ApplyLeaveForm extends React.Component {
 
             <div className="form-group row m-t-md">
               <div className="col-sm-10">
-                <button type="submit" className="btn green">Apply</button>
+                <Button type="submit" className="green" label="Apply" />
               </div>
             </div>
           </form>

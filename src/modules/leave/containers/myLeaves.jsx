@@ -16,47 +16,44 @@ import * as actions_policy from '../../../redux/policyDocuments/actions/index'
 import * as actions_myLeaves from '../../../redux/leave/actions/myLeaves'
 
 class MyLeaves extends React.Component {
-    constructor( props ){
-        super( props );
-        this.props.onIsAlreadyLogin()
-    }
-    componentWillMount(){
-      this.props.onFetchUserPolicyDocument();
-      this.props.onMyLeavesList(  )
-    }
-    componentWillReceiveProps( props ){
-        window.scrollTo(0, 0);
-        if( props.logged_user.logged_in == -1 ){
-          this.props.router.push('/logout');
-        }else{
-          let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
-	        if(unread.length > 0){
-	          this.props.router.push('/policy_documents');
-	        }
+  constructor( props ){
+      super( props );
+      this.props.onIsAlreadyLogin()
+  }
+  componentWillMount(){
+    this.props.onFetchUserPolicyDocument();
+    this.props.onMyLeavesList()
+  }
+  componentWillReceiveProps( props ){
+      window.scrollTo(0, 0);
+      if( props.logged_user.logged_in == -1 ){
+        this.props.router.push('/logout');
+      }else{
+        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
+        if(unread.length > 0){
+          this.props.router.push('/policy_documents');
         }
-    }
-    render(){
-
-        let mainDivs = <div className="row">
-                        <div className="col-md-12">
-                          <UserLeavesList {...this.props}/>
-                        </div>
-                      </div>
-
-		return(
-    		<div>
-    			<Menu {...this.props }/>
-          <div id="content" className="app-content box-shadow-z0" role="main">
-            <Header pageTitle={"My Leaves"} showLoading={this.props.frontend.show_loading} />
-  					<div className="app-body" id="view">
-        			<div className="padding">
-          			{mainDivs}
+      }
+  }
+  render(){
+    return(
+      <div>
+        <Menu {...this.props }/>
+        <div id="content" className="app-content box-shadow-z0" role="main">
+          <Header pageTitle={"My Leaves"} showLoading={this.props.frontend.show_loading} />
+          <div className="app-body" id="view">
+            <div className="padding">
+              <div className="row">
+                <div className="col-md-12">
+                  <UserLeavesList {...this.props}/>
+                </div>
               </div>
-  					</div>
-		      </div>
-    		</div>
-    	)
-    }
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 function mapStateToProps( state ){

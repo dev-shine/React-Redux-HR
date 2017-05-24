@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import {withRouter} from 'react-router'
+import {withRouter, Link} from 'react-router'
 import * as actions_login from '../../../redux/auth/actions/index';
 import * as _ from 'lodash'
 import {notify} from '../../../services/index'
 import { CONFIG } from '../../../config/index'
-import ForgotPasswordRoot from  '../../../components1/auth/forgotPassword/ForgotPasswordRoot';
+import LoadingIcon from '../../../components1/generic/LoadingIcon';
+import {Button} from '../../../components1/generic/buttons'
 
 
 class ForgotPassword extends React.Component {
@@ -50,9 +51,41 @@ class ForgotPassword extends React.Component {
       }
   }
   render(){
-      return(
-        <ForgotPasswordRoot self={this} />
-      )
+    return(
+      <div className="center-block w-xxl w-auto-xs p-y-md">
+        <div className="navbar">
+          <div className="pull-center">
+            <a className="navbar-brand">
+              <span className="hidden-folded inline">HR</span>
+            </a>
+          </div>
+        </div>
+        <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
+        <LoadingIcon loading={this.props.frontend.show_loading} />
+        <br/>
+          <div className="m-b text-sm">
+            Reset Your Password
+          </div>
+          <form name="form"  onSubmit={this.doResetPassword}>
+            <div className="md-form-group float-label">
+                <input
+                    className="md-input"
+                    required type="text"
+                    onChange={ (e) => this.setState({ form_username : e.target.value }) }
+                    value={ this.state.form_username }/>
+                <label>Enter Username</label>
+            </div>
+            <Button type="submit" className="btn primary btn-block p-x-md" label="Reset Password" />
+          </form>
+          <div className="m-b text-sm text-center">
+            <br/>
+            <button className="md-btn md-flat text-accent">
+              <Link to='/'>Login</Link>
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 

@@ -9,7 +9,8 @@
 // --start---for HR APP by arun
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, Link, IndexRoute, hashHistory} from 'react-router'
+import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router'
+import { createHashHistory } from 'history'
 import {createStore, applyMiddleware, compose} from 'redux'
 import {Provider} from 'react-redux'
 import Immutable from 'immutable'
@@ -21,17 +22,27 @@ import reducer from './reducers/index'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // pages
-import Page_Login from './containers/user/login'
+//--------new structure import-----
+import Page_Login from './modules/auth/containers/login';
+import Page_Logout from './modules/auth/containers/logout';
+import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
+import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
+import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
+import Page_ApplyLeave from './modules/leave/containers/applyLeave';
+import Page_MyLeaves from './modules/leave/containers/myLeaves';
+//-----------------------------
+
+// import Page_Login from './containers/user/login'
 import Page_Home from './containers/user/home'
-import Page_Logout from './containers/user/logout'
-import Page_ForgotPassword from './containers/user/forgotPassword'
+// import Page_Logout from './containers/user/logout'
+// import Page_ForgotPassword from './containers/user/forgotPassword'
 import Page_PolicyDocument from './containers/user/PolicyDocument'
 
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
-import Page_ManageLeaves from './containers/admin/manageLeaves'
+// import Page_ManageLeaves from './containers/admin/manageLeaves'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
-import Page_LeavesSummary from './containers/admin/leavesSummary'
+// import Page_LeavesSummary from './containers/admin/leavesSummary'
 import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
@@ -49,8 +60,8 @@ import Page_InventorySystem from './containers/admin/manageInventory'
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
 import Page_Holidays from './containers/user/holidays'
-import Page_ApplyLeave from './containers/user/applyLeave'
-import Page_MyLeaves from './containers/user/myLeaves'
+// import Page_ApplyLeave from './containers/user/applyLeave'
+// import Page_MyLeaves from './containers/user/myLeaves'
 import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
 import Page_MyInventory from './containers/user/myInventory'
@@ -61,6 +72,8 @@ import 'whatwg-fetch'
 if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch')
 }
+
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 export class APP extends React.Component {
   render () {
@@ -137,7 +150,7 @@ let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
       <Provider store={store}>
-        <Router history={hashHistory}>
+        <Router history={appHistory} queryKey={false}>
           <Route path="/" component={APP}>
             <IndexRoute component={Page_Login} />
             //this will be the default page which will opens when app starts

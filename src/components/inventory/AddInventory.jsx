@@ -46,7 +46,6 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    console.log(props)
     this.setState({
       open: props.open,
       edit: props.edit,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonRaised, ButtonInfo} from '../../generic/buttons'
+import {ButtonRaised, ButtonInfo} from 'components/generic/buttons';
 
 const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
   let s = leave.status

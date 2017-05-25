@@ -1,12 +1,12 @@
 import { createAction } from 'redux-actions'
-import { CONFIG } from '../../../config/index'
+import { CONFIG } from 'src/config/index'
 import * as _ from 'lodash'
-import {fireAjax} from '../../../services/index'
-import * as constants from '../../../actions/constants'
+import {fireAjax} from 'src/services/index'
+import * as constants from 'src/actions/constants'
 
 import * as jwt from 'jwt-simple'
 
-import {show_loading, hide_loading} from '../../../actions/generic/frontend'
+import {show_loading, hide_loading} from 'src/actions/generic/frontend'
 
 import * as actions_listLeaves from './listLeaves'
 

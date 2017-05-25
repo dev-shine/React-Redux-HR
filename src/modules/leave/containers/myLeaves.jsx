@@ -1,18 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
-import * as _ from 'lodash'
-
-import {notify} from '../../../services/index'
-
-import Menu from '../../../components/generic/Menu'
-import Header from '../../../components1/generic/Header'
-import UserLeavesList from '../components/myLeaves/UserLeavesList'
-
-
-import * as actions_login from '../../../redux/auth/actions/index'
-import * as actions_policy from '../../../redux/policyDocuments/actions/index'
-import * as actions_myLeaves from '../../../redux/leave/actions/myLeaves'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import Menu from 'src/components/generic/Menu';
+import Header from 'components/generic/Header';
+import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_myLeaves from 'appRedux/leave/actions/myLeaves';
 
 class MyLeaves extends React.Component {
   constructor( props ){

@@ -1,21 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
-import * as _ from 'lodash'
-import {notify} from '../../../services/index'
-
-import Menu from '../../../components/generic/Menu'
-import Header from '../../../components1/generic/Header'
-
-import ApplyLeaveForm from '../components/applyLeave/ApplyLeaveForm'
-import {CONFIG} from '../../../config/index'
-
-import * as actions_login from '../../../redux/auth/actions/index'
-import * as actions_policy from '../../../redux/policyDocuments/actions/index'
-import * as actions_apply_leave from '../../../redux/leave/actions/applyLeave'
-import * as actions_usersList from '../../../redux/generic/actions/usersList'
-
-import UsersList from '../../../components1/generic/UsersList'
+import React from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import Menu from 'src/components/generic/Menu';
+import {CONFIG} from 'src/config/index';
+import UsersList from 'components/generic/UsersList';
+import Header from 'components/generic/Header';
+import ApplyLeaveForm from 'modules/leave/components/applyLeave/ApplyLeaveForm';
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
 
 const styles = {
   content: {

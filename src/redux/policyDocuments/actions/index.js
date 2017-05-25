@@ -1,10 +1,10 @@
-import {createAction} from 'redux-actions'
-import {CONFIG} from '../../../config/index'
-import * as _ from 'lodash'
-import {fireAjax} from '../../../services/index'
-import 'whatwg-fetch'
-import {show_loading, hide_loading} from '../../../actions/generic/frontend'
-import * as constants from '../../../actions/constants'
+import {createAction} from 'redux-actions';
+import * as _ from 'lodash';
+import {CONFIG} from 'src/config/index';
+import {fireAjax} from 'src/services/index';
+import 'whatwg-fetch';
+import {show_loading, hide_loading} from 'src/actions/generic/frontend';
+import * as constants from 'src/actions/constants';
 
 // -----------isUserAcceptedDocumentPolicy-----------
 export function success_fetch_policy_documents (data) {

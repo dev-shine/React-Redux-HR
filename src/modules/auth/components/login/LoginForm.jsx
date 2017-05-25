@@ -1,6 +1,6 @@
 import React from 'react';
-import {notify} from '../../../../services/index';
-import {Button} from '../../../../components1/generic/buttons'
+import {notify} from 'src/services/index';
+import {Button} from 'components/generic/buttons'
 
 class LoginForm extends React.Component {
   constructor(props) {

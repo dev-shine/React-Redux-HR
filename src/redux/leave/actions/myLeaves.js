@@ -1,13 +1,13 @@
 import { createAction } from 'redux-actions'
 import * as _ from 'lodash'
 
-import { CONFIG } from '../../../config/index'
-import {fireAjax} from '../../../services/index'
-import * as constants from '../../../actions/constants'
+import { CONFIG } from 'src/config/index'
+import {fireAjax} from 'src/services/index'
+import * as constants from 'src/actions/constants'
 
 import * as jwt from 'jwt-simple'
 
-import {show_loading, hide_loading} from '../../../actions/generic/frontend'
+import {show_loading, hide_loading} from 'src/actions/generic/frontend'
 
 export function list_my_leaves_sucess (data) {
   return createAction(constants.ACTION_LIST_MY_LEAVES_SUCCESS)(data)

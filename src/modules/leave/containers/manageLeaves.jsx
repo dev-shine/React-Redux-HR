@@ -1,21 +1,18 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import * as _ from 'lodash'
-
-import {notify} from '../../../services/index'
-import Menu from '../../../components/generic/Menu'
-import Header from '../../../components1/generic/Header'
-
-import { CONFIG } from '../../../config/index'
-import ListLeaves from '../../../components1/leave/manageLeaves/ListLeaves'
-import ViewLeave from '../components/manageLeaves/ViewLeave'
-import LeaveColorReference from '../../../components1/leave/manageLeaves/LeaveColorReference'
-
-import * as actions_login from '../../../redux/auth/actions/index'
-import * as actions_policy from '../../../redux/policyDocuments/actions/index'
-import * as actions_listLeaves from '../../../redux/leave/actions/listLeaves'
-import * as actions_manageLeave from '../../../redux/leave/actions/manageLeave'
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import { CONFIG } from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import Header from 'components/generic/Header';
+import ListLeaves from 'components/leave/manageLeaves/ListLeaves';
+import ViewLeave from 'modules/leave/components/manageLeaves/ViewLeave';
+import LeaveColorReference from 'components/leave/manageLeaves/LeaveColorReference';
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_listLeaves from 'appRedux/leave/actions/listLeaves';
+import * as actions_manageLeave from 'appRedux/leave/actions/manageLeave';
 
 class ManageLeaves extends React.Component {
   constructor (props) {

@@ -509,3 +509,28 @@ export function deleteDeviceStatus (checkValue) {
     })
   }
 }
+export function successDeviceCount (data) {
+  return createAction(constants.ACTION_SUCCESS_DEVICE_COUNT)(data)
+}
+
+function getAsyncDeviceCount () {
+  return fireAjax('POST', '', {
+    'action': 'get_machine_count'
+  })
+}
+
+export function deviceCount () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading())
+      return getAsyncDeviceCount().then((res) => {
+        dispatch(hide_loading())
+        resolve(res.data)
+        dispatch(successDeviceCount(res))
+      }, (error) => {
+        dispatch(hide_loading())
+        reject(error)
+      })
+    })
+  }
+}

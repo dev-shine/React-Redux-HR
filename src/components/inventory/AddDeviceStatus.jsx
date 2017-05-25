@@ -23,7 +23,6 @@ export default class AddDeviceStatus extends React.Component {
     }
     this.addMoreStatus = this.addMoreStatus.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    // this.setValue = this.setValue.bind(this)
     this.handleChangeComplete = this.handleChangeComplete.bind(this)
     this.handleStatusClose = this.handleStatusClose.bind(this)
   }

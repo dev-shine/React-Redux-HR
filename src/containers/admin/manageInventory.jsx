@@ -91,7 +91,6 @@ class InventorySystem extends React.Component {
     let selected_user_image = ''
     let selected_user_jobtitle = ''
     let selected_user_id = ''
-    // this.setState({username: username})
 
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid})
@@ -121,6 +120,7 @@ class InventorySystem extends React.Component {
   callFetchDeviceStatus () {
     this.onFetchDeviceStatus()
   }
+
   openPage (toDisplay) {
     if (toDisplay === 'device_list') {
       this.setState({
@@ -204,12 +204,14 @@ class InventorySystem extends React.Component {
       deleteDevices={this.deleteDevices}
       callFetchDevice={this.callFetchDevice}
       {...this.props} />
+
     let view_user_device = <UsersList
       users={this.props.usersList.users}
       selectedUserId={this.state.selected_user_id}
       onUserClick={this.onUserClick}
       callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
       {...this.props} />
+
     let view_user_device2 = <DeviceCounter
       {...this.props} />
 
@@ -378,6 +380,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteDeviceStatus: (checkValue) => {
       return dispatch(actions_manageDevice.deleteDeviceStatus(checkValue))
+    },
+    onFetchDeviceCount: () => {
+      return dispatch(actions_manageDevice.deviceCount())
     }
   }
 }

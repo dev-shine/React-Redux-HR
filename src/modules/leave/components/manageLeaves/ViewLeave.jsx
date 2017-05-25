@@ -119,7 +119,7 @@ class ViewLeave extends React.Component {
     )
   }
   _notify () {
-    if (this.props.selectedLeave.doc_required != '0') {
+    if (!_.isUndefined(this.props.selectedLeave.doc_require) && this.props.selectedLeave.doc_require != '0') {
       return (
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
             <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
@@ -161,21 +161,21 @@ class ViewLeave extends React.Component {
     return (
       <div className="item">
         <div className="item-bg">
-    </div>
-    <div className="p-a-md">
-      <div className="row m-t">
-        <div className="col-sm-4">
-          <a href="" className="pull-left m-r-md">
-            <span className="avatar w-96">
-              <img src={this.props.selectedLeave.user_profile_image} />
-            </span>
-          </a>
-          <div className="clear m-b">
-            <h6 className="m-a-0 m-b-xs">{this.props.selectedLeave.user_profile_name}</h6>
-            <div>{this.props.selectedLeave.user_profile_jobtitle}</div>
-          </div>
         </div>
-        <div className="col-sm-8">
+        <div className="p-a-md">
+          <div className="row m-t">
+            <div className="col-sm-4">
+              <a href="" className="pull-left m-r-md">
+                <span className="avatar w-96">
+                  <img src={this.props.selectedLeave.user_profile_image} />
+                </span>
+              </a>
+              <div className="clear m-b">
+                <h6 className="m-a-0 m-b-xs">{this.props.selectedLeave.user_profile_name}</h6>
+                <div>{this.props.selectedLeave.user_profile_jobtitle}</div>
+              </div>
+            </div>
+            <div className="col-sm-8">
             <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </i></div>
             <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>

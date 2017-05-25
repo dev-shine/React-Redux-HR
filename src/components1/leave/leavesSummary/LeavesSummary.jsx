@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const LeavesSummary = ({user}) => {
   let pendingPunchingDays = _.map(user.attendance, (day, key) => {
     let check_class = "b-success"

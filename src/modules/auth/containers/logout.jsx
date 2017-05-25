@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import * as actions_login from '../../../redux/auth/actions/index';
-import {notify} from '../../../services/index';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as actions_login from 'appRedux/auth/actions/index';
+import {notify} from 'src/services/index';
 
 class Logout extends React.Component {
   constructor(props){

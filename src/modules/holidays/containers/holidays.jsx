@@ -1,18 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
-import * as _ from 'lodash'
-
-import {notify} from '../../../services/index'
-import { CONFIG } from '../../../config/index'
-import Menu from '../../../components/generic/Menu'
-import LoadingIcon from '../../../components1/generic/LoadingIcon'
-import Header from '../../../components1/generic/Header'
-import HolidaysList from '../../../components1/holidays/HolidaysList'
-
-import * as actions_login from '../../../redux/auth/actions/index'
-import * as actions_policy from '../../../redux/policyDocuments/actions/index'
-import * as actions_holidaysList from '../../../redux/holidays/actions/holidaysList'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import { CONFIG } from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import Header from 'components/generic/Header';
+import HolidaysList from 'components/holidays/HolidaysList';
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
 
 class Holidays extends React.Component {

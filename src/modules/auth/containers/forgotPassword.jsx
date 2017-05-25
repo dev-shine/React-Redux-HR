@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import {withRouter, Link} from 'react-router'
-import * as actions_login from '../../../redux/auth/actions/index';
-import * as _ from 'lodash'
-import {notify} from '../../../services/index'
-import { CONFIG } from '../../../config/index'
-import LoadingIcon from '../../../components1/generic/LoadingIcon';
-import {Button} from '../../../components1/generic/buttons'
-
+import {connect} from 'react-redux';
+import {withRouter, Link} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import {Button} from 'components/generic/buttons';
+import * as actions_login from 'appRedux/auth/actions/index';
 
 class ForgotPassword extends React.Component {
   constructor( props ){

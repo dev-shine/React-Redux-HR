@@ -1,10 +1,10 @@
 import {createAction} from 'redux-actions'
-import {CONFIG} from '../../../config/index'
+import {CONFIG} from 'src/config/index'
 import * as _ from 'lodash'
-import {fireAjax} from '../../../services/index'
+import {fireAjax} from 'src/services/index'
 
-import {show_loading, hide_loading} from '../../../actions/generic/frontend'
-import * as constants from '../../../actions/constants'
+import {show_loading, hide_loading} from 'src/actions/generic/frontend'
+import * as constants from 'src/actions/constants'
 
 export function success_leaves_summary (data) {
   return createAction(constants.ACTION_SUCCESS_LEAVES_SUMMARY)(data)

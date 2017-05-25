@@ -1,5 +1,5 @@
 import React from 'react';
-import {CONFIG} from '../../../config/index'
+import {CONFIG} from 'src/config/index';
 
 const styles = {
   cursor: {

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {notify} from '../../../../services/index'
-import moment from 'moment'
-import {Calendar} from 'react-date-range'
-import {Button, ButtonFlat} from '../../../../components1/generic/buttons'
+import React, {Component} from 'react';
+import moment from 'moment';
+import {Calendar} from 'react-date-range';
+import {notify} from 'src/services/index';
+import {Button, ButtonFlat} from 'components/generic/buttons';
 
 class ApplyLeaveForm extends React.Component {
   constructor (props) {

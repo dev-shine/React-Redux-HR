@@ -1,9 +1,9 @@
-import React from 'react'
-import * as _ from 'lodash'
-import {notify} from '../../../../services/index'
-import {CONFIG} from '../../../../config/index'
-import Dialog from 'material-ui/Dialog'
-import MyLeavesList from '../../../../components1/leave/myLeaves/MyLeavesList'
+import React from 'react';
+import * as _ from 'lodash';
+import Dialog from 'material-ui/Dialog';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import MyLeavesList from 'components/leave/myLeaves/MyLeavesList';
 
 class UserLeavesList extends React.Component {
   constructor (props) {

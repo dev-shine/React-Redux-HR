@@ -271,7 +271,7 @@ class InventorySystem extends React.Component {
                             href=""
                             data-toggle="tab"
                             data-target="#tab_3"
-                            aria-expanded="false">Device Counter</a>
+                            aria-expanded="false">Device Count</a>
                           <div className={this.state.thirdArrow}>
                           <span className="arrow bottom b-accent"></span></div>
                         </li>

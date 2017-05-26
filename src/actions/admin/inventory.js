@@ -311,6 +311,7 @@ export function deleteDevice (id) {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading())
       return getAsync_deleteDeviceById(id).then((res) => {
+        dispatch(deviceCount())
         dispatch(hide_loading())
         if (res.error === 0) {
           dispatch(success_deleteDevice(res.message))

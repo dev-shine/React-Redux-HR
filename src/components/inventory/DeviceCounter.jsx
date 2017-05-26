@@ -73,10 +73,60 @@ export default class DeviceCounter extends React.Component {
               </div>
           </div>
         </div>
+        <div className="col-xs-12">
           <div className='row'>
-            {newDeviceCountData}
+            <div className="box">
+              <div className="box-header">
+                <h3>Device Status Overview</h3>
+                <small></small>
+              </div>
+              <div className="box-body">
+                <div className="row no-gutter m-b text-xs l-h-1x">
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a green">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Working</div>
+                    </div>
+                  </div>
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a yellow">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}> Assigned</div>
+                    </div>
+                  </div>
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a white ">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Not Assigned</div>
+                    </div>
+                  </div>
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a red">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Not Working</div>
+                    </div>
+                  </div>
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a red-100">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Old</div>
+                    </div>
+                  </div>
+                  <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+                    <div className="p-a indigo">
+                      <h4>0</h4>
+                      <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>New</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className='row'>
+          {newDeviceCountData}
+        </div>
+      </div>
     )
   }
 }

@@ -1,5 +1,4 @@
-import Immutable from 'immutable'
-import * as _ from 'lodash'
+import Immutable from 'immutable';
 
 let initialState = {
   all_leaves: [],

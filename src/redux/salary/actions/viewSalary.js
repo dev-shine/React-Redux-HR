@@ -1,10 +1,10 @@
-import { createAction} from 'redux-actions'
-import {CONFIG} from '../../config/index'
-import * as _ from 'lodash'
-import {fireAjax} from '../../services/index'
-import 'whatwg-fetch'
-import { show_loading, hide_loading} from '../generic/frontend'
-import * as constants from '../constants'
+import { createAction} from 'redux-actions';
+import * as _ from 'lodash';
+import {CONFIG} from 'src/config/index';
+import {fireAjax} from 'src/services/index';
+import 'whatwg-fetch';
+import { show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as constants from 'appRedux/constants';
 
 export function success_salary_details (data) {
   return createAction(constants.ACTION_SUCCESS_SALARY_DETAILS)(data)

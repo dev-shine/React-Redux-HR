@@ -7,10 +7,9 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 
-import * as actions_login from '../../actions/login/index'
-import * as actions_salary from '../../actions/salary/index'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_templates from '../../actions/admin/templates'
-import * as actions_policy from '../../actions/policyDocuments/index'
 
 import Variables from '../../components/attendance/Variable'
 import { CONFIG } from '../../config/index'

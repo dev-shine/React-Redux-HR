@@ -7,8 +7,8 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 
-import * as actions_login from '../../actions/login/index'
-import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile'
 import DocumentsList from '../../components/policyDocuments/documentsList'
 import { CONFIG } from '../../config/index'

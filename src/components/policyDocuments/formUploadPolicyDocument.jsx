@@ -5,8 +5,6 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
-import * as actions_login from '../../actions/login/index'
-import * as actions_salary from '../../actions/salary/index'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton';

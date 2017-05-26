@@ -31,7 +31,6 @@ export function fireAjax (method, url, data) {
   } else if (data.action == 'get_user_salary_details') {
     let token = localStorage.getItem('hr_logged_user')
     URL = CONFIG.api_url_salary + '/salary_info.php?token=' + token + '&user_id=' + data.userid
-    console.log('api URL for get_user_salary_details: ', URL)
   } else if (data.action == 'add_user_salary') {
     let token = localStorage.getItem('hr_logged_user')
     delete (data.action)

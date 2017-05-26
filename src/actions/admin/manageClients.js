@@ -3,8 +3,8 @@ import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
 
-import {show_loading, hide_loading} from '../generic/frontend'
-import * as constants from '../constants'
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as constants from 'appRedux/constants';
 
 export function success_client_details (data) {
   return createAction(constants.ACTION_SUCCESS_CLIENT_DETAILS)(data)

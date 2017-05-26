@@ -14,11 +14,11 @@ import AlertNotification from '../../components/generic/AlertNotification'
 import Header from '../../components/generic/header'
 
 // -----------------------------------------
-import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
-import * as actions_managePayslips from '../../actions/admin/managePayslips'
-import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 import * as actions_getTeamData from '../../actions/admin/teamList'
 
 import UsersList from '../../components/generic/UsersList'
@@ -27,7 +27,7 @@ import FormUserProfileDetails from '../../components/manageUsers/FormUserProfile
 import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails'
 import FormUserDeviceDetails from '../../components/manageUsers/FormUserDeviceDetails'
 import FormAddNewEmployee from '../../components/manageUsers/FormAddNewEmployee'
-import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
 
 // ---------------------------------------------

@@ -1,17 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
-import {CONFIG} from '../../config/index'
-import Menu from '../../components/generic/Menu'
-import Header from '../../components/generic/header'
-
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import SalaryList from '../../components/attendance/SalaryList'
-import * as actions_login from '../../actions/login/index'
-import * as actions_salary from '../../actions/salary/index'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import Header from 'components/generic/Header';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import SalaryList from 'modules/salary/components/viewSalary/SalaryList';
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
 class ViewSalary extends React.Component {
   constructor(props) {
@@ -25,9 +23,6 @@ class ViewSalary extends React.Component {
     this.props.onFetchUserSalaryDetails()
   }
   componentWillReceiveProps(props) {
-
-    //window.scrollTo(0, 0);
-
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
@@ -85,7 +80,6 @@ class ViewSalary extends React.Component {
     }
   }
 
-  componentDidUpdate() {}
   render() {
     console.log(this.props);
     let table = (this.state.empList.length > 0)
@@ -95,7 +89,7 @@ class ViewSalary extends React.Component {
       <div>
         <Menu {...this.props }/>
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={"View Salary"} {...this.props}/>
+          <Header pageTitle={"View Salary"} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
             <div className="padding">
               {table}

@@ -10,14 +10,14 @@ import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import Header from '../../components/generic/header'
 
-import * as actions_login from '../../actions/login/index'
+import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_disabledEmployee from '../../actions/user/usersList'
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
-import * as actions_managePayslips from '../../actions/admin/managePayslips'
+import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
 import UsersList from '../../components/generic/UsersList'
 import DisabledUserDetails from '../../components/attendance/DisabledUserDetails'
-import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
 
 const styles = {

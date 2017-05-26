@@ -7,8 +7,8 @@ import {notify} from '../../services/index'
 import AlertNotification from '../../components/generic/AlertNotification'
 
 import * as actions_manageDevice from '../../actions/admin/inventory'
-import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
 
 import UsersList from '../../components/generic/UsersList'

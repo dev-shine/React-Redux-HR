@@ -14,9 +14,9 @@ import Header from '../../components/generic/header'
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails'
 import FormDeviceDetails from '../../components/myProfile/FormDeviceDetails'
 
-import * as actions_login from '../../actions/login/index'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile'
-import * as actions_policy from '../../actions/policyDocuments/index'
 
 class MyInventory extends React.Component {
   constructor (props) {

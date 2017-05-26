@@ -6,9 +6,9 @@ import {notify} from '../../services/index'
 import Menu from '../../components/generic/Menu'
 import Header from '../../components/generic/header'
 
-import * as actions_login from '../../actions/login/index'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myDocument from '../../actions/user/myDocument'
-import * as actions_policy from '../../actions/policyDocuments/index'
 
 import FormMyDocuments from '../../components/myDocuments/FormMyDocuments'
 import LoadingIcon from '../../components/generic/LoadingIcon'

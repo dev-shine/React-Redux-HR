@@ -35,10 +35,10 @@ export default class DeviceCounter extends React.Component {
   }
 
   render () {
-    let test = this.state.deviceCountList
-    let deviceData = test
+    let deviceCountData = this.state.deviceCountList
+    let deviceData = deviceCountData
     let total = 0
-    let test2 = Object.keys(deviceData).map((key, i) => {
+    let newDeviceCountData = Object.keys(deviceData).map((key, i) => {
       total = total + deviceData[key]
       return <div className="col-xs-11 col-sm-4" key={i}>
           <div className="box p-a" style={{height: '80px'}}>
@@ -74,7 +74,7 @@ export default class DeviceCounter extends React.Component {
           </div>
         </div>
           <div className='row'>
-            {test2}
+            {newDeviceCountData}
               </div>
             </div>
     )

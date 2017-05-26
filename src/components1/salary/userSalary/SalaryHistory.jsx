@@ -1,4 +1,5 @@
-import React,{ Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const SalaryHistory = ({data, viewSalarySummary}) => {
   let salaryHistoryHtml = _.map(data, (d, key) => {
@@ -25,4 +26,8 @@ const SalaryHistory = ({data, viewSalarySummary}) => {
   )
 }
 
+SalaryHistory.PropTypes = {
+  data: PropTypes.array.isRequired,
+  viewSalarySummary: PropTypes.func.isRequired
+}
 export default SalaryHistory;

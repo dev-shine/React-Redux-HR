@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LeavesSummary = ({user}) => {
   let pendingPunchingDays = _.map(user.attendance, (day, key) => {
@@ -43,6 +44,10 @@ const LeavesSummary = ({user}) => {
       </div>
     </div>
   )
+}
+
+LeavesSummary.PropTypes = {
+  user: PropTypes.object.isRequired
 }
 
 export default LeavesSummary;

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 
 const UserSalaryHistory = ({data, message, viewSalarySummary, callDeleteUserSalary}) => {
   let salaryHistoryDisplay = '';
@@ -16,9 +16,7 @@ const UserSalaryHistory = ({data, message, viewSalarySummary, callDeleteUserSala
             <div className="sl-date text-muted">  Applicable From  : {d.test.applicable_from}</div>
             <div className="sl-date text-muted">  Applicable Till  : {d.test.applicable_till}</div>
             <div className="sl-date text-muted"> Updated on : {d.test.last_updated_on} </div>
-            <div>
-                 <b>Rs.{d.test.total_salary} </b>
-            </div>
+            <div><b>Rs.{d.test.total_salary} </b></div>
             <div>
               <button className="btn-sm btn-outline b-danger text-danger" onClick={ () => callDeleteUserSalary( d.test.user_Id, d.test.id ) } >Delete Salary</button>
             </div>
@@ -36,6 +34,13 @@ const UserSalaryHistory = ({data, message, viewSalarySummary, callDeleteUserSala
       </div>
     </div>
   )
+}
+
+UserSalaryHistory.PropTypes = {
+  data: PropTypes.array,
+  message: PropTypes.string,
+  viewSalarySummary: PropTypes.func.isRequired,
+  callDeleteUserSalary: PropTypes.func.isRequired
 }
 
 export default UserSalaryHistory

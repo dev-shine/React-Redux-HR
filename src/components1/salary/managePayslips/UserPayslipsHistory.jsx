@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 const UserPayslipsHistory = ({user_payslip_history}) => {
   let previousPayslipsHistoryHtml = _.map(user_payslip_history, (d, key) => {
@@ -28,6 +30,10 @@ const UserPayslipsHistory = ({user_payslip_history}) => {
       </div>
     </div>
   )
+}
+
+UserPayslipsHistory.PropTypes = {
+  user_payslip_history: PropTypes.array.isRequired
 }
 
 export default UserPayslipsHistory

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
+import PropTypes from 'prop-types';
 import LeavesSummary from './LeavesSummary'
 
 const styles = {
@@ -58,6 +59,11 @@ const ViewLeavesSummary = ({componentData, on_all_leaves_summary}) => {
       </div>
     </div>
   )
+}
+
+ViewLeavesSummary.PropTypes = {
+  componentData: PropTypes.object.isRequired,
+  on_all_leaves_summary: PropTypes.func.isRequired
 }
 
 export default ViewLeavesSummary;

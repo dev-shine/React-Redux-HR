@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 
 const UserHoldingHistory = ({data}) => {
   let holdingHistoryHtml = _.map(data, (d, key) => {
@@ -27,4 +27,8 @@ const UserHoldingHistory = ({data}) => {
   )
 }
 
-export default UserHoldingHistory
+UserHoldingHistory.PropTypes = {
+  data: PropTypes.array.isRequired
+}
+
+export default UserHoldingHistory;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 const PayslipHistory = ({payslip_history}) => {
   let previousPayslipsHistoryHtml = _.map(payslip_history, (d, key) => {
@@ -30,6 +30,10 @@ const PayslipHistory = ({payslip_history}) => {
       </div>
     </div>
   )
+}
+
+PayslipHistory.PropTypes = {
+  payslip_history: PropTypes.array.isRequired
 }
 
 export default PayslipHistory;

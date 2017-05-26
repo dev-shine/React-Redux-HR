@@ -166,7 +166,7 @@ export function addNewMachine (new_machine_details) {
         n_bill_no,
         n_user_Id).then((json) => {
           dispatch(hide_loading())
-
+          dispatch(deviceCount())
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message))
             resolve(json.message)
@@ -209,6 +209,7 @@ export function get_machines_detail () {
         dispatch(hide_loading()) // hide loading icon
         if (json.error == 0) {
           dispatch(success_device_list(json.data))
+
           resolve(json.data)
         } else {
           dispatch(empty_device_list([]))
@@ -282,6 +283,7 @@ export function updateDevice (id, data) {
       return getAsync_updateDeviceById(id, data).then((res) => {
         dispatch(hide_loading())
         if (res.error === 0) {
+          dispatch(deviceCount())
           dispatch(success_updateDevice(res.message))
           resolve(res.message)
         }
@@ -525,8 +527,8 @@ export function deviceCount () {
       dispatch(show_loading())
       return getAsyncDeviceCount().then((res) => {
         dispatch(hide_loading())
+        dispatch(successDeviceCount(res.data))
         resolve(res.data)
-        dispatch(successDeviceCount(res))
       }, (error) => {
         dispatch(hide_loading())
         reject(error)

@@ -17,20 +17,21 @@ export default class DeviceCounter extends React.Component {
     }
   }
   componentWillMount () {
-    this.props.onFetchDeviceCount().then((val) => {
-      this.setState({deviceCountList: val})
-    })
+    this.props.onFetchDeviceCount()
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0)
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout')
     } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR || localStorage.getItem('userid') === '375') {
+      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
       } else {
         this.props.router.push('/home')
       }
     }
+    this.setState({
+      deviceCountList: props.manageDevice.deviceCountList
+    })
   }
 
   render () {

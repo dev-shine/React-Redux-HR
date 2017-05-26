@@ -5,7 +5,7 @@ let initialState = {
   'status_message': '',
   'deviceList': [],
   'statusList': [],
-  'deviceCountList': []
+  'deviceCountList': {}
 }
 
 export function manageDevice (state = Immutable.fromJS(initialState), action) {

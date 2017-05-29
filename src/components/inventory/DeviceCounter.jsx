@@ -13,7 +13,7 @@ export default class DeviceCounter extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      deviceCountList: []
+      deviceCountList: {}
     }
   }
   componentWillMount () {
@@ -35,26 +35,61 @@ export default class DeviceCounter extends React.Component {
   }
 
   render () {
-    let deviceCountData = this.state.deviceCountList
-    let deviceData = deviceCountData
+    let deviceData = this.state.deviceCountList
+    let assigned = 0
+    let notAssigned = 0
+    let newMachine = 0
+    let oldMachine = 0
+    let notWorking = 0
+    let working = 0
     let total = 0
+    // console.log('deviceData', deviceData)
     let newDeviceCountData = Object.keys(deviceData).map((key, i) => {
-      total = total + deviceData[key]
-      return <div className="col-xs-11 col-sm-4" key={i}>
-          <div className="box p-a" style={{height: '80px'}}>
-            <div className="pull-left m-r">
-              <span className="w-48 rounded  accent">
-                <i className="fa fa-check-circle" aria-hidden="true"></i>
-            </span>
+      var ab = deviceData[key]
+      var a = ab
+      for (var k in a) {
+      }
+      if (deviceData.hasOwnProperty(key)) {
+        let a = deviceData[key]
+        let b = {key}
+        total = total + a.total
+        assigned = assigned + a.assigned
+        if (a.not_assigned != null) {
+          notAssigned = notAssigned + a.not_assigned
+        }
+        if (a.New != null) {
+          newMachine = newMachine + a.New
+        }
+        if (a.Old != null) {
+          oldMachine = oldMachine + a.Old
+        }
+        if (a.Working != null) {
+          working = working + a.Working
+        }
+        notWorking = notWorking + a.NotWorking
+
+        return <div className="col-xs-11 col-sm-4" key={i}>
+            <div className="box p-a" style={{height: '185px'}}>
+              <div className="pull-left m-r">
+                <span className="w-48 rounded  accent">
+                  <i className="fa fa-check-circle" aria-hidden="true"></i>
+              </span>
+              </div>
+              <div className="clear">
+                <h4 className="m-a-0 text-lg _300"></h4>
+                <small className="text-muted">{b.key} </small>
+                <h4 style={{float: 'right'}}>{a.total}</h4>
+              </div>
+            <ul>
+              <li>
+                {k} : {a[k]}
+              </li>
+            </ul>
+              </div>
             </div>
-            <div className="clear">
-              <h4 className="m-a-0 text-lg _300"></h4>
-              <small className="text-muted"> {key} </small>
-              <h4 style={{float: 'right'}}>{deviceData[key]}</h4>
-            </div>
-          </div>
-      </div>
+      }
     })
+
     return (
       <div>
         <div className="col-xs-12">
@@ -84,19 +119,19 @@ export default class DeviceCounter extends React.Component {
                 <div className="row no-gutter m-b text-xs l-h-1x">
                   <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                     <div className="p-a green">
-                      <h4>0</h4>
+                      <h4>{working}</h4>
                       <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Working</div>
                     </div>
                   </div>
                   <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                     <div className="p-a yellow">
-                      <h4>0</h4>
+                      <h4>{assigned}</h4>
                       <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}> Assigned</div>
                     </div>
                   </div>
                   <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                     <div className="p-a white ">
-                      <h4>0</h4>
+                      <h4>{notAssigned}</h4>
                       <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Not Assigned</div>
                     </div>
                   </div>
@@ -108,13 +143,13 @@ export default class DeviceCounter extends React.Component {
                   </div>
                   <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                     <div className="p-a red-100">
-                      <h4>0</h4>
+                      <h4>{oldMachine}</h4>
                       <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>Old</div>
                     </div>
                   </div>
                   <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                     <div className="p-a indigo">
-                      <h4>0</h4>
+                      <h4>{newMachine}</h4>
                       <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '25%'}}>New</div>
                     </div>
                   </div>

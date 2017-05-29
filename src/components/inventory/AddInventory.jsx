@@ -290,7 +290,7 @@ export default class FormAddNewInventory extends React.Component {
                     <option >-Device Status-</option>
 
                       {this.state.deviceStatusList.map((val, i) => {
-                        return <option key={i} value={val.status}> {val.status}</option>
+                        return <option key={i} value={val.status.replace('_', ' ')}> {val.status.replace('_', ' ')}</option>
                       })}
                   </select>
               </td>

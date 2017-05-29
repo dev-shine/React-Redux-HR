@@ -46,8 +46,8 @@ export default class AddDeviceStatus extends React.Component {
     event.preventDefault()
     const statusValue = this.state.statusType
     const colorValue = this.state.background
-    if (colorValue && statusValue != '') {
-      this.props.callAddStatus(statusValue, colorValue)
+    if (colorValue && statusValue != null) {
+      this.props.callAddStatus(statusValue.replace(' ', '_'), colorValue)
       this.setState({
         statusType: '',
         background: ''
@@ -146,7 +146,7 @@ export default class AddDeviceStatus extends React.Component {
                 this.setState({checkValue: e.target.value})
               }}>
             </input>
-            {val.status}
+            {val.status.replace('_', ' ')}
             <span style={{
               background: statusColor,
               marginLeft: '5%',

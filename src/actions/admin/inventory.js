@@ -530,6 +530,7 @@ export function deviceCount () {
         dispatch(hide_loading())
         dispatch(successDeviceCount(res.data))
         resolve(res.data)
+        console.log(res.data, 'dkjfdkfjdfj')
       }, (error) => {
         dispatch(hide_loading())
         reject(error)

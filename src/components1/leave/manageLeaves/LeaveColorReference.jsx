@@ -16,8 +16,8 @@ const styles = {
   }
 }
 
-const LeaveColorReference = ({filterLeaveList, selectedTab, logged_user}) => {
-  if (logged_user.role === CONFIG.ADMIN) {
+const LeaveColorReference = ({filterLeaveList, selectedTab, userRole}) => {
+  if (userRole === CONFIG.ADMIN) {
     return (
       <div className="row no-gutter m-b text-xs l-h-1x">
         <div className="col-xs-3 text-center" style={styles.cursor} onClick={() => filterLeaveList('ApprovedByHr')} >
@@ -74,7 +74,7 @@ const LeaveColorReference = ({filterLeaveList, selectedTab, logged_user}) => {
 LeaveColorReference.PropTypes = {
   filterLeaveList: PropTypes.func.isRequired,
   selectedTab: PropTypes.string.isRequired,
-  logged_user: PropTypes.object.isRequired
+  userRole: PropTypes.string.isRequired
 }
 
 export default LeaveColorReference;

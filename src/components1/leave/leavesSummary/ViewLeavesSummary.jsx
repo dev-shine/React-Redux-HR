@@ -1,7 +1,7 @@
 import React from 'react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
-import LeavesSummary from './LeavesSummary'
+import LeavesSummary from './LeavesSummary';
 
 const styles = {
   height100per: {
@@ -11,12 +11,12 @@ const styles = {
 
 const ViewLeavesSummary = ({componentData, on_all_leaves_summary}) => {
   const _onChangeMonth = (check) => {
-      if (check == 'previous') {
-        on_all_leaves_summary(componentData.previousMonth.year, componentData.previousMonth.month)
-      } else if (check == 'next') {
-        on_all_leaves_summary(componentData.nextMonth.year, componentData.nextMonth.month)
-      }
+    if (check == 'previous') {
+      on_all_leaves_summary(componentData.previousMonth.year, componentData.previousMonth.month)
+    } else if (check == 'next') {
+      on_all_leaves_summary(componentData.nextMonth.year, componentData.nextMonth.month)
     }
+  }
   let current_month = typeof componentData.month != 'undefined'? componentData.month : '';
   let current_year = typeof componentData.year != 'undefined' ? componentData.year : '';
   let current_monthName = typeof componentData.monthName != 'undefined'? componentData.monthName : '';
@@ -62,7 +62,15 @@ const ViewLeavesSummary = ({componentData, on_all_leaves_summary}) => {
 }
 
 ViewLeavesSummary.PropTypes = {
-  componentData: PropTypes.object.isRequired,
+  componentData: PropTypes.shape({
+    leavesSummary: PropTypes.array.isRequired,
+    month: PropTypes.number,
+    monthName: PropTypes.string,
+    username: PropTypes.string,
+    previousMonth: PropTypes.object.isRequired,
+    nextMonth: PropTypes.object.isRequired,
+    year: PropTypes.number
+  }).isRequired,
   on_all_leaves_summary: PropTypes.func.isRequired
 }
 

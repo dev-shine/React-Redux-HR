@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 const styles = {
   leaveDiv: {
@@ -53,7 +53,9 @@ const ListLeaves = ({listItems, selectedLeave, selectLeave}) => {
 
 ListLeaves.PropTypes = {
   listItems: PropTypes.array.isRequired,
-  selectedLeave: PropTypes.object.isRequired,
+  selectedLeave: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  }).isRequired,
   selectLeave: PropTypes.func.isRequired
 }
 

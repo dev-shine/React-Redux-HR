@@ -47,7 +47,11 @@ const LeavesSummary = ({user}) => {
 }
 
 LeavesSummary.PropTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({
+    attendance: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    jobtitle: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default LeavesSummary;

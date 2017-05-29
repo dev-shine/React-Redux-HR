@@ -59,7 +59,6 @@ class ViewSalary extends React.Component {
 // Hr
     else if (props.logged_user.role == CONFIG.HR) {
       let subList = _.filter(props.employee.employee, (empl) => (empl.previous_increment == ""));
-      console.log(subList);
       let emp = []
       if (subList.length > 0) {
         _.forEach(subList, function(ob, i) {
@@ -81,7 +80,6 @@ class ViewSalary extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     let table = (this.state.empList.length > 0)
       ? <SalaryList {...this.props} empList={this.state.empList}/>
       : ""

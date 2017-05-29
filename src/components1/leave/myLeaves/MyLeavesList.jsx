@@ -80,7 +80,18 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
 }
 
 MyLeavesList.PropTypes = {
-  leave: PropTypes.object.isRequired,
+  leave: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    applied_on: PropTypes.string.isRequired,
+    from_date: PropTypes.string.isRequired,
+    to_date: PropTypes.string.isRequired,
+    no_of_days: PropTypes.number.isRequired,
+    user_Id: PropTypes.number.isRequired,
+    reason: PropTypes.string.isRequired,
+    leave_type: PropTypes.string.isRequired,
+    late_reason: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired
+  }).isRequired,
   handleOpen: PropTypes.func.isRequired,
   cancelLeave: PropTypes.func.isRequired
 }

@@ -148,7 +148,7 @@ class ManageLeaves extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-12">
-                  <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} logged_user={this.props.logged_user} />
+                  <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} userRole={this.props.logged_user.role} />
                 </div>
               </div>
               {tabContent}

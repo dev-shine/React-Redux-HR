@@ -1,29 +1,26 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-import ReactDOM from 'react-dom'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import Header from 'components/generic/Header';
 
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
-import {CONFIG} from '../../config/index'
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import Header from '../../components/generic/header'
+import ManagePayslipsUsersList from 'modules/salary/components/managePayslips/ManagePayslipsUsersList';
+import FormGeneratePaySlip from 'modules/salary/components/managePayslips/FormGeneratePaySlip';
+import EmployeeActualSalary from 'modules/salary/components/managePayslips/EmployeeActualSalary';
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 
-//-----------------------------------------
-import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
-import * as actions_managePayslips from '../../actions/admin/managePayslips'
-
-import ManagePayslipsUsersList from '../../components/managePayslips/ManagePayslipsUsersList'
-import UserPayslipsHistory from '../../components/managePayslips/UserPayslipsHistory'
-import FormGeneratePaySlip from '../../components/managePayslips/FormGeneratePaySlip'
-import EmployeeActualSalary from '../../components/managePayslips/EmployeeActualSalary'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
 class ManagePayslips extends React.Component {
   constructor(props) {
     super(props);
-    this.props.onIsAlreadyLogin()
+    this.props.onIsAlreadyLogin();
     this.state = {
       year: '',
       month: '',

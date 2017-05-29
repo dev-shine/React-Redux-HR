@@ -4,8 +4,6 @@ import {Router, browserHistory, Link, withRouter} from 'react-router'
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as _ from 'lodash'
 
-import * as actions_login from '../../actions/login/index'
-
 import Day from '../../components/generic/Day'
 
 import UserDetails from './UserDetails'

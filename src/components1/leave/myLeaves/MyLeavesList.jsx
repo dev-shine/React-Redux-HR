@@ -1,18 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {ButtonRaised, ButtonInfo} from 'components/generic/buttons';
 
+
 const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
-  let s = leave.status
-  let f_char = s.charAt(0)
-  let leaveStatusColor = ''
+  let s = leave.status;
+  let f_char = s.charAt(0);
+  let leaveStatusColor = '';
   if (s == 'Approved') {
-    leaveStatusColor = 'green-A200'
+    leaveStatusColor = 'green-A200';
   } else if (s == 'Pending') {
-    leaveStatusColor = 'blue'
+    leaveStatusColor = 'blue';
   } else if (s == 'Rejected') {
-    leaveStatusColor = 'red-500'
+    leaveStatusColor = 'red-500';
   } else if (s == 'Cancelled Request') {
-    leaveStatusColor = 'red-100'
+    leaveStatusColor = 'red-100';
   }
 
   return (
@@ -75,6 +77,23 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
       }
     </div>
   )
+}
+
+MyLeavesList.PropTypes = {
+  leave: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    applied_on: PropTypes.string.isRequired,
+    from_date: PropTypes.string.isRequired,
+    to_date: PropTypes.string.isRequired,
+    no_of_days: PropTypes.number.isRequired,
+    user_Id: PropTypes.number.isRequired,
+    reason: PropTypes.string.isRequired,
+    leave_type: PropTypes.string.isRequired,
+    late_reason: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired
+  }).isRequired,
+  handleOpen: PropTypes.func.isRequired,
+  cancelLeave: PropTypes.func.isRequired
 }
 
 export default MyLeavesList;

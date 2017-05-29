@@ -8,7 +8,7 @@ import { CONFIG } from '../../config/index'
 import Menu from '../../components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import TeamDetails from '../../components/attendance/TeamDetails'
-import * as actions_login from '../../actions/login/index'
+import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_getTeamData from '../../actions/admin/teamList'
 import TeamList from '../../components/attendance/TeamList'
 // import * as actions_salary from '../../actions/salary/index'

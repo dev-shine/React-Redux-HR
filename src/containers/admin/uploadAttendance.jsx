@@ -13,11 +13,11 @@ import AlertNotification from '../../components/generic/AlertNotification'
 import Header from '../../components/generic/header'
 
 //-----------------------------------------
-import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_manageUsers from '../../actions/admin/manageUsers'
-import * as actions_managePayslips from '../../actions/admin/managePayslips'
-import * as actions_policy from '../../actions/policyDocuments/index'
+import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
 import AttendanceSheatForm from '../../components/uploadAttendance/AttendanceSheatForm'
 import LoadingIcon from '../../components/generic/LoadingIcon'

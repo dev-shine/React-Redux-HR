@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 
 export const LoginFormFooter = ({doGuestLogin}) => {
@@ -12,6 +13,10 @@ export const LoginFormFooter = ({doGuestLogin}) => {
       </button>
     </div>
   )
+}
+
+LoginFormFooter.PropTypes = {
+  doGuestLogin: PropTypes.func.isRequired
 }
 
 export default LoginFormFooter;

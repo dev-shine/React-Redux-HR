@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-import * as constants from '../constants'
+import * as constants from 'appRedux/constants'
 
-import {show_loading, hide_loading} from '../generic/frontend'
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend'
 
 export function success_attendance_summary (data) {
   return createAction(constants.ACTION_SUCCESS_ATTENDANCE_SUMMARY)(data)

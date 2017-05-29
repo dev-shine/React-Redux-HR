@@ -32,10 +32,11 @@ import Page_ApplyLeave from './modules/leave/containers/applyLeave';
 import Page_MyLeaves from './modules/leave/containers/myLeaves';
 
 import Page_Holidays from './modules/holidays/containers/holidays';
+import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
+import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
 //-----------------------------
 
 import Page_Home from './containers/user/home'
-import Page_PolicyDocument from './containers/user/PolicyDocument'
 
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
@@ -47,7 +48,6 @@ import Page_ManagePayslips from './containers/admin/managePayslips'
 import Page_ViewSalary from './containers/admin/viewSalary'
 import Page_DisabledEmployes from './containers/admin/disabledEmployes'
 import Page_UploadAttendance from './containers/admin/uploadAttendance'
-import Page_UploadPolicyDocument from './containers/admin/uploadPolicyDocument'
 import Page_mail_template from './containers/admin/addTemplate'
 import Page_AddVariables from './containers/admin/addVariables'
 import Page_TeamView from './containers/admin/viewTeam'

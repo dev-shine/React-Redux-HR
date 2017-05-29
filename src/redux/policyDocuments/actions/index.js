@@ -28,8 +28,9 @@ export function fetchPolicyDocument () {
       async_fetchPolicyDocument().then(
         (json) => {
           dispatch(hide_loading()) // hide loading icon
-          if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(success_fetch_policy_documents(json.data))
+          if (!_.isUndefined(json.error) && json.error == 0) {
+            let data = _.isNull(json.data) ? [] : json.data;
+            dispatch(success_fetch_policy_documents(data))
             resolve()
           } else {
             dispatch(error_fetch_policy_documents(json.data.message))

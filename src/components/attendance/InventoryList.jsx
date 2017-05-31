@@ -6,7 +6,6 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import FormAddNewInventory from '../../components/inventory/AddInventory'
 import AddDeviceDialoge from '../../components/inventory/AddDeviceDialoge'
 import AddDeviceStatus from '../../components/inventory/AddDeviceStatus'
-
 import Snackbar from 'material-ui/Snackbar'
 
 import { connect } from 'react-redux'
@@ -340,7 +339,6 @@ class InventoryList extends React.Component {
                         </select>
                       </div>
                     </div>
-
                     <div className='row m-0'>
                       <div className='buttonbox'>
                       <div className='col-sm-2 p-0 pt-5' style={{marginLeft: '16%', paddingLeft: '8%'}}>
@@ -367,7 +365,6 @@ class InventoryList extends React.Component {
                       </div>
                       </div>
                     </div>
-
                 </div>
                 </div>
                 <div className='row'>

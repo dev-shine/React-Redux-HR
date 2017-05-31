@@ -144,7 +144,7 @@ export default class AddDeviceDialoge extends React.Component {
           open={this.state.open}
           onRequestClose={this.props.handleClose}
                   ><div className="row m-0">
-                  <div className='col-sm-3'style={{overflowY: 'auto', maxHeight: '200px'}}>
+                  <div className='col-sm-5'style={{overflowY: 'auto', maxHeight: '250px'}}>
                     <label>Device Type List</label>
                     <ol>
                   {this.state.deviceList.map((val, i) => {
@@ -157,7 +157,7 @@ export default class AddDeviceDialoge extends React.Component {
                   })}
                 </ol>
                 </div>
-                <div className='col-sm-9' style={{marginTop: '5%'}}>
+                <div className='col-sm-7' style={{marginTop: '5%'}}>
                 {text}
             </div>
               </div>

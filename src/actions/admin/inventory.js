@@ -528,9 +528,8 @@ export function deviceCount () {
       dispatch(show_loading())
       return getAsyncDeviceCount().then((res) => {
         dispatch(hide_loading())
-        dispatch(successDeviceCount(res.data))
         resolve(res.data)
-        console.log(res.data, 'dkjfdkfjdfj')
+        dispatch(successDeviceCount(res.data))
       }, (error) => {
         dispatch(hide_loading())
         reject(error)

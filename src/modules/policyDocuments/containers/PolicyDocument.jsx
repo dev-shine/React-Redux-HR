@@ -4,13 +4,13 @@ import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
-import DocumentsList from 'components/policyDocuments/DocumentsList';
+import DocumentsList from 'modules/policyDocuments/components/DocumentsList';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 
 
 class PolicyDocumentContainer extends React.Component {
-   constructor(props){
+  constructor(props){
       super(props);
       this.props.onIsAlreadyLogin();
       this.state = {
@@ -30,20 +30,20 @@ class PolicyDocumentContainer extends React.Component {
     });
   }
   render(){
-  	return(
-  		<div>
+    return(
+      <div>
         <Menu {...this.props }/>
-    		<div id="content" className="app-content box-shadow-z0" role="main">
+        <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={"Policy Documents"} showLoading={this.props.frontend.show_loading} />
-  				<DocumentsList policyDocuments={this.state.docs} onUpdateReadStatus={this.props.onUpdateReadStatus} />
-    		</div>
-  		</div>
-  	)
+          <DocumentsList policyDocuments={this.state.docs} onUpdateReadStatus={this.props.onUpdateReadStatus} />
+        </div>
+      </div>
+    )
   }
 }
 function mapStateToProps(state){
   return {
-  	frontend : state.frontend.toJS(),
+    frontend : state.frontend.toJS(),
     logged_user : state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS(),
   }

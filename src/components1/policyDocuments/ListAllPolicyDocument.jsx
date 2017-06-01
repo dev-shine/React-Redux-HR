@@ -53,7 +53,7 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
   )
 }
 
-DocumentsList.PropTypes = {
+ListAllPolicyDocument.PropTypes = {
   policyDocuments: PropTypes.array.isRequired,
   submitNewListofDocs: PropTypes.func.isRequired
 }

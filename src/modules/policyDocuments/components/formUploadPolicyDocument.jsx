@@ -17,7 +17,6 @@ class FormUploadPolicyDocument extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      docs: [],
       nameofdoc:'',
       linkofdoc:'',
       errName:'',
@@ -26,23 +25,7 @@ class FormUploadPolicyDocument extends React.Component {
     this.submitDocs = this.submitDocs.bind(this);
   }
 
-  componentWillReceiveProps(props){
-    console.log('props.policy_documents',props.policy_documents);
-    if(props.submitStatus == 1){
-      this.setState({
-        nameofdoc:'',
-        linkofdoc:'',
-        docs:props.policy_documents.policyDocuments,
-      });
-    }else{
-      this.setState({
-        docs:props.policy_documents.policyDocuments,
-      });
-    }
-  }
-
   submitDocs(){
-    let docs = this.state.docs;
     let name = this.state.nameofdoc.trim(),
         link = this.state.linkofdoc.trim(),
         state = true;
@@ -62,14 +45,13 @@ class FormUploadPolicyDocument extends React.Component {
         errLink:"Please enter document link",
       });
     }
-    console.log('this.state',this.state);
     if(state){
-      let docs = this.state.docs;
+      let docs = this.props.docs;
       docs.push({name:name, link:link});
       this.props.submitDocs(docs);
       this.setState({
-        nameofdoc:'',
-        linkofdoc:'',
+        nameofdoc: '',
+        linkofdoc: '',
       });
     }
   }

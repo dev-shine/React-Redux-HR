@@ -7,15 +7,15 @@ import {show_loading, hide_loading} from 'src/actions/generic/frontend';
 import * as constants from 'src/actions/constants';
 
 // -----------isUserAcceptedDocumentPolicy-----------
-export function success_fetch_policy_documents (data) {
+export function successFetchPolicyDocuments (data) {
   return createAction(constants.ACTION_POLICY_DOCUMENT_SUCCESS)(data)
 }
-export function error_fetch_policy_documents (data) {
+export function errorFetchPolicyDocuments (data) {
   return createAction(constants.ACTION_POLICY_DOCUMENT_FAIL)(data)
 }
 
 // -------------get policy documents for admin section-------------
-function async_fetchPolicyDocument () {
+function asyncFetchPolicyDocument () {
   return fireAjax('POST', '', {
     action: 'get_policy_document'
   })
@@ -25,15 +25,15 @@ export function fetchPolicyDocument () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()) // show loading icon
-      async_fetchPolicyDocument().then(
+      asyncFetchPolicyDocument().then(
         (json) => {
           dispatch(hide_loading()) // hide loading icon
           if (!_.isUndefined(json.error) && json.error == 0) {
             let data = _.isNull(json.data) ? [] : json.data;
-            dispatch(success_fetch_policy_documents(data))
+            dispatch(successFetchPolicyDocuments(data))
             resolve()
           } else {
-            dispatch(error_fetch_policy_documents(json.data.message))
+            dispatch(errorFetchPolicyDocuments(json.data.message))
             reject(json.data.message)
           }
         },
@@ -46,7 +46,7 @@ export function fetchPolicyDocument () {
   }
 }
 // -----------get policy documents for user-----------------
-function async_fetchUserPolicyDocument () {
+function asyncFetchUserPolicyDocument () {
   return fireAjax('POST', '', {
     action: 'get_user_policy_document'
   })
@@ -56,14 +56,14 @@ export function fetchUserPolicyDocument () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()) // show loading icon
-      async_fetchUserPolicyDocument().then(
+      asyncFetchUserPolicyDocument().then(
         (json) => {
           dispatch(hide_loading()) // hide loading icon
           if (typeof json.error !== 'undefined' || json.error == 0) {
-            dispatch(success_fetch_policy_documents(json.data))
+            dispatch(successFetchPolicyDocuments(json.data))
             resolve()
           } else {
-            dispatch(error_fetch_policy_documents(json.data.message))
+            dispatch(errorFetchPolicyDocuments(json.data.message))
             reject(json.data.message)
           }
         },
@@ -78,7 +78,7 @@ export function fetchUserPolicyDocument () {
 
 // -----------Submit policy document info-----------
 
-function async_submitDocs (docs) {
+function asyncSubmitDocs (docs) {
   return fireAjax('POST', '', {
     action: 'save_policy_document',
     type: 'policy_document',
@@ -90,7 +90,7 @@ export function submitDocs (docs) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()) // show loading icon
-      async_submitDocs(docs).then(
+      asyncSubmitDocs(docs).then(
         (json) => {
           dispatch(hide_loading()) // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
@@ -111,7 +111,7 @@ export function submitDocs (docs) {
 
 // -----------update Read Status of policy document-----------
 
-function async_updateReadStatus (updateDoc) {
+function asyncUpdateReadStatus (updateDoc) {
   return fireAjax('POST', '', {
     action: 'update_user_policy_document',
     policy_document: JSON.stringify(updateDoc)
@@ -122,7 +122,7 @@ export function updateReadStatus (updateDoc) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()) // show loading icon
-      async_updateReadStatus(updateDoc).then(
+      asyncUpdateReadStatus(updateDoc).then(
         (json) => {
           dispatch(hide_loading()) // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {

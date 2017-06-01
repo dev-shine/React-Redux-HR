@@ -2,24 +2,24 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
-import Header from 'components/generic/Header';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import Header from 'components/generic/Header';
+import Message from 'components/generic/Message';
 import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUploadPolicyDocument';
-import ListAllPolicyDocument from 'components/policyDocuments/listAllPolicyDocument';
+import ListAllPolicyDocument from 'components/policyDocuments/ListAllPolicyDocument';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 
 const styles = {
   errorAlert: {
     "width": "100%",
-    "display":"none",
   },
 }
 
@@ -28,10 +28,11 @@ class UploadPolicyDocumentContainer extends React.Component {
       super( props );
       this.props.onIsAlreadyLogin();
       this.state = {
-        submitStatus:0,
+        docs: [],
+        errClass: 'hidden',
+        errMsg: ''
       };
       this.submitDocs = this.submitDocs.bind(this);
-      this.showError = this.showError.bind(this);
       this.hideError = this.hideError.bind(this);
       this.submitNewListofDocs = this.submitNewListofDocs.bind(this);
   }
@@ -42,82 +43,69 @@ class UploadPolicyDocumentContainer extends React.Component {
   componentWillReceiveProps( props ){
     if( props.logged_user.logged_in == -1 ){
         this.props.router.push('/logout');
-      }else if(props.logged_user.role !== CONFIG.ADMIN ){
-        this.props.router.push('/home');
-      }
+    }else if(props.logged_user.role !== CONFIG.ADMIN ){
+      this.props.router.push('/home');
+    }
+    this.setState({
+      docs: props.policy_documents.policyDocuments
+    });
   }
-  showError(id, errorMsg){
-    $('#'+id+ " span").remove();
-    $('#'+id).fadeIn().append("<span>"+errorMsg+"<span>")
-  }
-  hideError(e, id){
+  hideError(e){
     e.preventDefault();
-    $('#'+id).fadeOut(0);
-    $('#'+id+ " span").remove();
+    this.setState({
+      errClass: 'hidden',
+      errMsg: ''
+    });
   }
   submitNewListofDocs(newList){
     this.props.onSubmitDocs(newList).then(()=>{
-      //this.hideError('e','updateFailed');
-      this.showError('updateSuccessful','Documents deleted successfully');
+      this.setState({
+        errClass: 'alert-success pull-left',
+        errMsg: 'Documents deleted successfully'
+      });
     })
     .catch(()=>{
-      //this.hideError('e','updateSuccessful');
-      this.showError('updateFailed','Documents not deleted');
+      this.setState({
+        errClass: 'alert-danger pull-left',
+        errMsg: 'Documents not deleted'
+      });
     });
   }
   submitDocs(docs){
-    if(docs.length > 0){
+    this.props.onSubmitDocs(docs).then(()=>{
       this.setState({
-        submitStatus:0,
+        errClass: 'alert-success pull-left',
+        errMsg: 'Documents submitted successfully'
       });
-      let policyDocuments = this.props.policy_documents.policyDocuments;
-      let finalDoc = _.union(policyDocuments, docs);
-      this.props.onSubmitDocs(finalDoc).then(()=>{
-        //this.hideError('e','updateFailed');
-        this.showError('updateSuccessful','Documents submitted successfully');
-        this.setState({
-          submitStatus:1,
-        });
-      })
-      .catch(()=>{
-        //this.hideError('e','updateSuccessful');
-        this.setState({
-          submitStatus:-1,
-        });
-        this.showError('updateFailed','Documents submition faild');
+    }).catch(()=>{
+      this.setState({
+        errClass: 'alert-danger pull-left',
+        errMsg: 'Documents submition faild'
       });
-    }else{
-      //this.hideError('e','updateSuccessful');
-      this.showError('updateFailed','Please add the doc data first');
-    }
+    });
   }
   render(){
-  	return(
-  		<div>
+    return(
+      <div>
         <Menu {...this.props }/>
-    		<div id="content" className="app-content box-shadow-z0" role="main">
+        <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={"Upload Policy Documents"} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" style={{'marginTop':10}}>
             <div className="row" style={{margin:'10px 4px 0px'}}>
               <div className='col-xs-12' style={{padding:'10px 24px 0px',textAlign:'center'}}>
-                <div id="updateSuccessful" className="alert alert-success pull-left" style={styles.errorAlert}>
-                  <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateSuccessful')} aria-label="close">&times;</a>
-                </div>
-                <div id="updateFailed" className="alert alert-danger pull-left" style={styles.errorAlert}>
-                  <a href="#" className="close" onClick={(e)=>this.hideError(e,'updateFailed')} aria-label="close">&times;</a>
-                </div>
+                <Message className={this.state.errClass} style={styles.errorAlert} message={this.state.errMsg} onClick={this.hideError} />
               </div>
               <div className="col-xs-6">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props}/>
               </div>
               <div className="col-xs-6">
-                <ListAllPolicyDocument policyDocuments={this.props.policy_documents.policyDocuments} submitNewListofDocs={this.submitNewListofDocs}/>
+                <ListAllPolicyDocument policyDocuments={this.state.docs} submitNewListofDocs={this.submitNewListofDocs}/>
               </div>
-            </div >
+            </div>
           </div>
-    		</div>
-  		</div>
-		)
+        </div>
+      </div>
+    )
   }
 }
 function mapStateToProps( state ){

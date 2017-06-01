@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {CONFIG} from 'src/config/index';
 
 const styles = {
@@ -15,8 +16,8 @@ const styles = {
   }
 }
 
-const ManageLeavesRoot = ({filterLeaveList, selectedTab, logged_user}) => {
-  if (logged_user.role === CONFIG.ADMIN) {
+const LeaveColorReference = ({filterLeaveList, selectedTab, userRole}) => {
+  if (userRole === CONFIG.ADMIN) {
     return (
       <div className="row no-gutter m-b text-xs l-h-1x">
         <div className="col-xs-3 text-center" style={styles.cursor} onClick={() => filterLeaveList('ApprovedByHr')} >
@@ -70,4 +71,10 @@ const ManageLeavesRoot = ({filterLeaveList, selectedTab, logged_user}) => {
   )
 }
 
-export default ManageLeavesRoot;
+LeaveColorReference.PropTypes = {
+  filterLeaveList: PropTypes.func.isRequired,
+  selectedTab: PropTypes.string.isRequired,
+  userRole: PropTypes.string.isRequired
+}
+
+export default LeaveColorReference;

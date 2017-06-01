@@ -30,10 +30,13 @@ import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
 import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
 import Page_ApplyLeave from './modules/leave/containers/applyLeave';
 import Page_MyLeaves from './modules/leave/containers/myLeaves';
-
 import Page_Holidays from './modules/holidays/containers/holidays';
 import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
 import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
+import Page_ManageSalary from './modules/salary/containers/manageSalary';
+import Page_ViewSalary from './modules/salary/containers/viewSalary';
+import Page_Salary from './modules/salary/containers/salary';
+import Page_ManagePayslips from './modules/salary/containers/managePayslips';
 //-----------------------------
 
 import Page_Home from './containers/user/home'
@@ -41,11 +44,8 @@ import Page_Home from './containers/user/home'
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours'
-import Page_ManageSalary from './containers/admin/manageSalary'
 import Page_ManageUsers from './containers/admin/manageUsers'
 import Page_ManageClients from './containers/admin/manageClients'
-import Page_ManagePayslips from './containers/admin/managePayslips'
-import Page_ViewSalary from './containers/admin/viewSalary'
 import Page_DisabledEmployes from './containers/admin/disabledEmployes'
 import Page_UploadAttendance from './containers/admin/uploadAttendance'
 import Page_mail_template from './containers/admin/addTemplate'
@@ -56,7 +56,6 @@ import Page_InventorySystem from './containers/admin/manageInventory'
 // -user
 import Page_MonthlyAttendance from './containers/user/monthlyAttendance'
 import Page_AttendanceSummary from './containers/user/attendanceSummary'
-import Page_Salary from './containers/user/salary'
 import Page_MyProfile from './containers/user/myProfile'
 import Page_MyInventory from './containers/user/myInventory'
 import Page_MyDocuments from './containers/user/myDocuments'

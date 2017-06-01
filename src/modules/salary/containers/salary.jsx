@@ -1,29 +1,27 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
-import {CONFIG} from '../../config/index'
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import Header from '../../components/generic/header'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import Header from 'components/generic/Header';
 
-import * as actions_login from '../../actions/login/index'
-import * as actions_salary from '../../actions/salary/index'
-import * as actions_policy from '../../actions/policyDocuments/index'
+import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
+import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
+import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
 
-import SalaryDetails from '../../components/salary/SalaryDetails'
-import SalaryHistory from '../../components/salary/SalaryHistory'
-import PayslipHistory from '../../components/salary/PayslipHistory'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_salary from 'appRedux/salary/actions/viewSalary';
+
 
 class Salary extends React.Component {
   constructor(props) {
     super(props);
     this.props.onIsAlreadyLogin()
-
-    this.viewSalarySummary = this.viewSalarySummary.bind(this)
-
+    this.viewSalarySummary = this.viewSalarySummary.bind(this);
     this.state = {
       view_salary_id: false,
       salary_details: {},
@@ -31,7 +29,6 @@ class Salary extends React.Component {
       payslip_history: []
     }
   }
-  componentDidMount() {}
   componentWillMount() {
     this.props.onFetchUserPolicyDocument();
     this.props.onSalaryDetails();
@@ -51,8 +48,8 @@ class Salary extends React.Component {
     }
 
     let s_salary_details = {}
-   let s_salary_history = []
-   let s_payslip_history = []
+    let s_salary_history = []
+    let s_payslip_history = []
 
    if (this.state.view_salary_id == false) {
      if (typeof props.salary.salary_history != 'undefined' && props.salary.salary_history.length > 0) {
@@ -81,47 +78,36 @@ class Salary extends React.Component {
   render() {
     return (
       <div >
-        <Menu {...this.props}/>
-
+        <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-
-          <Header pageTitle={"Salary"} {...this.props} />
-
+          <Header pageTitle={"Salary"} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
-
             <div className="padding">
               <div className="box">
                 <div className="box-divider m-a-0"></div>
                 <div className="box-body">
-
                   <div className="row">
-
                     <div className="col-sm-6">
                       <h6>Salary Details</h6>
-                      <SalaryDetails data={this.state.holding_amt}/>
+                      <SalaryDetails data={this.state.holding_amt} />
                     </div>
-
                     <div className="col-sm-3 b-l">
                       <h6>Salary Revisions</h6>
                       <hr/>
-                      <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary}/>
+                      <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary} />
                     </div>
-
                     <div className="col-sm-3 b-l">
                       <h6>Previous Payslips</h6>
                       <hr/>
-                      <PayslipHistory payslip_history={this.state.payslip_history}/>
+                      <PayslipHistory payslip_history={this.state.payslip_history} />
                     </div>
-
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     )
   }
 }

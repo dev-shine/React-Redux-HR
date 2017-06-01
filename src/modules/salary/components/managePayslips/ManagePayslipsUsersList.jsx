@@ -1,12 +1,9 @@
 import React from 'react';
-import * as _ from 'lodash'
-
-import {notify} from '../../services/index'
-import {CONFIG} from '../../config/index'
-import $ from 'jquery'
-
+import * as _ from 'lodash';
+import $ from 'jquery';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class ManagePayslipsUsersList extends React.Component {

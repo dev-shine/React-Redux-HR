@@ -10,11 +10,11 @@ import LoadingIcon from '../../components/generic/LoadingIcon'
 import UsersList from '../../components/generic/UsersList'
 import Header from '../../components/generic/header'
 
-import * as actions_login from '../../actions/login/index'
-import * as actions_usersList from '../../actions/user/usersList'
+import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
 import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-import * as actions_policy from '../../actions/policyDocuments/index'
 import * as actions_workingHoursSummary from '../../actions/admin/workingHoursSummary'
 
 import WorkingHoursSummary from '../../components/attendance/WorkingHoursSummary'

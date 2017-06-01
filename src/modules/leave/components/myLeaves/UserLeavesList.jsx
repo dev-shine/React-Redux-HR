@@ -13,10 +13,10 @@ class UserLeavesList extends React.Component {
       id: '',
       user_token: ''
     }
-    this.cancelLeave = this.cancelLeave.bind(this)
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.callUpdateDocuments = this.callUpdateDocuments.bind(this)
+    this.cancelLeave = this.cancelLeave.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
   }
 
   componentWillReceiveProps (props) {

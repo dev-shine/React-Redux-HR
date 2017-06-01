@@ -2,9 +2,9 @@ import { createAction } from 'redux-actions'
 import { CONFIG } from '../../config/index'
 import * as _ from 'lodash'
 import {fireAjax} from '../../services/index'
-import * as constants from '../constants'
+import * as constants from 'appRedux/constants'
 
-import {show_loading, hide_loading} from '../generic/frontend'
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend'
 
 export function success_clients_list (data) {
   return createAction(constants.ACTION_SUCCESS_CLIENTS_LIST)(data)

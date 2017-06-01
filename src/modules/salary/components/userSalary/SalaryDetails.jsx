@@ -1,8 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import {notify} from '../../services/index'
-
-import LoadingIcon from '../../components/generic/LoadingIcon'
+import React from 'react';
+import {Button} from 'components/generic/buttons';
 
 class SalaryDetails extends React.Component {
   constructor(props) {
@@ -11,9 +8,8 @@ class SalaryDetails extends React.Component {
       holdingAmount: ''
     }
   }
-  componentDidMount() {}
   componentWillReceiveProps(props) {
-    this.setState({holdingAmount: props.data})
+    this.setState({holdingAmount: props.data});
   }
   render() {
     let F_total_salary = ""
@@ -46,9 +42,7 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <hr/>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -75,7 +69,6 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -102,7 +95,6 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -129,7 +121,6 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -156,7 +147,6 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -183,7 +173,6 @@ class SalaryDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-xs-6 col-sm-4">
             <div className="box p-a">
@@ -203,20 +192,12 @@ class SalaryDetails extends React.Component {
                 <small className="text-muted">
                   Holding Amount
                 </small>
-                <input type="text" style={{
-                  'width': 84
-                }} onChange={(evt) => {
-                  this.setState({holdingAmount: evt.target.value})
-                }} value={this.state.holdingAmount}/>
-                <button style={{
-                  'marginTop': 10,
-                  'marginLeft': 5
-                }} type="button">Submit</button>
+                <input type="text" style={{'width': 84}} onChange={(evt) => {this.setState({holdingAmount: evt.target.value})}} value={this.state.holdingAmount} />
+                <Button style={{'marginTop': 10, 'marginLeft': 5}} type="button" label="Submit" />
               </div>
             </div>
           </div>
         </div>
-
       </div>
     )
   }

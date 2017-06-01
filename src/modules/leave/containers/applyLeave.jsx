@@ -9,9 +9,10 @@ import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
 import ApplyLeaveForm from 'modules/leave/components/applyLeave/ApplyLeaveForm';
 import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
+
 
 const styles = {
   content: {

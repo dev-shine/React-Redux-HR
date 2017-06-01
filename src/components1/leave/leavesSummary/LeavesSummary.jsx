@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LeavesSummary = ({user}) => {
   let pendingPunchingDays = _.map(user.attendance, (day, key) => {
@@ -43,6 +44,14 @@ const LeavesSummary = ({user}) => {
       </div>
     </div>
   )
+}
+
+LeavesSummary.PropTypes = {
+  user: PropTypes.shape({
+    attendance: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    jobtitle: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default LeavesSummary;

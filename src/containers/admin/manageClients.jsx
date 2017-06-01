@@ -12,7 +12,7 @@ import AlertNotification from '../../components/generic/AlertNotification'
 import { CONFIG } from '../../config/index'
 
 //-----------------------------------------
-import * as actions_login from '../../actions/login/index'
+import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_clientsList from '../../actions/generic/clientsList'
 import * as actions_manageClients from '../../actions/admin/manageClients'
 

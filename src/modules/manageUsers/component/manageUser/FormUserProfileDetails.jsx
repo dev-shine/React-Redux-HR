@@ -1,6 +1,6 @@
 import React from 'react'
 import * as _ from 'lodash'
-import {CONFIG} from '../../config/index'
+import {CONFIG} from 'src/config/index'
 
 import { DateField } from 'react-date-picker'
 import 'react-date-picker/index.css'

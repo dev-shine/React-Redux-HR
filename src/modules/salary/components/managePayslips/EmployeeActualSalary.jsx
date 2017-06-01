@@ -1,28 +1,28 @@
-import React from 'react';
+import React from 'react'
 
 class EmployeeActualSalary extends React.Component {
-  constructor( props ){
-  	super( props )
+  constructor (props) {
+  	super(props)
     this.state = {
-      basic : "",
-      epf : "",
-      hra : "",
-      loan : "",
-      conveyance : "",
-      advance : "",
-      medical_allowance : "",
-      misc_deduction : "",
-      special_allowance : "",
-      tds : "",
-      arrear : "",
-      bonus : "",
-      total_earning : "",
-      total_deduction : "",
-      net_salary : "",
+      basic: '',
+      epf: '',
+      hra: '',
+      loan: '',
+      conveyance: '',
+      advance: '',
+      medical_allowance: '',
+      misc_deduction: '',
+      special_allowance: '',
+      tds: '',
+      arrear: '',
+      bonus: '',
+      total_earning: '',
+      total_deduction: '',
+      net_salary: ''
     }
   }
 
-  componentWillReceiveProps(props){
+  componentWillReceiveProps (props) {
     let basic = 0
     let epf = 0
     let hra = 0
@@ -41,68 +41,68 @@ class EmployeeActualSalary extends React.Component {
 
     let SalaryDetails = props.employee_actual_salary
 
-    if( typeof SalaryDetails.Basic != 'undefined' ){
+    if (typeof SalaryDetails.Basic !== 'undefined') {
       basic = SalaryDetails.Basic
     }
-    if( typeof SalaryDetails.EPF != 'undefined' ){
+    if (typeof SalaryDetails.EPF !== 'undefined') {
       epf = SalaryDetails.EPF
     }
-    if( typeof SalaryDetails.HRA != 'undefined' ){
+    if (typeof SalaryDetails.HRA !== 'undefined') {
       hra = SalaryDetails.HRA
     }
-    if( typeof SalaryDetails.Loan != 'undefined' ){
+    if (typeof SalaryDetails.Loan !== 'undefined') {
       loan = SalaryDetails.Loan
     }
-    if( typeof SalaryDetails.Conveyance != 'undefined' ){
+    if (typeof SalaryDetails.Conveyance !== 'undefined') {
       conveyance = SalaryDetails.Conveyance
     }
-    if( typeof SalaryDetails.Advance != 'undefined' ){
+    if (typeof SalaryDetails.Advance !== 'undefined') {
       advance = SalaryDetails.Advance
     }
-    if( typeof SalaryDetails.Medical_Allowance != 'undefined' ){
+    if (typeof SalaryDetails.Medical_Allowance !== 'undefined') {
       medical_allowance = SalaryDetails.Medical_Allowance
     }
-    if( typeof SalaryDetails.Misc_Deductions != 'undefined' ){
+    if (typeof SalaryDetails.Misc_Deductions !== 'undefined') {
       misc_deduction = SalaryDetails.Misc_Deductions
     }
-    if( typeof SalaryDetails.Special_Allowance != 'undefined' ){
+    if (typeof SalaryDetails.Special_Allowance !== 'undefined') {
       special_allowance = SalaryDetails.Special_Allowance
     }
-    if( typeof SalaryDetails.TDS != 'undefined' ){
+    if (typeof SalaryDetails.TDS !== 'undefined') {
       tds = SalaryDetails.TDS
     }
-    if( typeof SalaryDetails.Arrears != 'undefined' ){
+    if (typeof SalaryDetails.Arrears !== 'undefined') {
       arrear = SalaryDetails.Arrears
     }
-    if( typeof SalaryDetails.total_earning != 'undefined' ){
+    if (typeof SalaryDetails.total_earning !== 'undefined') {
       total_earning = SalaryDetails.total_earning
     }
-    if( typeof SalaryDetails.total_deduction != 'undefined' ){
+    if (typeof SalaryDetails.total_deduction !== 'undefined') {
       total_deduction = SalaryDetails.total_deduction
     }
-    if( typeof SalaryDetails.net_salary != 'undefined' ){
+    if (typeof SalaryDetails.net_salary !== 'undefined') {
       net_salary = SalaryDetails.net_salary
     }
 
     this.setState({
-      basic : basic,
-      epf : epf,
-      hra : hra,
-      loan : loan,
-      conveyance : conveyance,
-      advance : advance,
-      medical_allowance : medical_allowance,
-      misc_deduction : misc_deduction,
-      special_allowance : special_allowance,
-      tds : tds,
-      arrear : arrear,
-      bonus : bonus,
-      total_earning : total_earning,
-      total_deduction : total_deduction,
-      net_salary : net_salary
+      basic: basic,
+      epf: epf,
+      hra: hra,
+      loan: loan,
+      conveyance: conveyance,
+      advance: advance,
+      medical_allowance: medical_allowance,
+      misc_deduction: misc_deduction,
+      special_allowance: special_allowance,
+      tds: tds,
+      arrear: arrear,
+      bonus: bonus,
+      total_earning: total_earning,
+      total_deduction: total_deduction,
+      net_salary: net_salary
     })
   }
-  render(){
+  render () {
     return (
   		<div>
   			<div className="box-body">

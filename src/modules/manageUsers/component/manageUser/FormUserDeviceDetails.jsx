@@ -1,5 +1,5 @@
   import React from 'react'
-  import * as _ from 'lodash'
+//  import * as _ from 'lodash'
   import 'react-date-picker/index.css'
 
   export default class FormUserDeviceDetails extends React.Component {

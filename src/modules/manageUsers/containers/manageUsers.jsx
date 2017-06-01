@@ -1,34 +1,31 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-import ReactDOM from 'react-dom'
-import RaisedButton from 'material-ui/RaisedButton'
-import Dialog from 'material-ui/Dialog'
+import {withRouter} from 'react-router'
 
-import {CONFIG} from '../../config/index'
+import {CONFIG} from 'src/config/index'
 import * as _ from 'lodash'
-import {notify} from '../../services/index'
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import AlertNotification from '../../components/generic/AlertNotification'
-import Header from '../../components/generic/header'
+import {notify} from 'src/services/index'
+import Menu from 'src/components/generic/Menu'
+// import LoadingIcon from '../../components/generic/LoadingIcon'
+import AlertNotification from 'src/components/generic/AlertNotification'
+import Header from 'src/components/generic/header'
 
 // -----------------------------------------
-import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_manageUsers from '../../actions/admin/manageUsers'
-import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
-import * as actions_getTeamData from '../../actions/admin/teamList'
+import * as actions_login from 'appRedux/auth/actions/index'
+import * as actions_usersList from 'appRedux/generic/actions/usersList'
+import * as actions_policy from 'appRedux/policyDocuments/actions/index'
+import * as actions_manageUsers from 'src/actions/admin/manageUsers'
+import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips'
+import * as actions_getTeamData from 'src/actions/admin/teamList'
 
-import UsersList from '../../components/generic/UsersList'
+import UsersList from 'src/components/generic/UsersList'
 
-import FormUserProfileDetails from '../../components/manageUsers/FormUserProfileDetails'
-import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails'
-import FormUserDeviceDetails from '../../components/manageUsers/FormUserDeviceDetails'
-import FormAddNewEmployee from '../../components/manageUsers/FormAddNewEmployee'
-import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument'
+import FormUserProfileDetails from 'src/modules/manageUsers/component/manageUser/FormUserProfileDetails'
+import FormUserBankDetails from 'src/modules/manageUsers/component/manageUser/FormUserBankDetails'
+import FormUserDeviceDetails from 'src/modules/manageUsers/component/manageUser/FormUserDeviceDetails'
+import FormAddNewEmployee from 'src/modules/manageUsers/component/manageUser/FormAddNewEmployee'
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory'
+import UpdateEmployeeDocument from 'src/components/manageUsers/UpdateEmployeeDocument'
 
 // ---------------------------------------------
 import ToggleButton from 'react-toggle-button'
@@ -102,27 +99,27 @@ class ManageUsers extends React.Component {
     }
   }
   onUserClick (userid, username) {
-    let selected_user_name = ''
-    let selected_user_image = ''
-    let selected_user_jobtitle = ''
-    let selected_user_id = ''
+    let selectedUserName = ''
+    let selectedUserImage = ''
+    let selectedUserJobtitle = ''
+    let selectedUserId = ''
     // this.setState({username: username})
 
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid})
       if (typeof userDetails !== 'undefined') {
-        selected_user_name = userDetails.name
-        selected_user_image = userDetails.slack_profile.image_192
-        selected_user_jobtitle = userDetails.jobtitle
-        selected_user_id = userDetails.user_Id
+        selectedUserName = userDetails.name
+        selectedUserImage = userDetails.slack_profile.image_192
+        selectedUserJobtitle = userDetails.jobtitle
+        selectedUserId = userDetails.user_Id
       }
     }
     this.setState({
       'defaultUserDisplay': userid,
-      'selected_user_name': selected_user_name,
-      'selected_user_image': selected_user_image,
-      'selected_user_jobtitle': selected_user_jobtitle,
-      'selected_user_id': selected_user_id
+      'selected_user_name': selectedUserName,
+      'selected_user_image': selectedUserImage,
+      'selected_user_jobtitle': selectedUserJobtitle,
+      'selected_user_id': selectedUserId
     })
     this.props.onUserProfileDetails(userid, username)
     this.props.onGetUserDocument(userid)
@@ -140,7 +137,6 @@ class ManageUsers extends React.Component {
     })
   }
   callUpdateUserProfileDetails (new_profile_details) {
-    console.log(new_profile_details)
     this.props.onUpdateUserProfileDetails(new_profile_details).then((data) => {}, (error) => {
       notify(error)
     })
@@ -172,6 +168,7 @@ class ManageUsers extends React.Component {
   handleCloseIframe () {
     this.setState({openIframe: false})
   };
+
   render () {
     return (
       <div>

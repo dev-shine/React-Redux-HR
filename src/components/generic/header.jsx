@@ -1,20 +1,19 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Router, browserHistory, Link, withRouter} from 'react-router';
 
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
+import * as _ from 'lodash';
+import {notify} from '../../services/index';
 
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from './LoadingIcon'
-import AlertNotification from '../../components/generic/AlertNotification'
+import Menu from '../../components/generic/Menu';
+import LoadingIcon from './LoadingIcon';
 
 class Header extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
 
-    }
+    };
   }
   componentWillMount () {
 
@@ -37,8 +36,8 @@ class Header extends React.Component {
               </div>
             </div>
           </div>
-    )
+    );
   }
 }
 
-export default Header
+export default Header;

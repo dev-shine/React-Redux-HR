@@ -1,12 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
-import * as _ from 'lodash'
-
-import Day from '../../components/generic/Day'
-import UserDetails from './UserDetails'
-import MonthSummary from './MonthSummary'
+import * as _ from 'lodash';
+import Day from 'components/attendance/Day';
 
 class WorkingHoursSummary extends React.Component {
   constructor(props) {

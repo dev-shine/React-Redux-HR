@@ -1,10 +1,9 @@
-import {createAction} from 'redux-actions'
-import {CONFIG} from '../../config/index'
-import * as _ from 'lodash'
-import {fireAjax} from '../../services/index'
-import * as constants from 'appRedux/constants'
-
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend'
+import {createAction} from 'redux-actions';
+import * as _ from 'lodash';
+import {CONFIG} from 'src/config/index';
+import {fireAjax} from 'src/services/index';
+import * as constants from 'appRedux/constants';
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 
 export function success_user_attendance (data) {
   return createAction(constants.ACTION_SUCCESS_USER_ATTENDANCE)(data)

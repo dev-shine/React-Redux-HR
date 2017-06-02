@@ -1,11 +1,11 @@
-import {createAction} from 'redux-actions'
-import {CONFIG} from '../../config/index'
-import * as _ from 'lodash'
-import {fireAjax} from '../../services/index'
-import * as constants from 'appRedux/constants'
+import {createAction} from 'redux-actions';
+import * as _ from 'lodash';
+import {CONFIG} from 'src/config/index';
+import {fireAjax} from 'src/services/index';
+import * as constants from 'appRedux/constants';
 
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend'
-import {get_monthly_attendance} from './monthlyAttendance'
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {get_monthly_attendance} from './monthlyAttendance';
 
 export function success_user_day_summary (data) {
   return createAction(constants.ACTION_SUCCESS_USER_DAY_SUMMARY)(data)

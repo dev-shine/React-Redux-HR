@@ -41,6 +41,7 @@ import Page_Home from './modules/attendance/containers/Home';
 import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
 // import Page_AttendanceSummary from './modules/attendance/containers/attendanceSummary';
 import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
+import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 // -----------------------------
 
 // import Page_Home from './containers/user/home'
@@ -59,7 +60,6 @@ import Page_InventorySystem from './containers/admin/manageInventory';
 // -user
 import Page_MyProfile from './containers/user/myProfile';
 import Page_MyInventory from './containers/user/myInventory';
-import Page_MyDocuments from './containers/user/myDocuments';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 // -for iPhone iPad safari engine

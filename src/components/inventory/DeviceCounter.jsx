@@ -41,7 +41,7 @@ export default class DeviceCounter extends React.Component {
     let newDeviceCountData = Object.keys(deviceData).map((key, i) => {
       var ab = deviceData[key]
       let list = Object.keys(ab).map((k, idx) => {
-        if (k == 'User_Assign' || k == 'User_Not_Assign') {
+        if (k == 'User_Assign' || k == 'User_Not_Assign' || k == 'Assigned') {
           return
         } else {
           return <li key={idx}> {k} : {ab[k]}</li>

@@ -288,7 +288,6 @@ export default class FormAddNewInventory extends React.Component {
                   <select className="form-control"style={{marginTop: '2%'}} ref="status" value={this.state.status}
                     onChange={(e) => (this.setState({status: e.target.value}))}>
                     <option >-Device Status-</option>
-
                       {this.state.deviceStatusList.map((val, i) => {
                         return <option key={i} value={val.status}> {val.status}</option>
                       })}

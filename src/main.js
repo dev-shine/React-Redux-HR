@@ -37,9 +37,10 @@ import Page_ManageSalary from './modules/salary/containers/manageSalary';
 import Page_ViewSalary from './modules/salary/containers/viewSalary';
 import Page_Salary from './modules/salary/containers/salary';
 import Page_ManagePayslips from './modules/salary/containers/managePayslips';
+import Page_Home from './modules/attendance/containers/Home'
 //-----------------------------
 
-import Page_Home from './containers/user/home'
+// import Page_Home from './containers/user/home'
 
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours'

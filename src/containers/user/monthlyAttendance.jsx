@@ -10,13 +10,12 @@ import Header from '../../components/generic/header'
 
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
-import * as actions_myProfile from '../../actions/user/myProfile'
+import * as actions_userDaySummary from 'appRedux/attendance/actions/userDaySummary';
+import * as actions_monthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 
 import {CONFIG} from '../../config/index'
 
-import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
+import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import UserDaySummary from '../../components/attendance/UserDaySummary'
 
 class MonthlyAttendance extends React.Component {

@@ -1,32 +1,27 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {Router, browserHistory, Link, withRouter} from 'react-router'
-
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
-
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import UsersList from '../../components/attendance/UsersList'
-import Header from '../../components/generic/header'
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import UsersList from 'components/generic/UsersList';
+import Header from 'components/generic/Header';
+import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
+import UserDaySummary from 'modules/attendance/components/UserDaySummary';
 
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_monthlyAttendance from '../../actions/user/monthlyAttendance'
-import * as actions_userDaySummary from '../../actions/user/userDaySummary'
+import * as actions_monthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
+import * as actions_userDaySummary from 'appRedux/attendance/actions/userDaySummary';
 
-import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
-
-import UserDaySummary from '../../components/attendance/UserDaySummary'
-import {CONFIG} from '../../config/index'
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-
     this.props.onIsAlreadyLogin();
-    this.props.onFetchUserPolicyDocument();
     this.state = {
       "defaultUserDisplay": "",
       "daysummary_userid": "",
@@ -34,13 +29,14 @@ class Home extends React.Component {
       year: "",
       month: ''
     }
-
     this.onUserClick = this.onUserClick.bind(this)
     this.onShowDaySummary = this.onShowDaySummary.bind(this)
     this.monthToggle = this.monthToggle.bind(this)
   }
+  componentWillMount() {
+    this.props.onFetchUserPolicyDocument();
+  }
   componentDidMount() {
-
     this.props.onUsersList();
     let d = new Date();
     let year = d.getFullYear()
@@ -76,7 +72,6 @@ class Home extends React.Component {
         this.onUserClick(defaultUserId)
       }
     }
-
   }
   onUserClick(userid) {
     this.setState({"defaultUserDisplay": userid})
@@ -91,37 +86,25 @@ class Home extends React.Component {
     this.props.onUserDaySummary(userid, date)
   }
   render() {
-
-    let mainDivs = <div className="row">
-
-      <div className="col-md-2">
-        <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} {...this.props } selectedUserId={this.props.monthlyAttendance.userid}/>
-      </div>
-      <div className="col-md-10">
-        <UserMonthlyAttendance {...this.props} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
-      </div>
-    </div>
-
     return (
       <div>
         <Menu {...this.props }/>
-
         <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props}/>
-
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={"Users"} {...this.props} />
-
-
+          <Header pageTitle={"Users"} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
-
             <div className="padding">
-
-              {mainDivs}
+              <div className="row">
+                <div className="col-md-2">
+                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid}/>
+                </div>
+                <div className="col-md-10">
+                  <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary}/>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
-
       </div>
     )
   }

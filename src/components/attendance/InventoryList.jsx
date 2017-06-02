@@ -248,44 +248,45 @@ class InventoryList extends React.Component {
       if (rowColorData.length > 0) {
         rowColor = rowColorData[0].color
       }
-      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
-            <td style={{marginRight: '0%'}}>{i + 1}</td>
-            <td>{device.machine_type}</td>
-            <td>{device.machine_name}</td>
-            <td>
-              {<label>Purchase Date:</label>}
-              {moment(device.date_of_purchase).format('Do MMMM YYYY')}
-              <br /> <br />
-              {<label>Warranty Expire : </label>}
-              {moment(device.warranty_end_date).format('Do MMMM YYYY')}
-            </td>
-            {
-             device.machine_type === 'Keyboard' || device.machine_type === 'Mouse' ? <td></td>
-             : <td>
-               {device.mac_address || ' '}
-               <br />
-           </td>
-            }
-              <td>{'₹'}{device.machine_price}</td>
-            <td>{device.serial_number}
-              <br />
-              {<label>Bill No : </label>}
-              {device.bill_number}</td>
-
-            <td>{<label>Status : </label>}
-              {device.status} <br />
-            {<label>Working Comments :</label>}
-            {device.comments}
-          {<label>Extended Warranty :</label>}
+      rows.push(<tr key={i}
+        style={{background: rowColor, borderBottom: '2px solid white'}}>
+        <td style={{marginRight: '0%'}}>{i + 1}</td>
+        <td>{device.machine_type}</td>
+        <td style={{align: 'center'}}>{device.machine_name}</td>
+        <td style={{align: 'center'}}>
+          {<b>Purchase Date : </b>}
+          {moment(device.date_of_purchase).format('Do MMMM YYYY')}
+          <br /> <br />
+          {<b>Warranty Expire : </b>}
+          {moment(device.warranty_end_date).format('Do MMMM YYYY')}
+        </td>
+        <td style={{align: 'center'}}>
+          {device.mac_address}
+          <br />
+        </td>
+        <td style={{align: 'center'}}>{'₹'}{device.machine_price}</td>
+        <td style={{align: 'center'}}>
+          {device.serial_number}
+          <br />
+          {<b>Bill No : </b>}
+          {device.bill_number} <br />
+        </td>
+        <td>
+          <ul style={{padding: '0'}}>
+            <li>{<b>Status : </b>}</li>
+            {device.status} <br />
+            <li>{<b>Working Comments:</b>}</li>
+            {device.comments} <br />
+            <li>{<b>Extended Warranty:</b>}</li>
             {device.warranty_comment} <br />
-          {<label>Pre Repair Comments :</label>}
-            {device.repair_comment}
-          </td>
-          <td>
-            {device.name}
-          </td>
-
-        <td style={{marginTop: '5%'}}>
+            <li>{<b>Pre Repair Comments:</b>}</li>
+            {device.repair_comment} <br />
+          </ul>
+        </td>
+        <td style={{align: 'center'}}>
+          {device.name}
+        </td>
+        <td style={{marginTop: '5%', align: 'center'}}>
           <i onClick={() => {
             this.openEditDevice(device.id)
           }}
@@ -293,115 +294,120 @@ class InventoryList extends React.Component {
             style={{color: '#3f51b5', cursor: 'pointer'}}
             aria-hidden="true"></i>
         </td>
-
-            <td style={{marginTop: '5%'}} ><i
-              onClick={() => {
-                if (confirm('Are you sure you want to delete this record?')) {
-                  this.deleteDevices(device.id)
-                };
-              }}
-              className="fa fa-lg fa fa-trash"
-              style={{color: '#B71C1C', cursor: 'pointer'}}
-              aria-hidden="true"></i>
-            </td>
-          </tr>)
+        <td style={{marginRight: '5%', align: 'center'}} ><i
+          onClick={() => {
+            if (confirm('Are you sure you want to delete this record?')) {
+              this.deleteDevices(device.id)
+            };
+          }}
+          className="fa fa-lg fa fa-trash"
+          style={{color: '#B71C1C', cursor: 'pointer'}}
+          aria-hidden="true"></i>
+        </td>
+      </tr>)
     })
     return (
       <div>
         <div className="app-body" id="view">
-          <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
+          <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
             <div className="row">
               <div className="row no-gutter">
                 <div className="col-md-3 p-r" >
                   <div className="form-group" style={{marginLeft: '4%'}}>
                     <label style={{'fontSize': 15}}>Filter:</label>
-                      <select className="form-control"
-                        ref="device_type"
-                        value={this.state.search}
-                        onChange={(e) => {
-                          this.handleDeviceTypeFilter(e.target.value)
-                        }}>
-                        <option value="">--Select Device Type--</option>
-                        {listDrop}
-                      </select>
-                    </div>
+                    <select className="form-control"
+                      ref="device_type"
+                      value={this.state.search}
+                      onChange={(e) => {
+                        this.handleDeviceTypeFilter(e.target.value)
+                      }}>
+                      <option value="">--Select Device Type--</option>
+                      {listDrop}
+                    </select>
                   </div>
-                  <div className="col-md-3 p-r">
-                    <div className="form-group">
-                      <label style={{marginTop: '6%'}}> </label>
-                        <select className="form-control" ref="device_status"
-                          value={this.state.device_status}
-                          onChange={(e) => {
-                            this.handleStatusTypeFilter(e.target.value)
-                          }}>
-                          <option value="">--Select Device Status--</option>
-                          {statusDrop}
-                        </select>
+                </div>
+                <div className="col-md-3 p-r">
+                  <div className="form-group">
+                    <label style={{marginTop: '6%'}}> </label>
+                    <select className="form-control" ref="device_status"
+                      value={this.state.device_status}
+                      onChange={(e) => {
+                        this.handleStatusTypeFilter(e.target.value)
+                      }}>
+                      <option value="">--Select Device Status--</option>
+                      {statusDrop}
+                    </select>
+                  </div>
+                </div>
+                <div className='row m-0'>
+                  <div className='buttonbox'>
+                    <div className='col-sm-2 p-0 pt-5' style={{marginLeft: '16%', paddingLeft: '8%'}}>
+                      <div className=" text-left" style={{marginTop: '26px'}}>
+                        <AddDeviceStatus
+                          callAddStatus={this.callAddStatus}
+                          handleStatusClose={this.handleStatusClose}
+                          handleStatusOpen={this.handleStatusOpen}
+                          open={this.state.openStatus}
+                          callDeleteDeviceStatus={this.callDeleteDeviceStatus}
+                          deviceStatusList={this.state.deviceStatusList}
+                          {...this.props} />
                       </div>
                     </div>
-                    <div className='row m-0'>
-                      <div className='buttonbox'>
-                      <div className='col-sm-2 p-0 pt-5' style={{marginLeft: '16%', paddingLeft: '8%'}}>
-                        <div className=" text-left" style={{marginTop: '26px'}}>
-                            <AddDeviceStatus
-                              callAddStatus={this.callAddStatus}
-                              handleStatusClose={this.handleStatusClose}
-                              handleStatusOpen={this.handleStatusOpen}
-                              open={this.state.openStatus}
-                              callDeleteDeviceStatus={this.callDeleteDeviceStatus}
-                              deviceStatusList={this.state.deviceStatusList}
-                              {...this.props} />
-                        </div>
-                      </div>
-                      <div className='col-sm-2 p-0 pt-5'>
-                        <div className="text-left" style={{marginTop: '26px', paddingLeft: '43px'}}>
-                          <AddDeviceDialoge callAddDevice={this.callAddDevice}
-                            handleClose={this.handleClose}
-                            handleOpen={this.handleOpen}
-                            open={this.state.open}
-                            deviceTypeList={this.state.deviceTypeList}
-                            {...this.props} />
-                        </div>
-                      </div>
-                      </div>
-                    </div>
-                </div>
-                </div>
-                <div className='row'>
-                  <div className='col-xs-12'>
-                    <div style={{'marginTop': '2%'}}>
-                      <Paper zDepth={3} style={{marginBottom: '10px'}} >
-                        <table key='' className="table table-striped table-hover">
-                          <thead>
-                            <tr>
-                            </tr>
-                            <tr>
-                              <th>Sr. No</th>
-                              <th>Device Type</th>
-                              <th>Name</th>
-                              <th>Dates</th>
-                              <th>Mac Address</th>
-                              <th>Price</th>
-                              <th>Serial No</th>
-                              <th>Status/Commments</th>
-                              <th>Assigned UserName</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                              {rows}
-                          </tbody>
-                        </table>
-                        </Paper>
+                    <div className='col-sm-2 p-0 pt-5'>
+                      <div className="text-left" style={{marginTop: '26px', paddingLeft: '43px'}}>
+                        <AddDeviceDialoge callAddDevice={this.callAddDevice}
+                          handleClose={this.handleClose}
+                          handleOpen={this.handleOpen}
+                          open={this.state.open}
+                          deviceTypeList={this.state.deviceTypeList}
+                          {...this.props} />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div className="row">
+              <div className="col-12">
+                <div className="box">
+                  <div className="box-divider m-a-0"></div>
+                  <div>
+                    <table key='' className="table table-striped table-hover">
+                      <thead className="col-12" style={{align: 'center'}}>
+                        <tr>
+                        </tr>
+                        <tr>
+                          <th>Sr. No</th>
+                          <th>Device Type</th>
+                          <th>Name</th>
+                          <th>Dates</th>
+                          <th>Mac Address</th>
+                          <th>Price</th>
+                          <th>Serial No</th>
+                          <th style={{'textAlign': 'center', paddingLeft: '0px'}}>
+                            Status/Commments
+                          </th>
+                          <th>Assigned UserName</th>
+                          <th> Actions </th>
+                          <th> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     )
   }
 }
+
 var styles = {
   box: {
     'color': 'blue',

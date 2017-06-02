@@ -41,7 +41,7 @@ export default class DeviceCounter extends React.Component {
     let newDeviceCountData = Object.keys(deviceData).map((key, i) => {
       var ab = deviceData[key]
       let list = Object.keys(ab).map((k, idx) => {
-        if (k == 'Assigned' || k == 'Not_Assigned') {
+        if (k == 'User_Assign' || k == 'User_Not_Assign') {
           return
         } else {
           return <li key={idx}> {k} : {ab[k]}</li>
@@ -69,14 +69,14 @@ export default class DeviceCounter extends React.Component {
               <h4 className="m-a-0 text-lg _300"></h4>
               <small className="text-muted" style={{color: '#000'}}>Assigned To User </small>
               <h4 style={{float: 'right', marginTop: '-1%', color: '#838383'}}>
-                {a.Assigned ? a.Assigned : '0'}
+                {a.User_Assign ? a.User_Assign : '0'}
               </h4>
               </li>
             <li>
             <h4 className="m-a-0 text-lg _300"></h4>
               <small className="text-muted" style={{color: '#000'}}>Not Assigned </small>
             <h4 style={{float: 'right', marginTop: '-1%', color: '#838383'}}>
-              {a.Not_Assigned ? a.Not_Assigned : '0'}
+              {a.User_Not_Assign ? a.User_Not_Assign : '0'}
             </h4>
             </li>
           </ul>
@@ -89,7 +89,6 @@ export default class DeviceCounter extends React.Component {
         </div>
       }
     })
-    console.log(this.state.statusListData)
     let statusList = this.state.statusListData.map((val, i) => {
       let statusColor = val.color
       return <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2" key={i} >

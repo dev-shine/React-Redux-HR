@@ -9,11 +9,11 @@ const MonthSummary = ({monthlyAttendance}) => {
       <TimeSummary monthlyAttendance={monthlyAttendance} />
       <DayReference monthlyAttendance={monthlyAttendance} />
     </div>
-  )
-}
+  );
+};
 
 MonthSummary.PropTypes = {
   monthlyAttendance: PropTypes.object.isRequired
-}
+};
 
 export default MonthSummary;

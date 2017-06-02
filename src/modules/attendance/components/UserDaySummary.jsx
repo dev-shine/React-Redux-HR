@@ -3,7 +3,7 @@ import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
 
 class UserDaySummary extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       current_userid: '',
@@ -16,7 +16,7 @@ class UserDaySummary extends React.Component {
       buttonAccess: 'show',
       year: '',
       month: ''
-    }
+    };
     this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
   }
   componentDidMount() {

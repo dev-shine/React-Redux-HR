@@ -13,10 +13,10 @@ const TimeSummary = ({monthlyAttendance}) => {
           </div>
           <div className="clear">
             <h4 className="m-a-0 text-lg _300">
-              { monthlyAttendance.monthSummary.actual_working_hours}
+              {monthlyAttendance.monthSummary.actual_working_hours}
               <span className="text-sm"> </span>
             </h4>
-            <small className="text-muted"> Total Working Hours  </small>
+            <small className="text-muted"> Total Working Hours</small>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@ const TimeSummary = ({monthlyAttendance}) => {
           </div>
           <div className="clear">
             <h4 className="m-a-0 text-lg _300">
-            { monthlyAttendance.monthSummary.completed_working_hours} <span className="text-sm"></span></h4>
+            {monthlyAttendance.monthSummary.completed_working_hours} <span className="text-sm"></span></h4>
             <small className="text-muted">Completed</small>
           </div>
         </div>
@@ -43,7 +43,7 @@ const TimeSummary = ({monthlyAttendance}) => {
           </div>
           <div className="clear">
             <h4 className="m-a-0 text-lg _300">
-              { monthlyAttendance.monthSummary.pending_working_hours}
+              {monthlyAttendance.monthSummary.pending_working_hours}
               <span className="text-sm"></span>
             </h4>
             <small className="text-muted">Pending</small>
@@ -51,13 +51,13 @@ const TimeSummary = ({monthlyAttendance}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 TimeSummary.PropTypes = {
   monthlyAttendance: PropTypes.shape({
     monthSummary: PropTypes.object.isRequired
   }).isRequired
-}
+};
 
 export default TimeSummary;

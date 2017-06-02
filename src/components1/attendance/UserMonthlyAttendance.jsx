@@ -5,15 +5,14 @@ import UserDetails from 'components/generic/UserDetails';
 import CalendarStructure from './CalendarStructure';
 import MonthSummary from './MonthSummary';
 
-
 const UserMonthlyAttendance = ({monthlyAttendance, monthToggle, onShowDaySummary}) => {
   const _onChangeMonth = (check) => {
-    if (check == 'previous') {
+    if (check === 'previous') {
       monthToggle(monthlyAttendance.userid, monthlyAttendance.previousMonth.year, monthlyAttendance.previousMonth.month);
-    } else if (check == 'next') {
+    } else if (check === 'next') {
       monthToggle(monthlyAttendance.userid, monthlyAttendance.nextMonth.year, monthlyAttendance.nextMonth.month);
     }
-  }
+  };
   let weekWise = _.chunk(monthlyAttendance.attendance, 7);
   let calendarStructure = _.map(weekWise, (week, key) => {
     return <CalendarStructure key={key} userId={monthlyAttendance.userid} week={week} onShowDaySummary={onShowDaySummary} />;
@@ -42,9 +41,9 @@ const UserMonthlyAttendance = ({monthlyAttendance, monthToggle, onShowDaySummary
                 </div>
                 <div className="fc-clear"></div>
               </div>
-              <br/>
+              <br />
               <UserDetails monthlyAttendance={monthlyAttendance} />
-              <MonthSummary  monthlyAttendance={monthlyAttendance} />
+              <MonthSummary monthlyAttendance={monthlyAttendance} />
               <div className="fc-view-container">
                 <div className="fc-view fc-month-view fc-basic-view">
                   <table>
@@ -67,8 +66,8 @@ const UserMonthlyAttendance = ({monthlyAttendance, monthToggle, onShowDaySummary
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 UserMonthlyAttendance.PropTypes = {
   monthlyAttendance: PropTypes.shape({
@@ -79,6 +78,6 @@ UserMonthlyAttendance.PropTypes = {
     monthName: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired
   }).isRequired
-}
+};
 
 export default UserMonthlyAttendance;

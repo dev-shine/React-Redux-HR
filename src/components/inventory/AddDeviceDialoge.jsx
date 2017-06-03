@@ -1,87 +1,85 @@
-import React, {PropTypes} from 'react'
-import Dialog from 'material-ui/Dialog'
-import _ from 'lodash'
-import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
-import {notify} from '../../services/index'
-import { CONFIG } from '../../config/index'
-import 'react-date-picker/index.css'
+import React, {PropTypes} from 'react';
+import Dialog from 'material-ui/Dialog';
+import _ from 'lodash';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import {notify} from '../../services/index';
+import { CONFIG } from '../../config/index';
+import 'react-date-picker/index.css';
 
-import AlertNotification from '../../components/generic/AlertNotification'
-
-var moment = require('moment')
+var moment = require('moment');
 
 export default class AddDeviceDialoge extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       background: '',
       deviceType: '',
       open: false,
       deviceList: [],
       checkValue: []
-    }
+    };
 
-    this.addMoreDevice = this.addMoreDevice.bind(this)
+    this.addMoreDevice = this.addMoreDevice.bind(this);
     // this.addDeviceType = this.addDeviceType.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.setValue = this.setValue.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
+    this.setValue = this.setValue.bind(this);
   }
   componentWillReceiveProps (props) {
-    this.setState({deviceList: props.deviceTypeList, open: props.open})
+    this.setState({deviceList: props.deviceTypeList, open: props.open});
   }
 
   handleDelete () {
-    let checkValue = this.state.checkValue
-    let deviceList = this.state.deviceList
+    let checkValue = this.state.checkValue;
+    let deviceList = this.state.deviceList;
     checkValue.map((val) => {
-      _.pull(deviceList, val)
-    })
+      _.pull(deviceList, val);
+    });
     this.props.onCallDeviceType(deviceList).then((val) => {
       if (val.data.not_delete) {
-        this.setState({deviceList: this.state.deviceList, checkValue: []})
-        alert('This Device Type Is In Use')
-        this.props.handleClose()
+        this.setState({deviceList: this.state.deviceList, checkValue: []});
+        alert('This Device Type Is In Use');
+        this.props.handleClose();
       } else {
-        this.setState({deviceList, deviceType: '', checkValue: []})
-        this.props.handleClose()
+        this.setState({deviceList, deviceType: '', checkValue: []});
+        this.props.handleClose();
       }
-    })
+    });
   }
 
   setValue (e) {
     if (e.target.checked) {
-      let array = this.state.checkValue
-      array.push(e.target.value)
-      this.setState({checkValue: array})
+      let array = this.state.checkValue;
+      array.push(e.target.value);
+      this.setState({checkValue: array});
     } else if (!e.target.checked) {
-      let array = this.state.checkValue
-      _.pull(array, e.target.value)
+      let array = this.state.checkValue;
+      _.pull(array, e.target.value);
       this.setState({
         checkValue: array
-      })
+      });
     }
   }
 
   addMoreDevice () {
     if (!_.isEmpty(this.state.deviceType)) {
-      var deviceList = this.state.deviceList
-      let arr = _.filter(deviceList, device => device === this.state.deviceType)
+      var deviceList = this.state.deviceList;
+      let arr = _.filter(deviceList, device => device === this.state.deviceType);
       if (arr.length > 0) {
-        alert('This Device Type Already In Use')
+        alert('This Device Type Already In Use');
         this.setState({
           deviceType: ''
-        })
+        });
       } else {
-        deviceList.push(this.state.deviceType)
+        deviceList.push(this.state.deviceType);
         this.setState({
           deviceType: '',
           deviceList: deviceList
-        })
+        });
       }
     }
-    this.props.callAddDevice(this.state.deviceList)
+    this.props.callAddDevice(this.state.deviceList);
   }
 
   // addDeviceType () {
@@ -98,10 +96,10 @@ export default class AddDeviceDialoge extends React.Component {
             onChange={(e) => {
               this.setState({
                 deviceType: e.target.value
-              })
+              });
             }}
             />
-      </div>
+      </div>;
 
     const actions = [
       <FlatButton
@@ -110,7 +108,7 @@ export default class AddDeviceDialoge extends React.Component {
         onTouchTap={() => {
           if (this.state.checkValue != '') {
             if (confirm('Are you sure you want to delete this Device Type ?')) {
-              this.handleDelete()
+              this.handleDelete();
             };
           }
         }}
@@ -127,7 +125,7 @@ export default class AddDeviceDialoge extends React.Component {
         primary
         onTouchTap={this.addMoreDevice}
     />
-    ]
+    ];
     return (
       <div>
         {
@@ -150,10 +148,10 @@ export default class AddDeviceDialoge extends React.Component {
                   {this.state.deviceList.map((val, i) => {
                     return <li key={i}>
                       <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => {
-                        this.setValue(e)
+                        this.setValue(e);
                       }}>
 
-                      </input> {val}</li>
+                      </input> {val}</li>;
                   })}
                 </ol>
                 </div>
@@ -163,6 +161,6 @@ export default class AddDeviceDialoge extends React.Component {
               </div>
           </Dialog>
         </div>
-    )
+    );
   }
 }

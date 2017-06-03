@@ -5,8 +5,14 @@
     "standard-react"
   ],
   "plugins": [
-    "babel"
+    "babel",
+    "react"
   ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env"     : {
     "browser" : true
   },
@@ -18,11 +24,10 @@
     "__BASENAME__" : false
   },
   "rules": {
+    "react/prop-types": 0,
     "semi" : [2, "always"],
-    "max-len": [2, 120, 2],
-    "generator-star-spacing": 0,
-    "babel/generator-star-spacing": 1,
     "react/jsx-no-bind": [1, {"allowArrowFunctions": true}],
-    "react/prop-types": [0, ],
+    "generator-star-spacing": 0,
+    "babel/generator-star-spacing": 1
   }
 }

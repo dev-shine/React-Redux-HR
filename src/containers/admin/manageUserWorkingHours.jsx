@@ -19,10 +19,6 @@ import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_manageUserWorkingHours from '../../actions/admin/manageUserWorkingHours'
 
-import * as actions_userDaySummary from '../../actions/user/userDaySummary'
-
-import UserMonthlyAttendance from '../../components/attendance/UserMonthlyAttendance'
-
 import UserDaySummary from '../../components/attendance/UserDaySummary'
 
 class ManageUserWorkingHours extends React.Component {

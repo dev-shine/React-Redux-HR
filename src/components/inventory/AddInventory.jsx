@@ -1,21 +1,21 @@
-import React, {PropTypes} from 'react'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import {notify} from '../../services/index'
-import DatePicker from 'material-ui/DatePicker'
-import {DateField} from 'react-date-picker'
-import AlertNotification from '../../components/generic/AlertNotification'
+import React, {PropTypes} from 'react';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {notify} from '../../services/index';
+import DatePicker from 'material-ui/DatePicker';
+import {DateField} from 'react-date-picker';
+import AlertNotification from 'components/generic/AlertNotification';
 
-import 'react-date-picker/index.css'
-var moment = require('moment')
+import 'react-date-picker/index.css';
+var moment = require('moment');
 
 export default class FormAddNewInventory extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       open: false,
       edit: false,
@@ -38,21 +38,21 @@ export default class FormAddNewInventory extends React.Component {
       msg: '',
       deviceTypeList: [],
       deviceStatusList: []
-    }
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleChangeDate = this.handleChangeDate.bind(this)
-    this.handleAddDevice = this.handleAddDevice.bind(this)
-    this.handleAssign = this.handleAssign.bind(this)
+    };
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleAddDevice = this.handleAddDevice.bind(this);
+    this.handleAssign = this.handleAssign.bind(this);
   }
 
   componentWillReceiveProps (props) {
-    console.log(props)
+    console.log(props);
     this.setState({
       open: props.open,
       edit: props.edit,
       deviceTypeList: props.manageDevice.deviceList,
       deviceStatusList: props.manageDevice.statusList
-    })
+    });
 
     if (props.edit) {
       // console(props)
@@ -72,7 +72,7 @@ export default class FormAddNewInventory extends React.Component {
         bill_no: props.getByIdData.bill_number,
         warranty: props.getByIdData.warranty_end_date,
         user_Id: props.getByIdData.user_Id
-      })
+      });
     } else {
       this.setState({
         id: '',
@@ -90,13 +90,13 @@ export default class FormAddNewInventory extends React.Component {
         bill_no: '',
         warranty: '',
         user_Id: ''
-      })
+      });
     }
   }
 
   handleOpen (e) {
-    e.stopPropagation()
-    this.props.handleAddDialog()
+    e.stopPropagation();
+    this.props.handleAddDialog();
   }
 
   handleAddDevice () {
@@ -115,11 +115,11 @@ export default class FormAddNewInventory extends React.Component {
       bill_no: this.state.bill_no,
       warranty: this.state.warranty,
       user_Id: this.state.user_Id
-    }
+    };
     if (!this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
         // console(val)
-        this.props.handleClose()
+        this.props.handleClose();
         this.setState({
           machine_type: '',
           machine_name: '',
@@ -134,41 +134,41 @@ export default class FormAddNewInventory extends React.Component {
           bill_no: '',
           warranty: '',
           user_Id: ''
-        })
-        this.props.onFetchDevice()
+        });
+        this.props.onFetchDevice();
       }, (error) => {
-        notify(error)
-      })
+        notify(error);
+      });
     } else {
       this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-        this.props.handleClose()
-        this.props.onFetchDevice()
+        this.props.handleClose();
+        this.props.onFetchDevice();
       }).catch((message) => {
         this.setState({
           msg: message
-        })
-      })
+        });
+      });
     }
   }
   handleAssign (deviceId, Userid) {
-    this.setState({userId: Userid})
-    this.props.callAssign(deviceId, Userid)
+    this.setState({userId: Userid});
+    this.props.callAssign(deviceId, Userid);
   }
 
   handleChangeDate = (event, date) => {
     this.setState({
       purchase_date: date
-    })
+    });
   };
 
   render () {
     let userList = this.props.usersList.users.map((val, i) => {
-      return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>
-    })
+      return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;
+    });
     return (
       <div>
 
-        <AlertNotification alert_message={this.state.msg} />
+        <AlertNotification message={this.state.msg} />
 
         <button className="md-btn md-raised m-b-sm indigo"
           onTouchTap={this.handleOpen}>Add New Inventory </button>
@@ -190,7 +190,7 @@ export default class FormAddNewInventory extends React.Component {
                 style={{marginTop: '4%'}}
                 dateFormat="YYYY-MM-DD"
                 placeholder="YYYY-MM-DD"
-                onChange={(date) => { this.setState({purchase_date: date}) }}
+                onChange={(date) => { this.setState({purchase_date: date}); }}
                 value={this.state.purchase_date}
                 className="form-control"
                 required />
@@ -201,8 +201,8 @@ export default class FormAddNewInventory extends React.Component {
                 <select className="form-control" style={{marginTop: '4%'}}
                   value={this.state.user_Id}
                   onChange={(evt) => {
-                    let id = evt.target.value
-                    this.setState({user_Id: evt.target.value})
+                    let id = evt.target.value;
+                    this.setState({user_Id: evt.target.value});
                     // if (this.state.edit) {
                     //   this.handleAssign(this.state.id, id)
                     // }
@@ -218,7 +218,7 @@ export default class FormAddNewInventory extends React.Component {
                   <DateField style={{marginTop: '4%'}}
                     dateFormat="YYYY-MM-DD"
                     placeholder="YYYY-MM-DD"
-                    onChange={(date) => { this.setState({warranty: date}) }}
+                    onChange={(date) => { this.setState({warranty: date}); }}
                     value={this.state.warranty}
                     className="form-control"
                     required />
@@ -238,10 +238,10 @@ export default class FormAddNewInventory extends React.Component {
                 <td style={{opacity: '0.56'}}>
                   Machine/Device Type
                   <select className="form-control" ref="machine_type" value={this.state.machine_type}
-                    onChange={(evt) => { this.setState({machine_type: evt.target.value}) }}>
+                    onChange={(evt) => { this.setState({machine_type: evt.target.value}); }}>
                     <option >--select device--</option>
                     {this.state.deviceTypeList.reverse().map((val, i) => {
-                      return <option key={i} value={val}> {val}</option>
+                      return <option key={i} value={val}> {val}</option>;
                     })}
                   </select>
                  </td>
@@ -253,7 +253,7 @@ export default class FormAddNewInventory extends React.Component {
                     floatingLabelText="Mac Address"
                     hintText='00:25:96:FF:FE:12:34:56'
                     fullWidth
-                    onChange={(e) => { this.setState({mac_address: e.target.value}) }}
+                    onChange={(e) => { this.setState({mac_address: e.target.value}); }}
                     value={this.state.mac_address} required />
                 </td>
                 <td>
@@ -291,7 +291,7 @@ export default class FormAddNewInventory extends React.Component {
                     <option >-Device Status-</option>
 
                       {this.state.deviceStatusList.map((val, i) => {
-                        return <option key={i} value={val.status}> {val.status}</option>
+                        return <option key={i} value={val.status}> {val.status}</option>;
                       })}
                   </select>
               </td>
@@ -299,7 +299,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Comment'}
                 <textarea
                   style={{width: '100%'}}
-                  onChange={(e) => { this.setState({comment: e.target.value}) }}
+                  onChange={(e) => { this.setState({comment: e.target.value}); }}
                   value={this.state.comment}
                 />
               </td>
@@ -310,7 +310,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Extended Warranty Comments'}
                 <textarea
                   style={{width: '100%'}}
-                  onChange={(e) => { this.setState({warranty_comment: e.target.value}) }}
+                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
                   value={this.state.warranty_comment}
                 />
               </td>
@@ -318,7 +318,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Previous Repair Comments'}
               <textarea
                 style={{width: '100%'}}
-                onChange={(e) => { this.setState({repair_comment: e.target.value}) }}
+                onChange={(e) => { this.setState({repair_comment: e.target.value}); }}
                 value={this.state.repair_comment} />
             </td>
             </tr>
@@ -329,6 +329,6 @@ export default class FormAddNewInventory extends React.Component {
             onClick={this.handleAddDevice}>{this.state.edit ? 'Update Inventory' : 'Add Inventory'}</button>
         </Dialog>
       </div>
-    )
+    );
   }
 }

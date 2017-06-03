@@ -1,10 +1,9 @@
 import React from 'react';
-import {notify} from '../../services/index'
-import { CONFIG } from '../../config/index'
-import LoadingIcon from '../../components/generic/LoadingIcon'
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
 
 class UserDaySummary extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       current_userid: '',
@@ -17,7 +16,7 @@ class UserDaySummary extends React.Component {
       buttonAccess: 'show',
       year: '',
       month: ''
-    }
+    };
     this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
   }
   componentDidMount() {
@@ -46,10 +45,7 @@ class UserDaySummary extends React.Component {
       form_entry_time: props.userDaySummary.entry_time,
       form_exit_time: props.userDaySummary.exit_time,
       form_reason: this.state.form_reason
-    })
-
-    //this.props.onUserDaySummary( user_id, date  )
-
+    });
   }
 
   doUpdateDaySummary(evt) {
@@ -73,7 +69,6 @@ class UserDaySummary extends React.Component {
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
-                <LoadingIcon {...this.props}/>
                 <div className="row">
                   <div className="col-xs-11">
                     <h5 className="modal-title">User Day Summary - {this.props.userDaySummary.name}
@@ -133,4 +128,4 @@ class UserDaySummary extends React.Component {
   }
 }
 
-export default UserDaySummary
+export default UserDaySummary;

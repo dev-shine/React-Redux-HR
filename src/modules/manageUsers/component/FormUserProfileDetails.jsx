@@ -4,8 +4,8 @@ import { DateField } from 'react-date-picker';
 import 'react-date-picker/index.css';
 import {CONFIG} from 'src/config/index';
 import Label from 'components/generic/label';
-import InputText from 'components/generic/input/inputText';
-import Textarea from 'components/generic/input/textArea';
+import InputText from 'components/generic/input/InputText';
+import Textarea from 'components/generic/input/TextArea';
 import ButtonRaised from 'components/generic/buttons/ButtonRaised';
 var moment = require('moment');
 
@@ -193,7 +193,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="name" text={'Name'} />
               <InputText
                 ref="name"
-                onchange={(event) => this.setState({name: this.refs.name.value})}
+                onchange={(e) => this.setState({name: e.target.value})}
                 value={this.state.name}
               />
             </div>
@@ -203,7 +203,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Job Title" text={'Job Title'} />
               <InputText
                 ref="jobtitle"
-                onchange={() => this.setState({jobtitle: this.refs.jobtitle.value})}
+                onchange={(e) => this.setState({jobtitle: e.target.value})}
                 value={this.state.jobtitle}
               />
             </div>
@@ -214,7 +214,7 @@ class FormUserProfileDetails extends React.Component {
           <select
             className="form-control"
             ref="team"
-            onChange={() => this.setState({team: this.refs.team.value})}
+            onChange={(e) => this.setState({team: e.target.value})}
             value={this.state.team}>
             <option value="">--Select team--</option>
             {_.map(teams, (tm, i) => (<option key={i} value={tm}>{tm}</option>))}
@@ -272,7 +272,7 @@ class FormUserProfileDetails extends React.Component {
               <select
                 className="form-control"
                 ref="training_month"
-                onChange={() => this.setState({training_month: this.refs.training_month.value})}
+                onChange={(e) => this.setState({training_month: e.target.value})}
                 value={this.state.training_month}>
                 <option disabled>--select month--</option>
                 <option value="0">0 month </option>
@@ -290,7 +290,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Work Email" text={'Work Email'} />
               <InputText
                 ref="work_email"
-                onchange={() => this.setState({work_email: this.refs.work_email.value})}
+                onchange={(e) => this.setState({work_email: e.target.value})}
                 value={this.state.work_email}
               />
             </div>
@@ -301,7 +301,7 @@ class FormUserProfileDetails extends React.Component {
               <Textarea
                 placeHolder="enter employee holding comment..."
                 ref="holdingcomments"
-                onchange={() => this.setState({holding_comments: this.refs.holdingcomments.value})}
+                onchange={(e) => this.setState({holding_comments: e.target.value})}
                 value={this.state.holding_comments}
               />
             </div>
@@ -314,7 +314,7 @@ class FormUserProfileDetails extends React.Component {
               <select
                 className="form-control"
                 ref="gender"
-                onChange={() => this.setState({gender: this.refs.gender.value})}
+                onChange={(e) => this.setState({gender: e.target.value})}
                 value={this.state.gender}>
                 <option value="">--Select gender--</option>
                 <option value="Female">Female</option>
@@ -329,7 +329,7 @@ class FormUserProfileDetails extends React.Component {
               <select
                 className="form-control"
                 ref="marital_status"
-                onChange={() => this.setState({marital_status: this.refs.marital_status.value})}
+                onChange={(e) => this.setState({marital_status: e.target.value})}
                 value={this.state.marital_status}>
                 <option value="">--Select marital status--</option>
                 <option value="Single">Single</option>
@@ -346,7 +346,7 @@ class FormUserProfileDetails extends React.Component {
               <Textarea
                 placeHolder="your current address..."
                 ref="address1"
-                onchange={() => this.setState({address1: this.refs.address1.value})}
+                onchange={(e) => this.setState({address1: e.target.value})}
                 value={this.state.address1}
               />
             </div>
@@ -357,7 +357,7 @@ class FormUserProfileDetails extends React.Component {
               <Textarea
                 placeHolder="your permanent address..."
                 ref="address2"
-                onchange={() => this.setState({address2: this.refs.address2.value})}
+                onchange={(e) => this.setState({address2: e.target.value})}
                 value={this.state.address2}
               />
             </div>
@@ -369,7 +369,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Emergency Contact Information 1" text={'Emergency Contact Information 1'} />
               <InputText
                 ref="emergency_ph1"
-                onchange={() => this.setState({emergency_ph1: this.refs.emergency_ph1.value})}
+                onchange={(e) => this.setState({emergency_ph1: e.target.value})}
                 value={this.state.emergency_ph1}
               />
             </div>
@@ -379,7 +379,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Emergency Contact Information 2" text={'Emergency Contact Information 2'} />
               <InputText
                 ref="emergency_ph2"
-                onchange={() => this.setState({emergency_ph2: this.refs.emergency_ph2.value})}
+                onchange={(e) => this.setState({emergency_ph2: e.target.value})}
                 value={this.state.emergency_ph2}
               />
             </div>
@@ -390,7 +390,7 @@ class FormUserProfileDetails extends React.Component {
           <select
             className="form-control"
             ref="blood_group"
-            onChange={() => this.setState({blood_group: this.refs.blood_group.value})}
+            onChange={(e) => this.setState({blood_group: e.target.value})}
             value={this.state.blood_group}>
             <option value="">--Select your Blood Group--</option>
             <option value="O-">O-</option>
@@ -408,7 +408,7 @@ class FormUserProfileDetails extends React.Component {
           <Textarea
             placeHolder="your medical conditions..."
             ref="medical_condition"
-            onchange={() => this.setState({medical_condition: this.refs.medical_condition.value})}
+            onchange={(e) => this.setState({medical_condition: e.target.value})}
             value={this.state.medical_condition}
           />
         </div>

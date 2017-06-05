@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import {CONFIG} from 'src/config/index';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
 import Button from 'components/generic/buttons/Button';
@@ -40,7 +41,6 @@ class FormAddNewEmployee extends React.Component {
     this.setState({open: false});
   }
   render () {
-    const defaultPassword = 'java@123';
     return (
       <div>
         <Button className="btn-fw info" onClick={this.handleOpen} label="Add New Employee" />
@@ -58,7 +58,7 @@ class FormAddNewEmployee extends React.Component {
             <i>*Create a slack profile first and enter email in Work Email</i>
           </div>
           <div className="text-info">
-            *Default password is : {defaultPassword}
+            *Default password is : {CONFIG.DEFAULT_PASSWORD}
           </div>
           <table className="table">
             <tbody>

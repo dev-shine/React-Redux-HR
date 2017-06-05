@@ -154,7 +154,7 @@ class ManageUsers extends React.Component {
   render () {
     return (
       <div>
-        <AlertNotification alert_message={this.props.manageUsers.status_message} />
+        <AlertNotification message={this.props.manageUsers.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Employees Profile'} showLoading={this.props.frontend.show_loading} />
@@ -208,14 +208,10 @@ class ManageUsers extends React.Component {
                     </div>
                     <div className="col-md-5 p-t p-b">
                       <div className="col-md-12">
-                        <DisplayUserBankDetails
-                          userBankDetails={this.state.user_bank_detail}
-                        />
+                        <DisplayUserBankDetails userBankDetails={this.state.user_bank_detail} />
                       </div>
                       <div className="col-md-12">
-                        <DisplayUserDeviceDetails
-                          userAssignMachine={this.state.user_assign_machine}
-                        />
+                        <DisplayUserDeviceDetails userAssignMachine={this.state.user_assign_machine} />
                       </div>
                       <div className="col-md-12">
                         <UpdateEmployeeDocument

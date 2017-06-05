@@ -9,9 +9,9 @@ const styles = {
   }
 };
 
-const CalendarStructure = ({userId, week, onShowDaySummary}) => {
+const CalendarStructure = ({userId, week, onShowDaySummary, onWorkingHoursChange}) => {
   let weekHtml = _.map(week, (dayData, key) => {
-    return <CalendarWeek key={key} userId={userId} dayData={dayData} onShowDaySummary={onShowDaySummary} />;
+    return <CalendarWeek key={key} userId={userId} dayData={dayData} onShowDaySummary={onShowDaySummary} onWorkingHoursChange={onWorkingHoursChange} />;
   });
   return (
     <div className="fc-row fc-week fc-widget-content" style={styles.height100per}>

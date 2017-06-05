@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import Immutable from 'immutable';
 
 let initialState = {
   status_message: '',
@@ -8,7 +8,7 @@ let initialState = {
   nextMonth: {},
   previousMonth: {},
   monthSummary: []
-}
+};
 
 export function workingHoursSummary (state = Immutable.fromJS(initialState), action) {
   if (action.type === 'ACTION_SUCCESS_HOURS_SUMMARY') {
@@ -18,12 +18,12 @@ export function workingHoursSummary (state = Immutable.fromJS(initialState), act
         .set('monthSummary', action.payload.monthSummary)
         .set('nextMonth', action.payload.nextMonth)
         .set('previousMonth', action.payload.previousMonth)
-        .set('status_message', '')
+        .set('status_message', '');
   } else if (action.type === 'ACTION_EMPTY_HOURS_SUMMARY' || action.type === 'ACTION_EMPTY_UPDATE_HOURS_SUMMARY') {
-    return state.set('status_message', action.payload)
+    return state.set('status_message', action.payload);
   } else if (action.type === 'ACTION_ERROR_HOURS_SUMMARY') {
-    return state.set('status_message', '')
+    return state.set('status_message', '');
   } else {
-    return state.set('status_message', '')
+    return state.set('status_message', '');
   }
 }

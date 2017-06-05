@@ -42,13 +42,13 @@ import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAtten
 // import Page_AttendanceSummary from './modules/attendance/containers/attendanceSummary';
 import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
 import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
+import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
+import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
 // -----------------------------
 
 // import Page_Home from './containers/user/home'
 
 // -admin
-import Page_ManageWorkingHours from './containers/admin/manageWorkingHours';
-import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours';
 import Page_ManageUsers from './containers/admin/manageUsers';
 import Page_ManageClients from './containers/admin/manageClients';
 import Page_DisabledEmployes from './containers/admin/disabledEmployes';

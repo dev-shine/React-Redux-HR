@@ -1,14 +1,12 @@
 import React from 'react';
 import * as _ from 'lodash';
 import { DateField } from 'react-date-picker';
-
 import 'react-date-picker/index.css';
 import {CONFIG} from 'src/config/index';
 import Label from 'components/generic/label';
-import Input from 'components/generic/input/input';
+import InputText from 'components/generic/input/inputText';
 import Textarea from 'components/generic/input/textArea';
 import ButtonRaised from 'components/generic/buttons/ButtonRaised';
-
 var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {
@@ -62,9 +60,7 @@ class FormUserProfileDetails extends React.Component {
     let termination_date: "";
     let holding_comments: "";
     let slack_msg: "";
-
     let userProfileDetail = props.user_profile_detail;
-
     if (typeof props.username !== 'undefined' && props.username != null) {
       username = props.username;
     }
@@ -77,29 +73,24 @@ class FormUserProfileDetails extends React.Component {
     if (typeof userProfileDetail.jobtitle !== 'undefined' && userProfileDetail.jobtitle != null) {
       jobtitle = userProfileDetail.jobtitle;
     }
-
     if (typeof userProfileDetail.training_month !== 'undefined' && userProfileDetail.training_month !== null) {
       training_month = userProfileDetail.training_month;
     }
-
     if (typeof userProfileDetail.dateofjoining !== 'undefined' && userProfileDetail.dateofjoining != null) {
       var mydate = new Date(userProfileDetail.dateofjoining);
       if (mydate !== 'Invalid Date') {
         dateofjoining = userProfileDetail.dateofjoining;
       }
     }
-
     if (typeof userProfileDetail.dob !== 'undefined' && userProfileDetail.dob !== null) {
       var mydate = new Date(userProfileDetail.dob);
       if (mydate !== 'Invalid Date') {
         dob = moment(mydate);
       }
     }
-
     if (typeof userProfileDetail.training_month !== 'undefined' && userProfileDetail.training_month != null) {
       training_month = userProfileDetail.training_month;
     }
-
     if (typeof userProfileDetail.gender !== 'undefined' && userProfileDetail.gender != null) {
       gender = userProfileDetail.gender;
     }
@@ -136,22 +127,18 @@ class FormUserProfileDetails extends React.Component {
         training_completion_date = userProfileDetail.training_completion_date;
       }
     }
-
     if (typeof userProfileDetail.termination_date !== 'undefined' && userProfileDetail.termination_date != null) {
       var mydate = new Date(userProfileDetail.termination_date);
       if (mydate !== 'Invalid Date') {
         termination_date = userProfileDetail.termination_date;
       }
     }
-
     if (typeof userProfileDetail.holding_comments !== 'undefined' && userProfileDetail.holding_comments != null) {
       holding_comments = userProfileDetail.holding_comments;
     }
-
     if (typeof userProfileDetail.slack_msg !== 'undefined' && userProfileDetail.slack_msg != null) {
       slack_msg = userProfileDetail.slack_msg;
     }
-
     this.setState({
       username: username,
       user_id: user_id,
@@ -204,9 +191,7 @@ class FormUserProfileDetails extends React.Component {
           <div className="col-md-6 p-r">
             <div className="form-group">
               <Label htmlfor="name" text={'Name'} />
-              <Input
-                type="text"
-                classname="form-control"
+              <InputText
                 ref="name"
                 onchange={(event) => this.setState({name: this.refs.name.value})}
                 value={this.state.name}
@@ -216,9 +201,7 @@ class FormUserProfileDetails extends React.Component {
           <div className="col-md-6">
             <div className="form-group">
               <Label htmlfor="Job Title" text={'Job Title'} />
-              <Input
-                type="text"
-                classname="form-control"
+              <InputText
                 ref="jobtitle"
                 onchange={() => this.setState({jobtitle: this.refs.jobtitle.value})}
                 value={this.state.jobtitle}
@@ -305,9 +288,7 @@ class FormUserProfileDetails extends React.Component {
           <div className={userLevel ? 'col-md-6 p-r' : 'col-md-12 p-r'}>
             <div className="form-group">
               <Label htmlfor="Work Email" text={'Work Email'} />
-              <Input
-                type="text"
-                classname="form-control"
+              <InputText
                 ref="work_email"
                 onchange={() => this.setState({work_email: this.refs.work_email.value})}
                 value={this.state.work_email}
@@ -319,7 +300,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Employee Holding Comment" text={'Employee Holding Comment'} />
               <Textarea
                 placeHolder="enter employee holding comment..."
-                classname="form-control"
                 ref="holdingcomments"
                 onchange={() => this.setState({holding_comments: this.refs.holdingcomments.value})}
                 value={this.state.holding_comments}
@@ -365,7 +345,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Current Address" text={'Current Address'} />
               <Textarea
                 placeHolder="your current address..."
-                classname="form-control"
                 ref="address1"
                 onchange={() => this.setState({address1: this.refs.address1.value})}
                 value={this.state.address1}
@@ -377,7 +356,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Permanent Address" text={'Permanent Address'} />
               <Textarea
                 placeHolder="your permanent address..."
-                classname="form-control"
                 ref="address2"
                 onchange={() => this.setState({address2: this.refs.address2.value})}
                 value={this.state.address2}
@@ -389,9 +367,7 @@ class FormUserProfileDetails extends React.Component {
           <div className="col-md-6 p-r">
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 1" text={'Emergency Contact Information 1'} />
-              <Input
-                type="text"
-                classname="form-control"
+              <InputText
                 ref="emergency_ph1"
                 onchange={() => this.setState({emergency_ph1: this.refs.emergency_ph1.value})}
                 value={this.state.emergency_ph1}
@@ -401,9 +377,7 @@ class FormUserProfileDetails extends React.Component {
           <div className="col-md-6">
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 2" text={'Emergency Contact Information 2'} />
-              <Input
-                type="text"
-                classname="form-control"
+              <InputText
                 ref="emergency_ph2"
                 onchange={() => this.setState({emergency_ph2: this.refs.emergency_ph2.value})}
                 value={this.state.emergency_ph2}
@@ -433,7 +407,6 @@ class FormUserProfileDetails extends React.Component {
           <Label htmlfor="Any Medical Conditions" text={'Any Medical Conditions'} />
           <Textarea
             placeHolder="your medical conditions..."
-            classname="form-control"
             ref="medical_condition"
             onchange={() => this.setState({medical_condition: this.refs.medical_condition.value})}
             value={this.state.medical_condition}
@@ -442,12 +415,12 @@ class FormUserProfileDetails extends React.Component {
         <div className="form-group">
           <i className='fa fa-slack' aria-hidden='true'></i>{' '}
           <Label htmlfor="Don’t post on Slack" text={'Don’t post on Slack'} />
-          <Input
+          <input
             value type="checkbox"
             id="1"
             name="loyalty_Bonus"
             style={{'verticalAlign': 'middle', 'marginLeft': '20px'}}
-            onchange={(e) => {
+            onChange={(e) => {
               if (e.target.checked) {
                 this.setState({
                   send_slack_msg: '1'

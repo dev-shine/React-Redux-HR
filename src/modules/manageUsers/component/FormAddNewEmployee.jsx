@@ -40,6 +40,7 @@ class FormAddNewEmployee extends React.Component {
     this.setState({open: false});
   }
   render () {
+    const defaultPassword = 'java@123';
     return (
       <div>
         <Button className="btn-fw info" onClick={this.handleOpen} label="Add New Employee" />
@@ -57,7 +58,7 @@ class FormAddNewEmployee extends React.Component {
             <i>*Create a slack profile first and enter email in Work Email</i>
           </div>
           <div className="text-info">
-            *Default password is : java@123
+            *Default password is : {defaultPassword}
           </div>
           <table className="table">
             <tbody>
@@ -99,7 +100,7 @@ class FormAddNewEmployee extends React.Component {
                   <select
                     className="form-control"
                     ref="gender"
-                    onChange={() => this.setState({gender: this.refs.gender.value})}
+                    onChange={(e) => this.setState({gender: e.target.value})}
                     value={this.state.gender}>
                     <option value="">--Select gender--</option>
                     <option value="Female">Female</option>
@@ -164,6 +165,7 @@ class FormAddNewEmployee extends React.Component {
 export default FormAddNewEmployee;
 
 FormAddNewEmployee.propTypes = {
+  defaultPassword: React.PropTypes.string.isRequired,
   client: React.PropTypes.object.isRequired,
   selectedClientId: React.PropTypes.string.isRequired,
   callAddNewEmployee: React.PropTypes.func.isRequired

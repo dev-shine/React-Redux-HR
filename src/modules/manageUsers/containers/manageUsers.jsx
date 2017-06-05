@@ -2,33 +2,27 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
+import ToggleButton from 'react-toggle-button';
 import PropTypes from 'prop-types';
-
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import ToggleButton from 'react-toggle-button';
 import Menu from 'src/components/generic/Menu';
-import AlertNotification from 'src/components/generic/AlertNotification';
-import Header from 'src/components/generic/header';
+import Header from 'components/generic/Header';
 import UsersList from 'src/components/generic/UsersList';
+import UpdateEmployeeDocument from 'src/components/manageUsers/UpdateEmployeeDocument';
 import Button from 'components/generic/buttons/Button';
-
+import AlertNotification from 'components/generic/AlertNotification';
 import DisplayUserBankDetails from 'components/manageUser/displayUserBankDetails';
 import DisplayUserDeviceDetails from 'components/manageUser/displayUserDeviceDetails';
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/component/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/component/FormUserProfileDetails';
-import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import UpdateEmployeeDocument from 'src/components/manageUsers/UpdateEmployeeDocument';
-
-// -----------------------------------------
+import * as actions_getTeamData from 'src/actions/admin/teamList';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_manageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_manageUsers from 'src/actions/admin/manageUsers';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
-import * as actions_getTeamData from 'src/actions/admin/teamList';
-
-// ---------------------------------------------
 
 class ManageUsers extends React.Component {
   constructor (props) {
@@ -64,7 +58,6 @@ class ManageUsers extends React.Component {
       this.props.router.push('/logout');
     } else {
       if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
       } else if (props.logged_user.role === CONFIG.HR) {
         let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
         if (unread.length > 0) {
@@ -82,7 +75,6 @@ class ManageUsers extends React.Component {
       user_assign_machine: props.manageUsers.user_assign_machine,
       user_documents: props.manageUsers.user_documents
     });
-    console.log(this.state);
   }
   componentDidUpdate () {
     if (this.state.defaultUserDisplay === '') {
@@ -99,7 +91,6 @@ class ManageUsers extends React.Component {
     let selectedUserImage = '';
     let selectedUserJobtitle = '';
     let selectedUserId = '';
-
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid});
       if (typeof userDetails !== 'undefined') {
@@ -137,7 +128,6 @@ class ManageUsers extends React.Component {
   }
   callAddNewEmployee (new_employee_details) {
     this.props.onAddNewEmployee(new_employee_details).then((data) => {
-      // on success of adding a new client referch list
       notify(data);
       this.props.onUsersList();
     }, (error) => {
@@ -167,7 +157,7 @@ class ManageUsers extends React.Component {
         <AlertNotification alert_message={this.props.manageUsers.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Manage Employees Profile'} {...this.props} />
+          <Header pageTitle={'Manage Employees Profile'} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
@@ -190,7 +180,6 @@ class ManageUsers extends React.Component {
                     />
                   </div>
                 </div>
-                {/* <div className="col-md-4 text-center"></div>*/}
                 <div className="col-md-4 text-right">
                   <Button
                     className="btn btn-fw btn-danger"
@@ -265,6 +254,7 @@ function mapStateToProps (state) {
     teamList: state.teamList.toJS()
   };
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
@@ -313,7 +303,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const VisibleManageUsers = connect(mapStateToProps, mapDispatchToProps)(ManageUsers);
-
 const RouterVisibleManageUsers = withRouter(VisibleManageUsers);
 
 export default RouterVisibleManageUsers;
@@ -331,8 +320,8 @@ ManageUsers.propTypes = {
   onAddNewEmployee: PropTypes.func.isRequired,
   onChangeEmployeeStatus: PropTypes.func.isRequired,
   onUsersList: React.PropTypes.func.isRequired,
-  onUpdatedocuments: PropTypes.string.isRequired,
-  usersList: PropTypes.string.isRequired,
+  onUpdatedocuments: PropTypes.func.isRequired,
+  usersList: PropTypes.object.isRequired,
   manageUsers: PropTypes.string.isRequired,
-  router: PropTypes.isRequired
+  router: PropTypes.array.isRequired
 };

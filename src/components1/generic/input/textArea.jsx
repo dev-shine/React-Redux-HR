@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Textarea = ({ classname, ref, placeHolder, onchange, id, name, value, style }) => (
+const Textarea = ({ ref, placeHolder, onchange, id, name, value, style }) => (
   <textarea
-    className={classname}
+    className="form-control"
     ref={ref}
     placeholder={placeHolder}
     onChange={onchange} id={id} required
@@ -16,7 +16,6 @@ const Textarea = ({ classname, ref, placeHolder, onchange, id, name, value, styl
 export default Textarea;
 
 Textarea.propTypes = {
-  classname: PropTypes.string,
   placeHolder: PropTypes.string.isRequired,
   onchange: PropTypes.func.isRequired,
   id: PropTypes.number,

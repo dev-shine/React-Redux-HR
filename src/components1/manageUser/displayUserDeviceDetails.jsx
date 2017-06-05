@@ -12,35 +12,29 @@ const DisplayUserDeviceDetails = ({ userAssignMachine }) => {
       </tr>
     );
   });
+  let machineData = <tr><td colSpan="4"><span className="text-muted" style={{marginLeft: '16px'}}>Device Not Asssigned</span></td></tr>;
+  if (!_.isEmpty(machine)) {
+    machineData = <table style={{fontSize: '9px'}} className="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Device Type</th>
+          <th>Name</th>
+          <th>Mac Address</th>
+          <th>Assign Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {machine}
+      </tbody>
+    </table>;
+  }
   return (
     <div>
       <h6 className="text-center">Asssigned Device Details</h6>
       <br />
-      <ul className="list-group m-b">
-        <li className="list-group-item">
-          <div className="clear">
-            {
-              machine.length > 0
-              ? <table key='' style={{fontSize: '9px'}} className="table table-striped table-hover">
-                <thead>
-                  <tr>
-                  </tr>
-                  <tr>
-                    <th>Device Type</th>
-                    <th>Name</th>
-                    <th>Mac Address</th>
-                    <th>Assign Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {machine}
-                </tbody>
-              </table>
-              : <h6>Device Not Asssigned</h6>
-            }
-          </div>
-        </li>
-      </ul>
+      <div className="clear">
+        {machineData}
+      </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import {notify} from 'src/services/index';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UsersList from 'src/components/generic/UsersList';
-import UpdateEmployeeDocument from 'src/components/manageUsers/UpdateEmployeeDocument';
+import UpdateEmployeeDocument from 'components/manageUser/UpdateEmployeeDocument';
 import Button from 'components/generic/buttons/Button';
 import AlertNotification from 'components/generic/AlertNotification';
 import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails';
@@ -18,9 +18,9 @@ import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHi
 import FormAddNewEmployee from 'modules/manageUsers/component/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/component/FormUserProfileDetails';
 import * as actions_getTeamData from 'src/actions/admin/teamList';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
-import * as actions_manageUsers from 'src/redux/manageUsers/actions/manageUsers';
+import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
@@ -111,23 +111,23 @@ class ManageUsers extends React.Component {
     this.props.onGetUserDocument(userid);
     this.props.onUserManagePayslipsData(userid);
   }
-  callUpdateUserBankDetails (new_bank_details) {
-    this.props.onUpdateUserBankDetails(new_bank_details).then((data) => {}, (error) => {
+  callUpdateUserBankDetails (newBankDetails) {
+    this.props.onUpdateUserBankDetails(newBankDetails).then((data) => {}, (error) => {
       notify(error);
     });
   }
-  callUpdateUserDeviceDetails (new_device_details) {
-    this.props.onUpdateUserDeviceDetails(new_device_details).then((data) => {}, (error) => {
+  callUpdateUserDeviceDetails (newDeviceDetails) {
+    this.props.onUpdateUserDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
       notify(error);
     });
   }
-  callUpdateUserProfileDetails (new_profile_details) {
-    this.props.onUpdateUserProfileDetails(new_profile_details).then((data) => {}, (error) => {
+  callUpdateUserProfileDetails (newProfileDetails) {
+    this.props.onUpdateUserProfileDetails(newProfileDetails).then((data) => {}, (error) => {
       notify(error);
     });
   }
-  callAddNewEmployee (new_employee_details) {
-    this.props.onAddNewEmployee(new_employee_details).then((data) => {
+  callAddNewEmployee (newEmployeeDetails) {
+    this.props.onAddNewEmployee(newEmployeeDetails).then((data) => {
       notify(data);
       this.props.onUsersList();
     }, (error) => {
@@ -254,37 +254,37 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actionsLogin.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list());
     },
     onUserProfileDetails: (userid, username) => {
-      return dispatch(actions_manageUsers.getUserProfileDetails(userid, username));
+      return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
     },
-    onUpdateUserBankDetails: (new_bank_details) => {
-      return dispatch(actions_manageUsers.updateUserBankDetails(new_bank_details));
+    onUpdateUserBankDetails: (newBankDetails) => {
+      return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
     },
-    onUpdateUserProfileDetails: (new_profile_details) => {
-      return dispatch(actions_manageUsers.updateUserProfileDetails(new_profile_details));
+    onUpdateUserProfileDetails: (newProfileDetails) => {
+      return dispatch(actionsManageUsers.updateUserProfileDetails(newProfileDetails));
     },
-    onUpdateUserDeviceDetails: (new_device_details) => {
-      return dispatch(actions_manageUsers.updateUserDeviceDetails(new_device_details));
+    onUpdateUserDeviceDetails: (newDeviceDetails) => {
+      return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
     },
-    onAddNewEmployee: (new_employee_details) => {
-      return dispatch(actions_manageUsers.addNewEmployee(new_employee_details));
+    onAddNewEmployee: (newEmployeeDetails) => {
+      return dispatch(actionsManageUsers.addNewEmployee(newEmployeeDetails));
     },
-    onUpdatedocuments: (document_link) => {
-      return dispatch(actions_manageUsers.updateDocument(document_link));
+    onUpdatedocuments: (documentLink) => {
+      return dispatch(actionsManageUsers.updateDocument(documentLink));
     },
     onChangeEmployeeStatus: (userid, status) => {
-      return dispatch(actions_manageUsers.changeEmployeeStatus(userid, status));
+      return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status));
     },
     onGetUserDocument: (userid) => {
-      return dispatch(actions_manageUsers.getUserDocument(userid));
+      return dispatch(actionsManageUsers.getUserDocument(userid));
     },
-    onDeleteDocument: (doc_id) => {
-      return dispatch(actions_manageUsers.deleteDocument(doc_id));
+    onDeleteDocument: (docId) => {
+      return dispatch(actionsManageUsers.deleteDocument(docId));
     },
     onUserManagePayslipsData: (userid) => {
       return dispatch(actions_managePayslips.get_user_manage_payslips_data(userid));

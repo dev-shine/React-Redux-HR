@@ -42,14 +42,14 @@ import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAtten
 // import Page_AttendanceSummary from './modules/attendance/containers/attendanceSummary';
 import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
 import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
-import Page_ManageUsers from './modules/manageUsers/containers/manageUsers';
+import PageManageUsers from './modules/manageUsers/containers/manageUsers';
 // -----------------------------
 
 // -admin
 import Page_ManageWorkingHours from './containers/admin/manageWorkingHours';
 import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours';
 import Page_ManageClients from './containers/admin/manageClients';
-import Page_DisabledEmployes from './containers/admin/disabledEmployes';
+import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
 import Page_mail_template from './containers/admin/addTemplate';
 import Page_AddVariables from './containers/admin/addVariables';
 import Page_TeamView from './containers/admin/viewTeam';
@@ -155,14 +155,14 @@ let render = (routerKey = null) => {
             <Route path="apply_leave" component={Page_ApplyLeave} />
             <Route path="manage_leaves" component={Page_ManageLeaves} />
             <Route path="my_leaves" component={Page_MyLeaves} />
-            <Route path="disabled_employes" component={Page_DisabledEmployes} />
+            <Route path="disabled_employes" component={PageDisabledEmployes} />
             <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
             <Route path="leaves_summary" component={Page_LeavesSummary} />
             <Route path="salary" component={Page_Salary} />
             <Route path="manage_salary" component={Page_ManageSalary} />
             <Route path="my_profile" component={Page_MyProfile} />
             <Route path="my_inventory" component={Page_MyInventory} />
-            <Route path="manage_users" component={Page_ManageUsers} />
+            <Route path="manage_users" component={PageManageUsers} />
             <Route path="manage_clients" component={Page_ManageClients} />
             <Route path="manage_payslips" component={Page_ManagePayslips} />
             <Route path="forgot_password" component={Page_ForgotPassword} />

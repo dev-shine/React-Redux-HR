@@ -1,33 +1,32 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
 import { frontend } from 'appRedux/generic/reducers/frontend';
 import { logged_user } from 'appRedux/auth/reducers/logged_user';
-import { monthlyAttendance} from 'appRedux/attendance/reducers/monthlyAttendance'
+import { monthlyAttendance } from 'appRedux/attendance/reducers/monthlyAttendance';
 import { attendanceSummary } from './user/attendanceSummary';
 import { userDaySummary } from 'appRedux/attendance/reducers/userDaySummary';
 import { usersList } from 'appRedux/generic/reducers/usersList';
-import { workingHoursSummary} from './admin/workingHoursSummary'
-import { holidaysList} from 'appRedux/holidays/reducers/holidaysList';
-import { applyLeave} from 'appRedux/leave/reducers/applyLeave';
-import { listLeaves} from 'appRedux/leave/reducers/listLeaves';
+import { workingHoursSummary } from 'appRedux/workingHours/reducers/workingHoursSummary';
+import { holidaysList } from 'appRedux/holidays/reducers/holidaysList';
+import { applyLeave } from 'appRedux/leave/reducers/applyLeave';
+import { listLeaves } from 'appRedux/leave/reducers/listLeaves';
 import { manageLeave } from 'appRedux/leave/reducers/manageLeave';
 import { leavesSummary } from 'appRedux/leave/reducers/leavesSummary';
-import { userLeaves } from './user/userLeaves'
-import { manageUserWorkingHours } from './admin/manageUserWorkingHours'
+import { userLeaves } from './user/userLeaves';
+import { manageUserWorkingHours } from 'appRedux/workingHours/reducers/manageUserWorkingHours';
 import { salary } from 'appRedux/salary/reducers/salary';
-import { manageSalary } from 'appRedux/salary/reducers/manageSalary'
-import { myProfile } from './user/myProfile'
-import { myDocument } from './user/myDocument'
-import { manageUsers } from './admin/manageUsers'
-import { clientsList } from './admin/clientsList'
-import { manageClients } from './admin/manageClients'
+import { manageSalary } from 'appRedux/salary/reducers/manageSalary';
+import { myProfile } from './user/myProfile';
+import { myDocument } from './user/myDocument';
+import { manageUsers } from './admin/manageUsers';
+import { clientsList } from './admin/clientsList';
+import { manageClients } from './admin/manageClients';
 import { managePayslips } from 'appRedux/salary/reducers/managePayslips';
 import { empSalaryList } from 'appRedux/salary/reducers/empSalaryDetails';
-import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments'
-import {template} from './admin/template'
-import {teamList} from './admin/teamList'
-import {manageDevice} from './admin/inventory'
-
+import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';
+import {template} from './admin/template';
+import {teamList} from './admin/teamList';
+import {manageDevice} from './admin/inventory';
 
 export default combineReducers({
   frontend,
@@ -57,4 +56,4 @@ export default combineReducers({
   template,
   teamList,
   manageDevice
-})
+});

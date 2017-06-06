@@ -14,13 +14,13 @@ const styles = {
 };
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
-  let usersList =  _.map(users, (user, key) => {
+  let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';
     let arrow = '';
     let profileImae = '';
     let backgroundClass = styles.cursorPointer;
-    if (selectedUserId == user.user_Id) {
+    if (selectedUserId === user.user_Id) {
       backgroundClass = styles.selectedUser;
       arrow = <span className="arrow right b-blue"></span>;
     }
@@ -34,7 +34,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
       param = user;
     }
     return (
-      <li className="list-item" key={key} onClick={() => onUserClick(param)}  style={backgroundClass}>
+      <li className="list-item" key={key} onClick={() => onUserClick(param)} style={backgroundClass}>
         <div>
           <div className="list-left">
             <span className="w-40 avatar">
@@ -49,10 +49,10 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
         </div>
         {arrow}
       </li>
-    )
+    );
   });
   return (
-    <div className = "row">
+    <div className="row">
       <div className="col-12">
         <div className="box">
           <ul className="list no-border p-b">
@@ -61,8 +61,8 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 UsersList.PropTypes = {
   users: PropTypes.array.isRequired,
@@ -72,6 +72,6 @@ UsersList.PropTypes = {
   ]).isRequired,
   onUserClick: PropTypes.func.isRequired,
   disabledUser: PropTypes.bool
-}
+};
 
 export default UsersList;

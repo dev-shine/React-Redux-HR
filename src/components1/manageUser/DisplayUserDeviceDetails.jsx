@@ -12,7 +12,7 @@ const DisplayUserDeviceDetails = ({ userAssignMachine }) => {
       </tr>
     );
   });
-  let machineData = <tr><td colSpan="4"><span className="text-muted" style={{marginLeft: '16px'}}>Device Not Asssigned</span></td></tr>;
+  let machineData = <span className="text-muted" style={{marginLeft: '16px'}}>Device Not Asssigned</span>;
   if (!_.isEmpty(machine)) {
     machineData = <table style={{fontSize: '9px'}} className="table table-striped table-hover">
       <thead>

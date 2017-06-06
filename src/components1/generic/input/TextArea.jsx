@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Textarea = ({ className, ref, placeHolder, onchange, id, name, value, style }) => {
-  let classname = 'form-control' + (className || '');
+const Textarea = ({ className, placeHolder, onchange, id, name, value, style }) => {
+  let classname = 'form-control ' + className;
   return (
     <textarea
       className={classname}
-      ref={ref}
       placeholder={placeHolder}
       onChange={onchange} id={id} required
+      value={value}
       name={name}
       style={style}
-    >{value}</textarea>
+    />
   );
 };
 
 export default Textarea;
 
-Textarea.propTypes = {
-  classname: PropTypes.string.isRequired,
-  placeHolder: PropTypes.string.isRequired,
+Textarea.PropTypes = {
+  classname: PropTypes.string,
+  placeHolder: PropTypes.string,
   onchange: PropTypes.func.isRequired,
   id: PropTypes.number,
   name: PropTypes.string,

@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
 import {CONFIG} from 'src/config/index';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
@@ -49,17 +50,10 @@ class FormAddNewEmployee extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{
-            width: '70%',
-            maxWidth: 'none'
-          }}
+          contentStyle={{width: '70%', maxWidth: 'none'}}
           autoScrollBodyContent>
-          <div className="text-danger">
-            <i>*Create a slack profile first and enter email in Work Email</i>
-          </div>
-          <div className="text-info">
-            *Default password is : {CONFIG.DEFAULT_PASSWORD}
-          </div>
+          <div className="text-danger"><i>*Create a slack profile first and enter email in Work Email</i></div>
+          <div className="text-info">*Default password is : {CONFIG.DEFAULT_PASSWORD}</div>
           <table className="table">
             <tbody>
               <tr>
@@ -154,8 +148,6 @@ class FormAddNewEmployee extends React.Component {
             onClick={() => this.props.callAddNewEmployee(this.state)}
             label={'Add Employee'}
           />
-          <br />
-          <br />
         </Dialog>
       </div>
     );
@@ -165,8 +157,7 @@ class FormAddNewEmployee extends React.Component {
 export default FormAddNewEmployee;
 
 FormAddNewEmployee.propTypes = {
-  defaultPassword: React.PropTypes.string.isRequired,
-  client: React.PropTypes.object.isRequired,
-  selectedClientId: React.PropTypes.string.isRequired,
-  callAddNewEmployee: React.PropTypes.func.isRequired
+  client: PropTypes.object,
+  selectedClientId: PropTypes.string,
+  callAddNewEmployee: PropTypes.func.isRequired
 };

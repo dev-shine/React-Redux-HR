@@ -12,8 +12,8 @@ import UsersList from 'src/components/generic/UsersList';
 import UpdateEmployeeDocument from 'src/components/manageUsers/UpdateEmployeeDocument';
 import Button from 'components/generic/buttons/Button';
 import AlertNotification from 'components/generic/AlertNotification';
-import DisplayUserBankDetails from 'components/manageUser/displayUserBankDetails';
-import DisplayUserDeviceDetails from 'components/manageUser/displayUserDeviceDetails';
+import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails';
+import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/component/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/component/FormUserProfileDetails';
@@ -303,7 +303,7 @@ const RouterVisibleManageUsers = withRouter(VisibleManageUsers);
 
 export default RouterVisibleManageUsers;
 
-ManageUsers.propTypes = {
+ManageUsers.PropTypes = {
   onIsAlreadyLogin: PropTypes.func.isRequired,
   onFetchUserPolicyDocument: PropTypes.func.isRequired,
   onFetchTeam: PropTypes.func.isRequired,
@@ -318,6 +318,6 @@ ManageUsers.propTypes = {
   onUsersList: React.PropTypes.func.isRequired,
   onUpdatedocuments: PropTypes.func.isRequired,
   usersList: PropTypes.object.isRequired,
-  manageUsers: PropTypes.string.isRequired,
-  router: PropTypes.array.isRequired
+  manageUsers: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };

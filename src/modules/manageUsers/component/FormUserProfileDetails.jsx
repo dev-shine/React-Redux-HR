@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
+import PropTypes from 'prop-types';
 import { DateField } from 'react-date-picker';
 import 'react-date-picker/index.css';
 import {CONFIG} from 'src/config/index';
@@ -192,7 +193,6 @@ class FormUserProfileDetails extends React.Component {
             <div className="form-group">
               <Label htmlfor="name" text={'Name'} />
               <InputText
-                ref="name"
                 onchange={(e) => this.setState({name: e.target.value})}
                 value={this.state.name}
               />
@@ -202,7 +202,6 @@ class FormUserProfileDetails extends React.Component {
             <div className="form-group">
               <Label htmlfor="Job Title" text={'Job Title'} />
               <InputText
-                ref="jobtitle"
                 onchange={(e) => this.setState({jobtitle: e.target.value})}
                 value={this.state.jobtitle}
               />
@@ -213,7 +212,6 @@ class FormUserProfileDetails extends React.Component {
           <Label htmlfor="Team" text={'Team'} />
           <select
             className="form-control"
-            ref="team"
             onChange={(e) => this.setState({team: e.target.value})}
             value={this.state.team}>
             <option value="">--Select team--</option>
@@ -289,7 +287,6 @@ class FormUserProfileDetails extends React.Component {
             <div className="form-group">
               <Label htmlfor="Work Email" text={'Work Email'} />
               <InputText
-                ref="work_email"
                 onchange={(e) => this.setState({work_email: e.target.value})}
                 value={this.state.work_email}
               />
@@ -300,7 +297,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Employee Holding Comment" text={'Employee Holding Comment'} />
               <Textarea
                 placeHolder="enter employee holding comment..."
-                ref="holdingcomments"
                 onchange={(e) => this.setState({holding_comments: e.target.value})}
                 value={this.state.holding_comments}
               />
@@ -345,7 +341,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Current Address" text={'Current Address'} />
               <Textarea
                 placeHolder="your current address..."
-                ref="address1"
                 onchange={(e) => this.setState({address1: e.target.value})}
                 value={this.state.address1}
               />
@@ -356,7 +351,6 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Permanent Address" text={'Permanent Address'} />
               <Textarea
                 placeHolder="your permanent address..."
-                ref="address2"
                 onchange={(e) => this.setState({address2: e.target.value})}
                 value={this.state.address2}
               />
@@ -368,7 +362,6 @@ class FormUserProfileDetails extends React.Component {
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 1" text={'Emergency Contact Information 1'} />
               <InputText
-                ref="emergency_ph1"
                 onchange={(e) => this.setState({emergency_ph1: e.target.value})}
                 value={this.state.emergency_ph1}
               />
@@ -378,7 +371,6 @@ class FormUserProfileDetails extends React.Component {
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 2" text={'Emergency Contact Information 2'} />
               <InputText
-                ref="emergency_ph2"
                 onchange={(e) => this.setState({emergency_ph2: e.target.value})}
                 value={this.state.emergency_ph2}
               />
@@ -407,7 +399,6 @@ class FormUserProfileDetails extends React.Component {
           <Label htmlfor="Any Medical Conditions" text={'Any Medical Conditions'} />
           <Textarea
             placeHolder="your medical conditions..."
-            ref="medical_condition"
             onchange={(e) => this.setState({medical_condition: e.target.value})}
             value={this.state.medical_condition}
           />
@@ -446,8 +437,8 @@ class FormUserProfileDetails extends React.Component {
 export default FormUserProfileDetails;
 
 FormUserProfileDetails.propTypes = {
-  user_profile_detail: React.PropTypes.isRequired,
-  callUpdateUserProfileDetails: React.PropTypes.func.isRequired,
-  teamList: React.PropTypes.string.isRequired,
-  logged_user: React.PropTypes.string.isRequired
+  user_profile_detail: PropTypes.object.isRequired,
+  callUpdateUserProfileDetails: PropTypes.func.isRequired,
+  teamList: PropTypes.object.isRequired,
+  logged_user: PropTypes.object.isRequired
 };

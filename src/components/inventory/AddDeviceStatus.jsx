@@ -22,7 +22,6 @@ export default class AddDeviceStatus extends React.Component {
     };
     this.addMoreStatus = this.addMoreStatus.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    // this.setValue = this.setValue.bind(this)
     this.handleChangeComplete = this.handleChangeComplete.bind(this);
     this.handleStatusClose = this.handleStatusClose.bind(this);
   }
@@ -131,7 +130,7 @@ export default class AddDeviceStatus extends React.Component {
         open={this.props.open}
         onRequestClose={this.handleStatusClose}>
         <div className="row m-0">
-        <div className='col-sm-4' style={{overflowY: 'auto', maxHeight: '200px'}}>
+        <div className='col-sm-5' style={{overflowY: 'auto', maxHeight: '250px'}}>
           <label>Status Type List</label>
           <ol>
         {this.props.manageDevice.statusList.map((val, i) => {
@@ -158,7 +157,7 @@ export default class AddDeviceStatus extends React.Component {
         })}
       </ol>
       </div>
-    <div className='col-sm-8' style={{marginTop: '5%'}}>
+    <div className='col-sm-7' style={{marginTop: '5%'}}>
     {text}
         {this.state.statusType
           ? <div className='col-sm-12 well'>

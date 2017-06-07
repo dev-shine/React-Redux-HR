@@ -4,13 +4,8 @@ import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
 const styles = {
-  cursorPointer: {
-    'cursor': 'pointer'
-  },
-  selectedUser: {
-    'background': '#03a9f4',
-    'color': 'white'
-  }
+  cursorPointer: {'cursor': 'pointer'},
+  selectedUser: {'background': '#03a9f4', 'color': 'white'}
 };
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
@@ -37,9 +32,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
       <li className="list-item" key={key} onClick={() => onUserClick(param)} style={backgroundClass}>
         <div>
           <div className="list-left">
-            <span className="w-40 avatar">
-              {avatar}
-            </span>
+            <span className="w-40 avatar">{avatar}</span>
           </div>
           <div className="list-body">
             <div>{user.name}</div>

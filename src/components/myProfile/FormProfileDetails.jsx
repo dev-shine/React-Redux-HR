@@ -1,55 +1,55 @@
 import React from 'react';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
-import {DateField} from 'react-date-picker'
-import 'react-date-picker/index.css'
+import {DateField} from 'react-date-picker';
+import 'react-date-picker/index.css';
 
 class FormProfileDetails extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      user_id: "",
-      name: "",
-      jobtitle: "",
-      dateofjoining: "",
-      dob: "",
-      gender: "",
-      marital_status: "Single",
-      address1: "",
-      address2: "",
-      emr_con_1: "",
-      emr_con_2: "",
-      work_email: "",
-      blood_group: "",
-      medical_con: ""
-    }
+      user_id: '',
+      name: '',
+      jobtitle: '',
+      dateofjoining: '',
+      dob: '',
+      gender: '',
+      marital_status: 'Single',
+      address1: '',
+      address2: '',
+      emr_con_1: '',
+      emr_con_2: '',
+      work_email: '',
+      blood_group: '',
+      medical_con: ''
+    };
   }
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps (props) {
     this.setState({
-      name: props.user_profile_detail.name || "",
-      jobtitle: props.user_profile_detail.jobtitle || "",
-      dateofjoining: props.user_profile_detail.dateofjoining || "",
-      dob: props.user_profile_detail.dob || "",
-      gender: props.user_profile_detail.gender || "",
+      name: props.user_profile_detail.name || '',
+      jobtitle: props.user_profile_detail.jobtitle || '',
+      dateofjoining: props.user_profile_detail.dateofjoining || '',
+      dob: props.user_profile_detail.dob || '',
+      gender: props.user_profile_detail.gender || '',
       marital_status: props.user_profile_detail.marital_status || 'Single',
-      address1: props.user_profile_detail.current_address || "",
-      address2: props.user_profile_detail.permanent_address || "",
-      emr_con_1: props.user_profile_detail.emergency_ph1 || "",
-      emr_con_2: props.user_profile_detail.emergency_ph2 || "",
-      work_email: props.user_profile_detail.work_email || "",
-      blood_group: props.user_profile_detail.blood_group || "",
-      medical_con: props.user_profile_detail.medical_condition || "",
-    })
+      address1: props.user_profile_detail.current_address || '',
+      address2: props.user_profile_detail.permanent_address || '',
+      emr_con_1: props.user_profile_detail.emergency_ph1 || '',
+      emr_con_2: props.user_profile_detail.emergency_ph2 || '',
+      work_email: props.user_profile_detail.work_email || '',
+      blood_group: props.user_profile_detail.blood_group || '',
+      medical_con: props.user_profile_detail.medical_condition || ''
+    });
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h6 className="text-center">Personal Details</h6>
         <div className="form-group">
           <label>
             User Name</label>
-          <input type="text" className="form-control" value={this.state.name} disabled/>
+          <input type="text" className="form-control" value={this.state.name} disabled />
         </div>
 
         <div className="form-group">
@@ -66,7 +66,7 @@ class FormProfileDetails extends React.Component {
             <DateField
               dateFormat="YYYY-MM-DD"
               value={this.state.dob}
-              onChange={ ( date ) => { this.setState({ dob : date }) }}
+              onChange={(date) => { this.setState({ dob: date }); }}
               className="form-control"
             />
         </div>
@@ -90,14 +90,14 @@ class FormProfileDetails extends React.Component {
           <div className="col-md-6 p-r">
             <div className="form-group">
               <label>Emergency Contact Information 1</label>
-              <input type="text" className="form-control" ref="emr_con_1" onChange={() => this.setState({emr_con_1: this.refs.emr_con_1.value})} value={this.state.emr_con_1}/>
+              <input type="text" className="form-control" ref="emr_con_1" onChange={() => this.setState({emr_con_1: this.refs.emr_con_1.value})} value={this.state.emr_con_1} />
             </div>
           </div>
           <div className="col-md-6">
             <div className="form-group">
               <label>
                 Emergency Contact Information 2</label>
-              <input type="text" className="form-control" ref="emr_con_2" onChange={() => this.setState({emr_con_2: this.refs.emr_con_2.value})} value={this.state.emr_con_2}/>
+              <input type="text" className="form-control" ref="emr_con_2" onChange={() => this.setState({emr_con_2: this.refs.emr_con_2.value})} value={this.state.emr_con_2} />
             </div>
           </div>
         </div>
@@ -123,8 +123,8 @@ class FormProfileDetails extends React.Component {
         </div>
         <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateProfileDetails(this.state)}>Update Profile Details</button>
       </div>
-    )
+    );
   }
 }
 
-export default FormProfileDetails
+export default FormProfileDetails;

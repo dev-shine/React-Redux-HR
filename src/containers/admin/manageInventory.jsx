@@ -11,7 +11,7 @@ import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_manageUsers from 'appRedux/manageUsers/actions/manageUsers';
 
-import UsersList from '../../components/generic/UsersList';
+import UsersList from 'components/generic/UsersList';
 
 import Menu from '../../components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';

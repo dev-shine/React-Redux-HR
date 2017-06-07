@@ -5,14 +5,14 @@ import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
+import UsersList from 'components/generic/UsersList';
+import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
+import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
+import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsDisabledEmployee from 'src/actions/user/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
-import UsersList from 'components/generic/UsersList';
-import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
-import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import UpdateEmployeeDocument from 'components/manageUser/UpdateEmployeeDocument';
 
 const styles = {content: {'paddingTop': '50px'}};
 

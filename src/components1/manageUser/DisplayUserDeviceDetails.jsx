@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const DisplayUserDeviceDetails = ({ userAssignMachine }) => {
   let machine = _.map(userAssignMachine, (val, i) => {
@@ -37,6 +38,10 @@ const DisplayUserDeviceDetails = ({ userAssignMachine }) => {
       </div>
     </div>
   );
+};
+
+DisplayUserDeviceDetails.PropTypes = {
+  userAssignMachine: PropTypes.array.isRequired
 };
 
 export default DisplayUserDeviceDetails;

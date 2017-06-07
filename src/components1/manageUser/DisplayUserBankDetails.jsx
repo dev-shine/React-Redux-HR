@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DisplayUserBankDetails = ({ userBankDetails }) => {
   let bankName = 'Not Updated';
@@ -44,6 +45,13 @@ const DisplayUserBankDetails = ({ userBankDetails }) => {
       </ul>
     </div>
   );
+};
+
+DisplayUserBankDetails.PropTypes = {
+  bank_name: PropTypes.string.isRequired,
+  bank_account_no: PropTypes.string.isRequired,
+  ifsc: PropTypes.string.isRequired,
+  bank_address: PropTypes.string.isRequired
 };
 
 export default DisplayUserBankDetails;

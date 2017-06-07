@@ -1,9 +1,9 @@
 import React from 'react';
 import * as _ from 'lodash';
-import {notify} from '../../services/index';
-import 'react-date-picker/index.css';
-import {CONFIG} from '../../config/index';
 import Dialog from 'material-ui/Dialog';
+import {notify} from 'src/services/index';
+import {CONFIG} from 'src/config/index';
+import 'react-date-picker/index.css';
 
 class UpdateEmployeeDocument extends React.Component {
   constructor (props) {
@@ -71,19 +71,9 @@ class UpdateEmployeeDocument extends React.Component {
           <div className="clear b-t p-t">
             <div className="_500 block">
               {doc.document_type}
-              <span
-                className="glyphicon glyphicon-remove-circle pull-right"
-                style={{
-                  fontSize: '12px',
-                  cursor: 'pointer'
-                }}
-                onClick={() => { this.deleteDocument(doc.id); }}></span>
+              <span className="glyphicon glyphicon-remove-circle pull-right" style={{fontSize: '12px', cursor: 'pointer'}} onClick={() => { this.deleteDocument(doc.id); }}></span>
             </div>
-            {
-              typeof doc.link_1 === 'undefined'
-              ? ''
-              : <span className="text-muted"><div dangerouslySetInnerHTML={{__html: doc.link_1}}></div><br /></span>
-            }
+            {typeof doc.link_1 === 'undefined' ? '' : <span className="text-muted"><div dangerouslySetInnerHTML={{__html: doc.link_1}}></div><br /></span>}
           </div>
         </li>
       );
@@ -144,13 +134,7 @@ class UpdateEmployeeDocument extends React.Component {
                 <span style={styles.declearation}><b>*IMPORTANT:</b>By uploading this document you certify that these document are true and all information is correct</span>
               </div>
               <div className="form-group">
-                <input
-                  type="submit"
-                  name="submit"
-                  value="Upload"
-                  className="col-xs-12 md-btn md-raised indigo"
-                  onClick={(e) => { this.callUpdateDocuments(e); }}
-                />
+                <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => { this.callUpdateDocuments(e); }} />
               </div>
             </form>
           </div>

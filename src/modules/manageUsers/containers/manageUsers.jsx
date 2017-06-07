@@ -8,21 +8,21 @@ import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
-import UsersList from 'src/components/generic/UsersList';
-import UpdateEmployeeDocument from 'components/manageUser/UpdateEmployeeDocument';
+import UsersList from 'components/generic/UsersList';
+import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
 import Button from 'components/generic/buttons/Button';
 import AlertNotification from 'components/generic/AlertNotification';
 import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails';
 import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import FormAddNewEmployee from 'modules/manageUsers/component/FormAddNewEmployee';
-import FormUserProfileDetails from 'modules/manageUsers/component/FormUserProfileDetails';
-import * as actions_getTeamData from 'src/actions/admin/teamList';
+import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
+import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
+import * as actionsGetTeamData from 'src/actions/admin/teamList';
 import * as actionsLogin from 'appRedux/auth/actions/index';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
+import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
+import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
 
 class ManageUsers extends React.Component {
   constructor (props) {
@@ -257,7 +257,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsLogin.isAlreadyLogin());
     },
     onUsersList: () => {
-      return dispatch(actions_usersList.get_users_list());
+      return dispatch(actionsUsersList.get_users_list());
     },
     onUserProfileDetails: (userid, username) => {
       return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
@@ -287,13 +287,13 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.deleteDocument(docId));
     },
     onUserManagePayslipsData: (userid) => {
-      return dispatch(actions_managePayslips.get_user_manage_payslips_data(userid));
+      return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
     onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
+      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     },
     onFetchTeam: () => {
-      return dispatch(actions_getTeamData.get_all_team());
+      return dispatch(actionsGetTeamData.get_all_team());
     }
   };
 };

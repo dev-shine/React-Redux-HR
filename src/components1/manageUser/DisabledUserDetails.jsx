@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const DisabledUserDetails = ({ userDetails, changeEmployeeStatus, prop }) => {
+const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
   return (
     <div className="tab-content">
       <div className="tab-pane p-v-sm active">
@@ -121,6 +122,36 @@ const DisabledUserDetails = ({ userDetails, changeEmployeeStatus, prop }) => {
       </div>
     </div>
   );
+};
+
+DisabledUserDetails.PropTypes = {
+  userDetails: PropTypes.shape({
+    name: PropTypes.string,
+    jobtitle: PropTypes.string,
+    dateofjoining: PropTypes.string,
+    work_email: PropTypes.string,
+    other_email: PropTypes.string,
+    gender: PropTypes.string,
+    dob: PropTypes.string,
+    marital_status: PropTypes.string,
+    permanent_address: PropTypes.string,
+    mobile_ph: PropTypes.number,
+    emergency_ph1: PropTypes.string,
+    emergency_ph2: PropTypes.string,
+    blood_group: PropTypes.string,
+    medical_condition: PropTypes.string,
+    pan_card_num: PropTypes.string,
+    type: PropTypes.string,
+    user_Id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    username: PropTypes.string,
+    zip_postal: PropTypes.number,
+    special_instructions: PropTypes.string,
+    status: PropTypes.string
+  }).isRequired,
+  changeEmployeeStatus: PropTypes.func.isRequired
 };
 
 export default DisabledUserDetails;

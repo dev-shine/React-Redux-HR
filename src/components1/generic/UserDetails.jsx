@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 const UserDetails = ({monthlyAttendance}) => {
   return (
     <div className="row">
@@ -15,24 +14,24 @@ const UserDetails = ({monthlyAttendance}) => {
           <div className="clear">
             <h4 className="m-a-0 text-lg">
             {monthlyAttendance.userName}
-            <span className="text-sm"> </span></h4>
+              <span className="text-sm"> </span></h4>
             <small className="text-muted">
               {monthlyAttendance.userjobtitle}
             </small>
-            <br/><br/>
+            <br /><br />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 UserDetails.PropTypes = {
   monthlyAttendance: PropTypes.shape({
     userProfileImage: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
-    userjobtitle: PropTypes.string.isRequired,
+    userjobtitle: PropTypes.string.isRequired
   }).isRequired
-}
+};
 
 export default UserDetails;

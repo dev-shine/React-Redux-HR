@@ -43,11 +43,11 @@ import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAtten
 import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
 import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';
+import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
+import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
 // -----------------------------
 
 // -admin
-import Page_ManageWorkingHours from './containers/admin/manageWorkingHours';
-import Page_ManageUserWorkingHours from './containers/admin/manageUserWorkingHours';
 import Page_ManageClients from './containers/admin/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
 import Page_mail_template from './containers/admin/addTemplate';

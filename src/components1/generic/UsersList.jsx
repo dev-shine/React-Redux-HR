@@ -57,8 +57,6 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
   );
 };
 
-export default UsersList;
-
 UsersList.PropTypes = {
   users: PropTypes.array.isRequired,
   selectedUserId: PropTypes.oneOfType([
@@ -68,3 +66,5 @@ UsersList.PropTypes = {
   onUserClick: PropTypes.func.isRequired,
   disabledUser: PropTypes.bool
 };
+
+export default UsersList;

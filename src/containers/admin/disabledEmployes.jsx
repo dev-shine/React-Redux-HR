@@ -15,7 +15,7 @@ import * as actions_disabledEmployee from '../../actions/user/usersList';
 import * as actions_manageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
-import UsersList from '../../components/generic/UsersList';
+import UsersList from 'components/generic/UsersList';
 import DisabledUserDetails from '../../components/attendance/DisabledUserDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from '../../components/manageUsers/UpdateEmployeeDocument';
@@ -103,6 +103,7 @@ class Page_DisabledEmployes extends React.Component {
     });
   }
   render () {
+    console.log(this.props);
     let disabled_users = _.orderBy(this.props.usersList.disabled_users, 'user_Id', 'asc');
     let mainDivs = <div className="row">
       <div className="col-md-3">

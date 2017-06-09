@@ -1,56 +1,56 @@
-import * as _ from 'lodash'
-var moment = require('moment')
-import 'react-date-picker/index.css'
-import { connect } from 'react-redux'
-import Paper from 'material-ui/Paper'
-import React, {PropTypes} from 'react'
-import { CONFIG } from '../../config/index'
-import * as actions_login from '../../actions/login/index'
-import LoadingIcon from '../../components/generic/LoadingIcon'
+import * as _ from 'lodash';
+var moment = require('moment');
+import 'react-date-picker/index.css';
+import { connect } from 'react-redux';
+import Paper from 'material-ui/Paper';
+import React, {PropTypes} from 'react';
+import { CONFIG } from '../../config/index';
+import * as actions_login from 'appRedux/auth/actions/index';
+import LoadingIcon from '../../components/generic/LoadingIcon';
 
 export default class DeviceCounter extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       statusListData: [],
       deviceCountList: {}
-    }
+    };
   }
   componentWillMount () {
-    this.props.onFetchDeviceCount()
+    this.props.onFetchDeviceCount();
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout')
+      this.props.router.push('/logout');
     } else {
       if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR || localStorage.getItem('userid') === '375') {
       } else {
-        this.props.router.push('/home')
+        this.props.router.push('/home');
       }
     }
     this.setState({
       statusListData: props.manageDevice.statusList,
       deviceCountList: props.manageDevice.deviceCountList
-    })
+    });
   }
 
   render () {
-    let deviceData = this.state.deviceCountList
-    let total = 0
+    let deviceData = this.state.deviceCountList;
+    let total = 0;
     let newDeviceCountData = Object.keys(deviceData).map((key, i) => {
-      var ab = deviceData[key]
+      var ab = deviceData[key];
       let list = Object.keys(ab).map((k, idx) => {
         if (k == 'User_Assign' || k == 'User_Not_Assign' || k == 'Assigned') {
-          return
+          return;
         } else {
-          return <li key={idx}> {k} : {ab[k]}</li>
+          return <li key={idx}> {k} : {ab[k]}</li>;
         }
-      })
+      });
       if (deviceData.hasOwnProperty(key)) {
-        let a = deviceData[key]
-        let b = {key}
-        total = total + a.total
+        let a = deviceData[key];
+        let b = {key};
+        total = total + a.total;
         return <div className="col-xs-11 col-sm-4" key={i}>
           <div className="box p-a" style={{height: '350px'}}>
             <div className="pull-left m-r">
@@ -86,18 +86,18 @@ export default class DeviceCounter extends React.Component {
               {list}
             </ul>
           </div>
-        </div>
+        </div>;
       }
-    })
+    });
     let statusList = this.state.statusListData.map((val, i) => {
-      let statusColor = val.color
+      let statusColor = val.color;
       return <div className="col-xs-4 col-sm-4 col-md-3 col-lg-2" key={i} >
         <div className="p-a" style={{backgroundColor: statusColor, margin: '2px 2px 2px 2px'}}>
           <h4></h4>
           <div className="h-3x text-u-c _600 text-sm" style={{paddingTop: '20%'}}>{val.status}</div>
         </div>
-      </div>
-    })
+      </div>;
+    });
     return (
 
       <div>
@@ -138,6 +138,6 @@ export default class DeviceCounter extends React.Component {
           {newDeviceCountData}
         </div>
       </div>
-    )
+    );
   }
 }

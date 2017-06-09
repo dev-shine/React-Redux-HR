@@ -21,7 +21,7 @@ import * as actions_manageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 import * as actions_getTeamData from '../../actions/admin/teamList';
 
-import UsersList from '../../components/generic/UsersList';
+import UsersList from 'components/generic/UsersList';
 
 import FormUserProfileDetails from '../../components/manageUsers/FormUserProfileDetails';
 import FormUserBankDetails from '../../components/manageUsers/FormUserBankDetails';

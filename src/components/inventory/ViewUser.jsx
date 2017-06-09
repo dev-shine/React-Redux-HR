@@ -1,19 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import * as _ from 'lodash'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import Paper from 'material-ui/Paper'
-var moment = require('moment')
-import { CONFIG } from '../../config/index'
-import UsersList from '../../components/generic/UsersList'
+import React from 'react';
+import { connect } from 'react-redux';
+import * as _ from 'lodash';
+import LoadingIcon from '../../components/generic/LoadingIcon';
+import Paper from 'material-ui/Paper';
+var moment = require('moment');
+import { CONFIG } from '../../config/index';
+import UsersList from 'components/generic/UsersList';
 
 export default class ViewUserDevice extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
   }
 
   render () {
-    let rows = []
+    let rows = [];
     _.map(this.props.manageUsers.user_assign_machine, (device, i) => {
       rows.push(<tr key={i}>
             <td style={{marginRight: '0%'}}>{i + 1}</td>
@@ -22,8 +22,8 @@ export default class ViewUserDevice extends React.Component {
             <td>{device.mac_address}</td>
             <td>{device.assign_date}</td>
           </tr>
-        )
-    })
+        );
+    });
     return (
       <div>
         <div className="col-md-9">
@@ -68,6 +68,6 @@ export default class ViewUserDevice extends React.Component {
 
     </div>
       </div>
-    )
+    );
   }
 }

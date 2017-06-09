@@ -20,7 +20,7 @@ import { myProfile } from './user/myProfile';
 import { myDocument } from './user/myDocument';
 import { manageUsers } from './admin/manageUsers';
 import { clientsList } from './admin/clientsList';
-import { manageClients } from './admin/manageClients';
+import { manageClients } from 'appRedux/manageClients/reducers/manageClients';
 import { managePayslips } from 'appRedux/salary/reducers/managePayslips';
 import { empSalaryList } from 'appRedux/salary/reducers/empSalaryDetails';
 import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';

@@ -50,7 +50,7 @@ import Page_ManageUserWorkingHours from './modules/workingHours/containers/manag
 
 // -admin
 import Page_ManageUsers from './containers/admin/manageUsers';
-import Page_ManageClients from './containers/admin/manageClients';
+import Page_ManageClients from 'modules/manageClients/containers/manageClients';
 import Page_DisabledEmployes from './containers/admin/disabledEmployes';
 import Page_mail_template from './containers/admin/addTemplate';
 import Page_AddVariables from './containers/admin/addVariables';

@@ -10,6 +10,7 @@ import Menu from '../../components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import AlertNotification from 'components/generic/AlertNotification';
 import { CONFIG } from '../../config/index';
+import {isNotUserValid} from 'src/services/generic';
 
 // -----------------------------------------
 import * as actions_login from 'appRedux/auth/actions/index';
@@ -46,7 +47,10 @@ class ManageClients extends React.Component {
     this.props.onClientsList();
   }
   componentWillReceiveProps (props) {
-      // window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {

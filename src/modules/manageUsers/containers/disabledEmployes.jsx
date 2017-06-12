@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
@@ -37,6 +38,9 @@ class PageDisabledEmployes extends React.Component {
   }
   componentWillMount () {
     window.scrollTo(0, 0);
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (this.props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {

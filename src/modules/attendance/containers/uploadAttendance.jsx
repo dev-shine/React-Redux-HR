@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
@@ -27,7 +28,9 @@ class UploadAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {

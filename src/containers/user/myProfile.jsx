@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Router, browserHistory, Link, withRouter} from 'react-router';
-
 import * as _ from 'lodash';
 import {notify} from '../../services/index';
-
+import {isNotUserValid} from 'src/services/generic';
 import Menu from '../../components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import UserHorizontalView from '../../components/generic/UserHorizontalView';
@@ -44,6 +43,9 @@ class MyProfile extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {

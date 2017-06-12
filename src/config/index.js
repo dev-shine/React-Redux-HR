@@ -33,6 +33,6 @@ export const CONFIG = {
   // upload_email_attachment: 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
   // transfer_link: 'https://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
 
-  jwt_secret_key: 'HR_APP'
-
+  jwt_secret_key: 'HR_APP',
+  ROLEPAGES: ''
 };

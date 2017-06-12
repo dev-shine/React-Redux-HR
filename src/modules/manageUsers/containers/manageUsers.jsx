@@ -6,6 +6,7 @@ import ToggleButton from 'react-toggle-button';
 import PropTypes from 'prop-types';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
@@ -54,6 +55,9 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {

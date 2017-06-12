@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
 import { CONFIG } from 'src/config/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import ListLeaves from 'components/leave/manageLeaves/ListLeaves';
@@ -16,52 +17,55 @@ import * as actions_manageLeave from 'appRedux/leave/actions/manageLeave';
 
 class ManageLeaves extends React.Component {
   constructor (props) {
-    super(props)
-    this.props.onIsAlreadyLogin()
+    super(props);
+    this.props.onIsAlreadyLogin();
     this.state = {
       loading: true,
       selectedTab: '',
       leaveListItems: [],
       all_leaves: [],
-      selectedLeave: {},
-    }
+      selectedLeave: {}
+    };
     this.doLeaveStatusChange = this.doLeaveStatusChange.bind(this);
     this.filterLeaveList = this.filterLeaveList.bind(this);
     this.selectLeave = this.selectLeave.bind(this);
   }
   componentDidMount () {
-    this.props.onFetchUserPolicyDocument()
-    this.props.onListLeaves(this.props.logged_user.role)
+    this.props.onFetchUserPolicyDocument();
+    this.props.onListLeaves(this.props.logged_user.role);
   }
   componentWillMount () {
 
   }
   componentWillReceiveProps (props) {
     var selectedTab = '';
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout')
+      this.props.router.push('/logout');
     } else {
       if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
         selectedTab = 'ApprovedByHr';
       } else if (props.logged_user.role == CONFIG.HR) {
         selectedTab = 'Pending';
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0 }) || []
+        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
         if (unread.length > 0) {
-          this.props.router.push('/policy_documents')
+          this.props.router.push('/policy_documents');
         }
       } else {
-        this.props.router.push('/monthly_attendance')
+        this.props.router.push('/monthly_attendance');
       }
     }
-    if (!_.isEqual(props.listLeaves.all_leaves,this.state.all_leaves)) {
-      let tab = localStorage.getItem("activeTab");
-      if (!_.isEmpty(tab))  {
+    if (!_.isEqual(props.listLeaves.all_leaves, this.state.all_leaves)) {
+      let tab = localStorage.getItem('activeTab');
+      if (!_.isEmpty(tab)) {
         selectedTab = tab;
       }
       this.setState({
         all_leaves: props.listLeaves.all_leaves,
-        selectedTab: selectedTab,
-      }, ()=>{
+        selectedTab: selectedTab
+      }, () => {
         this.filterLeaveList(selectedTab);
       });
     }
@@ -72,28 +76,28 @@ class ManageLeaves extends React.Component {
 
         }, (error) => {
             // notify( error );
-    })
+    });
   }
   selectLeave (leaveId) {
     if (leaveId !== this.state.selectedLeave.id) {
       var select = _.find(this.state.leaveListItems, { 'id': leaveId });
       this.setState({
-        selectedLeave: select,
+        selectedLeave: select
       });
     }
   }
 
-  filterLeaveList(activeTab) {
+  filterLeaveList (activeTab) {
     var all_leaves = this.state.all_leaves;
     let newLeavesList;
     if (activeTab === 'Pending') {
-      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
-    }  else if (activeTab === 'ApprovedByHr') {
-      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 1; });
+      newLeavesList = _.filter(all_leaves, function (o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 0; });
+    } else if (activeTab === 'ApprovedByHr') {
+      newLeavesList = _.filter(all_leaves, function (o) { return o.status === 'Pending' && parseInt(o.hr_approved) === 1; });
     } else if (activeTab === 'NotApprovedByHr') {
-      newLeavesList = _.filter(all_leaves, function(o) { return o.status === 'Pending' && (parseInt(o.hr_approved) === 2 || parseInt(o.hr_approved) === 0); });
+      newLeavesList = _.filter(all_leaves, function (o) { return o.status === 'Pending' && (parseInt(o.hr_approved) === 2 || parseInt(o.hr_approved) === 0); });
     } else {
-      newLeavesList = _.filter(all_leaves, { 'status': activeTab })
+      newLeavesList = _.filter(all_leaves, { 'status': activeTab });
     }
 
     var selectedLeave = newLeavesList[0] || {};
@@ -110,14 +114,14 @@ class ManageLeaves extends React.Component {
       selectedLeave: selectedLeave,
       selectedTab: activeTab
     });
-    localStorage.setItem("activeTab", activeTab);
+    localStorage.setItem('activeTab', activeTab);
   }
-	render () {
+  render () {
     let styles = _.cloneDeep(this.constructor.styles);
-    let status_message = ''
+    let status_message = '';
     if (this.props.manageLeave.status_message != '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
-          <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>
+          <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>;
     }
 
     let tabContent;
@@ -148,7 +152,7 @@ class ManageLeaves extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-12">
-                  <LeaveColorReference  filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} userRole={this.props.logged_user.role} />
+                  <LeaveColorReference filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} userRole={this.props.logged_user.role} />
                 </div>
               </div>
               {tabContent}
@@ -156,7 +160,7 @@ class ManageLeaves extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -164,12 +168,12 @@ ManageLeaves.styles = {
   spinContainer: {
     'textAlign': 'center',
     'fontSize': '50px',
-    'color': '#808080',
+    'color': '#808080'
   },
   spiner: {
     'margin': '50px auto'
   }
-}
+};
 function mapStateToProps (state) {
   return {
     frontend: state.frontend.toJS(),
@@ -177,39 +181,39 @@ function mapStateToProps (state) {
     listLeaves: state.listLeaves.toJS(),
     manageLeave: state.manageLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()
-  }
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin())
+      return dispatch(actions_login.isAlreadyLogin());
     },
     onListLeaves: (role) => {
-      return dispatch(actions_listLeaves.getAllLeaves(role))
+      return dispatch(actions_listLeaves.getAllLeaves(role));
     },
     onAddDescription: (leaveid, hr, data) => {
-      return dispatch(actions_manageLeave.onAddDescription(leaveid, hr, data))
+      return dispatch(actions_manageLeave.onAddDescription(leaveid, hr, data));
     },
     onAddExtraDay: (leaveid, token, data) => {
-      return dispatch(actions_manageLeave.onAddExtraDay(leaveid, token, data))
+      return dispatch(actions_manageLeave.onAddExtraDay(leaveid, token, data));
     },
     onChangeLeaveStatus: (leaveid, newstatus, messagetouser) => {
-      return dispatch(actions_manageLeave.changeLeaveStatus(leaveid, newstatus, messagetouser))
+      return dispatch(actions_manageLeave.changeLeaveStatus(leaveid, newstatus, messagetouser));
     },
     onDocRequired: (leaveid, data, comment) => {
-      return dispatch(actions_manageLeave.docRequired(leaveid, data, comment))
+      return dispatch(actions_manageLeave.docRequired(leaveid, data, comment));
     },
     onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument())
+      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
-  }
-}
+  };
+};
 
 const VisibleManageLeaves = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageLeaves)
+)(ManageLeaves);
 
-const RouterVisibleManageLeaves = withRouter(VisibleManageLeaves)
+const RouterVisibleManageLeaves = withRouter(VisibleManageLeaves);
 
-export default RouterVisibleManageLeaves
+export default RouterVisibleManageLeaves;

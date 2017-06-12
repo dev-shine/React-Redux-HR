@@ -1,22 +1,23 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Router, browserHistory, Link, withRouter } from 'react-router'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Router, browserHistory, Link, withRouter } from 'react-router';
 
-import * as _ from 'lodash'
-import {notify} from '../../services/index'
-import { CONFIG } from '../../config/index'
-import Menu from '../../components/generic/Menu'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import TeamDetails from '../../components/attendance/TeamDetails'
+import * as _ from 'lodash';
+import {notify} from '../../services/index';
+import { CONFIG } from '../../config/index';
+import {isNotUserValid} from 'src/services/generic';
+import Menu from '../../components/generic/Menu';
+import LoadingIcon from '../../components/generic/LoadingIcon';
+import TeamDetails from '../../components/attendance/TeamDetails';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_getTeamData from '../../actions/admin/teamList'
-import TeamList from '../../components/attendance/TeamList'
+import * as actions_getTeamData from '../../actions/admin/teamList';
+import TeamList from '../../components/attendance/TeamList';
 // import * as actions_salary from '../../actions/salary/index'
 
 class ViewTeam extends React.Component {
   constructor (props) {
-    super(props)
-    this.props.onIsAlreadyLogin()
+    super(props);
+    this.props.onIsAlreadyLogin();
     this.state = {
       empList: [],
       all_Teams: '',
@@ -25,22 +26,24 @@ class ViewTeam extends React.Component {
       viewTeam: 'hidden',
       firstArrow: 'show',
       secondArrow: 'hidden'
-    }
-    this.openPage = this.openPage.bind(this)
+    };
+    this.openPage = this.openPage.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchTeam()
-    this.props.onFetchUserDetails('')
+    this.props.onFetchTeam();
+    this.props.onFetchUserDetails('');
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0)
-
+    window.scrollTo(0, 0);
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout')
+      this.props.router.push('/logout');
     } else {
       if (props.logged_user.role == CONFIG.ADMIN) {
       } else {
-        this.props.router.push('/home')
+        this.props.router.push('/home');
       }
     }
   }
@@ -53,19 +56,19 @@ class ViewTeam extends React.Component {
         viewTeam: 'hidden',
         firstArrow: 'show',
         secondArrow: 'hidden'
-      })
+      });
     } else {
       this.setState({
         addNewTeam: 'hidden',
         viewTeam: 'row',
         firstArrow: 'hidden',
         secondArrow: 'show'
-      })
+      });
     }
   }
   render () {
-    let view_team = <TeamDetails {...this.props} />
-    let add_new_team = <TeamList {...this.props} />
+    let view_team = <TeamDetails {...this.props} />;
+    let add_new_team = <TeamList {...this.props} />;
     return (
         <div>
             <Menu {...this.props} />
@@ -91,11 +94,11 @@ class ViewTeam extends React.Component {
               <div className="col-sm-6 pull-sm-6">
                 <div className="p-y-md clearfix nav-active-primary">
                   <ul className="nav nav-pills nav-sm">
-                    <li onClick={() => { this.openPage('add_new_team') }} className={`nav-item ${this.state.active}`}>
+                    <li onClick={() => { this.openPage('add_new_team'); }} className={`nav-item ${this.state.active}`}>
                       <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">All Team</a>
                       <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
                     </li>
-                    <li onClick={() => { this.openPage('view_team') }} className="nav-item" style={{'marginLeft': '20px'}}>
+                    <li onClick={() => { this.openPage('view_team'); }} className="nav-item" style={{'marginLeft': '20px'}}>
                       <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Team Details</a>
                       <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
                     </li>
@@ -117,7 +120,7 @@ class ViewTeam extends React.Component {
         </div>
         </div>
         </div>
-    )
+    );
   }
 }
 function mapStateToProps (state) {
@@ -127,30 +130,30 @@ function mapStateToProps (state) {
     usersList: state.usersList.toJS(),
     employee: state.empSalaryList.toJS(),
     teamList: state.teamList.toJS()
-  }
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin())
+      return dispatch(actions_login.isAlreadyLogin());
     },
     onFetchTeam: () => {
-      return dispatch(actions_getTeamData.get_all_team())
+      return dispatch(actions_getTeamData.get_all_team());
     },
     onFetchUserDetails: (selectedTeam) => {
-      return dispatch(actions_getTeamData.get_team_candidate(selectedTeam))
+      return dispatch(actions_getTeamData.get_team_candidate(selectedTeam));
     },
     onSaveTeam: (teams) => {
-      return dispatch(actions_getTeamData.saveTeam(teams))
+      return dispatch(actions_getTeamData.saveTeam(teams));
     }
-  }
-}
+  };
+};
 
 const VisibleViewTeam = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewTeam)
+)(ViewTeam);
 
-const RouterVisibleViewTeam = withRouter(VisibleViewTeam)
+const RouterVisibleViewTeam = withRouter(VisibleViewTeam);
 
-export default RouterVisibleViewTeam
+export default RouterVisibleViewTeam;

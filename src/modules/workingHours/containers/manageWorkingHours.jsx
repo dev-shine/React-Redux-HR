@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
@@ -30,6 +31,9 @@ class ManageWorkingHours extends React.Component {
     this.props.onWorkingHoursSummary(year, month);
   }
   componentWillReceiveProps (props) {
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {

@@ -4,6 +4,7 @@ import {Router, browserHistory, Link, withRouter} from 'react-router';
 import {CONFIG} from '../../config/index';
 import * as _ from 'lodash';
 import {notify} from '../../services/index';
+import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 
 import * as actions_manageDevice from '../../actions/admin/inventory';
@@ -62,7 +63,9 @@ class InventorySystem extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-
+    if (isNotUserValid(this.props.route.path)) {
+      this.props.router.push('/logout');
+    }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {

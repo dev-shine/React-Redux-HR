@@ -12,36 +12,35 @@ import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
-
 class Holidays extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin()
+    this.props.onIsAlreadyLogin();
   }
-  componentWillMount() {
+  componentWillMount () {
     this.props.onFetchUserPolicyDocument();
-    this.props.onHolidaysList()
+    this.props.onHolidaysList();
   }
-  componentWillReceiveProps(props) {
-    //window.scrollTo(0, 0);
+  componentWillReceiveProps (props) {
+    // window.scrollTo(0, 0);
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
-      if( props.logged_user.role == CONFIG.ADMIN  || props.logged_user.role == CONFIG.GUEST ){
-      }else{
-        let unread = _.filter(props.policy_documents.policyDocuments, function(o) { return o.read == 0; }) || [];
-        if(unread.length > 0){
+      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
+      } else {
+        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
+        if (unread.length > 0) {
           this.props.router.push('/policy_documents');
         }
       }
     }
   }
-  render() {
+  render () {
     return (
       <div>
-        <Menu {...this.props }/>0
+        <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={"Holidays List"} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Holidays List'} showLoading={this.props.frontend.show_loading} />
           <div className="app-footer">
             <div></div>
           </div>
@@ -49,41 +48,41 @@ class Holidays extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-12">
-                  <HolidaysList holidays={this.props.holidaysList.holidays}/>
+                  <HolidaysList holidays={this.props.holidaysList.holidays} />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     frontend: state.frontend.toJS(),
     logged_user: state.logged_user.toJS(),
     holidaysList: state.holidaysList.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-  }
+    policy_documents: state.policyDocuments.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin())
+      return dispatch(actions_login.isAlreadyLogin());
     },
     onHolidaysList: () => {
-      return dispatch(actions_holidaysList.get_holidays_list())
+      return dispatch(actions_holidaysList.get_holidays_list());
     },
-    onFetchUserPolicyDocument: ()=>{
+    onFetchUserPolicyDocument: () => {
       return dispatch(actions_policy.fetchUserPolicyDocument());
     }
-  }
-}
+  };
+};
 
-const VisibleHolidays = connect(mapStateToProps, mapDispatchToProps)(Holidays)
+const VisibleHolidays = connect(mapStateToProps, mapDispatchToProps)(Holidays);
 
-const RouterVisibleHolidays = withRouter(VisibleHolidays)
+const RouterVisibleHolidays = withRouter(VisibleHolidays);
 
-export default RouterVisibleHolidays
+export default RouterVisibleHolidays;

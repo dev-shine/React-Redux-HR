@@ -10,6 +10,22 @@ const paths = config.utils_paths
 const {__DEV__, __PROD__, __TEST__} = config.globals
 const projectRoot = process.cwd();
 debug('Create configuration.')
+// const webpackConfig = {
+//   name: 'client',
+//   target: 'web',
+//   devtool: config.compiler_devtool,
+//   resolve: {
+//     alias: {
+//       src: `${projectRoot}/src`,
+//       components: `${projectRoot}/src/components1`,
+//       modules: `${projectRoot}/src/modules`,
+//       appRedux: `${projectRoot}/src/redux`,
+//     },
+//     root: paths.client(),
+//     extensions: ['', '.js', '.jsx', '.json']
+//   },
+//   module: {}
+// }
 const webpackConfig = {
   name: 'client',
   target: 'web',
@@ -21,8 +37,11 @@ const webpackConfig = {
       modules: `${projectRoot}/src/modules`,
       appRedux: `${projectRoot}/src/redux`,
     },
-    root: paths.client(),
-    extensions: ['', '.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    modules: [
+      paths.client(),
+      "node_modules"
+    ]
   },
   module: {}
 }
@@ -69,10 +88,12 @@ webpackConfig.plugins = [
 
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
+  console.log('A')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   )
+  console.log('B')
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
@@ -88,13 +109,17 @@ if (__DEV__) {
   )
 }
 
+console.log('C')
+
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
+  console.log('D')
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
     })
   )
+  console.log('E')
 }
 
 // ------------------------------------
@@ -127,10 +152,10 @@ webpackConfig.eslint = {
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
-webpackConfig.module.loaders = [{
+webpackConfig.module.rules = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
-  loader: 'babel',
+  loader: 'babel-loader',
   query: {
     cacheDirectory: true,
     plugins: ['transform-runtime'],
@@ -144,7 +169,7 @@ webpackConfig.module.loaders = [{
 },
 {
   test: /\.json$/,
-  loader: 'json'
+  loader: 'json-loader'
 }]
 
 // ------------------------------------
@@ -152,7 +177,7 @@ webpackConfig.module.loaders = [{
 // ------------------------------------
 // We use cssnano with the postcss loader, so we tell
 // css-loader not to duplicate minimization.
-const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
+const BASE_CSS_LOADER = 'css-loader?sourceMap&-minimize'
 
 // Add any packge names here whose styles need to be treated as CSS modules.
 // These paths will be combined into a single regex.
@@ -179,78 +204,80 @@ if (isUsingCSSModules) {
     'localIdentName=[name]__[local]___[hash:base64:5]'
   ].join('&')
 
-  webpackConfig.module.loaders.push({
+  webpackConfig.module.rules.push({
     test: /\.scss$/,
     include: cssModulesRegex,
-    loaders: [
-      'style',
+    use: [
+      'style-loader',
       cssModulesLoader,
-      'postcss',
+      'postcss-loader',
       'sass?sourceMap'
     ]
   })
 
-  webpackConfig.module.loaders.push({
+  webpackConfig.module.rules.push({
     test: /\.css$/,
     include: cssModulesRegex,
-    loaders: [
-      'style',
+    use: [
+      'style-loader',
       cssModulesLoader,
-      'postcss'
+      'postcss-loader'
     ]
   })
 }
 
 // Loaders for files that should not be treated as CSS modules.
 const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.scss$/,
   exclude: excludeCSSModules,
-  loaders: [
-    'style',
+  use: [
+    'style-loader',
     BASE_CSS_LOADER,
-    'postcss',
+    'postcss-loader',
     'sass?sourceMap'
   ]
 })
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.css$/,
   exclude: excludeCSSModules,
-  loaders: [
-    'style',
+  use: [
+    'style-loader',
     BASE_CSS_LOADER,
-    'postcss'
+    'postcss-loader'
   ]
 })
 
 // ------------------------------------
 // Style Configuration
 // ------------------------------------
-webpackConfig.sassLoader = {
-  includePaths: paths.client('styles')
-}
+// webpackConfig.sassLoader = {
+//   includePaths: paths.client('styles')
+// }
 
-webpackConfig.postcss = [
-  cssnano({
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers: ['last 2 versions']
-    },
-    discardComments: {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: true
-  })
-]
+//webpackConfig.postcss = [
+// webpackConfig.plugins.push(
+//   cssnano({
+//     autoprefixer: {
+//       add: true,
+//       remove: true,
+//       browsers: ['last 2 versions']
+//     },
+//     discardComments: {
+//       removeAll: true
+//     },
+//     discardUnused: false,
+//     mergeIdents: false,
+//     reduceIdents: false,
+//     safe: true,
+//     sourcemap: true
+//   })
+// )
+//]
 
 // File loaders
 /* eslint-disable */
-webpackConfig.module.loaders.push(
+webpackConfig.module.rules.push(
   { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
   { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
   { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
@@ -267,9 +294,12 @@ webpackConfig.module.loaders.push(
 // when we don't know the public path (we know it only when HMR is enabled [in development]) we
 // need to use the extractTextPlugin to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
+  console.log('chheck 1')
+
 if (!__DEV__) {
+  console.log('chheck 2')
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.loaders.filter((loader) =>
+  webpackConfig.module.rules.filter((loader) =>
     loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
   ).forEach((loader) => {
     const [first, ...rest] = loader.loaders
@@ -283,5 +313,7 @@ if (!__DEV__) {
     })
   )
 }
+
+console.log('chheck 22')
 
 export default webpackConfig

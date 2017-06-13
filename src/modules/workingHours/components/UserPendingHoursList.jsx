@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import { CONFIG } from 'src/config/index';
 import * as actions_login from 'appRedux/auth/actions/index';
+import PendingHourSummary from './PendingHourSummary';
 import AddUserPendingHour from './AddUserPendingHour';
 import 'react-date-picker/index.css';
 var moment = require('moment');
@@ -17,6 +18,7 @@ export default class UserPendingHoursList extends React.Component {
       pendingTimeList: {},
       usersList: []
     };
+    this.callAddUserPendingHours = this.callAddUserPendingHours.bind(this);
   }
 
   componentWillReceiveProps (props) {
@@ -35,6 +37,10 @@ export default class UserPendingHoursList extends React.Component {
     });
   }
 
+  callAddUserPendingHours (userId, pendingHour, date, reason) {
+    this.props.onAddUserPendingHours(userId, pendingHour, date, reason);
+  }
+
   render () {
     let addButton = <AddUserPendingHour {...this.props} />;
 
@@ -45,11 +51,13 @@ export default class UserPendingHoursList extends React.Component {
         <tr key={i}>
         <td style={{marginRight: '0%'}}>{i + 1}</td>
         <td>{val.name}</td>
-        <td>{val.date}</td>
-        <td>{val.extra_time} {'min'}</td>
+        <td>{val.year_and_month}</td>
+        <td><mark> {val.extra_time} {'min'}</mark> </td>
         <td>{val.status}</td>
-        <td> </td>
-        <td> <AddUserPendingHour val={val} {...this.props} /></td>
+        <td>{val.date} </td>
+        <td> <AddUserPendingHour val={val}
+          callAddUserPendingHours={this.callAddUserPendingHours}
+          {...this.props} /></td>
       </tr>
       );
     });
@@ -58,19 +66,27 @@ export default class UserPendingHoursList extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
+                <PendingHourSummary
+                  callFetchPendingTime={this.callFetchPendingUserList}
+                  manageUserPendingHours={this.props.manageUserPendingHours}
+                  onUserPendingHoursData={this.props.onUserPendingHoursData}
+
+                  {...this.props} />
                     <div className="col-xs-12 b-r box">
                       <div className="p-a block">
                         <h6 className="text-center">List Pending Hours</h6>
                             <div>
-                              <table key='' className="table table-striped table-hover">
+                              {
+                                pendingTimeMap.length > 0
+                            ? <table key='' className="table table-striped table-hover">
                                 <thead>
                                   <tr>
                                     <th>{'Sr.No'}</th>
                                     <th>User Name</th>
-                                    <th>{'Date'}</th>
+                                    <th>{'Year/Month'}</th>
                                     <th>Pending Time</th>
                                     <th>Status</th>
-                                    <th>Reason</th>
+                                    <th>Last Updated On</th>
                                     <th>Actions</th>
                                   </tr>
                                 </thead>
@@ -78,6 +94,14 @@ export default class UserPendingHoursList extends React.Component {
                               {pendingTimeMap}
                                 </tbody>
                               </table>
+                              : <div className="col-xs-6 col-xs-offset-3">
+                              <i className="fa fa-exclamation-triangle fa-2x"
+                                style={{marginLeft: '47%', opacity: '0.56'}} aria-hidden="true"></i>
+                              <h5 style={{marginLeft: '41%', opacity: '0.56'}}>
+                                {'Not Updated !'}
+                              </h5>
+                            </div>
+                          }
                             </div>
                       </div>
                     </div>

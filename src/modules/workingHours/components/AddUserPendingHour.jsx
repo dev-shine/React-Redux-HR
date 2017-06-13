@@ -32,7 +32,14 @@ class AddUserPendingHour extends React.Component {
     });
   }
   handleClose () {
-    this.setState({open: false});
+    this.setState({
+      open: false,
+      pendingTime: '',
+      user_Id: '',
+      username: '',
+      date: '',
+      reason: ''
+    });
   }
   componentWillReceiveProps (props) {
     this.setState({
@@ -44,7 +51,16 @@ class AddUserPendingHour extends React.Component {
   }
 
   handleAddData () {
-
+    var min = (this.state.officetime.replace(':', '.')) * 60;
+    var penMin = (this.state.pendingTime.replace(':', '.')) * 60;
+    var c = min + penMin;
+    var newData = (c / 60).toString();
+    let pendingHour = newData.replace('.', ':');
+    let d = moment().format('YYYY-MM-DD');
+    const userId = this.state.user_Id;
+    const date = d;
+    const reason = this.state.reason;
+    this.props.callAddUserPendingHours(userId, pendingHour, date, reason);
   }
 
   render () {
@@ -106,26 +122,12 @@ class AddUserPendingHour extends React.Component {
                   {'Office Time (hh:mm)'}
                   <TextField
                     name="officetime"
-                    onChange={(e) => {
-                      this.setState({
-                        officetime: e.target.value
-                      });
-                    }}
                     value={this.state.officetime}
                     fullWidth
                     required />
                 </td>
               </tr>
               <tr>
-                <td>
-                 Date
-                 <DateField style={{marginTop: '4%'}}
-                   dateFormat="YYYY-MM-DD"
-                   placeholder="YYYY-MM-DD"
-                   value={this.state.date}
-                   className="form-control"
-                   required />
-               </td>
                 <td>
                   {'Reason'}
                   <textarea

@@ -44,9 +44,12 @@ class ManageUserPendingHours extends React.Component {
     this.callFetchPendingUserList = this.callFetchPendingUserList.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
+    let d = new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth() + 1;
     this.props.onUsersList();
-    this.props.onUserPendingHoursData();
+    this.props.onFetchUserPolicyDocument();
+    this.props.onUserPendingHoursData(year, month);
   }
   componentWillReceiveProps (props) {
     // window.scrollTo(0, 0);
@@ -92,6 +95,7 @@ class ManageUserPendingHours extends React.Component {
         selected_user_id = userDetails.user_Id;
       }
     }
+
     this.setState({'defaultUserDisplay': userid,
       'selected_user_name': selected_user_name,
       'selected_user_image': selected_user_image,
@@ -135,6 +139,8 @@ class ManageUserPendingHours extends React.Component {
   render () {
     let pending_hour_list = <UserPendingHoursList
       callFetchPendingTime={this.callFetchPendingUserList}
+      manageUserPendingHours={this.props.manageUserPendingHours}
+      onUserPendingHoursData={this.props.onUserPendingHoursData}
       {...this.props} />;
 
     let view_user_pending_hours = <UsersList
@@ -238,11 +244,11 @@ const mapDispatchToProps = (dispatch) => {
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());
     },
-    onUserPendingHoursData: (userid) => {
-      return dispatch(actionsManageUserPendingHours.getUserPendingHourList(userid));
+    onUserPendingHoursData: (year, month) => {
+      return dispatch(actionsManageUserPendingHours.getUserPendingHourList(year, month));
     },
-    onAddUserPendingHours: (userid, date, workingHours, reason) => {
-      return dispatch(actionsManageUserPendingHours.addUserPendingHours(userid, date, workingHours, reason));
+    onAddUserPendingHours: (userid, pendingHour, date, reason) => {
+      return dispatch(actionsManageUserPendingHours.addUserPendingHour(userid, pendingHour, date, reason));
     },
     onFetchUserPolicyDocument: () => {
       return dispatch(actionsPolicy.fetchUserPolicyDocument());

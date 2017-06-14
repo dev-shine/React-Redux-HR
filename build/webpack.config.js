@@ -88,12 +88,10 @@ webpackConfig.plugins = [
 
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
-  console.log('A')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   )
-  console.log('B')
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
@@ -109,17 +107,13 @@ if (__DEV__) {
   )
 }
 
-console.log('C')
-
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
-  console.log('D')
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
     })
   )
-  console.log('E')
 }
 
 // ------------------------------------
@@ -294,10 +288,8 @@ webpackConfig.module.rules.push(
 // when we don't know the public path (we know it only when HMR is enabled [in development]) we
 // need to use the extractTextPlugin to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
-  console.log('chheck 1')
 
 if (!__DEV__) {
-  console.log('chheck 2')
   debug('Apply ExtractTextPlugin to CSS loaders.')
   webpackConfig.module.rules.filter((loader) =>
     loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
@@ -313,7 +305,5 @@ if (!__DEV__) {
     })
   )
 }
-
-console.log('chheck 22')
 
 export default webpackConfig

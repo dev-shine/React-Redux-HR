@@ -24,7 +24,7 @@ export function fireAjax (method, url, data) {
       body: JSON.stringify(data)
     }
   }
-
+  
   if (data.action == 'get_salary_details') {
     let token = localStorage.getItem('hr_logged_user')
     URL = CONFIG.api_url_salary + '/salary_info.php?token=' + token

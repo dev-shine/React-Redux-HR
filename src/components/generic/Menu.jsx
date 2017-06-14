@@ -43,6 +43,7 @@ class Menu extends React.Component {
     let linkManageUserWorkingHours = <Link to='/manage_user_working_hours'>Employee Hours</Link>;
     let linkManageSalary = <Link to='/manage_salary'>Salaries</Link>;
     let linkManageUsers = <Link to='/manage_users'>Profile</Link>;
+    let linkManageRoles = <Link to='/manage_roles'>Manage Roles</Link>;
     let linkManageClients = <Link to='/manage_clients'>Manage Clients</Link>;
     let linkManagePayslips = <Link to='/manage_payslips'>Payslips</Link>;
     let linkDocuments = <Link to='/documents'>My Documents</Link>;
@@ -88,6 +89,15 @@ class Menu extends React.Component {
           <ul className="nav-sub">
             <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManageUsers}</span></li>
             <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkDisabledEmployes}</span></li>
+          </ul>
+        </li>
+        <li id="Roles" onClick={() => { let r = 'Roles'; this.click(r); }} className="">
+          <a>
+            <span className="nav-caret text-muted"><i className="fa fa-caret-down"></i></span>
+            <span className="nav-text">Roles</span>
+          </a>
+          <ul className="nav-sub">
+            <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManageRoles}</span></li>
           </ul>
         </li>
         <li id="ManageHour" onClick={() => { let h = 'ManageHour'; this.click(h); }} className="">

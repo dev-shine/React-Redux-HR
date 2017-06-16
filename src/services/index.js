@@ -24,7 +24,7 @@ export function fireAjax (method, url, data) {
       body: JSON.stringify(data)
     }
   }
-  
+
   if (data.action == 'get_salary_details') {
     let token = localStorage.getItem('hr_logged_user')
     URL = CONFIG.api_url_salary + '/salary_info.php?token=' + token
@@ -84,7 +84,7 @@ export function fireAjax (method, url, data) {
       body: JSON.stringify(data)
     }
     URL = CONFIG.other_api_url
-  } else if (data.action == 'admin_user_apply_leave' || data.action == 'change_employee_status' || data.action == 'show_disabled_users') {
+  } else if (data.action == 'admin_user_apply_leave' || data.action == 'change_employee_status' || data.action == 'show_disabled_users' || data.action == 'add_roles' || data.action == 'list_all_roles' || data.action == 'update_role') {
     let token = localStorage.getItem('hr_logged_user')
     data.token = token
     headers = {

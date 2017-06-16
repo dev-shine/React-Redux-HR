@@ -11,23 +11,38 @@ import Button from 'components/generic/buttons/Button';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
+import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
+import UsersRolesList from 'components/generic/UsersRolesList';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
+import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {
   constructor (props) {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
+      name: '',
+      description: '',
+      userId: '',
+      rolesId: '',
+      actionId: '',
+      pageId: '',
+      notificationId: '',
     };
+    this.callAddNewRole = this.callAddNewRole.bind(this);
+    this.handleChangeActions = this.handleChangeActions.bind(this);
+    this.handleChangePages = this.handleChangePages.bind(this);
+    this.handleChangeNotification = this.handleChangeNotification.bind(this);
+
   }
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();
     this.props.onUsersList();
+    this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    console.log(props, 'recieveprops');
     if (isNotUserValid(this.props.route.path)) {
       this.props.router.push('/logout');
     }
@@ -41,14 +56,44 @@ class ManageRoles extends React.Component {
           this.props.router.push('/policy_documents');
         }
       } else {
-        this.props.router.push('/home');
+        this.props.router.push('/manage_roles');
       }
     }
   }
-  componentDidUpdate () {
-
+  callAddNewRole (newRoleDetails) {
+    this.props.onAddNewRole(newRoleDetails).then((data) => {
+      notify(data);
+    }, (error) => {
+      notify(error);
+    });
   }
-
+  handleChangeActions(id2, id1){
+    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
+    this.setState({ rolesId: id1, actionId: id2 });
+    this.props.onUpdateRole(this.state).then((data) => {
+      notify(data);
+    }, (error) => {
+      notify(error);
+    });
+  }
+  handleChangePages(id2, id1){
+    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
+    this.setState({ rolesId: id1, pageId: id2 });
+    this.props.onUpdateRole(this.state).then((data) => {
+      notify(data);
+    }, (error) => {
+      notify(error);
+    });
+  }
+  handleChangeNotification(id2, id1){
+    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
+    this.setState({ rolesId: id1, notificationId: id2 });
+    this.props.onUpdateRole(this.state).then((data) => {
+      notify(data);
+    }, (error) => {
+      notify(error);
+    });
+  }
   render () {
     return (
       <div>
@@ -59,10 +104,30 @@ class ManageRoles extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-4 p-b">
+                <div className="col-md-10 m-l p-l p-b">
+                  <AddRolesForm callAddNewRole={this.callAddNewRole}/>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-7 m-l">
                   <div className="row box">
-                    <div className="col-md-12 p-t p-b p-r b-r">
-                      <AddRolesForm />
+                    <div className="col-md-12 p-t">
+                      <DisplayRolesList
+                        displayData={this.props.manageRoles.rolesData}
+                        handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId) }
+                        handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId) }
+                        handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId) }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-1 m-l">
+                  <div className="row p-l p-r"></div>
+                </div>
+                <div className="col-md-4 m-l">
+                  <div className="row box">
+                    <div className="col-md-12 p-t">
+                      <UsersRolesList />
                     </div>
                   </div>
                 </div>
@@ -81,7 +146,7 @@ function mapStateToProps (state) {
     logged_user: state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS(),
     usersList: state.usersList.toJS(),
-    teamList: state.teamList.toJS()
+    manageRoles: state.manageRoles.toJS()
   };
 }
 
@@ -89,7 +154,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
     onUsersList: () => { return dispatch(actionsUsersList.get_users_list()); },
-    onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); }
+    onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
+    onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
+    onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },
+    onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); }
   };
 };
 

@@ -35,11 +35,10 @@ export function get_managed_user_working_hours (userid) {
   } else {
     dispatch(empty_user_working_hours(json.data));
   }
-},
-				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_user_working_hours({}));
-}
+}, (error) => {
+        dispatch(hide_loading()); // hide loading icon
+        dispatch(error_user_working_hours({}));
+      }
 			);
     });
   };

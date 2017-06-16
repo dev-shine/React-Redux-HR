@@ -91,6 +91,10 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
             <div className="_500">{userDetails.user_Id === null ? '' : userDetails.user_Id}</div>
           </div>
           <div className="col-xs-6">
+              <small className="text-muted">Bank Account No.</small>
+              <div className="_500">{userDetails.bank_account_num == null ? '' : userDetails.bank_account_num}</div>
+            </div>
+          <div className="col-xs-6">
             <small className="text-muted">User Name</small>
             <div className="_500">{userDetails.username === null ? '' : userDetails.username}</div>
           </div>

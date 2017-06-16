@@ -117,20 +117,22 @@ function asyncUpdateRoles (notificationId, rolesId, actionId, pageId) {
 
 export function updateRoles (roleUpdateDetails) {
   return function (dispatch, getState) {
-    let notificationId = '';
     let rolesId = '';
     let actionId = '';
     let pageId = '';
+    let notificationId = '';
 
     if (typeof roleUpdateDetails.notificationId !== 'undefined') { notificationId = roleUpdateDetails.notificationId; }
     if (typeof roleUpdateDetails.rolesId !== 'undefined') { rolesId = roleUpdateDetails.rolesId; }
     if (typeof roleUpdateDetails.actionId !== 'undefined') { actionId = roleUpdateDetails.actionId; }
     if (typeof roleUpdateDetails.pageId !== 'undefined') { pageId = roleUpdateDetails.pageId; }
 
+    if (rolesId.trim() === '') {  return Promise.reject('User id is empty'); }
+
     return new Promise((reslove, reject) => {
       dispatch(show_loading());
       asyncUpdateRoles(notificationId, rolesId, actionId, pageId).then((json) => {
-          dispatch(hide_loading());
+        dispatch(hide_loading());
           if (json.error == 0) {
             dispatch(getRolesList());
             dispatch(successUpdateRoles(json.message));

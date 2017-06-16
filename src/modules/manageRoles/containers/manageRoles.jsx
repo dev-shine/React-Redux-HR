@@ -23,19 +23,19 @@ class ManageRoles extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
+      status_message: '',
       name: '',
       description: '',
       userId: '',
       rolesId: '',
       actionId: '',
       pageId: '',
-      notificationId: '',
+      notificationId: ''
     };
     this.callAddNewRole = this.callAddNewRole.bind(this);
     this.handleChangeActions = this.handleChangeActions.bind(this);
     this.handleChangePages = this.handleChangePages.bind(this);
     this.handleChangeNotification = this.handleChangeNotification.bind(this);
-
   }
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();
@@ -68,37 +68,22 @@ class ManageRoles extends React.Component {
     });
   }
   handleChangeActions(id2, id1){
-    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
-    this.setState({ rolesId: id1, actionId: id2 });
-    this.props.onUpdateRole(this.state).then((data) => {
-      notify(data);
-    }, (error) => {
-      notify(error);
-    });
+    let state = { rolesId: id1, actionId: id2, pageId: '', notificationId: '' };
+    this.props.onUpdateRole(state);
   }
   handleChangePages(id2, id1){
-    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
-    this.setState({ rolesId: id1, pageId: id2 });
-    this.props.onUpdateRole(this.state).then((data) => {
-      notify(data);
-    }, (error) => {
-      notify(error);
-    });
+    let state = { rolesId: id1, actionId: '', pageId: id2, notificationId: '' };
+    this.props.onUpdateRole(state);
   }
   handleChangeNotification(id2, id1){
-    this.setState({userId: '', rolesId: '', actionId: '', pageId: '' });
-    this.setState({ rolesId: id1, notificationId: id2 });
-    this.props.onUpdateRole(this.state).then((data) => {
-      notify(data);
-    }, (error) => {
-      notify(error);
-    });
+    let state = { rolesId: id1, actionId: '', pageId: '', notificationId: id2 };
+    this.props.onUpdateRole(state);
   }
   render () {
     return (
       <div>
         <Menu {...this.props} />
-        <AlertNotification />
+        <AlertNotification message={this.props.manageRoles.status_message} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Roles'} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">

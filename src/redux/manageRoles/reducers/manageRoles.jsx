@@ -3,15 +3,15 @@ import Immutable from 'immutable'
 let initialState = {
   'status_message': '',
   'user_documents': [],
-  'username': '',
   'rolesData': {}
 }
 
-export function manageRoles (state = Immutable.fromJS(initialState), action) {
-  if (action.type === 'ACTION_SUCCESS_USER_PROFILE') {
-    return state
-    .set('username', action.username)
-  } else if (action.type === 'empty_user_profile') {
+export function manageRoles (state = Immutable.fromJS(initialState), action){
+  if (action.type === 'ACTION_SUCCESS_UPDATE_ROLES') {
+    return state.set('status_message', action.payload)
+  } else if (action.type === 'ACTION_ERROR_UPDATE_ROLES') {
+    return state.set('status_message', action.payload)
+  }else if (action.type === 'empty_user_profile') {
     return state.set('status_message', action.payload)
   } else if (action.type === 'error_user_profile') {
     return state.set('status_message', action.payload)

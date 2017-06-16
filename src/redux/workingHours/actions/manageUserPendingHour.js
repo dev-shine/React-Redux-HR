@@ -5,7 +5,6 @@ import * as constants from 'appRedux/constants';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 
 export function successUserPendingHours (data) {
-  console.log(data, '111111111111111');
   return createAction(constants.ACTION_SUCCESS_USER_PENDING_HOURS)(data);
 }
 
@@ -30,12 +29,11 @@ export function getUserPendingHourList (year, month) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
       asyncGetUserPendingHours(year, month).then((json) => {
-        dispatch(hide_loading()); // hide loading icon
-        if (json.error === 0) {
+        dispatch(hide_loading());
+        if (json.data !== null) {
           dispatch(successUserPendingHours(json.data));
-          console.log(json.data, '+++++++');
         } else {
-          dispatch(emptyUserPendingHours(json.data));
+          dispatch(emptyUserPendingHours());
         }
       }, (error) => {
         dispatch(hide_loading()); // hide loading icon
@@ -55,17 +53,18 @@ export function errorAddUserPendingHours (data) {
   return createAction(constants.ACTION_ERROR_ADD_USER_PENDING_HOURS)(data);
 }
 
-function asyncAddUserPendingHours (userid, pendingHour, date, reason) {
+function asyncAddUserPendingHours (userid, pendingHour, date, reason, empId, year, month) {
   return fireAjax('POST', '', {
     action: 'add_user_working_hours',
     userid: userid,
     working_hours: pendingHour,
     date: date,
-    reason: reason
+    reason: reason,
+    pending_id: empId
   });
 }
 
-export function addUserPendingHour (userid, pendingHour, date, reason) {
+export function addUserPendingHour (userid, pendingHour, date, reason, empId, year, month) {
   return function (dispatch, getState) {
     if (_.isEmpty(date)) {
       return Promise.reject('date is empty');
@@ -76,11 +75,11 @@ export function addUserPendingHour (userid, pendingHour, date, reason) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
 
-      asyncAddUserPendingHours(userid, pendingHour, date, reason).then((json) => {
+      asyncAddUserPendingHours(userid, pendingHour, date, reason, empId, year, month).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
           dispatch(successAddUserPendingHours(json.data.message));
-          dispatch(getUserPendingHourList());
+          dispatch(getUserPendingHourList(year, month));
         } else {
           dispatch(errorAddUserPendingHours(json.data.message));
         }

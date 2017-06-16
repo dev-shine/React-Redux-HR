@@ -12,8 +12,8 @@ var moment = require('moment');
 const PendingHourSummary = ({manageUserPendingHours, onUserPendingHoursData}) => {
   const onChangeMonthData = (check) => {
     let pendingData = manageUserPendingHours.displayData;
-    var year = '';
-    var month = '';
+    let year = '';
+    let month = '';
 
     if (check === 'previous') {
       if (Object.keys(pendingData).length > 0) {
@@ -31,7 +31,6 @@ const PendingHourSummary = ({manageUserPendingHours, onUserPendingHoursData}) =>
   };
   return (
     <div>
-      <div className="row">
         <div className="fullcalendar fc fc-ltr fc-unthemed">
           <div className="fc-toolbar">
             <div className="fc-left">
@@ -47,12 +46,11 @@ const PendingHourSummary = ({manageUserPendingHours, onUserPendingHoursData}) =>
               </button>
             </div>
             <div className="fc-center">
-              <h2 style={{opacity: '0.56'}}>{manageUserPendingHours.displayData.month}-{manageUserPendingHours.displayData.year}</h2>
+              <h2>{manageUserPendingHours.displayData.monthName} - {manageUserPendingHours.displayData.year}</h2>
             </div>
             <div className="fc-clear"></div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

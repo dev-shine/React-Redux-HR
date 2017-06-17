@@ -24,18 +24,13 @@ class ManageRoles extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       status_message: '',
-      name: '',
-      description: '',
-      userId: '',
-      rolesId: '',
-      actionId: '',
-      pageId: '',
-      notificationId: ''
+      userRoleUpdateDetails: [{'user_Id': '287', 'role_Id': '10' }, {'user_Id': '288', 'role_Id': '12' }, { 'user_Id': '300', 'role_Id': '14' }]
     };
     this.callAddNewRole = this.callAddNewRole.bind(this);
     this.handleChangeActions = this.handleChangeActions.bind(this);
     this.handleChangePages = this.handleChangePages.bind(this);
     this.handleChangeNotification = this.handleChangeNotification.bind(this);
+    this.onUserClick = this.onUserClick.bind(this);
   }
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();
@@ -57,6 +52,7 @@ class ManageRoles extends React.Component {
         }
       } else {
         this.props.router.push('/manage_roles');
+        // this.setState({ userRoleUpdateDetails : this.props.manageRoles.rolesData.users_list});
       }
     }
   }
@@ -78,6 +74,14 @@ class ManageRoles extends React.Component {
   handleChangeNotification(id2, id1){
     let state = { rolesId: id1, actionId: '', pageId: '', notificationId: id2 };
     this.props.onUpdateRole(state);
+  }
+  onUserClick (userId, roleId) {
+    let userRoleUpdateDetails = { userId: userId, roleId: roleId }
+    this.props.onUpdateUserRole(userRoleUpdateDetails).then((data) => {
+      notify(data);
+    }, (error) => {
+      notify(error);
+    });
   }
   render () {
     return (
@@ -106,13 +110,17 @@ class ManageRoles extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-1 m-l">
-                  <div className="row p-l p-r"></div>
-                </div>
+                <div className="col-md-1 m-l"><div className="row p-l p-r"></div></div>
                 <div className="col-md-4 m-l">
                   <div className="row box">
                     <div className="col-md-12 p-t">
-                      <UsersRolesList />
+                      <UsersRolesList
+                        users= {this.props.usersList.users}
+                        onChange= {(userId, roleId) => {this.onUserClick(userId, roleId); }}
+                        disabledUser= {this.props.usersList.disabled_users}
+                        roleName= {this.props.manageRoles.rolesData.roles}
+                        assignedRole = {this.state.userRoleUpdateDetails}
+                       />
                     </div>
                   </div>
                 </div>
@@ -142,7 +150,8 @@ const mapDispatchToProps = (dispatch) => {
     onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
     onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
     onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },
-    onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); }
+    onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
+    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); }
   };
 };
 

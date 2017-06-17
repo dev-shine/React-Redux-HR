@@ -37,9 +37,9 @@ export function addNewRole (new_role) {
     }
 
     return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading());
       asyncAddNewRole(name, description).then((json) => {
-        dispatch(hide_loading()); // hide loading icon
+        dispatch(hide_loading());
         if (json.error == 0) {
           dispatch(successAddNewRole(json.message));
           dispatch(getRolesList());
@@ -97,7 +97,6 @@ export function getRolesList () {
   }
 }
 
-
 export function successUpdateRoles (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_ROLES)(data);
 }
@@ -142,6 +141,51 @@ export function updateRoles (roleUpdateDetails) {
         }, (error) => {
           dispatch(hide_loading()); // hide loading icon
           dispatch(errorUpdateRoles('error occurs!!!'));
+        });
+    });
+  };
+}
+
+export function successUpdateUserRole (data) {
+  return createAction(constants.ACTION_SUCCESS_UPDATE_USER_ROLES)(data);
+}
+export function errorUpdateUserRole (data) {
+  return createAction(constants.ACTION_ERROR_UPDATE_USER_ROLES)(data);
+}
+
+function asyncUpdateUserRole (userId, roleId) {
+  return fireAjax('POST', '', {
+    'action': 'assign_user_role',
+    'user_id': userId,
+    'role_id': roleId
+  });
+}
+
+export function updateUserRole (userRoleUpdateDetails) {
+  return function (dispatch, getState) {
+    let roleId = '';
+    let userId = '';
+
+    if (typeof userRoleUpdateDetails.roleId !== 'undefined') { roleId = userRoleUpdateDetails.roleId; }
+    if (typeof userRoleUpdateDetails.userId !== 'undefined') { userId = userRoleUpdateDetails.userId; }
+
+    if (roleId.trim() === '') {  return Promise.reject('Role id is empty'); }
+    if (userId.trim() === '') {  return Promise.reject('User id is empty'); }
+
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading());
+      asyncUpdateUserRole(userId, roleId).then((json) => {
+        dispatch(hide_loading());
+          if (json.error == 0) {
+            reslove(json.message);
+            dispatch(successUpdateUserRole(json.message));
+          } else {
+            reject(json.message);
+            dispatch(errorUpdateUserRole(json.message));
+          }
+        }, (error) => {
+          dispatch(hide_loading()); // hide loading icon
+          dispatch(errorUpdateUserRole('error occurs!!!'));
         });
     });
   };

@@ -1,14 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Router, browserHistory, Link, withRouter} from 'react-router';
-
-import * as _ from 'lodash';
-import {notify} from '../../services/index';
-
-import Menu from '../../components/generic/Menu';
-import LoadingIcon from '../../components/generic/LoadingIcon';
+import {withRouter} from 'react-router';
+import _ from 'lodash';
+import {notify} from 'src/services/index';
+import Menu from 'src/components/generic/Menu';
+import Header from 'components/generic/Header';
 import UserHorizontalView from '../../components/generic/UserHorizontalView';
-import Header from '../../components/generic/header';
 
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails';
 import FormDeviceDetails from '../../components/myProfile/FormDeviceDetails';

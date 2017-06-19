@@ -14,6 +14,7 @@ import { manageLeave } from 'appRedux/leave/reducers/manageLeave';
 import { leavesSummary } from 'appRedux/leave/reducers/leavesSummary';
 import { userLeaves } from './user/userLeaves';
 import { manageUserWorkingHours } from 'appRedux/workingHours/reducers/manageUserWorkingHours';
+import { manageUserPendingHours } from 'appRedux/workingHours/reducers/manageUserPendingHour';
 import { salary } from 'appRedux/salary/reducers/salary';
 import { manageSalary } from 'appRedux/salary/reducers/manageSalary';
 import { myProfile } from './user/myProfile';
@@ -42,6 +43,7 @@ export default combineReducers({
   manageLeave,
   userLeaves,
   manageUserWorkingHours,
+  manageUserPendingHours,
   leavesSummary,
   salary,
   manageSalary,

@@ -19,23 +19,23 @@ class UserDaySummary extends React.Component {
     };
     this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
   }
-  componentDidMount() {
+  componentDidMount () {
     $('.timepickerInput').timepicker({'minTime': '09:00 AM', 'maxTime': '09:00 PM', 'timeFormat': 'h:i A', 'step': 5});
   }
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps (props) {
     if (this.props.logged_user.role == CONFIG.EMPLOYEE) {
-      this.setState({formInfo: 'show'})
+      this.setState({formInfo: 'show'});
     } else {
-      this.setState({formInfo: 'hidden'})
+      this.setState({formInfo: 'hidden'});
     }
-    let user_id = props.userid
-    let date = props.date
-    let year = props.year
-    let month = props.month
+    let user_id = props.userid;
+    let date = props.date;
+    let year = props.year;
+    let month = props.month;
     if (this.props.logged_user.role == CONFIG.EMPLOYEE && props.userDaySummary.entry_time != '' && props.userDaySummary.exit_time != '') {
-      this.setState({inputAccess: "true", buttonAccess: "hidden"})
+      this.setState({inputAccess: 'true', buttonAccess: 'hidden'});
     } else {
-      this.setState({inputAccess: ""})
+      this.setState({inputAccess: ''});
     }
     this.setState({
       year: props.year,
@@ -48,21 +48,21 @@ class UserDaySummary extends React.Component {
     });
   }
 
-  doUpdateDaySummary(evt) {
+  doUpdateDaySummary (evt) {
     evt.preventDefault();
     if (this.props.logged_user.role != CONFIG.EMPLOYEE) {
       this.props.onUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
         notify(error);
-      })
+      });
     } else {
       this.props.onUserUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
         notify(error);
-      })
+      });
     }
     $('#modalUserDaySummary').modal('hide');
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div id="modalUserDaySummary" className="modal" data-backdrop="true">
@@ -85,29 +85,29 @@ class UserDaySummary extends React.Component {
 
                 <i>*Entry / Exit time must be like - e.g 10:30 AM, 07:30 PM</i>
                 <i className={this.state.formInfo}>20 min will be added/deducted from your entry/exit time as compensation in case you forgot to push in/out. If there is some other reason for your using this form contact HR</i>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <form role="form" onSubmit={(evt) => {
                   this.doUpdateDaySummary(evt);
                 }}>
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">Entry Time</label>
                     <div className="col-sm-9">
-                      <input type="text" className="timepickerInput form-control" disabled={this.state.inputAccess} ref="entry_time" value={this.state.form_entry_time} onBlur={() => this.setState({form_entry_time: this.refs.entry_time.value})} required/>
+                      <input type="text" className="timepickerInput form-control" disabled={this.state.inputAccess} ref="entry_time" value={this.state.form_entry_time} onBlur={() => this.setState({form_entry_time: this.refs.entry_time.value})} required />
                     </div>
                   </div>
 
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">Exit Time</label>
                     <div className="col-sm-9">
-                      <input type="text" className="timepickerInput form-control" ref="exit_time" disabled={this.state.inputAccess} value={this.state.form_exit_time} onBlur={() => this.setState({form_exit_time: this.refs.exit_time.value})} required/>
+                      <input type="text" className="timepickerInput form-control" ref="exit_time" disabled={this.state.inputAccess} value={this.state.form_exit_time} onBlur={() => this.setState({form_exit_time: this.refs.exit_time.value})} required />
                     </div>
                   </div>
 
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">Reason</label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" ref="reason" disabled={this.state.inputAccess} value={this.state.form_reason} onChange={() => this.setState({form_reason: this.refs.reason.value})} required/>
+                      <input type="text" className="form-control" ref="reason" disabled={this.state.inputAccess} value={this.state.form_reason} onChange={() => this.setState({form_reason: this.refs.reason.value})} required />
                     </div>
                   </div>
 
@@ -124,7 +124,7 @@ class UserDaySummary extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

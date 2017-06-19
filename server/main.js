@@ -1,14 +1,4 @@
 import config from '../config'
-
-console.log( config )
-
-
-
-// process.exit( 0 );
-
-
-
-
 import Koa from 'koa'
 import convert from 'koa-convert'
 import webpack from 'webpack'
@@ -39,65 +29,27 @@ app.use(convert(historyApiFallback({
   verbose: false
 })))
 
-
-console.log('asdsadsadasdasd')
-console.log( config.env)
-
-
-
 let webpackConfig = webpackConfigDevelopment;
-if( config.env === 'production' ){
-  console.log('ppppppp');
-  
+if( config.env === 'production' ){  
   webpackConfig = webpackConfigProduction;
 }
-
-
-// process.exit(0);
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
 if (config.env === 'development' || config.env === 'production')   {
-  console.log('aaaaa');
-  //process.exit(0);
-
-  
-   console.log('-----')
-    console.log('-----')
-
   const compiler = webpack(webpackConfig)
-
-  console.log('aaaaa------1');
-
   // Enable webpack-dev and webpack-hot middleware
   const { publicPath } = webpackConfig.output
-
-
-
-  console.log('publicPath ----- ' +publicPath )
-
-
-  //console.log( compiler )
-
- 
-  console.log('aaaaa------2');
-
   app.use(webpackDevMiddleware(compiler, publicPath))
-  console.log('aaaaa------3');
   app.use(webpackHMRMiddleware(compiler))
-  console.log('aaaaa------4');
-
   // Serve static assets from ~/src/static since Webpack is unaware of
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
   //app.use(serve(paths.client('static')))
   app.use(serve('./src/static'))
-  console.log('aaaaa------5');
 } else {
-  console.log('bbbb');
-  process.exit(0);
   debug(
     'Server is being run outside of live development mode, meaning it will ' +
     'only serve the compiled application bundle in ~/dist. Generally you ' +
@@ -105,7 +57,6 @@ if (config.env === 'development' || config.env === 'production')   {
     'server such as nginx to serve your static files. See the "deployment" ' +
     'section in the README for more information on deployment strategies.'
   )
-
   // Serving ~/dist by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.

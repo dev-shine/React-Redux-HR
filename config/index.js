@@ -1,19 +1,32 @@
+import path from 'path'
 import ip from 'ip'
 
 const config = {
   env: process.env.NODE_ENV,
   server_port: 3000,
-  server_host: 'localhost'
+  server_host: 'localhost',
+  path_base: path.resolve(__dirname, '..'),
+  dir_dist: 'dist',
+  dir_client: 'src',
+  compiler_public_path: '', // this is the path which added for bundle files created in dist folder
 }
 
-// // ------------------------------------
-// // Environment
-// // ------------------------------------
 config.globals = {
   'process.env': {
     'NODE_ENV': JSON.stringify(config.env)
   },
   'NODE_ENV': config.env
+}
+
+const resolve = path.resolve
+const base = (...args) => Reflect.apply(resolve, null, [
+  config.path_base, ...args
+])
+
+config.utils_paths = {
+  base: base,
+  client: base.bind(null, config.dir_client),
+  dist: base.bind(null, config.dir_dist)
 }
 
 

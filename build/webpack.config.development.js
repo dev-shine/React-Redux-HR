@@ -4,28 +4,14 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
+import path from 'path'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-//const {__DEV__, __PROD__, __TEST__} = config.globals
+
 const projectRoot = process.cwd();
 debug('Create configuration.')
-// const webpackConfig = {
-//   name: 'client',
-//   target: 'web',
-//   devtool: config.compiler_devtool,
-//   resolve: {
-//     alias: {
-//       src: `${projectRoot}/src`,
-//       components: `${projectRoot}/src/components1`,
-//       modules: `${projectRoot}/src/modules`,
-//       appRedux: `${projectRoot}/src/redux`,
-//     },
-//     root: paths.client(),
-//     extensions: ['', '.js', '.jsx', '.json']
-//   },
-//   module: {}
-// }
+
 const webpackConfig = {
   name: 'client',
   target: 'web',
@@ -60,16 +46,13 @@ webpackConfig.entry = {
 // ------------------------------------
 webpackConfig.output = {
   filename: '[name].[hash].js',
-  path: "/dist", //paths.dist(),
-  publicPath: "/" //config.compiler_public_path
+  path: paths.dist(),
+  publicPath: config.compiler_public_path
 }
 
 // ------------------------------------
 // Plugins
 // ------------------------------------
-
-
-
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
@@ -84,61 +67,10 @@ webpackConfig.plugins = [
   })
 ]
 
-//if (__DEV__) {
-  debug('Enable plugins for live development (HMR, NoErrors).')
-  webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin()  //deprecated.
-  )
-// } else if (__PROD__) {
-//   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
-//   webpackConfig.plugins.push(
-//     new webpack.optimize.OccurrenceOrderPlugin(),
-//     new webpack.optimize.DedupePlugin(),
-//     new webpack.optimize.UglifyJsPlugin({
-//       compress: {
-//         unused: true,
-//         dead_code: true,
-//         warnings: false
-//       }
-//     })
-//   )
-// }
-
-// Don't split bundles during testing, since we only want import one bundle
-//if (!__TEST__) {
-  // webpackConfig.plugins.push(
-  //   new webpack.optimize.CommonsChunkPlugin({
-  //     names: ['vendor']
-  //   })
-  // )
-// //}
-
-// ------------------------------------
-// Pre-Loaders
-// ------------------------------------
-/*
-[ NOTE ]
-We no longer use eslint-loader due to it severely impacting build
-times for larger projects. `npm run lint` still exists to aid in
-deploy processes (such as with CI), and it's recommended that you
-use a linting plugin for your IDE in place of this loader.
-
-If you do wish to continue using the loader, you can uncomment
-the code below and run `npm i --save-dev eslint-loader`. This code
-will be removed in a future release.
-
-webpackConfig.module.preLoaders = [{
-  test: /\.(js|jsx)$/,
-  loader: 'eslint',
-  exclude: /node_modules/
-}]
-
-webpackConfig.eslint = {
-  configFile: paths.base('.eslintrc'),
-  emitWarning: __DEV__
-}
-*/
+debug('Enable plugins for live development (HMR, NoErrors).')
+webpackConfig.plugins.push(
+  new webpack.HotModuleReplacementPlugin()
+)
 
 // ------------------------------------
 // Loaders
@@ -167,103 +99,12 @@ webpackConfig.module.rules = [{
 // ------------------------------------
 // Style Loaders
 // ------------------------------------
-// We use cssnano with the postcss loader, so we tell
-// css-loader not to duplicate minimization.
-// const BASE_CSS_LOADER = 'css-loader?sourceMap&-minimize'
-
-// // Add any packge names here whose styles need to be treated as CSS modules.
-// // These paths will be combined into a single regex.
-// const PATHS_TO_TREAT_AS_CSS_MODULES = [
-//   // 'react-toolbox', (example)
-// ]
-
-// // If config has CSS modules enabled, treat this project's styles as CSS modules.
-// if (config.compiler_css_modules) {
-//   PATHS_TO_TREAT_AS_CSS_MODULES.push(
-//     paths.client().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
-//   )
-// }
-
-// const isUsingCSSModules = !!PATHS_TO_TREAT_AS_CSS_MODULES.length
-// const cssModulesRegex = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
-
-// Loaders for styles that need to be treated as CSS modules.
-//if (isUsingCSSModules) {
-  // const cssModulesLoader = [
-  //   BASE_CSS_LOADER,
-  //   'modules',
-  //   'importLoaders=1',
-  //   'localIdentName=[name]__[local]___[hash:base64:5]'
-  // ].join('&')
-
-  // webpackConfig.module.rules.push({
-  //   test: /\.scss$/,
-  //   include: cssModulesRegex,
-  //   use: [
-  //     'style-loader',
-  //     cssModulesLoader,
-  //     'postcss-loader',
-  //     'sass?sourceMap'
-  //   ]
-  // })
-
-  webpackConfig.module.rules.push({
-    test: /\.css$/,
-    use: [
-      'css-loader'
-    ]
-  })
-
-//}
-
-// Loaders for files that should not be treated as CSS modules.
-//const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
-// webpackConfig.module.rules.push({
-//   test: /\.scss$/,
-//   exclude: excludeCSSModules,
-//   use: [
-//     'style-loader',
-//     BASE_CSS_LOADER,
-//     'postcss-loader',
-//     'sass?sourceMap'
-//   ]
-// })
-// webpackConfig.module.rules.push({
-//   test: /\.css$/,
-//   exclude: excludeCSSModules,
-//   use: [
-//     'style-loader',
-//     BASE_CSS_LOADER,
-//     'postcss-loader'
-//   ]
-// })
-
-// ------------------------------------
-// Style Configuration
-// ------------------------------------
-// webpackConfig.sassLoader = {
-//   includePaths: paths.client('styles')
-// }
-
-//webpackConfig.postcss = [
-// webpackConfig.plugins.push(
-//   cssnano({
-//     autoprefixer: {
-//       add: true,
-//       remove: true,
-//       browsers: ['last 2 versions']
-//     },
-//     discardComments: {
-//       removeAll: true
-//     },
-//     discardUnused: false,
-//     mergeIdents: false,
-//     reduceIdents: false,
-//     safe: true,
-//     sourcemap: true
-//   })
-// )
-//]
+webpackConfig.module.rules.push({
+  test: /\.css$/,
+  use: [
+    'css-loader'
+  ]
+})
 
 // File loaders
 /* eslint-disable */

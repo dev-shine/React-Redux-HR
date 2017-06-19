@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
+import path from 'path'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -59,9 +60,9 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: `[name].[hash].js`,
-  path: "/dist", //paths.dist(),
-  publicPath: "/" //config.compiler_public_path
+  filename: '[name].[hash].js',
+  path: paths.dist(),
+  publicPath: config.compiler_public_path
 }
 
 // ------------------------------------
@@ -104,11 +105,11 @@ webpackConfig.plugins = [
 
 // Don't split bundles during testing, since we only want import one bundle
 //if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
-  )
+  // webpackConfig.plugins.push(
+  //   new webpack.optimize.CommonsChunkPlugin({
+  //     names: ['vendor']
+  //   })
+  // )
 // //}
 
 // ------------------------------------

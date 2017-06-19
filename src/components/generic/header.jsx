@@ -12,16 +12,8 @@ import LoadingIcon from './LoadingIcon';
 class Header extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-
-    };
   }
-  componentWillMount () {
 
-  }
-  componentWillReceiveProps (props) {
-
-  }
   render () {
     return (
           <div className="app-header white box-shadow m-b">

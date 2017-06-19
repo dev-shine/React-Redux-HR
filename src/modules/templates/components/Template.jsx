@@ -18,11 +18,11 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Divider from 'material-ui/Divider';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 import { CONFIG } from '../../config/index';
 import EditableDiv from '../../components/editor/EditableDiv';
 import LinearProgress from 'material-ui/LinearProgress';
 var FormData = require('form-data');
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 
 var moment = require('moment');
 

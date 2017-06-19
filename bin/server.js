@@ -1,9 +1,5 @@
-console.log('sdfsdfsdfsdfdsf')
-
 import config from '../config'
-console.log('aaa')
 import server from '../server/main'
-console.log('bbb')
 import _debug from 'debug'
 
 const debug = _debug('app:bin:server')

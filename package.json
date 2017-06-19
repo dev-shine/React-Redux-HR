@@ -35,6 +35,13 @@
         "NODE_ENV": "development"
       }
     },
+    "start:production": {
+      "command": "babel-node bin/server",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+
     "deploy:development": {
       "command": "rimraf dist && babel-node bin/compile",
       "env": {
@@ -44,12 +51,7 @@
 
 
 
-    "start:production": {
-      "command": "babel-node bin/server",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
+    
 
 
 

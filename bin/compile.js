@@ -30,15 +30,25 @@ import fs from 'fs-extra'
 import path from 'path'
 import chalk from 'chalk'
 import webpack from 'webpack'
-import webpackConfig from '../build/webpack.config.development'
+import webpackConfigDevelopment from '../build/webpack.config.development'
+import webpackConfigProduction from '../build/webpack.config.production'
 import logger from '../lib/logger'
+
+//import config from '../config'
 
 //const chalk = require('chalk')
 //const path = require('path')
 //const webpack = require('webpack')
 //const logger = require('../lib/logger')
 
+let webpackConfig = webpackConfigDevelopment;
 
+// console.log( config.env )
+// console.log( config.env )
+// console.log( config.env )
+// if( config.env === 'production' ){
+//   webpackConfig = webpackConfigProduction;
+// }
 
 //const webpackConfig = require('../build/webpack.config.development')
 //const project = require('../../project.config')

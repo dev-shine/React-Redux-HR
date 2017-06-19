@@ -37,7 +37,7 @@ const webpackConfig = {
       modules: `${projectRoot}/src/modules`,
       appRedux: `${projectRoot}/src/redux`,
     },
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.jsx', '.json'],
     modules: [
       "./src", //paths.client(),
       "node_modules"
@@ -51,7 +51,7 @@ const webpackConfig = {
 webpackConfig.entry = {
   'main' : [
     './src/main.js',
-    //'webpack-hot-middleware/client.js?path=/__webpack_hmr'
+    'webpack-hot-middleware/client.js?path=/__webpack_hmr'
   ]
 }
 
@@ -59,7 +59,7 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: `[name].[hash].js`,
+  filename: '[name].[hash].js',
   path: "/dist", //paths.dist(),
   publicPath: "/" //config.compiler_public_path
 }
@@ -67,8 +67,11 @@ webpackConfig.output = {
 // ------------------------------------
 // Plugins
 // ------------------------------------
+
+
+
 webpackConfig.plugins = [
-  //new webpack.DefinePlugin(config.globals),
+  new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
     template: './src/index.html', //paths.client('index.html'),
     hash: false,
@@ -85,7 +88,7 @@ webpackConfig.plugins = [
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    // new webpack.NoErrorsPlugin()  //deprecated.
   )
 // } else if (__PROD__) {
 //   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
@@ -104,11 +107,11 @@ webpackConfig.plugins = [
 
 // Don't split bundles during testing, since we only want import one bundle
 //if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
-  )
+  // webpackConfig.plugins.push(
+  //   new webpack.optimize.CommonsChunkPlugin({
+  //     names: ['vendor']
+  //   })
+  // )
 // //}
 
 // ------------------------------------

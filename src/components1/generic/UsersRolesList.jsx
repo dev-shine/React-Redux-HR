@@ -17,7 +17,7 @@ const UsersRolesList = ({users, onChange, disabledUser, roleName, assignedRole})
     let preSetUserId = _.result(_.find(assignedRole, function(obj) {  return obj.user_Id == userId; }), 'user_Id');
     let select = null;
     if( preSetUserId == userId ){ select = _.result(_.find(assignedRole, function(obj) {  return obj.user_Id == userId; }), 'role_Id'); }
-    if (_.isUndefined(disabledUser)) {
+    if (!_.isEmpty(user.slack_profile)) {
       profileImae = user.slack_profile.image_72;
       avatar = <img src={profileImae} />;
       param = user.user_Id;

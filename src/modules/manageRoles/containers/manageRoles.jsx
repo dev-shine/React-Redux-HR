@@ -24,6 +24,7 @@ class ManageRoles extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       status_message: '',
+      // hard coded userRoleUpdateDetails json object and will be removed after API will respond with this data in it
       userRoleUpdateDetails: [{'user_Id': '287', 'role_Id': '10' }, {'user_Id': '288', 'role_Id': '12' }, { 'user_Id': '300', 'role_Id': '14' }]
     };
     this.callAddNewRole = this.callAddNewRole.bind(this);

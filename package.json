@@ -20,9 +20,39 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
-    "codecov": "cat coverage/*/lcov.info | codecov"
+    "codecov": "cat coverage/*/lcov.info | codecov",
+
+    "start:development": "better-npm-run start:development",
+    "deploy:development": "better-npm-run deploy:development",
+
+    "start:production": "better-npm-run start:production"
   },
   "betterScripts": {
+
+    "start:development": {
+      "command": "babel-node bin/server",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "deploy:development": {
+      "command": "rimraf dist && babel-node bin/compile",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+
+
+
+    "start:production": {
+      "command": "babel-node bin/server",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+
+
+
     "compile": {
       "command": "babel-node bin/compile",
       "env": {

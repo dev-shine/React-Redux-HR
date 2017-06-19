@@ -1,12 +1,23 @@
+import config from '../config'
+
+console.log( config )
+
+
+
+// process.exit( 0 );
+
+
+
+
 import Koa from 'koa'
 import convert from 'koa-convert'
 import webpack from 'webpack'
-import webpackConfig from '../build/webpack.config'
+import webpackConfig from '../build/webpack.config.development'
 import historyApiFallback from 'koa-connect-history-api-fallback'
 import serve from 'koa-static'
 import proxy from 'koa-proxy'
 import _debug from 'debug'
-import config from '../config'
+
 import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
 
@@ -26,14 +37,28 @@ app.use(convert(historyApiFallback({
   verbose: false
 })))
 
+
+console.log('asdsadsadasdasd')
+console.log( config.env )
+
+// process.exit(0);
+
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
 if (config.env === 'development') {
+
+  
+   console.log('-----')
+    console.log('-----')
+
   const compiler = webpack(webpackConfig)
 
   // Enable webpack-dev and webpack-hot middleware
   const { publicPath } = webpackConfig.output
+
+ 
+  console.log('-----')
 
   app.use(webpackDevMiddleware(compiler, publicPath))
   app.use(webpackHMRMiddleware(compiler))
@@ -42,7 +67,8 @@ if (config.env === 'development') {
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
-  app.use(serve(paths.client('static')))
+  //app.use(serve(paths.client('static')))
+  app.use(serve('/static'))
 } else {
   debug(
     'Server is being run outside of live development mode, meaning it will ' +

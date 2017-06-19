@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import Message from 'components/generic/Message';

@@ -7,7 +7,6 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import RichTextEditor from 'react-rte';
 import update from 'react/lib/update';
 import * as _ from 'lodash'
-import Menu from '../../components/generic/Menu'
 import FilterLabel from '../../components/generic/FilterLabel'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import TextField from 'material-ui/TextField';

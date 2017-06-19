@@ -5,7 +5,7 @@ import {Router, browserHistory, Link, withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from '../../services/index';
 
-import Menu from '../../components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import UserHorizontalView from '../../components/generic/UserHorizontalView';
 import Header from '../../components/generic/header';

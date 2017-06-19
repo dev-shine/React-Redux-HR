@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actionsLogin from 'appRedux/auth/actions/index';

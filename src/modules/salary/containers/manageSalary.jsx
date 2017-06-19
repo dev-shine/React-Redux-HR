@@ -5,7 +5,7 @@ import moment from 'moment';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';

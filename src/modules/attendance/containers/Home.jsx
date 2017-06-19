@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';

@@ -5,7 +5,7 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import * as _ from 'lodash'
 import {notify} from '../../services/index'
 import { CONFIG } from '../../config/index'
-import Menu from '../../components/generic/Menu'
+import Menu from 'components/generic/Menu'
 import LoadingIcon from '../../components/generic/LoadingIcon'
 import TeamDetails from '../../components/attendance/TeamDetails'
 import * as actions_login from 'appRedux/auth/actions/index';

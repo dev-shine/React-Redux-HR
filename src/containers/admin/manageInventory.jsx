@@ -13,7 +13,7 @@ import * as actions_manageUsers from 'appRedux/manageUsers/actions/manageUsers';
 
 import UsersList from 'components/generic/UsersList';
 
-import Menu from '../../components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import Header from '../../components/generic/header';
 import FormAddNewInventory from '../../components/inventory/AddInventory';

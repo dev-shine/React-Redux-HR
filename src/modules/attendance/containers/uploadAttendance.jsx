@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
 import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';

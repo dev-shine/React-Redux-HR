@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions_attendanceSummary from 'appRedux/attendance/actions/attendanceSummary';
 

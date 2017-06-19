@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
 import * as actionsLogin from 'appRedux/auth/actions/index';

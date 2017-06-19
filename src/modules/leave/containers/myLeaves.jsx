@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
 import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
 import * as actions_login from 'appRedux/auth/actions/index';

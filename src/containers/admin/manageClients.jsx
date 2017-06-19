@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import * as _ from 'lodash';
 import {notify} from '../../services/index';
 
-import Menu from '../../components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import AlertNotification from 'components/generic/AlertNotification';
 import { CONFIG } from '../../config/index';

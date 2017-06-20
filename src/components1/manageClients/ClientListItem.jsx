@@ -30,5 +30,6 @@ ClientListItem.PropTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
+  onClientClick: PropTypes.func.isRequired,
   selectedClientId: PropTypes.string.isRequired
 };

@@ -8,8 +8,7 @@ let initialState = {
 
 export function manageClients (state = Immutable.fromJS(initialState), action) {
   if (action.type === 'ACTION_SUCCESS_CLIENT_DETAILS') {
-    return state.set('client_info', action.payload.client_info)
-        .set('client_invoices', action.payload.invoices);
+    return state.set('client_info', action.payload.client_info).set('client_invoices', action.payload.invoices);
   } else if (action.type === 'ACTION_EMPTY_CLIENT_DETAILS') {
     return state.set('status_message', action.payload);
   } else if (action.type === 'ACTION_ERROR_CLIENT_DETAILS') {

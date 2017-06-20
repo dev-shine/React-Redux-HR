@@ -26,17 +26,17 @@ export function getClientDetails (clientid) {
       dispatch(show_loading());
       asyncGetClientDetails(clientid).then(
 				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error === 0) {
-    dispatch(successClientDetails(json.data));
-  } else {
-    dispatch(emptyClientDetails(json.data.message));
-  }
-},
-  (error) => {
-    dispatch(hide_loading()); // hide loading icon
-    dispatch(errorClientDetails('error occurs!!!'));
-  }
+          dispatch(hide_loading());
+          if (json.error === 0) {
+            dispatch(successClientDetails(json.data));
+          } else {
+            dispatch(emptyClientDetails(json.data.message));
+          }
+        },
+        (error) => {
+          dispatch(hide_loading());
+          dispatch(errorClientDetails('error occurs!!!'));
+        }
 			);
     });
   };
@@ -73,29 +73,27 @@ export function addNewClient (new_client_details) {
     if (n_client_address === '') { return Promise.reject('Client Address is empty'); }
 
     return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading());
       async_add_new_client(n_client_name, n_client_address).then(
 				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-    dispatch(success_add_new_client(json.data.message));
-    reslove(1);
-  } else {
-    dispatch(error_add_new_client(json.data.message));
-    reslove(0);
-  }
-},
+          dispatch(hide_loading());
+          if (json.error == 0) {
+            dispatch(success_add_new_client(json.data.message));
+            reslove(1);
+          } else {
+            dispatch(error_add_new_client(json.data.message));
+            reslove(0);
+          }
+        },
 				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_add_new_client('error occurs!!!'));
-  reslove(0);
-}
+          dispatch(hide_loading());
+          dispatch(error_add_new_client('error occurs!!!'));
+          reslove(0);
+        }
 			);
     });
   };
 }
-
-// /-----update client info
 
 export function success_update_client_details (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_CLIENT_DETAILS)(data);
@@ -134,23 +132,23 @@ export function update_client_details (new_client_details) {
     if (n_client_address === '') { return Promise.reject('Client Address is empty'); }
 
     return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading());
       async_update_client_details(n_client_id, n_client_name, n_client_address).then(
 				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-    dispatch(success_update_client_details(json.data.message));
-    reslove(n_client_id);
+          dispatch(hide_loading());
+          if (json.error == 0) {
+            dispatch(success_update_client_details(json.data.message));
+            reslove(n_client_id);
 		 			} else {
 		 				dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS(json.data.message));
 		 				reslove(0);
 		 			}
-},
+        },
 				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS('error occurs!!!'));
-  reslove(0);
-}
+          dispatch(hide_loading());
+          dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS('error occurs!!!'));
+          reslove(0);
+        }
 			);
     });
   };
@@ -229,23 +227,23 @@ export function create_client_invoice (new_client_invoice_details) {
     if (n_due_date === '') { return Promise.reject('Due date is empty'); }
 
     return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading());
       async_create_client_invoice(n_client_id, n_client_name, n_client_address, n_currency, n_items, n_sub_total, n_service_tax, n_total_amount, n_due_date).then(
 				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error === 0) {
-    dispatch(success_add_new_client(json.data.message));
-    reslove(n_client_id);
+          dispatch(hide_loading());
+          if (json.error === 0) {
+            dispatch(success_add_new_client(json.data.message));
+            reslove(n_client_id);
 		 			} else {
 		 				dispatch(error_add_new_client(json.data.message));
 		 				reslove(0);
 		 			}
-},
+        },
 				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_add_new_client('error occurs!!!'));
-  reslove(0);
-}
+          dispatch(hide_loading());
+          dispatch(error_add_new_client('error occurs!!!'));
+          reslove(0);
+        }
 			);
     });
   };
@@ -274,23 +272,23 @@ export function delete_invoice (invoice_id) {
     if (n_invoice_id === '') { return Promise.reject('Invoice id is empty'); }
 
     return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
+      dispatch(show_loading());
       async_delete_invoice(invoice_id).then(
 				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-    dispatch(success_delete_invoice_delete(json.data.message));
-    reslove(1);
+          dispatch(hide_loading());
+          if (json.error == 0) {
+            dispatch(success_delete_invoice_delete(json.data.message));
+            reslove(1);
 		 			} else {
 		 				dispatch(error_delete_invoice_delete(json.data.message));
 		 				reslove(0);
 		 			}
-},
+        },
 				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_delete_invoice_delete('error occurs!!!'));
-  reslove(0);
-}
+          dispatch(hide_loading());
+          dispatch(error_delete_invoice_delete('error occurs!!!'));
+          reslove(0);
+        }
 			);
     });
   };

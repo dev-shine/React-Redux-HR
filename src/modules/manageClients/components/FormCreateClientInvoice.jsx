@@ -5,10 +5,10 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { DateField } from 'react-date-picker';
 import 'react-date-picker/index.css';
-import { Button, ButtonRaised } from 'components/generic/buttons/';
+import { Button, ButtonRaised } from 'components/generic/buttons';
 
 class FormCreateClientInvoice extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       open: false,
@@ -31,17 +31,17 @@ class FormCreateClientInvoice extends React.Component {
     this._removeInvoiceItem = this._removeInvoiceItem.bind(this);
     this.createClientInvoice = this.createClientInvoice.bind(this);
   }
-  handleOpen () {
+  handleOpen() {
     this.setState({
       open: true,
       items_array: [],
       total_amount: 0
     });
   }
-  handleClose () {
+  handleClose() {
     this.setState({open: false});
   }
-  _removeInvoiceItem (id) {
+  _removeInvoiceItem(id) {
     let newItems = _.filter(this.state.items_array, (item, keyval) => {
       if (keyval === id) {
         return false;
@@ -59,7 +59,7 @@ class FormCreateClientInvoice extends React.Component {
       total_amount: finalTotalAmount
     });
   }
-  createClientInvoice () {
+  createClientInvoice() {
     this.handleClose();
     this.props.callCreateClientInvoice({
       client_id: this.state.client_id,
@@ -73,7 +73,7 @@ class FormCreateClientInvoice extends React.Component {
       due_date: this.state.due_date
     });
   }
-  componentWillReceiveProps (props) {
+  componentWillReceiveProps(props) {
     let open = this.state.open;
     if (props.showForm !== false) {
       this.handleClose();
@@ -85,7 +85,7 @@ class FormCreateClientInvoice extends React.Component {
       client_address: props.clientAddress
     });
   }
-  _addNewInvoiceItem () {
+  _addNewInvoiceItem() {
     let itemTotal = this.state.item_total_price;
     let newTotalAmount = this.state.total_amount;
     newTotalAmount = +newTotalAmount + +itemTotal;
@@ -106,10 +106,10 @@ class FormCreateClientInvoice extends React.Component {
       sub_total: newTotalAmount
     });
   }
-  render () {
+  render() {
     let ItemsList = _.map(this.state.items_array, (item, keyval) => {
       let num = keyval + 1;
-      return (
+      return(
         <tr key={keyval}>
           <td>
             <button className="btn btn-icon white" onTouchTap={() => { this._removeInvoiceItem(keyval); }}>
@@ -123,7 +123,7 @@ class FormCreateClientInvoice extends React.Component {
         </tr>
       );
     });
-    return (
+    return(
       <div >
         <Dialog modal={false} open={this.state.open} onRequestClose={() => this.handleClose()} contentStyle={{width: '80%', maxWidth: 'none'}} autoScrollBodyContent>
           <div className="row">
@@ -260,24 +260,12 @@ class FormCreateClientInvoice extends React.Component {
 export default FormCreateClientInvoice;
 
 FormCreateClientInvoice.PropTypes = {
-  open: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  client_id: PropTypes.string.isRequired,
-  client_name: PropTypes.string.isRequired,
-  client_address: PropTypes.string.isRequired,
-  currency: PropTypes.string.isRequired,
-  due_date: PropTypes.string.isRequired,
-  items_array: PropTypes.array.isRequired,
-  sub_total: PropTypes.number.isRequired,
-  service_tax: PropTypes.number.isRequired,
-  total_amount: PropTypes.number.isRequired,
-  item_description: PropTypes.string.isRequired,
-  item_unit_price: PropTypes.string.isRequired,
-  item_total_price: PropTypes.string.isRequired,
-  handleOpen: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
   _addNewInvoiceItem: PropTypes.func.isRequired,
   _removeInvoiceItem: PropTypes.func.isRequired,
   createClientInvoice: PropTypes.func.isRequired,
-  callCreateClientInvoice: PropTypes.func.isRequired
+  callCreateClientInvoice: PropTypes.func.isRequired,
+  showForm: PropTypes.string.isRequired,
+  clientId: PropTypes.string.isRequired,
+  clientName: PropTypes.string.isRequired,
+  clientAddress: PropTypes.string.isRequired
 };

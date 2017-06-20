@@ -8,7 +8,7 @@ const ClientListItem = ({ client, selectedClientId, onClientClick }) => {
   if (selectedClientId === client.id) {
     backgroundClass = {'background': '#03a9f4', 'color': 'white'};
   }
-  return (
+  return(
     <li className="list-item" onClick={() => onClientClick(client.id)} style={backgroundClass}>
       <div className="list-left">
         <span className="w-40 r-2x _600 text-lg accent">
@@ -25,17 +25,10 @@ const ClientListItem = ({ client, selectedClientId, onClientClick }) => {
 
 export default ClientListItem;
 
-ClientListItem.styles = {
-  cursorPointer: {'cursor': 'pointer'},
-  selectedUser: {'background': '#03a9f4', 'color': 'white'}
-};
-
 ClientListItem.PropTypes = {
-  client: PropTypes.object.isRequired,
-  clientName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  fcName: PropTypes.string.isRequired,
-  backgroundClass: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
+  client: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
   selectedClientId: PropTypes.string.isRequired
 };

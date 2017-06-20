@@ -26,9 +26,6 @@ export default ClientsList;
 
 ClientsList.PropTypes = {
   clients: PropTypes.object.isRequired,
-  client: PropTypes.object.isRequired,
   selectedClientId: PropTypes.string.isRequired,
-  onClientClick: PropTypes.func.isRequired,
-  clientsList: PropTypes.object.isRequired,
-  keyval: PropTypes.number
+  onClientClick: PropTypes.func.isRequired
 };

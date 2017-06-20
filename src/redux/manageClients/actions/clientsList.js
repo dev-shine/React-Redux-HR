@@ -21,16 +21,16 @@ export function get_clients_list () {
       dispatch(show_loading());
       async_get_clients_list().then(
 				(json) => {
-  dispatch(hide_loading());
-  if (json.error === 0) {
-    dispatch(success_clients_list(json.data));
-  } else {
-    dispatch(empty_clients_list([]));
-  }
-}, (error) => {
-        dispatch(hide_loading()); // hide loading icon
-        dispatch(error_clients_list([]));
-      }
+          dispatch(hide_loading());
+          if (json.error === 0) {
+            dispatch(success_clients_list(json.data));
+          } else {
+            dispatch(empty_clients_list([]));
+          }
+        }, (error) => {
+          dispatch(hide_loading()); // hide loading icon
+          dispatch(error_clients_list([]));
+        }
 			);
     });
   };

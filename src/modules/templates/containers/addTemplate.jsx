@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { Router, browserHistory, Link, withRouter } from 'react-router';
 
 import * as _ from 'lodash';
-import Menu from '../../components/generic/Menu';
-import LoadingIcon from '../../components/generic/LoadingIcon';
-import Header from '../../components/generic/header';
+import Menu from 'src/components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import Header from 'components/generic/Header';
 
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
-import * as actions_templates from '../../actions/admin/templates';
+import * as actions_templates from 'appRedux/templates/actions/templates';
 
-import Template from '../../components/attendance/Template';
-import { CONFIG } from '../../config/index';
+import Template from '../components/Template';
+import {CONFIG} from 'src/config/index';
 
 class TemplateContainer extends React.Component {
   constructor (props) {

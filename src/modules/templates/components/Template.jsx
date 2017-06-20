@@ -1,5 +1,3 @@
-//require('../../components/css/template.scss');
-
 import React from 'react';
 import { connect } from 'react-redux'
 import { Router, browserHistory, Link, withRouter } from 'react-router'
@@ -7,9 +5,12 @@ import { Router, browserHistory, Link, withRouter } from 'react-router'
 import RichTextEditor from 'react-rte';
 import update from 'react/lib/update';
 import * as _ from 'lodash'
-import Menu from '../../components/generic/Menu'
-import FilterLabel from '../../components/generic/FilterLabel'
-import LoadingIcon from '../../components/generic/LoadingIcon'
+import {CONFIG} from 'src/config/index';
+import Menu from 'src/components/generic/Menu';
+import EditableDiv from 'src/components1/editor/EditableDiv';
+// import FilterLabel from '../../components/generic/FilterLabel'
+
+import LoadingIcon from 'components/generic/LoadingIcon';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,9 +19,8 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Divider from 'material-ui/Divider';
-import { CONFIG } from '../../config/index';
-import EditableDiv from '../../components/editor/EditableDiv';
 import LinearProgress from 'material-ui/LinearProgress';
+
 var FormData = require('form-data');
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}from 'material-ui/Table';
 
@@ -184,6 +184,7 @@ class Variables extends React.Component {
         this.download_mail_preview = this.download_mail_preview.bind(this)
         this.uploadPDF=this.uploadPDF.bind(this)
         this.deleteAttachment = this.deleteAttachment.bind(this)
+
         //this.finalUpload = this.finalUpload.bind(this)
 
         this.variables = [];
@@ -458,6 +459,7 @@ class Variables extends React.Component {
         this.setState({
           cc: recipient
         });
+
       }else if(recipientType == "BCC"){
         let recipient = this.state.bcc;
         status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');

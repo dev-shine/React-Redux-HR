@@ -24,8 +24,6 @@ class ManageRoles extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       status_message: '',
-      // hard coded userRoleUpdateDetails json object and will be removed after API will respond with this data in it
-      userRoleUpdateDetails: [{'user_Id': '287', 'role_Id': '10' }, {'user_Id': '288', 'role_Id': '12' }, { 'user_Id': '300', 'role_Id': '14' }]
     };
     this.callAddNewRole = this.callAddNewRole.bind(this);
     this.handleChangeActions = this.handleChangeActions.bind(this);
@@ -35,7 +33,6 @@ class ManageRoles extends React.Component {
   }
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();
-    this.props.onUsersList();
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
@@ -53,7 +50,6 @@ class ManageRoles extends React.Component {
         }
       } else {
         this.props.router.push('/manage_roles');
-        // this.setState({ userRoleUpdateDetails : this.props.manageRoles.rolesData.users_list});
       }
     }
   }
@@ -116,11 +112,8 @@ class ManageRoles extends React.Component {
                   <div className="row box">
                     <div className="col-md-12 p-t">
                       <UsersRolesList
-                        users= {this.props.usersList.users}
+                        users= {this.props.manageRoles.rolesData}
                         onChange= {(userId, roleId) => {this.onUserClick(userId, roleId); }}
-                        disabledUser= {this.props.usersList.disabled_users}
-                        roleName= {this.props.manageRoles.rolesData.roles}
-                        assignedRole = {this.state.userRoleUpdateDetails}
                        />
                     </div>
                   </div>
@@ -147,7 +140,6 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
-    onUsersList: () => { return dispatch(actionsUsersList.get_users_list()); },
     onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
     onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
     onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },

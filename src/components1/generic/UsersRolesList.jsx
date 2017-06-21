@@ -7,40 +7,42 @@ const styles = {
   cursorPointer: {'cursor': 'pointer'}
 };
 
-const UsersRolesList = ({users, onChange, disabledUser, roleName, assignedRole}) => {
-  let usersList = _.map(users, (user, key) => {
-    let avatar = '';
-    let param = '';
-    let profileImae = '';
-    let backgroundClass = styles.cursorPointer;
-    let userId = user.user_Id;
-    let preSetUserId = _.result(_.find(assignedRole, function(obj) {  return obj.user_Id == userId; }), 'user_Id');
-    let select = null;
-    if( preSetUserId == userId ){ select = _.result(_.find(assignedRole, function(obj) {  return obj.user_Id == userId; }), 'role_Id'); }
-    if (!_.isEmpty(user.slack_profile)) {
-      profileImae = user.slack_profile.image_72;
-      avatar = <img src={profileImae} />;
-      param = user.user_Id;
-    } else {
-      profileImae = user.name.charAt(0);
-      avatar = <Avatar>{profileImae}</Avatar>;
-      param = user;
-    }
-    let optionMenu = _.map(roleName, (name, index) => {
-      return( <option key={index} value={name.id} >{name.name}</option> );
+const UsersRolesList = ({ users, onChange }) => {
+  let usersList = '';
+  if(users.users_list !== undefined ){
+    let data = users.users_list.data;
+    let roleName = users.roles;
+    usersList = _.map(data, (user, key) => {
+      let avatar = '';
+      let profileImae = '';
+      let backgroundClass = styles.cursorPointer;
+      let userId = user.user_Id;
+      let roleId = user.role_id;
+      let select = null;
+      if( roleId !== undefined ){ select = roleId; }
+      if (!_.isEmpty(user.slack_profile)) {
+        profileImae = user.slack_profile.image_72;
+        avatar = <img src={profileImae} />;
+      } else {
+        profileImae = user.name.charAt(0);
+        avatar = <Avatar>{profileImae}</Avatar>;
+      }
+      let optionMenu = _.map(roleName, (name, index) => {
+        return( <option key={index} value={name.id} >{name.name}</option> );
+      });
+      let selectMenu = <select name={userId} onChange={(e) => {onChange(userId, e.target.value);}} defaultValue={select} ><option key={userId} value="0"> SELECT ROLE </option>{optionMenu}</select>;
+      return (
+        <li className="list-item" key={key} style={backgroundClass}>
+            <div className="list-left"><span className="w-40 avatar">{avatar}</span></div>
+            <div className="list-body">
+              <div>{user.name}</div>
+              <small className="text-muted text-ellipsis">{user.jobtitle}</small>
+              <small className="text-muted text-ellipsis"><b>Role : </b>{selectMenu}</small>
+            </div>
+        </li>
+      );
     });
-    let selectMenu = <select name={userId} onChange={(e) => {onChange(userId, e.target.value);}} defaultValue={select} ><option key={userId} value="0"> SELECT ROLE </option>{optionMenu}</select>;
-    return (
-      <li className="list-item" key={key} style={backgroundClass}>
-          <div className="list-left"><span className="w-40 avatar">{avatar}</span></div>
-          <div className="list-body">
-            <div>{user.name}</div>
-            <small className="text-muted text-ellipsis">{user.jobtitle}</small>
-            <small className="text-muted text-ellipsis"><b>Role : </b>{selectMenu}</small>
-          </div>
-      </li>
-    );
-  });
+  }
   return (
     <div className="row">
       <div className="col-12">
@@ -55,12 +57,10 @@ const UsersRolesList = ({users, onChange, disabledUser, roleName, assignedRole})
 };
 
 UsersRolesList.PropTypes = {
-  users: PropTypes.array.isRequired,
-  selectedUserId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
-  disabledUser: PropTypes.bool
+  users: PropTypes.shape({
+    users_list: PropTypes.Object
+  }).isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default UsersRolesList;

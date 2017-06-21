@@ -50,7 +50,7 @@ import Page_ManageUserPendingHours from './modules/workingHours/containers/manag
 // -----------------------------
 
 // -admin
-import Page_ManageClients from './containers/admin/manageClients';
+import PageManageClients from 'modules/manageClients/containers/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
 
 import Page_mail_template from './modules/templates/containers/addTemplate';
@@ -169,7 +169,7 @@ let render = (routerKey = null) => {
             <Route path="my_profile" component={Page_MyProfile} />
             <Route path="my_inventory" component={Page_MyInventory} />
             <Route path="manage_users" component={PageManageUsers} />
-            <Route path="manage_clients" component={Page_ManageClients} />
+            <Route path="manage_clients" component={PageManageClients} />
             <Route path="manage_payslips" component={Page_ManagePayslips} />
             <Route path="forgot_password" component={Page_ForgotPassword} />
             <Route path="documents" component={Page_MyDocuments} />

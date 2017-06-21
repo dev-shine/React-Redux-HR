@@ -3,7 +3,7 @@ import applyExpressMiddleware from '../lib/apply-express-middleware'
 import _debug from 'debug'
 import config from '../../config'
 
-const paths = config.utils_paths
+//const paths = config.utils_paths
 const debug = _debug('app:server:webpack-dev')
 
 export default function (compiler, publicPath) {
@@ -11,12 +11,16 @@ export default function (compiler, publicPath) {
 
   const middleware = WebpackDevMiddleware(compiler, {
     publicPath,
-    contentBase: paths.client(),
+    contentBase: "./src", //paths.client(),
     hot: true,
-    quiet: config.compiler_quiet,
-    noInfo: config.compiler_quiet,
+    quiet: false,// config.compiler_quiet,
+    noInfo: false, //config.compiler_quiet,
     lazy: false,
-    stats: config.compiler_stats
+    stats:  { //, config.compiler_stats
+      chunks: false,
+      chunkModules: false,
+      colors: true
+    }
   })
 
   return async function koaWebpackDevMiddleware (ctx, next) {

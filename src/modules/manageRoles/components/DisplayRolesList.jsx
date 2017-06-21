@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'components/generic/buttons/';
 import _ from 'lodash';
 
-const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification}) => {
+const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification, handleDelete}) => {
   let rolesData = displayData.roles;
   if(typeof rolesData !== undefined || rolesData !== null ){
     let rolesList = _.map(rolesData, (value, key) => {
@@ -54,7 +54,7 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
       return (
         <div key={key}>
           <div className="col-xs-12">
-            <h4 className="m-a-0 text-lg">{value.name}</h4>
+            <h4 className="m-a-0 text-lg"><span className="col-sm-6">{value.name}</span> <span onClick={() => {handleDelete(value.id)}} className="text-sm">Delete Role</span></h4>
             <span className="text-sm">{value.description}</span>
             <div className="table-responsive p-t p-r p-b p-l">
               <table className="table table-condensed">

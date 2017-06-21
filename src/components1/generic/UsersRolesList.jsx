@@ -18,8 +18,9 @@ const UsersRolesList = ({ users, onChange }) => {
       let backgroundClass = styles.cursorPointer;
       let userId = user.user_Id;
       let roleId = user.role_id;
-      let select = null;
-      if( roleId !== undefined ){ select = roleId; }
+      let select = 0;
+      if( roleId !== undefined && roleId !== null ){ select = roleId; }
+      else { select = 0; }
       if (!_.isEmpty(user.slack_profile)) {
         profileImae = user.slack_profile.image_72;
         avatar = <img src={profileImae} />;

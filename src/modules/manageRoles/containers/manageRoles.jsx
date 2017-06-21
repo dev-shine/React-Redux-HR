@@ -80,6 +80,9 @@ class ManageRoles extends React.Component {
       notify(error);
     });
   }
+  handleDelete(id){
+    this.props.onDelete(id).then((data) => { notify(data); }, (error) => { notify(error); });
+  }
   render () {
     return (
       <div>
@@ -103,6 +106,7 @@ class ManageRoles extends React.Component {
                         handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId) }
                         handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId) }
                         handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId) }
+                        handleDelete={(id) => this.handleDelete(id) }
                       />
                     </div>
                   </div>
@@ -144,7 +148,8 @@ const mapDispatchToProps = (dispatch) => {
     onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
     onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },
     onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
-    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); }
+    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
+    onDelete: (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
   };
 };
 

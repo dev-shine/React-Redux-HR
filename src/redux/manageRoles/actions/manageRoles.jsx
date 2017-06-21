@@ -49,7 +49,7 @@ export function addNewRole (new_role) {
           reject(json.message);
         }
       }, (error) => {
-        dispatch(hide_loading()); // hide loading icon
+        dispatch(hide_loading());
         dispatch(errorAddNewRole('error occurs!!!'));
         reject('error occurs!!!');
       });
@@ -78,19 +78,19 @@ function asyncGetRolesList () {
 export function getRolesList () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()) // show loading icon
+      dispatch(show_loading());
       asyncGetRolesList().then(
 				(json) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading());
           if (json.error == 0) {
-          	dispatch(successRolesList(json.data))
+          	dispatch(successRolesList(json.data));
           } else {
-          	dispatch(emptyRolesList([]))
+          	dispatch(emptyRolesList([]));
           }
         },
 				(error) => {
-          dispatch(hide_loading()) // hide loading icon
-          dispatch(errorRolesList([]))
+          dispatch(hide_loading());
+          dispatch(errorRolesList([]));
         }
 			)
     })
@@ -139,7 +139,7 @@ export function updateRoles (roleUpdateDetails) {
             dispatch(errorUpdateRoles(json.message));
           }
         }, (error) => {
-          dispatch(hide_loading()); // hide loading icon
+          dispatch(hide_loading());
           dispatch(errorUpdateRoles('error occurs!!!'));
         });
     });
@@ -184,9 +184,50 @@ export function updateUserRole (userRoleUpdateDetails) {
             dispatch(errorUpdateUserRole(json.message));
           }
         }, (error) => {
-          dispatch(hide_loading()); // hide loading icon
+          dispatch(hide_loading());
           dispatch(errorUpdateUserRole('error occurs!!!'));
         });
+    });
+  };
+}
+
+export function successDeleteRole (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_ROLE)(data);
+}
+
+export function errorDeleteRole (data) {
+  return createAction(constants.ACTION_ERROR_ADD_ROLE)(data);
+}
+
+function asyncDeleteRole (id) {
+  return fireAjax('POST', '', {
+    'action': 'delete_role',
+    'role_id': id
+  });
+}
+
+export function deleteRole (id) {
+  return function (dispatch, getState) {
+
+    if (typeof id === 'undefined' || id == '') { return Promise.reject('Delete Id is empty'); }
+
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading());
+      asyncDeleteRole(id).then((json) => {
+        dispatch(hide_loading());
+        if (json.error == 0) {
+          dispatch(getRolesList());
+          dispatch(successDeleteRole(json.message));
+          reslove(json.message);
+        } else {
+          dispatch(errorDeleteRole(json.message));
+          reject(json.message);
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorDeleteRole('error occurs!!!'));
+        reject('error occurs!!!');
+      });
     });
   };
 }

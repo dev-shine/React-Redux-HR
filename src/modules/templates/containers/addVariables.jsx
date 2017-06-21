@@ -19,8 +19,6 @@ class VariablesContainer extends React.Component {
   constructor (props) {
     super(props);
     this.props.onIsAlreadyLogin();
-    this.state = {
-    };
   }
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();

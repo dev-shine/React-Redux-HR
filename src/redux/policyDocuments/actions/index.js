@@ -8,72 +8,73 @@ import * as constants from 'appRedux/constants';
 
 // -----------isUserAcceptedDocumentPolicy-----------
 export function successFetchPolicyDocuments (data) {
-  return createAction(constants.ACTION_POLICY_DOCUMENT_SUCCESS)(data)
+  return createAction(constants.ACTION_POLICY_DOCUMENT_SUCCESS)(data);
 }
 export function errorFetchPolicyDocuments (data) {
-  return createAction(constants.ACTION_POLICY_DOCUMENT_FAIL)(data)
+  return createAction(constants.ACTION_POLICY_DOCUMENT_FAIL)(data);
 }
 
 // -------------get policy documents for admin section-------------
 function asyncFetchPolicyDocument () {
   return fireAjax('POST', '', {
     action: 'get_policy_document'
-  })
+  });
 }
 
 export function fetchPolicyDocument () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()) // show loading icon
+      dispatch(show_loading()); // show loading icon
       asyncFetchPolicyDocument().then(
         (json) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading()); // hide loading icon
           if (!_.isUndefined(json.error) && json.error == 0) {
             let data = _.isNull(json.data) ? [] : json.data;
-            dispatch(successFetchPolicyDocuments(data))
-            resolve()
+            dispatch(successFetchPolicyDocuments(data));
+            resolve();
           } else {
-            dispatch(errorFetchPolicyDocuments(json.data.message))
-            reject(json.data.message)
+            dispatch(errorFetchPolicyDocuments(json.data.message));
+            reject(json.data.message);
           }
         },
         (error) => {
-          dispatch(hide_loading()) // hide loading icon
-          reject('error occurs')
+          dispatch(hide_loading()); // hide loading icon
+          reject('error occurs');
         }
-      )
-    })
-  }
+      );
+    });
+  };
 }
 // -----------get policy documents for user-----------------
 function asyncFetchUserPolicyDocument () {
   return fireAjax('POST', '', {
     action: 'get_user_policy_document'
-  })
+  });
 }
 
 export function fetchUserPolicyDocument () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()) // show loading icon
+      dispatch(show_loading()); // show loading icon
       asyncFetchUserPolicyDocument().then(
         (json) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' || json.error == 0) {
-            dispatch(successFetchPolicyDocuments(json.data))
-            resolve()
+            console.log(json.data);
+            dispatch(successFetchPolicyDocuments(json.data));
+            resolve(json.data);
           } else {
-            dispatch(errorFetchPolicyDocuments(json.data.message))
-            reject(json.data.message)
+            dispatch(errorFetchPolicyDocuments(json.data.message));
+            reject(json.data.message);
           }
         },
         (error) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading()); // hide loading icon
           // reject( 'error occurs' )
         }
-      )
-    })
-  }
+      );
+    });
+  };
 }
 
 // -----------Submit policy document info-----------
@@ -83,30 +84,30 @@ function asyncSubmitDocs (docs) {
     action: 'save_policy_document',
     type: 'policy_document',
     value: JSON.stringify(docs)
-  })
+  });
 }
 
 export function submitDocs (docs) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()) // show loading icon
+      dispatch(show_loading()); // show loading icon
       asyncSubmitDocs(docs).then(
         (json) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(fetchPolicyDocument())
-            resolve(json.data.message)
+            dispatch(fetchPolicyDocument());
+            resolve(json.data.message);
           } else {
-            reject(json.data.message)
+            reject(json.data.message);
           }
         },
         (error) => {
-          dispatch(hide_loading()) // hide loading icon
-          reject('error occurs')
+          dispatch(hide_loading()); // hide loading icon
+          reject('error occurs');
         }
-      )
-    })
-  }
+      );
+    });
+  };
 }
 
 // -----------update Read Status of policy document-----------
@@ -115,28 +116,28 @@ function asyncUpdateReadStatus (updateDoc) {
   return fireAjax('POST', '', {
     action: 'update_user_policy_document',
     policy_document: JSON.stringify(updateDoc)
-  })
+  });
 }
 
 export function updateReadStatus (updateDoc) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      dispatch(show_loading()) // show loading icon
+      dispatch(show_loading()); // show loading icon
       asyncUpdateReadStatus(updateDoc).then(
         (json) => {
-          dispatch(hide_loading()) // hide loading icon
+          dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(fetchUserPolicyDocument())
-            resolve(json.data.message)
+            dispatch(fetchUserPolicyDocument());
+            resolve(json.data.message);
           } else {
-            reject(json.data.message)
+            reject(json.data.message);
           }
         },
         (error) => {
-          dispatch(hide_loading()) // hide loading icon
-          reject('error occurs')
+          dispatch(hide_loading()); // hide loading icon
+          reject('error occurs');
         }
-      )
-    })
-  }
+      );
+    });
+  };
 }

@@ -55,3 +55,7 @@ export default class AddRolesForm extends React.Component {
     );
   }
 }
+
+AddRolesForm.PropTypes = {
+  callAddNewRole: PropTypes.func.isRequired
+};

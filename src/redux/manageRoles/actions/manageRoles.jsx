@@ -36,17 +36,15 @@ export function addNewRole (new_role) {
       description = new_role.description;
     }
 
-    return new Promise((reslove, reject) => {
+    return new Promise(() => {
       dispatch(show_loading());
       asyncAddNewRole(name, description).then((json) => {
         dispatch(hide_loading());
         if (json.error == 0) {
           dispatch(successAddNewRole(json.message));
           dispatch(getRolesList());
-          reslove(json.message);
         } else {
           dispatch(errorAddNewRole(json.message));
-          reject(json.message);
         }
       }, (error) => {
         dispatch(hide_loading());
@@ -128,7 +126,7 @@ export function updateRoles (roleUpdateDetails) {
 
     if (rolesId.trim() === '') {  return Promise.reject('User id is empty'); }
 
-    return new Promise((reslove, reject) => {
+    return new Promise(() => {
       dispatch(show_loading());
       asyncUpdateRoles(notificationId, rolesId, actionId, pageId).then((json) => {
         dispatch(hide_loading());
@@ -169,18 +167,16 @@ export function updateUserRole (userRoleUpdateDetails) {
     if (typeof userRoleUpdateDetails.roleId !== 'undefined') { roleId = userRoleUpdateDetails.roleId; }
     if (typeof userRoleUpdateDetails.userId !== 'undefined') { userId = userRoleUpdateDetails.userId; }
 
-    if (roleId.trim() === '') {  return Promise.reject('Role id is empty'); }
+    if (roleId.trim() === '') {  return null; }
     if (userId.trim() === '') {  return Promise.reject('User id is empty'); }
 
-    return new Promise((reslove, reject) => {
+    return new Promise(() => {
       dispatch(show_loading());
       asyncUpdateUserRole(userId, roleId).then((json) => {
         dispatch(hide_loading());
           if (json.error == 0) {
-            reslove(json.message);
             dispatch(successUpdateUserRole(json.message));
           } else {
-            reject(json.message);
             dispatch(errorUpdateUserRole(json.message));
           }
         }, (error) => {
@@ -189,14 +185,6 @@ export function updateUserRole (userRoleUpdateDetails) {
         });
     });
   };
-}
-
-export function successDeleteRole (data) {
-  return createAction(constants.ACTION_SUCCESS_ADD_ROLE)(data);
-}
-
-export function errorDeleteRole (data) {
-  return createAction(constants.ACTION_ERROR_ADD_ROLE)(data);
 }
 
 function asyncDeleteRole (id) {
@@ -208,24 +196,19 @@ function asyncDeleteRole (id) {
 
 export function deleteRole (id) {
   return function (dispatch, getState) {
-
     if (typeof id === 'undefined' || id == '') { return Promise.reject('Delete Id is empty'); }
-
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading());
       asyncDeleteRole(id).then((json) => {
         dispatch(hide_loading());
         if (json.error == 0) {
+          resolve(json.message);
           dispatch(getRolesList());
-          dispatch(successDeleteRole(json.message));
-          reslove(json.message);
         } else {
-          dispatch(errorDeleteRole(json.message));
           reject(json.message);
         }
       }, (error) => {
         dispatch(hide_loading());
-        dispatch(errorDeleteRole('error occurs!!!'));
         reject('error occurs!!!');
       });
     });

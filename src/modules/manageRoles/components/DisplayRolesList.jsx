@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import { Button } from 'components/generic/buttons/';
@@ -54,8 +55,18 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
       return (
         <div key={key}>
           <div className="col-xs-12">
-            <h4 className="m-a-0 text-lg"><span className="col-sm-6">{value.name}</span> <span onClick={() => {handleDelete(value.id)}} className="text-sm">Delete Role</span></h4>
-            <span className="text-sm">{value.description}</span>
+            <h4 className="m-a-0 text-lg">
+              <span className="col-sm-10">{value.name}</span>
+              <Link
+                to="/manage_roles"
+                className="text-sm text-danger"
+                onClick={() => {
+                  var confirmFlag = confirm('Do you want to Delete the Role ?');
+                  if(confirmFlag){ handleDelete(value.id) }
+                }}><i>Delete Role</i>
+              </Link>
+            </h4>
+            <span className="col-sm-12 text-sm">{value.description}</span>
             <div className="table-responsive p-t p-r p-b p-l">
               <table className="table table-condensed">
                 <thead><tr><th>Pages</th><th>Actions</th><th>Notification</th></tr></thead>
@@ -78,3 +89,13 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
 }
 
 export default DisplayRolesList;
+
+DisplayRolesList.PropTypes = {
+  displayData: PropTypes.shape({
+    roles: PropTypes.object.isRequired
+  }).isRequired,
+  handleChangeActions: PropTypes.func.isRequired,
+  handleChangePages: PropTypes.func.isRequired,
+  handleChangeNotification: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};

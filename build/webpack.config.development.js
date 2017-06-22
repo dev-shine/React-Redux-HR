@@ -31,6 +31,7 @@ const webpackConfig = {
   },
   module: {}
 }
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
@@ -71,7 +72,6 @@ debug('Enable plugins for live development (HMR, NoErrors).')
 webpackConfig.plugins.push(
   new webpack.HotModuleReplacementPlugin()
 )
-
 // ------------------------------------
 // Loaders
 // ------------------------------------
@@ -100,11 +100,14 @@ webpackConfig.module.rules = [{
 // Style Loaders
 // ------------------------------------
 webpackConfig.module.rules.push({
-  test: /\.css$/,
+  test: /\.(css|sass|scss)$/,
   use: [
-    'css-loader'
+    'style-loader',
+    'css-loader',
+    'sass-loader',
+    'postcss-loader'
   ]
-})
+});
 
 // File loaders
 /* eslint-disable */

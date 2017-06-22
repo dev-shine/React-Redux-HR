@@ -11,6 +11,7 @@ const paths = config.utils_paths
 //const {__DEV__, __PROD__, __TEST__} = config.globals
 const projectRoot = process.cwd();
 debug('Create configuration.')
+
 // const webpackConfig = {
 //   name: 'client',
 //   target: 'web',
@@ -46,6 +47,7 @@ const webpackConfig = {
   },
   module: {}
 }
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
@@ -205,17 +207,20 @@ webpackConfig.module.rules = [{
   //   ]
   // })
 
-  webpackConfig.module.rules.push({
-    test: /\.css$/,
-    use: [
-      'css-loader'
-    ]
-  })
+webpackConfig.module.rules.push({
+  test: /\.(css|sass|scss)$/,
+  use: [
+    'style-loader',
+    'css-loader',
+    'sass-loader',
+    'postcss-loader'
+  ]
+});
 
-//}
+// }
 
 // Loaders for files that should not be treated as CSS modules.
-//const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
+// const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
 // webpackConfig.module.rules.push({
 //   test: /\.scss$/,
 //   exclude: excludeCSSModules,

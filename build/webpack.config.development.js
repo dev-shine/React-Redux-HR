@@ -1,16 +1,16 @@
-import webpack from 'webpack'
-import cssnano from 'cssnano'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import config from '../config'
-import _debug from 'debug'
-import path from 'path'
+import webpack from 'webpack';
+import cssnano from 'cssnano';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import config from '../config';
+import _debug from 'debug';
+import path from 'path';
 
-const debug = _debug('app:webpack:config')
-const paths = config.utils_paths
+const debug = _debug('app:webpack:config');
+const paths = config.utils_paths;
 
 const projectRoot = process.cwd();
-debug('Create configuration.')
+debug('Create configuration.');
 
 const webpackConfig = {
   name: 'client',
@@ -21,25 +21,25 @@ const webpackConfig = {
       src: `${projectRoot}/src`,
       components: `${projectRoot}/src/components1`,
       modules: `${projectRoot}/src/modules`,
-      appRedux: `${projectRoot}/src/redux`,
+      appRedux: `${projectRoot}/src/redux`
     },
     extensions: ['*', '.js', '.jsx', '.json'],
     modules: [
-      "./src", //paths.client(),
-      "node_modules"
+      './src', // paths.client(),
+      'node_modules'
     ]
   },
   module: {}
-}
+};
 // ------------------------------------
 // Entry Points
 // ------------------------------------
 webpackConfig.entry = {
-  'main' : [
+  'main': [
     './src/main.js',
     'webpack-hot-middleware/client.js?path=/__webpack_hmr'
   ]
-}
+};
 
 // ------------------------------------
 // Bundle Output
@@ -48,7 +48,7 @@ webpackConfig.output = {
   filename: '[name].[hash].js',
   path: paths.dist(),
   publicPath: config.compiler_public_path
-}
+};
 
 // ------------------------------------
 // Plugins
@@ -56,21 +56,21 @@ webpackConfig.output = {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
-    template: './src/index.html', //paths.client('index.html'),
+    template: './src/index.html', // paths.client('index.html'),
     hash: false,
-    favicon:  './src/static/favicon.ico', //paths.client('static/favicon.ico'),
+    favicon: './src/static/favicon.ico', // paths.client('static/favicon.ico'),
     filename: 'index.html',
     inject: 'body',
     minify: {
       collapseWhitespace: true
     }
   })
-]
+];
 
-debug('Enable plugins for live development (HMR, NoErrors).')
+debug('Enable plugins for live development (HMR, NoErrors).');
 webpackConfig.plugins.push(
   new webpack.HotModuleReplacementPlugin()
-)
+);
 
 // ------------------------------------
 // Loaders
@@ -94,17 +94,20 @@ webpackConfig.module.rules = [{
 {
   test: /\.json$/,
   loader: 'json-loader'
-}]
+}];
 
 // ------------------------------------
 // Style Loaders
 // ------------------------------------
 webpackConfig.module.rules.push({
-  test: /\.css$/,
+  test: /\.(css|sass|scss)$/,
   use: [
-    'css-loader'
+    'style-loader',
+    'css-loader',
+    'sass-loader',
+    'postcss-loader'
   ]
-})
+});
 
 // File loaders
 /* eslint-disable */
@@ -119,4 +122,4 @@ webpackConfig.module.rules.push(
 )
 /* eslint-enable */
 
-export default webpackConfig
+export default webpackConfig;

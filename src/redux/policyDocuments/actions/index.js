@@ -36,11 +36,10 @@ export function fetchPolicyDocument () {
             dispatch(errorFetchPolicyDocuments(json.data.message));
             reject(json.data.message);
           }
-        },
-        (error) => {
-          dispatch(hide_loading()); // hide loading icon
-          reject('error occurs');
-        }
+        }, (error) => {
+        dispatch(hide_loading()); // hide loading icon
+        reject('error occurs');
+      }
       );
     });
   };

@@ -14,6 +14,7 @@ import { manageLeave } from 'appRedux/leave/reducers/manageLeave';
 import { leavesSummary } from 'appRedux/leave/reducers/leavesSummary';
 import { userLeaves } from './user/userLeaves';
 import { manageUserWorkingHours } from 'appRedux/workingHours/reducers/manageUserWorkingHours';
+import { manageUserPendingHours } from 'appRedux/workingHours/reducers/manageUserPendingHour';
 import { salary } from 'appRedux/salary/reducers/salary';
 import { manageSalary } from 'appRedux/salary/reducers/manageSalary';
 import { myProfile } from './user/myProfile';
@@ -21,7 +22,7 @@ import { myDocument } from './user/myDocument';
 import { manageUsers } from './admin/manageUsers';
 import { manageRoles } from 'appRedux/manageRoles/reducers/manageRoles';
 import { clientsList } from './admin/clientsList';
-import { manageClients } from './admin/manageClients';
+import { manageClients } from 'appRedux/manageClients/reducers/manageClients';
 import { managePayslips } from 'appRedux/salary/reducers/managePayslips';
 import { empSalaryList } from 'appRedux/salary/reducers/empSalaryDetails';
 import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';
@@ -43,6 +44,7 @@ export default combineReducers({
   manageLeave,
   userLeaves,
   manageUserWorkingHours,
+  manageUserPendingHours,
   leavesSummary,
   salary,
   manageSalary,

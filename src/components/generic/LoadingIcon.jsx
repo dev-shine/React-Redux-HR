@@ -35,5 +35,3 @@ LoadingIcon.styles = {
 };
 
 export default LoadingIcon
-
-

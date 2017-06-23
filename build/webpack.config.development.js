@@ -31,6 +31,7 @@ const webpackConfig = {
   },
   module: {}
 };
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
@@ -71,7 +72,6 @@ debug('Enable plugins for live development (HMR, NoErrors).');
 webpackConfig.plugins.push(
   new webpack.HotModuleReplacementPlugin()
 );
-
 // ------------------------------------
 // Loaders
 // ------------------------------------

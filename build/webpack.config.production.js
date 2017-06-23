@@ -11,6 +11,7 @@ const paths = config.utils_paths;
 // const {__DEV__, __PROD__, __TEST__} = config.globals
 const projectRoot = process.cwd();
 debug('Create configuration.');
+
 // const webpackConfig = {
 //   name: 'client',
 //   target: 'web',
@@ -46,6 +47,7 @@ const webpackConfig = {
   },
   module: {}
 };
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------

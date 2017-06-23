@@ -36,7 +36,3 @@ $ npm run deploy:dev
 ```bash
 $ npm run deploy:prod
 ```
-
-If everything works, you should see the following:
-
-<img src="http://i.imgur.com/zR7VRG6.png?2" />

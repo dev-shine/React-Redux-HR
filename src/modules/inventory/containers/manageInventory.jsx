@@ -9,7 +9,6 @@ import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import AlertNotification from 'components/generic/AlertNotification';
 import UsersList from 'components/generic/UsersList';
-
 import * as actionsManageDevice from 'appRedux/inventory/actions/inventory';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
@@ -18,7 +17,6 @@ import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import FormAddNewInventory from 'modules/inventory/components/AddInventory';
 import ViewUserDevice from 'components/inventory/ViewUser';
 import InventoryList from 'modules/inventory/components/InventoryList';
-// import InventoryColorReference from '../../components/inventory/InventoryColorReference'
 
 class InventorySystem extends React.Component {
   constructor (props) {

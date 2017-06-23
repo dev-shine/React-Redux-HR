@@ -54,6 +54,8 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
+  // window.scrollTo(0, 0);
+
     if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {

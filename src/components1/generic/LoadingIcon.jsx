@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 const styles = {
   progressWidth: {
-    'width' : '100%'
+    'width': '100%'
   },
-  loadingDivHeight : {
-    'height' : '10px'
+  loadingDivHeight: {
+    'height': '10px'
   }
-}
+};
 
 const LoadingIcon = ({loading}) => {
   if (loading == 1) {
@@ -18,15 +18,15 @@ const LoadingIcon = ({loading}) => {
            <div className="progress-bar info" style={styles.progressWidth}></div>
        </div>
       </div>
-    )
+    );
   }
   return (
     <div></div>
   );
-}
+};
 
 LoadingIcon.PropTypes = {
   loading: PropTypes.bool
-}
+};
 
 export default LoadingIcon;

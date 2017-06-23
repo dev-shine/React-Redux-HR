@@ -56,26 +56,26 @@ class ManageRoles extends React.Component {
   callAddNewRole (newRoleDetails) {
     this.props.onAddNewRole(newRoleDetails);
   }
-  handleChangeActions(id2, id1){
+  handleChangeActions (id2, id1) {
     let state = { rolesId: id1, actionId: id2, pageId: '', notificationId: '' };
     this.props.onUpdateRole(state);
   }
-  handleChangePages(id2, id1){
+  handleChangePages (id2, id1) {
     let state = { rolesId: id1, actionId: '', pageId: id2, notificationId: '' };
     this.props.onUpdateRole(state);
   }
-  handleChangeNotification(id2, id1){
+  handleChangeNotification (id2, id1) {
     let state = { rolesId: id1, actionId: '', pageId: '', notificationId: id2 };
     this.props.onUpdateRole(state);
   }
   onUserClick (userId, roleId) {
-    let userRoleUpdateDetails = { userId: userId, roleId: roleId }
-    if(roleId !== "-1" ){
+    let userRoleUpdateDetails = { userId: userId, roleId: roleId };
+    if (roleId !== '-1') {
       this.props.onUpdateUserRole(userRoleUpdateDetails);
       this.props.onRolesList();
     }
   }
-  handleDelete(id){
+  handleDelete (id) {
     this.props.onDelete(id).then((data) => { notify(data); }, (error) => { notify(error); });
   }
   render () {
@@ -89,7 +89,7 @@ class ManageRoles extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 m-l p-l p-b">
-                  <AddRolesForm callAddNewRole={this.callAddNewRole}/>
+                  <AddRolesForm callAddNewRole={this.callAddNewRole} />
                 </div>
               </div>
               <div className="row">
@@ -98,10 +98,10 @@ class ManageRoles extends React.Component {
                     <div className="col-md-12 p-t">
                       <DisplayRolesList
                         displayData={this.props.manageRoles.rolesData}
-                        handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId) }
-                        handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId) }
-                        handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId) }
-                        handleDelete={(id) => { this.handleDelete(id); this.setState({ deleteId: id }); } }
+                        handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId)}
+                        handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId)}
+                        handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
+                        handleDelete={(id) => { this.handleDelete(id); this.setState({ deleteId: id }); }}
                       />
                     </div>
                   </div>
@@ -111,8 +111,8 @@ class ManageRoles extends React.Component {
                   <div className="row box">
                     <div className="col-md-12 p-t">
                       <UsersRolesList
-                        users= {this.props.manageRoles.rolesData}
-                        onChange= {(userId, roleId) => {this.onUserClick(userId, roleId); }}
+                        users={this.props.manageRoles.rolesData}
+                        onChange={(userId, roleId) => { this.onUserClick(userId, roleId); }}
                        />
                     </div>
                   </div>

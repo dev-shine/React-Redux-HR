@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import { Button, ButtonRaised } from 'components/generic/buttons/';
 
 export default class AddRolesForm extends React.Component {
-  constructor(props){
+  constructor (props) {
     super(props);
     this.state = {
       open: false,
@@ -25,8 +25,8 @@ export default class AddRolesForm extends React.Component {
   handleClose () {
     this.setState({open: false});
   }
-  render(){
-    return(
+  render () {
+    return (
       <div>
         <Button className="btn-fw info" onClick={this.handleOpen} label="Add New Role" />
         <Dialog
@@ -49,7 +49,7 @@ export default class AddRolesForm extends React.Component {
             value={this.state.description}
           />
           <br />
-          <ButtonRaised className="col-md-12 m-b-sm indigo" onClick={() => { this.props.callAddNewRole(this.state); this.handleClose();}} label={'Submit New Role'} />
+          <ButtonRaised className="col-md-12 m-b-sm indigo" onClick={() => { this.props.callAddNewRole(this.state); this.handleClose(); }} label={'Submit New Role'} />
         </Dialog>
       </div>
     );

@@ -7,12 +7,12 @@ import _ from 'lodash';
 
 const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification, handleDelete}) => {
   let rolesData = displayData.roles;
-  if(typeof rolesData !== undefined || rolesData !== null ){
+  if (typeof rolesData !== undefined || rolesData !== null) {
     let rolesList = _.map(rolesData, (value, key) => {
       let rolesId = value.id;
       let roleActions = _.map(value.role_actions, (v, k) => {
         let actionId = v.id;
-        return(
+        return (
           <div key={k}>
             <input
               type="checkbox"
@@ -26,7 +26,7 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
       });
       let rolePages = _.map(value.role_pages, (v, k) => {
         let pageId = v.id;
-        return(
+        return (
           <div key={k}>
             <input
               type="checkbox"
@@ -40,7 +40,7 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
       });
       let roleNotification = _.map(value.role_notifications, (v, k) => {
         let notificationId = v.id;
-        return(
+        return (
           <div key={k}>
             <input
               type="checkbox"
@@ -62,7 +62,7 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
                 className="text-sm text-danger"
                 onClick={() => {
                   var confirmFlag = confirm('Do you want to Delete the Role ?');
-                  if(confirmFlag){ handleDelete(value.id) }
+                  if (confirmFlag) { handleDelete(value.id); }
                 }}><i>Delete Role</i>
               </Link>
             </h4>
@@ -74,11 +74,11 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
               </table>
             </div>
           </div>
-          <hr style={{'size': '1px'}}/>
+          <hr style={{'size': '1px'}} />
         </div>
       );
     });
-    return(
+    return (
       <div className="row p-t">
         <div className="col-xs-12">
           {rolesList}
@@ -86,7 +86,7 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
       </div>
     );
   }
-}
+};
 
 export default DisplayRolesList;
 

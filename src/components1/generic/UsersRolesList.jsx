@@ -8,7 +8,7 @@ const styles = { cursorPointer: {'cursor': 'pointer'} };
 
 let UsersRolesList = ({ users, onChange }) => {
   let usersList = '';
-  if(users.users_list !== undefined ){
+  if (users.users_list !== undefined) {
     let data = users.users_list.data;
     let rolesName = users.roles;
     usersList = _.map(data, (user, key) => {
@@ -17,8 +17,8 @@ let UsersRolesList = ({ users, onChange }) => {
       let backgroundClass = styles.cursorPointer;
       let userId = user.user_Id;
       let roleName = user.role_name;
-      let roleLabelValue = <span className="text-success text-sm"><b>Role</b> : {roleName} {' '}<span onClick={() => {onChange(userId, "0");}} className='glyphicon glyphicon-remove text-danger' title="Remove Role"></span></span>;
-      if(roleName === null || roleName === 0 ){
+      let roleLabelValue = <span className="text-success text-sm"><b>Role</b> : {roleName} {' '}<span onClick={() => { onChange(userId, '0'); }} className='glyphicon glyphicon-remove text-danger' title="Remove Role"></span></span>;
+      if (roleName === null || roleName === 0) {
         roleLabelValue = <span className="text-danger text-sm"><b>Role</b> : -- </span>;
       }
       if (!_.isEmpty(user.slack_profile)) {
@@ -29,9 +29,9 @@ let UsersRolesList = ({ users, onChange }) => {
         avatar = <Avatar>{profileImae}</Avatar>;
       }
       let optionMenu = _.map(rolesName, (name, index) => {
-        return( <option key={index} value={name.id}  >{name.name}</option> );
+        return (<option key={index} value={name.id} >{name.name}</option>);
       });
-      let selectMenu = <select key={userId} name={userId} onChange={(e) => {onChange(userId, e.target.value);}} className="form-control"><option value="-1"> CHANGE ROLE </option>{optionMenu}</select>;
+      let selectMenu = <select key={userId} name={userId} onChange={(e) => { onChange(userId, e.target.value); }} className="form-control"><option value="-1"> CHANGE ROLE </option>{optionMenu}</select>;
       return (
         <li className="list-item" key={key} style={backgroundClass}>
             <div className="list-left"><span className="w-40 avatar">{avatar}</span></div>

@@ -56,21 +56,21 @@ export function addNewRole (new_role) {
 }
 
 export function successRolesList (data) {
-  return createAction(constants.ACTION_SUCCESS_LIST_ROLES)(data)
+  return createAction(constants.ACTION_SUCCESS_LIST_ROLES)(data);
 }
 
 export function emptyRolesList (data) {
-  return createAction(constants.ACTION_EMPTY_LIST_ROLES)(data)
+  return createAction(constants.ACTION_EMPTY_LIST_ROLES)(data);
 }
 
 export function errorRolesList (data) {
-  return createAction(constants.ACTION_ERROR_LIST_ROLES)(data)
+  return createAction(constants.ACTION_ERROR_LIST_ROLES)(data);
 }
 
 function asyncGetRolesList () {
   return fireAjax('POST', '', {
     'action': 'list_all_roles'
-  })
+  });
 }
 
 export function getRolesList () {
@@ -79,20 +79,20 @@ export function getRolesList () {
       dispatch(show_loading());
       asyncGetRolesList().then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error == 0) {
+  dispatch(hide_loading());
+  if (json.error == 0) {
           	dispatch(successRolesList(json.data));
-          } else {
+  } else {
           	dispatch(emptyRolesList([]));
-          }
-        },
-				(error) => {
-          dispatch(hide_loading());
-          dispatch(errorRolesList([]));
-        }
-			)
-    })
   }
+},
+				(error) => {
+  dispatch(hide_loading());
+  dispatch(errorRolesList([]));
+}
+			);
+    });
+  };
 }
 
 export function successUpdateRoles (data) {
@@ -124,22 +124,22 @@ export function updateRoles (roleUpdateDetails) {
     if (typeof roleUpdateDetails.actionId !== 'undefined') { actionId = roleUpdateDetails.actionId; }
     if (typeof roleUpdateDetails.pageId !== 'undefined') { pageId = roleUpdateDetails.pageId; }
 
-    if (rolesId.trim() === '') {  return Promise.reject('User id is empty'); }
+    if (rolesId.trim() === '') { return Promise.reject('User id is empty'); }
 
     return new Promise(() => {
       dispatch(show_loading());
       asyncUpdateRoles(notificationId, rolesId, actionId, pageId).then((json) => {
         dispatch(hide_loading());
-          if (json.error == 0) {
-            dispatch(getRolesList());
-            dispatch(successUpdateRoles(json.message));
-          } else {
-            dispatch(errorUpdateRoles(json.message));
-          }
-        }, (error) => {
-          dispatch(hide_loading());
-          dispatch(errorUpdateRoles('error occurs!!!'));
-        });
+        if (json.error == 0) {
+          dispatch(getRolesList());
+          dispatch(successUpdateRoles(json.message));
+        } else {
+          dispatch(errorUpdateRoles(json.message));
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorUpdateRoles('error occurs!!!'));
+      });
     });
   };
 }
@@ -167,22 +167,22 @@ export function updateUserRole (userRoleUpdateDetails) {
     if (typeof userRoleUpdateDetails.roleId !== 'undefined') { roleId = userRoleUpdateDetails.roleId; }
     if (typeof userRoleUpdateDetails.userId !== 'undefined') { userId = userRoleUpdateDetails.userId; }
 
-    if (roleId.trim() === '') {  return null; }
-    if (userId.trim() === '') {  return Promise.reject('User id is empty'); }
+    if (roleId.trim() === '') { return null; }
+    if (userId.trim() === '') { return Promise.reject('User id is empty'); }
 
     return new Promise(() => {
       dispatch(show_loading());
       asyncUpdateUserRole(userId, roleId).then((json) => {
         dispatch(hide_loading());
-          if (json.error == 0) {
-            dispatch(successUpdateUserRole(json.message));
-          } else {
-            dispatch(errorUpdateUserRole(json.message));
-          }
-        }, (error) => {
-          dispatch(hide_loading());
-          dispatch(errorUpdateUserRole('error occurs!!!'));
-        });
+        if (json.error == 0) {
+          dispatch(successUpdateUserRole(json.message));
+        } else {
+          dispatch(errorUpdateUserRole(json.message));
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorUpdateUserRole('error occurs!!!'));
+      });
     });
   };
 }

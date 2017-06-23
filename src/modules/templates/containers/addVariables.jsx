@@ -1,16 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Router, browserHistory, Link, withRouter } from 'react-router';
-
+import { Router, withRouter } from 'react-router';
 import * as _ from 'lodash';
 import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
-
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
+import * as actions_templates from 'appRedux/templates/actions/templates';
 import Template from '../components/Template';
-
 import Variables from '../components/Variable';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
@@ -25,8 +23,6 @@ class VariablesContainer extends React.Component {
     this.props.onFetchVariables();
   }
   componentWillReceiveProps (props) {
-      // window.scrollTo(0, 0);
-
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
@@ -64,9 +60,9 @@ function mapStateToProps (state) {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    	 onIsAlreadyLogin: () => {
-       return dispatch(actions_login.isAlreadyLogin());
-     },
+    onIsAlreadyLogin: () => {
+      return dispatch(actions_login.isAlreadyLogin());
+    },
     onFetchVariables: () => {
       return dispatch(actions_templates.get_variable());
     },

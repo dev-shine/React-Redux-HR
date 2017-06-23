@@ -1,19 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Router, browserHistory, Link, withRouter } from 'react-router';
-
 import * as _ from 'lodash';
+import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
-
+import Template from '../components/Template';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import * as actions_templates from 'appRedux/templates/actions/templates';
-
-import Template from '../components/Template';
-import {CONFIG} from 'src/config/index';
+import { Router, withRouter } from 'react-router';
 
 class TemplateContainer extends React.Component {
   constructor (props) {
@@ -28,8 +25,6 @@ class TemplateContainer extends React.Component {
     });
   }
   componentWillReceiveProps (props) {
-      // window.scrollTo(0, 0);
-
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
     } else {
@@ -47,15 +42,15 @@ class TemplateContainer extends React.Component {
   }
 
   render () {
-    	return (
-    		<div>
-          <Menu {...this.props} />
-      		<div id="content" className="app-content box-shadow-z0" role="main">
-            <Header pageTitle={'Email Template'} {...this.props} />
-    				<Template {...this.props} />
-      		</div>
-    		</div>
-    		);
+    return (
+      <div>
+        <Menu {...this.props} />
+        <div id="content" className="app-content box-shadow-z0" role="main">
+          <Header pageTitle={'Email Template'} {...this.props} />
+          <Template {...this.props} />
+        </div>
+      </div>
+    );
   }
 }
 function mapStateToProps (state) {

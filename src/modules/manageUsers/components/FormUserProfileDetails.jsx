@@ -31,6 +31,7 @@ class FormUserProfileDetails extends React.Component {
       blood_group: '',
       medical_condition: '',
       work_email: '',
+      other_email: '',
       training_completion_date: '',
       termination_date: '',
       holding_comments: '',
@@ -57,6 +58,7 @@ class FormUserProfileDetails extends React.Component {
     let blood_group = ' ';
     let medical_condition = ' ';
     let work_email = ' ';
+    let other_email = '';
     let training_completion_date: "";
     let termination_date: "";
     let holding_comments: "";
@@ -64,6 +66,9 @@ class FormUserProfileDetails extends React.Component {
     let userProfileDetail = props.user_profile_detail;
     if (typeof props.username !== 'undefined' && props.username != null) {
       username = props.username;
+    }
+    if (typeof props.user_profile_detail.other_email !== 'undefined' && props.user_profile_detail.other_email != null) {
+      other_email = props.user_profile_detail.other_email;
     }
     if (typeof userProfileDetail.user_Id !== 'undefined' && userProfileDetail.user_Id != null) {
       user_id = userProfileDetail.user_Id;
@@ -158,6 +163,7 @@ class FormUserProfileDetails extends React.Component {
       blood_group: blood_group,
       medical_condition: medical_condition,
       work_email: work_email,
+      other_email: other_email,
       training_completion_date: training_completion_date,
       termination_date: termination_date,
       holding_comments: holding_comments,
@@ -279,6 +285,14 @@ class FormUserProfileDetails extends React.Component {
                 <option value="3">3 month</option>
                 <option value="4">4 month</option>
               </select>
+            </div>
+          </div>
+          <div className="col-md-6 p-r">
+            <div className="form-group">
+              <label>Personal Email</label>
+              <input type="text" className="form-control" ref="other_email"
+                onChange={() => this.setState({other_email: this.refs.other_email.value})}
+                value={this.state.other_email} />
             </div>
           </div>
         </div>

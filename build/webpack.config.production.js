@@ -1,16 +1,17 @@
-import webpack from 'webpack'
-import cssnano from 'cssnano'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import config from '../config'
-import _debug from 'debug'
-import path from 'path'
+import webpack from 'webpack';
+import cssnano from 'cssnano';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import config from '../config';
+import _debug from 'debug';
+import path from 'path';
 
-const debug = _debug('app:webpack:config')
-const paths = config.utils_paths
-//const {__DEV__, __PROD__, __TEST__} = config.globals
+const debug = _debug('app:webpack:config');
+const paths = config.utils_paths;
+// const {__DEV__, __PROD__, __TEST__} = config.globals
 const projectRoot = process.cwd();
-debug('Create configuration.')
+debug('Create configuration.');
+
 // const webpackConfig = {
 //   name: 'client',
 //   target: 'web',
@@ -36,25 +37,26 @@ const webpackConfig = {
       src: `${projectRoot}/src`,
       components: `${projectRoot}/src/components1`,
       modules: `${projectRoot}/src/modules`,
-      appRedux: `${projectRoot}/src/redux`,
+      appRedux: `${projectRoot}/src/redux`
     },
     extensions: ['.js', '.jsx', '.json'],
     modules: [
-      "./src", //paths.client(),
-      "node_modules"
+      './src', // paths.client(),
+      'node_modules'
     ]
   },
   module: {}
-}
+};
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
 webpackConfig.entry = {
-  'main' : [
-    './src/main.js',
-    //'webpack-hot-middleware/client.js?path=/__webpack_hmr'
+  'main': [
+    './src/main.js'
+    // 'webpack-hot-middleware/client.js?path=/__webpack_hmr'
   ]
-}
+};
 
 // ------------------------------------
 // Bundle Output
@@ -63,7 +65,7 @@ webpackConfig.output = {
   filename: '[name].[hash].js',
   path: paths.dist(),
   publicPath: config.compiler_public_path
-}
+};
 
 // ------------------------------------
 // Plugins
@@ -71,18 +73,18 @@ webpackConfig.output = {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
-    template: './src/index.html', //paths.client('index.html'),
+    template: './src/index.html', // paths.client('index.html'),
     hash: false,
-    favicon:  './src/static/favicon.ico', //paths.client('static/favicon.ico'),
+    favicon: './src/static/favicon.ico', // paths.client('static/favicon.ico'),
     filename: 'index.html',
     inject: 'body',
     minify: {
       collapseWhitespace: true
     }
   })
-]
+];
 
-//if (__DEV__) {
+// if (__DEV__) {
   // debug('Enable plugins for live development (HMR, NoErrors).')
   // webpackConfig.plugins.push(
   //   new webpack.HotModuleReplacementPlugin(),
@@ -104,7 +106,7 @@ webpackConfig.plugins = [
 // }
 
 // Don't split bundles during testing, since we only want import one bundle
-//if (!__TEST__) {
+// if (!__TEST__) {
   // webpackConfig.plugins.push(
   //   new webpack.optimize.CommonsChunkPlugin({
   //     names: ['vendor']
@@ -160,7 +162,7 @@ webpackConfig.module.rules = [{
 {
   test: /\.json$/,
   loader: 'json-loader'
-}]
+}];
 
 // ------------------------------------
 // Style Loaders
@@ -186,7 +188,7 @@ webpackConfig.module.rules = [{
 // const cssModulesRegex = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
 
 // Loaders for styles that need to be treated as CSS modules.
-//if (isUsingCSSModules) {
+// if (isUsingCSSModules) {
   // const cssModulesLoader = [
   //   BASE_CSS_LOADER,
   //   'modules',
@@ -205,17 +207,20 @@ webpackConfig.module.rules = [{
   //   ]
   // })
 
-  webpackConfig.module.rules.push({
-    test: /\.css$/,
-    use: [
-      'css-loader'
-    ]
-  })
+webpackConfig.module.rules.push({
+  test: /\.(css|sass|scss)$/,
+  use: [
+    'style-loader',
+    'css-loader',
+    'sass-loader',
+    'postcss-loader'
+  ]
+});
 
-//}
+// }
 
 // Loaders for files that should not be treated as CSS modules.
-//const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
+// const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
 // webpackConfig.module.rules.push({
 //   test: /\.scss$/,
 //   exclude: excludeCSSModules,
@@ -243,7 +248,7 @@ webpackConfig.module.rules = [{
 //   includePaths: paths.client('styles')
 // }
 
-//webpackConfig.postcss = [
+// webpackConfig.postcss = [
 // webpackConfig.plugins.push(
 //   cssnano({
 //     autoprefixer: {
@@ -261,7 +266,7 @@ webpackConfig.module.rules = [{
 //     sourcemap: true
 //   })
 // )
-//]
+// ]
 
 // File loaders
 /* eslint-disable */
@@ -276,4 +281,4 @@ webpackConfig.module.rules.push(
 )
 /* eslint-enable */
 
-export default webpackConfig
+export default webpackConfig;

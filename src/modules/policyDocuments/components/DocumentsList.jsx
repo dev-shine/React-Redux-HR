@@ -37,7 +37,6 @@ class DocumentsList extends React.Component {
     });
     updateDoc.push(doc.name);
     this.props.onUpdateReadStatus(updateDoc).then((updated) => {
-      console.log(updated, 'updated');
       this.setState({
         errClass: 'alert-success pull-left',
         errMsg: updated

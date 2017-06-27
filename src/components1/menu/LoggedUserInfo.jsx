@@ -1,9 +1,10 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
+import PropTypes from 'prop-types';
 
 const LoggedUserInfo = ({loggedUser}) => {
   let profileImage = <img src={loggedUser.profileImage} className="w-40 img-circle" />;
-  if(loggedUser.profileImage === null){
+  if (loggedUser.profileImage === null) {
     profileImage = <Avatar>{loggedUser.name.charAt(0)}</Avatar>;
   }
   return (
@@ -21,6 +22,15 @@ const LoggedUserInfo = ({loggedUser}) => {
       </div>
     </div>
   );
-}
+};
 
 export default LoggedUserInfo;
+
+LoggedUserInfo.PropTypes = {
+  loggedUser: PropTypes.shape({
+    profileImage: PropTypes.string,
+    name: PropTypes.string,
+    role: PropTypes.string,
+    jobtitle: PropTypes.string
+  }).isRequired
+};

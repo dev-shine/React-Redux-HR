@@ -4,10 +4,11 @@ import _ from 'lodash';
 import {Link} from 'react-router';
 import {CONFIG} from 'src/config';
 
-const DisplayMenuList = ({data, user, click}) => {
+const DisplayMenuList = ({user, click}) => {
   let links = '';
+
   if (user === CONFIG.GUEST || user === CONFIG.EMPLOYEE) {
-    let guest = _.orderBy(_.filter(data, function (li) {
+    let guest = _.orderBy(_.filter(CONFIG.DATA, function (li) {
       return li.access[user] !== undefined;
     }), function (li) {
       return li.access[user];
@@ -18,7 +19,7 @@ const DisplayMenuList = ({data, user, click}) => {
       </li>
     ));
   } else if (user === CONFIG.ADMIN || user === CONFIG.HR) {
-    let admin = _.orderBy(_.filter(data, function (li) {
+    let admin = _.orderBy(_.filter(CONFIG.DATA, function (li) {
       return li.access[user] !== undefined;
     }), function (li) {
       return li.access[user].priority;
@@ -61,9 +62,6 @@ const DisplayMenuList = ({data, user, click}) => {
 export default DisplayMenuList;
 
 DisplayMenuList.PropTypes = {
-  data: PropTypes.shape({
-
-  }).isRequired,
   user: PropTypes.string.isRequired,
   click: PropTypes.func.isRequired
 };

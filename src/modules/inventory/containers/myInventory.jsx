@@ -8,9 +8,9 @@ import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 
-import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-import * as actions_myProfile from 'src/actions/user/myProfile';
+import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
+import * as actionsMyProfile from 'src/actions/user/myProfile';
 
 class MyInventory extends React.Component {
   constructor (props) {
@@ -87,16 +87,16 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actionsLogin.isAlreadyLogin());
     },
     onMyProfileDetails: () => {
-      return dispatch(actions_myProfile.getMyProfileDetails());
+      return dispatch(actionsMyProfile.getMyProfileDetails());
     },
     onUpdateDeviceDetails: (new_device_details) => {
-      return dispatch(actions_myProfile.updateUserDeviceDetails(new_device_details));
+      return dispatch(actionsMyProfile.updateUserDeviceDetails(new_device_details));
     },
     onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
+      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

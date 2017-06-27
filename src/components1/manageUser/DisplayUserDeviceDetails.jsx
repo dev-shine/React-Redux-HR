@@ -6,10 +6,10 @@ const DisplayUserDeviceDetails = ({ userAssignMachine }) => {
   let machine = _.map(userAssignMachine, (val, i) => {
     return (
       <tr key={i}>
-        <td>{val.machineType}</td>
-        <td>{val.machineName}</td>
-        <td>{val.macAddress}</td>
-        <td>{val.assignDate}</td>
+        <td>{val.machine_type}</td>
+        <td>{val.machine_name}</td>
+        <td>{val.mac_address}</td>
+        <td>{val.assign_date}</td>
       </tr>
     );
   });

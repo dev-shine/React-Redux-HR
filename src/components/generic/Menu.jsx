@@ -7,7 +7,9 @@ import LoggedUserInfo from '../../components/menu/LoggedUserInfo';
 class Menu extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { role: props.logged_user.role };
+    this.state = {
+      role: props.logged_user.role
+    };
     this.click = this.click.bind(this);
   }
   click (a) {
@@ -39,10 +41,13 @@ class Menu extends React.Component {
     let linkUserAttendanceUpload = <Link to='/uploadAttendance'>Upload Attendance</Link>;
     let linkLeavesSummary = <Link to='/leaves_summary'>Leaves Summary</Link>;
     let linkManageLeaves = <Link to='/manage_leaves'>Leaves</Link>;
+
     let linkManageWorkingHours = <Link to='/manage_working_hours'>Office Hours</Link>;
     let linkManageUserWorkingHours = <Link to='/manage_user_working_hours'>Employee Hours</Link>;
+
     let linkManageSalary = <Link to='/manage_salary'>Salaries</Link>;
     let linkManageUsers = <Link to='/manage_users'>Profile</Link>;
+    let linkManageRoles = <Link to='/manage_roles'>Manage Roles</Link>;
     let linkManageClients = <Link to='/manage_clients'>Manage Clients</Link>;
     let linkManagePayslips = <Link to='/manage_payslips'>Payslips</Link>;
     let linkDocuments = <Link to='/documents'>My Documents</Link>;
@@ -54,6 +59,7 @@ class Menu extends React.Component {
     let linkTemplateVariable = <Link to='/add_variables'>Add Variables</Link>;
     let linkTeamView = <Link to='/team_view'>Team</Link>;
     let linkInventorySystem = <Link to='/inventory_system'>Inventory</Link>;
+    let linkManagePendingHours = <Link to='/manage_user_pending_hours'>Pending Hours</Link>;
 
     let linksToShow = <ul className="nav">
       <li className="hidden-folded"><span>{linkMyCalendar}</span></li>
@@ -64,6 +70,7 @@ class Menu extends React.Component {
       <li className="hidden-folded"><span>{linkMyProfile}</span></li>
       <li className="hidden-folded"><span>{linkMyInventory}</span></li>
       <li className="hidden-folded"><span>{linkInventorySystem}</span></li>
+      <li className="hidden-folded"><span>{linkManagePendingHours}</span></li>
       <li className="hidden-folded"><span>{linkDocuments}</span></li>
       <li className="hidden-folded"><span>{linkPolicyDocuments}</span></li>
       <li className="hidden-folded"><span>{linkLogout}</span></li>
@@ -90,6 +97,15 @@ class Menu extends React.Component {
             <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkDisabledEmployes}</span></li>
           </ul>
         </li>
+        <li id="Roles" onClick={() => { let r = 'Roles'; this.click(r); }} className="">
+          <a>
+            <span className="nav-caret text-muted"><i className="fa fa-caret-down"></i></span>
+            <span className="nav-text">Roles</span>
+          </a>
+          <ul className="nav-sub">
+            <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManageRoles}</span></li>
+          </ul>
+        </li>
         <li id="ManageHour" onClick={() => { let h = 'ManageHour'; this.click(h); }} className="">
           <a>
             <span className="nav-caret text-muted"><i className="fa fa-caret-down"></i></span>
@@ -97,8 +113,9 @@ class Menu extends React.Component {
           </a>
           <ul className="nav-sub">
             <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManageWorkingHours}</span></li>
+            <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManagePendingHours}</span></li>
             <li className="hidden-folded"><span style={{'fontSize': 11, 'fontWeight': 600}}>{linkManageUserWorkingHours}</span></li>
-          </ul>
+        </ul>
         </li>
         <li id="ManageLeave" onClick={() => { let l = 'ManageLeave'; this.click(l); }} className="">
           <a>

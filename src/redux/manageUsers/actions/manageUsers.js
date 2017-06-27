@@ -54,7 +54,7 @@ export function error_update_user_profile_details (data) {
   return createAction(constants.ACTION_ERROR_UPDATE_USER_PROFILE_DETAILS)(data);
 }
 
-function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender,
+function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_other_email, n_gender,
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
   n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg) {
   return fireAjax('POST', '', {
@@ -66,6 +66,7 @@ function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, 
     'team': n_team,
     'dateofjoining': n_dateofjoining,
     'work_email': n_work_email,
+    'other_email': n_other_email,
     'gender': n_gender,
     'dob': n_dob,
     'permanent_address': n_address2,
@@ -91,6 +92,7 @@ export function updateUserProfileDetails (new_profile_details) {
     let n_team = '';
     let n_dateofjoining = '';
     let n_work_email = '';
+    let n_other_email = '';
     let n_gender = '';
     let n_dob = '';
     let n_marital_status = '';
@@ -129,6 +131,9 @@ export function updateUserProfileDetails (new_profile_details) {
 
     if (typeof new_profile_details.work_email !== 'undefined') {
       n_work_email = new_profile_details.work_email;
+    }
+    if (typeof new_profile_details.other_email !== 'undefined') {
+      n_other_email = new_profile_details.other_email;
     }
     if (typeof new_profile_details.gender !== 'undefined') {
       n_gender = new_profile_details.gender;
@@ -187,6 +192,9 @@ export function updateUserProfileDetails (new_profile_details) {
     if (n_work_email.trim() === '') {
       return Promise.reject('Work email is empty');
     }
+    if (n_other_email.trim() === '') {
+      return Promise.reject('Personal email is empty');
+    }
     if (n_gender.trim() === '') {
       return Promise.reject('Gender is empty');
     }
@@ -229,7 +237,7 @@ export function updateUserProfileDetails (new_profile_details) {
     // }
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_gender, n_dob, n_marital_status,
+      async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_other_email, n_gender, n_dob, n_marital_status,
         n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date,
         n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg).then((json) => {
           dispatch(hide_loading()); // hide loading icon

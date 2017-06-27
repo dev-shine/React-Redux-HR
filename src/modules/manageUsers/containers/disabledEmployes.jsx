@@ -39,7 +39,7 @@ class PageDisabledEmployes extends React.Component {
   componentWillMount () {
     window.scrollTo(0, 0);
     if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
+      this.props.router.push('/home');
     }
     if (this.props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');

@@ -49,7 +49,7 @@ class ManagePayslips extends React.Component {
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0); // no need to scroll to top for this
     if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
+      this.props.router.push('/home');
     }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');

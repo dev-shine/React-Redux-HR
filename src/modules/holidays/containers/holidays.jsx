@@ -25,7 +25,7 @@ class Holidays extends React.Component {
   componentWillReceiveProps (props) {
     // window.scrollTo(0, 0);
     if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
+      this.props.router.push('/home');
     }
     if (props.logged_user.logged_in == -1) {
       this.props.router.push('/logout');
@@ -42,7 +42,7 @@ class Holidays extends React.Component {
   render () {
     return (
       <div>
-        <Menu {...this.props} />0
+        <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Holidays List'} showLoading={this.props.frontend.show_loading} />
           <div className="app-footer">

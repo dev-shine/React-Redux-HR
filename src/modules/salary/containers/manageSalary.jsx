@@ -51,7 +51,7 @@ class ManageSalary extends React.Component {
 
   componentWillReceiveProps (props) {
     if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
+      this.props.router.push('/home');
     }
     let userListHR = _.filter(this.props.usersList.users, (user) => {
       return (moment().diff(moment(user.dateofjoining), 'months') < 8);

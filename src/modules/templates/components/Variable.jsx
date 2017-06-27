@@ -91,8 +91,7 @@ class Variables extends React.Component {
       }
     }
   }
-  componentDidUpdate () {
-  }
+
   onChange (value) {
     this.setState({variableValue: value});
   }

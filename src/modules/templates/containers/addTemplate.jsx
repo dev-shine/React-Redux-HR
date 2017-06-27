@@ -10,7 +10,7 @@ import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import * as actions_templates from 'appRedux/templates/actions/templates';
-import { Router, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 
 class TemplateContainer extends React.Component {
   constructor (props) {

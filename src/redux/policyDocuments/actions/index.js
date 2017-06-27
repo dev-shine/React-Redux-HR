@@ -59,7 +59,6 @@ export function fetchUserPolicyDocument () {
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' || json.error == 0) {
-            console.log(json.data);
             dispatch(successFetchPolicyDocuments(json.data));
             resolve(json.data);
           } else {

@@ -43,7 +43,7 @@ class VariablesContainer extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Template Variable'} {...this.props} />
+          <Header pageTitle={'Template Variable'} showLoading={this.props.frontend.show_loading} />
           <Variables {...this.props} />
         </div>
       </div>

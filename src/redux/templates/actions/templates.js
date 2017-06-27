@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
@@ -16,12 +16,12 @@ export function error_add_varaible (data) {
 }
 
 function async_saveVariable (id, variable) {
-		 return fireAjax('POST', '', {
-		 	action: 'create_template_variable',
-		 	name: variable.varCode,
-	    value: variable.varValue,
-   variable_type: variable.varType
-		 });
+  return fireAjax('POST', '', {
+    action: 'create_template_variable',
+    name: variable.varCode,
+    value: variable.varValue,
+    variable_type: variable.varType
+  });
 }
 
 function async_editVariable (id, variable) {
@@ -29,7 +29,7 @@ function async_editVariable (id, variable) {
     action: 'update_template_variable',
     id: id,
     name: variable.varCode,
-	    value: variable.varValue,
+    value: variable.varValue,
     variable_type: variable.varType
   });
 }
@@ -39,39 +39,37 @@ export function saveVariable (id, variable) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
       if (id == '') {
-        async_saveVariable(id, variable).then(
-				(json) => {
-		        		dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-		        		dispatch(success_add_variable(json.data));
-		        		dispatch(get_variable());
-		        		resolve(json.data);
-		          	} else {
-		          		dispatch(error_add_varaible(json.error[0]));
-		          	}
-},
-				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_add_varaible('error occurs'));
-}
-				);
+        async_saveVariable(id, variable).then((json) => {
+          dispatch(hide_loading()); // hide loading icon
+          if (json.error == 0) {
+            dispatch(success_add_variable(json.data));
+            dispatch(get_variable());
+            resolve(json.data);
+          } else {
+            dispatch(error_add_varaible(json.error[0]));
+          }
+        },
+        (error) => {
+          dispatch(hide_loading()); // hide loading icon
+          dispatch(error_add_varaible('error occurs'));
+        }
+);
       } else {
-        async_editVariable(id, variable).then(
-				(json) => {
-		        		dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-		        		dispatch(success_add_variable(json.data));
-		        		dispatch(get_variable());
-		        		resolve(json.data);
-		          	} else {
-		          		dispatch(error_add_varaible(json.error[0]));
-		          	}
-},
-				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  dispatch(error_add_varaible('error occurs'));
-}
-				);
+        async_editVariable(id, variable).then((json) => {
+          dispatch(hide_loading()); // hide loading icon
+          if (json.error == 0) {
+            dispatch(success_add_variable(json.data));
+            dispatch(get_variable());
+            resolve(json.data);
+          } else {
+            dispatch(error_add_varaible(json.error[0]));
+          }
+        },
+          (error) => {
+            dispatch(hide_loading()); // hide loading icon
+            dispatch(error_add_varaible('error occurs'));
+          }
+        );
       }
     });
   };
@@ -93,21 +91,19 @@ export function get_variable () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_get_variable().then(
-				(json) => {
-  dispatch(hide_loading());
-  if (typeof json !== 'undefined' && json.length > 0) {
-    let data = json;
-    dispatch(success_variable_get(data));
-    resolve(data);
-  } else {
-    dispatch(success_variable_get([]));
-  }
-},
-				(error) => {
-  dispatch(hide_loading());// hide loading icon
-  dispatch(success_variable_get([]));
-}
+      async_get_variable().then((json) => {
+        dispatch(hide_loading());
+        if (typeof json !== 'undefined' && json.length > 0) {
+          let data = json;
+          dispatch(success_variable_get(data));
+          resolve(data);
+        } else {
+          dispatch(success_variable_get([]));
+        }
+      }, (error) => {
+        dispatch(hide_loading());// hide loading icon
+        dispatch(success_variable_get([]));
+      }
 			);
     });
   };
@@ -126,21 +122,19 @@ export function deleteVariable (id) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_delete_variable(id).then(
-				(json) => {
-  dispatch(hide_loading()); // hide loading icon
-  if (json.error == 0) {
-    dispatch(get_variable());
-		        		resolve(json.data.message);
-  } else {
-    dispatch(get_variable());
-    resolve(json.data.message);
-  }
-},
-				(error) => {
-  dispatch(hide_loading());// hide loading icon
-  reject('error occurs!!');
-}
+      async_delete_variable(id).then((json) => {
+        dispatch(hide_loading()); // hide loading icon
+        if (json.error == 0) {
+          dispatch(get_variable());
+          resolve(json.data.message);
+        } else {
+          dispatch(get_variable());
+          resolve(json.data.message);
+        }
+      }, (error) => {
+        dispatch(hide_loading());// hide loading icon
+        reject('error occurs!!');
+      }
 			);
     });
   };
@@ -161,21 +155,19 @@ export function get_templates () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      async_get_templates().then(
-				(json) => {
-  dispatch(hide_loading());
-  if (typeof json !== 'undefined' && json.length > 0) {
-    let data = json;
-    dispatch(success_get_template(data));
-    resolve(data);
-  } else {
-    dispatch(success_get_template([]));
-  }
-},
-				(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  reject('error occurs!!');
-}
+      async_get_templates().then((json) => {
+        dispatch(hide_loading());
+        if (typeof json !== 'undefined' && json.length > 0) {
+          let data = json;
+          dispatch(success_get_template(data));
+          resolve(data);
+        } else {
+          dispatch(success_get_template([]));
+        }
+      }, (error) => {
+        dispatch(hide_loading()); // hide loading icon
+        reject('error occurs!!');
+      }
 			);
     });
   };
@@ -205,28 +197,24 @@ export function save_templates (t_id, t_name, t_subject, t_body) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
       if (_.isEmpty(t_id)) {
-        async_save_template(t_name, t_subject, t_body).then(
-					(json) => {
-  dispatch(hide_loading());
-  dispatch(get_templates());
-  resolve(json.data.message);
-},
+        async_save_template(t_name, t_subject, t_body).then((json) => {
+          dispatch(hide_loading());
+          dispatch(get_templates());
+          resolve(json.data.message);
+        },
 					(error) => {
   dispatch(hide_loading()); // hide loading icon
   reject('error occurs!!');
-}
-				);
+});
       } else {
-        async_update_template(t_id, t_name, t_subject, t_body).then(
-					(json) => {
-  dispatch(hide_loading());
-  dispatch(get_templates());
-  resolve(json.data.message);
-},
-					(error) => {
-  dispatch(hide_loading()); // hide loading icon
-  reject('error occurs!!');
-}
+        async_update_template(t_id, t_name, t_subject, t_body).then((json) => {
+          dispatch(hide_loading());
+          dispatch(get_templates());
+          resolve(json.data.message);
+        }, (error) => {
+          dispatch(hide_loading()); // hide loading icon
+          reject('error occurs!!');
+        }
 				);
       }
     });
@@ -246,20 +234,18 @@ export function delete_template (t_id) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      async_delete_template(t_id).then(
-				(json) => {
-  dispatch(hide_loading());
-  if (json.error) {
-    reject(json.data.message);
-  } else {
-    dispatch(get_templates());
-    resolve();
-  }
-},
-				(error) => {
-  dispatch(hide_loading());
-  reject('error occurs!!');
-}
+      async_delete_template(t_id).then((json) => {
+        dispatch(hide_loading());
+        if (json.error) {
+          reject(json.data.message);
+        } else {
+          dispatch(get_templates());
+          resolve();
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        reject('error occurs!!');
+      }
 			);
     });
   };
@@ -278,20 +264,18 @@ export function send_mail (email) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      async_send_mail(email).then(
-				(json) => {
-  dispatch(hide_loading());
-  if (json.error) {
-    reject(json.data.message);
-  } else {
-    dispatch(get_templates());
-    resolve(json.data.message);
-  }
-},
-				(error) => {
-  dispatch(hide_loading());
-  reject('error occurs!!');
-}
+      async_send_mail(email).then((json) => {
+        dispatch(hide_loading());
+        if (json.error) {
+          reject(json.data.message);
+        } else {
+          dispatch(get_templates());
+          resolve(json.data.message);
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        reject('error occurs!!');
+      }
 			);
     });
   };
@@ -310,15 +294,13 @@ export function download_pdf (template, fileName) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      async_download_template(template, fileName).then(
-					(json) => {
-					    dispatch(hide_loading());
-  resolve(json.data);
-},
-					(error) => {
-  dispatch(hide_loading());
-  reject('error occurs!!');
-}
+      async_download_template(template, fileName).then((json) => {
+        dispatch(hide_loading());
+        resolve(json.data);
+      }, (error) => {
+        dispatch(hide_loading());
+        reject('error occurs!!');
+      }
 				);
     });
   };

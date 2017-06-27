@@ -6,7 +6,6 @@ import {CONFIG} from 'src/config';
 
 const DisplayMenuList = ({user, click}) => {
   let links = '';
-
   if (user === CONFIG.GUEST || user === CONFIG.EMPLOYEE) {
     let guest = _.orderBy(_.filter(CONFIG.DATA, function (li) {
       return li.access[user] !== undefined;

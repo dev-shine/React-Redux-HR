@@ -20,6 +20,7 @@ class FormProfileDetails extends React.Component {
       emr_con_1: '',
       emr_con_2: '',
       work_email: '',
+      emp_email: '',
       blood_group: '',
       medical_con: ''
     };
@@ -37,6 +38,7 @@ class FormProfileDetails extends React.Component {
       emr_con_1: props.user_profile_detail.emergency_ph1 || '',
       emr_con_2: props.user_profile_detail.emergency_ph2 || '',
       work_email: props.user_profile_detail.work_email || '',
+      emp_email: props.user_profile_detail.other_email || '',
       blood_group: props.user_profile_detail.blood_group || '',
       medical_con: props.user_profile_detail.medical_condition || ''
     });
@@ -101,7 +103,16 @@ class FormProfileDetails extends React.Component {
             </div>
           </div>
         </div>
-
+        <div className="col-md-12">
+          <div className="form-group">
+            <label>Personal Email Address</label>
+            <input type="email"
+              className="form-control"
+              ref="emp_email"
+              onChange={() => this.setState({emp_email: this.refs.emp_email.value})}
+              value={this.state.emp_email} />
+          </div>
+        </div>
         <div className="form-group">
           <label>Blood Group</label>
           <select className="form-control" ref="blood_group" onChange={(evt) => this.setState({blood_group: evt.target.value})} value={this.state.blood_group}>

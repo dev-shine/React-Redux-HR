@@ -48,7 +48,11 @@
   font-weight: normal;
 }
 
+<<<<<<< HEAD
 .fc-view .fc-day-header{
+=======
+.fc-view .fc-day-header{	
+>>>>>>> e570e18adaa2bf6fa707662f77846782e13cf204
   padding: 4px 4px;
 }
 
@@ -97,7 +101,11 @@
 .fc-overlay.right{
 	left: auto;
 	right: 100%;
+<<<<<<< HEAD
 	top: -15px;
+=======
+	top: -15px;	
+>>>>>>> e570e18adaa2bf6fa707662f77846782e13cf204
 	padding: 0 10px;
 	margin: 0;
 }

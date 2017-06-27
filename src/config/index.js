@@ -1,66 +1,50 @@
-const token = localStorage.getItem('hr_logged_user');
-export const CONFIG = {
-  ADMIN: 'Admin',
-  HR: 'HR',
-  GUEST: 'Guest',
-  EMPLOYEE: 'Employee',
-  WORKING_DAY: 'WORKING_DAY',
-  LEAVE_DAY: 'LEAVE_DAY',
-  DEFAULT_PASSWORD: 'java@123',
-  // dev apis
-  api_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/api.php',
-  other_api_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/api.php',
-  api_url_salary: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info',
-  google_login_btn_page_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/google-api/drive_file/index.php?token=' + token,
-  login_page_url: 'http://dev.hr.excellencetechnologies.in/hr/',
-  upload_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file.php',
-  upload_leave_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/upload_leave_doc.php',
-  upload_attendance_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php',
-  pdf_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
-  upload_email_attachment: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
-  transfer_link: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/display_user_info.php',
-  DATA: [
-    {'id': 'lMyCalendar', 'path': '/monthly_attendance', 'label': 'My Attendance', 'access': {'Employee': 1}},
-    {'id': 'lUsersList', 'path': '/home', 'label': 'Employees Attendance', 'plabel': 'Attendance', 'access': {'Admin': {'group': 1, 'priority': 1}, 'HR': {'group': 0, 'priority': 1}, 'Guest': 1}},
-    {'id': 'lUserAttendanceUpload', 'path': '/uploadAttendance', 'label': 'Upload Attendance', 'plabel': 'Attendance', 'access': {'Admin': {'group': 1, 'priority': 2}, 'HR': {'group': 0, 'priority': 2}}},
-    {'id': 'lManageUsers', 'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees', 'access': {'Admin': {'group': 2, 'priority': 3}, 'HR': {'group': 5, 'priority': 13}}},
-    {'id': 'lDisabledEmployes', 'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees', 'access': {'Admin': {'group': 2, 'priority': 4}, 'HR': {'group': 5, 'priority': 14}}},
-    {'id': 'lManageWorkingHours', 'path': '/manage_working_hours', 'label': 'Office Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 5}, 'HR': {'group': 1, 'priority': 3}, 'Guest': 2}},
-    {'id': 'lManagePendingHours', 'path': '/manage_user_pending_hours', 'label': 'Pending Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 6}, 'Employee': 9}},
-    {'id': 'lManageUserWorkingHours', 'path': '/manage_user_working_hours', 'label': 'Employee Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 7}, 'HR': {'group': 1, 'priority': 4}, 'Guest': 4}},
-    {'id': 'lManageLeaves', 'path': '/manage_leaves', 'label': 'Leaves', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 8}, 'HR': {'group': 2, 'priority': 5}, 'Guest': 3}},
-    {'id': 'lLeavesSummary', 'path': '/leaves_summary', 'label': 'Leaves Summary', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 9}, 'HR': {'group': 2, 'priority': 6}, 'Guest': 5}},
-    {'id': 'lApplyLeave', 'path': '/apply_leave', 'label': 'Apply Leave', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 10}, 'HR': {'group': 2, 'priority': 7}, 'Employee': 2}},
-    {'id': 'lManageSalary', 'path': '/manage_salary', 'label': 'Salaries', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 11}, 'HR': {'group': 3, 'priority': 8}}},
-    {'id': 'lViewSalary', 'path': '/view_salary', 'label': 'View Salary', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 12}}},
-    {'id': 'lManagePayslips', 'path': '/manage_payslips', 'label': 'Payslips', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 13}}},
-    {'id': 'lMailTemplates', 'path': '/mail_templates', 'label': 'Mail Templates', 'plabel': 'Templates', 'access': {'Admin': {'group': 6, 'priority': 14}, 'HR': {'group': 4, 'priority': 9}}},
-    {'id': 'lTemplateVariable', 'path': '/add_variables', 'label': 'Add Variables', 'plabel': 'Templates', 'access': {'Admin': {'group': 6, 'priority': 15}, 'HR': {'group': 4, 'priority': 10}}},
-    {'id': 'lUploadPolicyDocs', 'path': '/upload_policy_documents', 'label': 'Upload Documents', 'plabel': 'Policy Documents', 'access': {'Admin': {'group': 7, 'priority': 16}}},
-    {'id': 'lMyLeaves', 'path': '/my_leaves', 'label': 'My Leaves', 'access': {'Employee': 4}},
-    {'id': 'lSalary', 'path': '/salary', 'label': 'My Salary', 'access': {'Employee': 5}},
-    {'id': 'lMyProfile', 'path': '/my_profile', 'label': 'My Profile', 'access': {'Employee': 6}},
-    {'id': 'lMyInventory', 'path': '/my_inventory', 'label': 'My Inventory', 'access': {'Employee': 7}},
-    {'id': 'lDocs', 'path': '/documents', 'label': 'My Documents', 'access': {'Employee': 10}},
-    {'id': 'lPolicyDocs', 'path': '/policy_documents', 'label': 'Policy Documents', 'access': {'HR': {'group': 5, 'priority': 15}, 'Employee': 11}},
-    {'id': 'lHolidays', 'path': '/holidays', 'label': 'Holidays', 'access': {'Admin': {'group': 8, 'priority': 18}, 'HR': {'group': 5, 'priority': 11}, 'Guest': 6, 'Employee': 3}},
-    {'id': 'lInventorySystem', 'path': '/inventory_system', 'label': 'Inventory', 'access': {'Admin': {'group': 8, 'priority': 19}, 'HR': {'group': 5, 'priority': 12}, 'Employee': 8}},
-    {'id': 'lTeamView', 'path': '/team_view', 'label': 'Team', 'access': {'Admin': {'group': 8, 'priority': 20}}},
-    {'id': 'lLogout', 'path': '/logout', 'label': 'Logout', 'access': {'Admin': {'group': 8, 'priority': 21}, 'HR': {'group': 5, 'priority': 16}, 'Guest': 7, 'Employee': 12}}
-  ],
-  // live apis
-  // api_url: 'https://hr.excellencetechnologies.in/attendance/API_HR/api.php',
-  // other_api_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/api.php',
-  // api_url_salary: 'https://hr.excellencetechnologies.in/attendance/sal_info',
-  // google_login_btn_page_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/google-api/drive_file/index.php?token=' + token,
-  // login_page_url: 'https://hr.excellencetechnologies.in/',
-  // upload_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file.php',
-  // upload_leave_url: 'http://hr.excellencetechnologies.in/attendance/API_HR/upload_leave_doc.php',
-  // upload_attendance_url: 'https://hr.excellencetechnologies.in/attendance/upload_form.php',
-  // pdf_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/',
-  // upload_email_attachment: 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
-  // transfer_link: 'https://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
+import config_development from './development';
+import config_production from './production';
 
-  jwt_secret_key: 'HR_APP'
+let CONFIG = config_development;
 
-};
+console.log('Environment :: ' + process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'production') {
+  CONFIG = config_production;
+}
+
+CONFIG['ADMIN'] = 'Admin';
+CONFIG['HR'] = 'HR';
+CONFIG['GUEST'] = 'Guest';
+CONFIG['EMPLOYEE'] = 'Employee';
+CONFIG['WORKING_DAY'] = 'WORKING_DAY';
+CONFIG['LEAVE_DAY'] = 'LEAVE_DAY';
+CONFIG['DEFAULT_PASSWORD'] = 'java@123';
+CONFIG['jwt_secret_key'] = 'HR_APP';
+CONFIG['DATA'] = [
+  {'id': 'lMyCalendar', 'path': '/monthly_attendance', 'label': 'My Attendance', 'access': {'Employee': 1}},
+  {'id': 'lUsersList', 'path': '/home', 'label': 'Employees Attendance', 'plabel': 'Attendance', 'access': {'Admin': {'group': 1, 'priority': 1}, 'HR': {'group': 0, 'priority': 1}, 'Guest': 1}},
+  {'id': 'lUserAttendanceUpload', 'path': '/uploadAttendance', 'label': 'Upload Attendance', 'plabel': 'Attendance', 'access': {'Admin': {'group': 1, 'priority': 2}, 'HR': {'group': 0, 'priority': 2}}},
+  {'id': 'lManageUsers', 'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees', 'access': {'Admin': {'group': 2, 'priority': 3}, 'HR': {'group': 5, 'priority': 13}}},
+  {'id': 'lDisabledEmployes', 'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees', 'access': {'Admin': {'group': 2, 'priority': 4}, 'HR': {'group': 5, 'priority': 14}}},
+  {'id': 'lManageWorkingHours', 'path': '/manage_working_hours', 'label': 'Office Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 5}, 'HR': {'group': 1, 'priority': 3}, 'Guest': 2}},
+  {'id': 'lManagePendingHours', 'path': '/manage_user_pending_hours', 'label': 'Pending Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 6}, 'Employee': 9}},
+  {'id': 'lManageUserWorkingHours', 'path': '/manage_user_working_hours', 'label': 'Employee Hours', 'plabel': 'Manage Hours', 'access': {'Admin': {'group': 3, 'priority': 7}, 'HR': {'group': 1, 'priority': 4}, 'Guest': 4}},
+  {'id': 'lManageLeaves', 'path': '/manage_leaves', 'label': 'Leaves', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 8}, 'HR': {'group': 2, 'priority': 5}, 'Guest': 3}},
+  {'id': 'lLeavesSummary', 'path': '/leaves_summary', 'label': 'Leaves Summary', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 9}, 'HR': {'group': 2, 'priority': 6}, 'Guest': 5}},
+  {'id': 'lApplyLeave', 'path': '/apply_leave', 'label': 'Apply Leave', 'plabel': 'Manage Leaves', 'access': {'Admin': {'group': 4, 'priority': 10}, 'HR': {'group': 2, 'priority': 7}, 'Employee': 2}},
+  {'id': 'lManageSalary', 'path': '/manage_salary', 'label': 'Salaries', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 11}, 'HR': {'group': 3, 'priority': 8}}},
+  {'id': 'lViewSalary', 'path': '/view_salary', 'label': 'View Salary', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 12}}},
+  {'id': 'lManagePayslips', 'path': '/manage_payslips', 'label': 'Payslips', 'plabel': 'Manage Salary', 'access': {'Admin': {'group': 5, 'priority': 13}}},
+  {'id': 'lMailTemplates', 'path': '/mail_templates', 'label': 'Mail Templates', 'plabel': 'Templates', 'access': {'Admin': {'group': 6, 'priority': 14}, 'HR': {'group': 4, 'priority': 9}}},
+  {'id': 'lTemplateVariable', 'path': '/add_variables', 'label': 'Add Variables', 'plabel': 'Templates', 'access': {'Admin': {'group': 6, 'priority': 15}, 'HR': {'group': 4, 'priority': 10}}},
+  {'id': 'lUploadPolicyDocs', 'path': '/upload_policy_documents', 'label': 'Upload Documents', 'plabel': 'Policy Documents', 'access': {'Admin': {'group': 7, 'priority': 16}}},
+  {'id': 'lMyLeaves', 'path': '/my_leaves', 'label': 'My Leaves', 'access': {'Employee': 4}},
+  {'id': 'lSalary', 'path': '/salary', 'label': 'My Salary', 'access': {'Employee': 5}},
+  {'id': 'lMyProfile', 'path': '/my_profile', 'label': 'My Profile', 'access': {'Employee': 6}},
+  {'id': 'lMyInventory', 'path': '/my_inventory', 'label': 'My Inventory', 'access': {'Employee': 7}},
+  {'id': 'lDocs', 'path': '/documents', 'label': 'My Documents', 'access': {'Employee': 10}},
+  {'id': 'lPolicyDocs', 'path': '/policy_documents', 'label': 'Policy Documents', 'access': {'HR': {'group': 5, 'priority': 15}, 'Employee': 11}},
+  {'id': 'lHolidays', 'path': '/holidays', 'label': 'Holidays', 'access': {'Admin': {'group': 8, 'priority': 18}, 'HR': {'group': 5, 'priority': 11}, 'Guest': 6, 'Employee': 3}},
+  {'id': 'lInventorySystem', 'path': '/inventory_system', 'label': 'Inventory', 'access': {'Admin': {'group': 8, 'priority': 19}, 'HR': {'group': 5, 'priority': 12}, 'Employee': 8}},
+  {'id': 'lTeamView', 'path': '/team_view', 'label': 'Team', 'access': {'Admin': {'group': 8, 'priority': 20}}},
+  {'id': 'lLogout', 'path': '/logout', 'label': 'Logout', 'access': {'Admin': {'group': 8, 'priority': 21}, 'HR': {'group': 5, 'priority': 16}, 'Guest': 7, 'Employee': 12}}
+];
+
+export {CONFIG};

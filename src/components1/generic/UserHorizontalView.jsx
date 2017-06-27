@@ -22,21 +22,21 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
   return (
     <div className="item">
       <div className="item-bg">
-        <img src={this.props.profileImage} className="blur opacity-3" />
+        <img src={profileImage} className="blur opacity-3" />
       </div>
       <div className="p-a-md">
         <div className="row m-t">
           <div className="col-sm-7">
             <a href="" className="pull-left m-r-md">
               <span className="avatar w-96">
-                <img src={this.props.profileImage} />
+                <img src={profileImage} />
                 <i className="on b-white"></i>
               </span>
             </a>
             <div className="clear m-b">
-              <h3 className="m-a-0 m-b-xs">{this.props.name}</h3>
+              <h3 className="m-a-0 m-b-xs">{name}</h3>
               <p className="text-muted">
-                <span className="m-r">{this.props.jobtitle}</span>
+                <span className="m-r">{jobtitle}</span>
               </p>
               {joining}
             </div>
@@ -49,20 +49,23 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
 };
 
 UserHorizontalView.propTypes = {
-  profileImage: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  jobtitle: PropTypes.string.isRequired,
+  profileImage:  PropTypes.string,
+  name:          PropTypes.string,
+  jobtitle:      PropTypes.string,
   dateofjoining: PropTypes.string,
-  dob: PropTypes.string,
-  gender: PropTypes.string,
-  work_email: PropTypes.string,
-  inventory: PropTypes.bool
+  dob:           PropTypes.string,
+  gender:        PropTypes.string,
+  work_email:    PropTypes.string,
+  inventory:     PropTypes.bool
 };
 UserHorizontalView.defaultProps = {
+  profileImage:  null,
+  name:          null,
+  jobtitle:      null,
   dateofjoining: null,
-  dob: null,
-  gender: null,
-  work_email: null,
-  inventory: false
+  dob:           null,
+  gender:        null,
+  work_email:    null,
+  inventory:     false
 };
 export default UserHorizontalView;

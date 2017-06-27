@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Paper from 'material-ui/Paper';
 
@@ -48,6 +49,10 @@ const ViewUserDevice = ({userAssignMachine}) => {
       </div>
     </div>
   );
+};
+
+ViewUserDevice.propTypes = {
+  userAssignMachine: PropTypes.array.isRequired
 };
 
 export default ViewUserDevice;

@@ -1,9 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import 'react-date-picker/index.css';
 
-const DeviceDetails = ({user_assign_machine}) => {
-  let machineList = _.map(user_assign_machine, (val, i) => {
+const styles = {
+  h6: {
+    textAlign: 'center',
+    fontSize:  '16px',
+    color:     '#f44455'
+  }
+};
+const DeviceDetails = ({userAssignMachine}) => {
+  let machineList = _.map(userAssignMachine, (val, i) => {
     return (<tr key={i}>
       <td>{val.machine_type}</td>
       <td>{val.machine_name}</td>
@@ -13,7 +21,7 @@ const DeviceDetails = ({user_assign_machine}) => {
     </tr>);
   });
   if (_.isEmpty(machineList)) {
-    machineList = <h6>{'Device Not Asssigned'}</h6>;
+    machineList = <tr><td colSpan="5"><h6 style={styles.h6}>{'Device Not Asssigned'}</h6></td></tr>;
   }
 
   return (
@@ -42,6 +50,10 @@ const DeviceDetails = ({user_assign_machine}) => {
       </ul>
     </div>
   );
+};
+
+DeviceDetails.propTypes = {
+  userAssignMachine: PropTypes.array.isRequired
 };
 
 export default DeviceDetails;

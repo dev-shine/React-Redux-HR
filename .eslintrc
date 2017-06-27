@@ -29,6 +29,8 @@
     "semi" : [2, "always"],
     "react/jsx-no-bind": [1, {"allowArrowFunctions": true}],
     "generator-star-spacing": 0,
-    "babel/generator-star-spacing": 1
+    "babel/generator-star-spacing": 1,
+    object-curly-spacing: ["error", "never"],
+    key-spacing: ["error", { "align": "value" }]
   }
 }

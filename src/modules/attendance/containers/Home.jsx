@@ -23,17 +23,17 @@ class Home extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': '',
-      year: '',
-      month: ''
+      'daysummary_userid':  '',
+      'daysummary_date':    '',
+      year:                 '',
+      month:                ''
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
+    // this.props.onFetchUserPolicyDocument();
   }
   componentDidMount () {
     this.props.onUsersList();
@@ -43,24 +43,15 @@ class Home extends React.Component {
     this.setState({year: year, month: month});
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
-      } else if (props.logged_user.role === CONFIG.HR) {
-        // this.props.onUsersList( )
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in);
+    if (isNotValid === 'HR') {
+      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
+      if (_.size(unread) > 0) {
+        this.props.router.push('/policy_documents');
       }
+    } else if (isNotValid) {
+      console.log(isNotValid);
+      this.props.router.push(isNotValid);
     }
 
     if (props.userDaySummary.status_message !== '') {
@@ -114,12 +105,12 @@ class Home extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:          state.frontend.toJS(),
+    logged_user:       state.logged_user.toJS(),
+    usersList:         state.usersList.toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
-    userDaySummary: state.userDaySummary.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    userDaySummary:    state.userDaySummary.toJS(),
+    policy_documents:  state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

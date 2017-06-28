@@ -10,7 +10,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
-import { createHashHistory } from 'history';
+import {createHashHistory} from 'history';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import Immutable from 'immutable';
@@ -45,9 +45,10 @@ import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';
 import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
+import Page_InventorySystem from './modules/inventory/containers/manageInventory';
+import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-
 // -----------------------------
 
 // -admin
@@ -56,11 +57,9 @@ import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmploye
 import Page_mail_template from './containers/admin/addTemplate';
 import Page_AddVariables from './containers/admin/addVariables';
 import Page_TeamView from './containers/admin/viewTeam';
-import Page_InventorySystem from './containers/admin/manageInventory';
 
 // -user
 import Page_MyProfile from './containers/user/myProfile';
-import Page_MyInventory from './containers/user/myInventory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 // -for iPhone iPad safari engine
@@ -68,7 +67,7 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 export class APP extends React.Component {
   render () {
@@ -87,7 +86,7 @@ injectTapEventPlugin();
 let store = createStore(reducer, compose(
 // applyMiddleware( thunk, logger),
 applyMiddleware(thunk),
-//window.devToolsExtension ? window.devToolsExtension() : f => f
+// window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 // --end---for HR APP by arun
@@ -142,7 +141,6 @@ applyMiddleware(thunk),
 
 // --start----added by arun for HR app
 let render = (routerKey = null) => {
-  // console.log('aaaaa');
   ReactDOM.render((
     <MuiThemeProvider>
       <Provider store={store}>

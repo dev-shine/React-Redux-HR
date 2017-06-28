@@ -7,7 +7,7 @@ import {notify} from '../../services/index';
 
 import Menu from '../../components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
-import UserHorizontalView from 'components/generic/UserHorizontalView';
+import UserHorizontalView from '../../components/generic/UserHorizontalView';
 import Header from '../../components/generic/header';
 
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails';

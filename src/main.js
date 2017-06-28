@@ -54,8 +54,10 @@ import Page_ManageUserPendingHours from './modules/workingHours/containers/manag
 // -admin
 import PageManageClients from 'modules/manageClients/containers/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
-import Page_mail_template from './containers/admin/addTemplate';
-import Page_AddVariables from './containers/admin/addVariables';
+
+import Page_mail_template from './modules/templates/containers/addTemplate';
+import Page_AddVariables from './modules/templates/containers/addVariables';
+
 import Page_TeamView from './containers/admin/viewTeam';
 
 // -user

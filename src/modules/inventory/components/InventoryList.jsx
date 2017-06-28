@@ -1,23 +1,14 @@
-import React from 'react'
-import * as _ from 'lodash'
-import Paper from 'material-ui/Paper'
-
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import FormAddNewInventory from '../../components/inventory/AddInventory'
-import AddDeviceDialoge from '../../components/inventory/AddDeviceDialoge'
-import AddDeviceStatus from '../../components/inventory/AddDeviceStatus'
-import Snackbar from 'material-ui/Snackbar'
-
-import { connect } from 'react-redux'
-import { CONFIG } from '../../config/index'
-import {notify} from '../../services/index'
-
-var moment = require('moment')
+import React from 'react';
+import * as _ from 'lodash';
+import {notify} from 'src/services/index';
+import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
+import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
+var moment = require('moment');
 
 class InventoryList extends React.Component {
   constructor (props) {
-    super(props)
-    this.props.onIsAlreadyLogin()
+    super(props);
+    this.props.onIsAlreadyLogin();
     this.state = {
       edit: false,
       open: false,
@@ -32,65 +23,53 @@ class InventoryList extends React.Component {
       device_status: '',
       deviceList: [],
       statusList: []
-    }
+    };
 
-    this.openEditDevice = this.openEditDevice.bind(this)
-    this.deleteDevices = this.deleteDevices.bind(this)
-    this.handleAssign = this.handleAssign.bind(this)
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleStatusOpen = this.handleStatusOpen.bind(this)
-    this.handleStatusClose = this.handleStatusClose.bind(this)
-    this.callAddDevice = this.callAddDevice.bind(this)
-    this.callAddStatus = this.callAddStatus.bind(this)
-    this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this)
-    this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this)
-    this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this)
+    this.openEditDevice = this.openEditDevice.bind(this);
+    this.deleteDevices = this.deleteDevices.bind(this);
+    this.handleAssign = this.handleAssign.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleStatusOpen = this.handleStatusOpen.bind(this);
+    this.handleStatusClose = this.handleStatusClose.bind(this);
+    this.callAddDevice = this.callAddDevice.bind(this);
+    this.callAddStatus = this.callAddStatus.bind(this);
+    this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
+    this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
+    this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
   componentWillMount () {
     this.props.onFetchDeviceType().then((val) => {
-      this.setState({deviceTypeList: val, deviceStatusList: val})
-    })
+      this.setState({deviceTypeList: val, deviceStatusList: val});
+    });
     this.props.onFetchDeviceStatus().then((val) => {
-      this.setState({deviceStatusList: val})
-    })
+      this.setState({deviceStatusList: val});
+    });
   }
 
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0)
-
-    // if (props.logged_user.logged_in == -1) {
-    //   this.props.router.push('/logout')
-    // } else {
-    //   if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR || localStorage.getItem('userid') === '375') {
-    //
-    //   } else {
-    //     this.props.router.push('/home')
-    //   }
-    // }
     if (props.manageDevice.status_message !== this.state.status_message) {
-      // console.log(props.manageDevice.status_message, 'messages')
       this.setState({
         openSnackbar: true
-      })
+      });
     } else {
       this.setState({
         openSnackbar: false
-      })
+      });
     }
 
-    this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device})
+    this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device});
     this.setState({
       deviceStatusList: props.manageDevice.statusList,
       statusList: props.manageDevice.statusList
-    })
+    });
   }
   openEditDevice (id) {
-    this.props.openEditDevice(id)
+    this.props.openEditDevice(id);
   }
 
   deleteDevices (id) {
-    this.props.deleteDevices(id)
+    this.props.deleteDevices(id);
   }
   callAddStatus (statusValue, colorValue) {
     this.props.onCallDeviceStatus(statusValue, colorValue).then((message) => {
@@ -98,54 +77,54 @@ class InventoryList extends React.Component {
         statusType: '',
         background: '',
         checkValue: ''
-      })
-      notify(message)
-      this.props.onFetchDeviceStatus()
-      this.handleStatusClose()
+      });
+      notify(message);
+      this.props.onFetchDeviceStatus();
+      this.handleStatusClose();
     }, (error) => {
-      notify(error)
-    })
+      notify(error);
+    });
   }
 
   callAddDevice (deviceType) {
     this.props.onCallDeviceType(deviceType).then((message) => {
       this.setState({
         status_message: message
-      })
-      this.props.onFetchDeviceType()
+      });
+      this.props.onFetchDeviceType();
     }, (error) => {
-      notify(error)
-    })
+      notify(error);
+    });
   }
   handleStatusClose () {
     this.setState({
       openStatus: false,
       statusType: '',
       background: ''
-    })
+    });
   }
   handleStatusOpen () {
     this.setState({
       openStatus: true
-    })
+    });
   }
 
   handleOpen (e) {
-    e.stopPropagation()
+    e.stopPropagation();
     this.setState({
       open: true
-    })
+    });
   }
   handleClose () {
     this.setState({
       open: false
 
-    })
+    });
   };
 
   handleAssign (id, userId) {
-    this.setState({user: userId})
-    this.props.callAssign(id, userId)
+    this.setState({user: userId});
+    this.props.callAssign(id, userId);
   }
 
   callDeleteDeviceStatus (checkValue) {
@@ -155,101 +134,94 @@ class InventoryList extends React.Component {
           statusType: '',
           background: '',
           checkValue: ''
-        })
-        alert('This Device Status Type Is In Use')
-        this.handleStatusClose()
+        });
+        alert('This Device Status Type Is In Use');
+        this.handleStatusClose();
       } else if (val.message) {
         this.setState({
           status_message: val.message
-        })
-        alert(this.state.status_message)
-        this.handleStatusClose()
+        });
+        alert(this.state.status_message);
+        this.handleStatusClose();
       } else {
         this.setState({
           statusType: '',
           background: '',
           checkValue: ''
-        })
-        this.handleStatusClose()
+        });
+        this.handleStatusClose();
       }
-    })
-    this.props.onFetchDeviceStatus()
+    });
+    this.props.onFetchDeviceStatus();
   }
 
   handleDeviceTypeFilter (deviceType) {
-    let devices = this.props.manageDevice.device
-    if (this.state.device_status != '') {
-      devices = this.state.deviceList
+    let devices = this.props.manageDevice.device;
+    if (this.state.device_status !== '') {
+      devices = this.state.deviceList;
     }
-    if (deviceType != '') {
-      devices = _.filter(devices, row => row.machine_type === deviceType)
+    if (deviceType !== '') {
+      devices = _.filter(devices, row => row.machine_type === deviceType);
     } else {
-      if (this.state.device_status != '') {
-        devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.device_status)
+      if (this.state.device_status !== '') {
+        devices = _.filter(this.props.manageDevice.device, row => row.status === this.state.device_status);
       }
     }
-    if (this.state.device_status != '' && deviceType != '') {
-      devices = _.filter(this.props.manageDevice.device, row => (row.machine_type === deviceType && row.status === this.state.device_status))
+    if (this.state.device_status !== '' && deviceType !== '') {
+      devices = _.filter(this.props.manageDevice.device, row => (row.machine_type === deviceType && row.status === this.state.device_status));
     }
     this.setState({
       deviceList: devices,
       search: deviceType
 
-    })
+    });
   }
 
   handleStatusTypeFilter (statusType) {
-    let status = this.props.manageDevice.device
-    if (this.state.search != '') {
-      status = this.state.deviceList
+    let status = this.props.manageDevice.device;
+    if (this.state.search !== '') {
+      status = this.state.deviceList;
     }
-    if (statusType != '') {
-      status = _.filter(status, row => row.status === statusType)
+    if (statusType !== '') {
+      status = _.filter(status, row => row.status === statusType);
     } else {
-      if (this.state.search != '') {
-        status = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search)
+      if (this.state.search !== '') {
+        status = _.filter(this.props.manageDevice.device, row => row.machine_type === this.state.search);
       }
     }
-    if (statusType != '' && this.state.search != '') {
-      status = _.filter(this.props.manageDevice.device, row => (row.machine_type === this.state.search && row.status === statusType))
+    if (statusType !== '' && this.state.search !== '') {
+      status = _.filter(this.props.manageDevice.device, row => (row.machine_type === this.state.search && row.status === statusType));
     }
     this.setState({
       deviceList: status,
       device_status: statusType
-    })
+    });
   }
   render () {
-    var statusList = this.state.deviceStatusList || []
+    var statusList = this.state.deviceStatusList || [];
 
     let statusDropMap = statusList.map((val, i) => {
       return (
-        <option value={val.status} key={i}>{val.status}</option>)
-    })
+        <option value={val.status} key={i}>{val.status}</option>);
+    });
 
-    let statusDrop = statusDropMap
+    let statusDrop = statusDropMap;
 
     let listDropMap = this.state.deviceTypeList.map((val, i) => {
-      return (<option value={val} key={i}>{val}</option>)
-    })
-    let listDrop = listDropMap.reverse()
-    let devices = this.state.deviceList
-    let statusVal = this.state.deviceStatusList
-    let colorNew
-    _.map(statusVal, (val, i) => {
-      return (
-      colorNew = val.color
-      )
-    })
+      return (<option value={val} key={i}>{val}</option>);
+    });
+    let listDrop = listDropMap.reverse();
+    let devices = this.state.deviceList;
+    let statusVal = this.state.deviceStatusList;
 
-    let rowColor
-    let rows = []
+    let rowColor;
+    let rows = [];
     _.map(devices, (device, i) => {
-      let rowColorData = statusVal.filter(val => val.status === device.status)
+      let rowColorData = statusVal.filter(val => val.status === device.status);
       if (rowColorData.length > 0) {
-        rowColor = rowColorData[0].color
+        rowColor = rowColorData[0].color;
       }
-      rows.push(<tr key={i}
-        style={{background: rowColor, borderBottom: '2px solid white'}}>
+      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
         <td style={{marginRight: '0%'}}>{i + 1}</td>
         <td>{device.machine_type}</td>
         <td style={{align: 'center'}}>{device.machine_name}</td>
@@ -287,25 +259,19 @@ class InventoryList extends React.Component {
           {device.name}
         </td>
         <td style={{marginTop: '5%', align: 'center'}}>
-          <i onClick={() => {
-            this.openEditDevice(device.id)
-          }}
-            className="fa fa-lg fa-pencil-square-o"
-            style={{color: '#3f51b5', cursor: 'pointer'}}
-            aria-hidden="true"></i>
+          <i className="fa fa-lg fa-pencil-square-o" style={{color: '#3f51b5', cursor: 'pointer'}} onClick={() => {
+            this.openEditDevice(device.id);
+          }} aria-hidden="true"></i>
         </td>
-        <td style={{marginRight: '5%', align: 'center'}} ><i
-          onClick={() => {
+        <td style={{marginRight: '5%', align: 'center'}} >
+          <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             if (confirm('Are you sure you want to delete this record?')) {
-              this.deleteDevices(device.id)
+              this.deleteDevices(device.id);
             };
-          }}
-          className="fa fa-lg fa fa-trash"
-          style={{color: '#B71C1C', cursor: 'pointer'}}
-          aria-hidden="true"></i>
+          }} aria-hidden="true"></i>
         </td>
-      </tr>)
-    })
+      </tr>);
+    });
     return (
       <div>
         <div className="app-body" id="view">
@@ -319,7 +285,7 @@ class InventoryList extends React.Component {
                       ref="device_type"
                       value={this.state.search}
                       onChange={(e) => {
-                        this.handleDeviceTypeFilter(e.target.value)
+                        this.handleDeviceTypeFilter(e.target.value);
                       }}>
                       <option value="">--Select Device Type--</option>
                       {listDrop}
@@ -332,7 +298,7 @@ class InventoryList extends React.Component {
                     <select className="form-control" ref="device_status"
                       value={this.state.device_status}
                       onChange={(e) => {
-                        this.handleStatusTypeFilter(e.target.value)
+                        this.handleStatusTypeFilter(e.target.value);
                       }}>
                       <option value="">--Select Device Status--</option>
                       {statusDrop}
@@ -375,8 +341,6 @@ class InventoryList extends React.Component {
                     <table key='' className="table table-striped table-hover">
                       <thead className="col-12" style={{align: 'center'}}>
                         <tr>
-                        </tr>
-                        <tr>
                           <th>Sr. No</th>
                           <th>Device Type</th>
                           <th>Name</th>
@@ -403,19 +367,8 @@ class InventoryList extends React.Component {
           </div>
         </div>
       </div>
-
-    )
+    );
   }
 }
 
-var styles = {
-  box: {
-    'color': 'blue',
-    'float': 'left',
-    'width': '20px',
-    'height': '20px',
-    'margin': '5px',
-    'border': '1px solid rgba(0, 0, 0, .2)'
-  }
-}
-export default InventoryList
+export default InventoryList;

@@ -1,14 +1,11 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {notify} from '../../services/index';
-import { CONFIG } from '../../config/index';
+import {CONFIG} from 'src/config/index';
 import 'react-date-picker/index.css';
-
-var moment = require('moment');
 
 export default class AddDeviceDialoge extends React.Component {
   constructor (props) {
@@ -20,9 +17,7 @@ export default class AddDeviceDialoge extends React.Component {
       deviceList: [],
       checkValue: []
     };
-
     this.addMoreDevice = this.addMoreDevice.bind(this);
-    // this.addDeviceType = this.addDeviceType.bind(this)
     this.handleDelete = this.handleDelete.bind(this);
     this.setValue = this.setValue.bind(this);
   }
@@ -82,58 +77,21 @@ export default class AddDeviceDialoge extends React.Component {
     this.props.callAddDevice(this.state.deviceList);
   }
 
-  // addDeviceType () {
-  //   this.props.callAddDevice(this.state.deviceList)
-  // }
-
   render () {
-    var text = <div>
-          <TextField
-            ref='value'
-            floatingLabelText={'Device Type'}
-            fullWidth
-            value={this.state.deviceType}
-            onChange={(e) => {
-              this.setState({
-                deviceType: e.target.value
-              });
-            }}
-            />
-      </div>;
-
     const actions = [
-      <FlatButton
-        label="Delete"
-        secondary
-        onTouchTap={() => {
-          if (this.state.checkValue != '') {
-            if (confirm('Are you sure you want to delete this Device Type ?')) {
-              this.handleDelete();
-            };
-          }
-        }}
-        style={{marginRight: 5}}
-    />,
-      <FlatButton
-        label="Cancel"
-        primary
-        onTouchTap={this.props.handleClose}
-        style={{marginRight: 5}}
-    />,
-      <RaisedButton
-        label="Submit"
-        primary
-        onTouchTap={this.addMoreDevice}
-    />
+      <FlatButton label="Delete" secondary style={{marginRight: 5}} onTouchTap={() => {
+        if (this.state.checkValue !== '') {
+          if (confirm('Are you sure you want to delete this Device Type ?')) {
+            this.handleDelete();
+          };
+        }
+      }} />,
+      <FlatButton label="Cancel" primary onTouchTap={this.props.handleClose} style={{marginRight: 5}} />,
+      <RaisedButton label="Submit" primary onTouchTap={this.addMoreDevice} />
     ];
     return (
       <div>
-        {
-          this.props.logged_user.role === CONFIG.ADMIN
-         ? <button className="md-btn md-raised m-b-sm indigo"
-           onTouchTap={this.props.handleOpen}>Add Device Type</button>
-         : null
-       }
+        {this.props.logged_user.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button> : null}
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}
@@ -141,26 +99,27 @@ export default class AddDeviceDialoge extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.props.handleClose}
-                  ><div className="row m-0">
-                  <div className='col-sm-5'style={{overflowY: 'auto', maxHeight: '250px'}}>
-                    <label>Device Type List</label>
-                    <ol>
-                  {this.state.deviceList.map((val, i) => {
-                    return <li key={i}>
-                      <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => {
-                        this.setValue(e);
-                      }}>
-
-                      </input> {val}</li>;
-                  })}
-                </ol>
-                </div>
-                <div className='col-sm-7' style={{marginTop: '5%'}}>
-                {text}
+        >
+          <div className="row m-0">
+            <div className='col-sm-5'style={{overflowY: 'auto', maxHeight: '250px'}}>
+              <label>Device Type List</label>
+              <ol> {this.state.deviceList.map((val, i) => {
+                return <li key={i}>
+                  <input type='checkbox' name="checked" id={i} value={val} onChange={(e) => { this.setValue(e); }} />{val}
+                </li>;
+              })}
+              </ol>
             </div>
-              </div>
-          </Dialog>
-        </div>
+            <div className='col-sm-7' style={{marginTop: '5%'}}>
+              <TextField ref='value' floatingLabelText={'Device Type'} fullWidth value={this.state.deviceType} onChange={(e) => {
+                this.setState({
+                  deviceType: e.target.value
+                });
+              }} />
+            </div>
+          </div>
+        </Dialog>
+      </div>
     );
   }
 }

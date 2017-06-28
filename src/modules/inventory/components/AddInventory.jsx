@@ -1,17 +1,10 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import {notify} from '../../services/index';
-import DatePicker from 'material-ui/DatePicker';
 import {DateField} from 'react-date-picker';
+import {notify} from 'src/services/index';
 import AlertNotification from 'components/generic/AlertNotification';
-
 import 'react-date-picker/index.css';
-var moment = require('moment');
 
 export default class FormAddNewInventory extends React.Component {
   constructor (props) {
@@ -54,7 +47,6 @@ export default class FormAddNewInventory extends React.Component {
     });
 
     if (props.edit) {
-      // console(props)
       this.setState({
         id: props.getByIdData.id,
         machine_type: props.getByIdData.machine_type,
@@ -117,7 +109,6 @@ export default class FormAddNewInventory extends React.Component {
     };
     if (!this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
-        // console(val)
         this.props.handleClose();
         this.setState({
           machine_type: '',
@@ -166,9 +157,7 @@ export default class FormAddNewInventory extends React.Component {
     });
     return (
       <div>
-
         <AlertNotification message={this.state.msg} />
-
         <button className="md-btn md-raised m-b-sm indigo"
           onTouchTap={this.handleOpen}>Add New Inventory </button>
         <Dialog
@@ -178,41 +167,35 @@ export default class FormAddNewInventory extends React.Component {
           open={this.state.open} onRequestClose={this.props.handleClose} contentStyle={{
             width: '70%',
             maxWidth: 'none'
-          }} autoScrollBodyContent>
-
+          }} autoScrollBodyContent >
           <table className="table">
             <tbody>
               <tr>
-           <td>
-              Date Of Purchase
-              <DateField
-                style={{marginTop: '4%'}}
-                dateFormat="YYYY-MM-DD"
-                placeholder="YYYY-MM-DD"
-                onChange={(date) => { this.setState({purchase_date: date}); }}
-                value={this.state.purchase_date}
-                className="form-control"
-                required />
+                <td>
+                  Date Of Purchase
+                  <DateField
+                    style={{marginTop: '4%'}}
+                    dateFormat="YYYY-MM-DD"
+                    placeholder="YYYY-MM-DD"
+                    onChange={(date) => { this.setState({purchase_date: date}); }}
+                    value={this.state.purchase_date}
+                    className="form-control"
+                    required />
                 </td>
-
-             <td style={{opacity: '0.56'}}>
-                Assign User
-                <select className="form-control" style={{marginTop: '4%'}}
-                  value={this.state.user_Id}
-                  onChange={(evt) => {
-                    let id = evt.target.value;
-                    this.setState({user_Id: evt.target.value});
-                    // if (this.state.edit) {
-                    //   this.handleAssign(this.state.id, id)
-                    // }
-                  }}>
-                  <option value=''>--select user--</option>
-                  {userList}
-                </select>
-              </td>
+                <td style={{opacity: '0.56'}}>
+                  Assign User
+                  <select className="form-control" style={{marginTop: '4%'}}
+                    value={this.state.user_Id}
+                    onChange={(evt) => {
+                      this.setState({user_Id: evt.target.value});
+                    }}>
+                    <option value=''>--select user--</option>
+                    {userList}
+                  </select>
+                </td>
               </tr>
               <tr>
-                 <td>
+                <td>
                   Date Of Warrenty Expiry
                   <DateField style={{marginTop: '4%'}}
                     dateFormat="YYYY-MM-DD"
@@ -222,7 +205,6 @@ export default class FormAddNewInventory extends React.Component {
                     className="form-control"
                     required />
                 </td>
-
                 <td colSpan={2}>
                   <TextField
                     floatingLabelText="Machine Name"
@@ -232,7 +214,6 @@ export default class FormAddNewInventory extends React.Component {
                     required />
                 </td>
               </tr>
-
               <tr>
                 <td style={{opacity: '0.56'}}>
                   Machine/Device Type
@@ -243,11 +224,10 @@ export default class FormAddNewInventory extends React.Component {
                       return <option key={i} value={val}> {val}</option>;
                     })}
                   </select>
-                 </td>
-               </tr>
-
+                </td>
+              </tr>
               <tr>
-              <td>
+                <td>
                   <TextField
                     floatingLabelText="Mac Address"
                     hintText='00:25:96:FF:FE:12:34:56'
@@ -264,7 +244,6 @@ export default class FormAddNewInventory extends React.Component {
                     value={this.state.machine_price} required />
                 </td>
               </tr>
-
               <tr >
                 <td >
                   <TextField
@@ -273,7 +252,6 @@ export default class FormAddNewInventory extends React.Component {
                     onChange={(e) => (this.setState({serial_no: e.target.value}))}
                     value={this.state.serial_no} />
                 </td>
-
                 <td colSpan={2} >
                   <TextField
                     floatingLabelText="Bill No"
@@ -292,39 +270,27 @@ export default class FormAddNewInventory extends React.Component {
                         return <option key={i} value={val.status}> {val.status}</option>;
                       })}
                   </select>
-              </td>
-              <td style={{opacity: '0.56'}} >
-                {'Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onChange={(e) => { this.setState({comment: e.target.value}); }}
-                  value={this.state.comment}
-                />
-              </td>
-            </tr>
-
+                </td>
+                <td style={{opacity: '0.56'}} >
+                  Comment
+                  <textarea style={{width: '100%'}} onChange={(e) => { this.setState({comment: e.target.value}); }} value={this.state.comment} />
+                </td>
+              </tr>
               <tr style={{opacity: '0.56'}}>
-              <td >
-                {'Extended Warranty Comments'}
-                <textarea
-                  style={{width: '100%'}}
-                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
-                  value={this.state.warranty_comment}
-                />
-              </td>
-              <td>
-                {'Previous Repair Comments'}
-              <textarea
-                style={{width: '100%'}}
-                onChange={(e) => { this.setState({repair_comment: e.target.value}); }}
-                value={this.state.repair_comment} />
-            </td>
-            </tr>
+                <td >
+                  Extended Warranty Comments
+                  <textarea style={{width: '100%'}} onChange={(e) => { this.setState({warranty_comment: e.target.value}); }} value={this.state.warranty_comment} />
+                </td>
+                <td>
+                  Previous Repair Comments
+                  <textarea style={{width: '100%'}} onChange={(e) => { this.setState({repair_comment: e.target.value}); }} value={this.state.repair_comment} />
+                </td>
+              </tr>
             </tbody>
           </table>
-          <button
-            className="col-md-12 md-btn md-raised m-b-sm indigo"
-            onClick={this.handleAddDevice}>{this.state.edit ? 'Update Inventory' : 'Add Inventory'}</button>
+          <button className="col-md-12 md-btn md-raised m-b-sm indigo" onClick={this.handleAddDevice}>
+            {this.state.edit ? 'Update Inventory' : 'Add Inventory'}
+          </button>
         </Dialog>
       </div>
     );

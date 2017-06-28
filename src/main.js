@@ -10,7 +10,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
-import { createHashHistory } from 'history';
+import {createHashHistory} from 'history';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import Immutable from 'immutable';
@@ -58,7 +58,7 @@ import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmploye
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
 
-import Page_TeamView from './containers/admin/viewTeam';
+import Page_TeamView from './modules/team/containers/viewTeam';
 
 // -user
 import Page_MyProfile from './containers/user/myProfile';
@@ -69,7 +69,7 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 export class APP extends React.Component {
   render () {
@@ -88,7 +88,7 @@ injectTapEventPlugin();
 let store = createStore(reducer, compose(
 // applyMiddleware( thunk, logger),
 applyMiddleware(thunk),
-//window.devToolsExtension ? window.devToolsExtension() : f => f
+// window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 // --end---for HR APP by arun

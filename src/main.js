@@ -45,9 +45,10 @@ import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';
 import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
+import Page_InventorySystem from './modules/inventory/containers/manageInventory';
+import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-
 // -----------------------------
 
 // -admin
@@ -56,11 +57,9 @@ import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmploye
 import Page_mail_template from './containers/admin/addTemplate';
 import Page_AddVariables from './containers/admin/addVariables';
 import Page_TeamView from './containers/admin/viewTeam';
-import Page_InventorySystem from './containers/admin/manageInventory';
 
 // -user
 import Page_MyProfile from './containers/user/myProfile';
-import Page_MyInventory from './containers/user/myInventory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 // -for iPhone iPad safari engine

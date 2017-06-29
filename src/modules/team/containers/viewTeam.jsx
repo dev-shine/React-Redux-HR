@@ -1,15 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import * as _ from 'lodash';
+import {connect} from 'react-redux';
+import {CONFIG} from 'src/config/index';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
+import TeamList from '../components/TeamList';
+import TeamDetails from '../components/TeamDetails';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_getTeamData from 'appRedux/team/actions/teamList';
-import TeamList from '../components/TeamList';
-import TeamDetails from '../components/TeamDetails';
 
 class ViewTeam extends React.Component {
   constructor (props) {
@@ -61,7 +61,7 @@ class ViewTeam extends React.Component {
   }
 
   render () {
-    let view_team = <TeamDetails teamListData={this.props.teamList} {...this.props} />;
+    let view_team = <TeamDetails teamListData={this.props.teamList} fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
     let add_new_team = <TeamList {...this.props} />;
     return (
       <div>

@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import {CONFIG} from '../../../config/index';
+import {CONFIG} from 'src/config/index';
 import RaisedButton from 'material-ui/RaisedButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Table, TableBody, TableHeader, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -26,6 +26,7 @@ class TeamList extends React.Component {
     this.saveTeam = this.saveTeam.bind(this);
     this.deleteTeam = this.deleteTeam.bind(this);
     this.callSaveApi = this.callSaveApi.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentWillReceiveProps (props) {
@@ -90,26 +91,24 @@ class TeamList extends React.Component {
     });
   }
   render () {
-    // console.log(this.props.teamList, this.props)
     let teams;
     if (this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0) {
       teams = this.props.teamList.teams;
     } else {
       teams = [];
     }
-    	// let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
-    	const actions = [
+    const actions = [
       <FlatButton
         label="Back"
         primary
-        onTouchTap={this.handleClose.bind(this)}
+        onTouchTap={this.handleClose}
         style={{marginRight: 5}}
-      />,
+  />,
       <RaisedButton
         label="Submit"
         primary
         onTouchTap={this.saveTeam}
-      />
+  />
     ];
     return (
       <div className="app-body" id="view">
@@ -119,7 +118,7 @@ class TeamList extends React.Component {
             actions={actions}
             modal={false}
             open={this.state.openDialog}
-            onRequestClose={this.handleClose.bind(this)}>
+            onRequestClose={this.handleClose}>
             <div>
               <TextField
                 ref='value'
@@ -197,9 +196,8 @@ class TeamList extends React.Component {
                               }
                               />
                             </TableRowColumn>
-                          </TableRow>
-                      )
-                    )}
+                          </TableRow>)
+                        )}
                       </TableBody>
                     </Table>
                   </Paper>

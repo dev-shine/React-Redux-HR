@@ -22,42 +22,33 @@ class PageDisabledEmployes extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      disabled_users: [],
-      'defaultUserDisplay': '',
-      'selected_user_name': '',
-      'f_char': '',
+      disabled_users:           [],
+      'defaultUserDisplay':     '',
+      'selected_user_name':     '',
+      'f_char':                 '',
       'selected_user_jobtitle': '',
-      'selected_user_id': '',
-      'userDetails': '',
-      key: 0,
-      user_documents: {},
-      user_payslip_history: []
+      'selected_user_id':       '',
+      'userDetails':            '',
+      key:                      0,
+      user_documents:           {},
+      user_payslip_history:     []
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
   }
   componentWillMount () {
     window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (this.props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      this.props.onFetchDisabledEmployee();
-    }
+    this.props.onFetchDisabledEmployee();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      props.router.push('/logout');
-    }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {} else {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       user_payslip_history: props.managePayslips.user_payslip_history,
-      user_documents: props.manageUsers.user_documents
+      user_documents:       props.manageUsers.user_documents
     });
   }
   componentDidUpdate () {
@@ -75,12 +66,12 @@ class PageDisabledEmployes extends React.Component {
   onUserClick (firstUser) {
     window.scrollTo(0, 0);
     this.setState({
-      'defaultUserDisplay': firstUser.user_Id,
-      'selected_user_name': firstUser.name,
-      'f_char': firstUser.name.charAt(0),
+      'defaultUserDisplay':     firstUser.user_Id,
+      'selected_user_name':     firstUser.name,
+      'f_char':                 firstUser.name.charAt(0),
       'selected_user_jobtitle': firstUser.jobtitle,
-      'selected_user_id': firstUser.user_Id,
-      'userDetails': firstUser
+      'selected_user_id':       firstUser.user_Id,
+      'userDetails':            firstUser
     });
     this.props.onGetUserDocument(firstUser.user_Id);
     this.props.onUserManagePayslipsData(firstUser.user_Id);
@@ -146,20 +137,20 @@ class PageDisabledEmployes extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:       state.frontend.toJS(),
+    logged_user:    state.logged_user.toJS(),
+    usersList:      state.usersList.toJS(),
     managePayslips: state.managePayslips.toJS(),
-    manageUsers: state.manageUsers.toJS()
+    manageUsers:    state.manageUsers.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
-    onFetchDisabledEmployee: () => { return dispatch(actionsDisabledEmployee.getDisabledUsersList()); },
-    onChangeEmployeeStatus: (userid, status) => { return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status)); },
-    onDeleteDocument: (docId) => { return dispatch(actionsManageUsers.deleteDocument(docId)); },
-    onGetUserDocument: (userid) => { return dispatch(actionsManageUsers.getUserDocument(userid)); },
+    onIsAlreadyLogin:         () => { return dispatch(actionsLogin.isAlreadyLogin()); },
+    onFetchDisabledEmployee:  () => { return dispatch(actionsDisabledEmployee.getDisabledUsersList()); },
+    onChangeEmployeeStatus:   (userid, status) => { return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status)); },
+    onDeleteDocument:         (docId) => { return dispatch(actionsManageUsers.deleteDocument(docId)); },
+    onGetUserDocument:        (userid) => { return dispatch(actionsManageUsers.getUserDocument(userid)); },
     onUserManagePayslipsData: (userid) => { return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid)); }
   };
 };

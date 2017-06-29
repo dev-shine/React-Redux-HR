@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Router, browserHistory, Link, withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import {Router, browserHistory, Link, withRouter} from 'react-router';
 
 import * as _ from 'lodash';
 import {notify} from '../../services/index';
-import { CONFIG } from '../../config/index';
+import {CONFIG} from '../../config/index';
 import {isNotUserValid} from 'src/services/generic';
 import Menu from '../../components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
@@ -19,12 +19,12 @@ class ViewTeam extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      empList: [],
-      all_Teams: '',
-      active: 'active',
-      addNewTeam: 'row',
-      viewTeam: 'hidden',
-      firstArrow: 'show',
+      empList:     [],
+      all_Teams:   '',
+      active:      'active',
+      addNewTeam:  'row',
+      viewTeam:    'hidden',
+      firstArrow:  'show',
       secondArrow: 'hidden'
     };
     this.openPage = this.openPage.bind(this);
@@ -35,16 +35,9 @@ class ViewTeam extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   componentDidUpdate () {
@@ -52,16 +45,16 @@ class ViewTeam extends React.Component {
   openPage (toDisplay) {
     if (toDisplay == 'add_new_team') {
       this.setState({
-        addNewTeam: 'row',
-        viewTeam: 'hidden',
-        firstArrow: 'show',
+        addNewTeam:  'row',
+        viewTeam:    'hidden',
+        firstArrow:  'show',
         secondArrow: 'hidden'
       });
     } else {
       this.setState({
-        addNewTeam: 'hidden',
-        viewTeam: 'row',
-        firstArrow: 'hidden',
+        addNewTeam:  'hidden',
+        viewTeam:    'row',
+        firstArrow:  'hidden',
         secondArrow: 'show'
       });
     }
@@ -125,11 +118,11 @@ class ViewTeam extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
+    frontend:    state.frontend.toJS(),
     logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
-    employee: state.empSalaryList.toJS(),
-    teamList: state.teamList.toJS()
+    usersList:   state.usersList.toJS(),
+    employee:    state.empSalaryList.toJS(),
+    teamList:    state.teamList.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

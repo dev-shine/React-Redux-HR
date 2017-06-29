@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
@@ -20,11 +20,11 @@ class ManageLeaves extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      loading: true,
-      selectedTab: '',
+      loading:        true,
+      selectedTab:    '',
       leaveListItems: [],
-      all_leaves: [],
-      selectedLeave: {}
+      all_leaves:     [],
+      selectedLeave:  {}
     };
     this.doLeaveStatusChange = this.doLeaveStatusChange.bind(this);
     this.filterLeaveList = this.filterLeaveList.bind(this);
@@ -38,24 +38,15 @@ class ManageLeaves extends React.Component {
 
   }
   componentWillReceiveProps (props) {
-    var selectedTab = '';
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
+    let selectedTab = '';
+    let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user.logged_in, this.props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-        selectedTab = 'ApprovedByHr';
-      } else if (props.logged_user.role == CONFIG.HR) {
-        selectedTab = 'Pending';
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
+    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
+      selectedTab = 'ApprovedByHr';
+    } else if (props.logged_user.role === CONFIG.HR) {
+      selectedTab = 'Pending';
     }
     if (!_.isEqual(props.listLeaves.all_leaves, this.state.all_leaves)) {
       let tab = localStorage.getItem('activeTab');
@@ -63,7 +54,7 @@ class ManageLeaves extends React.Component {
         selectedTab = tab;
       }
       this.setState({
-        all_leaves: props.listLeaves.all_leaves,
+        all_leaves:  props.listLeaves.all_leaves,
         selectedTab: selectedTab
       }, () => {
         this.filterLeaveList(selectedTab);
@@ -80,7 +71,7 @@ class ManageLeaves extends React.Component {
   }
   selectLeave (leaveId) {
     if (leaveId !== this.state.selectedLeave.id) {
-      var select = _.find(this.state.leaveListItems, { 'id': leaveId });
+      var select = _.find(this.state.leaveListItems, {'id': leaveId});
       this.setState({
         selectedLeave: select
       });
@@ -97,22 +88,22 @@ class ManageLeaves extends React.Component {
     } else if (activeTab === 'NotApprovedByHr') {
       newLeavesList = _.filter(all_leaves, function (o) { return o.status === 'Pending' && (parseInt(o.hr_approved) === 2 || parseInt(o.hr_approved) === 0); });
     } else {
-      newLeavesList = _.filter(all_leaves, { 'status': activeTab });
+      newLeavesList = _.filter(all_leaves, {'status': activeTab});
     }
 
     var selectedLeave = newLeavesList[0] || {};
     if (!_.isEmpty(this.state.selectedLeave)) {
-      var select = _.filter(newLeavesList, { 'id': this.state.selectedLeave.id });
+      var select = _.filter(newLeavesList, {'id': this.state.selectedLeave.id});
       if (_.size(select) > 0) {
         selectedLeave = select[0];
       }
     }
 
     this.setState({
-      loading: false,
+      loading:        false,
       leaveListItems: newLeavesList,
-      selectedLeave: selectedLeave,
-      selectedTab: activeTab
+      selectedLeave:  selectedLeave,
+      selectedTab:    activeTab
     });
     localStorage.setItem('activeTab', activeTab);
   }
@@ -167,8 +158,8 @@ class ManageLeaves extends React.Component {
 ManageLeaves.styles = {
   spinContainer: {
     'textAlign': 'center',
-    'fontSize': '50px',
-    'color': '#808080'
+    'fontSize':  '50px',
+    'color':     '#808080'
   },
   spiner: {
     'margin': '50px auto'
@@ -176,10 +167,10 @@ ManageLeaves.styles = {
 };
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    listLeaves: state.listLeaves.toJS(),
-    manageLeave: state.manageLeave.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    listLeaves:       state.listLeaves.toJS(),
+    manageLeave:      state.manageLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

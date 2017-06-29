@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
@@ -22,16 +23,16 @@ class ManageUserPendingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_date': '',
-      status_message: '',
-      active: 'active',
-      firstArrow: 'show',
-      secondArrow: 'hidden',
-      thirdArrow: 'hidden',
-      pendingList: 'show',
-      pendingUserList: 'hidden',
-      open: false,
-      edit: false
+      'daysummary_date':    '',
+      status_message:       '',
+      active:               'active',
+      firstArrow:           'show',
+      secondArrow:          'hidden',
+      thirdArrow:           'hidden',
+      pendingList:          'show',
+      pendingUserList:      'hidden',
+      open:                 false,
+      edit:                 false
     };
     this.callAddUserPendingHours = this.callAddUserPendingHours.bind(this);
     this.callFetchPendingUserList = this.callFetchPendingUserList.bind(this);
@@ -48,25 +49,14 @@ class ManageUserPendingHours extends React.Component {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
 
   componentDidUpdate () {
-    if (this.state.defaultUserDisplay == '') {
+    if (this.state.defaultUserDisplay === '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.usersList.users[0];
         let defaultUserName = firstUser.username;
@@ -96,17 +86,17 @@ class ManageUserPendingHours extends React.Component {
   openPage (toDisplay) {
     if (toDisplay === 'pending_hour_list') {
       this.setState({
-        pendingList: 'row',
-        firstArrow: 'show',
+        pendingList:     'row',
+        firstArrow:      'show',
         pendingUserList: 'hidden',
-        secondArrow: 'hidden'
+        secondArrow:     'hidden'
       });
     } else if ((toDisplay === 'view_user_pending_hours')) {
       this.setState({
-        pendingList: 'hidden',
-        firstArrow: 'hidden',
+        pendingList:     'hidden',
+        firstArrow:      'hidden',
         pendingUserList: 'row',
-        secondArrow: 'show'
+        secondArrow:     'show'
       });
     }
   }
@@ -139,7 +129,7 @@ class ManageUserPendingHours extends React.Component {
                 <div className="col-12">
                 </div>
               </div>
-              {this.state.secondArrow == 'show' ? null
+              {this.state.secondArrow === 'show' ? null
                 : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
                   <div className="col-md-11 col-xs-offset-0">
                   </div>
@@ -180,12 +170,12 @@ class ManageUserPendingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:               state.frontend.toJS(),
+    logged_user:            state.logged_user.toJS(),
+    usersList:              state.usersList.toJS(),
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    applyLeave: state.applyLeave.toJS()
+    policy_documents:       state.policyDocuments.toJS(),
+    applyLeave:             state.applyLeave.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

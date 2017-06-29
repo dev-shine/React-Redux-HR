@@ -30,15 +30,15 @@ class ManageUsers extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      status_message: '',
+      status_message:       '',
       'defaultUserDisplay': '',
-      user_profile_detail: {},
-      user_bank_detail: [],
-      user_assign_machine: [],
-      user_documents: {},
+      user_profile_detail:  {},
+      user_bank_detail:     [],
+      user_assign_machine:  [],
+      user_documents:       {},
       user_payslip_history: [],
-      'openIframe': false,
-      username: ''
+      'openIframe':         false,
+      username:             ''
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.callUpdateUserBankDetails = this.callUpdateUserBankDetails.bind(this);
@@ -55,30 +55,17 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       user_payslip_history: props.managePayslips.user_payslip_history,
-      username: props.manageUsers.username,
-      user_profile_detail: props.manageUsers.user_profile_detail,
-      user_bank_detail: props.manageUsers.user_bank_detail,
-      user_assign_machine: props.manageUsers.user_assign_machine,
-      user_documents: props.manageUsers.user_documents
+      username:             props.manageUsers.username,
+      user_profile_detail:  props.manageUsers.user_profile_detail,
+      user_bank_detail:     props.manageUsers.user_bank_detail,
+      user_assign_machine:  props.manageUsers.user_assign_machine,
+      user_documents:       props.manageUsers.user_documents
     });
   }
   componentDidUpdate () {
@@ -106,11 +93,11 @@ class ManageUsers extends React.Component {
       }
     }
     this.setState({
-      'defaultUserDisplay': userid,
-      'selected_user_name': selectedUserName,
-      'selected_user_image': selectedUserImage,
+      'defaultUserDisplay':     userid,
+      'selected_user_name':     selectedUserName,
+      'selected_user_image':    selectedUserImage,
       'selected_user_jobtitle': selectedUserJobtitle,
-      'selected_user_id': selectedUserId
+      'selected_user_id':       selectedUserId
     });
     this.props.onUserProfileDetails(userid, username);
     this.props.onGetUserDocument(userid);
@@ -246,13 +233,13 @@ class ManageUsers extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    managePayslips: state.managePayslips.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
-    manageUsers: state.manageUsers.toJS(),
+    frontend:         state.frontend.toJS(),
+    managePayslips:   state.managePayslips.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    usersList:        state.usersList.toJS(),
+    manageUsers:      state.manageUsers.toJS(),
     policy_documents: state.policyDocuments.toJS(),
-    teamList: state.teamList.toJS()
+    teamList:         state.teamList.toJS()
   };
 }
 
@@ -309,20 +296,20 @@ const RouterVisibleManageUsers = withRouter(VisibleManageUsers);
 export default RouterVisibleManageUsers;
 
 ManageUsers.PropTypes = {
-  onIsAlreadyLogin: PropTypes.func.isRequired,
-  onFetchUserPolicyDocument: PropTypes.func.isRequired,
-  onFetchTeam: PropTypes.func.isRequired,
-  onUserProfileDetails: React.PropTypes.func.isRequired,
-  onGetUserDocument: PropTypes.func.isRequired,
-  onUserManagePayslipsData: PropTypes.func.isRequired,
-  onUpdateUserBankDetails: PropTypes.func.isRequired,
-  onUpdateUserDeviceDetails: PropTypes.func.isRequired,
+  onIsAlreadyLogin:           PropTypes.func.isRequired,
+  onFetchUserPolicyDocument:  PropTypes.func.isRequired,
+  onFetchTeam:                PropTypes.func.isRequired,
+  onUserProfileDetails:       React.PropTypes.func.isRequired,
+  onGetUserDocument:          PropTypes.func.isRequired,
+  onUserManagePayslipsData:   PropTypes.func.isRequired,
+  onUpdateUserBankDetails:    PropTypes.func.isRequired,
+  onUpdateUserDeviceDetails:  PropTypes.func.isRequired,
   onUpdateUserProfileDetails: PropTypes.func.isRequired,
-  onAddNewEmployee: PropTypes.func.isRequired,
-  onChangeEmployeeStatus: PropTypes.func.isRequired,
-  onUsersList: React.PropTypes.func.isRequired,
-  onUpdatedocuments: PropTypes.func.isRequired,
-  usersList: PropTypes.object.isRequired,
-  manageUsers: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired
+  onAddNewEmployee:           PropTypes.func.isRequired,
+  onChangeEmployeeStatus:     PropTypes.func.isRequired,
+  onUsersList:                React.PropTypes.func.isRequired,
+  onUpdatedocuments:          PropTypes.func.isRequired,
+  usersList:                  PropTypes.object.isRequired,
+  manageUsers:                PropTypes.object.isRequired,
+  router:                     PropTypes.object.isRequired
 };

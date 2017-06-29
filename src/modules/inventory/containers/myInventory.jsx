@@ -28,16 +28,9 @@ class MyInventory extends React.Component {
     this.props.onMyProfileDetails();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-      if (unread.length > 0) {
-        this.props.router.push('/policy_documents');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({user_profile_detail: props.myProfile.user_profile_detail,
       user_assign_machine: props.myProfile.user_assign_machine});

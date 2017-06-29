@@ -29,9 +29,9 @@ class UploadPolicyDocumentContainer extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      docs: [],
+      docs:     [],
       errClass: 'hidden',
-      errMsg: ''
+      errMsg:   ''
     };
     this.submitDocs = this.submitDocs.bind(this);
     this.hideError = this.hideError.bind(this);
@@ -42,13 +42,9 @@ class UploadPolicyDocumentContainer extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else if (props.logged_user.role !== CONFIG.ADMIN) {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       docs: props.policy_documents.policyDocuments
@@ -58,20 +54,20 @@ class UploadPolicyDocumentContainer extends React.Component {
     e.preventDefault();
     this.setState({
       errClass: 'hidden',
-      errMsg: ''
+      errMsg:   ''
     });
   }
   submitNewListofDocs (newList) {
     this.props.onSubmitDocs(newList).then(() => {
       this.setState({
         errClass: 'alert-success pull-left',
-        errMsg: 'Documents deleted successfully'
+        errMsg:   'Documents deleted successfully'
       });
     })
     .catch(() => {
       this.setState({
         errClass: 'alert-danger pull-left',
-        errMsg: 'Documents not deleted'
+        errMsg:   'Documents not deleted'
       });
     });
   }
@@ -79,12 +75,12 @@ class UploadPolicyDocumentContainer extends React.Component {
     this.props.onSubmitDocs(docs).then(() => {
       this.setState({
         errClass: 'alert-success pull-left',
-        errMsg: 'Documents submitted successfully'
+        errMsg:   'Documents submitted successfully'
       });
     }).catch(() => {
       this.setState({
         errClass: 'alert-danger pull-left',
-        errMsg: 'Documents submition faild'
+        errMsg:   'Documents submition faild'
       });
     });
   }
@@ -114,8 +110,8 @@ class UploadPolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-  	frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
+  	frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

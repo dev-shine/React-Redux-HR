@@ -16,7 +16,7 @@ class MyDoduments extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       my_document: [],
-      message: ''
+      message:     ''
     };
   }
   componentWillMount () {
@@ -25,20 +25,13 @@ class MyDoduments extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-      if (unread.length > 0) {
-        this.props.router.push('/policy_documents');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       my_document: props.myDocuments.my_document,
-      message: props.myDocuments.status_message
+      message:     props.myDocuments.status_message
     });
   }
 
@@ -65,10 +58,10 @@ class MyDoduments extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    myProfile: state.myProfile.toJS(),
-    myDocuments: state.myDocument.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    myProfile:        state.myProfile.toJS(),
+    myDocuments:      state.myDocument.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

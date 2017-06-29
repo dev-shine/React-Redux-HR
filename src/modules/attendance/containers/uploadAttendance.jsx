@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import AlertNotification from 'components/generic/AlertNotification';
@@ -28,22 +27,9 @@ class UploadAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-
-      } else if (props.logged_user.role == CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
 
@@ -78,11 +64,11 @@ class UploadAttendance extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    managePayslips: state.managePayslips.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
-    manageUsers: state.manageUsers.toJS(),
+    frontend:         state.frontend.toJS(),
+    managePayslips:   state.managePayslips.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    usersList:        state.usersList.toJS(),
+    manageUsers:      state.manageUsers.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

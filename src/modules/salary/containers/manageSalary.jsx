@@ -23,19 +23,19 @@ class ManageSalary extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      'selected_user_name': '',
-      'selected_user_image': '',
-      'selected_user_jobtitle': '',
-      'selected_user_id': '',
-      'defaultUserDisplay': '',
-      'salary_history': [],
-      'holding_history': [],
-      'user_latest_salary_details': {},
+      'selected_user_name':          '',
+      'selected_user_image':         '',
+      'selected_user_jobtitle':      '',
+      'selected_user_id':            '',
+      'defaultUserDisplay':          '',
+      'salary_history':              [],
+      'holding_history':             [],
+      'user_latest_salary_details':  {},
       'user_latest_holding_details': {},
-      'user_date_of_joining': {},
-      'msg': '',
-      'current_date': {},
-      'subList': []
+      'user_date_of_joining':        {},
+      'msg':                         '',
+      'current_date':                {},
+      'subList':                     []
     };
 
     this.onUserClick = this.onUserClick.bind(this);
@@ -50,24 +50,14 @@ class ManageSalary extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     let userListHR = _.filter(this.props.usersList.users, (user) => {
       return (moment().diff(moment(user.dateofjoining), 'months') < 8);
     });
-    this.setState({ subList: userListHR });
-    // window.scrollTo(0, 0);
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
-      } else {
-        this.props.router.push('/home');
-      }
-    }
-
-    // ////////////////
+    this.setState({subList: userListHR});
     let s_salary_history = [];
     let s_user_latest_salary_details = {};
     let s_holding_history = [];
@@ -113,11 +103,11 @@ class ManageSalary extends React.Component {
       }
     }
     this.setState({
-      'defaultUserDisplay': userid,
-      'selected_user_name': selected_user_name,
-      'selected_user_image': selected_user_image,
-      'selected_user_jobtitle': selected_user_jobtitle,
-      'selected_user_id': selected_user_id,
+      'defaultUserDisplay':            userid,
+      'selected_user_name':            selected_user_name,
+      'selected_user_image':           selected_user_image,
+      'selected_user_jobtitle':        selected_user_jobtitle,
+      'selected_user_id':              selected_user_id,
       'selected_user_date_of_joining': selected_user_date_of_joining
     });
 

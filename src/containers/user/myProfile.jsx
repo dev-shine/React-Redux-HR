@@ -25,10 +25,10 @@ class MyProfile extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      status_message: '',
+      status_message:      '',
       user_profile_detail: {},
-      user_bank_detail: [],
-      payslip_history: [],
+      user_bank_detail:    [],
+      payslip_history:     [],
       user_assign_machine: []
     };
     this.props.onIsAlreadyLogin();
@@ -43,16 +43,9 @@ class MyProfile extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-      if (unread.length > 0) {
-        this.props.router.push('/policy_documents');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     let s_payslip_history = [];
 
@@ -139,10 +132,10 @@ class MyProfile extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    myProfile: state.myProfile.toJS(),
-    salary: state.salary.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    myProfile:        state.myProfile.toJS(),
+    salary:           state.salary.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

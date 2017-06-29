@@ -25,12 +25,12 @@ class ApplyLeave extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      'defaultUserDisplay': '',
-      'selected_user_name': '',
-      'selected_user_image': '',
+      'defaultUserDisplay':     '',
+      'selected_user_name':     '',
+      'selected_user_image':    '',
       'selected_user_jobtitle': '',
-      'selected_user_id': '',
-      'show_status_message': true
+      'selected_user_id':       '',
+      'show_status_message':    true
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.doApplyLeave = this.doApplyLeave.bind(this);
@@ -41,39 +41,19 @@ class ApplyLeave extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        if (props.logged_user.role == CONFIG.ADMIN) {
-          if (this.state.defaultUserDisplay == '') {
-            props.onUsersList();
-          }
-        } else if (props.logged_user.role == CONFIG.HR) {
-          let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-          if (unread.length > 0) {
-            this.props.router.push('/policy_documents');
-          }
-          if (this.state.defaultUserDisplay == '') {
-            props.onUsersList();
-          }
-        } else {
-          let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-          if (unread.length > 0) {
-            this.props.router.push('/policy_documents');
-          }
-        }
+    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.ADMIN) {
+      if (this.state.defaultUserDisplay === '') {
+        props.onUsersList();
       }
     }
   }
   componentDidUpdate () {
-    if (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR) {
-      if (this.state.defaultUserDisplay == '') {
+    if (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR) {
+      if (this.state.defaultUserDisplay === '') {
         if (this.props.usersList.users.length > 0) {
           let firstUser = this.props.usersList.users[0];
           let defaultUserId = firstUser.user_Id;
@@ -98,12 +78,12 @@ class ApplyLeave extends React.Component {
       }
     }
     this.setState({
-      'defaultUserDisplay': userid,
-      'selected_user_name': selected_user_name,
-      'selected_user_image': selected_user_image,
+      'defaultUserDisplay':     userid,
+      'selected_user_name':     selected_user_name,
+      'selected_user_image':    selected_user_image,
       'selected_user_jobtitle': selected_user_jobtitle,
-      'selected_user_id': selected_user_id,
-      'show_status_message': false
+      'selected_user_id':       selected_user_id,
+      'show_status_message':    false
     });
   }
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason) {
@@ -117,32 +97,32 @@ class ApplyLeave extends React.Component {
 
   render () {
     let status_message = '';
-    if (this.props.applyLeave.status_message != '' && this.state.show_status_message == true) {
+    if (this.props.applyLeave.status_message !== '' && this.state.show_status_message === true) {
       status_message = <span className="well" style={{background: '#60cffa', padding: '5px', marginLeft: '8px'}}>
         {this.props.applyLeave.status_message}</span>;
     }
 
-    let mainDivs = (this.props.logged_user.role == CONFIG.ADMIN || this.props.logged_user.role == CONFIG.HR
+    let mainDivs = (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR
       ? <div className="row">
-          <div className="col-md-2">
-            <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} />
-          </div>
-          <div className="col-md-10">
-            <div className="box">
-              <div className="p-a text-center">
-                <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
-                <p>
-                  <small>{this.state.selected_user_jobtitle}</small>
-                </p>
-              </div>
+        <div className="col-md-2">
+          <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} />
+        </div>
+        <div className="col-md-10">
+          <div className="box">
+            <div className="p-a text-center">
+              <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
+              <p>
+                <small>{this.state.selected_user_jobtitle}</small>
+              </p>
             </div>
-            <div className="box">
-              <div className="box-body">
-                <ApplyLeaveForm forAdmin doApplyLeave={this.doApplyLeave} selectedUserId={this.state.selected_user_id} {...this.props} />
-              </div>
+          </div>
+          <div className="box">
+            <div className="box-body">
+              <ApplyLeaveForm forAdmin doApplyLeave={this.doApplyLeave} selectedUserId={this.state.selected_user_id} {...this.props} />
             </div>
           </div>
         </div>
+      </div>
       : <div className="box">
         <div className="box-body">
           <ApplyLeaveForm doApplyLeave={this.doApplyLeave} forAdmin={false} {...this.props} />
@@ -173,10 +153,10 @@ ApplyLeave.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
-    applyLeave: state.applyLeave.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    usersList:        state.usersList.toJS(),
+    applyLeave:       state.applyLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()
 
   };

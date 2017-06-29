@@ -24,35 +24,26 @@ class ViewSalary extends React.Component {
     this.props.onFetchUserSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-
-      } else {
-        this.props.router.push('/home');
-      }
-    }
-
     // When Admin Login---
 
     let emp = [];
-    if (props.logged_user.role == CONFIG.ADMIN) {
+    if (props.logged_user.role === CONFIG.ADMIN) {
       if (props.employee.employee.length > 0) {
         _.forEach(props.employee.employee, function (ob, i) {
           emp.push({
-            'image': ob.slack_image,
-            'empName': ob.name,
-            'designation': ob.jobtitle,
-            'salary': ob.salary_detail,
+            'image':               ob.slack_image,
+            'empName':             ob.name,
+            'designation':         ob.jobtitle,
+            'salary':              ob.salary_detail,
             'holdingAmountDetail': ob.holdin_amt_detail,
-            'dateOfJoining': ob.dateofjoining,
+            'dateOfJoining':       ob.dateofjoining,
             'noOfDaysSinceJoined': String(ob.no_of_days_join),
-            'preSalaryIncDetail': String(ob.previous_increment),
-            'nextSallaryInc': ob.next_increment_date
+            'preSalaryIncDetail':  String(ob.previous_increment),
+            'nextSallaryInc':      ob.next_increment_date
           });
         });
         this.setState({empList: emp});
@@ -60,21 +51,21 @@ class ViewSalary extends React.Component {
     }
 
 // Hr
-    else if (props.logged_user.role == CONFIG.HR) {
-      let subList = _.filter(props.employee.employee, (empl) => (empl.previous_increment == ''));
+    else if (props.logged_user.role === CONFIG.HR) {
+      let subList = _.filter(props.employee.employee, (empl) => (empl.previous_increment === ''));
       let emp = [];
       if (subList.length > 0) {
         _.forEach(subList, function (ob, i) {
           emp.push({
-            'image': ob.slack_image,
-            'empName': ob.name,
-            'designation': ob.jobtitle,
-            'salary': ob.salary_detail,
+            'image':               ob.slack_image,
+            'empName':             ob.name,
+            'designation':         ob.jobtitle,
+            'salary':              ob.salary_detail,
             'holdingAmountDetail': ob.holdin_amt_detail,
-            'dateOfJoining': ob.dateofjoining,
+            'dateOfJoining':       ob.dateofjoining,
             'noOfDaysSinceJoined': String(ob.no_of_days_join),
-            'preSalaryIncDetail': String(ob.previous_increment),
-            'nextSallaryInc': ob.next_increment_date
+            'preSalaryIncDetail':  String(ob.previous_increment),
+            'nextSallaryInc':      ob.next_increment_date
           });
         });
         this.setState({empList: emp});

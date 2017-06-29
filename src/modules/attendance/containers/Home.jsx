@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import UsersList from 'components/generic/UsersList';
@@ -33,7 +32,7 @@ class Home extends React.Component {
     this.monthToggle = this.monthToggle.bind(this);
   }
   componentWillMount () {
-    // this.props.onFetchUserPolicyDocument();
+    this.props.onFetchUserPolicyDocument();
   }
   componentDidMount () {
     this.props.onUsersList();
@@ -43,15 +42,9 @@ class Home extends React.Component {
     this.setState({year: year, month: month});
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in);
-    if (isNotValid === 'HR') {
-      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-      if (_.size(unread) > 0) {
-        this.props.router.push('/policy_documents');
-      }
-    } else if (isNotValid) {
-      console.log(isNotValid);
-      this.props.router.push(isNotValid);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
 
     if (props.userDaySummary.status_message !== '') {

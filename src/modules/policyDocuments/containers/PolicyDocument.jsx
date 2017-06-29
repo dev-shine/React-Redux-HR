@@ -21,12 +21,9 @@ class PolicyDocumentContainer extends React.Component {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       docs: props.policy_documents.policyDocuments
@@ -46,8 +43,8 @@ class PolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

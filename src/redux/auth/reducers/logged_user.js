@@ -2,13 +2,13 @@ import Immutable from 'immutable';
 
 let initialState = {
   login_status_message: '',
-  logged_in: 0,
-  userid: '-1',
-  username: '-1',
-  role: '-1',
-  name: '-1',
-  jobtitle: '-1',
-  profileImage: ''
+  logged_in:            0,
+  userid:               '-1',
+  username:             '-1',
+  role:                 '-1',
+  name:                 '-1',
+  jobtitle:             '-1',
+  profileImage:         ''
 
 };
 

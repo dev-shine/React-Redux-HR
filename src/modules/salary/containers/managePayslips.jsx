@@ -23,16 +23,16 @@ class ManagePayslips extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      year: '',
-      month: '',
-      'selected_user_name': '',
-      'selected_user_image': '',
+      year:                     '',
+      month:                    '',
+      'selected_user_name':     '',
+      'selected_user_image':    '',
       'selected_user_jobtitle': '',
-      'selected_user_id': '',
-      'defaultUserDisplay': '',
-      'user_data_for_payslip': {},
-      'user_payslip_history': [],
-      'google_drive_emailid': '',
+      'selected_user_id':       '',
+      'defaultUserDisplay':     '',
+      'user_data_for_payslip':  {},
+      'user_payslip_history':   [],
+      'google_drive_emailid':   '',
       'employee_actual_salary': {}
     };
 
@@ -47,21 +47,11 @@ class ManagePayslips extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0); // no need to scroll to top for this
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
+    window.scrollTo(0, 0);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-        // this.props.onUsersList( )
-      } else {
-        this.props.router.push('/home');
-      }
-    }
-
-    // ////////////
     let s_google_drive_emailid = '';
     let s_user_data_for_payslip = {};
     let s_user_payslip_history = [];

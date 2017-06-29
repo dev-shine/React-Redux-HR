@@ -23,9 +23,9 @@ class Salary extends React.Component {
     this.props.onIsAlreadyLogin();
     this.viewSalarySummary = this.viewSalarySummary.bind(this);
     this.state = {
-      view_salary_id: false,
-      salary_details: {},
-      holding_amt: '',
+      view_salary_id:  false,
+      salary_details:  {},
+      holding_amt:     '',
       payslip_history: []
     };
   }
@@ -34,27 +34,16 @@ class Salary extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
 
     let s_salary_details = {};
     let s_salary_history = [];
     let s_payslip_history = [];
 
-    if (this.state.view_salary_id == false) {
+    if (this.state.view_salary_id === false) {
       if (typeof props.salary.salary_history !== 'undefined' && props.salary.salary_history.length > 0) {
         let viewSalaryInfo = props.salary.salary_history[0];
         s_salary_details = viewSalaryInfo;
@@ -71,7 +60,7 @@ class Salary extends React.Component {
   viewSalarySummary (id) {
     let new_details = this.state.salary_details;
     _.forEach(this.state.salary_history, (d, k) => {
-      if (d.test.id == id) {
+      if (d.test.id === id) {
         new_details = d;
       }
     });
@@ -123,9 +112,9 @@ Salary.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    salary: state.salary.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    salary:           state.salary.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }

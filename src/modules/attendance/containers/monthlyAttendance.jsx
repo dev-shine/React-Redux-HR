@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
@@ -17,12 +16,12 @@ class MonthlyAttendance extends React.Component {
     super(props);
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': '',
-      year: '',
-      month: '',
-      test: 'show',
-      userDoc: ['bvnvbn', 'efce', 'vbnvb', 'vbnvb']
+      'daysummary_userid':  '',
+      'daysummary_date':    '',
+      year:                 '',
+      month:                '',
+      test:                 'show',
+      userDoc:              ['bvnvbn', 'efce', 'vbnvb', 'vbnvb']
     };
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
@@ -41,21 +40,9 @@ class MonthlyAttendance extends React.Component {
     this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/home');
-    }
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   onShowDaySummary (userid, date) {
@@ -99,11 +86,11 @@ MonthlyAttendance.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    userDaySummary: state.userDaySummary.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:          state.frontend.toJS(),
+    userDaySummary:    state.userDaySummary.toJS(),
+    logged_user:       state.logged_user.toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents:  state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

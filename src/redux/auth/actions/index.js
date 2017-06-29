@@ -1,30 +1,55 @@
-import { createAction } from 'redux-actions';
+import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
 import * as jwt from 'jwt-simple';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {call, put} from 'redux-saga/effects';
+import * as actions from 'appRedux/actions';
 
-export function login_sucess (data) {
-  return createAction(constants.ACTION_LOGIN_SUCCESS)(data);
+export function* logingRequest (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':   'login',
+      'username': action.payload.username,
+      'password': action.payload.password
+    });
+    if (response.error === 0) {
+      let token = response.data.token;
+      localStorage.setItem('hr_logged_user', token);
+      localStorage.setItem('userid', response.data.userid);
+      let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+      yield put(actions.userLoginSuccess(tokenData));
+    } else if (response.error === 1) {
+      yield put(actions.userLoginFail('Invalid Login'));
+    }
+  } catch (e) {
+    yield put(actions.userLoginError('Error Occurs !!'));
+    console.warn('Some error found in logingRequest action\n', e);
+     // handle error if any
+  }
 }
-
-export function login_fail (data) {
-  return createAction(constants.ACTION_LOGIN_FAIL)('Invalid Login');
-}
-
-export function login_error (err) {
-  return createAction(constants.ACTION_LOGIN_ERROR)('Error Occurs !!');
-}
-
-function loginAsync (username, password) {
-  return fireAjax('POST', '', {
-    'action': 'login',
-    'username': username,
-    'password': password
-  });
-}
+// ------------====================
+// export function login_sucess (data) {
+//   return createAction(constants.ACTION_LOGIN_SUCCESS)(data);
+// }
+//
+// export function login_fail (data) {
+//   return createAction(constants.ACTION_LOGIN_FAIL)('Invalid Login');
+// }
+//
+// export function login_error (err) {
+//   return createAction(constants.ACTION_LOGIN_ERROR)('Error Occurs !!');
+// }
+//
+// function loginAsync (username, password) {
+//   return fireAjax('POST', '', {
+//     'action':   'login',
+//     'username': username,
+//     'password': password
+//   });
+// }
 
 export function doLogin (d) {
   return function (dispatch, getState) {
@@ -48,38 +73,38 @@ export function isAlreadyLogin () {
   };
 }
 
-export function login (username, password) {
-  return function (dispatch, getState) {
-    if (_.isEmpty(username)) {
-      return Promise.reject('Username is empty');
-    }
-    if (_.isEmpty(password)) {
-      return Promise.reject('Password is empty');
-    }
-
-    return new Promise((reslove, reject) => {
-      dispatch(show_loading()); // show loading icon
-      loginAsync(username, password).then(
-        (json) => {
-          dispatch(hide_loading()); // hide loading icon
-          if (json.error === 0) {
-            let token = json.data.token;
-            localStorage.setItem('hr_logged_user', token);
-            localStorage.setItem('userid', json.data.userid);
-            let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
-            dispatch(login_sucess(tokenData));
-          } else {
-            dispatch(login_fail({}));
-          }
-        },
-        (error) => {
-          dispatch(hide_loading()); // hide loading icon
-          dispatch(login_error(error));
-        }
-			);
-    });
-  };
-}
+// export function login (username, password) {
+//   return function (dispatch, getState) {
+//     if (_.isEmpty(username)) {
+//       return Promise.reject('Username is empty');
+//     }
+//     if (_.isEmpty(password)) {
+//       return Promise.reject('Password is empty');
+//     }
+//
+//     return new Promise((reslove, reject) => {
+//       dispatch(show_loading()); // show loading icon
+//       loginAsync(username, password).then(
+//         (json) => {
+//           dispatch(hide_loading()); // hide loading icon
+//           if (json.error === 0) {
+//             let token = json.data.token;
+//             localStorage.setItem('hr_logged_user', token);
+//             localStorage.setItem('userid', json.data.userid);
+//             let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+//             dispatch(login_sucess(tokenData));
+//           } else {
+//             dispatch(login_fail({}));
+//           }
+//         },
+//         (error) => {
+//           dispatch(hide_loading()); // hide loading icon
+//           dispatch(login_error(error));
+//         }
+// 			);
+//     });
+//   };
+// }
 
 // logout
 
@@ -126,7 +151,7 @@ export function error_forgot_password (data) {
 
 function async_forgotPassword (username) {
   return fireAjax('POST', '', {
-    'action': 'forgot_password',
+    'action':   'forgot_password',
     'username': username
   });
 }

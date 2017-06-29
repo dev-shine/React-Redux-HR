@@ -10,7 +10,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
-import { createHashHistory } from 'history';
+import {createHashHistory} from 'history';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import Immutable from 'immutable';
@@ -69,7 +69,7 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 export class APP extends React.Component {
   render () {
@@ -84,12 +84,12 @@ export class APP extends React.Component {
 const logger = createLogger();
 
 injectTapEventPlugin();
-
-let store = createStore(reducer, compose(
-// applyMiddleware( thunk, logger),
-applyMiddleware(thunk),
-//window.devToolsExtension ? window.devToolsExtension() : f => f
-));
+// ----------------STORE---------
+// let store = createStore(reducer, compose(
+// // applyMiddleware( thunk, logger),
+// applyMiddleware(thunk),
+// //window.devToolsExtension ? window.devToolsExtension() : f => f
+// ));
 
 // --end---for HR APP by arun
 
@@ -140,7 +140,7 @@ applyMiddleware(thunk),
 //     MOUNT_NODE
 //   )
 // }
-
+import store from './store';
 // --start----added by arun for HR app
 let render = (routerKey = null) => {
   // console.log('aaaaa');

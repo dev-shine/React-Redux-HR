@@ -120,6 +120,7 @@ export function fireAjax (method, url, data) {
       //   location.href = CONFIG.BASE_URL + '/#/home';
       // }
     } else {
+      console.log('response---> ', response);
       return response.json();
     }
   });

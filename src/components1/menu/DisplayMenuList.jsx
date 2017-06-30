@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Link} from 'react-router';
-import {CONFIG} from 'src/config';
+import {DATA} from 'components/menu/menuObject';
 
 const DisplayMenuList = ({rolePages, click}) => {
-  let groupIndex = _.groupBy(CONFIG.DATA, function (value) { return value.plabel; });
+  let groupIndex = _.groupBy(DATA, function (value) { return value.plabel; });
   let links = _.map(groupIndex, (subChildren, parentLabel) => {
     let linkList = _.map(subChildren, (subChild, k) => {
       let validPath = subChild.path.replace(/\//g, '');

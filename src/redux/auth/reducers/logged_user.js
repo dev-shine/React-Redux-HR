@@ -1,5 +1,17 @@
 import Immutable from 'immutable';
+import {handleActions} from 'redux-actions';
+import update from 'immutability-helper';
 
+// let initialState = {
+//   userLogin: {
+//     data:       [],
+//     isLoggedIn: false,
+//     isLoading:  false,
+//     isError:    false,
+//     isSucess:   false,
+//     errors:     []
+//   }
+// };
 let initialState = {
   login_status_message:  '',
   forgotPasswordMessage: '',
@@ -16,7 +28,7 @@ let initialState = {
 export function logged_user (state = Immutable.Map(initialState), action) {
   let d = new Date();
   let timestamp = d.getTime();
-  console.log(action, 'action');
+
   if (action.type === 'ACTION_LOGIN_SUCCESS') {
     return state.set('logged_in', 1)
         .set('userid', action.payload.id)
@@ -33,7 +45,7 @@ export function logged_user (state = Immutable.Map(initialState), action) {
     return state.set('logged_in', -1)
         .set('login_status_message', action.payload)
         .set('stateTimestamp', timestamp);
-  } else if (action.type === 'ACTION_LOGOUT') {
+  } else if (action.type === 'LOGOUT_SUCCESS') {
     return state.set('logged_in', 0)
         .set('userid', '-1')
         .set('username', '-1')

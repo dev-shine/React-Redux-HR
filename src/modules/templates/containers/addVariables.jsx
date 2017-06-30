@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Router, withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import {Router, withRouter} from 'react-router';
 import * as _ from 'lodash';
 import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_templates from 'appRedux/templates/actions/templates';
 import Template from '../components/Template';
@@ -52,16 +52,16 @@ class VariablesContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    variable: state.template.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    variable:         state.template.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onFetchVariables: () => {
       return dispatch(actions_templates.get_variable());

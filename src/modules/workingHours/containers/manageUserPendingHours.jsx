@@ -8,7 +8,7 @@ import Menu from 'src/components/generic/Menu';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import UserPendingHoursList from '../components/UserPendingHoursList';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
@@ -22,16 +22,16 @@ class ManageUserPendingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_date': '',
-      status_message: '',
-      active: 'active',
-      firstArrow: 'show',
-      secondArrow: 'hidden',
-      thirdArrow: 'hidden',
-      pendingList: 'show',
-      pendingUserList: 'hidden',
-      open: false,
-      edit: false
+      'daysummary_date':    '',
+      status_message:       '',
+      active:               'active',
+      firstArrow:           'show',
+      secondArrow:          'hidden',
+      thirdArrow:           'hidden',
+      pendingList:          'show',
+      pendingUserList:      'hidden',
+      open:                 false,
+      edit:                 false
     };
     this.callAddUserPendingHours = this.callAddUserPendingHours.bind(this);
     this.callFetchPendingUserList = this.callFetchPendingUserList.bind(this);
@@ -96,17 +96,17 @@ class ManageUserPendingHours extends React.Component {
   openPage (toDisplay) {
     if (toDisplay === 'pending_hour_list') {
       this.setState({
-        pendingList: 'row',
-        firstArrow: 'show',
+        pendingList:     'row',
+        firstArrow:      'show',
         pendingUserList: 'hidden',
-        secondArrow: 'hidden'
+        secondArrow:     'hidden'
       });
     } else if ((toDisplay === 'view_user_pending_hours')) {
       this.setState({
-        pendingList: 'hidden',
-        firstArrow: 'hidden',
+        pendingList:     'hidden',
+        firstArrow:      'hidden',
         pendingUserList: 'row',
-        secondArrow: 'show'
+        secondArrow:     'show'
       });
     }
   }
@@ -180,18 +180,18 @@ class ManageUserPendingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:               state.frontend.toJS(),
+    logged_user:            state.logged_user.toJS(),
+    usersList:              state.usersList.toJS(),
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    applyLeave: state.applyLeave.toJS()
+    policy_documents:       state.policyDocuments.toJS(),
+    applyLeave:             state.applyLeave.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

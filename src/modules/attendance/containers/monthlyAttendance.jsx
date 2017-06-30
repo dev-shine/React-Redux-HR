@@ -6,7 +6,7 @@ import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
@@ -16,12 +16,12 @@ class MonthlyAttendance extends React.Component {
     super(props);
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': '',
-      year: '',
-      month: '',
-      test: 'show',
-      userDoc: ['bvnvbn', 'efce', 'vbnvb', 'vbnvb']
+      'daysummary_userid':  '',
+      'daysummary_date':    '',
+      year:                 '',
+      month:                '',
+      test:                 'show',
+      userDoc:              ['bvnvbn', 'efce', 'vbnvb', 'vbnvb']
     };
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
@@ -95,11 +95,11 @@ MonthlyAttendance.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    userDaySummary: state.userDaySummary.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:          state.frontend.toJS(),
+    userDaySummary:    state.userDaySummary.toJS(),
+    logged_user:       state.logged_user.toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents:  state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsMonthlyAttendance.get_monthly_attendance(userid, year, month));
     },
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUserDaySummary: (userid, date) => {
       return dispatch(actionsUserDaySummary.getUserDaySummary(userid, date));

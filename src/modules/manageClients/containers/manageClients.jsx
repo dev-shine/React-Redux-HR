@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
@@ -13,22 +13,22 @@ import FormAddNewClient from 'modules/manageClients/components/FormAddNewClient'
 import FormClientDetails from 'modules/manageClients/components/FormClientDetails';
 import FormCreateClientInvoice from 'modules/manageClients/components/FormCreateClientInvoice';
 import InvoicesList from 'components/manageClients/InvoicesList';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsClientsList from 'appRedux/manageClients/actions/clientsList';
 import * as actionsManageClients from 'appRedux/manageClients/actions/manageClients';
 
 class ManageClients extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      'status_message': '',
-      'clientsList': [],
-      'selected_client_id': '',
-      'selected_client_name': '',
-      'selected_client_address': '',
-      'client_info': {},
-      'client_invoices': [],
+      'status_message':           '',
+      'clientsList':              [],
+      'selected_client_id':       '',
+      'selected_client_name':     '',
+      'selected_client_address':  '',
+      'client_info':              {},
+      'client_invoices':          [],
       'show_create_invoice_form': ''
     };
     this.onClientClick = this.onClientClick.bind(this);
@@ -37,10 +37,10 @@ class ManageClients extends React.Component {
     this.callUpdateClientDetails = this.callUpdateClientDetails.bind(this);
     this.callDeleteInvoice = this.callDeleteInvoice.bind(this);
   }
-  componentWillMount() {
+  componentWillMount () {
     this.props.onClientsList();
   }
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps (props) {
     if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {
@@ -61,15 +61,15 @@ class ManageClients extends React.Component {
       pSelectedClientAddress = props.manageClients.client_info.address;
     }
     this.setState({
-      clientsList: props.clientsList.clients,
-      client_info: props.manageClients.client_info,
-      client_invoices: props.manageClients.client_invoices,
-      selected_client_id: pSelectedClientId,
-      selected_client_name: pSelectedClientName,
+      clientsList:             props.clientsList.clients,
+      client_info:             props.manageClients.client_info,
+      client_invoices:         props.manageClients.client_invoices,
+      selected_client_id:      pSelectedClientId,
+      selected_client_name:    pSelectedClientName,
       selected_client_address: pSelectedClientAddress
     });
   }
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (this.state.selected_client_id === '') {
       if (this.state.clientsList.length > 0) {
         let firstUser = this.state.clientsList[0];
@@ -78,12 +78,12 @@ class ManageClients extends React.Component {
       }
     }
   }
-  onClientClick(clientid) {
+  onClientClick (clientid) {
     let selectedClientId = '';
     let selectedClientName = '';
     let selectedClientAddress = '';
     if (this.state.clientsList.length > 0) {
-      let clientDetails = _.find(this.state.clientsList, { 'id': clientid });
+      let clientDetails = _.find(this.state.clientsList, {'id': clientid});
       if (typeof clientDetails !== 'undefined') {
         selectedClientId = clientDetails.id;
         selectedClientName = clientDetails.name;
@@ -91,28 +91,28 @@ class ManageClients extends React.Component {
       }
     }
     this.setState({
-      selected_client_id: selectedClientId,
-      selected_client_name: selectedClientName,
+      selected_client_id:      selectedClientId,
+      selected_client_name:    selectedClientName,
       selected_client_address: selectedClientAddress
     });
     this.props.onClientDetails(clientid);
   }
-  callAddNewClient(newClientDetails) {
+  callAddNewClient (newClientDetails) {
     this.props.onAddNewClient(newClientDetails).then(
       (data) => { this.props.onClientsList(); },
       (error) => { notify(error); }
     );
   }
-  callCreateClientInvoice(newClientInvoiceDetails) {
+  callCreateClientInvoice (newClientInvoiceDetails) {
     this.props.onCreateClientInvoice(newClientInvoiceDetails).then(
       (data) => {
-        this.setState({ 'show_create_invoice_form': false });
+        this.setState({'show_create_invoice_form': false});
         this.props.onClientsList();
         this.onClientClick(data);
       }, (error) => { notify(error); }
     );
   }
-  callUpdateClientDetails(updatedClientDetails) {
+  callUpdateClientDetails (updatedClientDetails) {
     this.props.onUpdateClientDetails(updatedClientDetails).then(
       (data) => {
         this.props.onClientsList();
@@ -120,14 +120,14 @@ class ManageClients extends React.Component {
       }, (error) => { notify(error); }
     );
   }
-  callDeleteInvoice(invoiceId) {
+  callDeleteInvoice (invoiceId) {
     this.props.onDeleteInvoice(invoiceId).then(
       (data) => { this.onClientClick(this.state.selected_client_id); },
       (error) => { notify(error); }
     );
   }
-  render() {
-    return(
+  render () {
+    return (
       <div>
         <AlertNotification message={this.props.manageClients.status_message} />
         <Menu {...this.props} />
@@ -178,23 +178,23 @@ class ManageClients extends React.Component {
     );
   }
 }
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    clientsList: state.clientsList.toJS(),
+    frontend:      state.frontend.toJS(),
+    logged_user:   state.logged_user.toJS(),
+    clientsList:   state.clientsList.toJS(),
     manageClients: state.manageClients.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return{
-    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
-    onClientsList: () => { return dispatch(actionsClientsList.get_clients_list()); },
-    onClientDetails: (clientid) => { return dispatch(actionsManageClients.getClientDetails(clientid)); },
-    onAddNewClient: (newClientDetails) => { return dispatch(actionsManageClients.addNewClient(newClientDetails)); },
+  return {
+    onIsAlreadyLogin:      () => { return dispatch(actions.isAlreadyLogin()); },
+    onClientsList:         () => { return dispatch(actionsClientsList.get_clients_list()); },
+    onClientDetails:       (clientid) => { return dispatch(actionsManageClients.getClientDetails(clientid)); },
+    onAddNewClient:        (newClientDetails) => { return dispatch(actionsManageClients.addNewClient(newClientDetails)); },
     onCreateClientInvoice: (newClientInvoiceDetails) => { return dispatch(actionsManageClients.create_client_invoice(newClientInvoiceDetails)); },
     onUpdateClientDetails: (updatedClientDetails) => { return dispatch(actionsManageClients.update_client_details(updatedClientDetails)); },
-    onDeleteInvoice: (invoiceId) => { return dispatch(actionsManageClients.delete_invoice(invoiceId)); }
+    onDeleteInvoice:       (invoiceId) => { return dispatch(actionsManageClients.delete_invoice(invoiceId)); }
   };
 };
 const VisibleManageClients = connect(mapStateToProps, mapDispatchToProps)(ManageClients);
@@ -205,24 +205,24 @@ export default RouterVisibleManageClients;
 
 ManageClients.PropTypes = {
   onIsAlreadyLogin: PropTypes.func.isRequired,
-  manageClients: PropTypes.shape({
-    status_message: PropTypes.string.isRequired,
-    client_info: PropTypes.array.isRequired,
-    client_invoices: PropTypes.object.isRequired,
+  manageClients:    PropTypes.shape({
+    status_message:  PropTypes.string.isRequired,
+    client_info:     PropTypes.array.isRequired,
+    client_invoices: PropTypes.object.isRequired
   }).isRequired,
   clientsList: PropTypes.shape({
-    clients: PropTypes.object.isRequired,
+    clients: PropTypes.object.isRequired
   }).isRequired,
   onClientsList: PropTypes.func.isRequired,
-  logged_user: PropTypes.shape({
-    logged_in: PropTypes.string.isRequired,
+  logged_user:   PropTypes.shape({
+    logged_in:   PropTypes.string.isRequired,
     logged_role: PropTypes.string.isRequired
   }).isRequired,
-  router: PropTypes.object.isRequired,
-  onClientDetails: PropTypes.func.isRequired,
-  onAddNewClient: PropTypes.func.isRequired,
+  router:                PropTypes.object.isRequired,
+  onClientDetails:       PropTypes.func.isRequired,
+  onAddNewClient:        PropTypes.func.isRequired,
   onCreateClientInvoice: PropTypes.func.isRequired,
   onUpdateClientDetails: PropTypes.func.isRequired,
-  onDeleteInvoice: PropTypes.func.isRequired,
-  frontend: PropTypes.object.isRequired
+  onDeleteInvoice:       PropTypes.func.isRequired,
+  frontend:              PropTypes.object.isRequired
 };

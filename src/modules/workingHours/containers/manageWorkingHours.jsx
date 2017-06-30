@@ -7,7 +7,7 @@ import {notify} from 'src/services/index';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsWorkingHoursSummary from 'appRedux/workingHours/actions/workingHoursSummary';
 
@@ -17,8 +17,8 @@ class ManageWorkingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': ''
+      'daysummary_userid':  '',
+      'daysummary_date':    ''
     };
     this.onWorkingHoursChange = this.onWorkingHoursChange.bind(this);
   }
@@ -78,17 +78,17 @@ class ManageWorkingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    userDaySummary: state.userDaySummary.toJS(),
+    frontend:            state.frontend.toJS(),
+    logged_user:         state.logged_user.toJS(),
+    userDaySummary:      state.userDaySummary.toJS(),
     workingHoursSummary: state.workingHoursSummary.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents:    state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onWorkingHoursSummary: (year, month) => {
       return dispatch(actionsWorkingHoursSummary.get_working_hours_summary(year, month));

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyDocument from 'appRedux/myDocuments/actions/myDocument';
 
@@ -15,7 +15,7 @@ class MyDoduments extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       my_document: [],
-      message: ''
+      message:     ''
     };
   }
   componentWillMount () {
@@ -34,7 +34,7 @@ class MyDoduments extends React.Component {
     }
     this.setState({
       my_document: props.myDocuments.my_document,
-      message: props.myDocuments.status_message
+      message:     props.myDocuments.status_message
     });
   }
 
@@ -61,17 +61,17 @@ class MyDoduments extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    myProfile: state.myProfile.toJS(),
-    myDocuments: state.myDocument.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    myProfile:        state.myProfile.toJS(),
+    myDocuments:      state.myDocument.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onGetMydocuments: () => {
       return dispatch(actionsMyDocument.getMyDocument());

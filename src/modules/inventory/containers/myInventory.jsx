@@ -7,7 +7,7 @@ import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyProfile from 'src/actions/user/myProfile';
 
@@ -86,7 +86,7 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onMyProfileDetails: () => {
       return dispatch(actionsMyProfile.getMyProfileDetails());

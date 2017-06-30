@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import HolidaysList from 'components/holidays/HolidaysList';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
@@ -61,16 +61,16 @@ class Holidays extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    holidaysList: state.holidaysList.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    holidaysList:     state.holidaysList.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onHolidaysList: () => {
       return dispatch(actions_holidaysList.get_holidays_list());

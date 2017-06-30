@@ -14,7 +14,7 @@ import ViewUserDevice from 'components/inventory/ViewUser';
 import InventoryList from 'modules/inventory/components/InventoryList';
 import DeviceCounterTab from 'components/inventory/DeviceCounterTab';
 import * as actionsManageDevice from 'appRedux/inventory/actions/inventory';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 
@@ -309,7 +309,7 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

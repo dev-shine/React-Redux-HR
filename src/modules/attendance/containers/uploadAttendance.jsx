@@ -7,7 +7,7 @@ import Menu from 'src/components/generic/Menu';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
 import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
@@ -75,18 +75,18 @@ class UploadAttendance extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    managePayslips: state.managePayslips.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
-    manageUsers: state.manageUsers.toJS(),
+    frontend:         state.frontend.toJS(),
+    managePayslips:   state.managePayslips.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    usersList:        state.usersList.toJS(),
+    manageUsers:      state.manageUsers.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

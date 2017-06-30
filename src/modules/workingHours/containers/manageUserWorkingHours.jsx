@@ -9,7 +9,7 @@ import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
 import ListUserWorkingHours from 'components/workingHours/ListUserWorkingHours';
 import FormAddUserWorkingHours from 'modules/workingHours/components/FormAddUserWorkingHours';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUserWorkingHours from 'appRedux/workingHours/actions/manageUserWorkingHours';
@@ -20,8 +20,8 @@ class ManageUserWorkingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': ''
+      'daysummary_userid':  '',
+      'daysummary_date':    ''
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
@@ -145,17 +145,17 @@ class ManageUserWorkingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:               state.frontend.toJS(),
+    logged_user:            state.logged_user.toJS(),
+    usersList:              state.usersList.toJS(),
     manageUserWorkingHours: state.manageUserWorkingHours.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents:       state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

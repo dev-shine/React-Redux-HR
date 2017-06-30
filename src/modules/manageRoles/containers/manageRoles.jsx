@@ -13,7 +13,7 @@ import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
 import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
 import UsersRolesList from 'components/generic/UsersRolesList';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
@@ -57,19 +57,19 @@ class ManageRoles extends React.Component {
     this.props.onAddNewRole(newRoleDetails);
   }
   handleChangeActions (id2, id1) {
-    let state = { rolesId: id1, actionId: id2, pageId: '', notificationId: '' };
+    let state = {rolesId: id1, actionId: id2, pageId: '', notificationId: ''};
     this.props.onUpdateRole(state);
   }
   handleChangePages (id2, id1) {
-    let state = { rolesId: id1, actionId: '', pageId: id2, notificationId: '' };
+    let state = {rolesId: id1, actionId: '', pageId: id2, notificationId: ''};
     this.props.onUpdateRole(state);
   }
   handleChangeNotification (id2, id1) {
-    let state = { rolesId: id1, actionId: '', pageId: '', notificationId: id2 };
+    let state = {rolesId: id1, actionId: '', pageId: '', notificationId: id2};
     this.props.onUpdateRole(state);
   }
   onUserClick (userId, roleId) {
-    let userRoleUpdateDetails = { userId: userId, roleId: roleId };
+    let userRoleUpdateDetails = {userId: userId, roleId: roleId};
     if (roleId !== '-1') {
       this.props.onUpdateUserRole(userRoleUpdateDetails);
       this.props.onRolesList();
@@ -101,7 +101,7 @@ class ManageRoles extends React.Component {
                         handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId)}
                         handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId)}
                         handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
-                        handleDelete={(id) => { this.handleDelete(id); this.setState({ deleteId: id }); }}
+                        handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
                       />
                     </div>
                   </div>
@@ -128,23 +128,23 @@ class ManageRoles extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS(),
-    usersList: state.usersList.toJS(),
-    manageRoles: state.manageRoles.toJS()
+    usersList:        state.usersList.toJS(),
+    manageRoles:      state.manageRoles.toJS()
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
+    onIsAlreadyLogin:          () => { return dispatch(actions.isAlreadyLogin()); },
     onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
-    onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
-    onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },
-    onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
-    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
-    onDelete: (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
+    onAddNewRole:              (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
+    onRolesList:               () => { return dispatch(actionsManageRoles.getRolesList()); },
+    onUpdateRole:              (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
+    onUpdateUserRole:          (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
+    onDelete:                  (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
   };
 };
 
@@ -153,19 +153,19 @@ const RouterVisibleManageUsers = withRouter(VisibleManageUsers);
 export default RouterVisibleManageUsers;
 
 ManageRoles.PropTypes = {
-  onIsAlreadyLogin: PropTypes.func.isRequired,
+  onIsAlreadyLogin:          PropTypes.func.isRequired,
   onFetchUserPolicyDocument: PropTypes.func.isRequired,
-  onRolesList: PropTypes.func.isRequired,
-  route: PropTypes.shape({
+  onRolesList:               PropTypes.func.isRequired,
+  route:                     PropTypes.shape({
     path: PropTypes.string.isRequired
   }).isRequired,
   logged_user: PropTypes.shape({
     logged_in: PropTypes.number.isRequired,
-    role: PropTypes.string.isRequired
+    role:      PropTypes.string.isRequired
   }).isRequired,
   policy_documents: PropTypes.shape({
     policyDocuments: PropTypes.object
   }).isRequired,
   usersList: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired
+  router:    PropTypes.object.isRequired
 };

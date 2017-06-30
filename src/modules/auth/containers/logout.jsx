@@ -11,10 +11,12 @@ class Logout extends React.Component {
     if (this.props.logged_user.logged_in == 0) {
       this.props.router.push('/');
     } else {
+      console.log('aaaaaaaaaaa');
       this.props.onLogout();
     }
   }
   componentWillReceiveProps (props) {
+    console.log('sssssssssss');
     props.router.push('/');
   }
   render () {

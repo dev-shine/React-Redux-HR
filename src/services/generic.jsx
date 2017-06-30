@@ -1,10 +1,20 @@
 import _ from 'lodash';
+import * as jwt from 'jwt-simple';
+import {CONFIG} from '../config/index';
 
-export function isNotUserValid (path) {
-  let rolePages = {'role_pages': [ 'home', 'view_salary', 'inventory_system', 'manage_roles', 'manage_salary', 'manage_clients' ]};
-  if ((_.indexOf(rolePages.role_pages, path)) === -1) {
-    return true;
+export function isNotUserValid (path, logStatus, policyDocuments) {
+  let tokenData = [];
+  if (localStorage.getItem('hr_logged_user') !== null) {
+    const token = localStorage.getItem('hr_logged_user');
+    tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+  }
+  if (logStatus === 0) {
+    return {status: true, redirectTo: '/logout'};
+  } else if (_.isEmpty(_.find(tokenData.role_pages, ['page_name', path]))) {
+    return {status: true, redirectTo: tokenData.role_pages[0].page_name};
+  } else if (!_.isEmpty(_.find(policyDocuments, function (o) { return o.read === 0; })) && !(tokenData.role === CONFIG.GUEST || tokenData.role === CONFIG.ADMIN)) {
+    return {status: true, redirectTo: '/policy_documents'};
   } else {
-    return false;
+    return {status: false, redirectTo: ''};
   }
 }

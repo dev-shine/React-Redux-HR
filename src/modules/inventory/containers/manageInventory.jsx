@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
 import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import AlertNotification from 'components/generic/AlertNotification';
@@ -59,14 +59,9 @@ class InventorySystem extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR || localStorage.getItem('userid') === '375') {
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       username:            props.manageUsers.username,
@@ -90,7 +85,6 @@ class InventorySystem extends React.Component {
     let selectedUserImage = '';
     let selectedUserJobtitle = '';
     let selectedUserId = '';
-
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid});
       if (typeof userDetails !== 'undefined') {
@@ -200,7 +194,6 @@ class InventorySystem extends React.Component {
     });
   }
   render () {
-    console.log(this.props, 'this.props');
     return (
       <div>
         <AlertNotification message={this.state.status_message} />

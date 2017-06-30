@@ -1,16 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
+import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import Template from '../components/Template';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import * as actions_templates from 'appRedux/templates/actions/templates';
-import {withRouter} from 'react-router';
 
 class TemplateContainer extends React.Component {
   constructor (props) {
@@ -25,19 +23,9 @@ class TemplateContainer extends React.Component {
     });
   }
   componentWillReceiveProps (props) {
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
-
-      } else if (props.logged_user.role == CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
 

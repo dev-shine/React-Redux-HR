@@ -61,7 +61,7 @@ export function login (username, password) {
       loginAsync(username, password).then(
         (json) => {
           dispatch(hide_loading()); // hide loading icon
-          if (json.error === 0) {
+          if (json.error == 0) {
             let token = json.data.token;
             localStorage.setItem('hr_logged_user', token);
             localStorage.setItem('userid', json.data.userid);
@@ -75,7 +75,7 @@ export function login (username, password) {
           dispatch(hide_loading()); // hide loading icon
           dispatch(login_error(error));
         }
-			);
+      );
     });
   };
 }

@@ -1,7 +1,7 @@
-import { createAction } from 'redux-actions';
+import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
 import * as jwt from 'jwt-simple';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
@@ -20,7 +20,7 @@ export function login_error (err) {
 
 function loginAsync (username, password) {
   return fireAjax('POST', '', {
-    'action': 'login',
+    'action':   'login',
     'username': username,
     'password': password
   });
@@ -37,7 +37,6 @@ export function isAlreadyLogin () {
     let token = localStorage.getItem('hr_logged_user');
     if (typeof token !== 'undefined' && token != null && token !== '') {
       let tokenData = jwt.decode(token, 'HR_APP');
-      // console.log(tokenData, 'log1');
       localStorage.setItem('userid', tokenData.id);
       dispatch(login_sucess(tokenData));
 			// return token
@@ -62,7 +61,7 @@ export function login (username, password) {
       loginAsync(username, password).then(
         (json) => {
           dispatch(hide_loading()); // hide loading icon
-          if (json.error === 0) {
+          if (json.error == 0) {
             let token = json.data.token;
             localStorage.setItem('hr_logged_user', token);
             localStorage.setItem('userid', json.data.userid);
@@ -76,7 +75,7 @@ export function login (username, password) {
           dispatch(hide_loading()); // hide loading icon
           dispatch(login_error(error));
         }
-			);
+      );
     });
   };
 }
@@ -126,7 +125,7 @@ export function error_forgot_password (data) {
 
 function async_forgotPassword (username) {
   return fireAjax('POST', '', {
-    'action': 'forgot_password',
+    'action':   'forgot_password',
     'username': username
   });
 }

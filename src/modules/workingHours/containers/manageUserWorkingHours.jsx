@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
+import {isNotUserValid} from 'src/services/generic';
 import Menu from 'src/components/generic/Menu';
 import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
@@ -20,8 +21,8 @@ class ManageUserWorkingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_userid': '',
-      'daysummary_date': ''
+      'daysummary_userid':  '',
+      'daysummary_date':    ''
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
@@ -32,20 +33,9 @@ class ManageUserWorkingHours extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
 
     if (this.state.defaultUserDisplay === '') {
@@ -145,11 +135,11 @@ class ManageUserWorkingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:               state.frontend.toJS(),
+    logged_user:            state.logged_user.toJS(),
+    usersList:              state.usersList.toJS(),
     manageUserWorkingHours: state.manageUserWorkingHours.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    policy_documents:       state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

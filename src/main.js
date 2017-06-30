@@ -10,7 +10,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
-import { createHashHistory } from 'history';
+import {createHashHistory} from 'history';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import Immutable from 'immutable';
@@ -69,7 +69,7 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 export class APP extends React.Component {
   render () {
@@ -88,7 +88,7 @@ injectTapEventPlugin();
 let store = createStore(reducer, compose(
 // applyMiddleware( thunk, logger),
 applyMiddleware(thunk),
-//window.devToolsExtension ? window.devToolsExtension() : f => f
+// window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 // --end---for HR APP by arun
@@ -143,7 +143,6 @@ applyMiddleware(thunk),
 
 // --start----added by arun for HR app
 let render = (routerKey = null) => {
-  // console.log('aaaaa');
   ReactDOM.render((
     <MuiThemeProvider>
       <Provider store={store}>

@@ -63,7 +63,7 @@ class Login extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
+    frontend:    state.frontend.toJS(),
     logged_user: state.logged_user.toJS()
   };
 }

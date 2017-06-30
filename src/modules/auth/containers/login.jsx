@@ -8,7 +8,6 @@ import Navbar from 'components/auth/login/Navbar';
 import LoginForm from 'modules/auth/components/login/LoginForm';
 import LoginFormFooter from 'components/auth/login/LoginFormFooter';
 import LoadingIcon from 'components/generic/LoadingIcon';
-import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions from 'appRedux/actions';
 
 class Login extends React.Component {
@@ -73,10 +72,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogin: (username, password) => {
       return dispatch(actions.userLoginRequest({username, password}));
-      // return dispatch(actions_login.login(username, password));
     },
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     }
   };
 };

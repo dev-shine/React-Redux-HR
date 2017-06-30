@@ -1,21 +1,22 @@
 import Immutable from 'immutable';
 
 let initialState = {
-  login_status_message: '',
-  logged_in:            0,
-  userid:               '-1',
-  username:             '-1',
-  role:                 '-1',
-  name:                 '-1',
-  jobtitle:             '-1',
-  profileImage:         ''
+  login_status_message:  '',
+  forgotPasswordMessage: '',
+  logged_in:             0,
+  userid:                '-1',
+  username:              '-1',
+  role:                  '-1',
+  name:                  '-1',
+  jobtitle:              '-1',
+  profileImage:          ''
 
 };
 
 export function logged_user (state = Immutable.Map(initialState), action) {
   let d = new Date();
   let timestamp = d.getTime();
-
+  console.log(action, 'action');
   if (action.type === 'ACTION_LOGIN_SUCCESS') {
     return state.set('logged_in', 1)
         .set('userid', action.payload.id)
@@ -41,7 +42,10 @@ export function logged_user (state = Immutable.Map(initialState), action) {
         .set('jobtitle', '-1')
         .set('profileImage', '')
         .set('login_status_message', '');
+  } else if (action.type === 'ACTION_SUCCESS_FORGOT_PASSWORD') {
+    return state.set('forgotPasswordMessage', action.payload);
   } else {
-    return state.set('login_status_message', '');
+    return state.set('login_status_message', '')
+      .set('forgotPasswordMessage', '');
   }
 }

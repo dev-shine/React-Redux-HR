@@ -1,48 +1,47 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as actions_login from 'appRedux/auth/actions/index';
-import {notify} from 'src/services/index';
+import * as actions from 'appRedux/actions';
 
 class Logout extends React.Component {
-  constructor(props){
+  constructor (props) {
     super(props);
   }
-  componentWillMount(){
-    if( this.props.logged_user.logged_in == 0 ){
-        this.props.router.push('/')
-    }else{
-        this.props.onLogout()
+  componentWillMount () {
+    if (this.props.logged_user.logged_in == 0) {
+      this.props.router.push('/');
+    } else {
+      this.props.onLogout();
     }
   }
-  componentWillReceiveProps( props ){
-    props.router.push('/')
+  componentWillReceiveProps (props) {
+    props.router.push('/');
   }
-  render(){
-    return(
+  render () {
+    return (
       <div></div>
-  )
+    );
   }
 }
 
-function mapStateToProps( state ){
+function mapStateToProps (state) {
   return {
-    logged_user : state.logged_user.toJS()
-  }
+    logged_user: state.logged_user.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogout : ( ) => {
-        return dispatch( actions_login.logout(  ))
+    onLogout: () => {
+      return dispatch(actions.requestLogout());
     }
-  }
-}
+  };
+};
 
 const VisibleLogout = connect(
   mapStateToProps,
   mapDispatchToProps
-)( Logout )
+)(Logout);
 
-const RouterVisibleLogout = withRouter( VisibleLogout )
+const RouterVisibleLogout = withRouter(VisibleLogout);
 
-export default RouterVisibleLogout
+export default RouterVisibleLogout;

@@ -8,7 +8,7 @@ import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
 
-export function* logingRequest (action) {
+export function* loginRequest (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':   'login',
@@ -27,29 +27,56 @@ export function* logingRequest (action) {
   } catch (e) {
     yield put(actions.userLoginError('Error Occurs !!'));
     console.warn('Some error found in logingRequest action\n', e);
-     // handle error if any
+  }
+}
+
+export function* isAlreadyLoggedIn (action) {
+  let token = localStorage.getItem('hr_logged_user');
+  if (typeof token !== 'undefined' && token !== null && token !== '') {
+    let tokenData = jwt.decode(token, 'HR_APP');
+    localStorage.setItem('userid', tokenData.id);
+    yield put(actions.userLoginSuccess(tokenData));
+  } else {
+    yield put(actions.requestLogout());
+  }
+}
+
+export function* forgotPassword (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':   'forgot_password',
+      'username': action.payload.username
+    });
+    yield put(actions.forgotPasswordSuccess(response.data.message));
+  } catch (e) {
+    yield put(actions.forgotPasswordSuccess('Error Occurs !!'));
+    console.warn('Some error found in forgotPassword action\n', e);
+  }
+}
+
+export function* logout (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'logout'
+    });
+    localStorage.clear();
+    yield put(actions.logoutSuccess());
+  } catch (e) {
+    console.warn('Some error found in logout action\n', e);
   }
 }
 // ------------====================
-// export function login_sucess (data) {
-//   return createAction(constants.ACTION_LOGIN_SUCCESS)(data);
-// }
-//
-// export function login_fail (data) {
-//   return createAction(constants.ACTION_LOGIN_FAIL)('Invalid Login');
-// }
-//
-// export function login_error (err) {
-//   return createAction(constants.ACTION_LOGIN_ERROR)('Error Occurs !!');
-// }
-//
-// function loginAsync (username, password) {
-//   return fireAjax('POST', '', {
-//     'action':   'login',
-//     'username': username,
-//     'password': password
-//   });
-// }
+export function login_sucess (data) {
+  return createAction(constants.USER_LOGIN_SUCCESS)(data);
+}
+
+export function login_fail (data) {
+  return createAction(constants.USER_LOGIN_FAIL)('Invalid Login');
+}
+
+export function login_error (err) {
+  return createAction(constants.USER_LOGIN_ERROR)('Error Occurs !!');
+}
 
 export function doLogin (d) {
   return function (dispatch, getState) {
@@ -62,7 +89,6 @@ export function isAlreadyLogin () {
     let token = localStorage.getItem('hr_logged_user');
     if (typeof token !== 'undefined' && token != null && token !== '') {
       let tokenData = jwt.decode(token, 'HR_APP');
-      // console.log(tokenData, 'log1');
       localStorage.setItem('userid', tokenData.id);
       dispatch(login_sucess(tokenData));
 			// return token
@@ -73,110 +99,35 @@ export function isAlreadyLogin () {
   };
 }
 
-// export function login (username, password) {
-//   return function (dispatch, getState) {
-//     if (_.isEmpty(username)) {
-//       return Promise.reject('Username is empty');
-//     }
-//     if (_.isEmpty(password)) {
-//       return Promise.reject('Password is empty');
-//     }
+// logout
 //
-//     return new Promise((reslove, reject) => {
-//       dispatch(show_loading()); // show loading icon
-//       loginAsync(username, password).then(
+// export function logout_sucess () {
+//   return createAction(constants.ACTION_LOGOUT)();
+// }
+//
+// function asyncLogout () {
+//   return fireAjax('POST', '', {
+//     'action': 'logout'
+//   });
+// }
+//
+// export function logout () {
+//   return function (dispatch, getState) {
+//     return new Promise((resolve, conflict) => {
+//       asyncLogout().then(
 //         (json) => {
-//           dispatch(hide_loading()); // hide loading icon
-//           if (json.error === 0) {
-//             let token = json.data.token;
-//             localStorage.setItem('hr_logged_user', token);
-//             localStorage.setItem('userid', json.data.userid);
-//             let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
-//             dispatch(login_sucess(tokenData));
-//           } else {
-//             dispatch(login_fail({}));
-//           }
+//           // localStorage.setItem('hr_logged_user', '')
+//           // localStorage.setItem('userid', '')
+//           localStorage.clear();
+//           dispatch(logout_sucess());
 //         },
 //         (error) => {
-//           dispatch(hide_loading()); // hide loading icon
-//           dispatch(login_error(error));
+//           // localStorage.setItem('hr_logged_user', '')
+//           // localStorage.setItem('userid', '')
+//           localStorage.clear();
+//           dispatch(logout_sucess());
 //         }
-// 			);
+//       );
 //     });
 //   };
 // }
-
-// logout
-
-export function logout_sucess () {
-  return createAction(constants.ACTION_LOGOUT)();
-}
-
-function asyncLogout () {
-  return fireAjax('POST', '', {
-    'action': 'logout'
-  });
-}
-
-export function logout () {
-  return function (dispatch, getState) {
-    return new Promise((resolve, conflict) => {
-      asyncLogout().then(
-        (json) => {
-          // localStorage.setItem('hr_logged_user', '')
-          // localStorage.setItem('userid', '')
-          localStorage.clear();
-          dispatch(logout_sucess());
-        },
-        (error) => {
-          // localStorage.setItem('hr_logged_user', '')
-          // localStorage.setItem('userid', '')
-          localStorage.clear();
-          dispatch(logout_sucess());
-        }
-      );
-    });
-  };
-}
-
-// forgot password
-
-export function success_forgot_password (data) {
-  return createAction(constants.ACTION_SUCCESS_FORGOT_PASSWORD)(data);
-}
-
-export function error_forgot_password (data) {
-  return createAction(constants.ACTION_ERROR_FORGOT_PASSWORD)(data);
-}
-
-function async_forgotPassword (username) {
-  return fireAjax('POST', '', {
-    'action':   'forgot_password',
-    'username': username
-  });
-}
-
-export function forgotPassword (username) {
-  return function (dispatch, getState) {
-    return new Promise((resolve, reject) => {
-      dispatch(show_loading()); // show loading icon
-      async_forgotPassword(username).then(
-        (json) => {
-          dispatch(hide_loading()); // hide loading icon
-          if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(success_forgot_password(json.data.message));
-            resolve(json.data.message);
-          } else {
-            dispatch(error_forgot_password(json.data.message));
-            reject(json.data.message);
-          }
-        },
-        (error) => {
-          dispatch(hide_loading()); // hide loading icon
-          dispatch(error_forgot_password('error occurs'));
-          reject('error occurs');
-        }
-      );
-    });
-  };
-}

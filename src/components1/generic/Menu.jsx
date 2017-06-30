@@ -29,7 +29,7 @@ class Menu extends React.Component {
             <a className="navbar-brand"><img src="./favicon.ico" /><span className="hidden-folded inline">HR</span></a>
           </div>
           <div className="hide-scroll">
-            <nav className="scroll nav-light"><DisplayMenuList user={this.props.logged_user.role} click={(id) => this.click(id)} /></nav>
+            <nav className="scroll nav-light"><DisplayMenuList rolePages={this.props.logged_user.rolePages} click={(id) => this.click(id)} /></nav>
           </div>
           <LoggedUserInfo loggedUser={this.props.logged_user} />
         </div>
@@ -42,6 +42,7 @@ export default Menu;
 
 Menu.PropTypes = {
   logged_user: PropTypes.shape({
-    role: PropTypes.string.isRequired
+    role:      PropTypes.string.isRequired,
+    rolePages: PropTypes.object.isRequired
   }).isRequired
 };

@@ -2,43 +2,25 @@ import React from 'react';
 import 'whatwg-fetch';
 import * as _ from 'lodash';
 var moment = require('moment');
+import TeamDetailsRow from './TeamDetailsRow';
 
 const TeamDetails = ({teamListData, fetchUserDetails}) => {
   const onSelectTeam = (emp) => {
     let selectedTeam = emp.target.value;
-    console.log(emp, 'dfdfdfdff');
-    fetchUserDetails(selectedTeam).then((data) => {
-    }).catch((error) => {
-    });
+    fetchUserDetails(selectedTeam);
   };
   let teams = teamListData && teamListData.teams || [];
   let row = _.map(teamListData.candidateByTeam, (emp, key) => {
     return (
-            <tr key={key}>
-              <td><div className="list-left">
-                <span className="w-40 avatar">
-                  <img src={emp.slack_image} />
-                </span>
-              </div></td>
-              <td>{emp.name}</td>
-              <td>{emp.jobtitle}</td>
-              <td>{emp.salary_detail}</td>
-              <td>{emp.holdin_amt_detail !== ''
-                ? <ul>
-                  <li>Holding amount : {emp.holdin_amt_detail.holding_amt}</li>
-                  <li>Start date : {emp.holdin_amt_detail.holding_start_date}</li>
-                  <li>End date : {emp.holdin_amt_detail.holding_end_date}</li>
-                  <li>Reason : {emp.holdin_amt_detail.reason}</li>
-                </ul> : ''
-              }</td>
-              <td>{emp.holding_comments}</td>
-              <td>{moment(emp.dateofjoining).format('Do MMMM YYYY')}</td>
-              <td>{emp.no_of_days_join}</td>
-              <td>{emp.team}</td>
-              <td>{moment(emp.start_increment_date).format('Do MMMM YYYY')}</td>
-            </tr>
+      <TeamDetailsRow emp={emp} keys={key} />
     );
   });
+
+  if (_.isEmpty(row)) {
+    <tr><td colSpan="9"
+      style={{'textAlign': 'center'}}>No any employee in this team</td>
+  </tr>;
+  }
   return (
     <div>
       <div className="row no-gutter">
@@ -46,11 +28,10 @@ const TeamDetails = ({teamListData, fetchUserDetails}) => {
           <div className="form-group">
             <label style={{'fontSize': 15}}>Select Team:</label>
             <select className="form-control"
-              onChange={(emp) => { console.log(emp.target.value); onSelectTeam(emp); }}>
+              onChange={(emp) => onSelectTeam(emp)}>
               <option value="">--Select team--</option>
-              {_.map(teams, (team, key) => {
-                console.log('team', team);
-                return (<option key={key} value={team}>{team}</option>);
+              {_.map(teams, (team, keys) => {
+                return (<option key={keys} value={team}>{team}</option>);
               })}
             </select>
           </div>
@@ -80,8 +61,7 @@ const TeamDetails = ({teamListData, fetchUserDetails}) => {
                     </tr>
                   </thead>
                   <tbody>
-                      {_.isEmpty(row) ? <tr><td colSpan="9"
-                        style={{'textAlign': 'center'}}>No any employee in this team</td></tr> : row}
+                      {row}
                   </tbody>
                 </table>
               </div>

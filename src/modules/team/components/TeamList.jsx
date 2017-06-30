@@ -1,11 +1,11 @@
 import React from 'react';
 import * as _ from 'lodash';
 import Paper from 'material-ui/Paper';
+import {CONFIG} from 'src/config/index';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import {CONFIG} from 'src/config/index';
 import RaisedButton from 'material-ui/RaisedButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Table, TableBody, TableHeader, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -31,11 +31,10 @@ class TeamList extends React.Component {
 
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-
-    if (props.logged_user.logged_in == -1) {
+    if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
+      if (props.logged_user.role === CONFIG.ADMIN) {
 
       } else {
         this.props.router.push('/home');
@@ -55,7 +54,7 @@ class TeamList extends React.Component {
   }
   saveTeam () {
     let teamName = this.state.teamName;
-    if (teamName == '') {
+    if (teamName === '') {
       this.setState({
         teamError: 'Required'
       });
@@ -70,7 +69,7 @@ class TeamList extends React.Component {
     let teams = this.props.teamList && this.props.teamList.teams || [];
     let newdata = [];
     _.map(teams, (vari, i) => {
-      if (vari != teamName) {
+      if (vari !== teamName) {
         newdata.push(vari);
       }
     });
@@ -103,12 +102,12 @@ class TeamList extends React.Component {
         primary
         onTouchTap={this.handleClose}
         style={{marginRight: 5}}
-  />,
+/>,
       <RaisedButton
         label="Submit"
         primary
         onTouchTap={this.saveTeam}
-  />
+/>
     ];
     return (
       <div className="app-body" id="view">
@@ -146,14 +145,10 @@ class TeamList extends React.Component {
                 </div>
                 <div style={{'marginTop': '8%'}}>
                   <Paper zDepth={1} style={{marginBottom: '10px'}} >
-                    <Table
-                      fixedHeader
-                      fixedFooter
-                      >
+                    <Table fixedHeader fixedFooter >
                       <TableHeader
                         adjustForCheckbox={false}
-                        displaySelectAll={false}
-                        >
+                        displaySelectAll={false}>
                         <TableRow>
                           <TableRowColumn colSpan="3" >
                             <h4 style={{
@@ -175,7 +170,6 @@ class TeamList extends React.Component {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        displayRowCheckbox={false}>
                         {_.map(teams, (vari, i) => (
                           <TableRow key={i}
                             style={{'cursor': 'pointer'}}>

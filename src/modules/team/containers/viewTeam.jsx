@@ -3,13 +3,12 @@ import * as _ from 'lodash';
 import {connect} from 'react-redux';
 import {CONFIG} from 'src/config/index';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/index';
 import Menu from 'src/components/generic/Menu';
-import TeamList from '../components/TeamList';
-import TeamDetails from '../components/TeamDetails';
+import TeamList from 'modules/team/components/TeamList';
+import TeamDetails from 'modules/team/components/TeamDetails';
 import LoadingIcon from 'components/generic/LoadingIcon';
-import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_getTeamData from 'appRedux/team/actions/teamList';
+import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 
 class ViewTeam extends React.Component {
   constructor (props) {
@@ -32,10 +31,10 @@ class ViewTeam extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in == -1) {
+    if (props.logged_user.logged_in === -1) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
+      if (props.logged_user.role === CONFIG.ADMIN) {
       } else {
         this.props.router.push('/home');
       }
@@ -43,7 +42,7 @@ class ViewTeam extends React.Component {
   }
 
   openPage (toDisplay) {
-    if (toDisplay == 'add_new_team') {
+    if (toDisplay === 'addNewTeam') {
       this.setState({
         addNewTeam:  'row',
         viewTeam:    'hidden',
@@ -61,8 +60,9 @@ class ViewTeam extends React.Component {
   }
 
   render () {
-    let view_team = <TeamDetails teamListData={this.props.teamList} fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
-    let add_new_team = <TeamList {...this.props} />;
+    let viewTeam = <TeamDetails teamListData={this.props.teamList}
+      fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
+    let addNewTeam = <TeamList {...this.props} />;
     return (
       <div>
         <Menu {...this.props} />
@@ -80,7 +80,7 @@ class ViewTeam extends React.Component {
           <div className="app-body" id="view">
             <div className="row">
               <div className="col-12">
-                <LoadingIcon {...this.props} />
+                <LoadingIcon loading={this.props.frontend.show_loading} />
               </div>
             </div>
             <div className="dker p-x">
@@ -88,11 +88,11 @@ class ViewTeam extends React.Component {
                 <div className="col-sm-6 pull-sm-6">
                   <div className="p-y-md clearfix nav-active-primary">
                     <ul className="nav nav-pills nav-sm">
-                      <li onClick={() => { this.openPage('add_new_team'); }} className={`nav-item ${this.state.active}`}>
+                      <li onClick={() => { this.openPage('addNewTeam'); }} className={`nav-item ${this.state.active}`}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">All Team</a>
                         <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
                       </li>
-                      <li onClick={() => { this.openPage('view_team'); }} className="nav-item" style={{'marginLeft': '20px'}}>
+                      <li onClick={() => { this.openPage('viewTeam'); }} className="nav-item" style={{'marginLeft': '20px'}}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Team Details</a>
                         <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
                       </li>
@@ -103,11 +103,11 @@ class ViewTeam extends React.Component {
             </div>
             <div className="padding">
               <div className={this.state.addNewTeam}>
-                  {add_new_team}
+                  {addNewTeam}
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  {view_team}
+                  {viewTeam}
                 </div>
               </div>
             </div>
@@ -129,16 +129,16 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actionsLogin.isAlreadyLogin());
     },
     onFetchTeam: () => {
-      return dispatch(actions_getTeamData.get_all_team());
+      return dispatch(actionsGetTeamData.get_all_team());
     },
     onFetchUserDetails: (selectedTeam) => {
-      return dispatch(actions_getTeamData.get_team_candidate(selectedTeam));
+      return dispatch(actionsGetTeamData.get_team_candidate(selectedTeam));
     },
     onSaveTeam: (teams) => {
-      return dispatch(actions_getTeamData.saveTeam(teams));
+      return dispatch(actionsGetTeamData.saveTeam(teams));
     }
   };
 };

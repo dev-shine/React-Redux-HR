@@ -45,7 +45,7 @@ class ApplyLeave extends React.Component {
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.ADMIN) {
+    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
       if (this.state.defaultUserDisplay === '') {
         props.onUsersList();
       }

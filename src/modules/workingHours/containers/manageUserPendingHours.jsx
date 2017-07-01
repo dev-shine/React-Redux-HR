@@ -1,16 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import UserPendingHoursList from '../components/UserPendingHoursList';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
@@ -22,16 +20,16 @@ class ManageUserPendingHours extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
-      'daysummary_date': '',
-      status_message: '',
-      active: 'active',
-      firstArrow: 'show',
-      secondArrow: 'hidden',
-      thirdArrow: 'hidden',
-      pendingList: 'show',
-      pendingUserList: 'hidden',
-      open: false,
-      edit: false
+      'daysummary_date':    '',
+      status_message:       '',
+      active:               'active',
+      firstArrow:           'show',
+      secondArrow:          'hidden',
+      thirdArrow:           'hidden',
+      pendingList:          'show',
+      pendingUserList:      'hidden',
+      open:                 false,
+      edit:                 false
     };
     this.callAddUserPendingHours = this.callAddUserPendingHours.bind(this);
     this.callFetchPendingUserList = this.callFetchPendingUserList.bind(this);
@@ -48,25 +46,14 @@ class ManageUserPendingHours extends React.Component {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
 
   componentDidUpdate () {
-    if (this.state.defaultUserDisplay == '') {
+    if (this.state.defaultUserDisplay === '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.usersList.users[0];
         let defaultUserName = firstUser.username;
@@ -96,17 +83,17 @@ class ManageUserPendingHours extends React.Component {
   openPage (toDisplay) {
     if (toDisplay === 'pending_hour_list') {
       this.setState({
-        pendingList: 'row',
-        firstArrow: 'show',
+        pendingList:     'row',
+        firstArrow:      'show',
         pendingUserList: 'hidden',
-        secondArrow: 'hidden'
+        secondArrow:     'hidden'
       });
     } else if ((toDisplay === 'view_user_pending_hours')) {
       this.setState({
-        pendingList: 'hidden',
-        firstArrow: 'hidden',
+        pendingList:     'hidden',
+        firstArrow:      'hidden',
         pendingUserList: 'row',
-        secondArrow: 'show'
+        secondArrow:     'show'
       });
     }
   }
@@ -133,45 +120,45 @@ class ManageUserPendingHours extends React.Component {
           <Header pageTitle={'Manage Employee Pending Hours'} {...this.props} />
           <div className="app-footer">
             <div></div>
+          </div>
+          <div className="app-body" id="view">
+            <div className="row">
+              <div className="col-12">
+              </div>
             </div>
-            <div className="app-body" id="view">
+            {this.state.secondArrow === 'show' ? null
+              : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
+                <div className="col-md-11 col-xs-offset-0">
+                </div>
+              </div>
+            }
+            <div className="dker p-x">
               <div className="row">
-                <div className="col-12">
-                </div>
-              </div>
-              {this.state.secondArrow == 'show' ? null
-                : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
-                  <div className="col-md-11 col-xs-offset-0">
+                <div className="col-sm-6 pull-sm-6">
+                  <div className="p-y-md clearfix nav-active-primary">
+                    <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
+                      <li
+                        onClick={() => { this.openPage('pending_hour_list'); }}
+                        className={`nav-item ${this.state.active}`}>
+                        <a className="nav-link"
+                          href=""
+                          data-toggle="tab"
+                          data-target="#tab_1"
+                          aria-expanded="true">Pending Hour List</a>
+                        <div className={this.state.firstArrow}>
+                          <span className="arrow bottom b-accent"></span></div>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-              }
-              <div className="dker p-x">
-                <div className="row">
-                  <div className="col-sm-6 pull-sm-6">
-                    <div className="p-y-md clearfix nav-active-primary">
-                      <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                        <li
-                          onClick={() => { this.openPage('pending_hour_list'); }}
-                          className={`nav-item ${this.state.active}`}>
-                          <a className="nav-link"
-                            href=""
-                            data-toggle="tab"
-                            data-target="#tab_1"
-                            aria-expanded="true">Pending Hour List</a>
-                          <div className={this.state.firstArrow}>
-                            <span className="arrow bottom b-accent"></span></div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="padding">
-                <div className={this.state.pendingList}>
-                  {pending_hour_list}
                 </div>
               </div>
             </div>
+            <div className="padding">
+              <div className={this.state.pendingList}>
+                {pending_hour_list}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -180,12 +167,12 @@ class ManageUserPendingHours extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList: state.usersList.toJS(),
+    frontend:               state.frontend.toJS(),
+    logged_user:            state.logged_user.toJS(),
+    usersList:              state.usersList.toJS(),
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    applyLeave: state.applyLeave.toJS()
+    policy_documents:       state.policyDocuments.toJS(),
+    applyLeave:             state.applyLeave.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

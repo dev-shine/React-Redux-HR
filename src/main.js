@@ -143,7 +143,6 @@ applyMiddleware(thunk),
 
 // --start----added by arun for HR app
 let render = (routerKey = null) => {
-  // console.log('aaaaa');
   ReactDOM.render((
     <MuiThemeProvider>
       <Provider store={store}>

@@ -1,13 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
-import Button from 'components/generic/buttons/Button';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
@@ -36,40 +33,28 @@ class ManageRoles extends React.Component {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
-    }
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/manage_roles');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   callAddNewRole (newRoleDetails) {
     this.props.onAddNewRole(newRoleDetails);
   }
   handleChangeActions (id2, id1) {
-    let state = { rolesId: id1, actionId: id2, pageId: '', notificationId: '' };
+    let state = {rolesId: id1, actionId: id2, pageId: '', notificationId: ''};
     this.props.onUpdateRole(state);
   }
   handleChangePages (id2, id1) {
-    let state = { rolesId: id1, actionId: '', pageId: id2, notificationId: '' };
+    let state = {rolesId: id1, actionId: '', pageId: id2, notificationId: ''};
     this.props.onUpdateRole(state);
   }
   handleChangeNotification (id2, id1) {
-    let state = { rolesId: id1, actionId: '', pageId: '', notificationId: id2 };
+    let state = {rolesId: id1, actionId: '', pageId: '', notificationId: id2};
     this.props.onUpdateRole(state);
   }
   onUserClick (userId, roleId) {
-    let userRoleUpdateDetails = { userId: userId, roleId: roleId };
+    let userRoleUpdateDetails = {userId: userId, roleId: roleId};
     if (roleId !== '-1') {
       this.props.onUpdateUserRole(userRoleUpdateDetails);
       this.props.onRolesList();
@@ -101,7 +86,7 @@ class ManageRoles extends React.Component {
                         handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId)}
                         handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId)}
                         handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
-                        handleDelete={(id) => { this.handleDelete(id); this.setState({ deleteId: id }); }}
+                        handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
                       />
                     </div>
                   </div>
@@ -128,23 +113,23 @@ class ManageRoles extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS(),
-    usersList: state.usersList.toJS(),
-    manageRoles: state.manageRoles.toJS()
+    usersList:        state.usersList.toJS(),
+    manageRoles:      state.manageRoles.toJS()
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
+    onIsAlreadyLogin:          () => { return dispatch(actionsLogin.isAlreadyLogin()); },
     onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
-    onAddNewRole: (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
-    onRolesList: () => { return dispatch(actionsManageRoles.getRolesList()); },
-    onUpdateRole: (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
-    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
-    onDelete: (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
+    onAddNewRole:              (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
+    onRolesList:               () => { return dispatch(actionsManageRoles.getRolesList()); },
+    onUpdateRole:              (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
+    onUpdateUserRole:          (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
+    onDelete:                  (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
   };
 };
 
@@ -153,19 +138,19 @@ const RouterVisibleManageUsers = withRouter(VisibleManageUsers);
 export default RouterVisibleManageUsers;
 
 ManageRoles.PropTypes = {
-  onIsAlreadyLogin: PropTypes.func.isRequired,
+  onIsAlreadyLogin:          PropTypes.func.isRequired,
   onFetchUserPolicyDocument: PropTypes.func.isRequired,
-  onRolesList: PropTypes.func.isRequired,
-  route: PropTypes.shape({
+  onRolesList:               PropTypes.func.isRequired,
+  route:                     PropTypes.shape({
     path: PropTypes.string.isRequired
   }).isRequired,
   logged_user: PropTypes.shape({
     logged_in: PropTypes.number.isRequired,
-    role: PropTypes.string.isRequired
+    role:      PropTypes.string.isRequired
   }).isRequired,
   policy_documents: PropTypes.shape({
     policyDocuments: PropTypes.object
   }).isRequired,
   usersList: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired
+  router:    PropTypes.object.isRequired
 };

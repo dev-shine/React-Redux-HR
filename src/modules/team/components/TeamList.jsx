@@ -35,7 +35,6 @@ class TeamList extends React.Component {
       this.props.router.push('/logout');
     } else {
       if (props.logged_user.role === CONFIG.ADMIN) {
-
       } else {
         this.props.router.push('/home');
       }

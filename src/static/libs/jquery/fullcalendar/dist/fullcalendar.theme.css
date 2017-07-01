@@ -48,7 +48,7 @@
   font-weight: normal;
 }
 
-.fc-view .fc-day-header{	
+.fc-view .fc-day-header{
   padding: 4px 4px;
 }
 
@@ -97,7 +97,7 @@
 .fc-overlay.right{
 	left: auto;
 	right: 100%;
-	top: -15px;	
+	top: -15px;
 	padding: 0 10px;
 	margin: 0;
 }

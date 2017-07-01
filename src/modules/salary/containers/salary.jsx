@@ -2,17 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
-
 import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
 import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
-
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';

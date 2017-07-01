@@ -1,19 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Router, browserHistory, Link, withRouter} from 'react-router';
-import * as _ from 'lodash';
+import {withRouter} from 'react-router';
 import {notify} from '../../services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from '../../components/generic/Menu';
-import LoadingIcon from '../../components/generic/LoadingIcon';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import Header from '../../components/generic/header';
-
 import FormProfileDetails from '../../components/myProfile/FormProfileDetails';
 import FormBankDetails from '../../components/myProfile/FormBankDetails';
 import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword';
 import DeviceDetails from 'components/inventory/deviceDetails';
-
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile';
@@ -85,46 +81,32 @@ class MyProfile extends React.Component {
   render () {
     return (
       <div>
-
         <Menu {...this.props} />
-
         <div id="content" className="app-content box-shadow-z0" role="main">
-
           <Header pageTitle={'My Profile'} {...this.props} />
           <div className="app-body" id="view">
-
             <div className="padding">
-
               <div className="row no-gutter">
                 <UserHorizontalView profileImage={this.props.logged_user.profileImage} name={this.state.user_profile_detail.name} jobtitle={this.state.user_profile_detail.jobtitle} dateofjoining={this.state.user_profile_detail.dateofjoining} gender={this.state.user_profile_detail.gender} dob={this.state.user_profile_detail.dob} work_email={this.state.user_profile_detail.work_email} />
               </div>
               <div className="row no-gutter">
                 <div className="col-xs-6 p-t p-r b-r">
                   <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
-                  <br />
-                  <br />
-                  <br />
+                  <br /><br /><br />
                   <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
-                    <br />
-                    <br />
-                    <br />
-                <DeviceDetails user_assign_machine={this.state.user_assign_machine} callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails} />
+                  <br /><br /><br />
+                  <DeviceDetails user_assign_machine={this.state.user_assign_machine} callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails} />
                 </div>
                 <div className="col-xs-6 p-t p-l">
                   <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
-                  <br />
-                  <br />
-                  <br />
+                  <br /><br /><br />
                   <h6 className="text-center">Previous Payslips</h6>
                   <PayslipHistory payslip_history={this.state.payslip_history} />
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
-
       </div>
     );
   }

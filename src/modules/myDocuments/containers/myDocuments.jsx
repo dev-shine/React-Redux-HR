@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import _ from 'lodash';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
 import * as actionsLogin from 'appRedux/auth/actions/index';
@@ -34,7 +33,6 @@ class MyDoduments extends React.Component {
       message:     props.myDocuments.status_message
     });
   }
-
   render () {
     return (
       <div>

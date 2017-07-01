@@ -1,17 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import UserPendingHoursList from '../components/UserPendingHoursList';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
@@ -123,45 +120,45 @@ class ManageUserPendingHours extends React.Component {
           <Header pageTitle={'Manage Employee Pending Hours'} {...this.props} />
           <div className="app-footer">
             <div></div>
+          </div>
+          <div className="app-body" id="view">
+            <div className="row">
+              <div className="col-12">
+              </div>
             </div>
-            <div className="app-body" id="view">
+            {this.state.secondArrow === 'show' ? null
+              : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
+                <div className="col-md-11 col-xs-offset-0">
+                </div>
+              </div>
+            }
+            <div className="dker p-x">
               <div className="row">
-                <div className="col-12">
-                </div>
-              </div>
-              {this.state.secondArrow === 'show' ? null
-                : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
-                  <div className="col-md-11 col-xs-offset-0">
+                <div className="col-sm-6 pull-sm-6">
+                  <div className="p-y-md clearfix nav-active-primary">
+                    <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
+                      <li
+                        onClick={() => { this.openPage('pending_hour_list'); }}
+                        className={`nav-item ${this.state.active}`}>
+                        <a className="nav-link"
+                          href=""
+                          data-toggle="tab"
+                          data-target="#tab_1"
+                          aria-expanded="true">Pending Hour List</a>
+                        <div className={this.state.firstArrow}>
+                          <span className="arrow bottom b-accent"></span></div>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-              }
-              <div className="dker p-x">
-                <div className="row">
-                  <div className="col-sm-6 pull-sm-6">
-                    <div className="p-y-md clearfix nav-active-primary">
-                      <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                        <li
-                          onClick={() => { this.openPage('pending_hour_list'); }}
-                          className={`nav-item ${this.state.active}`}>
-                          <a className="nav-link"
-                            href=""
-                            data-toggle="tab"
-                            data-target="#tab_1"
-                            aria-expanded="true">Pending Hour List</a>
-                          <div className={this.state.firstArrow}>
-                            <span className="arrow bottom b-accent"></span></div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="padding">
-                <div className={this.state.pendingList}>
-                  {pending_hour_list}
                 </div>
               </div>
             </div>
+            <div className="padding">
+              <div className={this.state.pendingList}>
+                {pending_hour_list}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

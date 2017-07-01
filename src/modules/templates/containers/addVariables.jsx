@@ -1,18 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Router, withRouter} from 'react-router';
-import * as _ from 'lodash';
+import {withRouter} from 'react-router';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_templates from 'appRedux/templates/actions/templates';
-import Template from '../components/Template';
 import Variables from '../components/Variable';
-import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
 
 class VariablesContainer extends React.Component {
   constructor (props) {
@@ -29,7 +24,6 @@ class VariablesContainer extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
   }
-
   render () {
     return (
       <div>

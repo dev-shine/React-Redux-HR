@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import DocumentsList from 'modules/policyDocuments/components/DocumentsList';
 import * as actions_login from 'appRedux/auth/actions/index';
@@ -50,9 +49,9 @@ function mapStateToProps (state) {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-	  onIsAlreadyLogin: () => {
-    return dispatch(actions_login.isAlreadyLogin());
-  },
+    onIsAlreadyLogin: () => {
+      return dispatch(actions_login.isAlreadyLogin());
+    },
     onFetchUserPolicyDocument: () => {
       return dispatch(actions_policy.fetchUserPolicyDocument());
     },

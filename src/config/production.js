@@ -2,14 +2,6 @@ const token = localStorage.getItem('hr_logged_user');
 
 const CONFIG = {
   BASE_URL:                  window.location.href.split('/#')[0] || 'http://hr.excellencetechnologies.in/',
-  ADMIN:                     'Admin',
-  HR:                        'HR',
-  GUEST:                     'Guest',
-  EMPLOYEE:                  'Employee',
-  WORKING_DAY:               'WORKING_DAY',
-  LEAVE_DAY:                 'LEAVE_DAY',
-  DEFAULT_PASSWORD:          'java@123',
-  jwt_secret_key:            'HR_APP',
   // live apis
   api_url:                   'https://hr.excellencetechnologies.in/attendance/API_HR/api.php',
   other_api_url:             'https://hr.excellencetechnologies.in/attendance/sal_info/api.php',

@@ -7,7 +7,7 @@ import {notify} from 'src/services/index';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import ClientsList from 'components/manageClients/ClientsList';
 import FormAddNewClient from 'modules/manageClients/components/FormAddNewClient';
 import FormClientDetails from 'modules/manageClients/components/FormClientDetails';

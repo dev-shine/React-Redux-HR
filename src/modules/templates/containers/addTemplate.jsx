@@ -1,17 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
+import {withRouter} from 'react-router';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import Template from '../components/Template';
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import * as actions_templates from 'appRedux/templates/actions/templates';
-import {withRouter} from 'react-router';
 
 class TemplateContainer extends React.Component {
   constructor (props) {

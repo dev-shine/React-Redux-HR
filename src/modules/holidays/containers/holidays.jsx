@@ -1,11 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import HolidaysList from 'components/holidays/HolidaysList';
 import * as actions_login from 'appRedux/auth/actions/index';

@@ -2,10 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import ListLeaves from 'components/leave/manageLeaves/ListLeaves';
 import ViewLeave from 'modules/leave/components/manageLeaves/ViewLeave';
@@ -34,9 +33,6 @@ class ManageLeaves extends React.Component {
     this.props.onFetchUserPolicyDocument();
     this.props.onListLeaves(this.props.logged_user.role);
   }
-  componentWillMount () {
-
-  }
   componentWillReceiveProps (props) {
     let selectedTab = '';
     let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user.logged_in, this.props.policy_documents.policyDocuments);
@@ -62,12 +58,7 @@ class ManageLeaves extends React.Component {
     }
   }
   doLeaveStatusChange (id, newstatus, messagetouser) {
-    this.props.onChangeLeaveStatus(id, newstatus, messagetouser).then(
-        (data) => {
-
-        }, (error) => {
-            // notify( error );
-    });
+    this.props.onChangeLeaveStatus(id, newstatus, messagetouser);
   }
   selectLeave (leaveId) {
     if (leaveId !== this.state.selectedLeave.id) {
@@ -112,14 +103,14 @@ class ManageLeaves extends React.Component {
     let status_message = '';
     if (this.props.manageLeave.status_message != '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
-          <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>;
+        <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>;
     }
 
     let tabContent;
     if (!this.state.loading && (_.isEmpty(this.state.selectedLeave) || _.isEmpty(this.state.leaveListItems))) {
       tabContent = (<div className="row-col row-col-xs b-b" style={styles.spinContainer}>
-       <span className="" style={styles.spiner}>No data found</span>
-       </div>);
+        <span className="" style={styles.spiner}>No data found</span>
+      </div>);
     } else if (!this.state.loading && (!_.isEmpty(this.state.selectedLeave) && !_.isEmpty(this.state.leaveListItems))) {
       tabContent = <div className="row-col row-col-xs b-b">
         <div className="col-sm-3 light bg b-r">
@@ -132,12 +123,12 @@ class ManageLeaves extends React.Component {
     } else if (this.state.loading) {
       tabContent = <div className="row-col row-col-xs b-b" style={styles.spinContainer}>
         <i className="fa fa-spinner fa-pulse fa-3x" style={styles.spiner} aria-hidden="true"></i>
-        </div>;
+      </div>;
     }
     return (
       <div>
         <Menu {...this.props} />
-          <div id="content" className="app-content box-shadow-z0" role="main">
+        <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Leaves' + status_message} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
             <div className="padding">

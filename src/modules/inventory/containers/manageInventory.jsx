@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import AlertNotification from 'components/generic/AlertNotification';
@@ -85,7 +85,6 @@ class InventorySystem extends React.Component {
     let selectedUserImage = '';
     let selectedUserJobtitle = '';
     let selectedUserId = '';
-
     if (this.props.usersList.users.length > 0) {
       let userDetails = _.find(this.props.usersList.users, {'user_Id': userid});
       if (typeof userDetails !== 'undefined') {

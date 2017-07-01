@@ -1,15 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
 import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import UserDaySummary from 'modules/attendance/components/UserDaySummary';
-
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';

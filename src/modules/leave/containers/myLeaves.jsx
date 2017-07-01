@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
 import * as actions_login from 'appRedux/auth/actions/index';
@@ -64,14 +62,14 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions_login.isAlreadyLogin());
     },
     onMyLeavesList: () => {
-        	return dispatch(actions_myLeaves.getMyLeaves());
+      return dispatch(actions_myLeaves.getMyLeaves());
     },
     onCancelLeave: (userId, from_date) => {
       return dispatch(actions_myLeaves.cancelLeave(userId, from_date));
     },
     onFetchUserPolicyDocument: () => {
-		      return dispatch(actions_policy.fetchUserPolicyDocument());
-		    }
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    }
   };
 };
 

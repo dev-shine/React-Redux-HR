@@ -1,16 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import {CONFIG} from 'src/config/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
 import Message from 'components/generic/Message';
 import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUploadPolicyDocument';
@@ -110,16 +102,16 @@ class UploadPolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-  	frontend:         state.frontend.toJS(),
+    frontend:         state.frontend.toJS(),
     logged_user:      state.logged_user.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-	  onIsAlreadyLogin: () => {
-    return dispatch(actions_login.isAlreadyLogin());
-  },
+    onIsAlreadyLogin: () => {
+      return dispatch(actions_login.isAlreadyLogin());
+    },
     onSubmitDocs: (docs) => {
       return dispatch(actions_policy.submitDocs(docs));
     },

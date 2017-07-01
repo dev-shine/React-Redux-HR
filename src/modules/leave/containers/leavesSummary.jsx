@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
 import Header from 'components/generic/Header';
 import ViewLeavesSummary from 'components/leave/leavesSummary/ViewLeavesSummary';
 import * as actions_login from 'appRedux/auth/actions/index';
@@ -14,9 +12,7 @@ import * as actions_leavesSummary from 'appRedux/leave/actions/leavesSummary';
 class LeavesSummary extends React.Component {
   constructor (props) {
     super(props);
-
     this.props.onIsAlreadyLogin();
-
     this.state = {
       'defaultUserDisplay': '',
       'daysummary_userid':  '',
@@ -27,7 +23,6 @@ class LeavesSummary extends React.Component {
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
-
     this.props.onFetchUserPolicyDocument().then(() => {
       this.props.on_all_leaves_summary(year, month);
     });

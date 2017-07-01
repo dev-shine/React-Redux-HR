@@ -3,17 +3,13 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
+import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import Header from 'components/generic/Header';
-
 import ManagePayslipsUsersList from 'modules/salary/components/managePayslips/ManagePayslipsUsersList';
 import FormGeneratePaySlip from 'modules/salary/components/managePayslips/FormGeneratePaySlip';
 import EmployeeActualSalary from 'modules/salary/components/managePayslips/EmployeeActualSalary';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-
 import * as actions_login from 'appRedux/auth/actions/index';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
@@ -164,7 +160,6 @@ class ManagePayslips extends React.Component {
   render () {
     let status_message = '';
     let selectedUserId = '';
-
     return (
       <div>
         <Menu {...this.props} />
@@ -172,12 +167,10 @@ class ManagePayslips extends React.Component {
           <Header pageTitle={'Manage Payslips' + status_message} {...this.props} />
           <div className="app-body" id="view">
             <div className="padding">
-
               <div className="row">
                 <div className="col-md-3">
                   <ManagePayslipsUsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} all_users_latest_payslip={this.state.all_users_latest_payslip} callEmailPayslips={this.callEmailPayslips} onGetTransferList={this.props.onGetTransferList} google_drive_emailid={this.state.google_drive_emailid} {...this.props} />
                 </div>
-
                 <div className="col-md-9">
                   <div className="row no-gutter b-t">
                     <div className="col-xs-12 b-l">
@@ -188,7 +181,6 @@ class ManagePayslips extends React.Component {
                         <hr />
                         <FormGeneratePaySlip user_id={this.state.selected_user_id} name={this.state.selected_user_name} designation={this.state.selected_user_jobtitle} user_data_for_payslip={this.state.user_data_for_payslip} callCreateUserPayslip={this.callCreateUserPayslip} callMonthlyPayslip={this.callMonthlyPayslip} pending_leaves={this.props.managePayslips.pending_leaves} saveArrear={this.saveArrear} actualSalary={this.state.employee_actual_salary} />
                       </div>
-
                       <div className="p-a block box">
                         <div className="row">
                           <div className="col-md-8 b-r">

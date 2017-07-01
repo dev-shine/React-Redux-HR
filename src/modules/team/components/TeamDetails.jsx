@@ -17,9 +17,9 @@ const TeamDetails = ({teamListData, fetchUserDetails}) => {
   });
 
   if (_.isEmpty(row)) {
-    <tr><td colSpan="9"
+    row = <tr><td colSpan="9"
       style={{'textAlign': 'center'}}>No any employee in this team</td>
-  </tr>;
+    </tr>;
   }
   return (
     <div>

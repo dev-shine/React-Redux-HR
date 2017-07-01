@@ -150,16 +150,7 @@ class TeamList extends React.Component {
                         displaySelectAll={false}>
                         <TableRow>
                           <TableRowColumn colSpan="3" >
-                            <h4 style={{
-                              float:           'left',
-                              'marginLeft':    '-5%',
-                              'paddingTop':    '1%',
-                              'paddingBottom': '1%',
-                              'paddingLeft':   '5%',
-                              'paddingRight':  '3%',
-                              'fontWeight':    'bold'}}>
-                              Team(s)
-                            </h4>
+                            <h4 style={styles.teamView}>Team(s)</h4>
                           </TableRowColumn>
                         </TableRow>
                         <TableRow>
@@ -203,5 +194,15 @@ class TeamList extends React.Component {
     );
   }
 }
-
+var styles = {
+  teamView: {
+    float:           'left',
+    'marginLeft':    '-5%',
+    'paddingTop':    '1%',
+    'paddingBottom': '1%',
+    'paddingLeft':   '5%',
+    'paddingRight':  '3%',
+    'fontWeight':    'bold'
+  }
+};
 export default TeamList;

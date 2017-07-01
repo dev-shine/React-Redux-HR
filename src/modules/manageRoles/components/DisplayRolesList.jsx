@@ -1,8 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
-import { Button } from 'components/generic/buttons/';
 import _ from 'lodash';
 
 const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification, handleDelete}) => {
@@ -52,35 +50,34 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
           </div>
         );
       });
+      let collapseLink = 'collapse' + rolesId;
       return (
-        <div key={key}>
-          <div className="col-xs-12">
-            <h4 className="m-a-0 text-lg">
-              <span className="col-sm-10">{value.name}</span>
-              <Link
-                to="/manage_roles"
-                className="text-sm text-danger"
-                onClick={() => {
-                  var confirmFlag = confirm('Do you want to Delete the Role ?');
-                  if (confirmFlag) { handleDelete(value.id); }
-                }}><i>Delete Role</i>
-              </Link>
-            </h4>
-            <span className="col-sm-12 text-sm">{value.description}</span>
-            <div className="table-responsive p-t p-r p-b p-l">
+        <div className="panel panel-default" style={{'border': 0}} key={key}>
+          <div className="panel-heading p-b-lg">
+            <div className="panel-title p-b-md">
+              <span className="col-xs-9">
+                <Link data-toggle="collapse" data-parent="#accordion" to={collapseLink} >
+                  <h4 className="m-b-xs text-lg col-sm-10">{value.name}</h4>
+                  <span className="col-xs-12 text-sm">{value.description}</span>
+                </Link>
+              </span>
+              <Link to="/manage_roles" className="col-sm-3 m-t-sm p-t-sm text-sm text-danger" onClick={() => { if (confirm('Do you want to Delete the Role ?')) { handleDelete(rolesId); } }}><i>Delete Role</i></Link>
+            </div>
+          </div>
+          <div id={collapseLink} className="table-responsive p-t p-r p-b p-l panel-collapse collapse">
+            <div className="panel-body">
               <table className="table table-condensed">
                 <thead><tr><th>Pages</th><th>Actions</th><th>Notification</th></tr></thead>
                 <tbody><tr><td>{rolePages}</td><td>{roleActions}</td><td>{roleNotification}</td></tr></tbody>
               </table>
             </div>
           </div>
-          <hr style={{'size': '1px'}} />
         </div>
       );
     });
     return (
       <div className="row p-t">
-        <div className="col-xs-12">
+        <div className="col-xs-12 panel-group" id="accordion">
           {rolesList}
         </div>
       </div>
@@ -94,8 +91,8 @@ DisplayRolesList.PropTypes = {
   displayData: PropTypes.shape({
     roles: PropTypes.object.isRequired
   }).isRequired,
-  handleChangeActions: PropTypes.func.isRequired,
-  handleChangePages: PropTypes.func.isRequired,
+  handleChangeActions:      PropTypes.func.isRequired,
+  handleChangePages:        PropTypes.func.isRequired,
   handleChangeNotification: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
+  handleDelete:             PropTypes.func.isRequired
 };

@@ -3,6 +3,8 @@ const DATA = [
   {'path': '/home', 'label': 'Employees Attendance', 'plabel': 'Attendance'},
   {'path': '/uploadAttendance', 'label': 'Upload Attendance', 'plabel': 'Attendance'},
   {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
+  {'path': '/manage_roles', 'label': 'Manage Roles', 'plabel': 'Roles'},
+  {'path': '/manage_clients', 'label': 'Manage Clients', 'plabel': 'Manage Clients'},
   {'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees'},
   {'path': '/manage_working_hours', 'label': 'Office Hours', 'plabel': 'Manage Hours'},
   {'path': '/manage_user_pending_hours', 'label': 'Pending Hours', 'plabel': 'Manage Hours'},

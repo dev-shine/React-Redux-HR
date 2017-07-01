@@ -110,7 +110,7 @@ export function fireAjax (method, url, data) {
       // alert('401 hai ')	;
       notify('Unauthorized Action ' + action + ' - Contact Admin!!');
       localStorage.removeItem('hr_logged_user');
-      location.href = CONFIG.login_page_url;
+      location.href = CONFIG.BASE_URL; // CONFIG.login_page_url;
       // if (action === 'login') {
       //   notify('Unauthorized Action login- Contact Admin!!');
       //   localStorage.removeItem('hr_logged_user');
@@ -120,7 +120,6 @@ export function fireAjax (method, url, data) {
       //   location.href = CONFIG.BASE_URL + '/#/home';
       // }
     } else {
-      console.log('response---> ', response);
       return response.json();
     }
   });

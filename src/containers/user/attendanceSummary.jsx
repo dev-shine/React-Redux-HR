@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {Link, withRouter} from 'react-router';
 import _ from 'lodash';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions_attendanceSummary from 'appRedux/attendance/actions/attendanceSummary';
 
@@ -11,14 +12,14 @@ class AttendanceSummary extends React.Component {
     super(props);
   }
   componentWillMount () {
-    if (this.props.logged_user.logged_in != 1) {
-      this.props.router.push('/');
-    } else {
+    let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user.logged_in, this.props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1;  // +1 since getMonth starts from 0
-		    this.props.onAttendanceSummary(year, month);
+    this.props.onAttendanceSummary(year, month);
   }
 
     // summary working day
@@ -27,182 +28,164 @@ class AttendanceSummary extends React.Component {
     let d_day = d.day;
 
     let date_div = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h6>{d_date}</h6></span>
-              <span className="fc-title"> {d_day}</span>
-            </div>
-          </a>;
+      <div className="fc-content">
+        <span className="fc-time"><h6>{d_date}</h6></span>
+        <span className="fc-title"> {d_day}</span>
+      </div>
+    </a>;
 
     if (d.admin_alert == 1) {
       d_date = d_date + '*';
       date_div = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end indigo fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h6>{d_date}</h6></span>
-              <span className="fc-title"> {d_day}</span>
-            </div>
-          </a>;
+        <div className="fc-content">
+          <span className="fc-time"><h6>{d_date}</h6></span>
+          <span className="fc-title"> {d_day}</span>
+        </div>
+      </a>;
     }
 
     let extraTime = '';
     if (d.extra_time_status == '-') {
       extraTime = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time">                                                                                                                                                                                                                    {d.extra_time}</span>
-              <span className="fc-title"></span>
-            </div>
-          </a>;
+        <div className="fc-content">
+          <span className="fc-time">                                                                                                                                              {d.extra_time}</span>
+          <span className="fc-title"></span>
+        </div>
+      </a>;
     } else if (d.extra_time_status == '+') {
       extraTime = <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end green fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time">                                                                                                                                                                                                                    {d.extra_time}</span>
-              <span className="fc-title"></span>
-            </div>
-          </a>;
+        <div className="fc-content">
+          <span className="fc-time">                                                                                                                                              {d.extra_time}</span>
+          <span className="fc-title"></span>
+        </div>
+      </a>;
     }
 
     return (
-        <div >
-
-          {date_div}
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title">                                                                                                                                                                                                                    {d.in_time}</span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title">{d.out_time}</span>
-            </div>
-          </a>
-          {extraTime}
-        </div>
+      <div>
+        {date_div}
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title">                                                                                                                                              {d.in_time}</span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title">{d.out_time}</span>
+          </div>
+        </a>
+        {extraTime}
+      </div>
     );
   }
 
 // summary future-working day
   _getFutureWorkingDayHtml (d) {
     return (
-        <div >
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h5>{d.date}</h5></span>
-              <span className="fc-title"> {d.day}</span>
-            </div>
-          </a>
-        </div>
+      <div>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"><h5>{d.date}</h5></span>
+            <span className="fc-title"> {d.day}</span>
+          </div>
+        </a>
+      </div>
     );
   }
 
     // summary non-working day
   _getNonWorkingDayHtml (d) {
     return (
-        <div >
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h5>{d.date}</h5></span>
-              <span className="fc-title"> {d.day}</span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title"> Non working day                                                                                                                                                                                                                    </span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"> {d.day_text} </span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time">&nbsp;</span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-        </div>
+      <div>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"><h5>{d.date}</h5></span>
+            <span className="fc-title"> {d.day}</span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title"> Non working day                                                                                                                                                                                                                                                                                                    </span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"> {d.day_text} </span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end yellow fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time">&nbsp;</span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+      </div>
     );
   }
 
     // summary leave day
   _getLeaveDayHtml (d) {
     return (
-        <div >
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h5>{d.date}</h5></span>
-              <span className="fc-title"> {d.day}</span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title"> On Leave </span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title"> {d.day_text} </span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
-            <div className="fc-content">
-              <span className="fc-title"> &nbsp; </span>
-              <span className="fc-title"></span>
-            </div>
-          </a>
-
-        </div>
+      <div>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"><h5>{d.date}</h5></span>
+            <span className="fc-title"> {d.day}</span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title"> On Leave </span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title"> {d.day_text} </span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red fc-draggable">
+          <div className="fc-content">
+            <span className="fc-title"> &nbsp; </span>
+            <span className="fc-title"></span>
+          </div>
+        </a>
+      </div>
     );
   }
 
     // summary half day
   _getHalfDayHtml (d) {
     return (
-        <div >
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"><h5>{d.date}</h5></span>
-              <span className="fc-title"> {d.day}</span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"> </span>
-              <span className="fc-title"> {d.in_time} </span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time"> </span>
-              <span className="fc-title"> {d.out_time}                                                                                                                                                                                                                    </span>
-            </div>
-          </a>
-
-          <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
-            <div className="fc-content">
-              <span className="fc-time">{d.day_text} </span>
-              <span className="fc-title">                                                                                                                                                                                                                    </span>
-            </div>
-          </a>
-
-        </div>
+      <div>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"><h5>{d.date}</h5></span>
+            <span className="fc-title"> {d.day}</span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"> </span>
+            <span className="fc-title"> {d.in_time} </span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time"> </span>
+            <span className="fc-title"> {d.out_time}                                                                                                                                                                                                                                                                                                                                                                                                        </span>
+          </div>
+        </a>
+        <a className="fc-day-grid-event fc-h-event fc-event fc-start fc-end red-100 fc-draggable">
+          <div className="fc-content">
+            <span className="fc-time">{d.day_text} </span>
+            <span className="fc-title">                                                                                                                                                                                                                                                                                                                                                                                                        </span>
+          </div>
+        </a>
+      </div>
     );
   }
 
@@ -225,11 +208,11 @@ class AttendanceSummary extends React.Component {
       let daySummaryUrl = '/user_day_summary/' + userid + '/' + dayData.full_date;
 
       return (
-          <td key={key} className="fc-event-container">
-            <Link to={daySummaryUrl}>
-              {dayHtml}
-            </Link>
-          </td>
+        <td key={key} className="fc-event-container">
+          <Link to={daySummaryUrl}>
+            {dayHtml}
+          </Link>
+        </td>
       );
     });
   }
@@ -239,19 +222,19 @@ class AttendanceSummary extends React.Component {
     return _.map(weekWise, (week, key) => {
       let weekHtml = this._getWeekHtml(userid, week);
       return (
-          <div key={key} className="fc-row fc-week fc-widget-content" style={styles.height100per} >
-            <div className="fc-bg">
-              <div className="fc-content-skeleton">
-                <table>
-                  <tbody>
-                    <tr>
-                      {weekHtml}
-                    </tr>
-                  </tbody>
-                </table>
+        <div key={key} className="fc-row fc-week fc-widget-content" style={styles.height100per} >
+          <div className="fc-bg">
+            <div className="fc-content-skeleton">
+              <table>
+                <tbody>
+                  <tr>
+                    {weekHtml}
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          </div>
+        </div>
       );
     });
   }
@@ -272,37 +255,33 @@ class AttendanceSummary extends React.Component {
       let monthHtml = this._getMonthHtml(styles, user_id, monthlyAttendance);
 
       return (
-          <table key={key} style={styles.userTable}>
-              <tbody className="fc-body">
-                <tr>
-                  <td className="fc-widget-content">
-                    <div className="fc-day-grid-container" >
-                      <div className="fc-day-grid">
-
-                      <div className="row">
-
-                       <div className="col-12">
-          <div className="box p-a">
-            <div className="pull-left m-r">
-              <span className="w-48 rounded  accent">
-                <i className="material-icons"></i>
-              </span>
-            </div>
-            <div className="clear">
-              <h4 className="m-a-0 text-lg">
-                {userData.name}
-                <span className="text-sm"> </span></h4>
-
-              <small className="text-muted"> {userData.jobtitle}                                                                                                                                                                                                                    </small><br /><br />
-              <small className="text-muted"> Total Working Hours - {userData.monthSummary.actual_working_hours}                                                                                                                                                                                                                    </small><br />
-              <small className="text-muted"> Completed - {userData.monthSummary.completed_working_hours}                                                                                                                                                                                                                    </small><br />
-              <small className="text-muted"> Pending - {userData.monthSummary.pending_working_hours}                                                                                                                                                                                                                    </small><br />
-            </div>
-          </div>
-      </div>
-
-  </div>
-
+        <table key={key} style={styles.userTable}>
+          <tbody className="fc-body">
+            <tr>
+              <td className="fc-widget-content">
+                <div className="fc-day-grid-container" >
+                  <div className="fc-day-grid">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="box p-a">
+                          <div className="pull-left m-r">
+                            <span className="w-48 rounded  accent">
+                              <i className="material-icons"></i>
+                            </span>
+                          </div>
+                          <div className="clear">
+                            <h4 className="m-a-0 text-lg">
+                              {userData.name}
+                              <span className="text-sm"> </span>
+                            </h4>
+                            <small className="text-muted"> {userData.jobtitle}                                                                                        </small><br /><br />
+                            <small className="text-muted"> Total Working Hours - {userData.monthSummary.actual_working_hours}                                                                                        </small><br />
+                            <small className="text-muted"> Completed - {userData.monthSummary.completed_working_hours}                                                                                                                                                                                                </small><br />
+                            <small className="text-muted"> Pending - {userData.monthSummary.pending_working_hours}                                                                                                                                                                                                </small><br />
+                          </div>
+                        </div>
+                    </div>
+              </div>
                       <div className="row">
                           <div className="col-sm-12">
                             <div className="p-y">
@@ -416,8 +395,8 @@ AttendanceSummary.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend: state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
+    frontend:          state.frontend.toJS(),
+    logged_user:       state.logged_user.toJS(),
     attendanceSummary: state.attendanceSummary.toJS()
   };
 }
@@ -460,10 +439,10 @@ export default RouterVisibleAttendanceSummary;
 //                           {userData.name}
 //                           <span className="text-sm"> </span>
 //                         </h4>
-//                         <small className="text-muted"> {userData.jobtitle}                                                                                                                                                                                      </small><br /><br />
-//                         <small className="text-muted"> Total Working Hours - {userData.monthSummary.actual_working_hours}                                                                                                                                                                                      </small><br />
-//                         <small className="text-muted"> Completed - {userData.monthSummary.completed_working_hours}                                                                                                                                                                                      </small><br />
-//                         <small className="text-muted"> Pending - {userData.monthSummary.pending_working_hours}                                                                                                                                                                                      </small><br />
+//                         <small className="text-muted"> {userData.jobtitle}                                                                                  </small><br /><br />
+//                         <small className="text-muted"> Total Working Hours - {userData.monthSummary.actual_working_hours}                                                                                  </small><br />
+//                         <small className="text-muted"> Completed - {userData.monthSummary.completed_working_hours}                                </small><br />
+//                         <small className="text-muted"> Pending - {userData.monthSummary.pending_working_hours}                                                                                  </small><br />
 //                       </div>
 //                     </div>
 //                   </div>

@@ -2,16 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
-
 import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
 import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
-
 import * as actions from 'appRedux/actions';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
@@ -33,24 +29,16 @@ class Salary extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
 
     let s_salary_details = {};
     let s_salary_history = [];
     let s_payslip_history = [];
 
-    if (this.state.view_salary_id == false) {
+    if (this.state.view_salary_id === false) {
       if (typeof props.salary.salary_history !== 'undefined' && props.salary.salary_history.length > 0) {
         let viewSalaryInfo = props.salary.salary_history[0];
         s_salary_details = viewSalaryInfo;
@@ -67,7 +55,7 @@ class Salary extends React.Component {
   viewSalarySummary (id) {
     let new_details = this.state.salary_details;
     _.forEach(this.state.salary_history, (d, k) => {
-      if (d.test.id == id) {
+      if (d.test.id === id) {
         new_details = d;
       }
     });

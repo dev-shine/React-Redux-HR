@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import RichTextEditor from 'react-rte';
 import update from 'react/lib/update';
 import Paper from 'material-ui/Paper';
@@ -8,7 +8,6 @@ import {CONFIG} from 'src/config/index';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
-import Menu from 'src/components/generic/Menu';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -17,7 +16,7 @@ import Delete from 'material-ui/svg-icons/action/delete';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import EditableDiv from 'components/editor/EditableDiv';
 import FilterLabel from 'src/components/generic/FilterLabel';
-import { Router, browserHistory, Link, withRouter } from 'react-router';
+import {Router, browserHistory, Link, withRouter} from 'react-router';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 var FormData = require('form-data');
 var moment = require('moment');
@@ -28,96 +27,96 @@ const styles = {
   },
   lable: {
     fontWeight: 'normal',
-    fontSize: 15
+    fontSize:   15
   },
   container: {
-    position: 'relative',
-    textAlign: 'center',
+    position:   'relative',
+    textAlign:  'center',
     paddingTop: '200px'
   },
   formInput: {
-    'marginLeft': '5%',
+    'marginLeft':  '5%',
     'marginRight': '5%',
-    'width': '90%'
+    'width':       '90%'
   },
   delete: {
-    float: 'right',
-    marginTop: '-12px',
+    float:       'right',
+    marginTop:   '-12px',
     marginRight: '-7px'
   },
   editorStyle: {
-    overflow: 'auto',
-    display: 'block',
-    width: '100%',
-    height: '300px',
-    maxHeight: '300px',
+    overflow:   'auto',
+    display:    'block',
+    width:      '100%',
+    height:     '300px',
+    maxHeight:  '300px',
     background: 'rgba(204,204,204,.51)'
   },
   errorAlert: {
-    'marginLeft': '5%',
+    'marginLeft':  '5%',
     'marginRight': '5%',
-    'width': '90%',
-    'display': 'none'
+    'width':       '90%',
+    'display':     'none'
   },
   uploadButton: {
-    'position': 'relative',
-    'overflow': 'hidden',
-    'margin': '10px',
+    'position':   'relative',
+    'overflow':   'hidden',
+    'margin':     '10px',
     'marginLeft': '40px',
-    'cursor': 'pointer'
+    'cursor':     'pointer'
   },
   uploadInput: {
-    'color': 'transparent',
+    'color':    'transparent',
     'position': 'absolute',
-    'top': 0,
-    'right': 0,
-    'margin': 0,
-    'padding': 0,
+    'top':      0,
+    'right':    0,
+    'margin':   0,
+    'padding':  0,
     'fontSize': '20px',
-    'cursor': 'pointer',
-    'opacity': 0
+    'cursor':   'pointer',
+    'opacity':  0
   },
   uploadedPdfBlock: {
-    'boxShadow': '0px 0px 5px #888888',
-    'height': '30px',
-    'padding': '5px',
-    'textAlign': 'left',
+    'boxShadow':  '0px 0px 5px #888888',
+    'height':     '30px',
+    'padding':    '5px',
+    'textAlign':  'left',
     'marginLeft': '40px',
-    'marginTop': '10px',
-    'width': '350px',
-    'display': 'block',
-    'fontStyle': 'italic',
+    'marginTop':  '10px',
+    'width':      '350px',
+    'display':    'block',
+    'fontStyle':  'italic',
     'fontWeight': 'bold',
-    'color': '#0099cc'
+    'color':      '#0099cc'
   },
   crossButton: {
-    'color': 'red',
-    'float': 'right',
+    'color':     'red',
+    'float':     'right',
     'marginTop': '3px',
-    'cursor': 'pointer'
+    'cursor':    'pointer'
   },
   pdfHeader: {
-    width: '100%',
+    width:          '100%',
     borderCollapse: 'collapse',
-    minHeight: '50px'
+    minHeight:      '50px'
   },
   tab1: {
     borderCollapse: 'collapse',
-    minHeight: '50px'
+    minHeight:      '50px'
   },
   para: {
-    fontSize: '29px',
-    fontWeight: '800',
-    paddingTop: '10px',
+    fontSize:     '29px',
+    fontWeight:   '800',
+    paddingTop:   '10px',
     marginBottom: '12px',
-    marginTop: '-20px'
+    marginTop:    '-20px'
   },
   span_bold: {
     fontWeight: '600',
-    fontSize: '14px'
+    fontSize:   '14px'
   },
   pdfFooter: {
-    borderTop: '3px solid',
+    borderTop:    '3px solid',
     marginBottom: '8px'
   }
 };
@@ -127,30 +126,30 @@ class Variables extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      usersList: [],
-      openDialog: false,
-      templateId: '',
-      templateName: '',
-      templateSubject: '',
-      templateBody: RichTextEditor.createEmptyValue(),
-      errName: '',
-      errSubject: '',
-      pValue: [],
-      openSendMailDialog: false,
-      recipient: [],
-      cc: [],
-      bcc: [],
-      recipientType: 'Recipient',
-      openVarDialog: false,
-      openPreview: false,
-      sentMail: {},
-      recipientEmailId: '',
-      recipientNotFound: false,
+      usersList:            [],
+      openDialog:           false,
+      templateId:           '',
+      templateName:         '',
+      templateSubject:      '',
+      templateBody:         RichTextEditor.createEmptyValue(),
+      errName:              '',
+      errSubject:           '',
+      pValue:               [],
+      openSendMailDialog:   false,
+      recipient:            [],
+      cc:                   [],
+      bcc:                  [],
+      recipientType:        'Recipient',
+      openVarDialog:        false,
+      openPreview:          false,
+      sentMail:             {},
+      recipientEmailId:     '',
+      recipientNotFound:    false,
       emailValidationError: '',
-      upload_file: [],
-      uploadedPDF: [],
-      LinearProgressBar: [],
-      header: ''
+      upload_file:          [],
+      uploadedPDF:          [],
+      LinearProgressBar:    [],
+      header:               ''
     };
 
     this.openCreateTemplate = this.openCreateTemplate.bind(this);
@@ -205,7 +204,7 @@ class Variables extends React.Component {
       errSubject = 'Subject empty';
     }
     this.setState({
-      errName: errName,
+      errName:    errName,
       errSubject: errSubject
     });
     if (!_.isEmpty(t_name) && !_.isEmpty(t_subject) && !_.isEmpty(t_body)) {
@@ -219,11 +218,11 @@ class Variables extends React.Component {
   }
   editTemplate (tmp) {
     this.setState({
-      openDialog: true,
-      templateId: tmp.id,
-      templateName: tmp.name,
+      openDialog:      true,
+      templateId:      tmp.id,
+      templateName:    tmp.name,
       templateSubject: tmp.subject,
-      templateBody: RichTextEditor.createValueFromString(tmp.body, 'html')
+      templateBody:    RichTextEditor.createValueFromString(tmp.body, 'html')
     });
   }
   deleteTemplate (tmp) {
@@ -351,20 +350,20 @@ class Variables extends React.Component {
     }
 
     this.setState({
-      templateName: templ.name,
+      templateName:    templ.name,
       templateSubject: templ.subject,
-      templateBody: RichTextEditor.createValueFromString(templ.body, 'html')
+      templateBody:    RichTextEditor.createValueFromString(templ.body, 'html')
     });
   }
   forwardTemplate (tmp) {
     this.setState({
       openSendMailDialog: true,
-      templateId: tmp.id,
-      templateName: tmp.name,
-      templateSubject: tmp.subject,
-      templateBody: RichTextEditor.createValueFromString(tmp.body, 'html'),
-      uploadedPDF: [],
-      upload_file: []
+      templateId:         tmp.id,
+      templateName:       tmp.name,
+      templateSubject:    tmp.subject,
+      templateBody:       RichTextEditor.createValueFromString(tmp.body, 'html'),
+      uploadedPDF:        [],
+      upload_file:        []
     });
     this.applyVariables(tmp.id);
   }
@@ -375,29 +374,29 @@ class Variables extends React.Component {
   }
   handleCloseDialog () {
     this.setState({
-      openDialog: false,
-      templateId: '',
-      templateName: '',
-      templateSubject: '',
-      templateBody: RichTextEditor.createEmptyValue(),
-      errName: '',
-      errSubject: '',
+      openDialog:         false,
+      templateId:         '',
+      templateName:       '',
+      templateSubject:    '',
+      templateBody:       RichTextEditor.createEmptyValue(),
+      errName:            '',
+      errSubject:         '',
       openSendMailDialog: false,
-      recipient: []
+      recipient:          []
     });
   }
   handleCloseDialog1 () {
     this.setState({
-      openDialog: false,
-      templateId: '',
-      templateName: '',
-      templateSubject: '',
-      templateBody: RichTextEditor.createEmptyValue(),
-      errName: '',
-      errSubject: '',
+      openDialog:         false,
+      templateId:         '',
+      templateName:       '',
+      templateSubject:    '',
+      templateBody:       RichTextEditor.createEmptyValue(),
+      errName:            '',
+      errSubject:         '',
       openSendMailDialog: false,
-      recipient: [],
-      uploadedPDF: []
+      recipient:          [],
+      uploadedPDF:        []
     });
   }
   toggleDialog (back, front) {
@@ -475,7 +474,7 @@ class Variables extends React.Component {
   closeMailPreview () {
     this.setState({
       openPreview: false,
-      sentMail: {}
+      sentMail:    {}
     });
   }
   showError (id, errorMsg) {
@@ -519,7 +518,7 @@ class Variables extends React.Component {
           pendingVariables.push({name: str, value: defaultValue});
         });
         this.setState({
-          pValue: pendingVariables,
+          pValue:        pendingVariables,
           openVarDialog: true
         });
       }
@@ -532,16 +531,16 @@ class Variables extends React.Component {
         return [bcc.email, bcc.name];
       });
       let email = [{
-        email_id: recipient[0].email,
-        name: recipient[0].name,
-        subject: templateSubject,
-        body: templateBody,
-        cc_detail: cc_detail,
+        email_id:   recipient[0].email,
+        name:       recipient[0].name,
+        subject:    templateSubject,
+        body:       templateBody,
+        cc_detail:  cc_detail,
         bcc_detail: bcc_detail
       }];
       this.setState({
         openPreview: true,
-        sentMail: {status: state, email: email}
+        sentMail:    {status: state, email: email}
       });
     } else {
       this.showError('previewalert', error);
@@ -565,15 +564,15 @@ class Variables extends React.Component {
   handleClose () {
     this.setState({
       openVarDialog: false,
-      pValue: _.remove(this.state.pValue)
+      pValue:        _.remove(this.state.pValue)
     });
   }
   setVariable () {
     let pValue = this.state.pValue,
       template = {
-        name: this.state.templateName.trim(),
+        name:    this.state.templateName.trim(),
         subject: this.state.templateSubject.trim(),
-        body: this.state.templateBody.toString('html')
+        body:    this.state.templateBody.toString('html')
       };
 
     _.map(pValue, (variable, i) => {
@@ -583,10 +582,10 @@ class Variables extends React.Component {
     });
 
     this.setState({
-      templateName: template.name,
+      templateName:    template.name,
       templateSubject: template.subject,
-      templateBody: RichTextEditor.createValueFromString(template.body, 'html'),
-      pValue: null
+      templateBody:    RichTextEditor.createValueFromString(template.body, 'html'),
+      pValue:          null
     },
      () => {
        this.handleClose();
@@ -618,12 +617,12 @@ class Variables extends React.Component {
     });
 
     $.ajax({
-      url: CONFIG.upload_email_attachment,
+      url:         CONFIG.upload_email_attachment,
       contentType: false,
       processData: false,
-      data: form_data,
-      type: 'post',
-      success: function (data) {
+      data:        form_data,
+      type:        'post',
+      success:     function (data) {
         let obj = JSON.parse(data);
         let uploadedPDF = self.state.uploadedPDF;
         let upload_file_path = self.state.upload_file;
@@ -636,8 +635,8 @@ class Variables extends React.Component {
           });
         }
         self.setState({
-          uploadedPDF: uploadedPDF,
-          upload_file: upload_file_path,
+          uploadedPDF:       uploadedPDF,
+          upload_file:       upload_file_path,
           LinearProgressBar: []
         });
       },
@@ -706,7 +705,7 @@ class Variables extends React.Component {
 
     _.map(this.state.usersList, (user, i) => {
       let check = false;
-      if (_.filter(recipient, _.matches({user_Id: user.user_Id })).length > 0) {
+      if (_.filter(recipient, _.matches({user_Id: user.user_Id})).length > 0) {
         check = true;
       }
       listChartItems.push(
@@ -733,7 +732,7 @@ class Variables extends React.Component {
     });
     return (
       <div className="app-body" id="view" style={{'marginTop': 10}}>
-        <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
+        <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
             <Dialog
               title={_.isEmpty(this.state.templateId) ? 'Create Template' : 'Edit Template'}
               actions={actionsCreateTemplate}
@@ -849,7 +848,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                            </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                      </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>

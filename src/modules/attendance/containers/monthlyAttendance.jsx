@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actions from 'appRedux/actions';
@@ -30,7 +29,6 @@ class MonthlyAttendance extends React.Component {
   componentWillMount () {
     this.props.onIsAlreadyLogin();
     this.props.onFetchUserPolicyDocument();
-
     let user_id = this.props.logged_user.userid;
     this.setState({'defaultUserDisplay': user_id});
     let d = new Date();
@@ -40,18 +38,9 @@ class MonthlyAttendance extends React.Component {
     this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
   }
   componentWillReceiveProps (props) {
-    // window.scrollTo(0, 0);
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   onShowDaySummary (userid, date) {

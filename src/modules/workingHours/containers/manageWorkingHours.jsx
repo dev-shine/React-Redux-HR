@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
 import * as actions from 'appRedux/actions';
@@ -30,19 +29,9 @@ class ManageWorkingHours extends React.Component {
     this.props.onWorkingHoursSummary(year, month);
   }
   componentWillReceiveProps (props) {
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     if (props.workingHoursSummary.status_message !== '') {
       notify(props.workingHoursSummary.status_message);

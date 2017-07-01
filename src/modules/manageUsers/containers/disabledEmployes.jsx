@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
@@ -37,19 +37,13 @@ class PageDisabledEmployes extends React.Component {
   }
   componentWillMount () {
     window.scrollTo(0, 0);
-    if (this.props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      this.props.onFetchDisabledEmployee();
-    }
+    this.props.onFetchDisabledEmployee();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      props.router.push('/logout');
-    }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {} else {
-      this.props.router.push('/home');
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       user_payslip_history: props.managePayslips.user_payslip_history,

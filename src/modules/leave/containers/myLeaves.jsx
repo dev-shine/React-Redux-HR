@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
-import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
+import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
 import * as actions from 'appRedux/actions';
@@ -21,13 +20,9 @@ class MyLeaves extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout');
-    } else {
-      let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read == 0; }) || [];
-      if (unread.length > 0) {
-        this.props.router.push('/policy_documents');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   render () {
@@ -67,14 +62,14 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions.isAlreadyLogin());
     },
     onMyLeavesList: () => {
-        	return dispatch(actions_myLeaves.getMyLeaves());
+      return dispatch(actions_myLeaves.getMyLeaves());
     },
     onCancelLeave: (userId, from_date) => {
       return dispatch(actions_myLeaves.cancelLeave(userId, from_date));
     },
     onFetchUserPolicyDocument: () => {
-		      return dispatch(actions_policy.fetchUserPolicyDocument());
-		    }
+      return dispatch(actions_policy.fetchUserPolicyDocument());
+    }
   };
 };
 

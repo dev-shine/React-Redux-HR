@@ -1,13 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
-import Button from 'components/generic/buttons/Button';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
@@ -36,21 +33,9 @@ class ManageRoles extends React.Component {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    if (isNotUserValid(this.props.route.path)) {
-      this.props.router.push('/logout');
-    }
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
-      } else if (props.logged_user.role === CONFIG.HR) {
-        let unread = _.filter(props.policy_documents.policyDocuments, function (o) { return o.read === 0; }) || [];
-        if (unread.length > 0) {
-          this.props.router.push('/policy_documents');
-        }
-      } else {
-        this.props.router.push('/manage_roles');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
   }
   callAddNewRole (newRoleDetails) {

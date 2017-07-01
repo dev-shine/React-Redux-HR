@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as _ from 'lodash';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
-import Menu from 'src/components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -22,26 +21,26 @@ const styles = {
   },
   lable: {
     fontWeight: 'normal',
-    fontSize: 15
+    fontSize:   15
   },
   container: {
-    position: 'relative',
-    textAlign: 'center',
+    position:   'relative',
+    textAlign:  'center',
     paddingTop: '200px'
   },
   formInput: {
-    'marginLeft': '5%',
+    'marginLeft':  '5%',
     'marginRight': '5%',
-    'width': '90%',
-    'paddingTop': '10px',
-    'color': 'gray'
+    'width':       '90%',
+    'paddingTop':  '10px',
+    'color':       'gray'
   },
   radioButton: {
     marginBottom: 16,
-    width: '50%',
-    float: 'left',
+    width:        '50%',
+    float:        'left',
     marginBottom: '0px',
-    marginTop: '16px'
+    marginTop:    '16px'
   },
   radioLabel: {
     fontWeight: 300
@@ -53,22 +52,22 @@ class Variables extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      paper: 'show',
-      openDialog: false,
-      dialogTitle: '',
-      variableType: 'user',
-      variableCode: '',
-      floatingLabelCode: '',
-      hintCode: '',
-      varCodeError: '',
-      variableValue: RichTextEditor.createEmptyValue(),
+      paper:                     'show',
+      openDialog:                false,
+      dialogTitle:               '',
+      variableType:              'user',
+      variableCode:              '',
+      floatingLabelCode:         '',
+      hintCode:                  '',
+      varCodeError:              '',
+      variableValue:             RichTextEditor.createEmptyValue(),
       variableValue_forTextArea: '',
-      floatingLabelValue: '',
-      hintValue: '',
-      varValError: '',
-      varId: '',
-      editor: 'show',
-      textArea: 'hidden'
+      floatingLabelValue:        '',
+      hintValue:                 '',
+      varValError:               '',
+      varId:                     '',
+      editor:                    'show',
+      textArea:                  'hidden'
     };
     this.openCreateVariable = this.openCreateVariable.bind(this);
     this.saveVariable = this.saveVariable.bind(this);
@@ -99,42 +98,42 @@ class Variables extends React.Component {
     if (e.target.value == 'textArea') {
       this.setState({
         textArea: 'show',
-        editor: 'hidden'
+        editor:   'hidden'
       });
     } else {
       this.setState({
         textArea: 'hidden',
-        editor: 'show'
+        editor:   'show'
       });
     }
   }
   openCreateVariable () {
     this.setState({
-      variableCode: '',
-      varCodeError: '',
-      variableValue: RichTextEditor.createEmptyValue(),
+      variableCode:              '',
+      varCodeError:              '',
+      variableValue:             RichTextEditor.createEmptyValue(),
       variableValue_forTextArea: '',
-      varValError: '',
-      openDialog: true,
-      varId: '',
-      dialogTitle: 'Create Variable',
-      floatingLabelCode: 'Variable Code',
-      hintCode: 'Enter Variable Code',
-      floatingLabelValue: 'Variable Value',
-      hintValue: 'Enter Varaible Value'
+      varValError:               '',
+      openDialog:                true,
+      varId:                     '',
+      dialogTitle:               'Create Variable',
+      floatingLabelCode:         'Variable Code',
+      hintCode:                  'Enter Variable Code',
+      floatingLabelValue:        'Variable Value',
+      hintValue:                 'Enter Varaible Value'
     });
   }
   gotoVariablePage () {
     this.setState({
-      variableCode: '',
-      varCodeError: '',
+      variableCode:  '',
+      varCodeError:  '',
       variableValue: RichTextEditor.createEmptyValue(),
-      varValError: '',
-      openDialog: false,
-      dialogTitle: '',
-      hintValue: '',
-      textArea: 'hidden',
-      editor: 'show'
+      varValError:   '',
+      openDialog:    false,
+      dialogTitle:   '',
+      hintValue:     '',
+      textArea:      'hidden',
+      editor:        'show'
     });
   }
   saveVariable () {
@@ -176,22 +175,22 @@ class Variables extends React.Component {
         varCode = '#' + varCode;
       }
       let variable = {
-        varCode: varCode,
+        varCode:  varCode,
         varValue: varVal,
-        varType: varType
+        varType:  varType
       };
       this.props.onSaveVariable(id, variable).then((data) => {
         this.setState({
-          variableCode: '',
-          variableValue: RichTextEditor.createEmptyValue(),
+          variableCode:              '',
+          variableValue:             RichTextEditor.createEmptyValue(),
           variableValue_forTextArea: '',
-          varId: ''
+          varId:                     ''
         });
         this.gotoVariablePage();
       }).catch((error) => {
         this.setState({
-          variableCode: '',
-          variableValue: RichTextEditor.createEmptyValue(),
+          variableCode:              '',
+          variableValue:             RichTextEditor.createEmptyValue(),
           variableValue_forTextArea: ''
         });
       });
@@ -199,18 +198,18 @@ class Variables extends React.Component {
   }
   editVariable (data) {
     this.setState({
-      variableCode: data.name,
-      varCodeError: '',
-      variableValue: RichTextEditor.createValueFromString(data.value, 'html'),
+      variableCode:              data.name,
+      varCodeError:              '',
+      variableValue:             RichTextEditor.createValueFromString(data.value, 'html'),
       variableValue_forTextArea: data.value,
-      varValError: '',
-      openDialog: true,
-      varId: data.id,
-      dialogTitle: 'Edit Variable',
-      floatingLabelCode: 'Variable Code',
-      hintCode: '',
-      floatingLabelValue: 'Variable Value',
-      hintCode: ''
+      varValError:               '',
+      openDialog:                true,
+      varId:                     data.id,
+      dialogTitle:               'Edit Variable',
+      floatingLabelCode:         'Variable Code',
+      hintCode:                  '',
+      floatingLabelValue:        'Variable Value',
+      hintCode:                  ''
     });
   }
   deleteVariable (vari) {
@@ -236,7 +235,7 @@ class Variables extends React.Component {
     let systemVar = _.filter(this.props.variable.variable, function (o) { return o.variable_type === 'system'; });
     return (
       <div className="app-body" id="view" style={{'marginTop': 10}}>
-        <div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
+        <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
           <Dialog
             title={this.state.dialogTitle}
             actions={actions}

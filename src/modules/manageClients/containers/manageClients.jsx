@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
+import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
-import Menu from 'src/components/generic/Menu';
+import Menu from 'components/generic/Menu';
 import ClientsList from 'components/manageClients/ClientsList';
 import FormAddNewClient from 'modules/manageClients/components/FormAddNewClient';
 import FormClientDetails from 'modules/manageClients/components/FormClientDetails';
@@ -41,12 +41,9 @@ class ManageClients extends React.Component {
     this.props.onClientsList();
   }
   componentWillReceiveProps (props) {
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role !== CONFIG.ADMIN) {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
     let pSelectedClientId = '';
     let pSelectedClientName = '';

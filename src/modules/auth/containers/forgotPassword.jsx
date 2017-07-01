@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
-import * as _ from 'lodash';
 import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
 import LoadingIcon from 'components/generic/LoadingIcon';
@@ -72,7 +71,7 @@ class ForgotPassword extends React.Component {
             <div className="md-form-group float-label">
                 <input
                   className="md-input"
-                  type="text"
+                  required type="text"
                   onChange={(e) => this.setState({form_username: e.target.value})}
                   value={this.state.form_username} />
                 <label>Enter Username</label>

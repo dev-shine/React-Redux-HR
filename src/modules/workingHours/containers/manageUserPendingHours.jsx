@@ -61,9 +61,15 @@ class ManageUserPendingHours extends React.Component {
     }
   }
 
-  callAddUserPendingHours (userid, pendingHour, date, reason, empId) {
-    this.props.onAddUserPendingHours(userid, pendingHour, date, reason, empId);
+  callAddUserPendingHours (userid, pendingHour, empId) {
+    this.setState({show_status_message: true});
+    this.props.onAddUserPendingHours(userid, pendingHour, empId).then((message) => {
+      notify(message);
+    }).catch((error) => {
+      notify(error);
+    });
   }
+
   callFetchPendingUserList () {
     this.onUserPendingHoursData();
   }
@@ -186,8 +192,8 @@ const mapDispatchToProps = (dispatch) => {
     onUserPendingHoursData: (year, month) => {
       return dispatch(actionsManageUserPendingHours.getUserPendingHourList(year, month));
     },
-    onAddUserPendingHours: (userId, pendingHour, date, reason, empId, year, month) => {
-      return dispatch(actionsManageUserPendingHours.addUserPendingHour(userId, pendingHour, date, reason, empId, year, month));
+    onAddUserPendingHours: (userId, pendingHour, empId, year, month) => {
+      return dispatch(actionsManageUserPendingHours.addUserPendingHour(userId, pendingHour, empId, year, month));
     },
     onFetchUserPolicyDocument: () => {
       return dispatch(actionsPolicy.fetchUserPolicyDocument());

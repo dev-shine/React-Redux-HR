@@ -32,14 +32,19 @@ class ViewTeam extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN) {
-      } else {
-        this.props.router.push('/home');
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    if (isNotValid.status) {
+      this.props.router.push(isNotValid.redirectTo);
     }
+
+    // if (props.logged_user.logged_in === -1) {
+    //   this.props.router.push('/logout');
+    // } else {
+    //   if (props.logged_user.role === CONFIG.ADMIN) {
+    //   } else {
+    //     this.props.router.push('/home');
+    //   }
+    // }
   }
 
   openPage (toDisplay) {
@@ -61,9 +66,6 @@ class ViewTeam extends React.Component {
   }
 
   render () {
-    let viewTeam = <TeamDetails teamListData={this.props.teamList}
-      fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
-    let addNewTeam = <TeamList {...this.props} />;
     return (
       <div>
         <Menu {...this.props} />
@@ -104,11 +106,12 @@ class ViewTeam extends React.Component {
             </div>
             <div className="padding">
               <div className={this.state.addNewTeam}>
-                  {addNewTeam}
+              <TeamList {...this.props} />;
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  {viewTeam}
+                  <TeamDetails teamListData={this.props.teamList}
+                    fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
                 </div>
               </div>
             </div>
@@ -120,11 +123,12 @@ class ViewTeam extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:    state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList:   state.usersList.toJS(),
-    employee:    state.empSalaryList.toJS(),
-    teamList:    state.teamList.toJS()
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+    usersList:        state.usersList.toJS(),
+    employee:         state.empSalaryList.toJS(),
+    teamList:         state.teamList.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

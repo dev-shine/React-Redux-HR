@@ -99,12 +99,10 @@ class AddAsHalfDayLeave extends React.Component {
         <div>
           <ButtonRaised
             style={{float: 'right'}}
-
             className="m-b-sm indigo"
             onClick={() => this._apply_half_day_1(1)} label="Apply Leave For First Half" />
            <ButtonRaised
              style={{float: 'right'}}
-
              className="m-b-sm indigo"
              onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half" />
         </div>

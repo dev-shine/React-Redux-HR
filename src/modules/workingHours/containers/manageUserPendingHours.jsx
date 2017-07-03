@@ -75,14 +75,6 @@ class ManageUserPendingHours extends React.Component {
     this.onUserPendingHoursData();
   }
 
-  // doApplyHalfLeave (no_of_days, userId, day_status, pending_id, year, month) {
-  //   this.setState({show_status_message: true});
-  //   this.props.onApplyHalfLeave(no_of_days, userId, day_status, pending_id, year, month).then((data) => {
-  //     notify(data);
-  //   }).catch((error) => {
-  //     notify(error);
-  //   });
-  // }
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month) {
     this.setState({show_status_message: true});
     this.props.onApplyLeave(start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month).then((data) => {
@@ -209,7 +201,6 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsPolicy.fetchUserPolicyDocument());
     },
     onApplyHalfLeave: (no_of_days, userId, day_status, pending_id, year, month) => {
-      console.log(no_of_days, userId, day_status, pending_id, year, month, 'sdsdsdsdsae');
       return dispatch(actionPendingHour.applyPendingLeave(no_of_days, userId, day_status, pending_id, year, month));
     },
     onApplyLeave: (from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month) => {

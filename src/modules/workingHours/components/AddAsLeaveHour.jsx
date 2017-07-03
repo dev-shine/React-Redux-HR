@@ -175,10 +175,9 @@ class AddAsLeaveHour extends React.Component {
     return (
       <div>
         <ButtonRaised
-          style={{float: 'right'}}
           className="m-b-sm indigo"
           onClick={this.handleOpen}
-          label={'Add Pending Hour As Leave'} />
+          label={'Apply Leave'} />
 
         <Dialog
           title="Add As Leave "

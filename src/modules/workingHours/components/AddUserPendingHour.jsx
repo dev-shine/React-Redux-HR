@@ -67,7 +67,6 @@ class AddUserPendingHour extends React.Component {
       <div>
         <div>
           <ButtonRaised
-            style={{float: 'right'}}
             className="m-b-sm green"
             onClick={this.handleAddData}
             label={'Merge To Next Working Day'} />

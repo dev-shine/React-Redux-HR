@@ -11,6 +11,7 @@ import * as actionsLogin from 'appRedux/auth/actions/index';
 import UserPendingHoursList from '../components/UserPendingHoursList';
 import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
+import * as actionPendingHour from 'appRedux/workingHours/actions/managePendingLeave';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
 import * as actionsManageUserPendingHours from 'appRedux/workingHours/actions/manageUserPendingHour';
 
@@ -74,6 +75,14 @@ class ManageUserPendingHours extends React.Component {
     this.onUserPendingHoursData();
   }
 
+  // doApplyHalfLeave (no_of_days, userId, day_status, pending_id, year, month) {
+  //   this.setState({show_status_message: true});
+  //   this.props.onApplyHalfLeave(no_of_days, userId, day_status, pending_id, year, month).then((data) => {
+  //     notify(data);
+  //   }).catch((error) => {
+  //     notify(error);
+  //   });
+  // }
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month) {
     this.setState({show_status_message: true});
     this.props.onApplyLeave(start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month).then((data) => {
@@ -110,6 +119,7 @@ class ManageUserPendingHours extends React.Component {
       manageUserPendingHours={this.props.manageUserPendingHours}
       onUserPendingHoursData={this.props.onUserPendingHoursData}
       doApplyLeave={this.props.doApplyLeave}
+      doApplyHalfLeave={this.props.doApplyHalfLeave}
       callOnDaysBetweenLeaves={this.props.callOnDaysBetweenLeaves}
       {...this.props} />;
 
@@ -197,6 +207,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchUserPolicyDocument: () => {
       return dispatch(actionsPolicy.fetchUserPolicyDocument());
+    },
+    onApplyHalfLeave: (no_of_days, userId, day_status, pending_id, year, month) => {
+      console.log(no_of_days, userId, day_status, pending_id, year, month, 'sdsdsdsdsae');
+      return dispatch(actionPendingHour.applyPendingLeave(no_of_days, userId, day_status, pending_id, year, month));
     },
     onApplyLeave: (from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month) => {
       return dispatch(actions_apply_leave.apply_leave(from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month));

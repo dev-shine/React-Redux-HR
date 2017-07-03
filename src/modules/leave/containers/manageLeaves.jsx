@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
 import Menu from 'components/generic/Menu';
 import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
@@ -32,17 +31,17 @@ class ManageLeaves extends React.Component {
   }
   componentDidMount () {
     this.props.onFetchUserPolicyDocument();
-    this.props.onListLeaves(this.props.logged_user.role);
+    this.props.onListLeaves(this.props.loggedUser.data.role);
   }
   componentWillReceiveProps (props) {
     let selectedTab = '';
-    let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user.logged_in, this.props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, this.props.loggedUser.isLoggedIn, this.props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.GUEST) {
+    if (props.loggedUser.data.role === CONFIG.ADMIN || props.loggedUser.data.role === CONFIG.GUEST) {
       selectedTab = 'ApprovedByHr';
-    } else if (props.logged_user.role === CONFIG.HR) {
+    } else if (props.loggedUser.data.role === CONFIG.HR) {
       selectedTab = 'Pending';
     }
     if (!_.isEqual(props.listLeaves.all_leaves, this.state.all_leaves)) {
@@ -135,7 +134,7 @@ class ManageLeaves extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-12">
-                  <LeaveColorReference filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} userRole={this.props.logged_user.role} />
+                  <LeaveColorReference filterLeaveList={this.filterLeaveList} selectedTab={this.state.selectedTab} userRole={this.props.loggedUser.data.role} />
                 </div>
               </div>
               {tabContent}
@@ -160,7 +159,7 @@ ManageLeaves.styles = {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     listLeaves:       state.listLeaves.toJS(),
     manageLeave:      state.manageLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()

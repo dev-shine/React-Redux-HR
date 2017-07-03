@@ -41,18 +41,18 @@ class ApplyLeave extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
+    if (props.loggedUser.data.role === CONFIG.ADMIN || props.loggedUser.data.role === CONFIG.HR) {
       if (this.state.defaultUserDisplay === '') {
         props.onUsersList();
       }
     }
   }
   componentDidUpdate () {
-    if (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR) {
+    if (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR) {
       if (this.state.defaultUserDisplay === '') {
         if (this.props.usersList.users.length > 0) {
           let firstUser = this.props.usersList.users[0];
@@ -102,7 +102,7 @@ class ApplyLeave extends React.Component {
         {this.props.applyLeave.status_message}</span>;
     }
 
-    let mainDivs = (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR
+    let mainDivs = (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR
       ? <div className="row">
         <div className="col-md-2">
           <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} />
@@ -154,7 +154,7 @@ ApplyLeave.styles = {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     usersList:        state.usersList.toJS(),
     applyLeave:       state.applyLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()

@@ -22,12 +22,12 @@ class ViewSalary extends React.Component {
     this.props.onFetchUserSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
     let emp = [];
-    if (props.logged_user.role === CONFIG.ADMIN) {
+    if (props.loggedUser.data.role === CONFIG.ADMIN) {
       if (props.employee.employee.length > 0) {
         _.forEach(props.employee.employee, function (ob, i) {
           emp.push({
@@ -44,7 +44,7 @@ class ViewSalary extends React.Component {
         });
         this.setState({empList: emp});
       }
-    } else if (props.logged_user.role === CONFIG.HR) {
+    } else if (props.loggedUser.data.role === CONFIG.HR) {
       let subList = _.filter(props.employee.employee, (empl) => (empl.previous_increment === ''));
       let emp = [];
       if (subList.length > 0) {
@@ -86,7 +86,7 @@ class ViewSalary extends React.Component {
   }
 }
 function mapStateToProps (state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), employee: state.empSalaryList.toJS()};
+  return {policy_documents: state.policyDocuments.toJS(), frontend: state.frontend.toJS(), loggedUser: state.logged_user.userLogin, usersList: state.usersList.toJS(), employee: state.empSalaryList.toJS()};
 }
 const mapDispatchToProps = (dispatch) => {
   return {

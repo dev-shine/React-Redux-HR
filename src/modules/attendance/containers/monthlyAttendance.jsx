@@ -29,7 +29,7 @@ class MonthlyAttendance extends React.Component {
   componentWillMount () {
     this.props.onIsAlreadyLogin();
     this.props.onFetchUserPolicyDocument();
-    let user_id = this.props.logged_user.userid;
+    let user_id = this.props.loggedUser.data.id;
     this.setState({'defaultUserDisplay': user_id});
     let d = new Date();
     let year = d.getFullYear();
@@ -38,7 +38,7 @@ class MonthlyAttendance extends React.Component {
     this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -86,7 +86,7 @@ function mapStateToProps (state) {
   return {
     frontend:          state.frontend.toJS(),
     userDaySummary:    state.userDaySummary.toJS(),
-    logged_user:       state.logged_user.toJS(),
+    loggedUser:        state.logged_user.userLogin, // .toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
     policy_documents:  state.policyDocuments.toJS()
   };

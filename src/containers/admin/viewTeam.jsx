@@ -5,7 +5,7 @@ import {isNotUserValid} from 'src/services/generic';
 import Menu from 'components/generic/Menu';
 import LoadingIcon from '../../components/generic/LoadingIcon';
 import TeamDetails from '../../components/attendance/TeamDetails';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_getTeamData from '../../actions/admin/teamList';
 import TeamList from '../../components/attendance/TeamList';
 // import * as actions_salary from '../../actions/salary/index'
@@ -31,7 +31,7 @@ class ViewTeam extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -100,17 +100,18 @@ class ViewTeam extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:    state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList:   state.usersList.toJS(),
-    employee:    state.empSalaryList.toJS(),
-    teamList:    state.teamList.toJS()
+    frontend:         state.frontend.toJS(),
+    loggedUser:       state.logged_user.userLogin,
+    usersList:        state.usersList.toJS(),
+    employee:         state.empSalaryList.toJS(),
+    teamList:         state.teamList.toJS(),
+    policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onFetchTeam: () => {
       return dispatch(actions_getTeamData.get_all_team());

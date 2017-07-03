@@ -25,7 +25,7 @@ class UploadAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -64,7 +64,7 @@ function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
     managePayslips:   state.managePayslips.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin, // .toJS(),
     usersList:        state.usersList.toJS(),
     manageUsers:      state.manageUsers.toJS(),
     policy_documents: state.policyDocuments.toJS()

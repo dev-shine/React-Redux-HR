@@ -41,7 +41,7 @@ class ManageClients extends React.Component {
     this.props.onClientsList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -177,10 +177,11 @@ class ManageClients extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:      state.frontend.toJS(),
-    logged_user:   state.logged_user.toJS(),
-    clientsList:   state.clientsList.toJS(),
-    manageClients: state.manageClients.toJS()
+    frontend:         state.frontend.toJS(),
+    loggedUser:       state.logged_user.userLogin,
+    clientsList:      state.clientsList.toJS(),
+    manageClients:    state.manageClients.toJS(),
+    policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -211,9 +212,9 @@ ManageClients.PropTypes = {
     clients: PropTypes.object.isRequired
   }).isRequired,
   onClientsList: PropTypes.func.isRequired,
-  logged_user:   PropTypes.shape({
-    logged_in:   PropTypes.string.isRequired,
-    logged_role: PropTypes.string.isRequired
+  loggedUser:    PropTypes.shape({
+    isLoggedIn: PropTypes.bool.isRequired,
+    data:       PropTypes.object.isRequired
   }).isRequired,
   router:                PropTypes.object.isRequired,
   onClientDetails:       PropTypes.func.isRequired,

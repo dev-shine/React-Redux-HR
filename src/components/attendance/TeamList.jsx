@@ -1,47 +1,47 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Router, browserHistory, Link, withRouter } from 'react-router'
-import * as _ from 'lodash'
-import LoadingIcon from '../../components/generic/LoadingIcon'
-import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
-import Dialog from 'material-ui/Dialog'
-import Paper from 'material-ui/Paper'
-import IconButton from 'material-ui/IconButton'
-import Delete from 'material-ui/svg-icons/action/delete'
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
-import { CONFIG } from '../../config/index'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Router, browserHistory, Link, withRouter} from 'react-router';
+import * as _ from 'lodash';
+import LoadingIcon from '../../components/generic/LoadingIcon';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {CONFIG} from '../../config/index';
 
 class TeamList extends React.Component {
   constructor (props) {
-    super(props)
-    this.props.onIsAlreadyLogin()
+    super(props);
+    this.props.onIsAlreadyLogin();
     this.state = {
-      openDialog: false,
+      openDialog:    false,
       floatingLabel: '',
-      hint: '',
-      teamError: '',
-      teamName: '',
-      dialogTitle: ''
-    }
-    this.openCreateTeam = this.openCreateTeam.bind(this)
-    this.saveTeam = this.saveTeam.bind(this)
-    this.deleteTeam = this.deleteTeam.bind(this)
-    this.callSaveApi = this.callSaveApi.bind(this)
+      hint:          '',
+      teamError:     '',
+      teamName:      '',
+      dialogTitle:   ''
+    };
+    this.openCreateTeam = this.openCreateTeam.bind(this);
+    this.saveTeam = this.saveTeam.bind(this);
+    this.deleteTeam = this.deleteTeam.bind(this);
+    this.callSaveApi = this.callSaveApi.bind(this);
   }
   componentWillMount () {
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 
-    if (props.logged_user.logged_in == -1) {
-      this.props.router.push('/logout')
+    if (!props.loggedUser.isLoggedIn) {
+      this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN) {
+      if (props.loggedUser.data.role == CONFIG.ADMIN) {
 
       } else {
-        this.props.router.push('/home')
+        this.props.router.push('/home');
       }
     }
   }
@@ -49,56 +49,56 @@ class TeamList extends React.Component {
   }
   openCreateTeam () {
     	this.setState({
-    		dialogTitle: 'Add New Team',
-    		openDialog: true,
+    		dialogTitle:   'Add New Team',
+    		openDialog:    true,
     		floatingLabel: 'Team Name',
-    		hint: 'Enter Team Name',
-    		teamError: '',
-      teamName: ''
-    	})
+    		hint:          'Enter Team Name',
+    		teamError:     '',
+      teamName:      ''
+    	});
   }
   saveTeam () {
-    	let teamName = this.state.teamName
+    	let teamName = this.state.teamName;
     	if (teamName == '') {
     		this.setState({
     			teamError: 'Required'
-    		})
+    		});
     	} else {
-      let dataToSend = this.props.teamList && this.props.teamList.teams || []
-    		dataToSend.push(teamName)
-    		this.callSaveApi(dataToSend)
+      let dataToSend = this.props.teamList && this.props.teamList.teams || [];
+    		dataToSend.push(teamName);
+    		this.callSaveApi(dataToSend);
     	}
   }
   deleteTeam (teamName) {
-    let teams = this.props.teamList && this.props.teamList.teams || []
-    	let newdata = []
+    let teams = this.props.teamList && this.props.teamList.teams || [];
+    	let newdata = [];
     	_.map(teams, (vari, i) => {
     		if (vari != teamName) {
-    			newdata.push(vari)
+    			newdata.push(vari);
     		}
-    	})
-    	this.callSaveApi(newdata)
+    	});
+    	this.callSaveApi(newdata);
   }
   callSaveApi (newArray) {
     	this.props.onSaveTeam(newArray).then((data) => {
-      this.handleClose()
+      this.handleClose();
     }).catch((error) => {
-    })
+    });
   }
   handleClose () {
     this.setState({
-      dialogTitle: '',
-    		openDialog: false,
+      dialogTitle:   '',
+    		openDialog:    false,
     		floatingLabel: '',
-    		hint: ''
-    })
+    		hint:          ''
+    });
   }
   render () {
-    let teams
+    let teams;
     if (this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0) {
-      teams = this.props.teamList.teams
+      teams = this.props.teamList.teams;
     } else {
-      teams = []
+      teams = [];
     }
     	// let teams = this.props.teamList.teams.length > 0?this.props.teamList.teams:[]
     	const actions = [
@@ -113,10 +113,10 @@ class TeamList extends React.Component {
         primary
         onTouchTap={this.saveTeam}
       />
-    ]
+    ];
     	return (
     		<div className="app-body" id="view">
-				<div className="col-xs-12 col-sm-12" style={{ 'float': 'right'}}>
+				<div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
 				    <Dialog
   title={this.state.dialogTitle}
   actions={actions}
@@ -136,7 +136,7 @@ class TeamList extends React.Component {
                           onChange={(e) => {
                             this.setState({
                               teamName: e.target.value
-                            })
+                            });
                           }}
                         />
                     </div>
@@ -190,8 +190,8 @@ class TeamList extends React.Component {
                                         }
                                         onClick={
                                           (evt) => {
-                                            evt.stopPropagation()
-                                            this.deleteTeam(vari)
+                                            evt.stopPropagation();
+                                            this.deleteTeam(vari);
                                           }
                                         }
                                         />
@@ -208,8 +208,8 @@ class TeamList extends React.Component {
                 </div>
               </div>
             </div>
-    )
+    );
   }
 }
 
-export default TeamList
+export default TeamList;

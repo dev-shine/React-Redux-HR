@@ -46,7 +46,7 @@ export function* forgotPassword (action) {
     });
     yield put(actions.forgotPasswordSuccess(response.data.message));
   } catch (e) {
-    yield put(actions.forgotPasswordSuccess('Error Occurs !!'));
+    yield put(actions.forgotPasswordError('Error Occurs !!'));
     console.warn('Some error found in forgotPassword action\n', e);
   }
 }

@@ -9,7 +9,7 @@ import rootSaga from './sagas';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware, thunk];
-console.log('========================store============');
+
 const store = createStore(
   rootReducer,
   composeEnhancers(

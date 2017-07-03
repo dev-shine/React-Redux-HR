@@ -29,7 +29,7 @@ class Salary extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -108,7 +108,7 @@ Salary.styles = {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     salary:           state.salary.toJS(),
     policy_documents: state.policyDocuments.toJS()
   };

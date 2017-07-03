@@ -5,7 +5,6 @@ import {Button} from 'components/generic/buttons';
 class LoginForm extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
     this.state = {
       form_login_username: '',
       form_login_password: ''

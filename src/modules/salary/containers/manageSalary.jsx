@@ -49,7 +49,7 @@ class ManageSalary extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -77,7 +77,7 @@ class ManageSalary extends React.Component {
   componentDidUpdate () {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
-        let firstUser = this.props.logged_user.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0];
+        let firstUser = this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0];
         let defaultUserId = firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
@@ -158,7 +158,7 @@ class ManageSalary extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-2">
-                  <UsersList users={this.props.logged_user.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} />
+                  <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} />
                 </div>
                 <div className="col-md-10">
                   <div className="box">
@@ -206,7 +206,7 @@ class ManageSalary extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), manageSalary: state.manageSalary.toJS()};
+  return {policy_documents: state.policyDocuments.toJS(), frontend: state.frontend.toJS(), loggedUser: state.logged_user.userLogin, usersList: state.usersList.toJS(), manageSalary: state.manageSalary.toJS()};
 }
 const mapDispatchToProps = (dispatch) => {
   return {

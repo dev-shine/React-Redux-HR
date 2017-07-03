@@ -10,7 +10,7 @@ import FormProfileDetails from '../../components/myProfile/FormProfileDetails';
 import FormBankDetails from '../../components/myProfile/FormBankDetails';
 import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword';
 import DeviceDetails from 'components/inventory/deviceDetails';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
@@ -39,7 +39,7 @@ class MyProfile extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -87,7 +87,7 @@ class MyProfile extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter">
-                <UserHorizontalView profileImage={this.props.logged_user.profileImage} name={this.state.user_profile_detail.name} jobtitle={this.state.user_profile_detail.jobtitle} dateofjoining={this.state.user_profile_detail.dateofjoining} gender={this.state.user_profile_detail.gender} dob={this.state.user_profile_detail.dob} work_email={this.state.user_profile_detail.work_email} />
+                <UserHorizontalView profileImage={this.props.loggedUser.data.profileImage} name={this.state.user_profile_detail.name} jobtitle={this.state.user_profile_detail.jobtitle} dateofjoining={this.state.user_profile_detail.dateofjoining} gender={this.state.user_profile_detail.gender} dob={this.state.user_profile_detail.dob} work_email={this.state.user_profile_detail.work_email} />
               </div>
               <div className="row no-gutter">
                 <div className="col-xs-6 p-t p-r b-r">
@@ -115,7 +115,7 @@ class MyProfile extends React.Component {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     myProfile:        state.myProfile.toJS(),
     salary:           state.salary.toJS(),
     policy_documents: state.policyDocuments.toJS()
@@ -124,7 +124,7 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onMyProfileDetails: () => {
       return dispatch(actions_myProfile.getMyProfileDetails());

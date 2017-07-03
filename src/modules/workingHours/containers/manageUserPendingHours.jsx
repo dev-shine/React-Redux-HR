@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/index';
 import Menu from 'components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
@@ -124,6 +125,7 @@ class ManageUserPendingHours extends React.Component {
     return (
       <div>
         <Menu {...this.props} />
+
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Employee Pending Hours'} {...this.props} />
           <div className="app-footer">
@@ -132,6 +134,7 @@ class ManageUserPendingHours extends React.Component {
           <div className="app-body" id="view">
             <div className="row">
               <div className="col-12">
+                <LoadingIcon loading={this.props.frontend.show_loading} />
               </div>
             </div>
             {this.state.secondArrow === 'show' ? null

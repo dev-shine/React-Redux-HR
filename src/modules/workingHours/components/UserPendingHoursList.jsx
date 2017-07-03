@@ -101,6 +101,7 @@ export default class UserPendingHoursList extends React.Component {
         callAddUserPendingHours={this.callAddUserPendingHours}
         {...this.props} />;
       let HalfdayButton = <AddAsHalfDayLeave val={val} {...this.props} />;
+      <br />;
       let leaveButton = <AddAsLeaveHour val={val}
         {...this.props} />;
 
@@ -141,7 +142,7 @@ export default class UserPendingHoursList extends React.Component {
 
         {val.status
           ? <td> <mark>{'No Action Required'} </mark></td>
-          : <td style={{float: 'right'}}>{addButton} {HalfdayButton} {leaveButton}</td>
+          : <td>{addButton} {HalfdayButton} {leaveButton}</td>
       }
         </tr>
       );

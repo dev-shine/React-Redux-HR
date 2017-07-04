@@ -19,8 +19,8 @@ export function errorUserPendingHours (data) {
 function asyncGetUserPendingHours (year, month) {
   return fireAjax('POST', '', {
     action: 'get_all_user_previous_month_time',
-    year: year,
-    month: month
+    year:   year,
+    month:  month
   });
 }
 
@@ -53,32 +53,28 @@ export function errorAddUserPendingHours (data) {
   return createAction(constants.ACTION_ERROR_ADD_USER_PENDING_HOURS)(data);
 }
 
-function asyncAddUserPendingHours (userid, pendingHour, date, reason, empId, year, month) {
+function asyncAddUserPendingHours (userid, pendingHour, empId, year, month) {
   return fireAjax('POST', '', {
-    action: 'add_user_working_hours',
-    userid: userid,
+    action:        'add_user_working_hours',
+    userid:        userid,
     working_hours: pendingHour,
-    date: date,
-    reason: reason,
-    pending_id: empId
+    pending_id:    empId
   });
 }
 
-export function addUserPendingHour (userid, pendingHour, date, reason, empId, year, month) {
+export function addUserPendingHour (userid, pendingHour, empId, year, month) {
   return function (dispatch, getState) {
-    if (_.isEmpty(date)) {
-      return Promise.reject('date is empty');
-    }
     if (_.isEmpty(pendingHour)) {
       return Promise.reject('Time is empty');
     }
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
 
-      asyncAddUserPendingHours(userid, pendingHour, date, reason, empId, year, month).then((json) => {
+      asyncAddUserPendingHours(userid, pendingHour, empId, year, month).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
           dispatch(successAddUserPendingHours(json.data.message));
+          resolve(json.data.message);
           dispatch(getUserPendingHourList(year, month));
         } else {
           dispatch(errorAddUserPendingHours(json.data.message));

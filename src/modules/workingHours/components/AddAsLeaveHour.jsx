@@ -16,19 +16,19 @@ class AddAsLeaveHour extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      open: false,
-      form_from_date: '',
-      form_to_date: '',
-      form_no_of_days: '',
-      form_reason: '',
-      day_status: '',
-      show_half_day_button: '',
-      leaveType: '',
-      late_reason: '',
-      pending_id: '',
-      year: '',
-      month: '',
-      userId: '',
+      open:                  false,
+      form_from_date:        '',
+      form_to_date:          '',
+      form_no_of_days:       '',
+      form_reason:           '',
+      day_status:            '',
+      show_half_day_button:  '',
+      leaveType:             '',
+      late_reason:           '',
+      pending_id:            '',
+      year:                  '',
+      month:                 '',
+      userId:                '',
       'show_status_message': false
     };
     this.handleOpen = this.handleOpen.bind(this);
@@ -47,10 +47,10 @@ class AddAsLeaveHour extends React.Component {
 
   componentWillMount () {
     this.setState({
-      userId: this.props.val.user_Id,
+      userId:     this.props.val.user_Id,
       pending_id: this.props.val.id,
-      year: this.props.manageUserPendingHours.year,
-      month: this.props.manageUserPendingHours.displayData.month
+      year:       this.props.manageUserPendingHours.year,
+      month:      this.props.manageUserPendingHours.displayData.month
     });
   }
   componentWillReceiveProps (props) {
@@ -59,12 +59,12 @@ class AddAsLeaveHour extends React.Component {
       num_working_days = props.applyLeave.count_working_days;
     }
     this.setState({
-      form_from_date: props.applyLeave.start_date,
-      form_to_date: props.applyLeave.end_date,
-      pending_id: props.val.id,
-      userId: props.val.user_Id,
-      year: props.manageUserPendingHours.displayData.year,
-      month: props.manageUserPendingHours.displayData.month,
+      form_from_date:  props.applyLeave.start_date,
+      form_to_date:    props.applyLeave.end_date,
+      pending_id:      props.val.id,
+      userId:          props.val.user_Id,
+      year:            props.manageUserPendingHours.displayData.year,
+      month:           props.manageUserPendingHours.displayData.month,
       form_no_of_days: num_working_days});
   }
 
@@ -75,19 +75,19 @@ class AddAsLeaveHour extends React.Component {
   }
   handleClose () {
     this.setState({
-      open: false,
-      form_from_date: '',
-      form_to_date: '',
-      form_no_of_days: '',
-      form_reason: '',
+      open:                 false,
+      form_from_date:       '',
+      form_to_date:         '',
+      form_no_of_days:      '',
+      form_reason:          '',
       show_half_day_button: '',
-      day_status: '',
-      leaveType: '',
-      late_reason: '',
-      pending_id: '',
-      year: '',
-      userId: '',
-      month: ''
+      day_status:           '',
+      leaveType:            '',
+      late_reason:          '',
+      pending_id:           '',
+      year:                 '',
+      userId:               '',
+      month:                ''
     });
   }
 
@@ -95,12 +95,12 @@ class AddAsLeaveHour extends React.Component {
     if (shift == 1) {
       this.setState({
         form_no_of_days: '0.5',
-        day_status: '1'
+        day_status:      '1'
       });
     } else if (shift == 2) {
       this.setState({
         form_no_of_days: '0.5',
-        day_status: '2'
+        day_status:      '2'
       });
     }
   }
@@ -133,19 +133,19 @@ class AddAsLeaveHour extends React.Component {
         this.handleClose();
         // this.props.onUserPendingHoursData(this.state.year, this.state.month);
         this.setState({
-          form_from_date: '',
-          form_to_date: '',
-          form_no_of_days: '',
-          form_reason: '',
+          form_from_date:       '',
+          form_to_date:         '',
+          form_no_of_days:      '',
+          form_reason:          '',
           show_half_day_button: '',
-          day_status: '',
-          leaveType: '',
-          late_reason: '',
-          pending_id: '',
-          year: '',
-          month: '',
-          userId: '',
-          show_status_message: true
+          day_status:           '',
+          leaveType:            '',
+          late_reason:          '',
+          pending_id:           '',
+          year:                 '',
+          month:                '',
+          userId:               '',
+          show_status_message:  true
         });
       }).catch((error) => {
         notify(error);
@@ -177,7 +177,7 @@ class AddAsLeaveHour extends React.Component {
         <ButtonRaised
           className="m-b-sm indigo"
           onClick={this.handleOpen}
-          label={'Add As Leave'} />
+          label={'Apply Leave'} />
 
         <Dialog
           title="Add As Leave "

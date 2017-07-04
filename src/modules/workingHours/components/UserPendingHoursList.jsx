@@ -2,16 +2,17 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import 'react-date-picker/index.css';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/index';
 import * as actions_login from 'appRedux/auth/actions/index';
 
 import PendingHourSummary from './PendingHourSummary';
 import AddUserPendingHour from './AddUserPendingHour';
 import AddAsLeaveHour from './AddAsLeaveHour';
+import AddAsHalfDayLeave from './AddAsHalfDayLeave';
 
 var moment = require('moment');
 
@@ -21,9 +22,9 @@ export default class UserPendingHoursList extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       pendingTimeList: {},
-      usersList: [],
-      openMerge: false,
-      openLeave: false
+      usersList:       [],
+      openMerge:       false,
+      openLeave:       false
     };
     this.callAddUserPendingHours = this.callAddUserPendingHours.bind(this);
     this.handleCloseMerge = this.handleCloseMerge.bind(this);
@@ -35,7 +36,7 @@ export default class UserPendingHoursList extends React.Component {
   componentWillMount () {
     this.setState({
       pendingTimeList: this.props.manageUserPendingHours,
-      usersList: this.props.manageUserPendingHours.displayData.user_list
+      usersList:       this.props.manageUserPendingHours.displayData.user_list
     });
   }
 
@@ -51,7 +52,7 @@ export default class UserPendingHoursList extends React.Component {
     }
     this.setState({
       pendingTimeList: props.manageUserPendingHours,
-      usersList: props.manageUserPendingHours.displayData.user_list
+      usersList:       props.manageUserPendingHours.displayData.user_list
     });
   }
 
@@ -74,7 +75,7 @@ export default class UserPendingHoursList extends React.Component {
   handleCloseMerge () {
     this.setState({
       openMerge: false,
-      reason: ''
+      reason:    ''
     });
   }
 
@@ -86,7 +87,7 @@ export default class UserPendingHoursList extends React.Component {
   handleCloseLeave () {
     this.setState({
       openMerge: false,
-      reason: ''
+      reason:    ''
     });
   }
 
@@ -99,9 +100,11 @@ export default class UserPendingHoursList extends React.Component {
         handleOpenMerge={this.props.handleOpenMerge}
         callAddUserPendingHours={this.callAddUserPendingHours}
         {...this.props} />;
-
+      let HalfdayButton = <AddAsHalfDayLeave val={val} {...this.props} />;
+      <br />;
       let leaveButton = <AddAsLeaveHour val={val}
         {...this.props} />;
+
       // Map pendingMessage -->
       let pendingMessage = val.time_detail.t_detail;
       let pendingMsgMap = pendingMessage.map((msg, i) => {
@@ -139,7 +142,7 @@ export default class UserPendingHoursList extends React.Component {
 
         {val.status
           ? <td> <mark>{'No Action Required'} </mark></td>
-          : <td>{addButton} {leaveButton}</td>
+          : <td>{addButton} {HalfdayButton} {leaveButton}</td>
       }
         </tr>
       );

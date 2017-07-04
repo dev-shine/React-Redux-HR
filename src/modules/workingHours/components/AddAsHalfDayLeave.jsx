@@ -100,6 +100,7 @@ class AddAsHalfDayLeave extends React.Component {
           <ButtonRaised
             className="m-b-sm indigo"
             onClick={() => this._apply_half_day_1(1)} label="Apply Half Day Leave" />
+          <br />
            <ButtonRaised
              className="m-b-sm indigo"
              onClick={() => this._apply_half_day_1(2)} label="Apply full Day Leave" />

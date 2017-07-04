@@ -7,8 +7,8 @@ import * as constants from 'appRedux/constants';
 
 export function success_user_profile (data, username) {
   return {
-    type: constants.ACTION_SUCCESS_USER_PROFILE,
-    payload: data,
+    type:     constants.ACTION_SUCCESS_USER_PROFILE,
+    payload:  data,
     username: username
   };
 }
@@ -21,7 +21,7 @@ export function error_user_profile (data) {
 
 function async_getUserProfileDetails (userid) {
   return fireAjax('POST', '', {
-    'action': 'get_user_profile_detail',
+    'action':  'get_user_profile_detail',
     'user_id': userid
   });
 }
@@ -58,29 +58,29 @@ function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, 
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
   n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg) {
   return fireAjax('POST', '', {
-    'action': 'update_user_profile_detail',
-    'user_id': n_user_id,
-    'marital_status': n_marital_status,
-    'name': n_name,
-    'jobtitle': n_jobtitle,
-    'team': n_team,
-    'dateofjoining': n_dateofjoining,
-    'work_email': n_work_email,
-    'other_email': n_other_email,
-    'gender': n_gender,
-    'dob': n_dob,
-    'permanent_address': n_address2,
-    'current_address': n_address1,
-    'emergency_ph1': n_emergency_ph1,
-    'emergency_ph2': n_emergency_ph2,
-    'blood_group': n_blood_group,
-    'medical_condition': n_medical_condition,
+    'action':                   'update_user_profile_detail',
+    'user_id':                  n_user_id,
+    'marital_status':           n_marital_status,
+    'name':                     n_name,
+    'jobtitle':                 n_jobtitle,
+    'team':                     n_team,
+    'dateofjoining':            n_dateofjoining,
+    'work_email':               n_work_email,
+    'other_email':              n_other_email,
+    'gender':                   n_gender,
+    'dob':                      n_dob,
+    'permanent_address':        n_address2,
+    'current_address':          n_address1,
+    'emergency_ph1':            n_emergency_ph1,
+    'emergency_ph2':            n_emergency_ph2,
+    'blood_group':              n_blood_group,
+    'medical_condition':        n_medical_condition,
     'training_completion_date': n_training_completion_date,
-    'termination_date': n_termination_date,
-    'training_month': n_training_month,
-    'holding_comments': n_holding_comments,
-    'send_slack_msg': n_send_slack_msg,
-    'slack_msg': n_slack_msg
+    'termination_date':         n_termination_date,
+    'training_month':           n_training_month,
+    'holding_comments':         n_holding_comments,
+    'send_slack_msg':           n_send_slack_msg,
+    'slack_msg':                n_slack_msg
   });
 }
 
@@ -267,15 +267,15 @@ export function error_add_new_employee (data) {
 
 function async_addNewEmployee (n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail) {
   return fireAjax('POST', '', {
-    'action': 'add_new_employee',
-    'dateofjoining': n_dateofjoining,
-    'name': n_name,
-    'jobtitle': n_jobtitle,
-    'gender': n_gender,
-    'dob': n_dob,
-    'username': n_username,
+    'action':         'add_new_employee',
+    'dateofjoining':  n_dateofjoining,
+    'name':           n_name,
+    'jobtitle':       n_jobtitle,
+    'gender':         n_gender,
+    'dob':            n_dob,
+    'username':       n_username,
     'training_month': n_training_month,
-    'workemail': n_workemail
+    'workemail':      n_workemail
   });
 }
 
@@ -374,7 +374,7 @@ export function error_user_document (data) {
 
 function async_getUserDocument (userid) {
   return fireAjax('POST', '', {
-    'action': 'get_user_document',
+    'action':  'get_user_document',
     'user_id': userid
   });
 }
@@ -405,7 +405,7 @@ export function getUserDocument (userid) {
 function async_deleteDocument (doc_id) {
   return fireAjax('POST', '', {
     'action': 'delete_user_document',
-    'id': doc_id
+    'id':     doc_id
   });
 }
 
@@ -432,9 +432,9 @@ export function deleteDocument (doc_id) {
 
 function async_changeEmployeeStatus (userid, status) {
   return fireAjax('POST', '', {
-    'action': 'change_employee_status',
+    'action':  'change_employee_status',
     'user_id': userid,
-    'status': status
+    'status':  status
   });
 }
 

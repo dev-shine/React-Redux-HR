@@ -80,8 +80,8 @@ export function fetchUserPolicyDocument () {
 function asyncSubmitDocs (docs) {
   return fireAjax('POST', '', {
     action: 'save_policy_document',
-    type: 'policy_document',
-    value: JSON.stringify(docs)
+    type:   'policy_document',
+    value:  JSON.stringify(docs)
   });
 }
 
@@ -112,7 +112,7 @@ export function submitDocs (docs) {
 
 function asyncUpdateReadStatus (updateDoc) {
   return fireAjax('POST', '', {
-    action: 'update_user_policy_document',
+    action:          'update_user_policy_document',
     policy_document: JSON.stringify(updateDoc)
   });
 }

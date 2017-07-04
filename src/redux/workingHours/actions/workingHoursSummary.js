@@ -19,8 +19,8 @@ export function error_hours_summary (data) {
 function async_get_working_hours_summary (year, month) {
   return fireAjax('POST', '', {
     action: 'working_hours_summary',
-    year: year,
-    month: month
+    year:   year,
+    month:  month
   });
 }
 
@@ -58,8 +58,8 @@ export function error_update_hours_summary (data) {
 function async_update_day_working_hours (date, time) {
   return fireAjax('POST', '', {
     action: 'update_day_working_hours',
-    date: date,
-    time: time
+    date:   date,
+    time:   time
   });
 }
 

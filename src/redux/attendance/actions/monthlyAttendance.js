@@ -21,8 +21,8 @@ function async_get_monthly_attendance (userid, year, month) {
   return fireAjax('POST', '', {
     action: 'month_attendance',
     userid: userid,
-    year: year,
-    month: month
+    year:   year,
+    month:  month
   });
 }
 

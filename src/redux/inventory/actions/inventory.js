@@ -30,21 +30,21 @@ function async_addNewMachine (
 
 ) {
   return fireAjax('POST', '', {
-    'action': 'add_office_machine',
-    'machine_type': n_machine_type,
-    'machine_name': n_machine_name,
-    'machine_price': n_machine_price,
-    'serial_no': n_serial_no,
-    'purchase_date': n_purchase_date,
-    'mac_address': n_mac_address,
+    'action':           'add_office_machine',
+    'machine_type':     n_machine_type,
+    'machine_name':     n_machine_name,
+    'machine_price':    n_machine_price,
+    'serial_no':        n_serial_no,
+    'purchase_date':    n_purchase_date,
+    'mac_address':      n_mac_address,
     'operating_system': n_operating_system,
-    'status': n_status,
-    'comment': n_comment,
-    'warranty': n_warranty,
+    'status':           n_status,
+    'comment':          n_comment,
+    'warranty':         n_warranty,
     'warranty_comment': n_warranty_comment,
-    'repair_comment': n_repair_comment,
-    'bill_no': n_bill_no,
-    'user_id': n_user_Id
+    'repair_comment':   n_repair_comment,
+    'bill_no':          n_bill_no,
+    'user_id':          n_user_Id
   });
 }
 
@@ -226,7 +226,7 @@ export function success_getDevice (data) {
 function getAsync_getDeviceById (id) {
   return fireAjax('POST', '', {
     'action': 'get_machine',
-    'id': id
+    'id':     id
   });
 }
 
@@ -254,22 +254,22 @@ export function success_updateDevice (data) {
 
 function getAsync_updateDeviceById (deviceId, data) {
   return fireAjax('POST', '', {
-    'action': 'update_office_machine',
-    'id': deviceId,
-    'machine_type': data.machine_type,
-    'machine_name': data.machine_name,
-    'machine_price': data.machine_price,
-    'serial_no': data.serial_no,
-    'purchase_date': data.purchase_date,
-    'mac_address': data.mac_address,
+    'action':           'update_office_machine',
+    'id':               deviceId,
+    'machine_type':     data.machine_type,
+    'machine_name':     data.machine_name,
+    'machine_price':    data.machine_price,
+    'serial_no':        data.serial_no,
+    'purchase_date':    data.purchase_date,
+    'mac_address':      data.mac_address,
     'operating_system': data.operating_system,
-    'status': data.status,
-    'comment': data.comment,
-    'warranty': data.warranty,
+    'status':           data.status,
+    'comment':          data.comment,
+    'warranty':         data.warranty,
     'warranty_comment': data.warranty_comment,
-    'repair_comment': data.repair_comment,
-    'bill_no': data.bill_no,
-    'user_id': data.user_Id
+    'repair_comment':   data.repair_comment,
+    'bill_no':          data.bill_no,
+    'user_id':          data.user_Id
   });
 }
 
@@ -299,7 +299,7 @@ export function success_deleteDevice (data) {
 function getAsync_deleteDeviceById (deviceId) {
   return fireAjax('POST', '', {
     'action': 'remove_machine_detail',
-    'id': deviceId
+    'id':     deviceId
   });
 }
 
@@ -332,9 +332,9 @@ export function error_assignDevice (data) {
 
 function getAsync_assignDeviceToUser (deviceId, user_Id) {
   return fireAjax('POST', '', {
-    'action': 'assign_user_machine',
+    'action':     'assign_user_machine',
     'machine_id': deviceId,
-    'user_id': user_Id
+    'user_id':    user_Id
   });
 }
 
@@ -367,8 +367,8 @@ function getAsync_assignDeviceType (deviceList) {
 
   return fireAjax('POST', '', {
     'action': 'add_machine_type',
-    'type': 'machine_type',
-    'value': newDevice
+    'type':   'machine_type',
+    'value':  newDevice
   });
 }
 
@@ -433,9 +433,9 @@ function getAsync_assignDeviceStatus (statusValue, colorValue) {
   // var colors = JSON.stringify(background)
   return fireAjax('POST', '', {
     'action': 'add_machine_status',
-    'type': 'machine_status',
+    'type':   'machine_status',
     'status': statusValue,
-    'color': colorValue
+    'color':  colorValue
 
   });
 }

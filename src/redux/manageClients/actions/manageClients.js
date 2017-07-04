@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import {createAction} from 'redux-actions';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
@@ -15,7 +15,7 @@ export function errorClientDetails (data) {
 
 function asyncGetClientDetails (clientid) {
   return fireAjax('POST', '', {
-    'action': 'get_client_detail',
+    'action':    'get_client_detail',
     'client_id': clientid
   });
 }
@@ -26,13 +26,13 @@ export function getClientDetails (clientid) {
       dispatch(show_loading());
       asyncGetClientDetails(clientid).then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error === 0) {
-            dispatch(successClientDetails(json.data));
-          } else {
-            dispatch(emptyClientDetails(json.data.message));
-          }
-        },
+  dispatch(hide_loading());
+  if (json.error === 0) {
+    dispatch(successClientDetails(json.data));
+  } else {
+    dispatch(emptyClientDetails(json.data.message));
+  }
+},
         (error) => {
           dispatch(hide_loading());
           dispatch(errorClientDetails('error occurs!!!'));
@@ -51,8 +51,8 @@ export function error_add_new_client (data) {
 
 function async_add_new_client (n_client_name, n_client_address) {
   return fireAjax('POST', '', {
-    'action': 'create_new_client',
-    'name': n_client_name,
+    'action':  'create_new_client',
+    'name':    n_client_name,
     'address': n_client_address
   });
 }
@@ -76,20 +76,20 @@ export function addNewClient (new_client_details) {
       dispatch(show_loading());
       async_add_new_client(n_client_name, n_client_address).then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error == 0) {
-            dispatch(success_add_new_client(json.data.message));
-            reslove(1);
-          } else {
-            dispatch(error_add_new_client(json.data.message));
-            reslove(0);
-          }
-        },
+  dispatch(hide_loading());
+  if (json.error == 0) {
+    dispatch(success_add_new_client(json.data.message));
+    reslove(1);
+  } else {
+    dispatch(error_add_new_client(json.data.message));
+    reslove(0);
+  }
+},
 				(error) => {
-          dispatch(hide_loading());
-          dispatch(error_add_new_client('error occurs!!!'));
-          reslove(0);
-        }
+  dispatch(hide_loading());
+  dispatch(error_add_new_client('error occurs!!!'));
+  reslove(0);
+}
 			);
     });
   };
@@ -104,10 +104,10 @@ export function error_update_client_details (data) {
 
 function async_update_client_details (n_client_id, n_client_name, n_client_address) {
   return fireAjax('POST', '', {
-    'action': 'update_client_details',
+    'action':    'update_client_details',
     'client_id': n_client_id,
-    'name': n_client_name,
-    'address': n_client_address
+    'name':      n_client_name,
+    'address':   n_client_address
   });
 }
 
@@ -135,20 +135,20 @@ export function update_client_details (new_client_details) {
       dispatch(show_loading());
       async_update_client_details(n_client_id, n_client_name, n_client_address).then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error == 0) {
-            dispatch(success_update_client_details(json.data.message));
-            reslove(n_client_id);
+  dispatch(hide_loading());
+  if (json.error == 0) {
+    dispatch(success_update_client_details(json.data.message));
+    reslove(n_client_id);
 		 			} else {
 		 				dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS(json.data.message));
 		 				reslove(0);
 		 			}
-        },
+},
 				(error) => {
-          dispatch(hide_loading());
-          dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS('error occurs!!!'));
-          reslove(0);
-        }
+  dispatch(hide_loading());
+  dispatch(ACTION_ERROR_UPDATE_CLIENT_DETAILS('error occurs!!!'));
+  reslove(0);
+}
 			);
     });
   };
@@ -163,16 +163,16 @@ export function error_create_client_invoice (data) {
 
 function async_create_client_invoice (n_client_id, n_client_name, n_client_address, n_currency, n_items, n_sub_total, n_service_tax, n_total_amount, n_due_date) {
   return fireAjax('POST', '', {
-    'action': 'create_client_invoice',
-    'client_id': n_client_id,
-    'client_name': n_client_name,
+    'action':         'create_client_invoice',
+    'client_id':      n_client_id,
+    'client_name':    n_client_name,
     'client_address': n_client_address,
-    'currency': n_currency,
-    'items': n_items,
-    'sub_total': n_sub_total,
-    'service_tax': n_service_tax,
-    'total_amount': n_total_amount,
-    'due_date': n_due_date
+    'currency':       n_currency,
+    'items':          n_items,
+    'sub_total':      n_sub_total,
+    'service_tax':    n_service_tax,
+    'total_amount':   n_total_amount,
+    'due_date':       n_due_date
   });
 }
 
@@ -230,20 +230,20 @@ export function create_client_invoice (new_client_invoice_details) {
       dispatch(show_loading());
       async_create_client_invoice(n_client_id, n_client_name, n_client_address, n_currency, n_items, n_sub_total, n_service_tax, n_total_amount, n_due_date).then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error === 0) {
-            dispatch(success_add_new_client(json.data.message));
-            reslove(n_client_id);
+  dispatch(hide_loading());
+  if (json.error === 0) {
+    dispatch(success_add_new_client(json.data.message));
+    reslove(n_client_id);
 		 			} else {
 		 				dispatch(error_add_new_client(json.data.message));
 		 				reslove(0);
 		 			}
-        },
+},
 				(error) => {
-          dispatch(hide_loading());
-          dispatch(error_add_new_client('error occurs!!!'));
-          reslove(0);
-        }
+  dispatch(hide_loading());
+  dispatch(error_add_new_client('error occurs!!!'));
+  reslove(0);
+}
 			);
     });
   };
@@ -258,7 +258,7 @@ export function error_delete_invoice_delete (data) {
 
 function async_delete_invoice (invoice_id) {
   return fireAjax('POST', '', {
-    'action': 'delete_invoice',
+    'action':     'delete_invoice',
     'invoice_id': invoice_id
   });
 }
@@ -275,20 +275,20 @@ export function delete_invoice (invoice_id) {
       dispatch(show_loading());
       async_delete_invoice(invoice_id).then(
 				(json) => {
-          dispatch(hide_loading());
-          if (json.error == 0) {
-            dispatch(success_delete_invoice_delete(json.data.message));
-            reslove(1);
+  dispatch(hide_loading());
+  if (json.error == 0) {
+    dispatch(success_delete_invoice_delete(json.data.message));
+    reslove(1);
 		 			} else {
 		 				dispatch(error_delete_invoice_delete(json.data.message));
 		 				reslove(0);
 		 			}
-        },
+},
 				(error) => {
-          dispatch(hide_loading());
-          dispatch(error_delete_invoice_delete('error occurs!!!'));
-          reslove(0);
-        }
+  dispatch(hide_loading());
+  dispatch(error_delete_invoice_delete('error occurs!!!'));
+  reslove(0);
+}
 			);
     });
   };

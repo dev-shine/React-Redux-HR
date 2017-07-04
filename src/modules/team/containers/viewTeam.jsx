@@ -36,15 +36,6 @@ class ViewTeam extends React.Component {
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-
-    // if (props.logged_user.logged_in === -1) {
-    //   this.props.router.push('/logout');
-    // } else {
-    //   if (props.logged_user.role === CONFIG.ADMIN) {
-    //   } else {
-    //     this.props.router.push('/home');
-    //   }
-    // }
   }
 
   openPage (toDisplay) {
@@ -106,12 +97,11 @@ class ViewTeam extends React.Component {
             </div>
             <div className="padding">
               <div className={this.state.addNewTeam}>
-              <TeamList {...this.props} />;
+                <TeamList {...this.props} />
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  <TeamDetails teamListData={this.props.teamList}
-                    fetchUserDetails={this.props.onFetchUserDetails} {...this.props} />;
+                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={this.props.onFetchUserDetails} />
                 </div>
               </div>
             </div>

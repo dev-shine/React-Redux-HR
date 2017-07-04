@@ -130,10 +130,10 @@ export function updateReadStatus (updateDoc) {
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            // dispatch(fetchUserPolicyDocument());
             let token = json.data.new_token;
             localStorage.setItem('hr_logged_user', token);
             let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+            dispatch(fetchUserPolicyDocument());
             dispatch(userDataUpdated(tokenData));
             resolve(json.data.message);
           } else {

@@ -1,15 +1,16 @@
 import Immutable from 'immutable';
 
 let initialState = {
-  login_status_message: '',
-  logged_in:            0,
-  userid:               '-1',
-  username:             '-1',
-  role:                 '-1',
-  rolePages:            {},
-  name:                 '-1',
-  jobtitle:             '-1',
-  profileImage:         ''
+  login_status_message:             '',
+  logged_in:                        0,
+  userid:                           '-1',
+  username:                         '-1',
+  role:                             '-1',
+  rolePages:                        {},
+  name:                             '-1',
+  jobtitle:                         '-1',
+  profileImage:                     '',
+  is_policy_documents_read_by_user: 0
 };
 
 export function logged_user (state = Immutable.Map(initialState), action) {
@@ -25,7 +26,8 @@ export function logged_user (state = Immutable.Map(initialState), action) {
         .set('name', action.payload.name)
         .set('jobtitle', action.payload.jobtitle)
         .set('profileImage', action.payload.profileImage)
-        .set('login_status_message', 'Success Login');
+        .set('login_status_message', 'Success Login')
+        .set('is_policy_documents_read_by_user', action.payload.is_policy_documents_read_by_user);
   } else if (action.type === 'ACTION_LOGIN_FAIL') {
     return state.set('logged_in', -1)
         .set('login_status_message', action.payload);
@@ -42,7 +44,8 @@ export function logged_user (state = Immutable.Map(initialState), action) {
         .set('name', '-1')
         .set('jobtitle', '-1')
         .set('profileImage', '')
-        .set('login_status_message', '');
+        .set('login_status_message', '')
+        .set('is_policy_documents_read_by_user', 0);
   } else {
     return state.set('login_status_message', '');
   }

@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actionsLogin from 'appRedux/auth/actions/index';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 
@@ -27,8 +26,6 @@ class MonthlyAttendance extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onIsAlreadyLogin();
-    this.props.onFetchUserPolicyDocument();
     let user_id = this.props.logged_user.userid;
     this.setState({'defaultUserDisplay': user_id});
     let d = new Date();
@@ -38,7 +35,7 @@ class MonthlyAttendance extends React.Component {
     this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -104,9 +101,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserUpdateDaySummary: (userid, date, entryTime, exitTime, reason, year, month) => {
       return dispatch(actionsUserDaySummary.userUpdateUserDaySummary(userid, date, entryTime, exitTime, reason, year, month));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

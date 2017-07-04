@@ -12,7 +12,6 @@ import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
 import UsersRolesList from 'components/generic/UsersRolesList';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {
@@ -29,11 +28,10 @@ class ManageRoles extends React.Component {
     this.onUserClick = this.onUserClick.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -123,13 +121,12 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin:          () => { return dispatch(actionsLogin.isAlreadyLogin()); },
-    onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
-    onAddNewRole:              (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
-    onRolesList:               () => { return dispatch(actionsManageRoles.getRolesList()); },
-    onUpdateRole:              (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
-    onUpdateUserRole:          (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
-    onDelete:                  (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
+    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
+    onAddNewRole:     (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
+    onRolesList:      () => { return dispatch(actionsManageRoles.getRolesList()); },
+    onUpdateRole:     (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
+    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
+    onDelete:         (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
   };
 };
 

@@ -10,7 +10,6 @@ import ListLeaves from 'components/leave/manageLeaves/ListLeaves';
 import ViewLeave from 'modules/leave/components/manageLeaves/ViewLeave';
 import LeaveColorReference from 'components/leave/manageLeaves/LeaveColorReference';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_listLeaves from 'appRedux/leave/actions/listLeaves';
 import * as actions_manageLeave from 'appRedux/leave/actions/manageLeave';
 
@@ -30,12 +29,11 @@ class ManageLeaves extends React.Component {
     this.selectLeave = this.selectLeave.bind(this);
   }
   componentDidMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onListLeaves(this.props.logged_user.role);
   }
   componentWillReceiveProps (props) {
     let selectedTab = '';
-    let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user.logged_in, this.props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, this.props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -184,9 +182,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDocRequired: (leaveid, data, comment) => {
       return dispatch(actions_manageLeave.docRequired(leaveid, data, comment));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

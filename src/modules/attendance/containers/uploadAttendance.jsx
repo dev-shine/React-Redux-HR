@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
 import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
 
@@ -20,12 +19,11 @@ class UploadAttendance extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -104,11 +102,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserManagePayslipsData: (userid) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
-
   };
 };
 

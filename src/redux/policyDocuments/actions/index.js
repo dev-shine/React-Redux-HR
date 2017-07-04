@@ -1,5 +1,6 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
+import * as jwt from 'jwt-simple';
 import 'whatwg-fetch';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
@@ -80,8 +81,8 @@ export function fetchUserPolicyDocument () {
 function asyncSubmitDocs (docs) {
   return fireAjax('POST', '', {
     action: 'save_policy_document',
-    type: 'policy_document',
-    value: JSON.stringify(docs)
+    type:   'policy_document',
+    value:  JSON.stringify(docs)
   });
 }
 
@@ -110,9 +111,13 @@ export function submitDocs (docs) {
 
 // -----------update Read Status of policy document-----------
 
+export function userDataUpdated (data) {
+  return createAction(constants.ACTION_LOGIN_SUCCESS)(data);
+}
+
 function asyncUpdateReadStatus (updateDoc) {
   return fireAjax('POST', '', {
-    action: 'update_user_policy_document',
+    action:          'update_user_policy_document',
     policy_document: JSON.stringify(updateDoc)
   });
 }
@@ -125,7 +130,11 @@ export function updateReadStatus (updateDoc) {
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(fetchUserPolicyDocument());
+            // dispatch(fetchUserPolicyDocument());
+            let token = json.data.new_token;
+            localStorage.setItem('hr_logged_user', token);
+            let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+            dispatch(userDataUpdated(tokenData));
             resolve(json.data.message);
           } else {
             reject(json.data.message);

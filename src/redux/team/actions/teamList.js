@@ -1,9 +1,8 @@
-import {createAction} from 'redux-actions';
-import {CONFIG} from '../../config/index';
 import * as _ from 'lodash';
-import {fireAjax} from '../../services/index';
+import {createAction} from 'redux-actions';
+import {CONFIG} from 'src/config/index';
+import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
-
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 
 export function success_team_list (data) {
@@ -76,11 +75,10 @@ export function saveTeam (team) {
             dispatch(error_add_team(json.error[0]));
             reject(json.error[0]);
           }
-        },
-        (error) => {
-          dispatch(hide_loading()); // hide loading icon
-          dispatch(error_add_team('error occurs'));
-        }
+        }, (error) => {
+        dispatch(hide_loading()); // hide loading icon
+        dispatch(error_add_team('error occurs'));
+      }
         );
     });
   };
@@ -116,12 +114,11 @@ export function get_team_candidate (selectedTeam) {
             dispatch(error_get_team_candidate(json.error[0]));
             reject(json.error[0]);
           }
-        },
-        (error) => {
-          dispatch(hide_loading()); // hide loading icon
-          dispatch(error_get_team_candidate('error occurs'));
-        }
-        );
+        }, (error) => {
+        dispatch(hide_loading()); // hide loading icon
+        dispatch(error_get_team_candidate('error occurs'));
+      }
+      );
     });
   };
 }

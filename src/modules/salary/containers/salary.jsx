@@ -9,7 +9,6 @@ import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
 import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
 class Salary extends React.Component {
@@ -25,11 +24,10 @@ class Salary extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -120,9 +118,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails());
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

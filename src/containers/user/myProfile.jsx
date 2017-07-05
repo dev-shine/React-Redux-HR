@@ -11,7 +11,6 @@ import FormBankDetails from '../../components/myProfile/FormBankDetails';
 import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
@@ -34,12 +33,11 @@ class MyProfile extends React.Component {
     this.callUpdatePassword = this.callUpdatePassword.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyProfileDetails();
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -143,9 +141,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails());
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

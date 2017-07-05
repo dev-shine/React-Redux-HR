@@ -1,14 +1,15 @@
 import React from 'react';
+import * as _ from 'lodash';
 import {connect} from 'react-redux';
+import {CONFIG} from 'src/config/index';
 import {withRouter} from 'react-router';
-import {isNotUserValid} from 'src/services/generic';
 import Menu from 'components/generic/Menu';
-import LoadingIcon from '../../components/generic/LoadingIcon';
-import TeamDetails from '../../components/attendance/TeamDetails';
-import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_getTeamData from '../../actions/admin/teamList';
-import TeamList from '../../components/attendance/TeamList';
-// import * as actions_salary from '../../actions/salary/index'
+import {isNotUserValid} from 'src/services/generic';
+import TeamList from 'modules/team/components/TeamList';
+import TeamDetails from 'modules/team/components/TeamDetails';
+import LoadingIcon from 'components/generic/LoadingIcon';
+import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 
 class ViewTeam extends React.Component {
   constructor (props) {
@@ -31,13 +32,14 @@ class ViewTeam extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
   }
+
   openPage (toDisplay) {
-    if (toDisplay == 'add_new_team') {
+    if (toDisplay === 'addNewTeam') {
       this.setState({
         addNewTeam:  'row',
         viewTeam:    'hidden',
@@ -53,33 +55,38 @@ class ViewTeam extends React.Component {
       });
     }
   }
+
   render () {
-    let view_team = <TeamDetails {...this.props} />;
-    let add_new_team = <TeamList {...this.props} />;
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <div className="app-header white box-shadow">
             <div className="navbar">
-              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up"><i className="material-icons">&#xe5d2;</i></a>
-              <div className="navbar-item pull-left h5" id="pageTitle">View Team</div>
+              <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
+                <i className="material-icons">&#xe5d2;</i>
+              </a>
+              <div className="navbar-item pull-left h5" id="pageTitle">
+                 View Team
+              </div>
             </div>
           </div>
           <div className="app-body" id="view">
             <div className="row">
-              <div className="col-12"><LoadingIcon {...this.props} /></div>
+              <div className="col-12">
+                <LoadingIcon loading={this.props.frontend.show_loading} />
+              </div>
             </div>
             <div className="dker p-x">
               <div className="row">
                 <div className="col-sm-6 pull-sm-6">
                   <div className="p-y-md clearfix nav-active-primary">
                     <ul className="nav nav-pills nav-sm">
-                      <li onClick={() => { this.openPage('add_new_team'); }} className={`nav-item ${this.state.active}`}>
+                      <li onClick={() => { this.openPage('addNewTeam'); }} className={`nav-item ${this.state.active}`}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">All Team</a>
                         <div className={this.state.firstArrow}><span className="arrow bottom b-accent"></span></div>
                       </li>
-                      <li onClick={() => { this.openPage('view_team'); }} className="nav-item" style={{'marginLeft': '20px'}}>
+                      <li onClick={() => { this.openPage('viewTeam'); }} className="nav-item" style={{'marginLeft': '20px'}}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Team Details</a>
                         <div className={this.state.secondArrow}><span className="arrow bottom b-accent"></span></div>
                       </li>
@@ -89,8 +96,14 @@ class ViewTeam extends React.Component {
               </div>
             </div>
             <div className="padding">
-              <div className={this.state.addNewTeam}>{add_new_team}</div>
-              <div className={this.state.viewTeam}><div className="col-xs-12 p-t p-r b-r">{view_team}</div></div>
+              <div className={this.state.addNewTeam}>
+                <TeamList {...this.props} />
+              </div>
+              <div className={this.state.viewTeam}>
+                <div className="col-xs-12 p-t p-r b-r">
+                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={this.props.onFetchUserDetails} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -100,26 +113,27 @@ class ViewTeam extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:    state.frontend.toJS(),
-    logged_user: state.logged_user.toJS(),
-    usersList:   state.usersList.toJS(),
-    employee:    state.empSalaryList.toJS(),
-    teamList:    state.teamList.toJS()
+    frontend:         state.frontend.toJS(),
+    logged_user:      state.logged_user.toJS(),
+    policy_documents: state.policyDocuments.toJS(),
+    usersList:        state.usersList.toJS(),
+    employee:         state.empSalaryList.toJS(),
+    teamList:         state.teamList.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actionsLogin.isAlreadyLogin());
     },
     onFetchTeam: () => {
-      return dispatch(actions_getTeamData.get_all_team());
+      return dispatch(actionsGetTeamData.get_all_team());
     },
     onFetchUserDetails: (selectedTeam) => {
-      return dispatch(actions_getTeamData.get_team_candidate(selectedTeam));
+      return dispatch(actionsGetTeamData.get_team_candidate(selectedTeam));
     },
     onSaveTeam: (teams) => {
-      return dispatch(actions_getTeamData.saveTeam(teams));
+      return dispatch(actionsGetTeamData.saveTeam(teams));
     }
   };
 };

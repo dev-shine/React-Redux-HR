@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myLeaves from 'appRedux/leave/actions/myLeaves';
 
 class MyLeaves extends React.Component {
@@ -15,12 +14,11 @@ class MyLeaves extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyLeavesList();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -66,9 +64,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCancelLeave: (userId, from_date) => {
       return dispatch(actions_myLeaves.cancelLeave(userId, from_date));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

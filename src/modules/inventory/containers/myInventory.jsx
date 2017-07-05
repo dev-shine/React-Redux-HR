@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actionsLogin from 'appRedux/auth/actions/index';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyProfile from 'src/actions/user/myProfile';
 
 class MyInventory extends React.Component {
@@ -23,11 +22,10 @@ class MyInventory extends React.Component {
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyProfileDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -89,9 +87,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDeviceDetails: (newDeviceDetails) => {
       return dispatch(actionsMyProfile.updateUserDeviceDetails(newDeviceDetails));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

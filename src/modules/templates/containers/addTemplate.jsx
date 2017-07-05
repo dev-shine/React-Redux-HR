@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import Template from '../components/Template';
 import * as actions_login from 'appRedux/auth/actions/index';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import * as actions_templates from 'appRedux/templates/actions/templates';
 
@@ -16,14 +15,13 @@ class TemplateContainer extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onFetchUserSalaryDetails().then(() => {
       this.props.onFetchTemplate();
       this.props.onFetchVariables();
     });
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -54,9 +52,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
       return dispatch(actions_login.isAlreadyLogin());
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     },
     onFetchTemplate: () => {
       return dispatch(actions_templates.get_templates());

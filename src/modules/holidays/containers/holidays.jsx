@@ -6,7 +6,7 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import HolidaysList from 'components/holidays/HolidaysList';
 import * as actions from 'appRedux/actions';
-import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
+// import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
 class Holidays extends React.Component {
   constructor (props) {
@@ -59,13 +59,10 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions.isAlreadyLogin());
     },
     onHolidaysList: () => {
-      return dispatch(actions_holidaysList.get_holidays_list());
+      return dispatch(actions.requestHolidayList());
+      // return dispatch(actions_holidaysList.get_holidays_list());
     }
   };
 };
 
-const VisibleHolidays = connect(mapStateToProps, mapDispatchToProps)(Holidays);
-
-const RouterVisibleHolidays = withRouter(VisibleHolidays);
-
-export default RouterVisibleHolidays;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Holidays));

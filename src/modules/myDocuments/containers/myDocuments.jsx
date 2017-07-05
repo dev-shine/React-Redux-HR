@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
 import * as actionsLogin from 'appRedux/auth/actions/index';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyDocument from 'appRedux/myDocuments/actions/myDocument';
 
 class MyDoduments extends React.Component {
@@ -19,12 +18,11 @@ class MyDoduments extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onGetMydocuments();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -73,9 +71,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteDocument: (docId) => {
       return dispatch(actionsMyDocument.deleteDocument(docId));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

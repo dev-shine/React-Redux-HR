@@ -20,7 +20,7 @@ class PolicyDocumentContainer extends React.Component {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user.logged_in, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
     if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
       this.props.router.push(isNotValid.redirectTo);
     }

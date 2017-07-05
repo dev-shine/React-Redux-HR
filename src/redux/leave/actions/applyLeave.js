@@ -21,30 +21,30 @@ export function leave_error (err) {
 
 function async_apply_leave (from_date, to_date, no_of_days, reason, day_status, leaveType, late_reason, pending_id, year, month, user_Id) {
   return fireAjax('POST', '', {
-    'action': 'apply_leave',
-    'from_date': from_date,
-    'to_date': to_date,
-    'no_of_days': no_of_days,
-    'reason': reason,
-    'day_status': day_status,
-    'leave_type': leaveType,
+    'action':      'apply_leave',
+    'from_date':   from_date,
+    'to_date':     to_date,
+    'no_of_days':  no_of_days,
+    'reason':      reason,
+    'day_status':  day_status,
+    'leave_type':  leaveType,
     'late_reason': late_reason,
-    'pending_id': pending_id
+    'pending_id':  pending_id
   });
 }
 
 function async_apply_employe_leave (from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month) {
   return fireAjax('POST', '', {
-    'action': 'admin_user_apply_leave',
-    'from_date': from_date,
-    'to_date': to_date,
-    'no_of_days': no_of_days,
-    'reason': reason,
-    'user_id': userId,
-    'day_status': day_status,
-    'leave_type': leaveType,
+    'action':      'admin_user_apply_leave',
+    'from_date':   from_date,
+    'to_date':     to_date,
+    'no_of_days':  no_of_days,
+    'reason':      reason,
+    'user_id':     userId,
+    'day_status':  day_status,
+    'leave_type':  leaveType,
     'late_reason': late_reason,
-    'pending_id': pending_id
+    'pending_id':  pending_id
   });
 }
 
@@ -117,9 +117,9 @@ export function days_between_leaves_error (data) {
 
 function async_getDaysBetweenLeaves (startDate, endDate) {
   return fireAjax('POST', '', {
-    'action': 'get_days_between_leaves',
+    'action':     'get_days_between_leaves',
     'start_date': startDate,
-    'end_date': endDate
+    'end_date':   endDate
   });
 }
 

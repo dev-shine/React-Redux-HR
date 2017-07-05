@@ -1,13 +1,13 @@
 import Immutable from 'immutable';
 
 let initialState = {
-  'status_message': '',
-  'count_working_days': '',
-  'count_holidays': '',
-  'count_weekends': '',
+  'status_message':      '',
+  'count_working_days':  '',
+  'count_holidays':      '',
+  'count_weekends':      '',
   'days_between_leaves': [],
-  'start_date': '',
-  'end_date': ''
+  'start_date':          '',
+  'end_date':            ''
 
 };
 

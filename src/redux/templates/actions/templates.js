@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
-import { createAction } from 'redux-actions';
+import {createAction} from 'redux-actions';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
-import { show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import 'whatwg-fetch';
 
 // --------add new valiable-------
@@ -17,19 +17,19 @@ export function error_add_varaible (data) {
 
 function async_saveVariable (id, variable) {
   return fireAjax('POST', '', {
-    action: 'create_template_variable',
-    name: variable.varCode,
-    value: variable.varValue,
+    action:        'create_template_variable',
+    name:          variable.varCode,
+    value:         variable.varValue,
     variable_type: variable.varType
   });
 }
 
 function async_editVariable (id, variable) {
   return fireAjax('POST', '', {
-    action: 'update_template_variable',
-    id: id,
-    name: variable.varCode,
-    value: variable.varValue,
+    action:        'update_template_variable',
+    id:            id,
+    name:          variable.varCode,
+    value:         variable.varValue,
     variable_type: variable.varType
   });
 }
@@ -114,7 +114,7 @@ export function get_variable () {
 function async_delete_variable (id) {
   return fireAjax('POST', '', {
     action: 'delete_template_variable',
-    id: id
+    id:     id
   });
 }
 
@@ -177,19 +177,19 @@ export function get_templates () {
 
 function async_save_template (t_name, t_subject, t_body) {
   return fireAjax('POST', '', {
-    action: 'create_email_template',
-    name: t_name,
+    action:  'create_email_template',
+    name:    t_name,
     subject: t_subject,
-    body: t_body
+    body:    t_body
   });
 }
 function async_update_template (t_id, t_name, t_subject, t_body) {
   return fireAjax('POST', '', {
-    action: 'update_email_template',
-    id: t_id,
-    name: t_name,
+    action:  'update_email_template',
+    id:      t_id,
+    name:    t_name,
     subject: t_subject,
-    body: t_body
+    body:    t_body
   });
 }
 export function save_templates (t_id, t_name, t_subject, t_body) {
@@ -226,7 +226,7 @@ export function save_templates (t_id, t_name, t_subject, t_body) {
 function async_delete_template (t_id) {
   return fireAjax('POST', '', {
     action: 'delete_email_template',
-    id: t_id
+    id:     t_id
   });
 }
 
@@ -256,7 +256,7 @@ export function delete_template (t_id) {
 function async_send_mail (email) {
   return fireAjax('POST', '', {
     action: 'send_employee_email',
-    email: email
+    email:  email
   });
 }
 
@@ -285,8 +285,8 @@ export function send_mail (email) {
 
 function async_download_template (template, fileName) {
   return fireAjax('POST', '', {
-    action: 'create_pdf',
-    template: template,
+    action:    'create_pdf',
+    template:  template,
     file_name: fileName
   });
 }

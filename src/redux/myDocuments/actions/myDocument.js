@@ -48,7 +48,7 @@ export function getMyDocument () {
 function async_deleteDocument (doc_id) {
   return fireAjax('POST', '', {
     'action': 'delete_user_document',
-    'id': doc_id
+    'id':     doc_id
   });
 }
 

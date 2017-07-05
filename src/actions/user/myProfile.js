@@ -48,16 +48,16 @@ export function error_update_profile_details (data) {
 
 function async_updateProfileDetails (n_marital_status, n_dob, n_address1, n_address2, n_em_contact1, n_em_contact2, n_blood_group, n_medical_con, n_emp_email) {
   return fireAjax('POST', '', {
-    'action': 'update_user_profile_detail',
+    'action':            'update_user_profile_detail',
     'permanent_address': n_address2,
-    'current_address': n_address1,
-    'emergency_ph1': n_em_contact1,
-    'emergency_ph2': n_em_contact2,
-    'blood_group': n_blood_group,
+    'current_address':   n_address1,
+    'emergency_ph1':     n_em_contact1,
+    'emergency_ph2':     n_em_contact2,
+    'blood_group':       n_blood_group,
     'medical_condition': n_medical_con,
-    'dob': n_dob,
-    'marital_status': n_marital_status,
-    'other_email': n_emp_email
+    'dob':               n_dob,
+    'marital_status':    n_marital_status,
+    'other_email':       n_emp_email
   });
 }
 
@@ -169,11 +169,11 @@ export function error_update_bank_details (data) {
 
 function async_updateBankDetails (n_bank_account_no, n_bank_name, n_bank_address, n_ifsc) {
   return fireAjax('POST', '', {
-    'action': 'update_user_bank_detail',
+    'action':          'update_user_bank_detail',
     'bank_account_no': n_bank_account_no,
-    'bank_name': n_bank_name,
-    'bank_address': n_bank_address,
-    'ifsc': n_ifsc
+    'bank_name':       n_bank_name,
+    'bank_address':    n_bank_address,
+    'ifsc':            n_ifsc
   });
 }
 
@@ -237,7 +237,7 @@ export function error_update_password (data) {
 
 function async_updatePassword (n_new_password) {
   return fireAjax('POST', '', {
-    'action': 'update_new_password',
+    'action':   'update_new_password',
     'password': n_new_password
   });
 }
@@ -278,10 +278,10 @@ export function updatePassword (new_password) {
 // ------update document
 function async_updateDocument (document_type, document_link, declearation) {
   let data = {
-    'action': 'insert_user_document',
+    'action':        'insert_user_document',
     'document_type': document_type,
     'document_link': document_link,
-    'declearation': declearation
+    'declearation':  declearation
   };
   return fireAjax('POST', '', data);
 }

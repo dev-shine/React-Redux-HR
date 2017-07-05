@@ -11,7 +11,9 @@
     "start:dev": "better-npm-run start:development",
     "deploy:dev": "better-npm-run deploy:development",
     "start:prod": "better-npm-run start:production",
-    "deploy:prod": "better-npm-run deploy:production"
+    "deploy:prod": "better-npm-run deploy:production",
+    "start": "npm run start:dev",
+    "eslint": "./node_modules/eslint/bin/eslint.js --fix src"
   },
   "betterScripts": {
     "start:development": {

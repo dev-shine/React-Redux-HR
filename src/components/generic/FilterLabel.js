@@ -7,7 +7,7 @@ var FilterLabel = React.createClass({
   displayName: 'FilterLabel',
 
   propTypes: {
-    data: React.PropTypes.array,
+    data:    React.PropTypes.array,
     onClick: React.PropTypes.func,
     onClear: React.PropTypes.func
   },

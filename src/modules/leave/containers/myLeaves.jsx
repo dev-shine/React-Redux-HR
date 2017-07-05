@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
 import * as actions from 'appRedux/actions';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myLeaves from 'appRedux/leave/actions/myLeaves';
 
 class MyLeaves extends React.Component {
@@ -15,12 +14,11 @@ class MyLeaves extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyLeavesList();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -48,12 +46,11 @@ class MyLeaves extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    holidaysList:     state.holidaysList.toJS(),
-    userLeaves:       state.userLeaves.toJS(),
-    applyLeave:       state.applyLeave.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:     state.frontend.toJS(),
+    loggedUser:   state.logged_user.userLogin,
+    holidaysList: state.holidaysList.toJS(),
+    userLeaves:   state.userLeaves.toJS(),
+    applyLeave:   state.applyLeave.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -66,9 +63,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCancelLeave: (userId, from_date) => {
       return dispatch(actions_myLeaves.cancelLeave(userId, from_date));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

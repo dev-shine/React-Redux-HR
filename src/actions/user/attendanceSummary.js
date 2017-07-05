@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
@@ -20,8 +20,8 @@ export function error_attendance_summary (data) {
 function async_get_attendance_summary (year, month) {
   return fireAjax('POST', '', {
     'action': 'attendance_summary',
-    'year': year,
-    'month': month
+    'year':   year,
+    'month':  month
   });
 }
 

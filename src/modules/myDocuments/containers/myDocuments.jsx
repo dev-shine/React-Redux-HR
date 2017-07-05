@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
 import * as actions from 'appRedux/actions';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyDocument from 'appRedux/myDocuments/actions/myDocument';
 
 class MyDoduments extends React.Component {
@@ -19,12 +18,11 @@ class MyDoduments extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onGetMydocuments();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -56,11 +54,10 @@ class MyDoduments extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    myProfile:        state.myProfile.toJS(),
-    myDocuments:      state.myDocument.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:    state.frontend.toJS(),
+    loggedUser:  state.logged_user.userLogin,
+    myProfile:   state.myProfile.toJS(),
+    myDocuments: state.myDocument.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -73,9 +70,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteDocument: (docId) => {
       return dispatch(actionsMyDocument.deleteDocument(docId));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

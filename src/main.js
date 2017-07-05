@@ -37,8 +37,9 @@ import PageManageClients from 'modules/manageClients/containers/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
+import Page_TeamView from './modules/team/containers/viewTeam';
 
-import Page_TeamView from './containers/admin/viewTeam';
+// -user
 import Page_MyProfile from './containers/user/myProfile';
 
 import store from './store';

@@ -12,6 +12,7 @@ import * as actions_login from 'appRedux/auth/actions/index';
 import PendingHourSummary from './PendingHourSummary';
 import AddUserPendingHour from './AddUserPendingHour';
 import AddAsLeaveHour from './AddAsLeaveHour';
+import AddAsHalfDayLeave from './AddAsHalfDayLeave';
 
 var moment = require('moment');
 
@@ -99,9 +100,11 @@ export default class UserPendingHoursList extends React.Component {
         handleOpenMerge={this.props.handleOpenMerge}
         callAddUserPendingHours={this.callAddUserPendingHours}
         {...this.props} />;
-
+      let HalfdayButton = <AddAsHalfDayLeave val={val} {...this.props} />;
+      <br />;
       let leaveButton = <AddAsLeaveHour val={val}
         {...this.props} />;
+
       // Map pendingMessage -->
       let pendingMessage = val.time_detail.t_detail;
       let pendingMsgMap = pendingMessage.map((msg, i) => {
@@ -139,7 +142,7 @@ export default class UserPendingHoursList extends React.Component {
 
         {val.status
           ? <td> <mark>{'No Action Required'} </mark></td>
-          : <td>{addButton} {leaveButton}</td>
+          : <td>{addButton} {HalfdayButton} {leaveButton}</td>
       }
         </tr>
       );

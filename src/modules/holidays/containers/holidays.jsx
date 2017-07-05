@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import HolidaysList from 'components/holidays/HolidaysList';
 import * as actions from 'appRedux/actions';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
 class Holidays extends React.Component {
@@ -15,11 +14,10 @@ class Holidays extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onHolidaysList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -50,10 +48,9 @@ class Holidays extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    holidaysList:     state.holidaysList.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:     state.frontend.toJS(),
+    loggedUser:   state.logged_user.userLogin,
+    holidaysList: state.holidaysList.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -63,9 +60,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onHolidaysList: () => {
       return dispatch(actions_holidaysList.get_holidays_list());
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

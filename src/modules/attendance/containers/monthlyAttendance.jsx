@@ -6,7 +6,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actions from 'appRedux/actions';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 
@@ -28,7 +27,6 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount () {
     this.props.onIsAlreadyLogin();
-    this.props.onFetchUserPolicyDocument();
     let user_id = this.props.loggedUser.data.id;
     this.setState({'defaultUserDisplay': user_id});
     let d = new Date();
@@ -38,7 +36,7 @@ class MonthlyAttendance extends React.Component {
     this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -86,7 +84,7 @@ function mapStateToProps (state) {
   return {
     frontend:          state.frontend.toJS(),
     userDaySummary:    state.userDaySummary.toJS(),
-    loggedUser:        state.logged_user.userLogin, // .toJS(),
+    loggedUser:        state.logged_user.userLogin,
     monthlyAttendance: state.monthlyAttendance.toJS(),
     policy_documents:  state.policyDocuments.toJS()
   };
@@ -104,9 +102,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserUpdateDaySummary: (userid, date, entryTime, exitTime, reason, year, month) => {
       return dispatch(actionsUserDaySummary.userUpdateUserDaySummary(userid, date, entryTime, exitTime, reason, year, month));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

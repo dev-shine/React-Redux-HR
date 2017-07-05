@@ -9,7 +9,6 @@ import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import UserDaySummary from 'modules/attendance/components/UserDaySummary';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 import * as actions from 'appRedux/actions';
@@ -29,9 +28,6 @@ class Home extends React.Component {
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
   }
-  componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
-  }
   componentDidMount () {
     this.props.onUsersList();
     let d = new Date();
@@ -40,7 +36,7 @@ class Home extends React.Component {
     this.setState({year: year, month: month});
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -100,8 +96,7 @@ function mapStateToProps (state) {
     loggedUser:        state.logged_user.userLogin,
     usersList:         state.usersList.toJS(),
     monthlyAttendance: state.monthlyAttendance.toJS(),
-    userDaySummary:    state.userDaySummary.toJS(),
-    policy_documents:  state.policyDocuments.toJS()
+    userDaySummary:    state.userDaySummary.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -120,9 +115,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDaySummary: (userid, date, entryTime, exitTime, reason, year, month) => {
       return dispatch(actionsUserDaySummary.updateUserDaySummary(userid, date, entryTime, exitTime, reason, year, month));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

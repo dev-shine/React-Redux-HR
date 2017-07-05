@@ -35,13 +35,12 @@ class ApplyLeave extends React.Component {
     this.onUserClick = this.onUserClick.bind(this);
     this.doApplyLeave = this.doApplyLeave.bind(this);
   }
-  componentDidMount () {}
   componentWillMount () {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }

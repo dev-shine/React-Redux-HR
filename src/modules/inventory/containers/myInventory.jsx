@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actions from 'appRedux/actions';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsMyProfile from 'src/actions/user/myProfile';
 
 class MyInventory extends React.Component {
@@ -23,11 +22,10 @@ class MyInventory extends React.Component {
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyProfileDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -73,10 +71,9 @@ class MyInventory extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    myProfile:        state.myProfile.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:   state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    myProfile:  state.myProfile.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -89,9 +86,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDeviceDetails: (newDeviceDetails) => {
       return dispatch(actionsMyProfile.updateUserDeviceDetails(newDeviceDetails));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

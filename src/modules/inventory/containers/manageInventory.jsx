@@ -59,7 +59,7 @@ class InventorySystem extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -291,12 +291,11 @@ class InventorySystem extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    usersList:        state.usersList.toJS(),
-    manageUsers:      state.manageUsers.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    policy_documents: state.policyDocuments.toJS(),
-    manageDevice:     state.manageDevice.toJS()
+    frontend:     state.frontend.toJS(),
+    usersList:    state.usersList.toJS(),
+    manageUsers:  state.manageUsers.toJS(),
+    loggedUser:   state.logged_user.userLogin,
+    manageDevice: state.manageDevice.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

@@ -11,7 +11,6 @@ import FormBankDetails from '../../components/myProfile/FormBankDetails';
 import FormUpdatePassword from '../../components/myProfile/FormUpdatePassword';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actions from 'appRedux/actions';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_myProfile from '../../actions/user/myProfile';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
@@ -34,12 +33,11 @@ class MyProfile extends React.Component {
     this.callUpdatePassword = this.callUpdatePassword.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onMyProfileDetails();
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -114,11 +112,10 @@ class MyProfile extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    myProfile:        state.myProfile.toJS(),
-    salary:           state.salary.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:   state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    myProfile:  state.myProfile.toJS(),
+    salary:     state.salary.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -143,9 +140,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails());
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

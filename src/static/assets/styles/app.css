@@ -1712,7 +1712,12 @@ body {
     width: auto;
     margin-right: -17px;
     overflow-y: scroll;
-    -webkit-overflow-scrolling: touch; } }
+    -webkit-overflow-scrolling: touch;
+    }
+    .show-menu-icon {
+      display: none;
+    }
+   }
 
 @media (max-width: 991px) {
   .app-aside.modal {

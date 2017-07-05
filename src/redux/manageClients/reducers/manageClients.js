@@ -1,8 +1,8 @@
 import Immutable from 'immutable';
 
 let initialState = {
-  'status_message': '',
-  'client_info': {},
+  'status_message':  '',
+  'client_info':     {},
   'client_invoices': []
 };
 

@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
 import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
 
@@ -20,12 +19,11 @@ class UploadAttendance extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -33,11 +31,11 @@ class UploadAttendance extends React.Component {
 
   handleOpenIframe () {
     this.setState({openIframe: true});
-  };
+  }
 
   handleCloseIframe () {
     this.setState({openIframe: false});
-  };
+  }
   render () {
     return (
       <div>
@@ -62,12 +60,11 @@ class UploadAttendance extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    managePayslips:   state.managePayslips.toJS(),
-    loggedUser:       state.logged_user.userLogin, // .toJS(),
-    usersList:        state.usersList.toJS(),
-    manageUsers:      state.manageUsers.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:       state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    manageUsers:    state.manageUsers.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -104,11 +101,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUserManagePayslipsData: (userid) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
-
   };
 };
 

@@ -2,12 +2,12 @@ import Immutable from 'immutable';
 
 let initialState = {
   status_message: '',
-  year: '',
-  monthName: '',
-  nextMonth: {},
-  previousMonth: {},
-  displayData: [],
-  userInfo: []
+  year:           '',
+  monthName:      '',
+  nextMonth:      {},
+  previousMonth:  {},
+  displayData:    [],
+  userInfo:       []
 };
 
 export function manageUserPendingHours (state = Immutable.fromJS(initialState), action) {

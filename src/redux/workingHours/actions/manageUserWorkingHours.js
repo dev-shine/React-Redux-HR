@@ -55,11 +55,11 @@ export function error_add_user_working_hours (data) {
 
 function async_add_user_working_hours (userid, date, working_hours, reason) {
   return fireAjax('POST', '', {
-    action: 'add_user_working_hours',
-    userid: userid,
-    date: date,
+    action:        'add_user_working_hours',
+    userid:        userid,
+    date:          date,
     working_hours: working_hours,
-    reason: reason
+    reason:        reason
   });
 }
 

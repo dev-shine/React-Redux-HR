@@ -5,7 +5,6 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import * as actions from 'appRedux/actions';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_templates from 'appRedux/templates/actions/templates';
 import Variables from '../components/Variable';
 
@@ -15,11 +14,10 @@ class VariablesContainer extends React.Component {
     this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onFetchVariables();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -38,10 +36,9 @@ class VariablesContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    variable:         state.template.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:   state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    variable:   state.template.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -57,9 +54,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteVariable: (id) => {
       return dispatch(actions_templates.deleteVariable(id));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

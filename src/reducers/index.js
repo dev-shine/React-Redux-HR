@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 
 import {frontend} from 'appRedux/generic/reducers/frontend';
-// import { logged_user } from 'appRedux/auth/reducers/logged_user';
 import logged_user from 'appRedux/auth/reducers/logged_user';
 import {monthlyAttendance} from 'appRedux/attendance/reducers/monthlyAttendance';
 import {attendanceSummary} from './user/attendanceSummary';
@@ -27,8 +26,8 @@ import {manageClients} from 'appRedux/manageClients/reducers/manageClients';
 import {managePayslips} from 'appRedux/salary/reducers/managePayslips';
 import {empSalaryList} from 'appRedux/salary/reducers/empSalaryDetails';
 import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';
-import {template} from './admin/template';
-import {teamList} from './admin/teamList';
+import {template} from 'appRedux/templates/reducers/template';
+import {teamList} from 'appRedux/team/reducers/teamList';
 import {manageDevice} from 'appRedux/inventory/reducers/inventory';
 
 export default combineReducers({

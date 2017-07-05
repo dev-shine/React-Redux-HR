@@ -41,7 +41,7 @@ class ManageClients extends React.Component {
     this.props.onClientsList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -177,11 +177,10 @@ class ManageClients extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    clientsList:      state.clientsList.toJS(),
-    manageClients:    state.manageClients.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:      state.frontend.toJS(),
+    loggedUser:    state.logged_user.userLogin,
+    clientsList:   state.clientsList.toJS(),
+    manageClients: state.manageClients.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {

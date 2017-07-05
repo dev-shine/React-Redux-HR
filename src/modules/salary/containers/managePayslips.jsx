@@ -44,7 +44,7 @@ class ManagePayslips extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -212,7 +212,12 @@ class ManagePayslips extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {frontend: state.frontend.toJS(), loggedUser: state.logged_user.userLogin, usersList: state.usersList.toJS(), managePayslips: state.managePayslips.toJS(), policy_documents: state.policyDocuments.toJS()};
+  return {
+    frontend:       state.frontend.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    managePayslips: state.managePayslips.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {

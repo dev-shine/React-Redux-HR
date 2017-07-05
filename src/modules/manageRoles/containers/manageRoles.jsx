@@ -12,7 +12,6 @@ import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
 import UsersRolesList from 'components/generic/UsersRolesList';
 import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {
@@ -29,11 +28,10 @@ class ManageRoles extends React.Component {
     this.onUserClick = this.onUserClick.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -113,23 +111,21 @@ class ManageRoles extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    policy_documents: state.policyDocuments.toJS(),
-    usersList:        state.usersList.toJS(),
-    manageRoles:      state.manageRoles.toJS()
+    frontend:    state.frontend.toJS(),
+    loggedUser:  state.logged_user.userLogin,
+    usersList:   state.usersList.toJS(),
+    manageRoles: state.manageRoles.toJS()
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin:          () => { return dispatch(actions.isAlreadyLogin()); },
-    onFetchUserPolicyDocument: () => { return dispatch(actionsPolicy.fetchUserPolicyDocument()); },
-    onAddNewRole:              (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
-    onRolesList:               () => { return dispatch(actionsManageRoles.getRolesList()); },
-    onUpdateRole:              (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
-    onUpdateUserRole:          (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
-    onDelete:                  (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
+    onIsAlreadyLogin: () => { return dispatch(actions.isAlreadyLogin()); },
+    onAddNewRole:     (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
+    onRolesList:      () => { return dispatch(actionsManageRoles.getRolesList()); },
+    onUpdateRole:     (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
+    onUpdateUserRole: (userRoleUpdateDetails) => { return dispatch(actionsManageRoles.updateUserRole(userRoleUpdateDetails)); },
+    onDelete:         (id) => { return dispatch(actionsManageRoles.deleteRole(id)); }
   };
 };
 

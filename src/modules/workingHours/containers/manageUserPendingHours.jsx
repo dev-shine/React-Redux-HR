@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/index';
 import Menu from 'components/generic/Menu';
+import LoadingIcon from 'components/generic/LoadingIcon';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components1/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
 import * as actions from 'appRedux/actions';
 import UserPendingHoursList from '../components/UserPendingHoursList';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
+import * as actionPendingHour from 'appRedux/workingHours/actions/managePendingLeave';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
 import * as actionsManageUserPendingHours from 'appRedux/workingHours/actions/manageUserPendingHour';
 
@@ -43,10 +44,9 @@ class ManageUserPendingHours extends React.Component {
     let month = (months + 1 < 10 ? ('0' + months) : months);
     this.props.onUserPendingHoursData(year, month);
     this.props.onUsersList();
-    this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -61,9 +61,15 @@ class ManageUserPendingHours extends React.Component {
     }
   }
 
-  callAddUserPendingHours (userid, pendingHour, date, reason, empId) {
-    this.props.onAddUserPendingHours(userid, pendingHour, date, reason, empId);
+  callAddUserPendingHours (userid, pendingHour, empId) {
+    this.setState({show_status_message: true});
+    this.props.onAddUserPendingHours(userid, pendingHour, empId).then((message) => {
+      notify(message);
+    }).catch((error) => {
+      notify(error);
+    });
   }
+
   callFetchPendingUserList () {
     this.onUserPendingHoursData();
   }
@@ -104,6 +110,7 @@ class ManageUserPendingHours extends React.Component {
       manageUserPendingHours={this.props.manageUserPendingHours}
       onUserPendingHoursData={this.props.onUserPendingHoursData}
       doApplyLeave={this.props.doApplyLeave}
+      doApplyHalfLeave={this.props.doApplyHalfLeave}
       callOnDaysBetweenLeaves={this.props.callOnDaysBetweenLeaves}
       {...this.props} />;
 
@@ -116,6 +123,7 @@ class ManageUserPendingHours extends React.Component {
     return (
       <div>
         <Menu {...this.props} />
+
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Employee Pending Hours'} {...this.props} />
           <div className="app-footer">
@@ -124,6 +132,7 @@ class ManageUserPendingHours extends React.Component {
           <div className="app-body" id="view">
             <div className="row">
               <div className="col-12">
+                <LoadingIcon loading={this.props.frontend.show_loading} />
               </div>
             </div>
             {this.state.secondArrow === 'show' ? null
@@ -171,7 +180,6 @@ function mapStateToProps (state) {
     loggedUser:             state.logged_user.userLogin,
     usersList:              state.usersList.toJS(),
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    policy_documents:       state.policyDocuments.toJS(),
     applyLeave:             state.applyLeave.toJS()
   };
 }
@@ -186,11 +194,11 @@ const mapDispatchToProps = (dispatch) => {
     onUserPendingHoursData: (year, month) => {
       return dispatch(actionsManageUserPendingHours.getUserPendingHourList(year, month));
     },
-    onAddUserPendingHours: (userId, pendingHour, date, reason, empId, year, month) => {
-      return dispatch(actionsManageUserPendingHours.addUserPendingHour(userId, pendingHour, date, reason, empId, year, month));
+    onAddUserPendingHours: (userId, pendingHour, empId, year, month) => {
+      return dispatch(actionsManageUserPendingHours.addUserPendingHour(userId, pendingHour, empId, year, month));
     },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
+    onApplyHalfLeave: (no_of_days, userId, day_status, pending_id, year, month) => {
+      return dispatch(actionPendingHour.applyPendingLeave(no_of_days, userId, day_status, pending_id, year, month));
     },
     onApplyLeave: (from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month) => {
       return dispatch(actions_apply_leave.apply_leave(from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason, pending_id, year, month));

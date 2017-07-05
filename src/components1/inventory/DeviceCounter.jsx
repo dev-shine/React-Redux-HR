@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DeviceCounter = ({deviceData, deviceName}) => {
-  console.log('deviceData', deviceData);
   let list = Object.keys(deviceData).map((k, idx) => {
     if (k === 'User_Assign' || k === 'User_Not_Assign' || k === 'Assigned') {
       return;

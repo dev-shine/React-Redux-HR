@@ -7,7 +7,6 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
 import * as actions from 'appRedux/actions';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsWorkingHoursSummary from 'appRedux/workingHours/actions/workingHoursSummary';
 
 class ManageWorkingHours extends React.Component {
@@ -22,14 +21,13 @@ class ManageWorkingHours extends React.Component {
     this.onWorkingHoursChange = this.onWorkingHoursChange.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1;
     this.props.onWorkingHoursSummary(year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -70,8 +68,7 @@ function mapStateToProps (state) {
     frontend:            state.frontend.toJS(),
     loggedUser:          state.logged_user.userLogin,
     userDaySummary:      state.userDaySummary.toJS(),
-    workingHoursSummary: state.workingHoursSummary.toJS(),
-    policy_documents:    state.policyDocuments.toJS()
+    workingHoursSummary: state.workingHoursSummary.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -84,9 +81,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDayWorkingHours: (date, time) => {
       return dispatch(actionsWorkingHoursSummary.update_day_working_hours(date, time));
-    },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
     }
   };
 };

@@ -17,11 +17,10 @@ import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDet
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
-import * as actionsGetTeamData from 'src/actions/admin/teamList';
 import * as actions from 'appRedux/actions';
+import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
-import * as actionsPolicy from 'appRedux/policyDocuments/actions/index';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
 
 class ManageUsers extends React.Component {
@@ -49,12 +48,11 @@ class ManageUsers extends React.Component {
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchUserPolicyDocument();
     this.props.onUsersList();
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -138,10 +136,10 @@ class ManageUsers extends React.Component {
   }
   handleOpenIframe () {
     this.setState({openIframe: true});
-  };
+  }
   handleCloseIframe () {
     this.setState({openIframe: false});
-  };
+  }
   render () {
     return (
       <div>
@@ -232,13 +230,12 @@ class ManageUsers extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    managePayslips:   state.managePayslips.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    usersList:        state.usersList.toJS(),
-    manageUsers:      state.manageUsers.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    teamList:         state.teamList.toJS()
+    frontend:       state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    manageUsers:    state.manageUsers.toJS(),
+    teamList:       state.teamList.toJS()
   };
 }
 
@@ -280,9 +277,6 @@ const mapDispatchToProps = (dispatch) => {
     onUserManagePayslipsData: (userid) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
-    onFetchUserPolicyDocument: () => {
-      return dispatch(actionsPolicy.fetchUserPolicyDocument());
-    },
     onFetchTeam: () => {
       return dispatch(actionsGetTeamData.get_all_team());
     }
@@ -296,7 +290,6 @@ export default RouterVisibleManageUsers;
 
 ManageUsers.PropTypes = {
   onIsAlreadyLogin:           PropTypes.func.isRequired,
-  onFetchUserPolicyDocument:  PropTypes.func.isRequired,
   onFetchTeam:                PropTypes.func.isRequired,
   onUserProfileDetails:       React.PropTypes.func.isRequired,
   onGetUserDocument:          PropTypes.func.isRequired,

@@ -49,7 +49,7 @@ class ManageSalary extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser.isLoggedIn, props.policy_documents.policyDocuments);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -206,7 +206,12 @@ class ManageSalary extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {policy_documents: state.policyDocuments.toJS(), frontend: state.frontend.toJS(), loggedUser: state.logged_user.userLogin, usersList: state.usersList.toJS(), manageSalary: state.manageSalary.toJS()};
+  return {
+    frontend:     state.frontend.toJS(),
+    loggedUser:   state.logged_user.userLogin,
+    usersList:    state.usersList.toJS(),
+    manageSalary: state.manageSalary.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {

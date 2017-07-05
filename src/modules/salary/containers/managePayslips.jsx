@@ -10,7 +10,7 @@ import ManagePayslipsUsersList from 'modules/salary/components/managePayslips/Ma
 import FormGeneratePaySlip from 'modules/salary/components/managePayslips/FormGeneratePaySlip';
 import EmployeeActualSalary from 'modules/salary/components/managePayslips/EmployeeActualSalary';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_managePayslips from 'appRedux/salary/actions/managePayslips';
 
@@ -44,7 +44,7 @@ class ManagePayslips extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -212,12 +212,17 @@ class ManagePayslips extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), managePayslips: state.managePayslips.toJS()};
+  return {
+    frontend:       state.frontend.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    managePayslips: state.managePayslips.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list());

@@ -5,7 +5,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import DocumentsList from 'modules/policyDocuments/components/DocumentsList';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 
 class PolicyDocumentContainer extends React.Component {
@@ -20,7 +20,7 @@ class PolicyDocumentContainer extends React.Component {
     this.props.onFetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -43,14 +43,14 @@ class PolicyDocumentContainer extends React.Component {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     policy_documents: state.policyDocuments.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onFetchUserPolicyDocument: () => {
       return dispatch(actions_policy.fetchUserPolicyDocument());

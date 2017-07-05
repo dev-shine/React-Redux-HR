@@ -5,94 +5,94 @@ import {ButtonRaised, ButtonFlat} from 'components/generic/buttons';
 
 class ViewLeave extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
-      messagetouser: '',
-      notifyMsg: 'Document Required Notification Sent',
+      messagetouser:     '',
+      notifyMsg:         'Document Required Notification Sent',
       document_required: true,
-      user_token: '',
-      messageByHr: '',
-      edit: false,
-      editedComment: ''
+      user_token:        '',
+      messageByHr:       '',
+      edit:              false,
+      editedComment:     ''
 
-    }
-    this.handleNotify = this.handleNotify.bind(this)
-    this.handleComment = this.handleComment.bind(this)
-    this.handleExtraDay = this.handleExtraDay.bind(this)
-    this.handleSave = this.handleSave.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
+    };
+    this.handleNotify = this.handleNotify.bind(this);
+    this.handleComment = this.handleComment.bind(this);
+    this.handleExtraDay = this.handleExtraDay.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentWillReceiveProps (props) {
-    let token = localStorage.getItem('hr_logged_user')
-    this.setState({user_token: token})
-    this.setState({ messagetouser: '', edit: false })
+    let token = localStorage.getItem('hr_logged_user');
+    this.setState({user_token: token});
+    this.setState({messagetouser: '', edit: false});
   }
   handleSave (data) {
-    this.props.onAddDescription(this.props.selectedLeave.id, this.state.messageByHr, data)
+    this.props.onAddDescription(this.props.selectedLeave.id, this.state.messageByHr, data);
     this.setState({
-      edit: false,
+      edit:        false,
       messageByHr: ''
-    })
+    });
   }
 
   handleUpdate (data) {
-    this.props.onAddDescription(this.props.selectedLeave.id, this.state.editedComment, data)
+    this.props.onAddDescription(this.props.selectedLeave.id, this.state.editedComment, data);
     this.setState({
-      edit: false,
+      edit:          false,
       editedComment: ''
-    })
+    });
   }
 
   handleExtraDay (day) {
-    this.props.onAddExtraDay(this.props.selectedLeave.id, this.state.user_token, day)
+    this.props.onAddExtraDay(this.props.selectedLeave.id, this.state.user_token, day);
   }
   handleNotify () {
-    this.props.onDocRequired(this.props.selectedLeave.id, '1', '')
+    this.props.onDocRequired(this.props.selectedLeave.id, '1', '');
   }
   handleComment () {
-    this.props.onDocRequired(this.props.selectedLeave.id, '', this.state.messagetouser)
+    this.props.onDocRequired(this.props.selectedLeave.id, '', this.state.messagetouser);
   }
   handleEdit () {
-    let comments = this.props.selectedLeave.hr_comment
+    let comments = this.props.selectedLeave.hr_comment;
     this.setState({
-      edit: true,
+      edit:          true,
       editedComment: comments
-    })
+    });
   }
 
   changeStatus (leaveid, newstatus) {
-    this.props.doLeaveStatusChange(leaveid, newstatus, this.state.messagetouser)
+    this.props.doLeaveStatusChange(leaveid, newstatus, this.state.messagetouser);
   }
 
   _getChangeStatusButtons (leaveid, status) {
-    let statusList = [ 'Approved', 'Pending', 'Rejected' ]
-    let HRDisplay = ''
-    if (this.props.logged_user.role == CONFIG.HR) {
-      HRDisplay = 'none'
+    let statusList = [ 'Approved', 'Pending', 'Rejected' ];
+    let HRDisplay = '';
+    if (this.props.loggedUser.data.role == CONFIG.HR) {
+      HRDisplay = 'none';
     }
     if (this.props.selectedLeave.status === 'Approved') {
-      HRDisplay = 'none'
+      HRDisplay = 'none';
     }
     if (this.props.selectedLeave.status === 'Rejected') {
-      HRDisplay = 'none'
+      HRDisplay = 'none';
     }
     let soptions = _.map(statusList, (s, k) => {
-      let leaveStatusColor = ''
+      let leaveStatusColor = '';
 
       if (s == status) {
 
       } else if (s == 'Approved') {
-        return <ButtonRaised key={k} style={{display: HRDisplay}} className="indigo" onClick={() => this.changeStatus(leaveid, s)} label="Approve"/>
+        return <ButtonRaised key={k} style={{display: HRDisplay}} className="indigo" onClick={() => this.changeStatus(leaveid, s)} label="Approve" />;
       } else if (s == 'Pending') {
-        return <ButtonRaised key={k} style={{display: HRDisplay}} className="blue" onClick={() => this.changeStatus(leaveid, s)} label="Mark Pending"/>
+        return <ButtonRaised key={k} style={{display: HRDisplay}} className="blue" onClick={() => this.changeStatus(leaveid, s)} label="Mark Pending" />;
       } else if (s == 'Rejected') {
-        return <ButtonFlat key={k} style={{display: HRDisplay}} className="m-b-sm text-danger" onClick={() => this.changeStatus(leaveid, s)} label="Reject"/>
+        return <ButtonFlat key={k} style={{display: HRDisplay}} className="m-b-sm text-danger" onClick={() => this.changeStatus(leaveid, s)} label="Reject" />;
       }
-    })
+    });
 
-    return soptions
+    return soptions;
   }
 
   _getLastAppliedLeaves (dd) {
@@ -101,14 +101,14 @@ class ViewLeave extends React.Component {
         <div className="sl-item b-info" key={k}>
           <div className="sl-content">
             <div className="sl-date text-muted">  Applied On  : {d.applied_on}</div>
-              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}</div>
+              <div className="sl-date text-muted">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {d.from_date} to {d.to_date} / No of Days : {d.no_of_days}</div>
               <div>
             {d.status} - {d.reason}
               </div>
             </div>
         </div>
-      )
-    })
+      );
+    });
 
     return (
       <div className="box-body">
@@ -116,7 +116,7 @@ class ViewLeave extends React.Component {
           {prev_leaves}
         </div>
       </div>
-    )
+    );
   }
   _notify () {
     if (!_.isUndefined(this.props.selectedLeave.doc_require) && this.props.selectedLeave.doc_require != '0') {
@@ -124,38 +124,38 @@ class ViewLeave extends React.Component {
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
             <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
           </div>
-      )
+      );
     }
   }
 
   render () {
-    let styles = _.cloneDeep(this.constructor.styles)
-    let notify = this._notify()
-    let changeStatusButton = this._getChangeStatusButtons(this.props.selectedLeave.id, this.props.selectedLeave.status)
-    let key = parseInt(this.props.keyval)
+    let styles = _.cloneDeep(this.constructor.styles);
+    let notify = this._notify();
+    let changeStatusButton = this._getChangeStatusButtons(this.props.selectedLeave.id, this.props.selectedLeave.status);
+    let key = parseInt(this.props.keyval);
 
       // previoud leaves
-    let last_applied_leaves = this.props.selectedLeave.last_applied_leaves
-    let last_applied_leaves_html = ''
+    let last_applied_leaves = this.props.selectedLeave.last_applied_leaves;
+    let last_applied_leaves_html = '';
     if (typeof last_applied_leaves !== 'undefined' && last_applied_leaves.length > 0) {
-      let aa = this._getLastAppliedLeaves(this.props.selectedLeave.last_applied_leaves)
-      last_applied_leaves_html = <div><hr /><h5>Leave history</h5>{aa}</div>
+      let aa = this._getLastAppliedLeaves(this.props.selectedLeave.last_applied_leaves);
+      last_applied_leaves_html = <div><hr /><h5>Leave history</h5>{aa}</div>;
     }
-    let display = ''
-    if (this.props.logged_user.role == CONFIG.ADMIN && this.props.selectedLeave.hr_comment === '') {
-      display = 'none'
+    let display = '';
+    if (this.props.loggedUser.data.role == CONFIG.ADMIN && this.props.selectedLeave.hr_comment === '') {
+      display = 'none';
     }
-    let HRDisplay = ''
-    if (this.props.logged_user.role == CONFIG.ADMIN) {
-      HRDisplay = 'none'
+    let HRDisplay = '';
+    if (this.props.loggedUser.data.role == CONFIG.ADMIN) {
+      HRDisplay = 'none';
     }
-    let adminDisplay = ''
-    if (this.props.logged_user.role == CONFIG.HR) {
-      adminDisplay = 'none'
+    let adminDisplay = '';
+    if (this.props.loggedUser.data.role == CONFIG.HR) {
+      adminDisplay = 'none';
     }
-    let status = this.props.selectedLeave.status
+    let status = this.props.selectedLeave.status;
     if (this.props.selectedLeave.status === 'Pending' && this.props.selectedLeave.hr_approved === '1') {
-      status = 'Approved By HR'
+      status = 'Approved By HR';
     }
 
     return (
@@ -176,7 +176,7 @@ class ViewLeave extends React.Component {
               </div>
             </div>
             <div className="col-sm-8">
-            <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </i></div>
+            <div>Status - <i><b>{status}</b>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </i></div>
             <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>
@@ -206,21 +206,21 @@ class ViewLeave extends React.Component {
             {
               this.props.selectedLeave.doc_require == '0' && this.props.selectedLeave.hr_approved !== '2' && this.props.selectedLeave.status !== 'Approved'
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <ButtonRaised className="indigo" onClick={this.handleNotify} label="Notify Document Required"/>
+                <ButtonRaised className="indigo" onClick={this.handleNotify} label="Notify Document Required" />
               </div> : null
             }
             {
               this.props.selectedLeave.hr_approved === '0' && this.props.selectedLeave.hr_comment != ''
               ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <ButtonRaised className="indigo" onClick={() => { this.handleSave('1') }} label="HR Approval"/>
-                <ButtonRaised className="indigo" style={{marginLeft: '3px'}} onClick={() => { this.handleSave('2') }} label="HR Rejected"/>
+                <ButtonRaised className="indigo" onClick={() => { this.handleSave('1'); }} label="HR Approval" />
+                <ButtonRaised className="indigo" style={{marginLeft: '3px'}} onClick={() => { this.handleSave('2'); }} label="HR Rejected" />
 
             </div>
                : null
             }
             {
                 this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '2'
-              ? <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
+              ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
                    <label style={{fontWeight: '500'}}>Approved By HR</label>
                  </div>
                  : null
@@ -228,7 +228,7 @@ class ViewLeave extends React.Component {
 
             {
                 this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '1'
-              ? <div className="text-left" style={{ marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
+              ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
                    <label style={{fontWeight: '500'}}>Rejected By HR</label>
                  </div>
                  : null
@@ -243,7 +243,7 @@ class ViewLeave extends React.Component {
                 ? null
                 : <form method="get" target="_blank" action={this.props.selectedLeave.doc_link}>
                 <div className=" text-left" style={{marginTop: '10px'}}>
-                  <ButtonRaised className="indigo" label="View Document"/>
+                  <ButtonRaised className="indigo" label="View Document" />
                 </div>
             </form>
             }
@@ -253,19 +253,19 @@ class ViewLeave extends React.Component {
               : <div className='row m-0' style={{display: adminDisplay}}>
                 <div className='col-sm-3 p-0 pt-5'>
                   <div className=" text-left" style={{marginTop: '10px'}}>
-                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('0.5') }} label="Add Half Day"/>
+                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('0.5'); }} label="Add Half Day" />
                   </div>
                 </div>
                 <div className='col-sm-3 p-0'>
                   <div className="text-left" style={{marginTop: '10px'}}>
-                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('1') }} label="Add Full Day"/>
+                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('1'); }} label="Add Full Day" />
                   </div>
                 </div>
                 {
                   this.props.selectedLeave.extra_day == '0' ? null
                   : <div className='col-sm-4 p-0'>
                     <div className="text-left" style={{marginTop: '10px'}}>
-                      <ButtonRaised className="red" onClick={() => { this.handleExtraDay('0') }} label="Remove Extra Day"/>
+                      <ButtonRaised className="red" onClick={() => { this.handleExtraDay('0'); }} label="Remove Extra Day" />
                     </div>
                   </div>
                 }
@@ -281,9 +281,9 @@ class ViewLeave extends React.Component {
               this.props.selectedLeave.comment === ''
               ? <div style={{display: adminDisplay}}>
               <b>Enter message for employee</b><br />
-              <input type="text" className="md-input" onChange={(e) => this.setState({ messagetouser: e.target.value})} value={this.state.messagetouser} />
+              <input type="text" className="md-input" onChange={(e) => this.setState({messagetouser: e.target.value})} value={this.state.messagetouser} />
               <div className="text-right" style={{marginTop: '10px'}}>
-                <ButtonRaised className="indigo" onClick={this.handleComment} label="Comment"/>
+                <ButtonRaised className="indigo" onClick={this.handleComment} label="Comment" />
               </div>
             </div> : <div>
             <b>Comment</b><br />
@@ -293,21 +293,21 @@ class ViewLeave extends React.Component {
             </div>
             }
             {
-              this.props.selectedLeave.hr_comment === '' && this.props.logged_user.role == CONFIG.HR
+              this.props.selectedLeave.hr_comment === '' && this.props.loggedUser.data.role == CONFIG.HR
               ? <div>
               <b>Write Entire Leave Details After Talking To Employee</b><br />
               <input type="text" className="md-input"
-                onChange={(e) => this.setState({ messageByHr: e.target.value})}
+                onChange={(e) => this.setState({messageByHr: e.target.value})}
                 value={this.state.messageByHr} />
               <div className="text-right" style={{marginTop: '10px'}}>
-                <ButtonRaised className="indigo" onClick={() => { this.handleSave('') }} label="Save"/>
+                <ButtonRaised className="indigo" onClick={() => { this.handleSave(''); }} label="Save" />
               </div>
             </div>
              : null
            }
            <div>
            <div>
-           {this.props.logged_user.role == CONFIG.HR && this.props.selectedLeave.hr_comment === ''
+           {this.props.loggedUser.data.role == CONFIG.HR && this.props.selectedLeave.hr_comment === ''
              ? null : <div style={{display: display}}>
             <b>Description By HR</b><br />
             <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
@@ -317,7 +317,7 @@ class ViewLeave extends React.Component {
              }
 
                {
-                 this.state.edit && this.props.logged_user.role == CONFIG.HR
+                 this.state.edit && this.props.loggedUser.data.role == CONFIG.HR
                  ? <div>
                    <input type="text" className="md-input"
                      contentEditable="true"
@@ -336,10 +336,10 @@ class ViewLeave extends React.Component {
                    {
                      this.state.edit
                      ? <div className="text-left" style={{marginTop: '10px'}}>
-                     <ButtonRaised className="indigo" onClick={() => { this.handleUpdate('') }} label="Save"/>
+                     <ButtonRaised className="indigo" onClick={() => { this.handleUpdate(''); }} label="Save" />
                      </div>
                      : <div className=" text-left" style={{marginTop: '10px'}}>
-                     <ButtonRaised className="indigo" onClick={() => { this.handleEdit() }} label="Edit"/>
+                     <ButtonRaised className="indigo" onClick={() => { this.handleEdit(); }} label="Edit" />
                      </div>
                    }
                  </div>
@@ -357,7 +357,7 @@ class ViewLeave extends React.Component {
     </div>
   </div>
 
-	  )
+	  );
   }
 }
 
@@ -365,6 +365,6 @@ ViewLeave.styles = {
   leaveDiv: {
     'marginBottom': '10px'
   }
-}
+};
 
-export default ViewLeave
+export default ViewLeave;

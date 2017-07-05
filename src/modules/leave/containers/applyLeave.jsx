@@ -9,8 +9,9 @@ import {CONFIG} from 'src/config/index';
 import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
 import ApplyLeaveForm from 'modules/leave/components/applyLeave/ApplyLeaveForm';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
+import * as actions_policy from 'appRedux/policyDocuments/actions/index';
 import * as actions_apply_leave from 'appRedux/leave/actions/applyLeave';
 
 const styles = {
@@ -34,20 +35,23 @@ class ApplyLeave extends React.Component {
     this.onUserClick = this.onUserClick.bind(this);
     this.doApplyLeave = this.doApplyLeave.bind(this);
   }
+  componentWillMount () {
+    this.props.onFetchUserPolicyDocument();
+  }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    if (props.logged_user.role === CONFIG.ADMIN || props.logged_user.role === CONFIG.HR) {
+    if (props.loggedUser.data.role === CONFIG.ADMIN || props.loggedUser.data.role === CONFIG.HR) {
       if (this.state.defaultUserDisplay === '') {
         props.onUsersList();
       }
     }
   }
   componentDidUpdate () {
-    if (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR) {
+    if (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR) {
       if (this.state.defaultUserDisplay === '') {
         if (this.props.usersList.users.length > 0) {
           let firstUser = this.props.usersList.users[0];
@@ -97,7 +101,7 @@ class ApplyLeave extends React.Component {
         {this.props.applyLeave.status_message}</span>;
     }
 
-    let mainDivs = (this.props.logged_user.role === CONFIG.ADMIN || this.props.logged_user.role === CONFIG.HR
+    let mainDivs = (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR
       ? <div className="row">
         <div className="col-md-2">
           <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} />
@@ -149,7 +153,7 @@ ApplyLeave.styles = {
 function mapStateToProps (state) {
   return {
     frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
+    loggedUser:       state.logged_user.userLogin,
     usersList:        state.usersList.toJS(),
     applyLeave:       state.applyLeave.toJS(),
     policy_documents: state.policyDocuments.toJS()
@@ -159,7 +163,7 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onApplyLeave: (from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason) => {
       return dispatch(actions_apply_leave.apply_leave(from_date, to_date, no_of_days, reason, userId, day_status, leaveType, late_reason));
@@ -169,6 +173,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUsersList: () => {
       return dispatch(actions_usersList.get_users_list());
+    },
+    onFetchUserPolicyDocument: () => {
+      return dispatch(actions_policy.fetchUserPolicyDocument());
     }
   };
 };

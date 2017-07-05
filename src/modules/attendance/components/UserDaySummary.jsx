@@ -6,16 +6,16 @@ class UserDaySummary extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      current_userid: '',
-      current_date: '',
+      current_userid:  '',
+      current_date:    '',
       form_entry_time: '',
-      form_exit_time: '',
-      form_reason: '',
-      formInfo: '',
-      inputAccess: '',
-      buttonAccess: 'show',
-      year: '',
-      month: ''
+      form_exit_time:  '',
+      form_reason:     '',
+      formInfo:        '',
+      inputAccess:     '',
+      buttonAccess:    'show',
+      year:            '',
+      month:           ''
     };
     this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
   }
@@ -23,7 +23,7 @@ class UserDaySummary extends React.Component {
     $('.timepickerInput').timepicker({'minTime': '09:00 AM', 'maxTime': '09:00 PM', 'timeFormat': 'h:i A', 'step': 5});
   }
   componentWillReceiveProps (props) {
-    if (this.props.logged_user.role == CONFIG.EMPLOYEE) {
+    if (this.props.loggedUser.data.role === CONFIG.EMPLOYEE) {
       this.setState({formInfo: 'show'});
     } else {
       this.setState({formInfo: 'hidden'});
@@ -32,25 +32,25 @@ class UserDaySummary extends React.Component {
     let date = props.date;
     let year = props.year;
     let month = props.month;
-    if (this.props.logged_user.role == CONFIG.EMPLOYEE && props.userDaySummary.entry_time != '' && props.userDaySummary.exit_time != '') {
+    if (this.props.loggedUser.data.role == CONFIG.EMPLOYEE && props.userDaySummary.entry_time != '' && props.userDaySummary.exit_time != '') {
       this.setState({inputAccess: 'true', buttonAccess: 'hidden'});
     } else {
       this.setState({inputAccess: ''});
     }
     this.setState({
-      year: props.year,
-      month: props.month,
-      current_userid: props.userDaySummary.userid,
-      current_date: props.date,
+      year:            props.year,
+      month:           props.month,
+      current_userid:  props.userDaySummary.userid,
+      current_date:    props.date,
       form_entry_time: props.userDaySummary.entry_time,
-      form_exit_time: props.userDaySummary.exit_time,
-      form_reason: this.state.form_reason
+      form_exit_time:  props.userDaySummary.exit_time,
+      form_reason:     this.state.form_reason
     });
   }
 
   doUpdateDaySummary (evt) {
     evt.preventDefault();
-    if (this.props.logged_user.role != CONFIG.EMPLOYEE) {
+    if (this.props.loggedUser.data.role != CONFIG.EMPLOYEE) {
       this.props.onUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
         notify(error);
       });

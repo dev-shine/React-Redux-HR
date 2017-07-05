@@ -6,7 +6,7 @@ import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
 import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
@@ -23,7 +23,7 @@ class UploadAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -31,11 +31,11 @@ class UploadAttendance extends React.Component {
 
   handleOpenIframe () {
     this.setState({openIframe: true});
-  };
+  }
 
   handleCloseIframe () {
     this.setState({openIframe: false});
-  };
+  }
   render () {
     return (
       <div>
@@ -60,18 +60,17 @@ class UploadAttendance extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    managePayslips:   state.managePayslips.toJS(),
-    logged_user:      state.logged_user.toJS(),
-    usersList:        state.usersList.toJS(),
-    manageUsers:      state.manageUsers.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:       state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    manageUsers:    state.manageUsers.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

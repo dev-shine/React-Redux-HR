@@ -10,7 +10,7 @@ import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
 import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
 import UsersRolesList from 'components/generic/UsersRolesList';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
@@ -31,7 +31,7 @@ class ManageRoles extends React.Component {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -111,17 +111,16 @@ class ManageRoles extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    usersList:        state.usersList.toJS(),
-    manageRoles:      state.manageRoles.toJS()
+    frontend:    state.frontend.toJS(),
+    loggedUser:  state.logged_user.userLogin,
+    usersList:   state.usersList.toJS(),
+    manageRoles: state.manageRoles.toJS()
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIsAlreadyLogin: () => { return dispatch(actionsLogin.isAlreadyLogin()); },
+    onIsAlreadyLogin: () => { return dispatch(actions.isAlreadyLogin()); },
     onAddNewRole:     (newRoleDetails) => { return dispatch(actionsManageRoles.addNewRole(newRoleDetails)); },
     onRolesList:      () => { return dispatch(actionsManageRoles.getRolesList()); },
     onUpdateRole:     (roleUpdateDetails) => { return dispatch(actionsManageRoles.updateRoles(roleUpdateDetails)); },
@@ -141,9 +140,9 @@ ManageRoles.PropTypes = {
   route:                     PropTypes.shape({
     path: PropTypes.string.isRequired
   }).isRequired,
-  logged_user: PropTypes.shape({
-    logged_in: PropTypes.number.isRequired,
-    role:      PropTypes.string.isRequired
+  loggedUser: PropTypes.shape({
+    isLoggedIn: PropTypes.bool.isRequired,
+    data:       PropTypes.object.isRequired
   }).isRequired,
   policy_documents: PropTypes.shape({
     policyDocuments: PropTypes.object

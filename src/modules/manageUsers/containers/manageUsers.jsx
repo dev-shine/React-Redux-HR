@@ -17,8 +17,8 @@ import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDet
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
+import * as actions from 'appRedux/actions';
 import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
-import * as actionsLogin from 'appRedux/auth/actions/index';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
@@ -52,7 +52,7 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -136,10 +136,10 @@ class ManageUsers extends React.Component {
   }
   handleOpenIframe () {
     this.setState({openIframe: true});
-  };
+  }
   handleCloseIframe () {
     this.setState({openIframe: false});
-  };
+  }
   render () {
     return (
       <div>
@@ -230,20 +230,19 @@ class ManageUsers extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    managePayslips:   state.managePayslips.toJS(),
-    logged_user:      state.logged_user.toJS(),
-    usersList:        state.usersList.toJS(),
-    manageUsers:      state.manageUsers.toJS(),
-    policy_documents: state.policyDocuments.toJS(),
-    teamList:         state.teamList.toJS()
+    frontend:       state.frontend.toJS(),
+    managePayslips: state.managePayslips.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    manageUsers:    state.manageUsers.toJS(),
+    teamList:       state.teamList.toJS()
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

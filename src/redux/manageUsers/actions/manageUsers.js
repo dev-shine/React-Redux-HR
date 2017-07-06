@@ -21,7 +21,7 @@ export function error_user_profile (data) {
 
 function async_getUserProfileDetails (userid) {
   return fireAjax('POST', '', {
-    'action':  'get_user_profile_detail',
+    'action':  'get_user_profile_detail_by_id',
     'user_id': userid
   });
 }
@@ -58,7 +58,7 @@ function async_updateUserProfileDetails (n_user_id, n_name, n_jobtitle, n_team, 
   n_dob, n_marital_status, n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
   n_training_completion_date, n_termination_date, n_holding_comments, n_training_month, n_send_slack_msg, n_slack_msg) {
   return fireAjax('POST', '', {
-    'action':                   'update_user_profile_detail',
+    'action':                   'update_user_profile_detail_by_id',
     'user_id':                  n_user_id,
     'marital_status':           n_marital_status,
     'name':                     n_name,
@@ -374,7 +374,7 @@ export function error_user_document (data) {
 
 function async_getUserDocument (userid) {
   return fireAjax('POST', '', {
-    'action':  'get_user_document',
+    'action':  'get_user_document_by_id',
     'user_id': userid
   });
 }

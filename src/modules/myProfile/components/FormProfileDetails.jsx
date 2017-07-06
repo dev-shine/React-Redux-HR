@@ -1,6 +1,5 @@
 import React from 'react';
-import * as _ from 'lodash';
-
+import PropTypes from 'prop-types';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
 
@@ -8,39 +7,39 @@ class FormProfileDetails extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      user_id: '',
-      name: '',
-      jobtitle: '',
-      dateofjoining: '',
-      dob: '',
-      gender: '',
+      user_id:        '',
+      name:           '',
+      jobtitle:       '',
+      dateofjoining:  '',
+      dob:            '',
+      gender:         '',
       marital_status: 'Single',
-      address1: '',
-      address2: '',
-      emr_con_1: '',
-      emr_con_2: '',
-      work_email: '',
-      emp_email: '',
-      blood_group: '',
-      medical_con: ''
+      address1:       '',
+      address2:       '',
+      emr_con_1:      '',
+      emr_con_2:      '',
+      work_email:     '',
+      emp_email:      '',
+      blood_group:    '',
+      medical_con:    ''
     };
   }
   componentWillReceiveProps (props) {
     this.setState({
-      name: props.user_profile_detail.name || '',
-      jobtitle: props.user_profile_detail.jobtitle || '',
-      dateofjoining: props.user_profile_detail.dateofjoining || '',
-      dob: props.user_profile_detail.dob || '',
-      gender: props.user_profile_detail.gender || '',
+      name:           props.user_profile_detail.name || '',
+      jobtitle:       props.user_profile_detail.jobtitle || '',
+      dateofjoining:  props.user_profile_detail.dateofjoining || '',
+      dob:            props.user_profile_detail.dob || '',
+      gender:         props.user_profile_detail.gender || '',
       marital_status: props.user_profile_detail.marital_status || 'Single',
-      address1: props.user_profile_detail.current_address || '',
-      address2: props.user_profile_detail.permanent_address || '',
-      emr_con_1: props.user_profile_detail.emergency_ph1 || '',
-      emr_con_2: props.user_profile_detail.emergency_ph2 || '',
-      work_email: props.user_profile_detail.work_email || '',
-      emp_email: props.user_profile_detail.other_email || '',
-      blood_group: props.user_profile_detail.blood_group || '',
-      medical_con: props.user_profile_detail.medical_condition || ''
+      address1:       props.user_profile_detail.current_address || '',
+      address2:       props.user_profile_detail.permanent_address || '',
+      emr_con_1:      props.user_profile_detail.emergency_ph1 || '',
+      emr_con_2:      props.user_profile_detail.emergency_ph2 || '',
+      work_email:     props.user_profile_detail.work_email || '',
+      emp_email:      props.user_profile_detail.other_email || '',
+      blood_group:    props.user_profile_detail.blood_group || '',
+      medical_con:    props.user_profile_detail.medical_condition || ''
     });
   }
 
@@ -49,8 +48,7 @@ class FormProfileDetails extends React.Component {
       <div>
         <h6 className="text-center">Personal Details</h6>
         <div className="form-group">
-          <label>
-            User Name</label>
+          <label>User Name</label>
           <input type="text" className="form-control" value={this.state.name} disabled />
         </div>
 
@@ -65,14 +63,13 @@ class FormProfileDetails extends React.Component {
 
         <div className="form-group">
           <label>Date of Birth</label>
-            <DateField
-              dateFormat="YYYY-MM-DD"
-              value={this.state.dob}
-              onChange={(date) => { this.setState({ dob: date }); }}
-              className="form-control"
+          <DateField
+            dateFormat="YYYY-MM-DD"
+            value={this.state.dob}
+            onChange={(date) => { this.setState({dob: date}); }}
+            className="form-control"
             />
         </div>
-
         <div className="row no-gutter">
           <div className="col-md-6 p-r">
             <div className="form-group">
@@ -87,7 +84,6 @@ class FormProfileDetails extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row no-gutter">
           <div className="col-md-6 p-r">
             <div className="form-group">
@@ -97,8 +93,7 @@ class FormProfileDetails extends React.Component {
           </div>
           <div className="col-md-6">
             <div className="form-group">
-              <label>
-                Emergency Contact Information 2</label>
+              <label>Emergency Contact Information 2</label>
               <input type="text" className="form-control" ref="emr_con_2" onChange={() => this.setState({emr_con_2: this.refs.emr_con_2.value})} value={this.state.emr_con_2} />
             </div>
           </div>
@@ -127,7 +122,6 @@ class FormProfileDetails extends React.Component {
             <option value="ab-">AB-</option>
           </select>
         </div>
-
         <div className="form-group">
           <label>Any Medical Conditions</label>
           <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={() => this.setState({medical_con: this.refs.medical_con.value})} value={this.state.medical_con}></textarea>
@@ -137,5 +131,20 @@ class FormProfileDetails extends React.Component {
     );
   }
 }
-
+FormProfileDetails.propTypes = {
+  name:           PropTypes.string,
+  jobtitle:       PropTypes.string,
+  dateofjoining:  PropTypes.string,
+  dob:            PropTypes.string,
+  gender:         PropTypes.string,
+  marital_status: PropTypes.string,
+  address1:       PropTypes.string,
+  address2:       PropTypes.string,
+  emr_con_1:      PropTypes.number,
+  emr_con_2:      PropTypes.number,
+  work_email:     PropTypes.string,
+  emp_email:      PropTypes.string,
+  blood_group:    PropTypes.string,
+  medical_con:    PropTypes.string
+};
 export default FormProfileDetails;

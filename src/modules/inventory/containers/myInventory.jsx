@@ -8,7 +8,7 @@ import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actionsLogin from 'appRedux/auth/actions/index';
-import * as actionsMyProfile from 'src/actions/user/myProfile';
+import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
 
 class MyInventory extends React.Component {
   constructor (props) {

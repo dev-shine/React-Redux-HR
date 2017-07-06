@@ -61,7 +61,7 @@ import Page_AddVariables from './modules/templates/containers/addVariables';
 import Page_TeamView from './modules/team/containers/viewTeam';
 
 // -user
-import Page_MyProfile from './containers/user/myProfile';
+import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 // -for iPhone iPad safari engine

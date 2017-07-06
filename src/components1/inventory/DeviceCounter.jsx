@@ -51,9 +51,9 @@ const DeviceCounter = ({deviceData, deviceName}) => {
 
 DeviceCounter.propTypes = {
   deviceData: PropTypes.shape({
-    total:           PropTypes.string.isRequired,
-    User_Assign:     PropTypes.string.isRequired,
-    User_Not_Assign: PropTypes.string.isRequired
+    total:           PropTypes.number.isRequired,
+    User_Assign:     PropTypes.number,
+    User_Not_Assign: PropTypes.number
   }),
   deviceName: PropTypes.string.isRequired
 };

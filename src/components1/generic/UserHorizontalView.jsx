@@ -5,17 +5,17 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
   let joining, details;
   if (!inventory) {
     joining = <p className="text-muted">
-      <span className="m-r">Joining Date : {this.props.dateofjoining}</span>
+      <span className="m-r">Joining Date : {dateofjoining}</span>
     </p>;
     details = <div className="col-sm-5">
       <p className="text-muted">
-        <span className="m-r">Gender :<b>{this.props.gender}</b></span>
+        <span className="m-r">Gender :<b>{gender}</b></span>
       </p>
       <p className="text-muted">
-        <span className="m-r">Date Of Birth :<b>{this.props.dob}</b></span>
+        <span className="m-r">Date Of Birth :<b>{dob}</b></span>
       </p>
       <p className="text-muted">
-        <span className="m-r">Work Email :<b>{this.props.work_email}</b></span>
+        <span className="m-r">Work Email :<b>{work_email}</b></span>
       </p>
     </div>;
   }

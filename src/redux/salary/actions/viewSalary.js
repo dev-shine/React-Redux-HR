@@ -15,8 +15,8 @@ export function empty_salary_details (data) {
 }
 
 function async_get_salary_details () {
-  return fireAjax('GET', '', {
-    'action': 'get_salary_details'
+  return fireAjax('POST', '', {
+    'action': 'get_user_salary_info' // 'get_salary_details'
   });
 }
 
@@ -26,6 +26,7 @@ export function getSalaryDetails () {
       dispatch(show_loading()); // show loading icon
       async_get_salary_details().then((json) => {
         dispatch(hide_loading()); // hide loading icon
+        console.log('json', json);
         if (typeof json.data !== 'undefined' && typeof json.data.salary_details !== 'undefined') {
           // let data = json.data.salary_details.reverse()
           // dispatch( success_salary_details( data ) )

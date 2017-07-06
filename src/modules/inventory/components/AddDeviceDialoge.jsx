@@ -13,7 +13,7 @@ export default class AddDeviceDialoge extends React.Component {
     this.state = {
       background: '',
       deviceType: '',
-      open: false,
+      open:       false,
       deviceList: [],
       checkValue: []
     };
@@ -91,7 +91,7 @@ export default class AddDeviceDialoge extends React.Component {
     ];
     return (
       <div>
-        {this.props.logged_user.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button> : null}
+        {this.props.loggedUser.data.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button> : null}
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}

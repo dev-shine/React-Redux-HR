@@ -29,18 +29,6 @@ class TeamList extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
-    if (props.logged_user.logged_in === -1) {
-      this.props.router.push('/logout');
-    } else {
-      if (props.logged_user.role === CONFIG.ADMIN) {
-      } else {
-        this.props.router.push('/home');
-      }
-    }
-  }
-
   openCreateTeam () {
     this.setState({
       dialogTitle:   'Add New Team',

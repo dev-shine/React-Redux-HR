@@ -1,99 +1,43 @@
 import {CONFIG} from '../config/index';
+import _ from 'lodash';
 import 'whatwg-fetch';
+
 export function notify (text) {
   alert(text);
 }
 
+const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail', 'update_user_profile_detail', 'get_all_clients', 'get_client_detail', 'create_new_client', 'create_client_invoice',
+  'update_client_details', 'delete_invoice', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary', 'send_payslips_to_employees', 'get_user_document', 'insert_user_document',
+  'delete_user_document', 'get_all_users_detail', 'create_template_variable', 'get_template_variable', 'delete_template_variable', 'update_template_variable', 'create_email_template', 'get_email_template',
+  'delete_email_template', 'update_email_template', 'send_employee_email', 'create_pdf', 'get_policy_document', 'save_policy_document', 'get_user_policy_document', 'update_user_policy_document',
+  'add_team_list', 'get_team_list', 'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id' ];
+
+const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role'];
+
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
-  let headers = {};
   let action = data.action;
-  if (method === 'GET') {
-    headers = {
-      method: 'GET',
-      mode:   'cors',
-      cache:  'no-cache'
-    };
-  } else if (method === 'POST') {
-    let token = localStorage.getItem('hr_logged_user');
-    data.token = token;
-    headers = {
-      method: 'POST',
-      mode:   'cors',
-      cache:  'no-cache',
-      body:   JSON.stringify(data)
-    };
-  }
+  let token = localStorage.getItem('hr_logged_user');
+  data.token = token;
+  let headers = {
+    method: method,
+    mode:   'cors',
+    cache:  'no-cache'
+  };
 
-  if (data.action === 'get_salary_details') {
-    let token = localStorage.getItem('hr_logged_user');
-    URL = CONFIG.api_url_salary + '/salary_info.php?token=' + token;
-  } else if (data.action === 'get_user_salary_details') {
-    let token = localStorage.getItem('hr_logged_user');
-    URL = CONFIG.api_url_salary + '/salary_info.php?token=' + token + '&user_id=' + data.userid;
-  } else if (data.action === 'add_user_salary') {
-    let token = localStorage.getItem('hr_logged_user');
+  if (data.action === 'add_user_salary') {
     delete (data.action);
-    data.token = token;
-    headers = {
-      method: 'POST',
-      mode:   'cors',
-      cache:  'no-cache',
-      body:   JSON.stringify(data)
-    };
+    headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_sal_structure.php';
   } else if (data.action === 'add_user_holding') {
-    let token = localStorage.getItem('hr_logged_user');
     delete (data.action);
-    data.token = token;
-    headers = {
-      method: 'POST',
-      mode:   'cors',
-      cache:  'no-cache',
-      body:   JSON.stringify(data)
-    };
+    headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_holding_info.php';
-  } else if (data.action === 'update_user_bank_details') {
-    // let token = localStorage.getItem('hr_logged_user');
-    // delete (data.action);
-    // data.token = token;
-    // headers = {
-    //   method: 'POST',
-    //   mode:   'cors',
-    //   cache:  'no-cache',
-    //   body:   JSON.stringify(data)
-    // };
-    // URL = CONFIG.api_url_salary + '/user_bank_detail.php';
-  } else if (data.action === 'get_user_profile_detail_by_id' || data.action === 'get_user_profile_detail' || data.action === 'update_user_bank_detail' || data.action === 'update_user_profile_detail_by_id' || data.action === 'update_user_profile_detail' ||
-    data.action === 'get_all_clients' || data.action === 'get_client_detail' || data.action === 'create_new_client' || data.action === 'create_client_invoice' ||
-    data.action === 'update_client_details' || data.action === 'delete_invoice' || data.action === 'get_user_manage_payslips_data' ||
-    data.action === 'create_employee_salary_slip' || data.action === 'delete_salary' || data.action === 'send_payslips_to_employees' ||
-    data.action === 'get_user_document_by_id' || data.action === 'get_user_document' || data.action === 'insert_user_document' || data.action === 'delete_user_document' || data.action === 'get_all_users_detail' ||
-    data.action === 'create_template_variable' || data.action === 'get_template_variable' || data.action === 'delete_template_variable' ||
-    data.action === 'update_template_variable' || data.action === 'create_email_template' || data.action === 'get_email_template' || data.action === 'delete_email_template' ||
-    data.action === 'update_email_template' || data.action === 'send_employee_email' || data.action === 'create_pdf' || data.action === 'get_policy_document' ||
-    data.action === 'save_policy_document' || data.action === 'get_user_policy_document' || data.action === 'update_user_policy_document' ||
-    data.action === 'add_team_list' || data.action === 'get_team_list' || data.action === 'get_team_users_detail') { // generic other new api url
-    let token = localStorage.getItem('hr_logged_user');
-    data.token = token;
-    headers = {
-      method: 'POST',
-      mode:   'cors',
-      cache:  'no-cache',
-      body:   JSON.stringify(data)
-    };
+  } else if (_.indexOf(actionsForOtherAPIurl, data.action) >= 0) {
+    headers.body = JSON.stringify(data);
     URL = CONFIG.other_api_url;
-  } else if (data.action === 'admin_user_apply_leave' || data.action === 'change_employee_status' || data.action === 'show_disabled_users' ||
-  data.action === 'add_roles' || data.action === 'list_all_roles' || data.action === 'update_role' || data.action === 'assign_user_role' ||
-  data.action === 'delete_role') {
-    let token = localStorage.getItem('hr_logged_user');
-    data.token = token;
-    headers = {
-      method: 'POST',
-      mode:   'cors',
-      cache:  'no-cache',
-      body:   JSON.stringify(data)
-    };
+  } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
+    headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
   }
 

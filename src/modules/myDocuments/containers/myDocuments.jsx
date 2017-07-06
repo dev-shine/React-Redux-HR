@@ -5,7 +5,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsMyDocument from 'appRedux/myDocuments/actions/myDocument';
 
 class MyDoduments extends React.Component {
@@ -22,7 +22,7 @@ class MyDoduments extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -41,7 +41,7 @@ class MyDoduments extends React.Component {
             <div className="padding">
               <div className="row no-gutter">
                 <div className="col-xs-12 p-t p-l">
-                  <FormMyDocuments my_documents={this.state.my_document} user_id={this.props.logged_user.userid} callUpdateDocuments={this.props.onUpdatedocuments} {...this.props} />
+                  <FormMyDocuments my_documents={this.state.my_document} user_id={this.props.loggedUser.data.id} callUpdateDocuments={this.props.onUpdatedocuments} {...this.props} />
                 </div>
               </div>
             </div>
@@ -54,17 +54,16 @@ class MyDoduments extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
-    myProfile:        state.myProfile.toJS(),
-    myDocuments:      state.myDocument.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:    state.frontend.toJS(),
+    loggedUser:  state.logged_user.userLogin,
+    myProfile:   state.myProfile.toJS(),
+    myDocuments: state.myDocument.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onGetMydocuments: () => {
       return dispatch(actionsMyDocument.getMyDocument());

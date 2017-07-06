@@ -1,18 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as actions_login from 'appRedux/auth/actions/index';
-import {notify} from 'src/services/index';
+import {bindActionCreators} from 'redux';
+import * as actions from 'appRedux/actions';
 
 class Logout extends React.Component {
   constructor (props) {
     super(props);
   }
   componentWillMount () {
-    if (this.props.logged_user.logged_in == 0) {
-      this.props.router.push('/');
+    if (this.props.loggedUser.isLoggedIn) {
+      this.props.requestLogout();
     } else {
-      this.props.onLogout();
+      this.props.router.push('/');
     }
   }
   componentWillReceiveProps (props) {
@@ -27,15 +27,11 @@ class Logout extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    logged_user: state.logged_user.toJS()
+    loggedUser: state.logged_user.userLogin
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogout: () => {
-      return dispatch(actions_login.logout());
-    }
-  };
+  return bindActionCreators(actions, dispatch);
 };
 
 const VisibleLogout = connect(

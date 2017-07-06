@@ -1,7 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import { DateField } from 'react-date-picker';
+import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
 import {CONFIG} from 'src/config/index';
 import Label from 'components/generic/label';
@@ -14,29 +14,29 @@ class FormUserProfileDetails extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      username: '',
-      user_id: '',
-      name: '',
-      jobtitle: '',
-      dateofjoining: '',
-      dob: '',
-      gender: '',
-      training_month: '',
-      marital_status: '',
-      team: '',
-      address1: '',
-      address2: '',
-      emergency_ph1: '',
-      emergency_ph2: '',
-      blood_group: '',
-      medical_condition: '',
-      work_email: '',
-      other_email: '',
+      username:                 '',
+      user_id:                  '',
+      name:                     '',
+      jobtitle:                 '',
+      dateofjoining:            '',
+      dob:                      '',
+      gender:                   '',
+      training_month:           '',
+      marital_status:           '',
+      team:                     '',
+      address1:                 '',
+      address2:                 '',
+      emergency_ph1:            '',
+      emergency_ph2:            '',
+      blood_group:              '',
+      medical_condition:        '',
+      work_email:               '',
+      other_email:              '',
       training_completion_date: '',
-      termination_date: '',
-      holding_comments: '',
-      send_slack_msg: '',
-      slack_msg: ''
+      termination_date:         '',
+      holding_comments:         '',
+      send_slack_msg:           '',
+      slack_msg:                ''
     };
     this.handleTest = this.handleTest.bind(this);
   }
@@ -146,28 +146,28 @@ class FormUserProfileDetails extends React.Component {
       slack_msg = userProfileDetail.slack_msg;
     }
     this.setState({
-      username: username,
-      user_id: user_id,
-      name: name,
-      jobtitle: jobtitle,
-      team: team,
-      dateofjoining: dateofjoining,
-      dob: dob,
-      gender: gender,
-      training_month: training_month,
-      marital_status: marital_status,
-      address1: address1,
-      address2: address2,
-      emergency_ph1: emergency_ph1,
-      emergency_ph2: emergency_ph2,
-      blood_group: blood_group,
-      medical_condition: medical_condition,
-      work_email: work_email,
-      other_email: other_email,
+      username:                 username,
+      user_id:                  user_id,
+      name:                     name,
+      jobtitle:                 jobtitle,
+      team:                     team,
+      dateofjoining:            dateofjoining,
+      dob:                      dob,
+      gender:                   gender,
+      training_month:           training_month,
+      marital_status:           marital_status,
+      address1:                 address1,
+      address2:                 address2,
+      emergency_ph1:            emergency_ph1,
+      emergency_ph2:            emergency_ph2,
+      blood_group:              blood_group,
+      medical_condition:        medical_condition,
+      work_email:               work_email,
+      other_email:              other_email,
       training_completion_date: training_completion_date,
-      termination_date: termination_date,
-      holding_comments: holding_comments,
-      slack_msg: slack_msg
+      termination_date:         termination_date,
+      holding_comments:         holding_comments,
+      slack_msg:                slack_msg
     });
   }
   handleTest () {
@@ -180,7 +180,7 @@ class FormUserProfileDetails extends React.Component {
   }
   render () {
     let teams = this.props.teamList.teams.length > 0 ? this.props.teamList.teams : [];
-    let userLevel = this.props.logged_user.role === CONFIG.ADMIN;
+    let userLevel = this.props.loggedUser.data.role === CONFIG.ADMIN;
     return (
       <div>
         <h6 className="text-center">Personal Details</h6>
@@ -230,7 +230,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Date Of Birth" text={'Date Of Birth ( eg. 27/1/1988 )'} />
               <DateField
                 dateFormat="YYYY-MM-DD"
-                onChange={(date, { dateMoment, timestamp }) => this.setState({dob: dateMoment})}
+                onChange={(date, {dateMoment, timestamp}) => this.setState({dob: dateMoment})}
                 value={this.state.dob}
                 className="form-control"
               />
@@ -451,8 +451,8 @@ class FormUserProfileDetails extends React.Component {
 export default FormUserProfileDetails;
 
 FormUserProfileDetails.propTypes = {
-  user_profile_detail: PropTypes.object.isRequired,
+  user_profile_detail:          PropTypes.object.isRequired,
   callUpdateUserProfileDetails: PropTypes.func.isRequired,
-  teamList: PropTypes.object.isRequired,
-  logged_user: PropTypes.object.isRequired
+  teamList:                     PropTypes.object.isRequired,
+  loggedUser:                   PropTypes.object.isRequired
 };

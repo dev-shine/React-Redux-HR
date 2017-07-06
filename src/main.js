@@ -1,28 +1,12 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import createBrowserHistory from 'history/lib/createBrowserHistory'
-// import { useRouterHistory } from 'react-router'
-// import { syncHistoryWithStore } from 'react-router-redux'
-// import createStore from './store/createStore'
-// import AppContainer from './containers/AppContainer'
-
-// --start---for HR APP by arun
+import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, Link, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
+import {Router, Route, IndexRoute, hashHistory, browserHistory, useRouterHistory} from 'react-router';
 import {createHashHistory} from 'history';
-import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
-import Immutable from 'immutable';
-import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
-
-import reducer from './reducers/index';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-// pages
-// --------new structure import-----
 import Page_Login from './modules/auth/containers/login';
 import Page_Logout from './modules/auth/containers/logout';
 import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
@@ -49,27 +33,22 @@ import Page_InventorySystem from './modules/inventory/containers/manageInventory
 import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-// -----------------------------
-
-// -admin
 import PageManageClients from 'modules/manageClients/containers/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
-
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
-
 import Page_TeamView from './modules/team/containers/viewTeam';
-
-// -user
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import 'whatwg-fetch';
+
+import store from './store';
+// import APP from './App';
+
 // -for iPhone iPad safari engine
 if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
-
 const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
+injectTapEventPlugin();
 
 export class APP extends React.Component {
   render () {
@@ -81,67 +60,6 @@ export class APP extends React.Component {
   }
 }
 
-const logger = createLogger();
-
-injectTapEventPlugin();
-
-let store = createStore(reducer, compose(
-// applyMiddleware( thunk, logger),
-applyMiddleware(thunk),
-// window.devToolsExtension ? window.devToolsExtension() : f => f
-));
-
-// --end---for HR APP by arun
-
-// ========================================================
-// Browser History Setup
-// ========================================================
-// const browserHistory = useRouterHistory(createBrowserHistory)({
-//   basename: __BASENAME__
-// })
-
-// ========================================================
-// Store and History Instantiation
-// ========================================================
-// Create redux store and sync with react-router-redux. We have installed the
-// react-router-redux reducer under the routerKey "router" in src/routes/index.js,
-// so we need to provide a custom `selectLocationState` to inform
-// react-router-redux of its location.
-// const initialState = window.___INITIAL_STATE__
-// const store = createStore(initialState, browserHistory)
-// const history = syncHistoryWithStore(browserHistory, store, {
-//   selectLocationState: (state) => state.router
-// })
-
-// ========================================================
-// Developer Tools Setup
-// ========================================================
-// if (__DEBUG__) {
-//   if (window.devToolsExtension) {
-//     window.devToolsExtension.open()
-//   }
-// }
-
-// ========================================================
-// Render Setup
-// ========================================================
-// const MOUNT_NODE = document.getElementById('root')
-
-// let render = (routerKey = null) => {
-//   const routes = require('./routes/index').default(store)
-
-//   ReactDOM.render(
-//     <AppContainer
-//       store={store}
-//       history={history}
-//       routes={routes}
-//       routerKey={routerKey}
-//     />,
-//     MOUNT_NODE
-//   )
-// }
-
-// --start----added by arun for HR app
 let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
@@ -186,28 +104,5 @@ let render = (routerKey = null) => {
     </MuiThemeProvider>
   ), document.querySelector('#myApp'));
 };
-// --end------added by arun for HR app
 
-// Enable HMR and catch runtime errors in RedBox
-// This code is excluded from production bundle
-// if (__DEV__ && module.hot) {
-//   const renderApp = render
-//   const renderError = (error) => {
-//     const RedBox = require('redbox-react').default
-
-//     ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
-//   }
-//   render = () => {
-//     try {
-//       renderApp(Math.random())
-//     } catch (error) {
-//       renderError(error)
-//     }
-//   }
-//   //module.hot.accept(['./routes/index'], () => render())
-// }
-
-// ========================================================
-// Go!
-// ========================================================
 render();

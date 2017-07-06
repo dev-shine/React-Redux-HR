@@ -177,10 +177,10 @@ class Variables extends React.Component {
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
 
-    if (props.logged_user.logged_in == -1) {
+    if (!props.loggedUser.isLoggedIn) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role == CONFIG.ADMIN || props.logged_user.role == CONFIG.HR) {
+      if (props.loggedUser.data.role == CONFIG.ADMIN || props.loggedUser.data.role == CONFIG.HR) {
       } else {
         this.props.router.push('/home');
       }
@@ -848,7 +848,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                      </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                          </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>

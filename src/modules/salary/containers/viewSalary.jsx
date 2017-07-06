@@ -7,7 +7,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import SalaryList from 'modules/salary/components/viewSalary/SalaryList';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
 class ViewSalary extends React.Component {
@@ -22,14 +22,12 @@ class ViewSalary extends React.Component {
     this.props.onFetchUserSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    // When Admin Login---
-
     let emp = [];
-    if (props.logged_user.role === CONFIG.ADMIN) {
+    if (props.loggedUser.data.role === CONFIG.ADMIN) {
       if (props.employee.employee.length > 0) {
         _.forEach(props.employee.employee, function (ob, i) {
           emp.push({
@@ -46,10 +44,7 @@ class ViewSalary extends React.Component {
         });
         this.setState({empList: emp});
       }
-    }
-
-// Hr
-    else if (props.logged_user.role === CONFIG.HR) {
+    } else if (props.loggedUser.data.role === CONFIG.HR) {
       let subList = _.filter(props.employee.employee, (empl) => (empl.previous_increment === ''));
       let emp = [];
       if (subList.length > 0) {
@@ -91,12 +86,17 @@ class ViewSalary extends React.Component {
   }
 }
 function mapStateToProps (state) {
-  return {frontend: state.frontend.toJS(), logged_user: state.logged_user.toJS(), usersList: state.usersList.toJS(), employee: state.empSalaryList.toJS()};
+  return {
+    frontend:   state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    usersList:  state.usersList.toJS(),
+    employee:   state.empSalaryList.toJS()
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onFetchUserSalaryDetails: () => {
       return dispatch(actions_salary.fetchUserSalaryDetails());

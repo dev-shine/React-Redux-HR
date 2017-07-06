@@ -8,7 +8,7 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import UserPendingHoursList from '../components/UserPendingHoursList';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionPendingHour from 'appRedux/workingHours/actions/managePendingLeave';
@@ -46,7 +46,7 @@ class ManageUserPendingHours extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -177,17 +177,16 @@ class ManageUserPendingHours extends React.Component {
 function mapStateToProps (state) {
   return {
     frontend:               state.frontend.toJS(),
-    logged_user:            state.logged_user.toJS(),
+    loggedUser:             state.logged_user.userLogin,
     usersList:              state.usersList.toJS(),
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    policy_documents:       state.policyDocuments.toJS(),
     applyLeave:             state.applyLeave.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());

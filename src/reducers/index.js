@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import {frontend} from 'appRedux/generic/reducers/frontend';
-import {logged_user} from 'appRedux/auth/reducers/logged_user';
+import logged_user from 'appRedux/auth/reducers/logged_user';
 import {monthlyAttendance} from 'appRedux/attendance/reducers/monthlyAttendance';
 import {attendanceSummary} from './user/attendanceSummary';
 import {userDaySummary} from 'appRedux/attendance/reducers/userDaySummary';

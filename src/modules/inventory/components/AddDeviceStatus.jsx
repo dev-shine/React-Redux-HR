@@ -12,10 +12,10 @@ export default class AddDeviceStatus extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      background: '',
-      colorPicker: 'hide',
-      statusType: '',
-      checkValue: '',
+      background:     '',
+      colorPicker:    'hide',
+      statusType:     '',
+      checkValue:     '',
       status_message: ''
     };
     this.addMoreStatus = this.addMoreStatus.bind(this);
@@ -26,7 +26,7 @@ export default class AddDeviceStatus extends React.Component {
   componentWillReceiveProps (props) {
     this.setState({
       statusList: props.deviceStatusList,
-      open: props.open
+      open:       props.open
     });
   }
 
@@ -46,7 +46,7 @@ export default class AddDeviceStatus extends React.Component {
   }
 
   handleChangeComplete (color) {
-    this.setState({ background: color.hex });
+    this.setState({background: color.hex});
   };
 
   handleDelete () {
@@ -89,7 +89,7 @@ export default class AddDeviceStatus extends React.Component {
     ];
     return (
       <div>
-        {this.props.logged_user.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleStatusOpen}>Add Status Type</button> : null}
+        {this.props.loggedUser.data.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleStatusOpen}>Add Status Type</button> : null}
         <Dialog
           title={'ADD STATUS TYPE'}
           titleStyle={{opacity: '0.56'}}
@@ -113,9 +113,9 @@ export default class AddDeviceStatus extends React.Component {
                     <span style={{
                       background: statusColor,
                       marginLeft: '5%',
-                      width: '45px',
-                      height: '15px',
-                      color: statusColor
+                      width:      '45px',
+                      height:     '15px',
+                      color:      statusColor
                     }}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   </li>;
                 })}
@@ -126,7 +126,7 @@ export default class AddDeviceStatus extends React.Component {
                 <TextField ref='value' floatingLabelText={'Status Type'} fullWidth onChange={(e) => {
                   this.setState({
                     colorPicker: 'show',
-                    statusType: e.target.value
+                    statusType:  e.target.value
                   });
                 }} value={this.state.statusType} />
               </div>

@@ -8,7 +8,7 @@ import Header from 'components/generic/Header';
 import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
 import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 
 class Salary extends React.Component {
@@ -27,7 +27,7 @@ class Salary extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -105,16 +105,15 @@ Salary.styles = {
 
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    logged_user:      state.logged_user.toJS(),
-    salary:           state.salary.toJS(),
-    policy_documents: state.policyDocuments.toJS()
+    frontend:   state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    salary:     state.salary.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actions_login.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onSalaryDetails: () => {
       return dispatch(actions_salary.getSalaryDetails());

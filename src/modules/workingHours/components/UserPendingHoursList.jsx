@@ -42,10 +42,10 @@ export default class UserPendingHoursList extends React.Component {
 
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    if (props.logged_user.logged_in == -1) {
+    if (!props.loggedUser.isLoggedIn) {
       this.props.router.push('/logout');
     } else {
-      if (props.logged_user.role === CONFIG.ADMIN) {
+      if (props.loggedUser.data.role === CONFIG.ADMIN) {
       } else {
         this.props.router.push('/home');
       }

@@ -6,7 +6,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
-import * as actionsLogin from 'appRedux/auth/actions/index';
+import * as actions from 'appRedux/actions';
 import * as actionsWorkingHoursSummary from 'appRedux/workingHours/actions/workingHoursSummary';
 
 class ManageWorkingHours extends React.Component {
@@ -27,7 +27,7 @@ class ManageWorkingHours extends React.Component {
     this.props.onWorkingHoursSummary(year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.logged_user);
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
@@ -66,16 +66,15 @@ class ManageWorkingHours extends React.Component {
 function mapStateToProps (state) {
   return {
     frontend:            state.frontend.toJS(),
-    logged_user:         state.logged_user.toJS(),
+    loggedUser:          state.logged_user.userLogin,
     userDaySummary:      state.userDaySummary.toJS(),
-    workingHoursSummary: state.workingHoursSummary.toJS(),
-    policy_documents:    state.policyDocuments.toJS()
+    workingHoursSummary: state.workingHoursSummary.toJS()
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onIsAlreadyLogin: () => {
-      return dispatch(actionsLogin.isAlreadyLogin());
+      return dispatch(actions.isAlreadyLogin());
     },
     onWorkingHoursSummary: (year, month) => {
       return dispatch(actionsWorkingHoursSummary.get_working_hours_summary(year, month));

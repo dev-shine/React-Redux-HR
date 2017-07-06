@@ -17,7 +17,7 @@ import {manageUserWorkingHours} from 'appRedux/workingHours/reducers/manageUserW
 import {manageUserPendingHours} from 'appRedux/workingHours/reducers/manageUserPendingHour';
 import {salary} from 'appRedux/salary/reducers/salary';
 import {manageSalary} from 'appRedux/salary/reducers/manageSalary';
-import {myProfile} from './user/myProfile';
+import {myProfile} from 'appRedux/myProfile/reducers/myProfile';
 import {myDocument} from './user/myDocument';
 import {manageUsers} from 'appRedux/manageUsers/reducers/manageUsers';
 import {manageRoles} from 'appRedux/manageRoles/reducers/manageRoles';

@@ -5,7 +5,7 @@ import {notify} from 'src/services/index';
 import Menu from 'components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import {isNotUserValid} from 'src/services/generic';
-import Header from 'components1/generic/Header';
+import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
 import * as actions from 'appRedux/actions';

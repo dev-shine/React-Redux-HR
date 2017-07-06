@@ -13,12 +13,11 @@ export function empty_user_salary_details (data) {
 }
 
 function async_get_user_salary_details (userid) {
-  return fireAjax('GET', '', {
-    action: 'get_user_salary_details',
-    userid: userid
+  return fireAjax('POST', '', {
+    action:  'get_user_salary_info_by_id',
+    user_id: userid
   });
 }
-
 export function get_user_salary_details (userid) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
@@ -43,7 +42,7 @@ export function get_user_salary_details (userid) {
   };
 }
 
-// /-------------------
+// -------------------
 
 export function success_add_user_salary (data) {
   return createAction(constants.ACTION_SUCCESS_ADD_USER_SALARY)(data);

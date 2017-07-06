@@ -7,8 +7,8 @@ import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
+import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
 import * as actions from 'appRedux/actions';
-import * as actionsMyProfile from 'src/actions/user/myProfile';
 
 class MyInventory extends React.Component {
   constructor (props) {

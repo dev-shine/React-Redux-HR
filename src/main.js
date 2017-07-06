@@ -38,12 +38,11 @@ import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmploye
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
 import Page_TeamView from './modules/team/containers/viewTeam';
-
-// -user
-import Page_MyProfile from './containers/user/myProfile';
+import Page_MyProfile from './modules/myProfile/containers/myProfile';
 
 import store from './store';
 // import APP from './App';
+
 // -for iPhone iPad safari engine
 if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');

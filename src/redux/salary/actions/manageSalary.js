@@ -12,7 +12,7 @@ export function empty_user_salary_details (data) {
   return createAction(constants.ACTION_EMPTY_USER_SALARY_DETAILS)(data);
 }
 
-function async_get_user_salary_details1 (userid) {
+function async_get_user_salary_details (userid) {
   return fireAjax('POST', '', {
     action:  'get_user_salary_info_by_id',
     user_id: userid

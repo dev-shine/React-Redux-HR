@@ -16,7 +16,7 @@ export const ERROR_FORGOT_PASSWORD = 'ERROR_FORGOT_PASSWORD';
 // holiday list
 export const REQUEST_HOLIDAYSLIST = 'REQUEST_HOLIDAYSLIST';
 export const SUCCESS_HOLIDAYSLIST = 'SUCCESS_HOLIDAYSLIST';
-export const EMPTY_HOLIDAYSLIST = 'EMPTY_HOLIDAYSLIST';
+export const FAILED_HOLIDAYSLIST = 'FAILED_HOLIDAYSLIST';
 export const ERROR_HOLIDAYSLIST = 'ERROR_HOLIDAYSLIST';
 //* **********************************************************************************
 // +++""ADMIN""+++

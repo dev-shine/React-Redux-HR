@@ -16,5 +16,5 @@ export const logoutSuccess = createAction(constants.LOGOUT_SUCCESS);
 
 export const requestHolidayList = createAction(constants.REQUEST_HOLIDAYSLIST);
 export const successHolidayList = createAction(constants.SUCCESS_HOLIDAYSLIST);
-export const emptyHolidayList = createAction(constants.EMPTY_HOLIDAYSLIST);
+export const failedHolidayList = createAction(constants.FAILED_HOLIDAYSLIST);
 export const errorHolidayList = createAction(constants.ERROR_HOLIDAYSLIST);

@@ -57,7 +57,7 @@ export function* requestHolidayList (action) {
     if (response.error === 0) {
       yield put(actions.successHolidayList(response.data));
     } else if (response.error === 1) {
-      yield put(actions.emptyHolidayList('API response error.\n Holiday list empty'));
+      yield put(actions.failedHolidayList('API response error.'));
     }
   } catch (e) {
     yield put(actions.errorHolidayList('Error Occurs !!'));

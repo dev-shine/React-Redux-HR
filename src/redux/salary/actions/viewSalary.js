@@ -16,7 +16,7 @@ export function empty_salary_details (data) {
 
 function async_get_salary_details () {
   return fireAjax('POST', '', {
-    'action': 'get_user_salary_info' // 'get_salary_details'
+    'action': 'get_user_salary_info'
   });
 }
 

@@ -22,7 +22,8 @@ export function fireAjax (method, url, data) {
   let headers = {
     method: method,
     mode:   'cors',
-    cache:  'no-cache'
+    cache:  'no-cache',
+    body:   JSON.stringify(data)
   };
 
   if (data.action === 'add_user_salary') {

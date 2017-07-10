@@ -29,18 +29,18 @@ debug('Create configuration.');
 //   module: {}
 // }
 const webpackConfig = {
-  name: 'client',
-  target: 'web',
+  name:    'client',
+  target:  'web',
   devtool: 'null',
   resolve: {
     alias: {
-      src: `${projectRoot}/src`,
+      src:        `${projectRoot}/src`,
       components: `${projectRoot}/src/components1`,
-      modules: `${projectRoot}/src/modules`,
-      appRedux: `${projectRoot}/src/redux`
+      modules:    `${projectRoot}/src/modules`,
+      appRedux:   `${projectRoot}/src/redux`
     },
     extensions: ['.js', '.jsx', '.json'],
-    modules: [
+    modules:    [
       './src', // paths.client(),
       'node_modules'
     ]
@@ -62,8 +62,8 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: '[name].[hash].js',
-  path: paths.dist(),
+  filename:   '[name].[hash].js',
+  path:       paths.dist(),
   publicPath: config.compiler_public_path
 };
 
@@ -74,11 +74,11 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
     template: './src/index.html', // paths.client('index.html'),
-    hash: false,
-    favicon: './src/static/favicon.ico', // paths.client('static/favicon.ico'),
+    hash:     false,
+    favicon:  './src/static/favicon.ico', // paths.client('static/favicon.ico'),
     filename: 'index.html',
-    inject: 'body',
-    minify: {
+    inject:   'body',
+    minify:   {
       collapseWhitespace: true
     }
   })
@@ -145,14 +145,14 @@ webpackConfig.eslint = {
 // ------------------------------------
 // JavaScript / JSON
 webpackConfig.module.rules = [{
-  test: /\.(js|jsx)$/,
+  test:    /\.(js|jsx)$/,
   exclude: /node_modules/,
-  loader: 'babel-loader',
-  query: {
+  loader:  'babel-loader',
+  query:   {
     cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
-    env: {
+    plugins:        ['transform-runtime'],
+    presets:        ['es2015', 'react', 'stage-0'],
+    env:            {
       // production: {
       //   presets: ['react-optimize']
       // }
@@ -160,7 +160,7 @@ webpackConfig.module.rules = [{
   }
 },
 {
-  test: /\.json$/,
+  test:   /\.json$/,
   loader: 'json-loader'
 }];
 
@@ -209,7 +209,7 @@ webpackConfig.module.rules = [{
 
 webpackConfig.module.rules.push({
   test: /\.(css|sass|scss)$/,
-  use: [
+  use:  [
     'style-loader',
     'css-loader',
     'sass-loader',

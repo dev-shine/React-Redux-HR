@@ -23,7 +23,6 @@ import Page_Salary from './modules/salary/containers/salary';
 import Page_ManagePayslips from './modules/salary/containers/managePayslips';
 import Page_Home from './modules/attendance/containers/Home';
 import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
-// import Page_AttendanceSummary from './modules/attendance/containers/attendanceSummary';
 import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
 import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';

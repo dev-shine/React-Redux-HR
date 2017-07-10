@@ -10,7 +10,7 @@ import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
 import * as actions from 'appRedux/actions';
-import * as actionsDisabledEmployee from 'src/actions/user/usersList';
+import * as actionsDisabledEmployee from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
 

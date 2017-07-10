@@ -19,7 +19,7 @@ debug('Create configuration.');
 //   resolve: {
 //     alias: {
 //       src: `${projectRoot}/src`,
-//       components: `${projectRoot}/src/components1`,
+//       components: `${projectRoot}/src/components`,
 //       modules: `${projectRoot}/src/modules`,
 //       appRedux: `${projectRoot}/src/redux`,
 //     },
@@ -35,7 +35,7 @@ const webpackConfig = {
   resolve: {
     alias: {
       src:        `${projectRoot}/src`,
-      components: `${projectRoot}/src/components1`,
+      components: `${projectRoot}/src/components`,
       modules:    `${projectRoot}/src/modules`,
       appRedux:   `${projectRoot}/src/redux`
     },

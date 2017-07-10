@@ -30,7 +30,7 @@ class ForgotPassword extends React.Component {
     evt.preventDefault();
 
     if (this.state.form_username === '') {
-      alert('Enter username!!');
+      notify('Enter username!!');
     } else {
       this.props.requestForgotPassword({username: this.state.form_username});
     }

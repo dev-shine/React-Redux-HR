@@ -1,10 +1,7 @@
-import {CONFIG} from '../config/index';
+import {CONFIG} from 'src/config/index';
 import _ from 'lodash';
+import {apiAccessError} from 'src/services/notify';
 import 'whatwg-fetch';
-
-export function notify (text) {
-  swal(text);
-}
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail', 'update_user_profile_detail', 'get_all_clients', 'get_client_detail', 'create_new_client', 'create_client_invoice',
   'update_client_details', 'delete_invoice', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary', 'send_payslips_to_employees', 'get_user_document', 'insert_user_document',
@@ -43,6 +40,7 @@ export function fireAjax (method, url, data) {
   }
 
   return fetch(URL, headers).then((response) => {
+    apiAccessError('Unauthorized Action - Contact Admin!!', action);
     if (response.status === 500) {
       return new Promise((resolve, reject) => {
         response.json().then((data) => {
@@ -50,9 +48,8 @@ export function fireAjax (method, url, data) {
         });
       });
     } else if (response.status === 401) {
-      notify('Unauthorized Action ' + action + ' - Contact Admin!!');
-      localStorage.removeItem('hr_logged_user');
-      location.href = CONFIG.BASE_URL;
+      // localStorage.removeItem('hr_logged_user');
+      // location.href = CONFIG.BASE_URL;
     } else {
       return response.json();
     }

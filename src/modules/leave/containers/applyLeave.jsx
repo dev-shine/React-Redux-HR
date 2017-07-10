@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import {CONFIG} from 'src/config/index';

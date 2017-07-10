@@ -3,7 +3,7 @@ import _ from 'lodash';
 import 'whatwg-fetch';
 
 export function notify (text) {
-  alert(text);
+  swal(text);
 }
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail', 'update_user_profile_detail', 'get_all_clients', 'get_client_detail', 'create_new_client', 'create_client_invoice',

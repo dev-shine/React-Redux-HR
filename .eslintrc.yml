@@ -32,6 +32,11 @@ rules:
   camelcase:
     - error
     - properties: never
+  no-console:
+    - 2
+    - allow:
+      - warn
+      - error
   generator-star-spacing: 0
   babel/generator-star-spacing: 1
 globals:

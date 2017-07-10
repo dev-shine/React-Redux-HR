@@ -6,7 +6,7 @@ import {monthlyAttendance} from 'appRedux/attendance/reducers/monthlyAttendance'
 import {userDaySummary} from 'appRedux/attendance/reducers/userDaySummary';
 import {usersList} from 'appRedux/generic/reducers/usersList';
 import {workingHoursSummary} from 'appRedux/workingHours/reducers/workingHoursSummary';
-import {holidaysList} from 'appRedux/holidays/reducers/holidaysList';
+import holidaysList from 'appRedux/holidays/reducers/holidaysList';
 import {applyLeave} from 'appRedux/leave/reducers/applyLeave';
 import {listLeaves} from 'appRedux/leave/reducers/listLeaves';
 import {manageLeave} from 'appRedux/leave/reducers/manageLeave';

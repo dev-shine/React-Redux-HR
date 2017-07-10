@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {isNotUserValid} from 'src/services/generic';
 import GetLogo from 'components/auth/login/GetLogo';
 import Navbar from 'components/auth/login/Navbar';

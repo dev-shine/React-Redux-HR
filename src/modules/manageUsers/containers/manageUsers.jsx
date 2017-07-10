@@ -17,6 +17,7 @@ import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDet
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
+import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
 import * as actions from 'appRedux/actions';
 import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
@@ -46,6 +47,7 @@ class ManageUsers extends React.Component {
     this.handleOpenIframe = this.handleOpenIframe.bind(this);
     this.handleCloseIframe = this.handleCloseIframe.bind(this);
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
+    this.handleChangeSteps = this.handleChangeSteps.bind(this);
   }
   componentWillMount () {
     this.props.onUsersList();
@@ -134,6 +136,9 @@ class ManageUsers extends React.Component {
       });
     });
   }
+  handleChangeSteps (userid, stepid) {
+    console.log(userid, stepid);
+  }
   handleOpenIframe () {
     this.setState({openIframe: true});
   }
@@ -141,6 +146,21 @@ class ManageUsers extends React.Component {
     this.setState({openIframe: false});
   }
   render () {
+    var data = {
+      'error': 0,
+      'data':  {'employee_life_cycle': [ {'stage': 'onboard', 'text':  'On-board', 'steps':
+      [
+        {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
+        {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
+      ]
+      },
+      {'stage': 'onboard', 'text':  'On-board', 'steps':
+      [
+        {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
+        {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
+      ]
+      } ]}
+    };
     return (
       <div>
         <AlertNotification message={this.props.manageUsers.status_message} />
@@ -186,6 +206,9 @@ class ManageUsers extends React.Component {
                   />
                 </div>
                 <div className="col-md-10 p">
+                  <div className="row box p-t">
+                    <EmployeeLifeCycle data={data} handleChangeSteps={(userid, stepid) => this.handleChangeSteps(userid, stepid)} />
+                  </div>
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
                       <FormUserProfileDetails

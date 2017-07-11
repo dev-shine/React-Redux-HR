@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
-import DisplayRolesList from 'modules/manageRoles/components/DisplayRolesList';
 import DisplayRolesLists from 'modules/manageRoles/components/DisplayRolesLists';
 import UsersRolesList from 'components/generic/UsersRolesList';
 import * as actions from 'appRedux/actions';
@@ -78,17 +77,6 @@ class ManageRoles extends React.Component {
               </div>
               <div className="row">
                 <div className="col-md-7 m-l">
-                  <div className="row box">
-                    <div className="col-md-12 p-t">
-                      <DisplayRolesList
-                        displayData={this.props.manageRoles.rolesData}
-                        handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId)}
-                        handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId)}
-                        handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
-                        handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
-                      />
-                    </div>
-                  </div>
                   <div className="row box">
                     <div className="col-md-12 navside p-t">
                       <DisplayRolesLists

@@ -1,5 +1,5 @@
 import React from 'react';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 
 class UserDaySummary extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
 var moment = require('moment');
@@ -10,19 +10,19 @@ class InventoryList extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      edit: false,
-      open: false,
-      openStatus: false,
-      id: '',
-      openSnackbar: false,
-      user: '',
-      search: '',
-      status_message: '',
-      deviceTypeList: [],
+      edit:             false,
+      open:             false,
+      openStatus:       false,
+      id:               '',
+      openSnackbar:     false,
+      user:             '',
+      search:           '',
+      status_message:   '',
+      deviceTypeList:   [],
       deviceStatusList: [],
-      device_status: '',
-      deviceList: [],
-      statusList: []
+      device_status:    '',
+      deviceList:       [],
+      statusList:       []
     };
 
     this.openEditDevice = this.openEditDevice.bind(this);
@@ -61,7 +61,7 @@ class InventoryList extends React.Component {
     this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device});
     this.setState({
       deviceStatusList: props.manageDevice.statusList,
-      statusList: props.manageDevice.statusList
+      statusList:       props.manageDevice.statusList
     });
   }
   openEditDevice (id) {
@@ -120,7 +120,7 @@ class InventoryList extends React.Component {
       open: false
 
     });
-  };
+  }
 
   handleAssign (id, userId) {
     this.setState({user: userId});
@@ -135,13 +135,13 @@ class InventoryList extends React.Component {
           background: '',
           checkValue: ''
         });
-        alert('This Device Status Type Is In Use');
+        notify('This Device Status Type Is In Use');
         this.handleStatusClose();
       } else if (val.message) {
         this.setState({
           status_message: val.message
         });
-        alert(this.state.status_message);
+        notify(this.state.status_message);
         this.handleStatusClose();
       } else {
         this.setState({
@@ -172,7 +172,7 @@ class InventoryList extends React.Component {
     }
     this.setState({
       deviceList: devices,
-      search: deviceType
+      search:     deviceType
 
     });
   }
@@ -193,7 +193,7 @@ class InventoryList extends React.Component {
       status = _.filter(this.props.manageDevice.device, row => (row.machine_type === this.state.search && row.status === statusType));
     }
     this.setState({
-      deviceList: status,
+      deviceList:    status,
       device_status: statusType
     });
   }
@@ -267,7 +267,7 @@ class InventoryList extends React.Component {
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             if (confirm('Are you sure you want to delete this record?')) {
               this.deleteDevices(device.id);
-            };
+            }
           }} aria-hidden="true"></i>
         </td>
       </tr>);

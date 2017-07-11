@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import moment from 'moment';
 import * as _ from 'lodash';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';

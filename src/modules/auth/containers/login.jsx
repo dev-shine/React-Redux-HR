@@ -28,12 +28,10 @@ class Login extends React.Component {
     }
   }
   doLogin (username, password) {
-    return this.props.userLoginRequest({username, password});
+    this.props.userLoginRequest({username, password});
   }
   doGuestLogin (evt) {
-    this.doLogin('global_guest', 'global_guest').then((data) => {}, (error) => {
-      notify(error);
-    });
+    this.doLogin('global_guest', 'global_guest');
   }
   render () {
     return (

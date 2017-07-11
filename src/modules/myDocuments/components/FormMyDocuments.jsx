@@ -1,7 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import ListDocuments from 'components/myDocuments/ListDocuments';
 
 class FormMyDocuments extends React.Component {

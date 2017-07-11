@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 import 'react-date-picker/index.css';
 import {CONFIG} from 'src/config/index';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import * as actions_login from 'appRedux/auth/actions/index';
 
 import PendingHourSummary from './PendingHourSummary';

@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {GithubPicker} from 'react-color';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 import 'react-date-picker/index.css';
 

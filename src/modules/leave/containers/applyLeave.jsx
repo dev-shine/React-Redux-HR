@@ -88,9 +88,9 @@ class ApplyLeave extends React.Component {
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason) {
     this.setState({show_status_message: true});
     this.props.onApplyLeave(start, end, days, reason, userid, day_status, leaveType, late_reason).then((data) => {
-      notify(data);
+      notify('Success !', data, 'success');
     }).catch((error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
 

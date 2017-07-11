@@ -35,7 +35,7 @@ class MyInventory extends React.Component {
 
   callUpdateUserDeviceDetails (newDeviceDetails) {
     this.props.onUpdateDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
-      notify(error);
+      notify('Error', error, 'error');
     });
   }
 

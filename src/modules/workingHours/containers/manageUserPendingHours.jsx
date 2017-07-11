@@ -64,9 +64,9 @@ class ManageUserPendingHours extends React.Component {
   callAddUserPendingHours (userid, pendingHour, empId) {
     this.setState({show_status_message: true});
     this.props.onAddUserPendingHours(userid, pendingHour, empId).then((message) => {
-      notify(message);
+      notify('Success !', message, 'success');
     }).catch((error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
 
@@ -77,9 +77,9 @@ class ManageUserPendingHours extends React.Component {
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month) {
     this.setState({show_status_message: true});
     this.props.onApplyLeave(start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month).then((data) => {
-      notify(data);
+      notify('Success !', data, 'success');
     }).catch((error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
 

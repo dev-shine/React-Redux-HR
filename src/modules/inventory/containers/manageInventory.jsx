@@ -106,7 +106,7 @@ class InventorySystem extends React.Component {
 
   callUpdateUserDeviceDetails (newDeviceDetails) {
     this.props.onUpdateUserDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
   callFetchDeviceType () {
@@ -190,7 +190,7 @@ class InventorySystem extends React.Component {
       });
       this.props.onFetchDevice();
     }, (error) => {
-      notify(error);
+      notify('Error !', error, '');
     });
   }
   render () {

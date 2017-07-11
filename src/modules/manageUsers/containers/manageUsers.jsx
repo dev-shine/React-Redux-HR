@@ -136,8 +136,8 @@ class ManageUsers extends React.Component {
       });
     });
   }
-  handleChangeSteps (userid, stepid) {
-    console.log(userid, stepid);
+  handleChangeSteps (stageid, stepid, userid) {
+    this.props.onHandleChangeSteps(stageid, userid, stepid);
   }
   handleOpenIframe () {
     this.setState({openIframe: true});
@@ -148,16 +148,16 @@ class ManageUsers extends React.Component {
   render () {
     var data = {
       'error': 0,
-      'data':  {'employee_life_cycle': [ {'stage': 'onboard', 'text':  'On-board', 'steps':
+      'data':  {'employee_life_cycle': [ {'id':    123, 'stage': 'onboard', 'text':  'On-board', 'steps':
       [
         {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
         {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
       ]
       },
-      {'stage': 'onboard', 'text':  'On-board', 'steps':
+      {'id':    1234, 'stage': 'onboard', 'text':  'On-board', 'steps':
       [
-        {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
-        {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
+        {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
+        {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
       ]
       } ]}
     };
@@ -207,7 +207,7 @@ class ManageUsers extends React.Component {
                 </div>
                 <div className="col-md-10 p">
                   <div className="row box p-t">
-                    <EmployeeLifeCycle data={data} handleChangeSteps={(userid, stepid) => this.handleChangeSteps(userid, stepid)} />
+                    <EmployeeLifeCycle data={data} handleChangeSteps={(stageid, stepid) => this.handleChangeSteps(stageid, stepid, this.state.selected_user_id)} />
                   </div>
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
@@ -302,6 +302,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchTeam: () => {
       return dispatch(actionsGetTeamData.get_all_team());
+    },
+    onHandleChangeSteps: (stageid, userid, stepid) => {
+      return dispatch(actionsManageUsers.changeSteps(stageid, userid, stepid));
     }
   };
 };

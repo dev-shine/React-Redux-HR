@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
   if (data.error === 0) {
@@ -10,7 +10,7 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
       let collapseLink = 'collapse' + key;
       let steps = _.map(value.steps, (v, k) => {
         return (
-          <div key={k}><input type="checkbox" value={v.text} checked={v.status} onChange={() => { handleChangeSteps(v.id, v.id); }} /> {v.text}<br /></div>
+          <div key={k}><input type="checkbox" value={v.text} checked={v.status} onChange={() => handleChangeSteps(value.id, v.id)} /> {v.text}<br /></div>
         );
       });
       return (
@@ -49,8 +49,10 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
 
 export default EmployeeLifeCycle;
 
-// EmployeeLifeCycle.PropTypes = {
-//   data: PropTypes.shape({
-//     error: PropTypes.number
-//   }).isRequired
-// };
+EmployeeLifeCycle.PropTypes = {
+  data: PropTypes.shape({
+    error: PropTypes.number,
+    data:  PropTypes.object.isRequired
+  }).isRequired,
+  handleChangeSteps: PropTypes.func.isRequired
+};

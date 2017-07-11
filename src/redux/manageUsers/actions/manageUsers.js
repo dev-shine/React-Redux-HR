@@ -453,3 +453,28 @@ export function changeEmployeeStatus (userid, status) {
     });
   };
 }
+
+function asyncChangeSteps (stageid, userid, stepid) {
+  return fireAjax('POST', '', {
+    'action':  'update_employee_life_cycle',
+    'userid':  userid,
+    'stageid': stageid,
+    'stepid':  stepid
+  });
+}
+
+export function changeSteps (stageid, userid, stepid) {
+  return function (dispatch, getState) {
+    return new Promise((resolve, reject) => {
+      asyncChangeSteps(stageid, userid, stepid).then((json) => {
+        if (json.error == 0) {
+          resolve(json.data.message);
+        } else {
+          reject(json.data.message);
+        }
+      }, (error) => {
+        reject('error occurs!!');
+      });
+    });
+  };
+}

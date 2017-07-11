@@ -1,6 +1,6 @@
 import {CONFIG} from 'src/config/index';
 import _ from 'lodash';
-import {apiAccessError} from 'src/services/notify';
+import {confirm} from 'src/services/notify';
 import 'whatwg-fetch';
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail', 'update_user_profile_detail', 'get_all_clients', 'get_client_detail', 'create_new_client', 'create_client_invoice',
@@ -40,7 +40,6 @@ export function fireAjax (method, url, data) {
   }
 
   return fetch(URL, headers).then((response) => {
-    apiAccessError('Unauthorized Action - Contact Admin!!', action);
     if (response.status === 500) {
       return new Promise((resolve, reject) => {
         response.json().then((data) => {
@@ -48,8 +47,10 @@ export function fireAjax (method, url, data) {
         });
       });
     } else if (response.status === 401) {
-      // localStorage.removeItem('hr_logged_user');
-      // location.href = CONFIG.BASE_URL;
+      confirm('401 ! Access denied!', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
+        localStorage.removeItem('hr_logged_user');
+        location.href = CONFIG.BASE_URL;
+      });
     } else {
       return response.json();
     }

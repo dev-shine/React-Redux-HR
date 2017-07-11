@@ -454,6 +454,10 @@ export function changeEmployeeStatus (userid, status) {
   };
 }
 
+function successEmployeeStep (data) {
+  return createAction(constants.ACTION_SUCCESS_EMPLOYEE_STEPS)(data);
+}
+
 function asyncChangeSteps (stageid, userid, stepid) {
   return fireAjax('POST', '', {
     'action':  'update_employee_life_cycle',
@@ -469,6 +473,7 @@ export function changeSteps (stageid, userid, stepid) {
       asyncChangeSteps(stageid, userid, stepid).then((json) => {
         if (json.error == 0) {
           resolve(json.data.message);
+          dispatch(successEmployeeStep(json.data));
         } else {
           reject(json.data.message);
         }

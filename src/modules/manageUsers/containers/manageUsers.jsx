@@ -146,20 +146,21 @@ class ManageUsers extends React.Component {
     this.setState({openIframe: false});
   }
   render () {
-    var data = {
-      'error': 0,
-      'data':  {'employee_life_cycle': [ {'id':    123, 'stage': 'onboard', 'text':  'On-board', 'steps':
+    var data = {'employee_life_cycle':
+    [
+      {'id':    123, 'stage': 'onboard', 'text':  'On-board', 'steps':
       [
-        {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
-        {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
+          {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
+          {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
       ]
       },
       {'id':    1234, 'stage': 'onboard', 'text':  'On-board', 'steps':
       [
-        {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
-        {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
+          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
+          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
       ]
-      } ]}
+      }
+    ]
     };
     return (
       <div>

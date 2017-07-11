@@ -2,8 +2,8 @@ import {CONFIG} from '../config/index';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-export function notify (text) {
-  swal(text);
+export function notify (title, text, type) {
+  swal(title, text, type);
 }
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail', 'update_user_profile_detail', 'get_all_clients', 'get_client_detail', 'create_new_client', 'create_client_invoice',
@@ -50,7 +50,7 @@ export function fireAjax (method, url, data) {
         });
       });
     } else if (response.status === 401) {
-      notify('Unauthorized Action ' + action + ' - Contact Admin!!');
+      notify('', 'Unauthorized Action ' + action + ' - Contact Admin!!', 'warning');
       localStorage.removeItem('hr_logged_user');
       location.href = CONFIG.BASE_URL;
     } else {

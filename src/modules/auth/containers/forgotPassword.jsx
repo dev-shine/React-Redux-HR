@@ -23,14 +23,14 @@ class ForgotPassword extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
     if (props.forgotPassword.isError || props.forgotPassword.isSuccess) {
-      notify(props.forgotPassword.message);
+      notify('', props.forgotPassword.message);
     }
   }
   doResetPassword (evt) {
     evt.preventDefault();
 
     if (this.state.form_username === '') {
-      alert('Enter username!!');
+      notify('Warning !', 'Enter Username', 'warning');
     } else {
       this.props.requestForgotPassword({username: this.state.form_username});
     }

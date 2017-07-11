@@ -2,7 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import {DateField} from 'react-date-picker';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import AlertNotification from 'components/generic/AlertNotification';
 import 'react-date-picker/index.css';
 
@@ -127,7 +127,7 @@ export default class FormAddNewInventory extends React.Component {
         });
         this.props.onFetchDevice();
       }, (error) => {
-        notify(error);
+        notify('Error !',error,'error');
       });
     } else {
       this.props.onUpdateDevice(this.state.id, apiData).then((message) => {

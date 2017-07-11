@@ -18,12 +18,14 @@ class ForgotPassword extends React.Component {
     this.doResetPassword = this.doResetPassword.bind(this);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let {route, router, loggedUser, forgotPassword: {isError, isSuccess, message}} = props;
+    let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
-      this.props.router.push(isNotValid.redirectTo);
+      router.push(isNotValid.redirectTo);
     }
-    if (props.forgotPassword.isError || props.forgotPassword.isSuccess) {
-      notify('', props.forgotPassword.message);
+    if (isError || isSuccess) {
+      let megType = isError ? 'error' : 'success';
+      notify(megType + ' ! ', message, megType);
     }
   }
   doResetPassword (evt) {

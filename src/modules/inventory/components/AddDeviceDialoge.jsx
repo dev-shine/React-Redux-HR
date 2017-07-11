@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
-import {notify} from 'src/services/notify';
+import {notify, confirm} from 'src/services/notify';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -83,7 +83,7 @@ export default class AddDeviceDialoge extends React.Component {
     const actions = [
       <FlatButton label="Delete" secondary style={{marginRight: 5}} onTouchTap={() => {
         if (this.state.checkValue !== '') {
-          confirm('Are you sure you want to delete this Device Type ?').then((res) => {
+          confirm('Are you sure ?', 'Do you want to delete this Device Type ?', 'warning').then((res) => {
             if (res) {
               this.handleDelete();
             }

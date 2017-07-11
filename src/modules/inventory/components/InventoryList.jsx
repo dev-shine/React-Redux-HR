@@ -1,6 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
-import {notify} from 'src/services/notify';
+import {notify, confirm} from 'src/services/notify';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
 var moment = require('moment');
@@ -265,7 +265,7 @@ class InventoryList extends React.Component {
         </td>
         <td style={{marginRight: '5%', align: 'center'}} >
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
-            if (confirm('Are you sure you want to delete this record?')) {
+            if (confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning')) {
               this.deleteDevices(device.id);
             }
           }} aria-hidden="true"></i>

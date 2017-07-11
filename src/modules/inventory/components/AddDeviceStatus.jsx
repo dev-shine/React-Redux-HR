@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {GithubPicker} from 'react-color';
-import {notify} from 'src/services/notify';
+import {notify, confirm} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 import 'react-date-picker/index.css';
 
@@ -68,7 +68,7 @@ export default class AddDeviceStatus extends React.Component {
         secondary
         onTouchTap={() => {
           if (this.state.checkValue !== '') {
-            if (confirm('Are you sure you want to delete this Device Status ?')) {
+            if (confirm('Are you sure ?', 'Do you want to delete this Device Status ?', 'warning')) {
               this.handleDelete();
             }
           }

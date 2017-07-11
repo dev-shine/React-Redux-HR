@@ -46,7 +46,7 @@ class AddAsHalfDayLeave extends React.Component {
         this.state.year,
         this.state.month,
         ).then((data) => {
-          notify('','Half day leave Applied','success');
+          notify('Success !','Half day leave Applied','success');
           this.setState({
             form_no_of_days:     '',
             pending_id:          '',
@@ -56,7 +56,7 @@ class AddAsHalfDayLeave extends React.Component {
             show_status_message: true
           });
         }).catch((error) => {
-          notify('',error,'error');
+          notify('Error !',error,'error');
         });
     } else if (shift === 2) {
       let day_status = '';
@@ -68,7 +68,7 @@ class AddAsHalfDayLeave extends React.Component {
         this.state.year,
         this.state.month,
         ).then((data) => {
-          notify('','full day leave Applied','success');
+          notify('Success !','full day leave Applied','success');
           this.setState({
             form_no_of_days:     '',
             pending_id:          '',
@@ -78,7 +78,7 @@ class AddAsHalfDayLeave extends React.Component {
             show_status_message: true
           });
         }).catch((error) => {
-          notify('',error,'error');
+          notify('Error !',error,'error');
         });
     }
   }

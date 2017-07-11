@@ -68,13 +68,13 @@ export default class AddDeviceStatus extends React.Component {
         secondary
         onTouchTap={() => {
           if (this.state.checkValue !== '') {
-            if (confirm('Are you sure ?', 'Do you want to delete this Device Status ?', 'warning')) {
-              this.handleDelete();
-            }
+            confirm('Are you sure ?', 'Do you want to delete this Device Status ?', 'warning').then((res) => {
+              if (res) {
+                this.handleDelete();
+              }
+            });
           }
-        }}
-        style={{marginRight: 5}}
-      />,
+        }} />,
       <FlatButton
         label="Cancel"
         primary

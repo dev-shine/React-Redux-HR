@@ -148,7 +148,7 @@ class AddAsLeaveHour extends React.Component {
           show_status_message:  true
         });
       }).catch((error) => {
-        notify('',error,'error');
+        notify('Error !',error,'error');
       });
   }
 

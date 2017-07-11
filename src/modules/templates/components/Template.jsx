@@ -227,16 +227,18 @@ class Variables extends React.Component {
     });
   }
   deleteTemplate (tmp) {
-    if (confirm('Are you sure ?', 'Do you want to delete this template', 'warning')) {
-      this.props.onDeleteTemplate(tmp.id).then(() => {
-
-      }).catch((err) => {
-        this.showError('previewalert', err);
-      });
-    }
+    confirm('Are you sure ?', 'Do you want to delete this template', 'warning').then((res) => {
+      if (res) {
+        this.props.onDeleteTemplate(tmp.id).then(() => {
+        }).catch((err) => {
+          this.showError('previewalert', err);
+        });
+      }
+    });
   }
+
   replaceVariablesWithValue (templ, str, value) {
-    if (value != undefined) {
+    if (value !== undefined) {
       if (value.indexOf('<p>') > -1) {
         let no_lines = value.split('\n').length;
         if (no_lines > 1) {
@@ -249,7 +251,7 @@ class Variables extends React.Component {
       var index = templ.body.indexOf(str);
       var i;
       for (i = 0; i <= 20; i++) {
-        if (templ.body.indexOf(str) == -1) {
+        if (templ.body.indexOf(str) === -1) {
           break;
         }
         templ.body = _.replace(templ.body, str, value);
@@ -849,7 +851,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                              </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                      </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>

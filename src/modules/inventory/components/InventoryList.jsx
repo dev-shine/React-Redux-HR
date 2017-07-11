@@ -78,11 +78,11 @@ class InventoryList extends React.Component {
         background: '',
         checkValue: ''
       });
-      notify('', message, 'success');
+      notify('Success !', message, 'success');
       this.props.onFetchDeviceStatus();
       this.handleStatusClose();
     }, (error) => {
-      notify('', error, 'error');
+      notify('Error !', error, 'error');
     });
   }
 
@@ -93,7 +93,7 @@ class InventoryList extends React.Component {
       });
       this.props.onFetchDeviceType();
     }, (error) => {
-      notify('', error, 'error');
+      notify('Error !', error, 'error');
     });
   }
   handleStatusClose () {
@@ -141,7 +141,7 @@ class InventoryList extends React.Component {
         this.setState({
           status_message: val.message
         });
-        notify('', this.state.status_message);
+        notify('', this.state.status_message, 'info');
         this.handleStatusClose();
       } else {
         this.setState({
@@ -265,9 +265,11 @@ class InventoryList extends React.Component {
         </td>
         <td style={{marginRight: '5%', align: 'center'}} >
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
-            if (confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning')) {
-              this.deleteDevices(device.id);
-            }
+            confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
+              if (res) {
+                this.deleteDevices(device.id);
+              }
+            });
           }} aria-hidden="true"></i>
         </td>
       </tr>);

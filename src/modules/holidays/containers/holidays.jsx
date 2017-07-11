@@ -24,7 +24,7 @@ class Holidays extends React.Component {
       router.push(isNotValid.redirectTo);
     }
     if (isError) {
-      notify('', message, 'error');
+      notify('Error !', message, 'error');
     }
   }
   render () {

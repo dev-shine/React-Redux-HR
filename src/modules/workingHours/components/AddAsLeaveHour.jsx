@@ -129,7 +129,7 @@ class AddAsLeaveHour extends React.Component {
       this.state.year,
       this.state.month,
       ).then((data) => {
-        notify('leave Applied');
+        notify('Success','leave Applied','success');
         this.handleClose();
         // this.props.onUserPendingHoursData(this.state.year, this.state.month);
         this.setState({
@@ -148,7 +148,7 @@ class AddAsLeaveHour extends React.Component {
           show_status_message:  true
         });
       }).catch((error) => {
-        notify(error);
+        notify('Error !',error,'error');
       });
   }
 

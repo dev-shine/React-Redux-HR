@@ -127,7 +127,7 @@ export default class FormAddNewInventory extends React.Component {
         });
         this.props.onFetchDevice();
       }, (error) => {
-        notify(error);
+        notify('Error !',error,'error');
       });
     } else {
       this.props.onUpdateDevice(this.state.id, apiData).then((message) => {

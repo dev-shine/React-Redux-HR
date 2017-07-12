@@ -24,7 +24,7 @@ class Login extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
     if (props.loggedUser.isError) {
-      notify(props.loggedUser.message);
+      notify('Error !', props.loggedUser.message, 'error');
     }
   }
   doLogin (username, password) {

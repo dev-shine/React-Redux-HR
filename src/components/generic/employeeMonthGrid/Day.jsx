@@ -16,7 +16,6 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
 
   let officeWorkingHours = d.office_working_hours;
   let main = '';
-  let inOutTime = '';
   let _class = 'fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable ';
 
   let extraTimebg = '';
@@ -110,26 +109,26 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
 };
 
 Day.PropTypes = {
-  classname: PropTypes.string,
-  forEmployeeHours: PropTypes.bool,
-  day: PropTypes.string,
-  userid: PropTypes.number,
-  showDaySummary: PropTypes.func,
+  classname:            PropTypes.string,
+  forEmployeeHours:     PropTypes.bool,
+  day:                  PropTypes.string,
+  userid:               PropTypes.number,
+  showDaySummary:       PropTypes.func,
   onWorkingHoursChange: PropTypes.func,
-  dayData: PropTypes.shape({
-    date: PropTypes.number.isRequired,
-    day: PropTypes.string.isRequired,
-    day_type: PropTypes.string.isRequired,
-    full_date: PropTypes.string.isRequired,
-    admin_alert: PropTypes.number,
-    admin_alert_message: PropTypes.string,
-    day_text: PropTypes.string,
-    extra_time: PropTypes.string,
-    in_time: PropTypes.string,
-    out_time: PropTypes.string,
-    total_time: PropTypes.string,
+  dayData:              PropTypes.shape({
+    date:                 PropTypes.number.isRequired,
+    day:                  PropTypes.string.isRequired,
+    day_type:             PropTypes.string.isRequired,
+    full_date:            PropTypes.string.isRequired,
+    admin_alert:          PropTypes.number,
+    admin_alert_message:  PropTypes.string,
+    day_text:             PropTypes.string,
+    extra_time:           PropTypes.string,
+    in_time:              PropTypes.string,
+    out_time:             PropTypes.string,
+    total_time:           PropTypes.string,
     office_working_hours: PropTypes.string,
-    text: PropTypes.string
+    text:                 PropTypes.string
   }).isRequired
 };
 

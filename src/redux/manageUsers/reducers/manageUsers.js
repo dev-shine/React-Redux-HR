@@ -30,7 +30,9 @@ export function manageUsers (state = Immutable.fromJS(initialState), action) {
   } else if (action.type === 'ACTION_ERROR_USER_DOCUMENT') {
     return state.set('status_message', action.payload).set('user_documents', []);
   } else if (action.type === 'ACTION_SUCCESS_EMPLOYEE_STEPS') {
-    return state.set('status_message', action.payload).set('employee_life_cycle', action.payload.employee_life_cycle);
+    return state.set('employee_life_cycle', action.payload.employee_life_cycle);
+  } else if (action.type === 'ACTION_ERROR_EMPLOYEE_STEPS') {
+    return state.set('status_message', action.payload).set('employee_life_cycle', {});
   } else {
     return state.set('status_message', '');
   }

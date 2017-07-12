@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
@@ -16,7 +17,7 @@ import * as actions from 'appRedux/actions';
 class Home extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
+    this.props.isAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
       'daysummary_userid':  '',
@@ -29,7 +30,7 @@ class Home extends React.Component {
     this.monthToggle = this.monthToggle.bind(this);
   }
   componentDidMount () {
-    this.props.onUsersList();
+    this.props.requestUsersList();
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
@@ -46,7 +47,7 @@ class Home extends React.Component {
     }
 
     if (this.state.defaultUserDisplay === '') {
-      if (props.usersList.users.length > 0) {
+      if (props.usersList.users && props.usersList.users.length > 0) {
         let firstUser = props.usersList.users[0];
         let defaultUserId = firstUser.user_Id;
         this.onUserClick(defaultUserId);
@@ -55,15 +56,15 @@ class Home extends React.Component {
   }
   onUserClick (userid) {
     this.setState({'defaultUserDisplay': userid});
-    this.props.onMonthAttendance(userid, this.state.year, this.state.month);
+    this.props.requestUserAttendance({userid, year: this.state.year, month: this.state.month});
   }
   monthToggle (u, y, m) {
     this.setState({year: y, month: m});
-    this.props.onMonthAttendance(u, y, m);
+    this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
   onShowDaySummary (userid, date) {
     this.setState({daysummary_userid: userid, daysummary_date: date});
-    this.props.onUserDaySummary(userid, date);
+    this.props.requestUserDaySummary({userid, date});
   }
   render () {
     return (
@@ -100,27 +101,7 @@ function mapStateToProps (state) {
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onIsAlreadyLogin: () => {
-      return dispatch(actions.isAlreadyLogin());
-    },
-    onUsersList: () => {
-      return dispatch(actionsUsersList.get_users_list());
-    },
-    onMonthAttendance: (userid, year, month) => {
-      return dispatch(actionsMonthlyAttendance.get_monthly_attendance(userid, year, month));
-    },
-    onUserDaySummary: (userid, date) => {
-      return dispatch(actionsUserDaySummary.getUserDaySummary(userid, date));
-    },
-    onUpdateDaySummary: (userid, date, entryTime, exitTime, reason, year, month) => {
-      return dispatch(actionsUserDaySummary.updateUserDaySummary(userid, date, entryTime, exitTime, reason, year, month));
-    }
-  };
+  return bindActionCreators(actions, dispatch);
 };
 
-const VisibleHome = connect(mapStateToProps, mapDispatchToProps)(Home);
-
-const RouterVisibleHome = withRouter(VisibleHome);
-
-export default RouterVisibleHome;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

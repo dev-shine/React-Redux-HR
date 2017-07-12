@@ -148,13 +148,43 @@ class ManageUsers extends React.Component {
   render () {
     var data = {'employee_life_cycle':
     [
-      {'id':    123, 'stage': 'onboard', 'text':  'On-board', 'steps':
+      {'id':    123, 'stage': 'Joining', 'text':  'Joining', 'steps':
       [
-          {'id': 1, 'step': 'A', 'text': 'Abc DERF GFHFI', 'status': 0},
-          {'id': 2, 'step': 'B', 'text': 'BBBB', 'status': 1}
+          {'id': 1, 'step': 'A', 'text': 'Documents', 'status': 0},
+          {'id': 2, 'step': 'B', 'text': 'Policy Read', 'status': 1}
       ]
       },
-      {'id':    1234, 'stage': 'onboard', 'text':  'On-board', 'steps':
+      {'id':    1234, 'stage': 'onboard', 'text':  'Accounts', 'steps':
+      [
+          {'id': 1, 'step': 'C', 'text': 'Gmail', 'status': 1},
+          {'id': 2, 'step': 'D', 'text': 'slack', 'status': 0}
+      ]
+      },
+      {'id':    1234, 'stage': 'onboard', 'text':  'Inventory', 'steps':
+      [
+          {'id': 1, 'step': 'C', 'text': 'Desktop', 'status': 1},
+          {'id': 2, 'step': 'D', 'text': 'UPS', 'status': 1}
+      ]
+      },
+      {'id':    1234, 'stage': 'onboard', 'text':  'Training', 'steps':
+      [
+          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
+          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 0}
+      ]
+      },
+      {'id':    1234, 'stage': 'onboard', 'text':  'Employee', 'steps':
+      [
+          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
+          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
+      ]
+      },
+      {'id':    1234, 'stage': 'onboard', 'text':  'Resign', 'steps':
+      [
+          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
+          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
+      ]
+      },
+      {'id':    1234, 'stage': 'onboard', 'text':  'Relieved', 'steps':
       [
           {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
           {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}

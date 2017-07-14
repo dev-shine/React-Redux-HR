@@ -54,6 +54,7 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
+    this.props.onGetStages(this.props.loggedUser.data.id);
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
@@ -146,52 +147,6 @@ class ManageUsers extends React.Component {
     this.setState({openIframe: false});
   }
   render () {
-    var data = {'employee_life_cycle':
-    [
-      {'id':    123, 'stage': 'Joining', 'text':  'Joining', 'steps':
-      [
-          {'id': 1, 'step': 'A', 'text': 'Documents', 'status': 0},
-          {'id': 2, 'step': 'B', 'text': 'Policy Read', 'status': 1}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Accounts', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Gmail', 'status': 1},
-          {'id': 2, 'step': 'D', 'text': 'slack', 'status': 0}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Inventory', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Desktop', 'status': 1},
-          {'id': 2, 'step': 'D', 'text': 'UPS', 'status': 1}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Training', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
-          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 0}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Employee', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
-          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Resign', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
-          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
-      ]
-      },
-      {'id':    1234, 'stage': 'onboard', 'text':  'Relieved', 'steps':
-      [
-          {'id': 1, 'step': 'C', 'text': 'Abc HFI', 'status': 0},
-          {'id': 2, 'step': 'D', 'text': 'DDDD', 'status': 1}
-      ]
-      }
-    ]
-    };
     return (
       <div>
         <AlertNotification message={this.props.manageUsers.status_message} />
@@ -238,7 +193,7 @@ class ManageUsers extends React.Component {
                 </div>
                 <div className="col-md-10 p">
                   <div className="row box p-t">
-                    <EmployeeLifeCycle data={data} handleChangeSteps={(stageid, stepid) => this.handleChangeSteps(stageid, stepid, this.state.selected_user_id)} />
+                    <EmployeeLifeCycle data={this.props.manageUsers.stages} handleChangeSteps={(stageid, stepid) => this.handleChangeSteps(stageid, stepid, this.state.selected_user_id)} />
                   </div>
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
@@ -333,6 +288,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchTeam: () => {
       return dispatch(actionsGetTeamData.get_all_team());
+    },
+    onGetStages: (id) => {
+      return dispatch(actionsManageUsers.getSteps(id));
     },
     onHandleChangeSteps: (stageid, userid, stepid) => {
       return dispatch(actionsManageUsers.changeSteps(stageid, userid, stepid));

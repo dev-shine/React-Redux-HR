@@ -454,6 +454,38 @@ export function changeEmployeeStatus (userid, status) {
   };
 }
 
+function successGetStep (data) {
+  return createAction(constants.ACTION_SUCCESS_GET_STEPS)(data);
+}
+function errorGetStep (data) {
+  return createAction(constants.ACTION_ERROR_GET_STEPS)(data);
+}
+
+function asyncGetSteps (userid) {
+  return fireAjax('POST', '', {
+    'action': 'get_employee_life_cycle',
+    'userid': userid
+  });
+}
+
+export function getSteps (userid) {
+  return function (dispatch, getState) {
+    return new Promise((resolve, reject) => {
+      asyncGetSteps(userid).then((json) => {
+        if (json.error == 0) {
+          resolve(json.data.message);
+          dispatch(successGetStep(json.data));
+        } else {
+          reject(json.data.message);
+          dispatch(errorGetStep(json.data.message));
+        }
+      }, (error) => {
+        reject('error occurs!!');
+      });
+    });
+  };
+}
+
 function successEmployeeStep (data) {
   return createAction(constants.ACTION_SUCCESS_EMPLOYEE_STEPS)(data);
 }

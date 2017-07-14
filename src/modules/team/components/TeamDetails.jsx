@@ -8,8 +8,8 @@ const TeamDetails = ({teamListData, fetchUserDetails}) => {
     let selectedTeam = emp.target.value;
     fetchUserDetails(selectedTeam);
   };
-  let teams = teamListData && teamListData.teams || [];
-  let teamData = teamListData && teamListData.candidateByTeam || [];
+  let teams = teamListData.teamList && teamListData.teamList.data || [];
+  let teamData = teamListData.candidateByTeam && teamListData.candidateByTeam.data || [];
   let row = _.map(teamData, (emp, key) => {
     return (
       <tr key={key}>

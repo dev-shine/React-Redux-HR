@@ -54,7 +54,6 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeam();
   }
   componentWillReceiveProps (props) {
-    this.props.onGetStages(this.props.loggedUser.data.id);
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
@@ -102,6 +101,7 @@ class ManageUsers extends React.Component {
     this.props.onUserProfileDetails(userid, username);
     this.props.onGetUserDocument(userid);
     this.props.onUserManagePayslipsData(userid);
+    this.props.onGetStages(userid);
   }
   callUpdateUserBankDetails (newBankDetails) {
     this.props.onUpdateUserBankDetails(newBankDetails).then((data) => {}, (error) => {
@@ -137,8 +137,8 @@ class ManageUsers extends React.Component {
       });
     });
   }
-  handleChangeSteps (stageid, stepid, userid) {
-    this.props.onHandleChangeSteps(stageid, userid, stepid);
+  handleChangeSteps (stepid, userid) {
+    this.props.onHandleChangeSteps(userid, stepid);
   }
   handleOpenIframe () {
     this.setState({openIframe: true});
@@ -193,7 +193,7 @@ class ManageUsers extends React.Component {
                 </div>
                 <div className="col-md-10 p">
                   <div className="row box p-t">
-                    <EmployeeLifeCycle data={this.props.manageUsers.stages} handleChangeSteps={(stageid, stepid) => this.handleChangeSteps(stageid, stepid, this.state.selected_user_id)} />
+                    <EmployeeLifeCycle data={this.props.manageUsers.stages} handleChangeSteps={(stepid) => this.handleChangeSteps(stepid, this.state.selected_user_id)} />
                   </div>
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
@@ -292,8 +292,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetStages: (id) => {
       return dispatch(actionsManageUsers.getSteps(id));
     },
-    onHandleChangeSteps: (stageid, userid, stepid) => {
-      return dispatch(actionsManageUsers.changeSteps(stageid, userid, stepid));
+    onHandleChangeSteps: (userid, stepid) => {
+      return dispatch(actionsManageUsers.changeSteps(userid, stepid));
     }
   };
 };

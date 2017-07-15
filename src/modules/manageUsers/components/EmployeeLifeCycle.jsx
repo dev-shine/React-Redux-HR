@@ -10,7 +10,7 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
         v.text = <span className="text-success">{v.text}</span>;
       }
       return (
-        <div key={k}><input type="checkbox" value={v.text} checked={v.status} onChange={() => handleChangeSteps(value.id, v.id)} /> {v.text}<br /></div>
+        <div key={k}><input type="checkbox" value={v.text} checked={v.status} onChange={() => handleChangeSteps(v.id)} /> {v.text}<br /></div>
       );
     });
     return (

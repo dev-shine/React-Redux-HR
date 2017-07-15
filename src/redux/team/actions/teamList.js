@@ -23,7 +23,7 @@ export function* saveTeam (action) {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'add_team_list',
       type:   'team_list',
-      value:  action.payload.teams
+      value:  action.payload
     });
     if (response.error === 0) {
       yield put(actions.successAddTeam(response.data));
@@ -38,6 +38,7 @@ export function* saveTeam (action) {
 }
 
 export function* getTeamCandidate (action) {
+  console.log(action, 'action');
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_team_users_detail',

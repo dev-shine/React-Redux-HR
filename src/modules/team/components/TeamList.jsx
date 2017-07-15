@@ -63,7 +63,7 @@ class TeamList extends React.Component {
     this.callSaveApi(newdata);
   }
   callSaveApi (newArray) {
-    this.props.requestAddTeam({newArray});
+    this.props.requestAddTeam(newArray);
     if (this.props.teamList.teamList.isSuccess) {
       this.handleClose();
     } else {

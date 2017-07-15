@@ -9,6 +9,7 @@ update.extend('$setRequestLoading', (payload, original) => {
   });
 });
 update.extend('$setRequestSuccess', (payload, original) => {
+  // console.log(payload, original, 'update reducer');
   return update(original, {
     data:      {$set: payload},
     isLoading: {$set: false},

@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import Immutable from 'immutable';
+// import Immutable from 'immutable';
 import * as constants from 'appRedux/constants';
 import update from 'immutability-helper';
 import 'appRedux/update';
@@ -32,48 +32,48 @@ const requestTeamLists = (state, action) => update(state, {
   teamList: {$setRequestLoading: null}
 });
 
-const successTeamList = (state, action) => update(state, {
+const successTeamLists = (state, action) => update(state, {
   teamList: {$setRequestSuccess: action.payload}
 });
 
-const errorTeamList = (state, action) => update(state, {
+const errorTeamLists = (state, action) => update(state, {
   teamList: {$setRequestError: action.payload}
 });
 
-const requestAddTeam = (state, action) => update(state, {
+const requestAddTeams = (state, action) => update(state, {
   addTeam: {$setRequestLoading: null}
 });
 
-const successAddTeam = (state, action) => update(state, {
+const successAddTeams = (state, action) => update(state, {
   addTeam: {$setRequestSuccess: action.payload}
 });
 
-const errorAddTeam = (state, action) => update(state, {
+const errorAddTeams = (state, action) => update(state, {
   addTeam: {$setRequestError: action.payload}
 });
 
-const requestGetTeamCandidate = (state, action) => update(state, {
+const requestGetTeamCandidates = (state, action) => update(state, {
   candidateByTeam: {$setRequestLoading: null}
 });
 
-const successGetTeamCandidate = (state, action) => update(state, {
+const successGetTeamCandidates = (state, action) => update(state, {
   candidateByTeam: {$setRequestSuccess: action.payload}
 });
 
-const errorGetTeamCandidate = (state, action) => update(state, {
+const errorGetTeamCandidates = (state, action) => update(state, {
   candidateByTeam: {$setRequestError: action.payload}
 });
 
 export default handleActions({
   [constants.REQUEST_TEAM_LIST]:          requestTeamLists,
-  [constants.SUCCESS_TEAM_LIST]:          successTeamList,
-  [constants.ERROR_TEAM_LIST]:            errorTeamList,
-  [constants.REQUEST_ADD_TEAM]:           requestAddTeam,
-  [constants.SUCCESS_ADD_TEAM]:           successAddTeam,
-  [constants.ERROR_ADD_TEAM]:             errorAddTeam,
-  [constants.REQUEST_GET_TEAM_CANDIDATE]: requestGetTeamCandidate,
-  [constants.SUCCESS_GET_TEAM_CANDIDATE]: successGetTeamCandidate,
-  [constants.ERROR_GET_TEAM_CANDIDATE]:   errorGetTeamCandidate
+  [constants.SUCCESS_TEAM_LIST]:          successTeamLists,
+  [constants.ERROR_TEAM_LIST]:            errorTeamLists,
+  [constants.REQUEST_ADD_TEAM]:           requestAddTeams,
+  [constants.SUCCESS_ADD_TEAM]:           successAddTeams,
+  [constants.ERROR_ADD_TEAM]:             errorAddTeams,
+  [constants.REQUEST_GET_TEAM_CANDIDATE]: requestGetTeamCandidates,
+  [constants.SUCCESS_GET_TEAM_CANDIDATE]: successGetTeamCandidates,
+  [constants.ERROR_GET_TEAM_CANDIDATE]:   errorGetTeamCandidates
 }, initialState);
 
 // export function teamList (state = Immutable.fromJS(initialState), action) {

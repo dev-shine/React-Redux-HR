@@ -97,7 +97,7 @@ class ViewTeam extends React.Component {
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={(selectedTeam) => this.props.requestGetTeamCandidate(selectedTeam)} />
+                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={(selectedTeam) => this.props.requestGetTeamCandidate({selectedTeam})} />
                 </div>
               </div>
             </div>

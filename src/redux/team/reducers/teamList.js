@@ -1,5 +1,4 @@
 import {handleActions} from 'redux-actions';
-// import Immutable from 'immutable';
 import * as constants from 'appRedux/constants';
 import update from 'immutability-helper';
 import 'appRedux/update';
@@ -75,21 +74,3 @@ export default handleActions({
   [constants.SUCCESS_GET_TEAM_CANDIDATE]: successGetTeamCandidates,
   [constants.ERROR_GET_TEAM_CANDIDATE]:   errorGetTeamCandidates
 }, initialState);
-
-// export function teamList (state = Immutable.fromJS(initialState), action) {
-//   if (action.type === 'ACTION_SUCCESS_TEAM_LIST') {
-//     return state.set('teams', action.payload);
-//   } else if (action.type === 'ACTION_ERROR_TEAM_LIST') {
-//     return state.set('teams', action.payload);
-//   } else if (action.type === 'ACTION_SUCCESS_ADD_TEAM') {
-//     return state.set('status_message', action.payload);
-//   } else if (action.type === 'ACTION_ERROR_ADD_TEAM') {
-//     return state.set('status_message', action.payload);
-//   } else if (action.type === 'ACTION_SUCCESS_GET_TEAM_CANDIDATE') {
-//     return state.set('candidateByTeam', action.payload).set('isSuccess', true);
-//   } else if (action.type === 'ACTION_ERROR_GET_TEAM_CANDIDATE') {
-//     return state.set('status_message', action.payload).set('candidateByTeam', []);
-//   } else {
-//     return state;
-//   }
-// }

@@ -6,7 +6,6 @@ var moment = require('moment');
 const TeamDetails = ({teamListData, fetchUserDetails}) => {
   const onSelectTeam = (emp) => {
     let selectedTeam = emp.target.value;
-    console.log(selectedTeam, 'selectedTeam');
     fetchUserDetails(selectedTeam);
   };
   let teams = teamListData.teamList && teamListData.teamList.data || [];

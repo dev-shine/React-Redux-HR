@@ -18,7 +18,6 @@ import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHi
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
 import * as actions from 'appRedux/actions';
-// import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';

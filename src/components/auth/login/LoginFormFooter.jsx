@@ -5,18 +5,18 @@ import {Link} from 'react-router';
 export const LoginFormFooter = ({doGuestLogin}) => {
   return (
     <div className="m-b text-sm text-center">
-      <br/>
+      <br />
       <button className="md-btn md-flat text-accent" onClick={doGuestLogin}>Click for guest Login</button>
-      <br/>
+      <br />
       <button className="md-btn md-flat text-accent">
         <Link to='/forgot_password'>Forgot Password</Link>
       </button>
     </div>
-  )
-}
+  );
+};
 
 LoginFormFooter.PropTypes = {
   doGuestLogin: PropTypes.func.isRequired
-}
+};
 
 export default LoginFormFooter;

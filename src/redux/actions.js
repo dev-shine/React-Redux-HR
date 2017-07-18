@@ -42,6 +42,6 @@ export const requestAddTeam = createAction(constants.REQUEST_ADD_TEAM);
 export const successAddTeam = createAction(constants.SUCCESS_ADD_TEAM);
 export const errorAddTeam = createAction(constants.ERROR_ADD_TEAM);
 
-export const requestGetTeamCandidate = createAction(constants.REQUEST_GET_TEAM_CANDIDATE);
-export const successGetTeamCandidate = createAction(constants.SUCCESS_GET_TEAM_CANDIDATE);
-export const errorGetTeamCandidate = createAction(constants.ERROR_GET_TEAM_CANDIDATE);
+export const requestGetTeam = createAction(constants.REQUEST_GET_TEAM);
+export const successGetTeam = createAction(constants.SUCCESS_GET_TEAM);
+export const errorGetTeam = createAction(constants.ERROR_GET_TEAM);

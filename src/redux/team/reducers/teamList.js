@@ -12,13 +12,12 @@ let initialState = {
     message:   ''
   },
   addTeam: {
-    data:      {},
     isLoading: false,
     isError:   false,
     isSuccess: false,
     message:   ''
   },
-  candidateByTeam: {
+  team: {
     data:      {},
     isLoading: false,
     isError:   false,
@@ -27,50 +26,55 @@ let initialState = {
   }
 };
 
-const requestTeamLists = (state, action) => update(state, {
+const requestTeamList = (state, action) => update(state, {
   teamList: {$setRequestLoading: null}
 });
 
-const successTeamLists = (state, action) => update(state, {
+const successTeamList = (state, action) => update(state, {
   teamList: {$setRequestSuccess: action.payload}
 });
 
-const errorTeamLists = (state, action) => update(state, {
+const errorTeamList = (state, action) => update(state, {
   teamList: {$setRequestError: action.payload}
 });
 
-const requestAddTeams = (state, action) => update(state, {
+const requestAddTeam = (state, action) => update(state, {
   addTeam: {$setRequestLoading: null}
 });
 
-const successAddTeams = (state, action) => update(state, {
-  addTeam: {$setRequestSuccess: action.payload}
+const successAddTeam = (state, action) => update(state, {
+  addTeam: {
+    isLoading: {$set: false},
+    isError:   {$set: false},
+    isSuccess: {$set: true},
+    message:   {$set: action.payload}
+  }
 });
 
-const errorAddTeams = (state, action) => update(state, {
+const errorAddTeam = (state, action) => update(state, {
   addTeam: {$setRequestError: action.payload}
 });
 
-const requestGetTeamCandidates = (state, action) => update(state, {
-  candidateByTeam: {$setRequestLoading: null}
+const requestGetTeam = (state, action) => update(state, {
+  team: {$setRequestLoading: null}
 });
 
-const successGetTeamCandidates = (state, action) => update(state, {
-  candidateByTeam: {$setRequestSuccess: action.payload}
+const successGetTeam = (state, action) => update(state, {
+  team: {$setRequestSuccess: action.payload}
 });
 
-const errorGetTeamCandidates = (state, action) => update(state, {
-  candidateByTeam: {$setRequestError: action.payload}
+const errorGetTeam = (state, action) => update(state, {
+  team: {$setRequestError: action.payload}
 });
 
 export default handleActions({
-  [constants.REQUEST_TEAM_LIST]:          requestTeamLists,
-  [constants.SUCCESS_TEAM_LIST]:          successTeamLists,
-  [constants.ERROR_TEAM_LIST]:            errorTeamLists,
-  [constants.REQUEST_ADD_TEAM]:           requestAddTeams,
-  [constants.SUCCESS_ADD_TEAM]:           successAddTeams,
-  [constants.ERROR_ADD_TEAM]:             errorAddTeams,
-  [constants.REQUEST_GET_TEAM_CANDIDATE]: requestGetTeamCandidates,
-  [constants.SUCCESS_GET_TEAM_CANDIDATE]: successGetTeamCandidates,
-  [constants.ERROR_GET_TEAM_CANDIDATE]:   errorGetTeamCandidates
+  [constants.REQUEST_TEAM_LIST]: requestTeamList,
+  [constants.SUCCESS_TEAM_LIST]: successTeamList,
+  [constants.ERROR_TEAM_LIST]:   errorTeamList,
+  [constants.REQUEST_ADD_TEAM]:  requestAddTeam,
+  [constants.SUCCESS_ADD_TEAM]:  successAddTeam,
+  [constants.ERROR_ADD_TEAM]:    errorAddTeam,
+  [constants.REQUEST_GET_TEAM]:  requestGetTeam,
+  [constants.SUCCESS_GET_TEAM]:  successGetTeam,
+  [constants.ERROR_GET_TEAM]:    errorGetTeam
 }, initialState);

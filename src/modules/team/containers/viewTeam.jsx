@@ -26,7 +26,7 @@ class ViewTeam extends React.Component {
   }
   componentWillMount () {
     this.props.requestTeamList();
-    this.props.requestGetTeamCandidate('');
+    this.props.requestGetTeam('');
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -97,7 +97,7 @@ class ViewTeam extends React.Component {
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={(selectedTeam) => this.props.requestGetTeamCandidate({selectedTeam})} />
+                  <TeamDetails teamList={this.props.teamList} team={this.props.team} fetchUserDetails={(selectedTeam) => this.props.requestGetTeam({selectedTeam})} />
                 </div>
               </div>
             </div>
@@ -113,7 +113,8 @@ function mapStateToProps (state) {
     loggedUser: state.logged_user.userLogin,
     usersList:  state.usersList.toJS(),
     employee:   state.empSalaryList.toJS(),
-    teamList:   state.teamList
+    teamList:   state.teamList.teamList,
+    team:       state.teamList.team
   };
 }
 const mapDispatchToProps = (dispatch) => {

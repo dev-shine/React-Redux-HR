@@ -46,28 +46,31 @@ class TeamList extends React.Component {
         teamError: 'Required'
       });
     } else {
-      let dataToSend = this.props.teamList.teamList && this.props.teamList.teamList.data || [];
+      let dataToSend = this.props.teamList && this.props.teamList.data || [];
       dataToSend.push(teamName);
-      this.callSaveApi(dataToSend);
+      this.callSaveApi('save', dataToSend);
     }
   }
 
   deleteTeam (teamName) {
-    let teams = this.props.teamList.teamList && this.props.teamList.teamList.data || [];
+    let teams = this.props.teamList && this.props.teamList.data || [];
     let newdata = [];
     _.map(teams, (vari, i) => {
       if (vari !== teamName) {
         newdata.push(vari);
       }
     });
-    this.callSaveApi(newdata);
+    this.callSaveApi('delete', newdata);
   }
-  callSaveApi (newArray) {
+  callSaveApi (func, newArray) {
     this.props.requestAddTeam(newArray);
-    if (this.props.teamList.teamList.isSuccess) {
+    if (this.props.teamList.isSuccess) {
       this.handleClose();
-    } else {
-      notify(this.props.teamList.teamList.status_message);
+      if (func === 'save') {
+        notify('Team added Successfully.');
+      } else if (func === 'delete') {
+        notify('Team List updated Successfully.');
+      }
     }
   }
   handleClose () {
@@ -80,8 +83,8 @@ class TeamList extends React.Component {
   }
   render () {
     let teams;
-    if (this.props.teamList.teamList && this.props.teamList.teamList.data && this.props.teamList.teamList.data.length > 0) {
-      teams = this.props.teamList.teamList.data;
+    if (this.props.teamList && this.props.teamList.data && this.props.teamList.data.length > 0) {
+      teams = this.props.teamList.data;
     } else {
       teams = [];
     }

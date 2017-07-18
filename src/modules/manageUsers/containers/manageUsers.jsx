@@ -277,7 +277,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
     onFetchTeam: () => {
-      return dispatch(actions.requestGetTeamCandidate());
+      return dispatch(actions.requestGetTeam());
     }
   };
 };

@@ -28,7 +28,7 @@ function async_getUserProfileDetails (userid) {
 
 export function getUserProfileDetails (userid, username) {
   return function (dispatch, getState) {
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
       async_getUserProfileDetails(userid).then((json) => {
         dispatch(hide_loading()); // hide loading icon
@@ -235,7 +235,7 @@ export function updateUserProfileDetails (new_profile_details) {
     // if (n_holding_comments.trim() === "") {
     //   return Promise.reject('Holding amount comment is empty')
     // }
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
       async_updateUserProfileDetails(n_user_id, n_name, n_jobtitle, n_team, n_dateofjoining, n_work_email, n_other_email, n_gender, n_dob, n_marital_status,
         n_address1, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition, n_training_completion_date,
@@ -344,13 +344,13 @@ export function addNewEmployee (new_employee_details) {
       n_workemail = new_employee_details.workemail;
     }
 
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
       async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
           dispatch(success_add_new_employee(json.data.message));
-          reslove(json.data.message);
+          resolve(json.data.message);
         } else {
           dispatch(error_add_new_employee(json.data.message));
           reject(json.data.message);
@@ -460,7 +460,6 @@ function successGetStep (data) {
 function errorGetStep (data) {
   return createAction(constants.ACTION_ERROR_GET_STEPS)(data);
 }
-
 function asyncGetSteps (userid) {
   return fireAjax('POST', '', {
     'action': 'get_employee_life_cycle',
@@ -507,7 +506,8 @@ export function changeSteps (userid, stepid) {
       asyncChangeSteps(userid, stepid).then((json) => {
         if (json.error == 0) {
           resolve(json.data.message);
-          dispatch(successEmployeeStep(json.data));
+          dispatch(getSteps(userid));
+          // dispatch(successEmployeeStep(json.data));
         } else {
           reject(json.data.message);
           dispatch(errorEmployeeStep(json.data.message));

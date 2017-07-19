@@ -234,7 +234,7 @@ function mapStateToProps (state) {
     loggedUser:     state.logged_user.userLogin,
     usersList:      state.usersList.toJS(),
     manageUsers:    state.manageUsers.toJS(),
-    teamList:       state.teamList
+    teamList:       state.teamList.teamList
   };
 }
 

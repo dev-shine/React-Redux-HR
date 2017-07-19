@@ -179,7 +179,7 @@ class FormUserProfileDetails extends React.Component {
     this.props.callUpdateUserProfileDetails(this.state);
   }
   render () {
-    let teams = this.props.teamList.teamList.data.length > 0 ? this.props.teamList.teamList.data : [];
+    let teams = this.props.teamList.data.length > 0 ? this.props.teamList.data : [];
     let userLevel = this.props.loggedUser.data.role === CONFIG.ADMIN;
     return (
       <div>

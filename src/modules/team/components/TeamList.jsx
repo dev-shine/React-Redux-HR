@@ -67,9 +67,9 @@ class TeamList extends React.Component {
     if (this.props.teamList.isSuccess) {
       this.handleClose();
       if (func === 'save') {
-        notify('Team added Successfully.');
+        notify('Success', 'Team added Successfully.', 'success');
       } else if (func === 'delete') {
-        notify('Team List updated Successfully.');
+        notify('Success', 'Team List updated Successfully.', 'Success');
       }
     }
   }
@@ -82,11 +82,9 @@ class TeamList extends React.Component {
     });
   }
   render () {
-    let teams;
+    let teams = [];
     if (this.props.teamList && this.props.teamList.data && this.props.teamList.data.length > 0) {
       teams = this.props.teamList.data;
-    } else {
-      teams = [];
     }
     const actions = [
       <FlatButton

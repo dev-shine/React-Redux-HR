@@ -1,7 +1,8 @@
-  @import "auth/index";
-  @import "template/index";
-  @import "../static/assets/scss/app.scss";
-
+@import "auth/index";
+@import "template/index";
+@import "assets/font.scss";
+@import "assets/scss/app.scss";
+@import "assets/fullcalendar.theme.scss";
 
 a.primary:hover {
   background-color: #0bb69f; }

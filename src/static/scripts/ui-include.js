@@ -1,6 +1,8 @@
+var _ = require('underscore');
+
 (function ($) {
   	"use strict";
-  	
+
 	var promise = false,
 		deferred = $.Deferred();
 	_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
@@ -9,14 +11,14 @@
 			promise = deferred.promise();
 		}
 		//console.log('start: includes');
-		
+
 		compile(this);
 
 		function compile(node){
 			node.find('[ui-include]').each(function(){
 				var that = $(this),
 					url  = that.attr('ui-include');
-				promise = promise.then( 
+				promise = promise.then(
 					function(){
 						//console.log('start: compile '+ url);
 						var request = $.ajax({

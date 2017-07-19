@@ -76,9 +76,11 @@ class TeamList extends React.Component {
     });
   }
   render () {
-    let teams = [];
+    let teams;
     if (this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0) {
       teams = this.props.teamList.teams;
+    } else {
+      teams = [];
     }
     const actions = [
       <FlatButton

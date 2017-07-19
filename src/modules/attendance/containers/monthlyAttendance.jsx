@@ -1,13 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actions from 'appRedux/actions';
-import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
-import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 
 class MonthlyAttendance extends React.Component {
   constructor (props) {
@@ -16,24 +15,21 @@ class MonthlyAttendance extends React.Component {
       'defaultUserDisplay': '',
       'daysummary_userid':  '',
       'daysummary_date':    '',
-      year:                 '',
-      month:                '',
-      test:                 'show',
-      userDoc:              ['bvnvbn', 'efce', 'vbnvb', 'vbnvb']
+      'year':               '',
+      'month':              ''
     };
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
-    this.props.onIsAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onIsAlreadyLogin();
-    let user_id = this.props.loggedUser.data.id;
-    this.setState({'defaultUserDisplay': user_id});
+    this.props.isAlreadyLogin();
+    let userId = this.props.loggedUser.data.id;
+    this.setState({'defaultUserDisplay': userId});
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
     this.setState({year: year, month: month});
-    this.props.onMonthAttendance(localStorage.getItem('userid'), year, month);
+    this.props.requestUserAttendance({userid: localStorage.getItem('userid'), year: year, month: month});
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -42,12 +38,13 @@ class MonthlyAttendance extends React.Component {
     }
   }
   onShowDaySummary (userid, date) {
-    this.setState({daysummary_userid: userid, daysummary_date: date});
-    // this.props.onUserDaySummary(userid, date)
+    // show & update day summary functionality disabled for employee attendance section. code exist and can be enable in future if required.
+    // this.setState({daysummary_userid: userid, daysummary_date: date});
+    // this.props.requestUserDaySummary({userid, date});
   }
   monthToggle (u, y, m) {
     this.setState({year: y, month: m});
-    this.props.onMonthAttendance(u, y, m);
+    this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
   render () {
     return (
@@ -90,24 +87,7 @@ function mapStateToProps (state) {
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onMonthAttendance: (userid, year, month) => {
-      return dispatch(actionsMonthlyAttendance.get_monthly_attendance(userid, year, month));
-    },
-    onIsAlreadyLogin: () => {
-      return dispatch(actions.isAlreadyLogin());
-    },
-    onUserDaySummary: (userid, date) => {
-      return dispatch(actionsUserDaySummary.getUserDaySummary(userid, date));
-    },
-    onUserUpdateDaySummary: (userid, date, entryTime, exitTime, reason, year, month) => {
-      return dispatch(actionsUserDaySummary.userUpdateUserDaySummary(userid, date, entryTime, exitTime, reason, year, month));
-    }
-  };
+  return bindActionCreators(actions, dispatch);
 };
 
-const VisibleMonthlyAttendance = connect(mapStateToProps, mapDispatchToProps)(MonthlyAttendance);
-
-const RouterVisibleMonthlyAttendance = withRouter(VisibleMonthlyAttendance);
-
-export default RouterVisibleMonthlyAttendance;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MonthlyAttendance));

@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
+import {notify} from 'src/services/notify';
+import {isNotUserValid} from 'src/services/generic';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import {Button} from 'components/generic/buttons';
 import * as actions from 'appRedux/actions';
@@ -18,33 +18,23 @@ class ForgotPassword extends React.Component {
     this.doResetPassword = this.doResetPassword.bind(this);
   }
   componentWillReceiveProps (props) {
-    let loggedUser = props.loggedUser;
-    if (loggedUser.isLoggedIn) {
-      if (loggedUser.data.role === CONFIG.ADMIN || loggedUser.data.role === CONFIG.GUEST) {
-        this.props.router.push('/home');
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
-    } else {
-      if (props.forgotPassword.isError || props.forgotPassword.isSuccess) {
-        notify(props.forgotPassword.message);
-      }
+    let {route, router, loggedUser, forgotPassword: {isError, isSuccess, message}} = props;
+    let isNotValid = isNotUserValid(route.path, loggedUser);
+    if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
+      router.push(isNotValid.redirectTo);
+    }
+    if (isError || isSuccess) {
+      let megType = isError ? 'error' : 'success';
+      notify(megType + ' ! ', message, megType);
     }
   }
   doResetPassword (evt) {
     evt.preventDefault();
 
     if (this.state.form_username === '') {
-      alert('Enter username!!');
+      notify('Warning !', 'Enter Username', 'warning');
     } else {
       this.props.requestForgotPassword({username: this.state.form_username});
-      // .then(
-      //     (data) => {
-      //       console.log(data);
-      //       notify(data);
-      //     }, (error) => {
-      //       notify(error);
-      //     });
     }
   }
   render () {

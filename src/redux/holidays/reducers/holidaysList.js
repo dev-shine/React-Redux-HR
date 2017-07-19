@@ -1,17 +1,30 @@
-import Immutable from 'immutable';
+import {handleActions} from 'redux-actions';
+import update from 'immutability-helper';
+import * as constants from 'appRedux/constants';
+import 'appRedux/update';
 
 let initialState = {
-  'holidays': []
+  holidaysList: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
+  }
 };
 
-export function holidaysList (state = Immutable.fromJS(initialState), action) {
-  if (action.type === 'ACTION_SUCCESS_HOLIDAYSLIST') {
-    return state.set('holidays', action.payload.holidays);
-  } else if (action.type === 'ACTION_EMPTY_HOLIDAYSLIST') {
-    return state.set('holidays', action.payload);
-  } else if (action.type === 'ACTION_ERROR_HOLIDAYSLIST') {
-    return state.set('holidays', action.payload);
-  } else {
-    return state;
-  }
-}
+const requestHolidaysList = (state, action) => update(state, {
+  holidaysList: {$setRequestLoading: null}
+});
+const successHolidaysList = (state, action) => update(state, {
+  holidaysList: {$setRequestSuccess: action.payload}
+});
+const errorHolidaysList = (state, action) => update(state, {
+  holidaysList: {$setRequestError: action.payload}
+});
+
+export default handleActions({
+  [constants.REQUEST_HOLIDAYSLIST]: requestHolidaysList,
+  [constants.SUCCESS_HOLIDAYSLIST]: successHolidaysList,
+  [constants.ERROR_HOLIDAYSLIST]:   errorHolidaysList
+}, initialState);

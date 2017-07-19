@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import {isNotUserValid} from 'src/services/generic';
@@ -64,9 +64,9 @@ class ManageUserPendingHours extends React.Component {
   callAddUserPendingHours (userid, pendingHour, empId) {
     this.setState({show_status_message: true});
     this.props.onAddUserPendingHours(userid, pendingHour, empId).then((message) => {
-      notify(message);
+      notify('Success !', message, 'success');
     }).catch((error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
 
@@ -77,9 +77,9 @@ class ManageUserPendingHours extends React.Component {
   doApplyLeave (start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month) {
     this.setState({show_status_message: true});
     this.props.onApplyLeave(start, end, days, reason, userid, day_status, leaveType, late_reason, pending_id, year, month).then((data) => {
-      notify(data);
+      notify('Success !', data, 'success');
     }).catch((error) => {
-      notify(error);
+      notify('Error !', error, 'error');
     });
   }
 

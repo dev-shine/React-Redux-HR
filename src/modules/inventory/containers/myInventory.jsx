@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
@@ -35,7 +35,7 @@ class MyInventory extends React.Component {
 
   callUpdateUserDeviceDetails (newDeviceDetails) {
     this.props.onUpdateDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
-      notify(error);
+      notify('Error', error, 'error');
     });
   }
 

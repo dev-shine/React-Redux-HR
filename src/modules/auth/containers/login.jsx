@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/index';
-import {CONFIG} from 'src/config/index';
+import {notify} from 'src/services/notify';
+import {isNotUserValid} from 'src/services/generic';
 import GetLogo from 'components/auth/login/GetLogo';
 import Navbar from 'components/auth/login/Navbar';
 import LoginForm from 'modules/auth/components/login/LoginForm';
@@ -19,26 +19,19 @@ class Login extends React.Component {
     this.doLogin = this.doLogin.bind(this);
   }
   componentWillReceiveProps (props) {
-    let loggedUser = props.loggedUser;
-    if (loggedUser.isLoggedIn) {
-      if (loggedUser.data.role === CONFIG.ADMIN || loggedUser.data.role === CONFIG.GUEST || loggedUser.data.role === CONFIG.HR) {
-        this.props.router.push('/home');
-      } else {
-        this.props.router.push('/monthly_attendance');
-      }
-    } else {
-      if (loggedUser.isError) {
-        notify(loggedUser.message);
-      }
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
+      this.props.router.push(isNotValid.redirectTo);
+    }
+    if (props.loggedUser.isError) {
+      notify('Error !', props.loggedUser.message, 'error');
     }
   }
   doLogin (username, password) {
-    return this.props.userLoginRequest({username, password});
+    this.props.userLoginRequest({username, password});
   }
   doGuestLogin (evt) {
-    this.doLogin('global_guest', 'global_guest').then((data) => {}, (error) => {
-      notify(error);
-    });
+    this.doLogin('global_guest', 'global_guest');
   }
   render () {
     return (

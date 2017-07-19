@@ -17,9 +17,9 @@ const CalendarWeek = ({userId, dayData, onShowDaySummary, onWorkingHoursChange})
 };
 
 CalendarWeek.PropTypes = {
-  dayData: PropTypes.object.isRequired,
-  userId: PropTypes.number,
-  onShowDaySummary: PropTypes.func,
+  dayData:              PropTypes.object.isRequired,
+  userId:               PropTypes.number,
+  onShowDaySummary:     PropTypes.func,
   onWorkingHoursChange: PropTypes.func
 };
 

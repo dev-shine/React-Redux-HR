@@ -1,7 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash';
 import Dialog from 'material-ui/Dialog';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 import MyLeavesList from 'components/leave/myLeaves/MyLeavesList';
 

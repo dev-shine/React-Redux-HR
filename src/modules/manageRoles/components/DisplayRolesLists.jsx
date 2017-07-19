@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import PropTypes from 'prop-types';
+import {confirm} from 'src/services/notify';
 import _ from 'lodash';
 
 const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification, handleDelete}) => {
@@ -49,7 +50,14 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
                 <span className="col-xs-12 text-sm">{value.description}</span>
               </Link>
             </span>
-            <Link to="/manage_roles" className="col-sm-3 m-t-sm p-t-sm text-sm text-danger" onClick={() => { if (confirm('Do you want to Delete the Role ?')) { handleDelete(rolesId); } }}><i>Delete Role</i></Link>
+            <Link to="/manage_roles" className="col-sm-3 m-t-sm p-t-sm text-sm text-danger"
+              onClick={() => {
+                confirm('Are you sure ?', 'Do you want to Delete the Role ?', 'warning').then((res) => {
+                  if (res) {
+                    handleDelete(rolesId);
+                  }
+                });
+              }}><i>Delete Role</i></Link>
           </div>
         </div>
         <div id={collapseLink} className="table-responsive p-t p-r p-b p-l panel-collapse collapse">

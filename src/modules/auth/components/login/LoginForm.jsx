@@ -1,5 +1,5 @@
 import React from 'react';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {Button} from 'components/generic/buttons';
 
 class LoginForm extends React.Component {

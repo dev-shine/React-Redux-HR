@@ -1,5 +1,4 @@
 import React from 'react';
-import {notify} from 'src/services/index';
 import {CONFIG} from 'src/config/index';
 
 class UserDaySummary extends React.Component {
@@ -50,15 +49,16 @@ class UserDaySummary extends React.Component {
 
   doUpdateDaySummary (evt) {
     evt.preventDefault();
-    if (this.props.loggedUser.data.role != CONFIG.EMPLOYEE) {
-      this.props.onUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
-        notify(error);
-      });
-    } else {
-      this.props.onUserUpdateDaySummary(this.state.current_userid, this.state.current_date, this.state.form_entry_time, this.state.form_exit_time, this.state.form_reason, this.state.year, this.state.month).then((data) => {}, (error) => {
-        notify(error);
-      });
-    }
+    let {current_userid, current_date, form_entry_time, form_exit_time, form_reason, year, month} = this.state;
+    this.props.requestUpdateUserDaySummary({
+      userid:    current_userid,
+      date:      current_date,
+      entryTime: form_entry_time,
+      exitTime:  form_exit_time,
+      reason:    form_reason,
+      year,
+      month
+    });
     $('#modalUserDaySummary').modal('hide');
   }
 

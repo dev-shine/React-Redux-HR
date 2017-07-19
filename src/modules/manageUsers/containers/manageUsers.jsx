@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import ToggleButton from 'react-toggle-button';
 import PropTypes from 'prop-types';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';

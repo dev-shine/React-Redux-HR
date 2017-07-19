@@ -1,33 +1,39 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import {bindActionCreators} from 'redux';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import HolidaysList from 'components/holidays/HolidaysList';
 import * as actions from 'appRedux/actions';
-import * as actions_holidaysList from 'appRedux/holidays/actions/holidaysList';
 
 class Holidays extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
+    this.props.isAlreadyLogin();
   }
   componentWillMount () {
-    this.props.onHolidaysList();
+    this.props.requestHolidayList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let {route, router, loggedUser, holidaysList: {isError, message}} = props;
+    let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      router.push(isNotValid.redirectTo);
+    }
+    if (isError) {
+      notify('Error !', message, 'error');
     }
   }
   render () {
+    let {isLoading, data} = this.props.holidaysList;
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Holidays List'} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Holidays List'} showLoading={isLoading} />
           <div className="app-footer">
             <div></div>
           </div>
@@ -35,7 +41,7 @@ class Holidays extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-12">
-                  <HolidaysList holidays={this.props.holidaysList.holidays} />
+                  <HolidaysList holidays={data.holidays} />
                 </div>
               </div>
             </div>
@@ -50,22 +56,11 @@ function mapStateToProps (state) {
   return {
     frontend:     state.frontend.toJS(),
     loggedUser:   state.logged_user.userLogin,
-    holidaysList: state.holidaysList.toJS()
+    holidaysList: state.holidaysList.holidaysList
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onIsAlreadyLogin: () => {
-      return dispatch(actions.isAlreadyLogin());
-    },
-    onHolidaysList: () => {
-      return dispatch(actions_holidaysList.get_holidays_list());
-    }
-  };
+  return bindActionCreators(actions, dispatch);
 };
 
-const VisibleHolidays = connect(mapStateToProps, mapDispatchToProps)(Holidays);
-
-const RouterVisibleHolidays = withRouter(VisibleHolidays);
-
-export default RouterVisibleHolidays;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Holidays));

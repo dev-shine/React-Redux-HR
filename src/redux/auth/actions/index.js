@@ -1,7 +1,6 @@
 import * as jwt from 'jwt-simple';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
 

@@ -49,8 +49,7 @@ export default EmployeeLifeCycle;
 
 EmployeeLifeCycle.PropTypes = {
   data: PropTypes.shape({
-    error: PropTypes.number,
-    data:  PropTypes.object.isRequired
+    employee_life_cycle: PropTypes.object.isRequired
   }).isRequired,
   handleChangeSteps: PropTypes.func.isRequired
 };

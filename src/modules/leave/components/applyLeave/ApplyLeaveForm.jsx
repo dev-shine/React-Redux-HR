@@ -1,32 +1,32 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {Calendar} from 'react-date-range';
-import {notify} from 'src/services/index';
+import {notify} from 'src/services/notify';
 import {Button, ButtonFlat} from 'components/generic/buttons';
 
 class ApplyLeaveForm extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
-      form_from_date: '',
-      form_to_date: '',
-      form_no_of_days: '',
-      form_reason: '',
-      day_status: '',
+      form_from_date:       '',
+      form_to_date:         '',
+      form_no_of_days:      '',
+      form_reason:          '',
+      day_status:           '',
       show_half_day_button: '',
-      leaveType: '',
-      late_reason: ''
-    }
-    this.doApplyLeave = this.doApplyLeave.bind(this)
-    this.handleStartDate = this.handleStartDate.bind(this)
-    this.handleEndDate = this.handleEndDate.bind(this)
-    this._apply_half_day_1 = this._apply_half_day_1.bind(this)
+      leaveType:            '',
+      late_reason:          ''
+    };
+    this.doApplyLeave = this.doApplyLeave.bind(this);
+    this.handleStartDate = this.handleStartDate.bind(this);
+    this.handleEndDate = this.handleEndDate.bind(this);
+    this._apply_half_day_1 = this._apply_half_day_1.bind(this);
   }
   componentDidMount () {}
 
   componentDidUpdate () {
     if (this.state.form_from_date != '' && this.state.form_to_date != '' && this.state.form_no_of_days == '') {
-      this.props.onDaysBetweenLeaves(this.state.form_from_date, this.state.form_to_date)
+      this.props.onDaysBetweenLeaves(this.state.form_from_date, this.state.form_to_date);
     }
   }
 
@@ -34,78 +34,78 @@ class ApplyLeaveForm extends React.Component {
     if (shift == 1) {
       this.setState({
         form_no_of_days: '0.5',
-        day_status: '1'
-      })
+        day_status:      '1'
+      });
     } else if (shift == 2) {
       this.setState({
         form_no_of_days: '0.5',
-        day_status: '2'
-      })
+        day_status:      '2'
+      });
     }
   }
 
   handleStartDate (date) {
-    let startDate = date.format('YYYY-MM-DD')
-    this.setState({form_from_date: startDate, form_no_of_days: ''})
+    let startDate = date.format('YYYY-MM-DD');
+    this.setState({form_from_date: startDate, form_no_of_days: ''});
   }
   handleEndDate (date) {
-    let endDate = date.format('YYYY-MM-DD')
-    this.setState({form_to_date: endDate, form_no_of_days: ''})
+    let endDate = date.format('YYYY-MM-DD');
+    this.setState({form_to_date: endDate, form_no_of_days: ''});
   }
 
   doApplyLeave (evt) {
-    evt.preventDefault()
+    evt.preventDefault();
     if (this.props.forAdmin == true) {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId, this.state.day_status, this.state.leaveType, this.state.late_reason)
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, this.props.selectedUserId, this.state.day_status, this.state.leaveType, this.state.late_reason);
       this.setState({
-        form_from_date: '',
-        form_to_date: '',
-        form_no_of_days: '',
-        form_reason: '',
+        form_from_date:       '',
+        form_to_date:         '',
+        form_no_of_days:      '',
+        form_reason:          '',
         show_half_day_button: '',
-        day_status: '',
-        leaveType: '',
-        late_reason: ''
-      })
+        day_status:           '',
+        leaveType:            '',
+        late_reason:          ''
+      });
       // notify("leave Applied");
     } else {
-      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, '', this.state.day_status, this.state.leaveType, this.state.late_reason)
+      this.props.doApplyLeave(this.state.form_from_date, this.state.form_to_date, this.state.form_no_of_days, this.state.form_reason, '', this.state.day_status, this.state.leaveType, this.state.late_reason);
       this.setState({
-        form_from_date: '',
-        form_to_date: '',
-        form_no_of_days: '',
-        form_reason: '',
+        form_from_date:       '',
+        form_to_date:         '',
+        form_no_of_days:      '',
+        form_reason:          '',
         show_half_day_button: '',
-        day_status: '',
-        leaveType: '',
-        late_reason: ''
-      })
+        day_status:           '',
+        leaveType:            '',
+        late_reason:          ''
+      });
     }
   }
   componentWillReceiveProps (props) {
-    let num_working_days = '0'
+    let num_working_days = '0';
     if (props.applyLeave.count_working_days != '' && props.applyLeave.count_working_days != 0) {
-      num_working_days = props.applyLeave.count_working_days
+      num_working_days = props.applyLeave.count_working_days;
     }
 
-    this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days})
+    this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days});
   }
   render () {
     let policyLink = this.props.policy_documents.policyDocuments.map((val, i) => {
       if (val.name == 'Leave Policy') {
-        return <a key={i} href={val.link} target="_blank" ><label key={i} style={{cursor: 'pointer', marginTop: '6px'}}>Read Leave Policy</label></a>
+        return <a key={i} href={val.link} target="_blank" ><label key={i} style={{cursor: 'pointer', marginTop: '6px'}}>Read Leave Policy</label></a>;
       }
-    })
-    let dateDiff = moment(moment().format('YYYY-MM-DD')).diff(this.state.form_from_date || moment().format('YYYY-MM-DD'), 'days')
-    let apply_half_day_button_1 = ''
-    let apply_half_day_button_2 = ''
+    });
+    let dateDiff = moment(moment().format('YYYY-MM-DD')).diff(this.state.form_from_date || moment().format('YYYY-MM-DD'), 'days');
+    let apply_half_day_button_1 = '';
+    let apply_half_day_button_2 = '';
     if (this.state.form_no_of_days == 1) {
-      apply_half_day_button_1 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(1)} label="Apply Leave For First Half"/>
-      apply_half_day_button_2 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half"/>
+      apply_half_day_button_1 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(1)} label="Apply Leave For First Half" />;
+      apply_half_day_button_2 = <ButtonFlat className="text-accent" onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half" />;
     }
-    let width = '63%'
+    let width = '63%';
     if (this.props.forAdmin == true) {
-      width = '82%'
+      width = '82%';
     }
     return (
 
@@ -143,7 +143,7 @@ class ApplyLeaveForm extends React.Component {
                 <div className="sl-item b-info">
                   <div className="sl-content">
                     <div style={{width: width}}>
-                      <select value={this.state.leaveType} onChange={(e) => { this.setState({leaveType: e.target.value}) }} className="form-control" required>
+                      <select value={this.state.leaveType} onChange={(e) => { this.setState({leaveType: e.target.value}); }} className="form-control" required>
                     		<option value='' disabled>Select Option</option>
                         <option value='Casual Leave'> Casual Leave </option>
                     		<option value='Sick Leave'> Sick Leave </option>
@@ -203,11 +203,11 @@ class ApplyLeaveForm extends React.Component {
         </div>
       </div>
 
-    )
+    );
   }
 }
 ApplyLeaveForm.propTypes = {
   doApplyLeave: React.PropTypes.func.isRequired,
-  applyLeave: React.PropTypes.shape({start_date: React.PropTypes.String, end_date: React.PropTypes.String})
-}
-export default ApplyLeaveForm
+  applyLeave:   React.PropTypes.shape({start_date: React.PropTypes.String, end_date: React.PropTypes.String})
+};
+export default ApplyLeaveForm;

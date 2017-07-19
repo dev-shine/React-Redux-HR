@@ -472,7 +472,7 @@ export function getSteps (userid) {
     return new Promise((resolve, reject) => {
       asyncGetSteps(userid).then((json) => {
         if (json.error == 0) {
-          resolve(json.data.message);
+          resolve(json.message);
           dispatch(successGetStep(json.data));
         } else {
           reject(json.data.message);

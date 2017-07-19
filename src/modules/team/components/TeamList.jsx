@@ -1,7 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
 import Paper from 'material-ui/Paper';
-import {CONFIG} from 'src/config/index';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -77,11 +76,9 @@ class TeamList extends React.Component {
     });
   }
   render () {
-    let teams;
+    let teams = [];
     if (this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0) {
       teams = this.props.teamList.teams;
-    } else {
-      teams = [];
     }
     const actions = [
       <FlatButton

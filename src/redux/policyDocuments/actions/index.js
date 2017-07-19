@@ -6,10 +6,11 @@ import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
+import * as actions from 'appRedux/actions';
 
 // -----------isUserAcceptedDocumentPolicy-----------
 export function successFetchPolicyDocuments (data) {
-  return createAction(constants.ACTION_POLICY_DOCUMENT_SUCCESS)(data);
+  return createAction(constants.POLICY_DOCUMENT_SUCCESS)(data);
 }
 export function errorFetchPolicyDocuments (data) {
   return createAction(constants.ACTION_POLICY_DOCUMENT_FAIL)(data);
@@ -77,7 +78,6 @@ export function fetchUserPolicyDocument () {
 }
 
 // -----------Submit policy document info-----------
-
 function asyncSubmitDocs (docs) {
   return fireAjax('POST', '', {
     action: 'save_policy_document',
@@ -94,7 +94,7 @@ export function submitDocs (docs) {
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            dispatch(fetchPolicyDocument());
+            dispatch(actions.requestFetchPolicyDocuments());
             resolve(json.data.message);
           } else {
             reject(json.data.message);

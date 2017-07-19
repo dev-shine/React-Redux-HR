@@ -33,3 +33,7 @@ export const errorUpdateUserDaySummary = createAction(constants.ERROR_UPDATE_USE
 export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);
 export const errorUsersList = createAction(constants.ERROR_USERSLIST);
+
+export const requestFetchPolicyDocuments = createAction(constants.REQUEST_POLICY_DOCUMENT);
+export const successFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_SUCCESS);
+export const errorFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_FAIL);

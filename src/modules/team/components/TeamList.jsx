@@ -69,7 +69,7 @@ class TeamList extends React.Component {
       if (func === 'save') {
         notify('Success', 'Team added Successfully.', 'success');
       } else if (func === 'delete') {
-        notify('Success', 'Team List updated Successfully.', 'Success');
+        notify('Success', 'Team List updated Successfully.', 'success');
       }
     }
   }

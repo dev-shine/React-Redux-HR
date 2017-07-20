@@ -5,10 +5,10 @@ class FormAddUserWorkingHours extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      userid: '',
-      date: '',
+      userid:        '',
+      date:          '',
       working_hours: '',
-      reason: ''
+      reason:        ''
     };
     this.handleDateChange = this.handleDateChange.bind(this);
   }

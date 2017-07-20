@@ -10,7 +10,9 @@ const styles = {
 };
 
 const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary, onWorkingHoursChange}) => {
-  $('input.timepicker').timepicker({'minTime': '5:00', 'maxTime': '12:00', 'timeFormat': 'h:i', 'step': 10});
+  $(document).ready(function () {
+    $('input.timepicker').timepicker({'minTime': '5:00', 'maxTime': '12:00', 'timeFormat': 'h:i', 'step': 10});
+  });
 
   let d = dayData;
 
@@ -76,7 +78,7 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
             Change to &nbsp;:&nbsp;
           </span>
           <span className="fc-time">
-            <input type="text" className="timepicker" style={styles.timeInputBox} onBlur={() => onWorkingHoursChange(dayData.full_date, $('.timepicker').val())} />
+            <input type="text" className="timepicker" style={styles.timeInputBox} onBlur={(e) => onWorkingHoursChange(dayData.full_date, e.target.value)} />
           </span>
         </div>
       </div>
@@ -94,7 +96,7 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
             Change to &nbsp;:&nbsp;
           </span>
           <span className="fc-time">
-            <input type="text" className="timepicker" style={styles.timeInputBox} onBlur={() => onWorkingHoursChange(dayData.full_date, $('.timepicker').val())} />
+            <input type="text" className="timepicker" style={styles.timeInputBox} onBlur={(e) => onWorkingHoursChange(dayData.full_date, e.target.value)} />
           </span>
         </div>
       </div>

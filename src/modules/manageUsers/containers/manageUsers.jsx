@@ -192,7 +192,7 @@ class ManageUsers extends React.Component {
                   />
                 </div>
                 <div className="col-md-10 p">
-                  <div className="row box p-t">
+                  <div className="row box p-t p-b">
                     <EmployeeLifeCycle data={this.props.manageUsers.stages} handleChangeSteps={(stepid) => this.handleChangeSteps(stepid, this.state.selected_user_id)} />
                   </div>
                   <div className="row box">

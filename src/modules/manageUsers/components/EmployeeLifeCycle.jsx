@@ -14,7 +14,7 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
       }
       return (
         <TableRow rowNumber={v.id} key={k} style={{'cursor': 'pointer', 'height': '30px'}}>
-          <TableRowColumn style={{'height': '30px', 'padding': '0px 5px'}} colSpan={1} >{v.text}</TableRowColumn>
+          <TableRowColumn style={{'height': '30px', 'padding': '0px 5px', 'whiteSpace': 'normal'}} colSpan={1} >{v.text}</TableRowColumn>
         </TableRow>
       );
     });
@@ -26,10 +26,10 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
               adjustForCheckbox={false}
               displaySelectAll={false}>
               <TableRow style={{'height': '30px'}}>
-                <TableRowColumn colSpan="2" style={{'height': '30px'}} ><b>{value.text}</b></TableRowColumn>
+                <TableRowColumn colSpan="2" style={{'height': '30px', 'whiteSpace': 'normal'}} ><b>{value.text}</b></TableRowColumn>
               </TableRow>
             </TableHeader>
-            <TableBody>{steps}</TableBody>
+            <TableBody displayRowCheckbox={false}>{steps}</TableBody>
           </Table>
         </div>
       </div>
@@ -37,9 +37,13 @@ const EmployeeLifeCycle = ({data, handleChangeSteps}) => {
   });
   return (
     <div className="col-md-12">
-      <h6 className="text-center">Employee Life Cycle</h6>
-      <div className="rowflex">
-        {display}
+      <h6 className="text-center" data-toggle="collapse" data-target="#collapseLink" style={{'cursor': 'pointer'}}>
+        Employee Life Cycle ( Click on to change status - <span className="text-success">DONE</span> / <span className="text-danger">PENDING</span> )
+      </h6>
+      <div className="collapse" id="collapseLink">
+        <div className="rowflex">
+          {display}
+        </div>
       </div>
     </div>
   );

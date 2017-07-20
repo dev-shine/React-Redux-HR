@@ -19,7 +19,6 @@ import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmploye
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
 import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
 import * as actions from 'appRedux/actions';
-import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
@@ -244,7 +243,7 @@ function mapStateToProps (state) {
     loggedUser:     state.logged_user.userLogin,
     usersList:      state.usersList.toJS(),
     manageUsers:    state.manageUsers.toJS(),
-    teamList:       state.teamList.toJS()
+    teamList:       state.teamList.teamList
   };
 }
 
@@ -287,7 +286,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
     onFetchTeam: () => {
-      return dispatch(actionsGetTeamData.get_all_team());
+      return dispatch(actions.requestGetTeam());
     },
     onGetStages: (id) => {
       return dispatch(actionsManageUsers.getSteps(id));

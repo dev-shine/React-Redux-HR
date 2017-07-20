@@ -33,3 +33,15 @@ export const errorUpdateUserDaySummary = createAction(constants.ERROR_UPDATE_USE
 export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);
 export const errorUsersList = createAction(constants.ERROR_USERSLIST);
+
+export const requestTeamList = createAction(constants.REQUEST_TEAM_LIST);
+export const successTeamList = createAction(constants.SUCCESS_TEAM_LIST);
+export const errorTeamList = createAction(constants.ERROR_TEAM_LIST);
+
+export const requestAddTeam = createAction(constants.REQUEST_ADD_TEAM);
+export const successAddTeam = createAction(constants.SUCCESS_ADD_TEAM);
+export const errorAddTeam = createAction(constants.ERROR_ADD_TEAM);
+
+export const requestGetTeam = createAction(constants.REQUEST_GET_TEAM);
+export const successGetTeam = createAction(constants.SUCCESS_GET_TEAM);
+export const errorGetTeam = createAction(constants.ERROR_GET_TEAM);

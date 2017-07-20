@@ -17,6 +17,7 @@ import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDet
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
+import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
 import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
@@ -45,6 +46,7 @@ class ManageUsers extends React.Component {
     this.handleOpenIframe = this.handleOpenIframe.bind(this);
     this.handleCloseIframe = this.handleCloseIframe.bind(this);
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
+    this.handleChangeSteps = this.handleChangeSteps.bind(this);
   }
   componentWillMount () {
     this.props.onUsersList();
@@ -98,6 +100,7 @@ class ManageUsers extends React.Component {
     this.props.onUserProfileDetails(userid, username);
     this.props.onGetUserDocument(userid);
     this.props.onUserManagePayslipsData(userid);
+    this.props.onGetStages(userid);
   }
   callUpdateUserBankDetails (newBankDetails) {
     this.props.onUpdateUserBankDetails(newBankDetails).then((data) => {}, (error) => {
@@ -132,6 +135,9 @@ class ManageUsers extends React.Component {
         }
       });
     });
+  }
+  handleChangeSteps (stepid, userid) {
+    this.props.onHandleChangeSteps(userid, stepid);
   }
   handleOpenIframe () {
     this.setState({openIframe: true});
@@ -185,6 +191,9 @@ class ManageUsers extends React.Component {
                   />
                 </div>
                 <div className="col-md-10 p">
+                  <div className="row box p-t">
+                    <EmployeeLifeCycle data={this.props.manageUsers.stages} handleChangeSteps={(stepid) => this.handleChangeSteps(stepid, this.state.selected_user_id)} />
+                  </div>
                   <div className="row box">
                     <div className="col-md-7 p-t p-b p-r b-r">
                       <FormUserProfileDetails
@@ -278,6 +287,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchTeam: () => {
       return dispatch(actions.requestGetTeam());
+    },
+    onGetStages: (id) => {
+      return dispatch(actionsManageUsers.getSteps(id));
+    },
+    onHandleChangeSteps: (userid, stepid) => {
+      return dispatch(actionsManageUsers.changeSteps(userid, stepid));
     }
   };
 };

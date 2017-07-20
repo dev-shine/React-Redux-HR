@@ -6,7 +6,9 @@ let initialState = {
   'user_assign_machine': [],
   'user_bank_detail':    {},
   'user_documents':      [],
-  'username':            ''
+  'username':            '',
+  'employee_life_cycle': {},
+  'stages':              {}
 };
 
 export function manageUsers (state = Immutable.fromJS(initialState), action) {
@@ -28,6 +30,14 @@ export function manageUsers (state = Immutable.fromJS(initialState), action) {
     return state.set('user_documents', action.payload.user_document_info);
   } else if (action.type === 'ACTION_ERROR_USER_DOCUMENT') {
     return state.set('status_message', action.payload).set('user_documents', []);
+  } else if (action.type === 'ACTION_SUCCESS_EMPLOYEE_STEPS') {
+    return state.set('employee_life_cycle', action.payload.employee_life_cycle);
+  } else if (action.type === 'ACTION_ERROR_EMPLOYEE_STEPS') {
+    return state.set('status_message', action.payload).set('employee_life_cycle', {});
+  } else if (action.type === 'ACTION_SUCCESS_GET_STEPS') {
+    return state.set('stages', action.payload);
+  } else if (action.type === 'ACTION_ERROR_GET_STEPS') {
+    return state.set('status_message', action.payload).set('stages', {});
   } else {
     return state.set('status_message', '');
   }

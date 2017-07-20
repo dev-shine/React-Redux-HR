@@ -133,9 +133,9 @@ export default class UserPendingHoursList extends React.Component {
             : <td><mark>{'Pending'}</mark></td>
         }
 
-        {val.status
-          ? <td> <mark>{'No Action Required'} </mark></td>
-          : <td>{addButton} {HalfdayButton} {leaveButton}</td>
+        {val.status_merged === 0
+          ? <td>{addButton} {HalfdayButton} {leaveButton}</td>
+          : <td> <mark>{'No Action Required'} </mark></td>
       }
         </tr>
       );

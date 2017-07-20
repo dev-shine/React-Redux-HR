@@ -34,6 +34,15 @@ export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);
 export const errorUsersList = createAction(constants.ERROR_USERSLIST);
 
-export const requestFetchPolicyDocuments = createAction(constants.REQUEST_POLICY_DOCUMENT);
+export const requestfetchUserPolicyDocument = createAction(constants.REQUEST_POLICY_DOCUMENT);
 export const successFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_SUCCESS);
 export const errorFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_FAIL);
+
+export const userDataUpdated = createAction(constants.USER_LOGIN_SUCCESS);
+
+export const requestSubmitDocs = createAction(constants.REQUEST_SUBMIT_DOCS);
+export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
+
+export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);
+export const successUpdateReadStatus = createAction(constants.SUCCESS_UPDATE_READ);
+export const errorUpdateReadStatus = createAction(constants.ERROR_UPDATE_READ);

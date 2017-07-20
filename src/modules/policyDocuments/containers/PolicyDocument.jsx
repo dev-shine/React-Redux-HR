@@ -53,10 +53,10 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions.isAlreadyLogin());
     },
     onFetchUserPolicyDocument: () => {
-      return dispatch(actions_policy.fetchUserPolicyDocument());
+      return dispatch(actions.requestfetchUserPolicyDocument());
     },
     onUpdateReadStatus: (updateDoc) => {
-      return dispatch(actions_policy.updateReadStatus(updateDoc));
+      return dispatch(actions.requestUpdateReadStatus(updateDoc));
     }
   };
 };

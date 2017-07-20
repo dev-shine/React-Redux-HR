@@ -5,7 +5,7 @@ import {holidayList} from 'appRedux/holidays/actions';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDaySummary, updateUserDaySummary} from 'appRedux/attendance/actions/userDaySummary';
 import {getUsersList} from 'appRedux/generic/actions/usersList';
-import {fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
+import {fetchUserPolicyDocument, submitDocs, updateReadStatus} from 'appRedux/policyDocuments/actions/index';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);
@@ -21,7 +21,10 @@ export function* watchActions () {
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
 
-  yield takeLatest(constants.REQUEST_POLICY_DOCUMENT, fetchPolicyDocument);
+  yield takeLatest(constants.REQUEST_POLICY_DOCUMENT, fetchUserPolicyDocument);
+
+  yield takeLatest(constants.REQUEST_SUBMIT_DOCS, submitDocs);
+  yield takeLatest(constants.REQUEST_UPDATE_READ, updateReadStatus);
 }
 
 export default function* rootSaga () {

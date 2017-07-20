@@ -46,6 +46,13 @@ export const REQUEST_POLICY_DOCUMENT = 'REQUEST_POLICY_DOCUMENT';
 export const POLICY_DOCUMENT_SUCCESS = 'POLICY_DOCUMENT_SUCCESS';
 export const POLICY_DOCUMENT_FAIL = 'POLICY_DOCUMENT_FAIL';
 
+export const REQUEST_SUBMIT_DOCS = 'REQUEST_SUBMIT_DOCS';
+export const ERROR_SUBMIT_DOCS = 'ERROR_SUBMIT_DOCS';
+
+export const REQUEST_UPDATE_READ = 'REQUEST_UPDATE_READ';
+export const SUCCESS_UPDATE_READ = 'SUCCESS_UPDATE_READ';
+export const ERROR_UPDATE_READ = 'ERROR_UPDATE_READ';
+
 //* **********************************************************************************
 // +++""ADMIN""+++
 

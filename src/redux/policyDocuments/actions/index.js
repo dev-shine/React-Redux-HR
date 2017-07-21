@@ -6,13 +6,6 @@ import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
 
-// -------------get policy documents for admin section-------------
-function asyncFetchPolicyDocument () {
-  return fireAjax('POST', '', {
-    action: 'get_policy_document'
-  });
-}
-
 export function* fetchPolicyDocument () {
   try {
     const response = yield call(fireAjax, 'POST', '', {
@@ -28,28 +21,7 @@ export function* fetchPolicyDocument () {
     yield put(actions.errorFetchPolicyDocuments('Error Occurs !!'));
     console.warn('Some error found in "get_policy_document" Request action\n', e);
   }
-  // return function (dispatch, getState) {
-  //   return new Promise((resolve, reject) => {
-  //     asyncFetchPolicyDocument().then(
-  //       (json) => {
-  //         if (!_.isUndefined(json.error) && json.error === 0) {
-  //           let data = _.isNull(json.data) ? [] : json.data;
-  //           dispatch(actions.successFetchPolicyDocuments(data));
-  //           resolve();
-  //         } else {
-  //           dispatch(actions.errorFetchPolicyDocuments(json.data.message));
-  //           reject(json.data.message);
-  //         }
-  //       }, (error) => {
-  //       reject('error occurs');
-  //     }
-  //     );
-  //   });
-  // };
 }
-
-// -----------get policy documents for user-----------------
-// function asyncFetchUserPolicyDocument () {return fireAjax('POST', '', {action: 'get_user_policy_document'});}
 
 export function* fetchUserPolicyDocument () {
   try {
@@ -66,39 +38,17 @@ export function* fetchUserPolicyDocument () {
     console.warn('Some error found in "get_user_policy_document" Request action\n', e);
   }
 }
-// export function fetchUserPolicyDocument () {
-  // return function (dispatch, getState) {
-  //   return new Promise((resolve, reject) => {
-  //     asyncFetchUserPolicyDocument().then(
-  //       (json) => {
-  //         if (typeof json.error !== 'undefined' || json.error == 0) {
-  //           dispatch(actions.successFetchPolicyDocuments(json.data));
-  //           resolve(json.data);
-  //         } else {
-  //           dispatch(actions.errorFetchPolicyDocuments(json.data.message));
-  //           reject(json.data.message);
-  //         }
-  //       },
-  //       (error) => {
-  //         // reject( 'error occurs' )
-  //       }
-  //     );
-  //   });
-  // };
-// }
 
-// -----------Submit policy document info-----------
-// function asyncSubmitDocs(docs){return fireAjax('POST','',{action:'save_policy_document',type:'policy_document',value:JSON.stringify(docs)});}
-
-export function* submitDocs (docs) {
+export function* submitDocs (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'save_policy_document',
       type:   'policy_document',
-      value:  JSON.stringify(docs)
+      value:  JSON.stringify(action.payload)
     });
     if (typeof response.error !== 'undefined' && response.error === 0) {
-      yield put(fetchPolicyDocument());
+      yield put(actions.successSubmitDocs(response.data.message));
+      yield put(actions.requestfetchPolicyDocument());
     } else {
       yield put(actions.errorSubmitDocs(response.data.message));
     }
@@ -106,36 +56,16 @@ export function* submitDocs (docs) {
     yield put(actions.errorSubmitDocs('Error Occurs !!'));
     console.warn('Some error found in "save_policy_document" Request action\n', e);
   }
-  // return function (dispatch, getState) {
-  //   return new Promise((resolve, reject) => {
-  //     asyncSubmitDocs(docs).then(
-  //       (json) => {
-  //         if (typeof json.error !== 'undefined' && json.error == 0) {
-  //           dispatch(fetchPolicyDocument());
-  //           resolve(json.data.message);
-  //         } else {
-  //           reject(json.data.message);
-  //         }
-  //       },
-  //       (error) => {
-  //         reject('error occurs');
-  //       }
-  //     );
-  //   });
-  // };
 }
 
-// -----------update Read Status of policy document-----------
-// function asyncUpdateReadStatus(updateDoc){return fireAjax('POST','',{action:'update_user_policy_document',policy_document:JSON.stringify(updateDoc)});}
-
-export function* updateReadStatus (updateDoc) {
+export function* updateReadStatus (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action:          'update_user_policy_document',
-      policy_document: JSON.stringify(updateDoc)
+      policy_document: JSON.stringify(action.payload)
     });
     if (typeof response.error !== 'undefined' && response.error === 0) {
-      let token = json.data.new_token;
+      let token = response.data.new_token;
       localStorage.setItem('hr_logged_user', token);
       let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
       yield put(actions.requestfetchUserPolicyDocument());
@@ -147,22 +77,4 @@ export function* updateReadStatus (updateDoc) {
     yield put(actions.errorUpdateReadStatus('Error Occurs !!'));
     console.warn('Some error found in "update_user_policy_document" Request action\n', e);
   }
-  // return function (dispatch, getState) {
-  //   return new Promise((resolve, reject) => {
-  //     asyncUpdateReadStatus(updateDoc).then(
-  //       (json) => {
-  //         if (typeof json.error !== 'undefined' && json.error == 0) {
-  //           dispatch(actions.fetchUserPolicyDocument());
-  //           dispatch(actions.userDataUpdated(tokenData));
-  //           resolve(json.data.message);
-  //         } else {
-  //           reject(json.data.message);
-  //         }
-  //       },
-  //       (error) => {
-  //         reject('error occurs');
-  //       }
-  //     );
-  //   });
-  // };
 }

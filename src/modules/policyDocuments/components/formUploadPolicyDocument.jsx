@@ -1,100 +1,99 @@
 import React from 'react';
 import _ from 'lodash';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
 const styles = {
-  formInput:{
-    "marginLeft": "5%",
-    "marginRight": "5%",
-    "width": "80%"
-  },
+  formInput: {
+    'marginLeft':  '5%',
+    'marginRight': '5%',
+    'width':       '80%'
+  }
 };
 
 class FormUploadPolicyDocument extends React.Component {
-  constructor(props){
+  constructor (props) {
     super(props);
     this.state = {
-      nameofdoc:'',
-      linkofdoc:'',
-      errName:'',
-      errLink:'',
+      nameofdoc: '',
+      linkofdoc: '',
+      errName:   '',
+      errLink:   ''
     };
     this.submitDocs = this.submitDocs.bind(this);
   }
 
-  submitDocs(){
-    let name = this.state.nameofdoc.trim(),
-        link = this.state.linkofdoc.trim(),
-        state = true;
+  submitDocs () {
+    let name = this.state.nameofdoc.trim();
+    let link = this.state.linkofdoc.trim();
+    let state = true;
     this.setState({
-      errName:'',
-      errLink:'',
+      errName: '',
+      errLink: ''
     });
-    if(state && _.isEmpty(name)){
+    if (state && _.isEmpty(name)) {
       state = false;
       this.setState({
-        errName:"Please enter document name",
+        errName: 'Please enter document name'
       });
     }
-    if(state && _.isEmpty(link)){
+    if (state && _.isEmpty(link)) {
       state = false;
       this.setState({
-        errLink:"Please enter document link",
+        errLink: 'Please enter document link'
       });
     }
-    if(state){
+    if (state) {
       let docs = this.props.docs;
-      docs.push({name:name, link:link});
+      docs.push({name: name, link: link});
       this.props.submitDocs(docs);
       this.setState({
         nameofdoc: '',
-        linkofdoc: '',
+        linkofdoc: ''
       });
     }
   }
-  render(){
-  	return(
+  render () {
+    return (
       <div>
         <div className="col-xs-12">
-          <Paper  zDepth={1} >
+          <Paper zDepth={1} >
             <div>
               <form className="form-inline">
                 <div className="form-group" style={styles.formInput}>
-                <TextField
-                  ref='name'
-                  style={{width:'100%'}}
-                  floatingLabelText="Name of doc"
-                  errorText={this.state.errName}
-                  value={this.state.nameofdoc}
-                  onChange={(e)=>{
-                    this.setState({
-                        nameofdoc: e.target.value,
-                    });
-                  }}
-                />
+                  <TextField
+                    ref='name'
+                    style={{width: '100%'}}
+                    floatingLabelText="Name of doc"
+                    errorText={this.state.errName}
+                    value={this.state.nameofdoc}
+                    onChange={(e) => {
+                      this.setState({
+                        nameofdoc: e.target.value
+                      });
+                    }}
+                  />
                 </div>
                 <div className="form-group" style={styles.formInput}>
-                <TextField
-                  ref='link'
-                  style={{width:'100%'}}
-                  floatingLabelText="Link of doc"
-                  errorText={this.state.errLink}
-                  value={this.state.linkofdoc}
-                  onChange={(e)=>{
-                    this.setState({
-                        linkofdoc: e.target.value,
-                    });
-                  }}
-                />
+                  <TextField
+                    ref='link'
+                    style={{width: '100%'}}
+                    floatingLabelText="Link of doc"
+                    errorText={this.state.errLink}
+                    value={this.state.linkofdoc}
+                    onChange={(e) => {
+                      this.setState({
+                        linkofdoc: e.target.value
+                      });
+                    }}
+                  />
                 </div>
                 <div className="form-group" style={styles.formInput}>
                   <RaisedButton
                     label="SUBMIT"
-                    primary={true}
-                    style={{margin:"20px 10px",float:'right'}}
+                    primary
+                    style={{margin: '20px 10px', float: 'right'}}
                     onClick={this.submitDocs}
                   />
                 </div>
@@ -103,9 +102,8 @@ class FormUploadPolicyDocument extends React.Component {
           </Paper>
         </div>
       </div>
-    )
+    );
   }
 }
-
 
 export default FormUploadPolicyDocument;

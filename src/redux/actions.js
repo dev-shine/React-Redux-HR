@@ -34,13 +34,16 @@ export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);
 export const errorUsersList = createAction(constants.ERROR_USERSLIST);
 
-export const requestfetchUserPolicyDocument = createAction(constants.REQUEST_POLICY_DOCUMENT);
+export const requestfetchPolicyDocument = createAction(constants.REQUEST_POLICY_DOCUMENT);
+
+export const requestfetchUserPolicyDocument = createAction(constants.REQUEST_USER_POLICY_DOCUMENT);
 export const successFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_SUCCESS);
 export const errorFetchPolicyDocuments = createAction(constants.POLICY_DOCUMENT_FAIL);
 
 export const userDataUpdated = createAction(constants.USER_LOGIN_SUCCESS);
 
 export const requestSubmitDocs = createAction(constants.REQUEST_SUBMIT_DOCS);
+export const successSubmitDocs = createAction(constants.SUCCESS_SUBMIT_DOCS);
 export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
 
 export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
@@ -7,12 +8,11 @@ import TeamList from 'modules/team/components/TeamList';
 import TeamDetails from 'modules/team/components/TeamDetails';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions from 'appRedux/actions';
-import * as actionsGetTeamData from 'appRedux/team/actions/teamList';
 
 class ViewTeam extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
+    this.props.isAlreadyLogin();
     this.state = {
       empList:     [],
       all_Teams:   '',
@@ -25,8 +25,8 @@ class ViewTeam extends React.Component {
     this.openPage = this.openPage.bind(this);
   }
   componentWillMount () {
-    this.props.onFetchTeam();
-    this.props.onFetchUserDetails('');
+    this.props.requestTeamList();
+    this.props.requestGetTeam('');
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -64,9 +64,7 @@ class ViewTeam extends React.Component {
               <a data-toggle="modal" data-target="#aside" className="navbar-item pull-left hidden-lg-up">
                 <i className="material-icons">&#xe5d2;</i>
               </a>
-              <div className="navbar-item pull-left h5" id="pageTitle">
-                 View Team
-              </div>
+              <div className="navbar-item pull-left h5" id="pageTitle">View Team</div>
             </div>
           </div>
           <div className="app-body" id="view">
@@ -99,7 +97,7 @@ class ViewTeam extends React.Component {
               </div>
               <div className={this.state.viewTeam}>
                 <div className="col-xs-12 p-t p-r b-r">
-                  <TeamDetails teamListData={this.props.teamList} fetchUserDetails={this.props.onFetchUserDetails} />
+                  <TeamDetails teamList={this.props.teamList} team={this.props.team} fetchUserDetails={(selectedTeam) => this.props.requestGetTeam({selectedTeam})} />
                 </div>
               </div>
             </div>
@@ -115,24 +113,12 @@ function mapStateToProps (state) {
     loggedUser: state.logged_user.userLogin,
     usersList:  state.usersList.toJS(),
     employee:   state.empSalaryList.toJS(),
-    teamList:   state.teamList.toJS()
+    teamList:   state.teamList.teamList,
+    team:       state.teamList.team
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onIsAlreadyLogin: () => {
-      return dispatch(actions.isAlreadyLogin());
-    },
-    onFetchTeam: () => {
-      return dispatch(actionsGetTeamData.get_all_team());
-    },
-    onFetchUserDetails: (selectedTeam) => {
-      return dispatch(actionsGetTeamData.get_team_candidate(selectedTeam));
-    },
-    onSaveTeam: (teams) => {
-      return dispatch(actionsGetTeamData.saveTeam(teams));
-    }
-  };
+  return bindActionCreators(actions, dispatch);
 };
 
 const VisibleViewTeam = connect(

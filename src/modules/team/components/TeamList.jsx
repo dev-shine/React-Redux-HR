@@ -1,7 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash';
 import Paper from 'material-ui/Paper';
-import {CONFIG} from 'src/config/index';
+import {notify} from 'src/services/notify';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,7 +13,7 @@ import {Table, TableBody, TableHeader, TableRow, TableRowColumn} from 'material-
 class TeamList extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
+    this.props.isAlreadyLogin();
     this.state = {
       openDialog:    false,
       floatingLabel: '',
@@ -46,27 +46,32 @@ class TeamList extends React.Component {
         teamError: 'Required'
       });
     } else {
-      let dataToSend = this.props.teamList && this.props.teamList.teams || [];
+      let dataToSend = this.props.teamList && this.props.teamList.data || [];
       dataToSend.push(teamName);
-      this.callSaveApi(dataToSend);
+      this.callSaveApi('save', dataToSend);
     }
   }
 
   deleteTeam (teamName) {
-    let teams = this.props.teamList && this.props.teamList.teams || [];
+    let teams = this.props.teamList && this.props.teamList.data || [];
     let newdata = [];
     _.map(teams, (vari, i) => {
       if (vari !== teamName) {
         newdata.push(vari);
       }
     });
-    this.callSaveApi(newdata);
+    this.callSaveApi('delete', newdata);
   }
-  callSaveApi (newArray) {
-    this.props.onSaveTeam(newArray).then((data) => {
+  callSaveApi (func, newArray) {
+    this.props.requestAddTeam(newArray);
+    if (this.props.teamList.isSuccess) {
       this.handleClose();
-    }).catch((error) => {
-    });
+      if (func === 'save') {
+        notify('Success', 'Team added Successfully.', 'success');
+      } else if (func === 'delete') {
+        notify('Success', 'Team List updated Successfully.', 'success');
+      }
+    }
   }
   handleClose () {
     this.setState({
@@ -77,11 +82,9 @@ class TeamList extends React.Component {
     });
   }
   render () {
-    let teams;
-    if (this.props.teamList && this.props.teamList.teams && this.props.teamList.teams.length > 0) {
-      teams = this.props.teamList.teams;
-    } else {
-      teams = [];
+    let teams = [];
+    if (this.props.teamList && this.props.teamList.data && this.props.teamList.data.length > 0) {
+      teams = this.props.teamList.data;
     }
     const actions = [
       <FlatButton
@@ -89,12 +92,12 @@ class TeamList extends React.Component {
         primary
         onTouchTap={this.handleClose}
         style={{marginRight: 5}}
-/>,
+      />,
       <RaisedButton
         label="Submit"
         primary
         onTouchTap={this.saveTeam}
-/>
+      />
     ];
     return (
       <div className="app-body" id="view">

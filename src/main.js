@@ -5,7 +5,7 @@ import 'jquery';
 import 'jquery-ui';
 import 'tether';
 import 'bootstrap';
-import './static/scripts';
+import './themeFlatkit/scripts';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, useRouterHistory} from 'react-router';

@@ -2,17 +2,18 @@ import React from 'react';
 import * as _ from 'lodash';
 import Dialog from 'material-ui/Dialog';
 import {notify} from 'src/services/notify';
+import {getToken} from 'src/services/generic';
 import {CONFIG} from 'src/config/index';
 import MyLeavesList from 'components/leave/myLeaves/MyLeavesList';
 
 class UserLeavesList extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
-      open: false,
-      id: '',
+      open:       false,
+      id:         '',
       user_token: ''
-    }
+    };
     this.cancelLeave = this.cancelLeave.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -20,46 +21,45 @@ class UserLeavesList extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    let token = localStorage.getItem('hr_logged_user')
-    this.setState({user_token: token})
+    this.setState({user_token: getToken()});
   }
 
   cancelLeave (userId, from_date) {
     this.props.onCancelLeave(userId, from_date).then((data) => {
-      notify(data)
+      notify(data);
     }).catch((err) => {
-      notify(err)
-    })
+      notify(err);
+    });
   }
 
   handleOpen (id) {
-    this.setState({open: true, id: id})
+    this.setState({open: true, id: id});
   }
   handleClose () {
-    this.setState({open: false})
+    this.setState({open: false});
   }
 
   callUpdateDocuments (e) {
-    let docProof = this.refs.file.value
-    let stop = false
+    let docProof = this.refs.file.value;
+    let stop = false;
     if (docProof == '') {
-      stop = true
-      notify('Please select a file')
+      stop = true;
+      notify('Please select a file');
     }
     if (stop) {
-      e.preventDefault()
+      e.preventDefault();
     }
   }
 
   render () {
-    let page_url = window.location.href
+    let page_url = window.location.href;
     let leavesList = _.map(this.props.userLeaves.leaves, (leave, key) => {
-      return <MyLeavesList key={key} leave={leave} handleOpen={this.handleOpen} cancelLeave={this.cancelLeave} />
+      return <MyLeavesList key={key} leave={leave} handleOpen={this.handleOpen} cancelLeave={this.cancelLeave} />;
     });
     return (
       <div className="row">
         <Dialog title="Upload Leave Document" modal={false} open={this.state.open} onRequestClose={this.handleClose} contentStyle={{
-          width: '45%',
+          width:    '45%',
           maxWidth: 'none'
         }} autoScrollBodyContent>
           <div>
@@ -73,7 +73,7 @@ class UserLeavesList extends React.Component {
               </div>
               <div className="form-group">
                 <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => {
-                  this.callUpdateDocuments(e)
+                  this.callUpdateDocuments(e);
                 }} />
               </div>
             </form>
@@ -85,8 +85,8 @@ class UserLeavesList extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default UserLeavesList
+export default UserLeavesList;

@@ -36,21 +36,19 @@ class DocumentsList extends React.Component {
     });
     updateDoc.push(doc.name);
     this.props.onUpdateReadStatus(updateDoc);
+    console.log(this.props, 'khjvsdkjsdhk');
   }
   render () {
-    let documentsList = _.map(this.props.policyDocuments, (doc, i) => {
-      console.log(this.props.policyDocuments, doc, '=========DocumentsList');
-      return (
-        <Card key={i} style={{boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 0px 1px, rgba(0, 0, 0, 0.117647) 0px 0px 0px'}} >
-          <CardHeader
-            title={<span>{doc.name}</span>}
-            subtitle={<a href={doc.link} target="_blanck" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>}
-            style={{marginTop: '10px', borderLeft: doc.read ? '5px solid rgb(76, 175, 80)' : '5px solid rgb(255, 0, 0)'}}
-            titleStyle={{color: doc.read ? 'rgba(12, 12, 12, 0.54)' : '#000000', fontSize: '18px'}}
-          />
-        </Card>
-      );
-    });
+    let documentsList = _.map(this.props.policyDocuments, (doc, i) => (
+      <Card key={i} style={{boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 0px 1px, rgba(0, 0, 0, 0.117647) 0px 0px 0px'}} >
+        <CardHeader
+          title={<span>{doc.name}</span>}
+          subtitle={<a href={doc.link} target="_blanck" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>}
+          style={{marginTop: '10px', borderLeft: doc.read ? '5px solid rgb(76, 175, 80)' : '5px solid rgb(255, 0, 0)'}}
+          titleStyle={{color: doc.read ? 'rgba(12, 12, 12, 0.54)' : '#000000', fontSize: '18px'}}
+        />
+      </Card>
+    ));
     return (
       <div className="app-body" id="view" style={{'marginTop': 10}}>
         <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>

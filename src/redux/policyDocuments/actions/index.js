@@ -11,7 +11,7 @@ export function* fetchPolicyDocument (action) {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_policy_document'
     });
-    if (typeof response.error !== 'undefined' || response.error === 0) {
+    if (response.error === 0) {
       let data = _.isNull(response.data) ? [] : response.data;
       yield put(actions.successFetchPolicyDocuments(data));
     } else {
@@ -28,7 +28,7 @@ export function* fetchUserPolicyDocument (action) {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_user_policy_document'
     });
-    if (typeof response.error !== 'undefined' || response.error === 0) {
+    if (response.error === 0) {
       yield put(actions.successFetchPolicyDocuments(response.data));
     } else {
       yield put(actions.errorFetchPolicyDocuments(response.data.message));
@@ -46,7 +46,7 @@ export function* submitDocs (action) {
       type:   'policy_document',
       value:  JSON.stringify(action.payload)
     });
-    if (typeof response.error !== 'undefined' && response.error === 0) {
+    if (response.error === 0) {
       yield put(actions.successSubmitDocs(response.data.message));
       yield put(actions.requestfetchPolicyDocument());
     } else {
@@ -64,11 +64,12 @@ export function* updateReadStatus (action) {
       action:          'update_user_policy_document',
       policy_document: JSON.stringify(action.payload)
     });
-    if (typeof response.error !== 'undefined' && response.error === 0) {
+    if (response.error === 0) {
       let token = response.data.new_token;
       localStorage.setItem('hr_logged_user', token);
       let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
       yield put(actions.requestfetchUserPolicyDocument());
+      yield put(actions.successUpdateReadStatus(response.data.message));
       yield put(actions.userDataUpdated(tokenData));
     } else {
       yield put(actions.errorUpdateReadStatus(response.data.message));

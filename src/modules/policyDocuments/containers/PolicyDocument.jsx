@@ -25,7 +25,7 @@ class PolicyDocumentContainer extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
-      docs: props.policyDocuments.data
+      docs: props.policyDocuments
     });
   }
   render () {

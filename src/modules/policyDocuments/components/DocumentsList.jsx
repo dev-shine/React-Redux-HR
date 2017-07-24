@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {notify} from 'src/services/notify';
 import _ from 'lodash';
 import {Card, CardHeader} from 'material-ui/Card';
 import Message from 'components/generic/Message';
@@ -29,17 +30,16 @@ class DocumentsList extends React.Component {
   }
   updateReadStatus (doc, e) {
     let updateDoc = [];
-    _.map(this.props.policyDocuments, (document, i) => {
+    _.map(this.props.policyDocuments.data, (document, i) => {
       if (document.read !== 0) {
         updateDoc.push(document.name);
       }
     });
     updateDoc.push(doc.name);
     this.props.onUpdateReadStatus(updateDoc);
-    console.log(this.props, 'khjvsdkjsdhk');
   }
   render () {
-    let documentsList = _.map(this.props.policyDocuments, (doc, i) => (
+    let documentsList = _.map(this.props.policyDocuments.data, (doc, i) => (
       <Card key={i} style={{boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 0px 1px, rgba(0, 0, 0, 0.117647) 0px 0px 0px'}} >
         <CardHeader
           title={<span>{doc.name}</span>}

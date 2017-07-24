@@ -46,6 +46,15 @@ const requestUpdateRead = (state, action) => update(state, {
   policyDocument: {$setRequestLoading: null}
 });
 
+const successUpdateRead = (state, action) => update(state, {
+  policyDocument: {
+    isLoading: {$set: false},
+    isError:   {$set: false},
+    isSuccess: {$set: true},
+    message:   {$set: action.payload}
+  }
+});
+
 const errorUpdateRead = (state, action) => update(state, {
   policyDocument: {$setRequestError: action.payload}
 });
@@ -59,5 +68,6 @@ export default handleActions({
   [constants.SUCCESS_SUBMIT_DOCS]:          successSubmitDocs,
   [constants.ERROR_SUBMIT_DOCS]:            errorSubmitDocs,
   [constants.REQUEST_UPDATE_READ]:          requestUpdateRead,
+  [constants.SUCCESS_UPDATE_READ]:          successUpdateRead,
   [constants.ERROR_UPDATE_READ]:            errorUpdateRead
 }, initialState);

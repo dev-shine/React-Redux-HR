@@ -47,4 +47,5 @@ export const successSubmitDocs = createAction(constants.SUCCESS_SUBMIT_DOCS);
 export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
 
 export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);
+export const successUpdateReadStatus = createAction(constants.SUCCESS_UPDATE_READ);
 export const errorUpdateReadStatus = createAction(constants.ERROR_UPDATE_READ);

@@ -65,6 +65,7 @@
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+	// @extend .no-border;
 }
 
 .fc-event-inner{
@@ -136,4 +137,8 @@
 
 .fc-time-grid .fc-event:hover{
   z-index: 1000 !important;
+}
+
+.fc-event:hover {
+	color:$black;
 }

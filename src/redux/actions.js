@@ -49,3 +49,15 @@ export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
 export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);
 export const successUpdateReadStatus = createAction(constants.SUCCESS_UPDATE_READ);
 export const errorUpdateReadStatus = createAction(constants.ERROR_UPDATE_READ);
+
+export const requestTeamList = createAction(constants.REQUEST_TEAM_LIST);
+export const successTeamList = createAction(constants.SUCCESS_TEAM_LIST);
+export const errorTeamList = createAction(constants.ERROR_TEAM_LIST);
+
+export const requestAddTeam = createAction(constants.REQUEST_ADD_TEAM);
+export const successAddTeam = createAction(constants.SUCCESS_ADD_TEAM);
+export const errorAddTeam = createAction(constants.ERROR_ADD_TEAM);
+
+export const requestGetTeam = createAction(constants.REQUEST_GET_TEAM);
+export const successGetTeam = createAction(constants.SUCCESS_GET_TEAM);
+export const errorGetTeam = createAction(constants.ERROR_GET_TEAM);

@@ -1,124 +1,55 @@
-import * as _ from 'lodash';
-import {createAction} from 'redux-actions';
-import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {call, put} from 'redux-saga/effects';
+import * as actions from 'appRedux/actions';
 
-export function success_team_list (data) {
-  return createAction(constants.ACTION_SUCCESS_TEAM_LIST)(data);
-}
-
-export function empty_team_list (data) {
-  return createAction(constants.ACTION_EMPTY_TEAM_LIST)(data);
-}
-
-export function error_team_list (data) {
-  return createAction(constants.ACTION_ERROR_TEAM_LIST)(data);
-}
-
-// get all team name
-
-function async_get_all_team () {
-  return fireAjax('POST', '', {'action': 'get_team_list'});
-}
-
-export function get_all_team () {
-  return function (dispatch, getState) {
-    return new Promise((resolve, reject) => {
-      dispatch(show_loading()); // show loading icon
-      async_get_all_team().then((json) => {
-        dispatch(hide_loading()); // hide loading icon
-        if (json.error == 0) {
-          dispatch(success_team_list(json.data));
-          resolve(json.data);
-        } else {
-          dispatch(empty_team_list([]));
-        }
-      }, (error) => {
-        dispatch(hide_loading()); // hide loading icon
-        dispatch(error_team_list([]));
-      });
+export function* getTeamList (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'get_team_list'
     });
-  };
+    if (response.error === 0) {
+      yield put(actions.successTeamList(response.data));
+    } else {
+      yield put(actions.errorTeamList(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorTeamList('Error Occurs !!'));
+    console.warn('Some error found in "get_team_list" Request action\n', e);
+  }
 }
 
-// save team name//
-
-export function success_add_team (data) {
-  return createAction(constants.ACTION_SUCCESS_ADD_TEAM)(data);
-}
-export function error_add_team (data) {
-  return createAction(constants.ACTION_ERROR_ADD_TEAM)(data);
-}
-
-function async_saveTeam (team) {
-  return fireAjax('POST', '', {
-    action: 'add_team_list',
-    type:   'team_list',
-    value:  team
-  });
-}
-
-export function saveTeam (team) {
-  return (dispatch, getState) => {
-    return new Promise((resolve, reject) => {
-      dispatch(show_loading());
-      async_saveTeam(team).then(
-        (json) => {
-          dispatch(hide_loading()); // hide loading icon
-          if (json.error == 0) {
-            dispatch(success_add_team(json.data));
-            dispatch(get_all_team());
-            resolve(json.data);
-          } else {
-            dispatch(error_add_team(json.error[0]));
-            reject(json.error[0]);
-          }
-        }, (error) => {
-        dispatch(hide_loading()); // hide loading icon
-        dispatch(error_add_team('error occurs'));
-      }
-        );
+export function* saveTeam (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      action: 'add_team_list',
+      type:   'team_list',
+      value:  action.payload
     });
-  };
+    if (response.error === 0) {
+      yield put(actions.successAddTeam(response.data.message));
+      yield put(actions.requestTeamList());
+    } else {
+      yield put(actions.errorAddTeam(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorAddTeam('Error Occurs !!'));
+    console.warn('Some error found in "add_team_list" action\n', e);
+  }
 }
 
-// Get team candidate//
-
-export function success_get_team_candidate (data) {
-  return createAction(constants.ACTION_SUCCESS_GET_TEAM_CANDIDATE)(data);
-}
-export function error_get_team_candidate (data) {
-  return createAction(constants.ACTION_ERROR_GET_TEAM_CANDIDATE)(data);
-}
-
-function async_get_team_candidate (selectedTeam) {
-  return fireAjax('POST', '', {
-    action: 'get_team_users_detail',
-    team:   selectedTeam
-  });
-}
-
-export function get_team_candidate (selectedTeam) {
-  return (dispatch, getState) => {
-    return new Promise((resolve, reject) => {
-      dispatch(show_loading());
-      async_get_team_candidate(selectedTeam).then(
-        (json) => {
-          dispatch(hide_loading()); // hide loading icon
-          if (json.error == 0) {
-            dispatch(success_get_team_candidate(json.data));
-            resolve(json.data);
-          } else {
-            dispatch(error_get_team_candidate(json.error[0]));
-            reject(json.error[0]);
-          }
-        }, (error) => {
-        dispatch(hide_loading()); // hide loading icon
-        dispatch(error_get_team_candidate('error occurs'));
-      }
-      );
+export function* getTeam (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      action: 'get_team_users_detail',
+      team:   action.payload.selectedTeam
     });
-  };
+    if (response.error === 0) {
+      yield put(actions.successGetTeam(response.data));
+    } else {
+      yield put(actions.errorGetTeam(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorGetTeam('Error Occurs !!'));
+    console.warn('Some error found in "get_team_users_detail" action\n', e);
+  }
 }

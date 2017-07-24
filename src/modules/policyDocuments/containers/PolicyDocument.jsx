@@ -17,7 +17,7 @@ class PolicyDocumentContainer extends React.Component {
     };
   }
   componentWillMount () {
-    this.props.requestUpdateReadStatus();
+    this.props.requestfetchUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -25,7 +25,7 @@ class PolicyDocumentContainer extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
-      docs: props.policy_documents.policyDocuments
+      docs: props.policyDocuments.data
     });
   }
   render () {
@@ -42,9 +42,9 @@ class PolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    policy_documents: state.policyDocuments.toJS()
+    frontend:        state.frontend.toJS(),
+    loggedUser:      state.logged_user.userLogin,
+    policyDocuments: state.policyDocuments.policyDocument
   };
 }
 const mapDispatchToProps = (dispatch) => {

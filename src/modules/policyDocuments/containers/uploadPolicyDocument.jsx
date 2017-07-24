@@ -36,7 +36,7 @@ class UploadPolicyDocumentContainer extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
-      docs: props.policy_documents.policyDocuments
+      docs: props.policyDocuments.data
     });
   }
   hideError (e) {
@@ -78,9 +78,9 @@ class UploadPolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    policy_documents: state.policyDocuments.toJS()
+    frontend:        state.frontend.toJS(),
+    loggedUser:      state.logged_user.userLogin,
+    policyDocuments: state.policyDocuments.policyDocument
   };
 }
 const mapDispatchToProps = (dispatch) => {

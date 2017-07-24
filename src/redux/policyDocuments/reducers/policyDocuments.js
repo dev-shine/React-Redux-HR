@@ -1,18 +1,63 @@
-import Immutable from 'immutable';
+import {handleActions} from 'redux-actions';
+import * as constants from 'appRedux/constants';
+import update from 'immutability-helper';
+import 'appRedux/update';
 
 let initialState = {
-  'status_message':  '',
-  'policyDocuments': []
+  policyDocument: {
+    data:      [],
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
+  }
 };
 
-export function policyDocuments (state = Immutable.fromJS(initialState), action) {
-  if (action.type === 'POLICY_DOCUMENT_SUCCESS') {
-    return state.set('policyDocuments', action.payload);
-  } else if (action.type === 'POLICY_DOCUMENT_FAIL') {
-    return state.set('status_message', action.payload);
-  } else if (action.type === 'ACTION_LOGOUT') {
-    return Immutable.fromJS(initialState);
-  } else {
-    return state.set('status_message', '');
+const requestPolicyDocument = (state, action) => update(state, {
+  policyDocument: {$setRequestLoading: null}
+});
+
+const successPolicyDocument = (state, action) => update(state, {
+  policyDocument: {$setRequestSuccess: action.payload}
+});
+
+const errorPolicyDocument = (state, action) => update(state, {
+  policyDocument: {$setRequestError: action.payload}
+});
+
+const requestSubmitDocs = (state, action) => update(state, {
+  policyDocument: {$setRequestLoading: null}
+});
+
+const successSubmitDocs = (state, action) => update(state, {
+  policyDocument: {
+    isLoading: {$set: false},
+    isError:   {$set: false},
+    isSuccess: {$set: true},
+    message:   {$set: action.payload}
   }
-}
+});
+
+const errorSubmitDocs = (state, action) => update(state, {
+  policyDocument: {$setRequestError: action.payload}
+});
+
+const requestUpdateRead = (state, action) => update(state, {
+  policyDocument: {$setRequestLoading: null}
+});
+
+const errorUpdateRead = (state, action) => update(state, {
+  policyDocument: {$setRequestError: action.payload}
+});
+
+export default handleActions({
+  [constants.REQUEST_POLICY_DOCUMENT]:      requestPolicyDocument,
+  [constants.REQUEST_USER_POLICY_DOCUMENT]: requestPolicyDocument,
+  [constants.POLICY_DOCUMENT_SUCCESS]:      successPolicyDocument,
+  [constants.POLICY_DOCUMENT_FAIL]:         errorPolicyDocument,
+  [constants.REQUEST_SUBMIT_DOCS]:          requestSubmitDocs,
+  [constants.SUCCESS_SUBMIT_DOCS]:          successSubmitDocs,
+  [constants.ERROR_SUBMIT_DOCS]:            errorSubmitDocs,
+  [constants.REQUEST_UPDATE_READ]:          requestUpdateRead,
+  [constants.ERROR_UPDATE_READ]:            errorUpdateRead
+}, initialState);

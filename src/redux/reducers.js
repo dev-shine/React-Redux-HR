@@ -24,7 +24,7 @@ import {clientsList} from 'appRedux/manageClients/reducers/clientsList';
 import {manageClients} from 'appRedux/manageClients/reducers/manageClients';
 import {managePayslips} from 'appRedux/salary/reducers/managePayslips';
 import {empSalaryList} from 'appRedux/salary/reducers/empSalaryDetails';
-import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';
+import policyDocuments from 'appRedux/policyDocuments/reducers/policyDocuments';
 import {template} from 'appRedux/templates/reducers/template';
 import {teamList} from 'appRedux/team/reducers/teamList';
 import {manageDevice} from 'appRedux/inventory/reducers/inventory';

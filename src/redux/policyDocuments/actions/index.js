@@ -6,7 +6,7 @@ import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
 
-export function* fetchPolicyDocument () {
+export function* fetchPolicyDocument (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_policy_document'
@@ -23,7 +23,7 @@ export function* fetchPolicyDocument () {
   }
 }
 
-export function* fetchUserPolicyDocument () {
+export function* fetchUserPolicyDocument (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_user_policy_document'
@@ -69,7 +69,7 @@ export function* updateReadStatus (action) {
       localStorage.setItem('hr_logged_user', token);
       let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
       yield put(actions.requestfetchUserPolicyDocument());
-      yield put(actions.successUpdateReadStatus(tokenData));
+      yield put(actions.userDataUpdated(tokenData));
     } else {
       yield put(actions.errorUpdateReadStatus(response.data.message));
     }

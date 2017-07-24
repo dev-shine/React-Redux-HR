@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {notify} from 'src/services/notify';
 import _ from 'lodash';
 import {Card, CardHeader} from 'material-ui/Card';
 import Message from 'components/generic/Message';

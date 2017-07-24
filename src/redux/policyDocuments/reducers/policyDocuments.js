@@ -13,6 +13,10 @@ let initialState = {
   }
 };
 
+const successLogout = (state, action) => update(state, {
+  policyDocument: {$setInitialState: null}
+});
+
 const requestPolicyDocument = (state, action) => update(state, {
   policyDocument: {$setRequestLoading: null}
 });
@@ -69,5 +73,6 @@ export default handleActions({
   [constants.ERROR_SUBMIT_DOCS]:            errorSubmitDocs,
   [constants.REQUEST_UPDATE_READ]:          requestUpdateRead,
   [constants.SUCCESS_UPDATE_READ]:          successUpdateRead,
-  [constants.ERROR_UPDATE_READ]:            errorUpdateRead
+  [constants.ERROR_UPDATE_READ]:            errorUpdateRead,
+  [constants.LOGOUT_SUCCESS]:               successLogout
 }, initialState);

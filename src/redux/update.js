@@ -1,5 +1,14 @@
 import update from 'immutability-helper';
 
+update.extend('$setInitialState', (payload, original) => {
+  return update(original, {
+    data:      {$set: []},
+    isLoading: {$set: false},
+    isError:   {$set: false},
+    isSuccess: {$set: false},
+    message:   {$set: ''}
+  });
+});
 update.extend('$setRequestLoading', (payload, original) => {
   return update(original, {
     isLoading: {$set: true},

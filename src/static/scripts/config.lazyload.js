@@ -9,7 +9,7 @@ var MODULE_CONFIG = {
                       '../libs/jquery/flot-spline/js/jquery.flot.spline.min.js',
                       '../libs/jquery/flot.orderbars/js/jquery.flot.orderBars.js'],
     vectorMap:      [ '../libs/jquery/bower-jvectormap/jquery-jvectormap-1.2.2.min.js',
-                      '../libs/jquery/bower-jvectormap/jquery-jvectormap.css', 
+                      '../libs/jquery/bower-jvectormap/jquery-jvectormap.css',
                       '../libs/jquery/bower-jvectormap/jquery-jvectormap-world-mill-en.js',
                       '../libs/jquery/bower-jvectormap/jquery-jvectormap-us-aea-en.js' ],
     dataTable:      [
@@ -70,3 +70,4 @@ var MODULE_CONFIG = {
                       '../libs/js/dropzone/dist/min/dropzone.min.css'
                     ]
   };
+  export default MODULE_CONFIG;

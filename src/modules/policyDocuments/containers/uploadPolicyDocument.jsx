@@ -10,12 +10,6 @@ import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUpl
 import ListAllPolicyDocument from 'components/policyDocuments/ListAllPolicyDocument';
 import * as actions from 'appRedux/actions';
 
-const styles = {
-  errorAlert: {
-    'width': '100%'
-  }
-};
-
 class UploadPolicyDocumentContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -63,7 +57,7 @@ class UploadPolicyDocumentContainer extends React.Component {
           <div className="app-body" style={{'marginTop': 10}}>
             <div className="row" style={{margin: '10px 4px 0px'}}>
               <div className='col-xs-12' style={{padding: '10px 24px 0px', textAlign: 'center'}}>
-                <Message className={this.state.errClass} style={styles.errorAlert} message={this.state.errMsg} onClick={this.hideError} />
+                <Message className={this.state.errClass} style={{'width': '100%'}} message={this.state.errMsg} onClick={this.hideError} />
               </div>
               <div className="col-xs-6">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props} />

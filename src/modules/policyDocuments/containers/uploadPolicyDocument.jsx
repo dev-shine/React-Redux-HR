@@ -29,7 +29,9 @@ class UploadPolicyDocumentContainer extends React.Component {
     this.hideError = this.hideError.bind(this);
     this.submitNewListofDocs = this.submitNewListofDocs.bind(this);
   }
-
+  componentWillMount () {
+    this.props.requestfetchUserPolicyDocument();
+  }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
@@ -83,12 +85,6 @@ function mapStateToProps (state) {
     policyDocuments: state.policyDocuments.policyDocument
   };
 }
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch);
-};
+const mapDispatchToProps = (dispatch) => { return bindActionCreators(actions, dispatch); };
 
-const VisibleUploadPolicyDocumentContainer = connect(mapStateToProps, mapDispatchToProps)(UploadPolicyDocumentContainer);
-
-const RouterVisibleUploadPolicyDocumentContainer = withRouter(VisibleUploadPolicyDocumentContainer);
-
-export default RouterVisibleUploadPolicyDocumentContainer;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UploadPolicyDocumentContainer));

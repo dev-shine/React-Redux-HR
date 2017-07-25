@@ -23,7 +23,6 @@ class FormUploadPolicyDocument extends React.Component {
     };
     this.submitDocs = this.submitDocs.bind(this);
   }
-
   submitDocs () {
     let name = this.state.nameofdoc.trim();
     let link = this.state.linkofdoc.trim();

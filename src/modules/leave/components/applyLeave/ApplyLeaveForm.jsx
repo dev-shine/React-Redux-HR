@@ -91,8 +91,8 @@ class ApplyLeaveForm extends React.Component {
     this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days});
   }
   render () {
-    let policyLink = this.props.policy_documents.policyDocuments.map((val, i) => {
-      if (val.name == 'Leave Policy') {
+    let policyLink = this.props.policyDocuments.map((val, i) => {
+      if (val.name === 'Leave Policy') {
         return <a key={i} href={val.link} target="_blank" ><label key={i} style={{cursor: 'pointer', marginTop: '6px'}}>Read Leave Policy</label></a>;
       }
     });

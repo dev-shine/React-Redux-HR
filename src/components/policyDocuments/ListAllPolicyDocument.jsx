@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import {confirm} from 'src/services/notify';
 import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Card, CardHeader} from 'material-ui/Card';
 
 const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
   const deleteDocument = (delDoc) => {
-    let newList = [];
-    _.map(policyDocuments, (doc, i) => {
-      if (doc.name !== delDoc.name) {
-        newList.push(doc);
+    let newList = _.filter(policyDocuments, function (o) { return o.name !== delDoc.name; });
+    confirm('Are you sure ?', 'Do you want to delete this Document ?', 'warning').then((res) => {
+      if (res) {
+        submitNewListofDocs(newList);
       }
     });
-    submitNewListofDocs(newList);
   };
   let allDocuments = _.map(policyDocuments, (doc, i) => (
     <Card key={i}>

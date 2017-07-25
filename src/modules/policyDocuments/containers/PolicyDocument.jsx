@@ -12,9 +12,6 @@ class PolicyDocumentContainer extends React.Component {
   constructor (props) {
     super(props);
     this.props.isAlreadyLogin();
-    this.state = {
-      docs: []
-    };
   }
   componentWillMount () {
     this.props.requestfetchUserPolicyDocument();
@@ -24,9 +21,6 @@ class PolicyDocumentContainer extends React.Component {
     if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
       this.props.router.push(isNotValid.redirectTo);
     }
-    this.setState({
-      docs: props.policyDocuments
-    });
   }
   render () {
     return (
@@ -34,7 +28,7 @@ class PolicyDocumentContainer extends React.Component {
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Policy Documents'} showLoading={this.props.frontend.show_loading} />
-          <DocumentsList policyDocuments={this.state.docs} onUpdateReadStatus={this.props.requestUpdateReadStatus} />
+          <DocumentsList policyDocuments={this.props.policyDocuments} onUpdateReadStatus={this.props.requestUpdateReadStatus} />
         </div>
       </div>
     );
@@ -47,12 +41,6 @@ function mapStateToProps (state) {
     policyDocuments: state.policyDocuments.policyDocument
   };
 }
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch);
-};
+const mapDispatchToProps = (dispatch) => { return bindActionCreators(actions, dispatch); };
 
-const VisiblePolicyDocumentContainer = connect(mapStateToProps, mapDispatchToProps)(PolicyDocumentContainer);
-
-const RouterVisiblePolicyDocumentContainer = withRouter(VisiblePolicyDocumentContainer);
-
-export default RouterVisiblePolicyDocumentContainer;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PolicyDocumentContainer));

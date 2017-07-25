@@ -5,7 +5,7 @@ import Avatar from 'material-ui/Avatar';
 
 const styles = {
   cursorPointer: {'cursor': 'pointer'},
-  selectedUser: {'background': '#03a9f4', 'color': 'white'}
+  selectedUser:  {'background': '#03a9f4', 'color': 'white'}
 };
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
@@ -58,12 +58,12 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
 };
 
 UsersList.PropTypes = {
-  users: PropTypes.array.isRequired,
+  users:          PropTypes.array.isRequired,
   selectedUserId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
-  onUserClick: PropTypes.func.isRequired,
+  onUserClick:  PropTypes.func.isRequired,
   disabledUser: PropTypes.bool
 };
 

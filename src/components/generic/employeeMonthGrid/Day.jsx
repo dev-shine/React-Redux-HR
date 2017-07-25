@@ -22,7 +22,7 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
 
   let extraTimebg = '';
   let date = d.date;
-  let datebg = 'white';
+  let datebg = 'dark-white';
   let workTimeData = d.total_time + ' - Total Work Time';
 
   if (d.extra_time_status === '-') {
@@ -38,8 +38,8 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
   if (!forEmployeeHours && d.day_type === dayType.WORKING_DAY) {
     main = <div data-toggle="modal" data-target="#modalUserDaySummary" onClick={() => showDaySummary(userid, dayData.full_date)}>
       <DaySection classname={_class + datebg} block="type1" time={<h5>{date}</h5>} title={d.day} />
-      <DaySection classname={_class + 'white'} block="type1" time={d.in_time + ' - ' + d.out_time} title='' />
-      <DaySection classname={_class + 'white center'} block="type2" dataToDisplay={workTimeData} />
+      <DaySection classname={_class + 'dark-white'} block="type1" time={d.in_time + ' - ' + d.out_time} title='' />
+      <DaySection classname={_class + 'dark-white center'} block="type2" dataToDisplay={workTimeData} />
       <DaySection classname={_class + extraTimebg} block="type1" time={d.extra_time} title='' />
     </div>;
   } else if (!forEmployeeHours && d.day_type === dayType.NON_WORKING_DAY) {
@@ -50,10 +50,10 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
     </div>;
   } else if (!forEmployeeHours && d.day_type === dayType.FUTURE_WORKING_DAY) {
     main = <div>
-      <DaySection classname={_class + 'white'} block="type1" time={<h5>{d.date}</h5>} title={d.day} />
-      <DaySection classname={_class + 'white'} block="type1" time='' title='' />
-      <DaySection classname={_class + 'white'} block="type1" dataToDi splay={d.day_text} />
-      <DaySection classname={_class + 'white center'} block="type2" dataToDisplay={workTimeData} />
+      <DaySection classname={_class + 'dark-white'} block="type1" time={<h5>{d.date}</h5>} title={d.day} />
+      <DaySection classname={_class + 'dark-white'} block="type1" time='' title='' />
+      <DaySection classname={_class + 'dark-white'} block="type1" dataToDi splay={d.day_text} />
+      <DaySection classname={_class + 'dark-white center'} block="type2" dataToDisplay={workTimeData} />
     </div>;
   } else if (!forEmployeeHours && d.day_type === dayType.LEAVE_DAY) {
     main = <div>
@@ -69,10 +69,10 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
     </div>;
   } else if (forEmployeeHours && d.day_type === dayType.WORKING_DAY) {
     main = <div data-toggle="modal">
-      <DaySection classname={_class + 'white'} block="type1" time={<h5>{d.date}</h5>} title={d.day} />
-      <DaySection classname={_class + 'white'} block="type1" time={<h6>Hours : {officeWorkingHours}</h6>} title='' />
+      <DaySection classname={_class + 'dark-white'} block="type1" time={<h5>{d.date}</h5>} title={d.day} />
+      <DaySection classname={_class + 'dark-white'} block="type1" time={<h6>Hours : {officeWorkingHours}</h6>} title='' />
 
-      <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+      <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end dark-white fc-draggable">
         <div className="fc-content">
           <span className="fc-title">
             Change to &nbsp;:&nbsp;
@@ -90,7 +90,7 @@ const Day = ({dayData, classname, forEmployeeHours, day, userid, showDaySummary,
       <DaySection classname={_class + 'yellow'} block="type1" time={'Non Working day'} />
       <DaySection classname={_class + 'yellow'} block="type1" time={d.day_text} title='' />
 
-      <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end white fc-draggable">
+      <div className="fc-day-grid-event fc-h-event fc-event fc-start fc-end dark-white fc-draggable">
         <div className="fc-content">
           <span className="fc-title">
             Change to &nbsp;:&nbsp;

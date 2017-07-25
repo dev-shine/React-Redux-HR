@@ -1,4 +1,11 @@
 import 'whatwg-fetch';
+import 'sweetalert';
+import 'sweetalert/dist/sweetalert.css';
+import 'jquery';
+import 'jquery-ui';
+import 'tether';
+import 'bootstrap';
+import './themeFlatkit/scripts';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, useRouterHistory} from 'react-router';

@@ -10,6 +10,7 @@ import LoginForm from 'modules/auth/components/login/LoginForm';
 import LoginFormFooter from 'components/auth/login/LoginFormFooter';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions from 'appRedux/actions';
+import 'src/styles/main.scss';
 
 class Login extends React.Component {
   constructor (props) {

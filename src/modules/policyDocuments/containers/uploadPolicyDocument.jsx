@@ -30,7 +30,7 @@ class UploadPolicyDocumentContainer extends React.Component {
     this.submitNewListofDocs = this.submitNewListofDocs.bind(this);
   }
   componentWillMount () {
-    this.props.requestfetchUserPolicyDocument();
+    this.props.requestUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);

@@ -175,7 +175,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actions_usersList.get_users_list());
     },
     onFetchUserPolicyDocument: () => {
-      return dispatch(actions.requestfetchUserPolicyDocument());
+      return dispatch(actions.requestUserPolicyDocument());
     }
   };
 };

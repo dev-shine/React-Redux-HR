@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import * as jwt from 'jwt-simple';
 import 'whatwg-fetch';
 import {CONFIG} from 'src/config/index';
@@ -13,13 +12,12 @@ export function* fetchPolicyDocument (action) {
       action: 'get_policy_document'
     });
     if (response.error === 0) {
-      let data = _.isNull(response.data) ? [] : response.data;
-      yield put(actions.successFetchPolicyDocuments(data));
+      yield put(actions.successPolicyDocuments(response.data));
     } else {
-      yield put(actions.errorFetchPolicyDocuments(response.data.message));
+      yield put(actions.errorPolicyDocuments(response.message));
     }
   } catch (e) {
-    yield put(actions.errorFetchPolicyDocuments('Error Occurs !!'));
+    yield put(actions.errorPolicyDocuments('Error Occurs !!'));
     console.warn('Some error found in "get_policy_document" Request action\n', e);
   }
 }
@@ -30,12 +28,12 @@ export function* fetchUserPolicyDocument (action) {
       action: 'get_user_policy_document'
     });
     if (response.error === 0) {
-      yield put(actions.successFetchPolicyDocuments(response.data));
+      yield put(actions.successPolicyDocuments(response.data));
     } else {
-      yield put(actions.errorFetchPolicyDocuments(response.data.message));
+      yield put(actions.errorPolicyDocuments(response.message));
     }
   } catch (e) {
-    yield put(actions.errorFetchPolicyDocuments('Error Occurs !!'));
+    yield put(actions.errorPolicyDocuments('Error Occurs !!'));
     console.warn('Some error found in "get_user_policy_document" Request action\n', e);
   }
 }
@@ -49,11 +47,9 @@ export function* submitDocs (action) {
     });
     if (response.error === 0) {
       notify('Success!', response.data.message, 'success');
-      // yield put(actions.successSubmitDocs(response.data.message));
-      yield put(actions.requestfetchPolicyDocument());
+      yield put(actions.requestPolicyDocument());
     } else {
       notify('Error!', response.message, 'error');
-      // yield put(actions.errorSubmitDocs(response.data.message));
     }
   } catch (e) {
     yield put(actions.errorSubmitDocs('Error Occurs !!'));
@@ -71,12 +67,11 @@ export function* updateReadStatus (action) {
       let token = response.data.new_token;
       localStorage.setItem('hr_logged_user', token);
       let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
-      yield put(actions.requestfetchUserPolicyDocument());
+      yield put(actions.requestUserPolicyDocument());
       notify('Success!', response.data.message, 'success');
-      // yield put(actions.successUpdateReadStatus(response.data.message));
       yield put(actions.userDataUpdated(tokenData));
     } else {
-      yield put(actions.errorUpdateReadStatus(response.data.message));
+      yield put(actions.errorUpdateReadStatus(response.message));
     }
   } catch (e) {
     yield put(actions.errorUpdateReadStatus('Error Occurs !!'));

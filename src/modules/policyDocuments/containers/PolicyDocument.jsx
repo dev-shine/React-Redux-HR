@@ -14,7 +14,7 @@ class PolicyDocumentContainer extends React.Component {
     this.props.isAlreadyLogin();
   }
   componentWillMount () {
-    this.props.requestfetchUserPolicyDocument();
+    this.props.requestUserPolicyDocument();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);

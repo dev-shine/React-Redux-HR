@@ -9,6 +9,7 @@ let initialState = {
 };
 
 export function manageDevice (state = Immutable.fromJS(initialState), action) {
+  console.log(action.type, action.payload, 'action.payload');
   if (action.type === 'ACTION_SUCCESS_DEVICE_LIST') {
     return state.set('device', action.payload);
   } else if (action.type === 'ACTION_EMPTY_DEVICE_LIST') {

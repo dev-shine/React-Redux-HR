@@ -95,7 +95,7 @@ export function addNewMachine (new_machine_details) {
       n_purchase_date = new_machine_details.purchase_date;
     }
 
-    if (typeof new_machine_details.mac_address === 'undefined' || new_machine_details.mac_address === '') {
+    if (typeof new_machine_details.mac_address === 'undefined') {
       return Promise.reject('Mac Address is empty');
     } else {
       n_mac_address = new_machine_details.mac_address;

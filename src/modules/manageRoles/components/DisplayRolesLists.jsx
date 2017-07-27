@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {confirm} from 'src/services/notify';
 import _ from 'lodash';
 
-const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, handleChangeNotification, handleDelete}) => {
+const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, handleDelete}) => {
   let rolesData = displayData.roles;
   let rolesList = _.map(rolesData, (value, key) => {
     let rolesId = value.id;
@@ -14,13 +14,13 @@ const DisplayRolesList = ({displayData, handleChangeActions, handleChangePages, 
         let actionId = val.id;
         return (
           <li key={ke}>
-            <input type="checkbox" value={val.name} checked={val.is_assigned} onChange={() => { handleChangeActions(actionId, rolesId); }} key={actionId} /> {val.name}
+            <input type="checkbox" id={'check_' + val.name} value={val.name} checked={val.is_assigned} onChange={(e) => { handleChange(e, actionId, rolesId); }} key={actionId} /> {val.name}
           </li>
         );
       });
       return (
         <li key={k}>
-          <input type="checkbox" value={v.name} checked={v.is_assigned} onChange={() => { handleChangePages(pageId, rolesId); }} key={pageId} /> {v.name}
+          <input type="checkbox" id={'check_' + v.name} value={v.name} checked={v.is_assigned} onChange={(e) => { handleChange(e, pageId, rolesId); }} key={pageId} /> {v.name}
           <ul className="m-b-xs m-l-md">{roleActions}</ul>
         </li>
       );
@@ -84,8 +84,7 @@ DisplayRolesList.PropTypes = {
   displayData: PropTypes.shape({
     roles: PropTypes.object.isRequired
   }).isRequired,
-  handleChangeActions:      PropTypes.func.isRequired,
-  handleChangePages:        PropTypes.func.isRequired,
+  handleChange:             PropTypes.func.isRequired,
   handleChangeNotification: PropTypes.func.isRequired,
   handleDelete:             PropTypes.func.isRequired
 };

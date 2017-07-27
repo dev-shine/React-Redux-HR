@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
@@ -11,7 +12,6 @@ import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
 import DisplayRolesLists from 'modules/manageRoles/components/DisplayRolesLists';
 import UsersRolesList from 'components/generic/UsersRolesList';
 import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {
@@ -19,37 +19,38 @@ class ManageRoles extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      status_message: ''
+      status_message: '',
+      rolesData:      [],
+      updateRole:     {rolesId: '', actionId: '', pageId: '', notificationId: ''}
     };
     this.callAddNewRole = this.callAddNewRole.bind(this);
-    this.handleChangeActions = this.handleChangeActions.bind(this);
-    this.handleChangePages = this.handleChangePages.bind(this);
     this.handleChangeNotification = this.handleChangeNotification.bind(this);
     this.onUserClick = this.onUserClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount () {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let {loggedUser, route, router, manageRoles:{rolesData}} = props;
+    let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      router.push(isNotValid.redirectTo);
+    }
+    if (rolesData !== this.state.rolesData) {
+      this.setState({
+        rolesData
+      });
     }
   }
   callAddNewRole (newRoleDetails) {
     this.props.onAddNewRole(newRoleDetails);
   }
-  handleChangeActions (id2, id1) {
-    let state = {rolesId: id1, actionId: id2, pageId: '', notificationId: ''};
-    this.props.onUpdateRole(state);
-  }
-  handleChangePages (id2, id1) {
-    let state = {rolesId: id1, actionId: '', pageId: id2, notificationId: ''};
-    this.props.onUpdateRole(state);
-  }
   handleChangeNotification (id2, id1) {
-    let state = {rolesId: id1, actionId: '', pageId: '', notificationId: id2};
-    this.props.onUpdateRole(state);
+    let {updateRole} = this.state;
+    updateRole.rolesId = id1;
+    updateRole.notificationId = id2;
+    this.props.onUpdateRole(updateRole);
   }
   onUserClick (userId, roleId) {
     let userRoleUpdateDetails = {userId: userId, roleId: roleId};
@@ -60,6 +61,33 @@ class ManageRoles extends React.Component {
   }
   handleDelete (id) {
     this.props.onDelete(id).then((data) => { notify(data); }, (error) => { notify(error); });
+  }
+  handleChange (e, targetId, roleId) {
+    let rolesData = this.state.rolesData;
+    let updateRole = _.clone(this.state.updateRole);
+    _.map(rolesData.roles, (role, key) => {
+      if (role.id === roleId) {
+        _.map(role.role_pages, (page, k) => {
+          if (page.id === targetId) {
+            page.is_assigned = e.target.checked;
+            updateRole.pageId = targetId;
+            _.map(page.actions_list, (action, ke) => {
+              action.is_assigned = e.target.checked;
+            });
+          } else {
+            _.map(page.actions_list, (action, ke) => {
+              if (action.id === targetId) {
+                action.is_assigned = e.target.checked;
+                updateRole.actionId = targetId;
+              }
+            });
+          }
+        });
+      }
+    });
+    updateRole.rolesId = roleId;
+    this.setState({rolesData});
+    this.props.onUpdateRole(updateRole);
   }
   render () {
     return (
@@ -80,10 +108,9 @@ class ManageRoles extends React.Component {
                   <div className="row box">
                     <div className="col-md-12 navside p-t">
                       <DisplayRolesLists
-                        displayData={this.props.manageRoles.rolesData}
+                        displayData={this.state.rolesData}
                         handleClick={(id) => this.click(id)}
-                        handleChangeActions={(actionId, rolesId) => this.handleChangeActions(actionId, rolesId)}
-                        handleChangePages={(pageId, rolesId) => this.handleChangePages(pageId, rolesId)}
+                        handleChange={this.handleChange}
                         handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
                         handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
                       />
@@ -95,7 +122,7 @@ class ManageRoles extends React.Component {
                   <div className="row box">
                     <div className="col-md-12 p-t">
                       <UsersRolesList
-                        users={this.props.manageRoles.rolesData}
+                        users={this.state.rolesData}
                         onChange={(userId, roleId) => { this.onUserClick(userId, roleId); }}
                        />
                     </div>

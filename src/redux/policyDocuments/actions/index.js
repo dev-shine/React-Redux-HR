@@ -6,6 +6,7 @@ import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
+import {setLoggedUser} from 'src/services/generic';
 
 // -----------isUserAcceptedDocumentPolicy-----------
 export function successFetchPolicyDocuments (data) {
@@ -130,11 +131,9 @@ export function updateReadStatus (updateDoc) {
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (typeof json.error !== 'undefined' && json.error == 0) {
-            let token = json.data.new_token;
-            localStorage.setItem('hr_logged_user', token);
-            let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
+            let {new_token, userid} = json.data;
             dispatch(fetchUserPolicyDocument());
-            dispatch(userDataUpdated(tokenData));
+            dispatch(userDataUpdated(setLoggedUser(new_token, userid)));
             resolve(json.data.message);
           } else {
             reject(json.data.message);

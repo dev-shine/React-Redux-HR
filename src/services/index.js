@@ -1,6 +1,7 @@
 import {CONFIG} from 'src/config/index';
 import _ from 'lodash';
 import {confirm} from 'src/services/notify';
+import {getToken, resetLoggedUser} from 'src/services/generic';
 import 'whatwg-fetch';
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail',
@@ -17,7 +18,7 @@ const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'g
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
-  let token = localStorage.getItem('hr_logged_user');
+  let token = getToken();
   data.token = token;
   let headers = {
     method: method,
@@ -51,7 +52,7 @@ export function fireAjax (method, url, data) {
       });
     } else if (response.status === 401) {
       confirm('401 ! Access denied!', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
-        localStorage.removeItem('hr_logged_user');
+        resetLoggedUser();
         location.href = CONFIG.BASE_URL;
       });
     } else {

@@ -60,7 +60,7 @@ class ManageRoles extends React.Component {
     }
   }
   handleDelete (id) {
-    this.props.onDelete(id).then((data) => { notify(data); }, (error) => { notify(error); });
+    this.props.onDelete(id).then((data) => { notify('Success!', data, 'success'); }, (error) => { notify('Error!', error, 'error'); });
   }
   handleChange (e, targetId, roleId) {
     let rolesData = this.state.rolesData;
@@ -100,7 +100,7 @@ class ManageRoles extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 m-l p-l p-b">
-                  <AddRolesForm callAddNewRole={this.callAddNewRole} />
+                  <AddRolesForm callAddNewRole={this.callAddNewRole} displayData={this.state.rolesData} />
                 </div>
               </div>
               <div className="row">

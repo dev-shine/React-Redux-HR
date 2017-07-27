@@ -21,7 +21,8 @@ const webpackConfig = {
       src:        `${projectRoot}/src`,
       components: `${projectRoot}/src/components`,
       modules:    `${projectRoot}/src/modules`,
-      appRedux:   `${projectRoot}/src/redux`
+      appRedux:   `${projectRoot}/src/redux`,
+      styles:     `${projectRoot}/src/styles`
     },
     extensions: ['*', '.js', '.jsx', '.json'],
     modules:    [
@@ -37,8 +38,8 @@ const webpackConfig = {
 // ------------------------------------
 webpackConfig.entry = {
   'main': [
-    './src/main.js',
-    'webpack-hot-middleware/client.js?path=/__webpack_hmr'
+    './src/main.js'
+    // 'webpack-hot-middleware/client.js?path=/__webpack_hmr'
   ]
 };
 
@@ -55,7 +56,7 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new ExtractTextPlugin('main.css'),
+  new ExtractTextPlugin('[name].[hash].css'),
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
     template: './src/index.html', // paths.client('index.html'),

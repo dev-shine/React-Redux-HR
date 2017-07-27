@@ -52,7 +52,7 @@ export default class AddRolesForm extends React.Component {
   }
   render () {
     let optionMenu = _.map(this.props.displayData.roles, (name, index) => (
-      <MenuItem key={index} value={_.parseInt(name.id)} primaryText={name.name} />
+      <MenuItem key={index} value={name.id} primaryText={name.name} />
     ));
     return (
       <div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import {Button, ButtonRaised} from 'components/generic/buttons/';
@@ -50,7 +52,7 @@ export default class AddRolesForm extends React.Component {
   }
   render () {
     let optionMenu = _.map(this.props.displayData.roles, (name, index) => (
-      <option key={index} value={name.id} >{name.name}</option>
+      <MenuItem key={index} value={_.parseInt(name.id)} primaryText={name.name} />
     ));
     return (
       <div>
@@ -61,11 +63,11 @@ export default class AddRolesForm extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           contentStyle={{width: '40%', maxWidth: 'none'}}
-          autoScrollBodyContent>
-          <select onChange={(e) => { this.setState({baseRoleId: e.target.value}); }} className="form-control m-t-md">
-            <option value=""> Select Base Role </option>
+          autoScrollBodyContent><br />
+          <SelectField fullWidth value={this.state.baseRoleId} onChange={(event, index, value) => { this.setState({baseRoleId: value}); }}>
+            <MenuItem value={''} primaryText=" Select Base Role " />
             {optionMenu}
-          </select>
+          </SelectField>
           <TextField
             floatingLabelText="Name"
             floatingLabelFixed fullWidth

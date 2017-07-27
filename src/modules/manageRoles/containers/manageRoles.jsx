@@ -100,7 +100,7 @@ class ManageRoles extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 m-l p-l p-b">
-                  <AddRolesForm callAddNewRole={this.callAddNewRole} />
+                  <AddRolesForm callAddNewRole={this.callAddNewRole} displayData={this.state.rolesData} />
                 </div>
               </div>
               <div className="row">

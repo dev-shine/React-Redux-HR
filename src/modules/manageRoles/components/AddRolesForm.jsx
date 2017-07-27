@@ -10,9 +10,10 @@ export default class AddRolesForm extends React.Component {
     super(props);
     this.state = {
       open:        false,
+      baseRoleId:  '',
       name:        '',
       description: '',
-      error:       {name: '', description: ''}
+      error:       {baseRoleId: '', name: '', description: ''}
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -21,6 +22,7 @@ export default class AddRolesForm extends React.Component {
   handleOpen () {
     this.setState({
       open:        true,
+      baseRoleId:  '',
       name:        '',
       description: ''
     });
@@ -29,8 +31,8 @@ export default class AddRolesForm extends React.Component {
     this.setState({open: false});
   }
   handleSubmit () {
-    let {name, description} = this.state;
-    let error = {name: '', description: ''};
+    let {baseRoleId, name, description} = this.state;
+    let error = {baseRoleId: '', name: '', description: ''};
     let valid = true;
     if (_.isEmpty(name)) {
       valid = false;
@@ -42,11 +44,14 @@ export default class AddRolesForm extends React.Component {
     }
     this.setState({error});
     if (valid) {
-      this.props.callAddNewRole({name, description});
+      this.props.callAddNewRole({baseRoleId, name, description});
       this.handleClose();
     }
   }
   render () {
+    let optionMenu = _.map(this.props.displayData.roles, (name, index) => (
+      <option key={index} value={name.id} >{name.name}</option>
+    ));
     return (
       <div>
         <Button className="btn-fw info" onClick={this.handleOpen} label="Add New Role" />
@@ -57,6 +62,10 @@ export default class AddRolesForm extends React.Component {
           onRequestClose={this.handleClose}
           contentStyle={{width: '40%', maxWidth: 'none'}}
           autoScrollBodyContent>
+          <select onChange={(e) => { this.setState({baseRoleId: e.target.value}); }} className="form-control m-t-md">
+            <option value=""> Select Base Role </option>
+            {optionMenu}
+          </select>
           <TextField
             floatingLabelText="Name"
             floatingLabelFixed fullWidth
@@ -71,8 +80,7 @@ export default class AddRolesForm extends React.Component {
             value={this.state.description}
             errorText={this.state.error.description}
           />
-          <br />
-          <ButtonRaised className="col-md-12 m-b-sm indigo" onClick={() => this.handleSubmit()} label={'Submit New Role'} />
+          <ButtonRaised className="col-md-12 m-y-sm indigo" onClick={() => this.handleSubmit()} label={'Submit New Role'} />
         </Dialog>
       </div>
     );
@@ -80,5 +88,8 @@ export default class AddRolesForm extends React.Component {
 }
 
 AddRolesForm.PropTypes = {
+  displayData: PropTypes.shape({
+    roles: PropTypes.Array
+  }).isRequired,
   callAddNewRole: PropTypes.func.isRequired
 };

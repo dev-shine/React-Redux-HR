@@ -14,7 +14,7 @@ export function* loginRequest (action) {
       let {token, userid} = response.data;
       yield put(actions.userLoginSuccess(setLoggedUser(token, userid)));
     } else if (response.error === 1) {
-      yield put(actions.userLoginFail('Invalid Login'));
+      yield put(actions.userLoginFail(response.data.message || 'Invalid Login...'));
     }
   } catch (e) {
     yield put(actions.userLoginError('Error Occurs !!'));

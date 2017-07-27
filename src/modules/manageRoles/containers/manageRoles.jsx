@@ -60,7 +60,7 @@ class ManageRoles extends React.Component {
     }
   }
   handleDelete (id) {
-    this.props.onDelete(id).then((data) => { notify(data); }, (error) => { notify(error); });
+    this.props.onDelete(id).then((data) => { notify('Success!', data, 'success'); }, (error) => { notify('Error!', error, 'error'); });
   }
   handleChange (e, targetId, roleId) {
     let rolesData = this.state.rolesData;

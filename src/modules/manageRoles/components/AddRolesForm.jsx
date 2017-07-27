@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import {Button, ButtonRaised} from 'components/generic/buttons/';
+import 'src/styles/main.scss';
 
 export default class AddRolesForm extends React.Component {
   constructor (props) {
@@ -51,8 +52,8 @@ export default class AddRolesForm extends React.Component {
     }
   }
   render () {
-    let optionMenu = _.map(this.props.displayData.roles, (name, index) => (
-      <MenuItem key={index} value={name.id} primaryText={name.name} />
+    let optionMenu = _.map(this.props.displayData.roles, (role, index) => (
+      <MenuItem key={index} value={role.id} primaryText={role.name} />
     ));
     return (
       <div>
@@ -62,7 +63,7 @@ export default class AddRolesForm extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: '40%', maxWidth: 'none'}}
+          contentClassName="dialogAddRole"
           autoScrollBodyContent><br />
           <SelectField fullWidth value={this.state.baseRoleId} onChange={(event, index, value) => { this.setState({baseRoleId: value}); }}>
             <MenuItem value={''} primaryText=" Select Base Role " />

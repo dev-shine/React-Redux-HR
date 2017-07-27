@@ -114,9 +114,9 @@ export default class FormAddNewInventory extends React.Component {
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
       mac = mac.trim();
       if (_.isEmpty(mac)) {
-        notify('Warning', 'Mac Adress Is Empty', 'error');
+        notify('Warning', 'MAC Adress is Empty', 'error');
       } else if (!mac.match(pattern)) {
-        notify('Oops', 'Invalid Mac Adress Type', 'error');
+        notify('Oops', 'MAC Adress type is Invalid', 'error');
       } else {
         if (!this.props.edit) {
           this.props.onAddNewMachine(apiData).then((val) => {
@@ -271,6 +271,7 @@ export default class FormAddNewInventory extends React.Component {
                   floatingLabelText="Machine Name"
                   fullWidth
                   onChange={(e) => (this.setState({machine_name: e.target.value}))}
+                  onBlur={(e) => { this.setState({machine_name: this.state.machine_name.trim()}); }}
                   value={this.state.machine_name}
                   required />
               </div>
@@ -294,6 +295,7 @@ export default class FormAddNewInventory extends React.Component {
                   hintText='00:25:96:FF:FE:12:34:56'
                   disabled={!((this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU'))}
                   fullWidth
+                  onBlur={(e) => { this.setState({mac_address: this.state.machine_type.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
                   value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : ' '} />
               </div>
@@ -305,6 +307,7 @@ export default class FormAddNewInventory extends React.Component {
                   hintText='₹'
                   fullWidth
                   onChange={(e) => (this.setState({machine_price: e.target.value}))}
+                  onBlur={(e) => { this.setState({machine_price: this.state.machine_price.trim()}); }}
                   value={this.state.machine_price} required />
               </div>
 
@@ -313,6 +316,7 @@ export default class FormAddNewInventory extends React.Component {
                   floatingLabelText="Bill No"
                   fullWidth
                   onChange={(e) => (this.setState({bill_no: e.target.value}))}
+                  onBlur={(e) => { this.setState({bill_no: this.state.bill_no.trim()}); }}
                   value={this.state.bill_no} />
               </div>
 
@@ -321,6 +325,7 @@ export default class FormAddNewInventory extends React.Component {
                   floatingLabelText="Serial No"
                   fullWidth
                   onChange={(e) => (this.setState({serial_no: e.target.value}))}
+                  onBlur={(e) => { this.setState({serial_no: this.state.serial_no.trim()}); }}
                   value={this.state.serial_no} />
               </div>
 
@@ -328,20 +333,24 @@ export default class FormAddNewInventory extends React.Component {
                 {'Comment'}
                 <textarea
                   style={{width: '100%'}}
-                  onChange={(e) => {
-                    this.setState({comment: e.target.value});
-                  }} value={this.state.comment}
+                  onBlur={(e) => { this.setState({comment: this.state.comment.trim()}); }}
+                  onChange={(e) => { this.setState({comment: e.target.value}); }}
+                  value={this.state.comment}
                   />
               </div>
 
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Extended Warranty Comment'}
-                <textarea style={{width: '100%'}} onChange={(e) => { this.setState({warranty_comment: e.target.value}); }} value={this.state.warranty_comment} />
+                <textarea style={{width: '100%'}}
+                  onBlur={(e) => { this.setState({warranty_comment: this.state.warranty_comment.trim()}); }}
+                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }} value={this.state.warranty_comment} />
               </div>
 
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Previous Repair Comment'}
-                <textarea style={{width: '100%'}} onChange={(e) => { this.setState({repair_comment: e.target.value}); }} value={this.state.repair_comment} />
+                <textarea style={{width: '100%'}}
+                  onBlur={(e) => { this.setState({repair_comment: this.state.repair_comment.trim()}); }}
+                  onChange={(e) => { this.setState({repair_comment: e.target.value}); }} value={this.state.repair_comment} />
               </div>
             </div>
           </div>

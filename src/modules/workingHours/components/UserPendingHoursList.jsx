@@ -112,7 +112,6 @@ export default class UserPendingHoursList extends React.Component {
         <tr key={i}>
           <td style={{marginRight: '0%'}}>{i + 1}</td>
           <td>{val.name}</td>
-
           {val.pending_hour >= 9
             ? <td><mark style={{color: '#ffffff', aling: 'center', backgroundColor: '#ff0000'}}>
             {val.pending_hour} {'hr'} {val.pending_minute} {'min'}</mark>

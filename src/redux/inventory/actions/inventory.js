@@ -65,25 +65,25 @@ export function addNewMachine (new_machine_details) {
     let n_bill_no = '';
     let n_user_Id = '';
 
-    if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type == '') {
+    if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type === '') {
       return Promise.reject('Machine Type is empty');
     } else {
       n_machine_type = new_machine_details.machine_type;
     }
 
-    if (typeof new_machine_details.machine_name === 'undefined' || new_machine_details.machine_name == '') {
+    if (typeof new_machine_details.machine_name === 'undefined' || new_machine_details.machine_name.trim() === '') {
       return Promise.reject('Machine Name is empty');
     } else {
       n_machine_name = new_machine_details.machine_name;
     }
 
-    if (typeof new_machine_details.machine_price === 'undefined' || new_machine_details.machine_price == '') {
+    if (typeof new_machine_details.machine_price === 'undefined' || new_machine_details.machine_price.trim() === '') {
       return Promise.reject('Machine Price is empty');
     } else {
       n_machine_price = new_machine_details.machine_price;
     }
 
-    if (typeof new_machine_details.serial_no === 'undefined' || new_machine_details.serial_no == '') {
+    if (typeof new_machine_details.serial_no === 'undefined' || new_machine_details.serial_no.trim() === '') {
       return Promise.reject('Serial Number is empty');
     } else {
       n_serial_no = new_machine_details.serial_no;
@@ -107,7 +107,7 @@ export function addNewMachine (new_machine_details) {
       n_operating_system = new_machine_details.operating_system;
     }
 
-    if (typeof new_machine_details.status === 'undefined' || new_machine_details.status == '') {
+    if (typeof new_machine_details.status === 'undefined' || new_machine_details.status === '') {
       return Promise.reject('Status is empty');
     } else {
       n_status = new_machine_details.status;
@@ -117,13 +117,13 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_comment = new_machine_details.comment;
     }
-    if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no == '') {
+    if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no.trim() === '') {
       return Promise.reject('Bill No is empty');
     } else {
       n_bill_no = new_machine_details.bill_no;
     }
 
-    if (typeof new_machine_details.warranty === 'undefined' || new_machine_details.warranty == '') {
+    if (typeof new_machine_details.warranty === 'undefined' || new_machine_details.warranty === '') {
       return Promise.reject('Warranty Expire Date is empty');
     } else {
       n_warranty = new_machine_details.warranty;
@@ -140,7 +140,7 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_repair_comment = new_machine_details.repair_comment;
     }
-    if (typeof new_machine_details.user_Id === 'undefined') {
+    if (typeof new_machine_details.user_Id === 'undefined' || new_machine_details.user_Id === '') {
       return Promise.reject('User Not Assign');
     } else {
       n_user_Id = new_machine_details.user_Id;

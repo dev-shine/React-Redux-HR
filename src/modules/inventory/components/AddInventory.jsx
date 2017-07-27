@@ -113,9 +113,7 @@ export default class FormAddNewInventory extends React.Component {
       // regex for mac_address
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
       mac = mac.trim();
-      if (_.isEmpty(mac)) {
-        notify('Warning', 'MAC Adress is Empty', 'error');
-      } else if (!mac.match(pattern)) {
+      if (!mac.match(pattern)) {
         notify('Oops', 'MAC Adress type is Invalid', 'error');
       } else {
         if (!this.props.edit) {

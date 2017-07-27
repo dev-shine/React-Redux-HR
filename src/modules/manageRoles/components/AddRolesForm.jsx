@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import {Button, ButtonRaised} from 'components/generic/buttons/';
-import 'src/styles/main.scss';
 
 export default class AddRolesForm extends React.Component {
   constructor (props) {

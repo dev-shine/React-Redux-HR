@@ -75,8 +75,8 @@ export default class AddDeviceDialoge extends React.Component {
           deviceList: deviceList
         });
       }
+      this.props.callAddDevice(this.state.deviceList);
     }
-    this.props.callAddDevice(this.state.deviceList);
   }
 
   render () {

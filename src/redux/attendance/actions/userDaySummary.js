@@ -21,14 +21,14 @@ export function* getUserDaySummary (action) {
 }
 
 export function* updateUserDaySummary (action) {
-  let {userid, date, entry_time, exit_time, reason, year, month} = action.payload;
+  let {userid, date, entryTime, exitTime, reason, year, month} = action.payload;
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':     'update_user_day_summary',
       'userid':     userid,
       'date':       date,
-      'entry_time': entry_time,
-      'exit_time':  exit_time,
+      'entry_time': entryTime,
+      'exit_time':  exitTime,
       'reason':     reason
     });
     if (response.error === 0) {

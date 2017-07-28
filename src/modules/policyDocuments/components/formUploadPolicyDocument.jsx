@@ -4,14 +4,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
-const styles = {
-  formInput: {
-    'marginLeft':  '5%',
-    'marginRight': '5%',
-    'width':       '80%'
-  }
-};
-
 class FormUploadPolicyDocument extends React.Component {
   constructor (props) {
     super(props);
@@ -55,52 +47,43 @@ class FormUploadPolicyDocument extends React.Component {
   }
   render () {
     return (
-      <div>
-        <div className="col-xs-12">
-          <Paper zDepth={1} >
-            <div>
-              <form className="form-inline">
-                <div className="form-group" style={styles.formInput}>
-                  <TextField
-                    ref='name'
-                    style={{width: '100%'}}
-                    floatingLabelText="Name of doc"
-                    errorText={this.state.errName}
-                    value={this.state.nameofdoc}
-                    onChange={(e) => {
-                      this.setState({
-                        nameofdoc: e.target.value
-                      });
-                    }}
-                  />
-                </div>
-                <div className="form-group" style={styles.formInput}>
-                  <TextField
-                    ref='link'
-                    style={{width: '100%'}}
-                    floatingLabelText="Link of doc"
-                    errorText={this.state.errLink}
-                    value={this.state.linkofdoc}
-                    onChange={(e) => {
-                      this.setState({
-                        linkofdoc: e.target.value
-                      });
-                    }}
-                  />
-                </div>
-                <div className="form-group" style={styles.formInput}>
-                  <RaisedButton
-                    label="SUBMIT"
-                    primary
-                    style={{margin: '20px 10px', float: 'right'}}
-                    onClick={this.submitDocs}
-                  />
-                </div>
-              </form>
+      <Paper zDepth={1} >
+        <div className="row">
+          <form className="form-inline">
+            <div className="col-xs-10 form-group m-x-lg">
+              <TextField
+                ref='name'
+                fullWidth
+                floatingLabelText="Name of doc"
+                errorText={this.state.errName}
+                value={this.state.nameofdoc}
+                onChange={(e) => {
+                  this.setState({
+                    nameofdoc: e.target.value
+                  });
+                }}
+              />
             </div>
-          </Paper>
+            <div className="col-xs-10 form-group m-x-lg">
+              <TextField
+                ref='link'
+                fullWidth
+                floatingLabelText="Link of doc"
+                errorText={this.state.errLink}
+                value={this.state.linkofdoc}
+                onChange={(e) => {
+                  this.setState({
+                    linkofdoc: e.target.value
+                  });
+                }}
+              />
+            </div>
+            <div className="col-xs-10 form-group m-x-lg">
+              <RaisedButton label="SUBMIT" primary className="m-y-md pull-right" onClick={this.submitDocs} />
+            </div>
+          </form>
         </div>
-      </div>
+      </Paper>
     );
   }
 }

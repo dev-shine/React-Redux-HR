@@ -3,6 +3,8 @@
 @import "assets/font.scss";
 @import "assets/scss/app.scss";
 @import "assets/fullcalendar.theme.scss";
+@import "manageRoles/manageRoles/index";
+@import "policyDocuments/index";
 
 a.primary:hover {
   background-color: #0bb69f; }

@@ -54,10 +54,10 @@ class UploadPolicyDocumentContainer extends React.Component {
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.frontend.show_loading} />
-          <div className="app-body" style={{'marginTop': 10}}>
-            <div className="row" style={{margin: '10px 4px 0px'}}>
-              <div className='col-xs-12' style={{padding: '10px 24px 0px', textAlign: 'center'}}>
-                <Message className={this.state.errClass} style={{'width': '100%'}} message={this.state.errMsg} onClick={this.hideError} />
+          <div className="app-body m-t-md">
+            <div className="row m-x-md">
+              <div className='col-xs-12'>
+                <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
               </div>
               <div className="col-xs-6">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props} />
@@ -79,6 +79,7 @@ function mapStateToProps (state) {
     policyDocuments: state.policyDocuments.policyDocument
   };
 }
+
 const mapDispatchToProps = (dispatch) => { return bindActionCreators(actions, dispatch); };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UploadPolicyDocumentContainer));

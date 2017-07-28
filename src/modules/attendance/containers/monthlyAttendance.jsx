@@ -29,7 +29,7 @@ class MonthlyAttendance extends React.Component {
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
     this.setState({year: year, month: month});
-    this.props.requestUserAttendance({userid: localStorage.getItem('userid'), year: year, month: month});
+    this.props.requestUserAttendance({userid: userId, year: year, month: month});
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);

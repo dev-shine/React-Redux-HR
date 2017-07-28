@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "3.0.0-alpha.1",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "excellence-hr-system",
+  "version": "2.0.0",
+  "description": "Excellence HR system",
   "main": "index.js",
   "engines": {
     "node": ">=4.2.0",
@@ -43,9 +43,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
+    "url": "git+https://github.com/reactexcel/ReactReduxHR.git"
   },
-  "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.5.1",

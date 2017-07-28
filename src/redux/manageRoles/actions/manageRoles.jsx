@@ -11,16 +11,18 @@ export function errorAddNewRole (data) {
   return createAction(constants.ACTION_ERROR_ADD_ROLE)(data);
 }
 
-function asyncAddNewRole (name, description) {
+function asyncAddNewRole (baseRoleId, name, description) {
   return fireAjax('POST', '', {
-    'action': 'add_roles',
-    'name': name,
-    'description': description
+    'action':       'add_roles',
+    'base_role_id': baseRoleId,
+    'name':         name,
+    'description':  description
   });
 }
 
 export function addNewRole (new_role) {
   return function (dispatch, getState) {
+    let baseRoleId = new_role.baseRoleId;
     let name = '';
     let description = '';
 
@@ -38,7 +40,7 @@ export function addNewRole (new_role) {
 
     return new Promise(() => {
       dispatch(show_loading());
-      asyncAddNewRole(name, description).then((json) => {
+      asyncAddNewRole(baseRoleId, name, description).then((json) => {
         dispatch(hide_loading());
         if (json.error == 0) {
           dispatch(successAddNewRole(json.message));
@@ -77,19 +79,17 @@ export function getRolesList () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      asyncGetRolesList().then(
-				(json) => {
-  dispatch(hide_loading());
-  if (json.error == 0) {
-          	dispatch(successRolesList(json.data));
-  } else {
-          	dispatch(emptyRolesList([]));
-  }
-},
-				(error) => {
-  dispatch(hide_loading());
-  dispatch(errorRolesList([]));
-}
+      asyncGetRolesList().then((json) => {
+        dispatch(hide_loading());
+        if (json.error == 0) {
+          dispatch(successRolesList(json.data));
+        } else {
+          dispatch(emptyRolesList([]));
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorRolesList([]));
+      }
 			);
     });
   };
@@ -104,10 +104,10 @@ export function errorUpdateRoles (data) {
 
 function asyncUpdateRoles (notificationId, rolesId, actionId, pageId) {
   return fireAjax('POST', '', {
-    'action': 'update_role',
-    'role_id': rolesId,
-    'page_id': pageId,
-    'action_id': actionId,
+    'action':          'update_role',
+    'role_id':         rolesId,
+    'page_id':         pageId,
+    'action_id':       actionId,
     'notification_id': notificationId
   });
 }
@@ -153,7 +153,7 @@ export function errorUpdateUserRole (data) {
 
 function asyncUpdateUserRole (userId, roleId) {
   return fireAjax('POST', '', {
-    'action': 'assign_user_role',
+    'action':  'assign_user_role',
     'user_id': userId,
     'role_id': roleId
   });
@@ -189,7 +189,7 @@ export function updateUserRole (userRoleUpdateDetails) {
 
 function asyncDeleteRole (id) {
   return fireAjax('POST', '', {
-    'action': 'delete_role',
+    'action':  'delete_role',
     'role_id': id
   });
 }

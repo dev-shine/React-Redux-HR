@@ -2,22 +2,22 @@ import React from 'react';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/notify';
+import {getToken} from 'src/services/generic';
 import ListDocuments from 'components/myDocuments/ListDocuments';
 
 class FormMyDocuments extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      doc_type: '',
+      doc_type:   '',
       user_token: ''
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
   }
   componentWillReceiveProps (props) {
-    let token = localStorage.getItem('hr_logged_user');
     this.setState({
-      user_token: token
+      user_token: getToken()
     });
   }
   callUpdateDocuments (e) {
@@ -59,7 +59,7 @@ class FormMyDocuments extends React.Component {
             <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
               <div className="form-group">
                 <label>Document Type</label>
-                <select className="form-control" ref="doc_type" onChange={() => this.setState({ doc_type: this.refs.doc_type.value })} value={this.state.doc_type} >
+                <select className="form-control" ref="doc_type" onChange={() => this.setState({doc_type: this.refs.doc_type.value})} value={this.state.doc_type} >
                   <option value="">---select doc type----</option>
                   <option value="CV">CV</option>
                   <option value="PAN Card">PAN Card</option>
@@ -104,8 +104,8 @@ FormMyDocuments.styles = {
     verticalAlign: 'middle'
   },
   declearation: {
-    display: 'inline-flex',
-    width: '90%',
+    display:    'inline-flex',
+    width:      '90%',
     marginLeft: '10px'
   }
 };

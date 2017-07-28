@@ -1,20 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 import {CONFIG} from 'src/config/index';
+import {getToken} from 'src/services/generic';
 
 class AttendanceSheatForm extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      user_id: '',
-      open: false,
-      doc_type: '',
-      user_token: ''
+      user_id:  '',
+      open:     false,
+      doc_type: ''
     };
-  }
-  componentWillReceiveProps (props) {
-    let token = localStorage.getItem('hr_logged_user');
-    this.setState({user_token: token});
   }
   render () {
     let styles = _.cloneDeep(this.constructor.styles);
@@ -23,7 +19,7 @@ class AttendanceSheatForm extends React.Component {
         <div>
           <form action={CONFIG.upload_attendance_url} method="POST" encType="multipart/form-data">
             <div className="form-group">
-              <input type="hidden" name="token" value={this.state.user_token} />
+              <input type="hidden" name="token" value={getToken()} />
               <div style={styles.file}>
                 <input type="file" name="image" required />
               </div>
@@ -38,8 +34,8 @@ class AttendanceSheatForm extends React.Component {
 
 AttendanceSheatForm.styles = {
   file: {
-    padding: '20px',
-    border: '1px solid rgba(128, 128, 128, 0.32)',
+    padding:      '20px',
+    border:       '1px solid rgba(128, 128, 128, 0.32)',
     marginBottom: '12px',
     borderRadius: '5px'
   }

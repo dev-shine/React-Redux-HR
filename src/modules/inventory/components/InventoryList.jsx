@@ -224,8 +224,8 @@ class InventoryList extends React.Component {
       rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
         <td style={{marginRight: '0%'}}>{i + 1}</td>
         <td>{device.machine_type}</td>
-        <td style={{align: 'center'}}>{device.machine_name}</td>
-        <td style={{align: 'center'}}>
+        <td className="tdAlign">{device.machine_name}</td>
+        <td className="tdAlign">
           {<b>Purchase Date : </b>}
           {moment(device.date_of_purchase).format('Do MMMM YYYY')}
           <br /> <br />
@@ -233,14 +233,14 @@ class InventoryList extends React.Component {
           {moment(device.warranty_end_date).format('Do MMMM YYYY')}
         </td>
         {device.mac_address
-        ? <td style={{align: 'center'}}>
+        ? <td className="tdAlign">
           {device.mac_address}
           <br />
-        </td> : <td style={{align: 'center'}}>
+        </td> : <td className="tdAlign">
         {'Not Required'} </td>
       }
-        <td style={{align: 'center'}}>{'₹'}{device.machine_price}</td>
-        <td style={{align: 'center'}}>
+        <td className="tdAlign">{'₹'}{device.machine_price}</td>
+        <td className="tdAlign">
           {device.serial_number}
           <br />
           {<b>Bill No : </b>}
@@ -258,15 +258,15 @@ class InventoryList extends React.Component {
             {device.repair_comment} <br />
           </ul>
         </td>
-        <td style={{align: 'center'}}>
+        <td className="tdAlign">
           {device.name}
         </td>
-        <td style={{marginTop: '5%', align: 'center'}}>
+        <td className="tdAlign" style={{marginTop: '5%'}}>
           <i className="fa fa-lg fa-pencil-square-o" style={{color: '#3f51b5', cursor: 'pointer'}} onClick={() => {
             this.openEditDevice(device.id);
           }} aria-hidden="true"></i>
         </td>
-        <td style={{marginRight: '5%', align: 'center'}} >
+        <td className="tdAlign" style={{marginRight: '5%'}} >
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {
@@ -345,7 +345,7 @@ class InventoryList extends React.Component {
                   <div className="box-divider m-a-0"></div>
                   <div>
                     <table key='' className="table table-striped table-hover">
-                      <thead className="col-12" style={{align: 'center'}}>
+                      <thead className="col-12 tdAlign">
                         <tr>
                           <th>Sr. No</th>
                           <th>Device Type</th>

@@ -78,7 +78,7 @@ class InventoryList extends React.Component {
         background: '',
         checkValue: ''
       });
-      notify('Success !', message, 'success');
+      notify('', message, '');
       this.props.onFetchDeviceStatus();
       this.handleStatusClose();
     }, (error) => {
@@ -141,7 +141,7 @@ class InventoryList extends React.Component {
         this.setState({
           status_message: val.message
         });
-        notify('', this.state.status_message, 'info');
+        notify('info', this.state.status_message, 'info');
         this.handleStatusClose();
       } else {
         this.setState({

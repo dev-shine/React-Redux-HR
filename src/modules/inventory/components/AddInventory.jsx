@@ -246,7 +246,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Machine/Device Type'}
                 <select className="form-control" ref="machine_type" value={this.state.machine_type}
                   onChange={(evt) => { this.setState({machine_type: evt.target.value}); }}>
-                  <option >--select device--</option>
+                  <option value='' disabled>--Select Device--</option>
                   {this.state.deviceTypeList.map((val, i) => {
                     return <option key={i} value={val}> {val}</option>;
                   })}
@@ -256,8 +256,8 @@ export default class FormAddNewInventory extends React.Component {
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Status'}
                 <select className="form-control" ref="status" value={this.state.status}
-                  onChange={(e) => (this.setState({status: e.target.value}))}>
-                  <option >-Device Status-</option>
+                  onChange={(e) => (this.setState({status: e.target.value}))} required>
+                  <option value='' disabled>--Select Status--</option>
                   {this.state.deviceStatusList.map((val, i) => {
                     return <option key={i} value={val.status}> {val.status}</option>;
                   })}
@@ -293,7 +293,7 @@ export default class FormAddNewInventory extends React.Component {
                   hintText='00:25:96:FF:FE:12:34:56'
                   disabled={!((this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU'))}
                   fullWidth
-                  onBlur={(e) => { this.setState({mac_address: this.state.machine_type.trim()}); }}
+                  onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
                   value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : ' '} />
               </div>

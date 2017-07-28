@@ -45,7 +45,7 @@
     "type": "git",
     "url": "git+https://github.com/reactexcel/ReactReduxHR.git"
   },
-  "author": "Manish Prakash (https://hr.excellencetechnologies.in)",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.5.1",

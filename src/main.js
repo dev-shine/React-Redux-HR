@@ -40,7 +40,6 @@ import Page_InventorySystem from './modules/inventory/containers/manageInventory
 import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-import PageManageClients from 'modules/manageClients/containers/manageClients';
 import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
@@ -94,7 +93,6 @@ let render = (routerKey = null) => {
             <Route path="my_inventory" component={Page_MyInventory} />
             <Route path="manage_users" component={PageManageUsers} />
             <Route path="manage_roles" component={PageManageRoles} />
-            <Route path="manage_clients" component={PageManageClients} />
             <Route path="manage_payslips" component={Page_ManagePayslips} />
             <Route path="forgot_password" component={Page_ForgotPassword} />
             <Route path="documents" component={Page_MyDocuments} />

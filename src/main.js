@@ -1,3 +1,4 @@
+import 'styles/main.scss';
 import 'whatwg-fetch';
 import 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';

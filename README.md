@@ -86,14 +86,14 @@ We are using `.scss` to style this application. We emphasize not to use inline a
 ### example of styles for **auth** module
 
 ```
-src/
-├─ styles/               # Application-wide styles (generally settings)
-│  ├─ main.scss        # Imports all scss form the diffrent modules (i.e. 'import 'auth/index.scss'')
-│  └─ auth             # Contains scss for the respective modules
-        ├─ index.scss  # Import all scss files for this module (i.e. login.scss, forgotPassword.scss, logout.scss ) and also define common styles here
-        ├─ login.scss             # Define styles for login container and its successive components
-        ├─ forgotPassword.scss      # Define styles for forgot password container and its successive components
-        └─ logout.scss              # Define styles for logout container and its successive components
+src
+├─ styles                    # Application-wide styles (generally settings)
+│  ├─ main.scss               # Imports all scss form the diffrent modules (i.e. 'import 'auth/index.scss'')
+│  └─ auth                    # Contains scss for the respective modules
+│     ├─ index.scss           # Import all scss files for this module (i.e. login.scss, forgotPassword.scss, logout.scss ) │and also define common styles here
+│     ├─ login.scss           # Define styles for login container and its successive components
+│     ├─ forgotPassword.scss  # Define styles for forgot password container and its successive components
+│     └─ logout.scss          # Define styles for logout container and its successive components
 
 ```
 ### example of styles for **auth** module
@@ -121,10 +121,9 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 ```
 /* styles only for container forgotPassword and its successive components */
 
-.btn-flat{
+.btn-flat {
   background: #284665;
 }
-
 ```
 
 `style/auth/logout.scss`
@@ -132,11 +131,10 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 ```
 /* styles only for container logout and its successive components */
 
-.timeline{
-	margin: 0;
-	padding: 0;
+.timeline {
+  margin: 0;
+  padding: 0;
 }
-
 ```
 
 module directory also contains one `index.scss` file which imports all `.scss` files for respective module (here `auth` module in example). This `index.scss` file also contains styles that is common to that module.
@@ -145,7 +143,6 @@ module directory also contains one `index.scss` file which imports all `.scss` f
 `style/auth/index.scss`
 
 ```
-
 /* Imports .scss files for this module */
 
 @import "login";
@@ -157,7 +154,6 @@ module directory also contains one `index.scss` file which imports all `.scss` f
 .input-auth-padding {
   padding: 5px;
 }
-
 ```
 ### main.scss
 
@@ -167,7 +163,6 @@ There would be a `main.scss` file which import scss files from all modules. This
 `style/main.scss`
 
 ```
-
 /* Imports index.scss file from the modules */
 
 @import "auth/index";
@@ -177,5 +172,4 @@ There would be a `main.scss` file which import scss files from all modules. This
 body{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 ```

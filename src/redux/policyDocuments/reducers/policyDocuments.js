@@ -34,12 +34,7 @@ const requestSubmitDocs = (state, action) => update(state, {
 });
 
 const successSubmitDocs = (state, action) => update(state, {
-  policyDocument: {
-    isLoading: {$set: false},
-    isError:   {$set: false},
-    isSuccess: {$set: true},
-    message:   {$set: action.payload}
-  }
+  policyDocument: {$setsuccessmessage: action.payload}
 });
 
 const errorSubmitDocs = (state, action) => update(state, {
@@ -51,12 +46,7 @@ const requestUpdateRead = (state, action) => update(state, {
 });
 
 const successUpdateRead = (state, action) => update(state, {
-  policyDocument: {
-    isLoading: {$set: false},
-    isError:   {$set: false},
-    isSuccess: {$set: true},
-    message:   {$set: action.payload}
-  }
+  policyDocument: {$setsuccessmessage: action.payload}
 });
 
 const errorUpdateRead = (state, action) => update(state, {

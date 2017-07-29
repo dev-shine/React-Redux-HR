@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import {bindActionCreators} from 'redux';
 import {isNotUserValid} from 'src/services/generic';
@@ -34,6 +35,12 @@ class UploadPolicyDocumentContainer extends React.Component {
     this.setState({
       docs: props.policyDocuments.data
     });
+    let {isSuccess, isError, message} = props.policyDocuments;
+    if (isSuccess && message !== '') {
+      notify('Success!', message, 'success');
+    } else if (isError) {
+      notify('Error!', message, 'error');
+    }
   }
   hideError (e) {
     e.preventDefault();

@@ -1,6 +1,5 @@
 import * as jwt from 'jwt-simple';
 import {CONFIG} from 'src/config/index';
-import {notify} from 'src/services/notify';
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
@@ -45,10 +44,10 @@ export function* submitPolicyDocs (action) {
       value:  JSON.stringify(action.payload)
     });
     if (response.error === 0) {
-      notify('Success!', response.data.message, 'success');
+      yield put(actions.successSubmitDocs(response.data.message));
       yield put(actions.requestPolicyDocument());
     } else {
-      notify('Error!', response.message, 'error');
+      yield put(actions.errorSubmitDocs(response.message));
     }
   } catch (e) {
     yield put(actions.errorSubmitDocs('Error Occurs !!'));
@@ -67,7 +66,6 @@ export function* updateReadStatus (action) {
       localStorage.setItem('hr_logged_user', token);
       let tokenData = jwt.decode(token, CONFIG.jwt_secret_key);
       yield put(actions.requestUserPolicyDocument());
-      notify('Success!', response.data.message, 'success');
       yield put(actions.userDataUpdated(tokenData));
     } else {
       yield put(actions.errorUpdateReadStatus(response.message));

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
 import Header from 'components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
@@ -20,6 +21,12 @@ class PolicyDocumentContainer extends React.Component {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
       this.props.router.push(isNotValid.redirectTo);
+    }
+    let {isSuccess, isError, message} = props.policyDocuments;
+    if (isSuccess && message !== '') {
+      notify('Success!', message, 'success');
+    } else if (isError) {
+      notify('Error!', message, 'error');
     }
   }
   render () {

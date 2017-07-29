@@ -43,6 +43,7 @@ export const errorPolicyDocuments = createAction(constants.ERROR_POLICY_DOCUMENT
 export const userDataUpdated = createAction(constants.USER_LOGIN_SUCCESS);
 
 export const requestSubmitDocs = createAction(constants.REQUEST_SUBMIT_DOCS);
+export const successSubmitDocs = createAction(constants.SUCCESS_SUBMIT_DOCS);
 export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
 
 export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);

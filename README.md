@@ -76,8 +76,9 @@ The application structure presented below is to be strictly followed while devel
 │   ├── store.js             # Create redux store using reducers and meddilwares
 │   ├── main.js              # Application bootstrap, routes and rendering
 │   └── index.html           # Project's html file
-└── package.json             # Project's package.json file
-
+├── package.json             # Project's package.json file
+│
+:
 ```
 
 ## Styles
@@ -104,7 +105,9 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 `style/auth/login.scss`
 
 ```
-/* styles only for container login and its successive components */
+/*
+  Styles only for container login and its successive components
+*/
 
 .logo-container {
   background-color: #284665;
@@ -119,7 +122,9 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 `style/auth/forgotPassword.scss`
 
 ```
-/* styles only for container forgotPassword and its successive components */
+/*
+  Styles only for container forgotPassword and its successive components
+*/
 
 .btn-flat {
   background: #284665;
@@ -129,8 +134,9 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 `style/auth/logout.scss`
 
 ```
-/* styles only for container logout and its successive components */
-
+/*
+  Styles only for container logout and its successive components
+*/
 .timeline {
   margin: 0;
   padding: 0;
@@ -140,17 +146,19 @@ Lets take example to add some style to login page. If `.scss` for login doesn't 
 module directory also contains one `index.scss` file which imports all `.scss` files for respective module (here `auth` module in example). This `index.scss` file also contains styles that is common to that module.
 
 
-`style/auth/index.scss`
 
 ```
-/* Imports .scss files for this module */
-
+/*
+  `style/auth/index.scss`
+  Imports .scss files for this module
+*/
 @import "login";
 @import "logout";
 @import "forgotPassword";
 
-/* styles common to all container of this modules and its successive components */
-
+/*
+  Styles common to all container of this modules and its successive components
+*/
 .input-auth-padding {
   padding: 5px;
 }
@@ -160,15 +168,19 @@ module directory also contains one `index.scss` file which imports all `.scss` f
 There would be a `main.scss` file which import scss files from all modules. This main.scss file is imported to the project's root file `main.js`. So no need to add any other `scss` file to anywhere in the application but only need to import in `main.scss`.
 
 
-`style/main.scss`
 
 ```
-/* Imports index.scss file from the modules */
-
+/*
+  `style/main.scss`
+  Imports index.scss file from the modules
+*/
+@import "auth/index";
+@import "inventory/index";
 @import "auth/index";
 
-/* style comes here which is common to all modules  */
-
+/*
+  style comes here which is common to all modules  
+*/
 body{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

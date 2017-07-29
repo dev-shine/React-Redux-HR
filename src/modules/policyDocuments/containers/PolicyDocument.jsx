@@ -27,7 +27,7 @@ class PolicyDocumentContainer extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Policy Documents'} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
           <DocumentsList policyDocuments={this.props.policyDocuments} onUpdateReadStatus={this.props.requestUpdateReadStatus} />
         </div>
       </div>
@@ -36,7 +36,6 @@ class PolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:        state.frontend.toJS(),
     loggedUser:      state.logged_user.userLogin,
     policyDocuments: state.policyDocuments.policyDocument
   };

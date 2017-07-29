@@ -1,5 +1,4 @@
 import * as jwt from 'jwt-simple';
-import 'whatwg-fetch';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/notify';
 import {fireAjax} from 'src/services/index';
@@ -38,7 +37,7 @@ export function* fetchUserPolicyDocument (action) {
   }
 }
 
-export function* submitDocs (action) {
+export function* submitPolicyDocs (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'save_policy_document',

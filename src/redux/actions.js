@@ -37,8 +37,8 @@ export const errorUsersList = createAction(constants.ERROR_USERSLIST);
 export const requestPolicyDocument = createAction(constants.REQUEST_POLICY_DOCUMENT);
 
 export const requestUserPolicyDocument = createAction(constants.REQUEST_USER_POLICY_DOCUMENT);
-export const successPolicyDocuments = createAction(constants.POLICY_DOCUMENT_SUCCESS);
-export const errorPolicyDocuments = createAction(constants.POLICY_DOCUMENT_FAIL);
+export const successPolicyDocuments = createAction(constants.SUCCESS_POLICY_DOCUMENT);
+export const errorPolicyDocuments = createAction(constants.ERROR_POLICY_DOCUMENT);
 
 export const userDataUpdated = createAction(constants.USER_LOGIN_SUCCESS);
 

@@ -1,8 +1,9 @@
-@import "auth/index";
-@import "template/index";
 @import "assets/font.scss";
 @import "assets/scss/app.scss";
 @import "assets/fullcalendar.theme.scss";
+@import "generic/index";
+@import "auth/index";
+@import "template/index";
 @import "manageRoles/manageRoles/index";
 @import "policyDocuments/index";
 

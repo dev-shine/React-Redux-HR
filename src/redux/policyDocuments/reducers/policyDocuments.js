@@ -66,8 +66,8 @@ const errorUpdateRead = (state, action) => update(state, {
 export default handleActions({
   [constants.REQUEST_POLICY_DOCUMENT]:      requestPolicyDocument,
   [constants.REQUEST_USER_POLICY_DOCUMENT]: requestPolicyDocument,
-  [constants.POLICY_DOCUMENT_SUCCESS]:      successPolicyDocument,
-  [constants.POLICY_DOCUMENT_FAIL]:         errorPolicyDocument,
+  [constants.SUCCESS_POLICY_DOCUMENT]:      successPolicyDocument,
+  [constants.ERROR_POLICY_DOCUMENT]:        errorPolicyDocument,
   [constants.REQUEST_SUBMIT_DOCS]:          requestSubmitDocs,
   [constants.SUCCESS_SUBMIT_DOCS]:          successSubmitDocs,
   [constants.ERROR_SUBMIT_DOCS]:            errorSubmitDocs,

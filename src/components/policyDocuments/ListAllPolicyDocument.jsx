@@ -15,34 +15,32 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
       }
     });
   };
-  let allDocuments = _.map(policyDocuments, (doc, i) => (
-    <Card key={i}>
-      <CardHeader
-        title={doc.name}
-        subtitle={<a href={doc.link} target="_blank">{doc.link}</a>}
-        children={
-          <IconButton
-            tooltip="Delete Document"
-            tooltipPosition="top-center"
-            style={{float: 'right'}}
-            iconStyle={{'color': '#B71C1C'}}
-            children={<Delete color='#B71C1C' />}
-            onClick={(evt) => {
-              evt.stopPropagation();
-              deleteDocument(doc);
+  let allDocuments = _.map(policyDocuments, (doc, i) => {
+    let docName = <h4 className="m-y-xs"> doc.name </h4>;
+    return (
+      <Card key={i} className="m-y-sm">
+        <CardHeader
+          title={docName}
+          subtitle={<a href={doc.link} target="_blank"><small><i>{doc.link}</i></small></a>}
+          children={
+            <IconButton
+              tooltip="Delete Document"
+              tooltipPosition="top-center"
+              className="pull-right"
+              children={<Delete color='#B71C1C' />}
+              onClick={(evt) => {
+                evt.stopPropagation();
+                deleteDocument(doc);
+              }
             }
+            />
           }
-          />
-        }
-        textStyle={{width: '310px', paddingRight: '0px'}}
-        style={{marginTop: '10px'}}
-        titleStyle={{color: '#000000', fontSize: '18px'}}
-        subtitleStyle={{fontSize: '12px', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis'}}
-      />
-    </Card>
-  ));
+        />
+      </Card>
+    );
+  });
   return (
-    <div className="row" style={{margin: '0px 4px 0px'}}>
+    <div className="row m-x-sm">
       <div className="col-xs-12">
         <Card>
           <CardHeader title="Policy Documents List" />

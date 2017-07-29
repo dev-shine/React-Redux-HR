@@ -91,9 +91,9 @@ class ApplyLeaveForm extends React.Component {
     this.setState({form_from_date: props.applyLeave.start_date, form_to_date: props.applyLeave.end_date, form_no_of_days: num_working_days});
   }
   render () {
-    let policyLink = this.props.policyDocuments.map((val, i) => {
+    let policyLink = this.props.policyDocuments.data.map((val, i) => {
       if (val.name === 'Leave Policy') {
-        return <a key={i} href={val.link} target="_blank" ><label key={i} style={{cursor: 'pointer', marginTop: '6px'}}>Read Leave Policy</label></a>;
+        return <a key={i} href={val.link} target="_blank" ><label key={i} className="pointer m-t-xs">Read Leave Policy</label></a>;
       }
     });
     let dateDiff = moment(moment().format('YYYY-MM-DD')).diff(this.state.form_from_date || moment().format('YYYY-MM-DD'), 'days');
@@ -108,25 +108,19 @@ class ApplyLeaveForm extends React.Component {
       width = '82%';
     }
     return (
-
       <div className="row">
         <div className="col-sm-4 text-center">
           <h6>Select Start Date</h6>
           <Calendar onChange={this.handleStartDate} />
         </div>
-
         <div className="col-sm-4 text-center">
           <h6>Select End Date</h6>
           <Calendar onChange={this.handleEndDate} />
         </div>
-
         <div className="col-sm-4">
-
           <h5>Leave Summary</h5>
           <br />
-
           <form role="form" onSubmit={this.doApplyLeave}>
-
             <div className="box-body">
               <div className="streamline b-l m-l">
                 <div className="sl-item b-success">
@@ -144,10 +138,10 @@ class ApplyLeaveForm extends React.Component {
                   <div className="sl-content">
                     <div style={{width: width}}>
                       <select value={this.state.leaveType} onChange={(e) => { this.setState({leaveType: e.target.value}); }} className="form-control" required>
-                    		<option value='' disabled>Select Option</option>
+                        <option value='' disabled>Select Option</option>
                         <option value='Casual Leave'> Casual Leave </option>
-                    		<option value='Sick Leave'> Sick Leave </option>
-                    	</select>
+                        <option value='Sick Leave'> Sick Leave </option>
+                      </select>
                     </div>
                   </div>
                 </div>

@@ -53,7 +53,7 @@ class UploadPolicyDocumentContainer extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
           <div className="app-body m-t-md">
             <div className="row m-x-md">
               <div className='col-xs-12'>
@@ -74,7 +74,6 @@ class UploadPolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:        state.frontend.toJS(),
     loggedUser:      state.logged_user.userLogin,
     policyDocuments: state.policyDocuments.policyDocument
   };

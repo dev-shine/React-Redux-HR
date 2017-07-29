@@ -33,7 +33,7 @@ class DocumentsList extends React.Component {
   }
   render () {
     let documentsList = _.map(this.props.policyDocuments.data, (doc, i) => {
-      let isReadStrip = doc.read ? ' isReadDocument' : ' isNotReadDocument';
+      let isReadStrip = doc.read ? ' is-read-document' : ' is-not-read-document';
       return (
         <Card key={i} className={'m-y-sm border-left' + isReadStrip}>
           <CardHeader

@@ -22,12 +22,6 @@ class PolicyDocumentContainer extends React.Component {
     if (isNotValid.status && isNotValid.redirectTo !== '/policy_documents') {
       this.props.router.push(isNotValid.redirectTo);
     }
-    let {isSuccess, isError, message} = props.policyDocuments;
-    if (isSuccess && message !== '') {
-      notify('Success!', message, 'success');
-    } else if (isError) {
-      notify('Error!', message, 'error');
-    }
   }
   render () {
     return (

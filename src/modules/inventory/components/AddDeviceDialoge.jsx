@@ -60,16 +60,17 @@ export default class AddDeviceDialoge extends React.Component {
   }
 
   addMoreDevice () {
-    if (!_.isEmpty(this.state.deviceType)) {
+    var deviceType = this.state.deviceType.trim();
+    if (!_.isEmpty(deviceType)) {
       var deviceList = this.state.deviceList;
-      let arr = _.filter(deviceList, device => device.toLowerCase() === this.state.deviceType.trim().toLowerCase());
+      let arr = _.filter(deviceList, device => device.toLowerCase() === deviceType.trim().toLowerCase());
       if (arr.length > 0) {
         notify('Oops', 'This Device Type Already In Use', 'error');
         this.setState({
           deviceType: ''
         });
       } else {
-        deviceList.push(this.state.deviceType);
+        deviceList.push(deviceType);
         this.setState({
           deviceType: '',
           deviceList: deviceList
@@ -115,11 +116,16 @@ export default class AddDeviceDialoge extends React.Component {
               </ol>
             </div>
             <div className='col-sm-7' style={{marginTop: '5%'}}>
-              <TextField ref='value' floatingLabelText={'Device Type'} fullWidth value={this.state.deviceType} onChange={(e) => {
-                this.setState({
-                  deviceType: e.target.value
-                });
-              }} />
+              <TextField ref='value'
+                floatingLabelText={'Device Type'}
+                fullWidth
+                value={this.state.deviceType}
+                onBlur={(e) => { this.setState({deviceType: this.state.deviceType.trim()}); }}
+                onChange={(e) => {
+                  this.setState({
+                    deviceType: e.target.value
+                  });
+                }} />
             </div>
           </div>
         </Dialog>

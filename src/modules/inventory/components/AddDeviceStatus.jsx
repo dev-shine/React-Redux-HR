@@ -32,8 +32,8 @@ export default class AddDeviceStatus extends React.Component {
 
   addMoreStatus (event) {
     event.preventDefault();
-    const statusValue = this.state.statusType;
-    const colorValue = this.state.background;
+    let statusValue = this.state.statusType.trim();
+    let colorValue = this.state.background;
     if (colorValue && statusValue !== '') {
       this.props.callAddStatus(statusValue, colorValue);
       this.setState({
@@ -123,24 +123,29 @@ export default class AddDeviceStatus extends React.Component {
             </div>
             <div className='col-sm-7' style={{marginTop: '5%'}}>
               <div>
-                <TextField ref='value' floatingLabelText={'Status Type'} fullWidth onChange={(e) => {
-                  this.setState({
-                    colorPicker: 'show',
-                    statusType:  e.target.value
-                  });
-                }} value={this.state.statusType} />
+                <TextField ref='value' floatingLabelText={'Status Type'} fullWidth
+                  onBlur={(e) => { this.setState({statusType: this.state.statusType.trim(), colorPicker: 'hide'}); }}
+                  onChange={(e) => {
+                    this.setState({
+                      colorPicker: 'show',
+                      statusType:  e.target.value
+                    });
+                  }} value={this.state.statusType} />
               </div>
                 {this.state.statusType
                   ? <div className='col-sm-12 well'>
                     <label>Add Color</label>
                     <div className='row'>
                       <div className='col-sm-6 '>
-                        <GithubPicker color={this.state.background} onChangeComplete={this.handleChangeComplete} triangle={'top-left'} />
+                        <GithubPicker color={this.state.background}
+                          onChangeComplete={this.handleChangeComplete}
+                          triangle={'top-left'} />
                       </div>
                       <div className="col-sm-6">
                         <div className="panel panel-default">
                           <div className="panel-heading">Selected Color</div>
-                          <div style={{backgroundColor: this.state.background, height: '41px'}} value={this.state.background} className="panel-body"></div>
+                          <div style={{backgroundColor: this.state.background, height: '41px'}}
+                            value={this.state.background} className="panel-body"></div>
                         </div>
                       </div>
                     </div>

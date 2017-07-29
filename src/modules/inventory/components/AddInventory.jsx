@@ -290,12 +290,12 @@ export default class FormAddNewInventory extends React.Component {
               {<div className="col-md-6">
                 <TextField
                   floatingLabelText="Mac Address"
-                  hintText='00:25:96:FF:FE:12:34:56'
+                  hintText='00:25:96:FF:FE:12'
                   disabled={!((this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU'))}
                   fullWidth
                   onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : ' '} />
+                  value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : null} />
               </div>
             }
 

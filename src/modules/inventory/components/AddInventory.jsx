@@ -109,7 +109,7 @@ export default class FormAddNewInventory extends React.Component {
       user_Id:          this.state.user_Id
     };
 
-    if (this.state.machine_type.toLowerCase() === 'laptop' || 'cpu') {
+    if (this.state.machine_type.toLowerCase() === 'laptop' || this.state.machine_type.toLowerCase() === 'cpu') {
       let mac = this.state.mac_address;
       // regex for mac_address
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
@@ -302,7 +302,7 @@ export default class FormAddNewInventory extends React.Component {
                   fullWidth
                   onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={(this.state.machine_type.toLowerCase() === 'laptop' || 'cpu') ? this.state.mac_address : null} />
+                  value={(this.state.machine_type.toLowerCase() === 'laptop' || this.state.machine_type.toLowerCase() === 'cpu') ? this.state.mac_address : null} />
               </div>
             }
 

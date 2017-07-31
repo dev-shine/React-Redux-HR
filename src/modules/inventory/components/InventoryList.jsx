@@ -226,13 +226,15 @@ class InventoryList extends React.Component {
           {device.machine_type}
           <br />
           {<b>Assigned to :</b>}
-        <mark> {device.name}</mark>
+          <mark> {device.name}</mark>
         </td>
 
-        <td className="tdAlign">
+        <td className="tdAlign" style={{marginRight: '0%', width: '15%'}}>
           {device.machine_name}
           <br /> <br />
-            {device.mac_address}
+            {device.mac_address ? <b>Mac Address :</b> : null}
+          <br />
+            {device.mac_address ? device.mac_address : null}
         </td>
 
         <td className="tdAlign">

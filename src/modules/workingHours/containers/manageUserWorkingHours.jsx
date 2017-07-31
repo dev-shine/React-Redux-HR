@@ -115,7 +115,7 @@ class ManageUserWorkingHours extends React.Component {
                       <div className="p-a block">
                         <h6 className="text-center">Add New</h6>
                         <hr />
-                        <FormAddUserWorkingHours {...this.props} userid={selectedUserId} callAddUserWorkingHours={this.callAddUserWorkingHours} />
+                        <FormAddUserWorkingHours {...this.props} userid={this.state.defaultUserDisplay} callAddUserWorkingHours={this.callAddUserWorkingHours} />
                       </div>
                     </div>
                   </div>

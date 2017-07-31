@@ -198,14 +198,12 @@ class InventoryList extends React.Component {
   }
   render () {
     var statusList = this.state.deviceStatusList || [];
-
     let statusDropMap = statusList.map((val, i) => {
       return (
         <option value={val.status} key={i}>{val.status}</option>);
     });
 
     let statusDrop = statusDropMap;
-
     let listDropMap = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>);
     });
@@ -270,10 +268,9 @@ class InventoryList extends React.Component {
         </td>
 
         <td className="tdAlign" style={{marginTop: '5%'}}>
-          <i className="fa fa-lg fa-pencil-square-o" style={{color: '#3f51b5', cursor: 'pointer'}} onClick={() => {
-            this.openEditDevice(device.id);
-          }} aria-hidden="true"></i>
-        <br />
+          <i className="fa fa-lg fa-pencil-square-o" aria-hidden="true" style={{color: '#3f51b5', cursor: 'pointer'}}
+            onClick={() => { this.openEditDevice(device.id); }}></i>
+          <br />
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {
@@ -308,11 +305,10 @@ class InventoryList extends React.Component {
                 <div className="col-md-3 p-r">
                   <div className="form-group">
                     <label style={{marginTop: '6%'}}> </label>
-                    <select className="form-control" ref="device_status"
+                    <select className="form-control"
+                      ref="device_status"
                       value={this.state.device_status}
-                      onChange={(e) => {
-                        this.handleStatusTypeFilter(e.target.value);
-                      }}>
+                      onChange={(e) => { this.handleStatusTypeFilter(e.target.value); }}>
                       <option value="">--Select Device Status--</option>
                       {statusDrop}
                     </select>
@@ -351,17 +347,15 @@ class InventoryList extends React.Component {
                 <div className="box">
                   <div className="box-divider m-a-0"></div>
                   <div>
-                    <table key='' className="table table-striped table-hover">
+                    <table key='' className="table table-hover">
                       <thead className="col-12">
                         <tr>
                           <th>Sr. No</th>
                           <th>Device</th>
                           <th>Name</th>
                           <th>Informations</th>
-                          <th>
-                            Status/Commments
-                          </th>
-                          <th> Actions </th>
+                          <th>Status/Commments</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>

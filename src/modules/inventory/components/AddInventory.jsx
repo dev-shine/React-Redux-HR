@@ -124,8 +124,9 @@ export default class FormAddNewInventory extends React.Component {
       user_Id:          ''
     };
     let validate = true;
-    if (this.isMacRequired(this.state.mac_address)) {
-      let mac = apiData.mac_address = this.state.mac_address;
+    let mac = this.state.mac_address;
+    if (this.isMacRequired(this.state.machine_type)) {
+      apiData.mac_address = mac;
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
       if (!mac.trim().match(pattern)) {
         validate = false;
@@ -133,6 +134,7 @@ export default class FormAddNewInventory extends React.Component {
       }
     }
     if (validate && !this.props.edit) {
+      console.log('apiData', apiData);
       this.props.onAddNewMachine(apiData).then((val) => {
         this.setState(resetFields);
         notify('Success !', val, 'success');

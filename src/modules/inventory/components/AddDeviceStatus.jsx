@@ -89,7 +89,7 @@ export default class AddDeviceStatus extends React.Component {
     ];
     return (
       <div>
-        {this.props.loggedUser.data.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleStatusOpen}>Add Status Type</button> : null}
+        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleStatusOpen}>Add Status Type</button>
         <Dialog
           title={'ADD STATUS TYPE'}
           titleStyle={{opacity: '0.56'}}

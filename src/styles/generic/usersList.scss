@@ -2,3 +2,26 @@
   background: $light-blue;
   color: white;
 }
+/*
+
+*/
+// -webkit-box-shadow: px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+// -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+.shadow {
+  // box-shadow:         2px 2px 1px 1px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+@keyframes example {
+  from {width: 100%;}
+  to {width: 150%;}
+}
+.user-list-container:hover{
+  // @extend .shadow;
+  width: 150%;
+  z-index: 999999;
+  width: 140%;
+margin-left: -20%;
+z-index: 99999;
+box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  animation-name: example;
+  animation-duration: 1s;
+}

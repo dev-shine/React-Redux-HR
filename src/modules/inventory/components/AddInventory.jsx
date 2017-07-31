@@ -10,6 +10,7 @@ export default class FormAddNewInventory extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      hide:             true,
       open:             false,
       edit:             false,
       id:               '',
@@ -107,7 +108,8 @@ export default class FormAddNewInventory extends React.Component {
       warranty:         this.state.warranty,
       user_Id:          this.state.user_Id
     };
-    if (this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') {
+
+    if (this.state.machine_type.toLowerCase() === 'laptop' || 'cpu') {
       let mac = this.state.mac_address;
       // regex for mac_address
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
@@ -244,7 +246,15 @@ export default class FormAddNewInventory extends React.Component {
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Machine/Device Type'}
                 <select className="form-control" ref="machine_type" value={this.state.machine_type}
-                  onChange={(evt) => { this.setState({machine_type: evt.target.value}); }}>
+                  onChange={(evt) => {
+                    let check = true;
+                    if (evt.target.value.toLowerCase() === 'laptop' || evt.target.value.toLowerCase() === 'cpu') {
+                      check = false;
+                    } else {
+                      check = true;
+                    }
+                    this.setState({machine_type: evt.target.value, hide: check});
+                  }}>
                   <option value='' disabled>--Select Device--</option>
                   {this.state.deviceTypeList.map((val, i) => {
                     return <option key={i} value={val}> {val}</option>;
@@ -288,11 +298,11 @@ export default class FormAddNewInventory extends React.Component {
                 <TextField
                   floatingLabelText="Mac Address"
                   hintText='00:25:96:FF:FE:12'
-                  disabled={!((this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU'))}
+                  disabled={this.state.hide}
                   fullWidth
                   onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : null} />
+                  value={(this.state.machine_type.toLowerCase() === 'laptop' || 'cpu') ? this.state.mac_address : null} />
               </div>
             }
 

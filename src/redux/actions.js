@@ -34,6 +34,21 @@ export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);
 export const errorUsersList = createAction(constants.ERROR_USERSLIST);
 
+export const requestPolicyDocument = createAction(constants.REQUEST_POLICY_DOCUMENT);
+
+export const requestUserPolicyDocument = createAction(constants.REQUEST_USER_POLICY_DOCUMENT);
+export const successPolicyDocuments = createAction(constants.SUCCESS_POLICY_DOCUMENT);
+export const errorPolicyDocuments = createAction(constants.ERROR_POLICY_DOCUMENT);
+
+export const userDataUpdated = createAction(constants.USER_LOGIN_SUCCESS);
+
+export const requestSubmitDocs = createAction(constants.REQUEST_SUBMIT_DOCS);
+export const successSubmitDocs = createAction(constants.SUCCESS_SUBMIT_DOCS);
+export const errorSubmitDocs = createAction(constants.ERROR_SUBMIT_DOCS);
+
+export const requestUpdateReadStatus = createAction(constants.REQUEST_UPDATE_READ);
+export const errorUpdateReadStatus = createAction(constants.ERROR_UPDATE_READ);
+
 export const requestTeamList = createAction(constants.REQUEST_TEAM_LIST);
 export const successTeamList = createAction(constants.SUCCESS_TEAM_LIST);
 export const errorTeamList = createAction(constants.ERROR_TEAM_LIST);

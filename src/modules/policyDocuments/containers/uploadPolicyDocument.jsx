@@ -1,25 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
+import {bindActionCreators} from 'redux';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import Message from 'components/generic/Message';
 import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUploadPolicyDocument';
 import ListAllPolicyDocument from 'components/policyDocuments/ListAllPolicyDocument';
 import * as actions from 'appRedux/actions';
-import * as actions_policy from 'appRedux/policyDocuments/actions/index';
-
-const styles = {
-  errorAlert: {
-    'width': '100%'
-  }
-};
 
 class UploadPolicyDocumentContainer extends React.Component {
   constructor (props) {
     super(props);
-    this.props.onIsAlreadyLogin();
+    this.props.isAlreadyLogin();
     this.state = {
       docs:     [],
       errClass: 'hidden',
@@ -29,15 +24,23 @@ class UploadPolicyDocumentContainer extends React.Component {
     this.hideError = this.hideError.bind(this);
     this.submitNewListofDocs = this.submitNewListofDocs.bind(this);
   }
-
+  componentWillMount () {
+    this.props.requestUserPolicyDocument();
+  }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
-      docs: props.policy_documents.policyDocuments
+      docs: props.policyDocuments.data
     });
+    let {isSuccess, isError, message} = props.policyDocuments;
+    if (isSuccess && message !== '') {
+      notify('Success!', message, 'success');
+    } else if (isError) {
+      notify('Error!', message, 'error');
+    }
   }
   hideError (e) {
     e.preventDefault();
@@ -47,42 +50,21 @@ class UploadPolicyDocumentContainer extends React.Component {
     });
   }
   submitNewListofDocs (newList) {
-    this.props.onSubmitDocs(newList).then(() => {
-      this.setState({
-        errClass: 'alert-success pull-left',
-        errMsg:   'Documents deleted successfully'
-      });
-    })
-    .catch(() => {
-      this.setState({
-        errClass: 'alert-danger pull-left',
-        errMsg:   'Documents not deleted'
-      });
-    });
+    this.props.requestSubmitDocs(newList);
   }
   submitDocs (docs) {
-    this.props.onSubmitDocs(docs).then(() => {
-      this.setState({
-        errClass: 'alert-success pull-left',
-        errMsg:   'Documents submitted successfully'
-      });
-    }).catch(() => {
-      this.setState({
-        errClass: 'alert-danger pull-left',
-        errMsg:   'Documents submition faild'
-      });
-    });
+    this.props.requestSubmitDocs(docs);
   }
   render () {
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.frontend.show_loading} />
-          <div className="app-body" style={{'marginTop': 10}}>
-            <div className="row" style={{margin: '10px 4px 0px'}}>
-              <div className='col-xs-12' style={{padding: '10px 24px 0px', textAlign: 'center'}}>
-                <Message className={this.state.errClass} style={styles.errorAlert} message={this.state.errMsg} onClick={this.hideError} />
+          <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
+          <div className="app-body m-t-md">
+            <div className="row m-x-md">
+              <div className='col-xs-12'>
+                <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
               </div>
               <div className="col-xs-6">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props} />
@@ -99,27 +81,11 @@ class UploadPolicyDocumentContainer extends React.Component {
 }
 function mapStateToProps (state) {
   return {
-    frontend:         state.frontend.toJS(),
-    loggedUser:       state.logged_user.userLogin,
-    policy_documents: state.policyDocuments.toJS()
+    loggedUser:      state.logged_user.userLogin,
+    policyDocuments: state.policyDocuments.policyDocument
   };
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onIsAlreadyLogin: () => {
-      return dispatch(actions.isAlreadyLogin());
-    },
-    onSubmitDocs: (docs) => {
-      return dispatch(actions_policy.submitDocs(docs));
-    }
-  };
-};
 
-const VisibleUploadPolicyDocumentContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UploadPolicyDocumentContainer);
+const mapDispatchToProps = (dispatch) => { return bindActionCreators(actions, dispatch); };
 
-const RouterVisibleUploadPolicyDocumentContainer = withRouter(VisibleUploadPolicyDocumentContainer);
-
-export default RouterVisibleUploadPolicyDocumentContainer;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UploadPolicyDocumentContainer));

@@ -79,19 +79,17 @@ export function getRolesList () {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      asyncGetRolesList().then(
-				(json) => {
-  dispatch(hide_loading());
-  if (json.error == 0) {
-          	dispatch(successRolesList(json.data));
-  } else {
-          	dispatch(emptyRolesList([]));
-  }
-},
-				(error) => {
-  dispatch(hide_loading());
-  dispatch(errorRolesList([]));
-}
+      asyncGetRolesList().then((json) => {
+        dispatch(hide_loading());
+        if (json.error == 0) {
+          dispatch(successRolesList(json.data));
+        } else {
+          dispatch(emptyRolesList([]));
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorRolesList([]));
+      }
 			);
     });
   };

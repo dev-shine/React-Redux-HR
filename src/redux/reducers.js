@@ -22,7 +22,7 @@ import {manageUsers} from 'appRedux/manageUsers/reducers/manageUsers';
 import {manageRoles} from 'appRedux/manageRoles/reducers/manageRoles';
 import {managePayslips} from 'appRedux/salary/reducers/managePayslips';
 import {empSalaryList} from 'appRedux/salary/reducers/empSalaryDetails';
-import {policyDocuments} from 'appRedux/policyDocuments/reducers/policyDocuments';
+import policyDocuments from 'appRedux/policyDocuments/reducers/policyDocuments';
 import {template} from 'appRedux/templates/reducers/template';
 import teamList from 'appRedux/team/reducers/teamList';
 import {manageDevice} from 'appRedux/inventory/reducers/inventory';

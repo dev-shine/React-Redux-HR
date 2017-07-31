@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
-const styles = {
-  cursorPointer: {'cursor': 'pointer'},
-  selectedUser: {'background': '#03a9f4', 'color': 'white'}
-};
-
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';
     let arrow = '';
     let profileImae = '';
-    let backgroundClass = styles.cursorPointer;
+    let backgroundClass = 'pointer';
     if (selectedUserId === user.user_Id) {
-      backgroundClass = styles.selectedUser;
+      backgroundClass = 'selected-user';
       arrow = <span className="arrow right b-blue"></span>;
     }
     if (_.isUndefined(disabledUser)) {
@@ -29,7 +24,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
       param = user;
     }
     return (
-      <li className="list-item" key={key} onClick={() => onUserClick(param)} style={backgroundClass}>
+      <li className={'list-item ' + backgroundClass} key={key} onClick={() => onUserClick(param)}>
         <div>
           <div className="list-left">
             <span className="w-40 avatar">{avatar}</span>
@@ -58,12 +53,12 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
 };
 
 UsersList.PropTypes = {
-  users: PropTypes.array.isRequired,
+  users:          PropTypes.array.isRequired,
   selectedUserId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
-  onUserClick: PropTypes.func.isRequired,
+  onUserClick:  PropTypes.func.isRequired,
   disabledUser: PropTypes.bool
 };
 

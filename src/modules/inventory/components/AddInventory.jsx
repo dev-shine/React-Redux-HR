@@ -10,7 +10,6 @@ export default class FormAddNewInventory extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      hide:             true,
       open:             false,
       edit:             false,
       id:               '',
@@ -40,6 +39,7 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   componentWillReceiveProps (props) {
+    // let {open, edit} = props;
     this.setState({
       open:             props.open,
       edit:             props.edit,
@@ -98,7 +98,7 @@ export default class FormAddNewInventory extends React.Component {
       machine_price:    this.state.machine_price.trim(),
       serial_no:        this.state.serial_no.trim(),
       purchase_date:    this.state.purchase_date,
-      mac_address:      this.state.mac_address,
+      mac_address:      null,
       operating_system: this.state.operating_system,
       status:           this.state.status,
       comment:          this.state.comment.trim(),
@@ -108,85 +108,49 @@ export default class FormAddNewInventory extends React.Component {
       warranty:         this.state.warranty,
       user_Id:          this.state.user_Id
     };
-
-    if (this.state.machine_type.toLowerCase() === 'laptop' || this.state.machine_type.toLowerCase() === 'cpu') {
-      let mac = this.state.mac_address;
-      // regex for mac_address
+    let resetFields = {
+      machine_type:     '',
+      machine_name:     '',
+      machine_price:    '',
+      serial_no:        '',
+      purchase_date:    '',
+      mac_address:      '',
+      operating_system: '',
+      comment:          '',
+      warranty_comment: '',
+      repair_comment:   '',
+      bill_no:          '',
+      warranty:         '',
+      user_Id:          ''
+    };
+    let validate = true;
+    if (this.isMacRequired(this.state.mac_address)) {
+      let mac = apiData.mac_address = this.state.mac_address;
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
-      mac = mac.trim();
-      if (!mac.match(pattern)) {
+      if (!mac.trim().match(pattern)) {
+        validate = false;
         notify('Oops', 'MAC Adress type is Invalid', 'error');
-      } else {
-        if (!this.props.edit) {
-          this.props.onAddNewMachine(apiData).then((val) => {
-            this.setState({
-              machine_type:     '',
-              machine_name:     '',
-              machine_price:    '',
-              serial_no:        '',
-              purchase_date:    '',
-              mac_address:      '',
-              operating_system: '',
-              comment:          '',
-              warranty_comment: '',
-              repair_comment:   '',
-              bill_no:          '',
-              warranty:         '',
-              user_Id:          ''
-            });
-            notify('Success !', val, 'success');
-            this.props.onFetchDevice();
-            this.props.handleClose();
-          }, (error) => {
-            notify('Error !', error, 'error');
-          });
-        } else {
-          this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-            notify('', message, '');
-            this.props.handleClose();
-            this.props.onFetchDevice();
-          }).catch((message) => {
-            this.setState({
-              msg: message
-            });
-          });
-        }
       }
-    } else {
-      if (!this.props.edit) {
-        this.props.onAddNewMachine(apiData).then((val) => {
-          this.setState({
-            machine_type:     '',
-            machine_name:     '',
-            machine_price:    '',
-            serial_no:        '',
-            purchase_date:    '',
-            mac_address:      '',
-            operating_system: '',
-            comment:          '',
-            warranty_comment: '',
-            repair_comment:   '',
-            bill_no:          '',
-            warranty:         '',
-            user_Id:          ''
-          });
-          notify('Success !', val, 'success');
-          this.props.onFetchDevice();
-          this.props.handleClose();
-        }, (error) => {
-          notify('Error !', error, 'error');
+    }
+    if (validate && !this.props.edit) {
+      this.props.onAddNewMachine(apiData).then((val) => {
+        this.setState(resetFields);
+        notify('Success !', val, 'success');
+        this.props.onFetchDevice();
+        this.props.handleClose();
+      }, (error) => {
+        notify('Error !', error, 'error');
+      });
+    } else if (validate) {
+      this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
+        notify('', message, '');
+        this.props.handleClose();
+        this.props.onFetchDevice();
+      }).catch((message) => {
+        this.setState({
+          msg: message
         });
-      } else {
-        this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-          notify('', message, '');
-          this.props.handleClose();
-          this.props.onFetchDevice();
-        }).catch((message) => {
-          this.setState({
-            msg: message
-          });
-        });
-      }
+      });
     }
   }
   handleAssign (deviceId, Userid) {
@@ -199,7 +163,9 @@ export default class FormAddNewInventory extends React.Component {
       purchase_date: date
     });
   }
-
+  isMacRequired (machineType) {
+    return (machineType.trim().toLowerCase() === 'laptop' || machineType.trim().toLowerCase() === 'cpu');
+  }
   render () {
     let userList = this.props.usersList.users.map((val, i) => {
       return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;
@@ -245,19 +211,15 @@ export default class FormAddNewInventory extends React.Component {
 
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Machine/Device Type'}
-                <select className="form-control" ref="machine_type" value={this.state.machine_type}
+                <select className="form-control"
+                  ref="machine_type"
+                  value={this.state.machine_type}
                   onChange={(evt) => {
-                    let check = true;
-                    if (evt.target.value.toLowerCase() === 'laptop' || evt.target.value.toLowerCase() === 'cpu') {
-                      check = false;
-                    } else {
-                      check = true;
-                    }
-                    this.setState({machine_type: evt.target.value, hide: check});
+                    this.setState({machine_type: evt.target.value});
                   }}>
                   <option value='' disabled>--Select Device--</option>
                   {this.state.deviceTypeList.map((val, i) => {
-                    return <option key={i} value={val}> {val}</option>;
+                    return <option key={i} value={val} > {val}</option>;
                   })}
                 </select>
               </div>
@@ -298,11 +260,11 @@ export default class FormAddNewInventory extends React.Component {
                 <TextField
                   floatingLabelText="Mac Address"
                   hintText='00:25:96:FF:FE:12'
-                  disabled={this.state.hide}
+                  disabled={!this.isMacRequired(this.state.machine_type)}
                   fullWidth
                   onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={(this.state.machine_type.toLowerCase() === 'laptop' || this.state.machine_type.toLowerCase() === 'cpu') ? this.state.mac_address : null} />
+                  value={this.isMacRequired(this.state.machine_type) ? this.state.mac_address : ''} />
               </div>
             }
 

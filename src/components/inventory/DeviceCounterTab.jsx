@@ -63,8 +63,7 @@ const DeviceCounterTab = ({statusList, deviceCountList}) => {
 };
 
 DeviceCounterTab.propTypes = {
-  statusList:      PropTypes.array.isRequired,
-  deviceCountList: PropTypes.object
+  statusList: PropTypes.array.isRequired
 };
 
 export default DeviceCounterTab;

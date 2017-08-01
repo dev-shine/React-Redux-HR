@@ -39,11 +39,7 @@ class MyDoduments extends React.Component {
           <Header pageTitle={'My Document'} {...this.props} />
           <div className="app-body" id="view">
             <div className="padding">
-              <div className="row no-gutter">
-                <div className="col-xs-12 p-t p-l">
-                  <FormMyDocuments my_documents={this.state.my_document} user_id={this.props.loggedUser.data.id} callUpdateDocuments={this.props.onUpdatedocuments} {...this.props} />
-                </div>
-              </div>
+              <FormMyDocuments my_documents={this.state.my_document} user_id={this.props.loggedUser.data.id} callUpdateDocuments={this.props.onUpdatedocuments} {...this.props} />
             </div>
           </div>
         </div>

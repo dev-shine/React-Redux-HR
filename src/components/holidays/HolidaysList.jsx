@@ -17,8 +17,8 @@ const HolidaysList = ({holidays}) => {
       <div className="col-12">
         <div className="box">
           <div className="box-divider m-a-0"></div>
-          <table key='' className="table table-hover">
-            <thead className="col-12">
+          <table key='' className="table table-striped">
+            <thead className="success">
               <tr>
                 <th>Month</th>
                 <th>Date</th>

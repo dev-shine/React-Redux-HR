@@ -35,16 +35,13 @@ class Login extends React.Component {
   }
   render () {
     return (
-      <div>
+      <div className="row">
         <div className="center-block w-xxl w-auto-xs p-y-md">
           <GetLogo />
           <Navbar />
           <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
             <LoadingIcon loading={this.props.loggedUser.isLoading} />
-            <br />
-            <div className="m-b text-sm">
-              Sign in with your username
-            </div>
+            <div className="m-y text-sm text-muted"><b>Sign in with your username</b></div>
             <LoginForm onLogin={this.doLogin} {...this.props} />
             <LoginFormFooter doGuestLogin={this.doGuestLogin} />
           </div>

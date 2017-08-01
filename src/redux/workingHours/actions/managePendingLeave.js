@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-import {getUserPendingHourList} from 'appRedux/workingHours/actions/manageUserPendingHour';
 
 export function pendingLeaveSucess (data) {
   return createAction(constants.ACTION_PENDING_LEAVE_SUCCESS)(data);
@@ -40,7 +39,6 @@ export function applyPendingLeave (no_of_days, userId, day_status, pending_id, y
           if (json.error == 0) {
             reslove(json.data.message);
             dispatch(pendingLeaveSucess(json.data.message));
-            dispatch(getUserPendingHourList(year, month));
           } else {
             dispatch(pendingLeaveFail(json.data.message));
             reject(json.data.message);

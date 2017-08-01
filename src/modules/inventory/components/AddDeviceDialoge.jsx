@@ -96,7 +96,7 @@ export default class AddDeviceDialoge extends React.Component {
     ];
     return (
       <div>
-        {this.props.loggedUser.data.role === CONFIG.ADMIN ? <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button> : null}
+        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button>
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}
@@ -104,6 +104,7 @@ export default class AddDeviceDialoge extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.props.handleClose}
+          autoScrollBodyContent
         >
           <div className="row m-0">
             <div className='col-sm-5'style={{overflowY: 'auto', maxHeight: '250px'}}>
@@ -116,16 +117,14 @@ export default class AddDeviceDialoge extends React.Component {
               </ol>
             </div>
             <div className='col-sm-7' style={{marginTop: '5%'}}>
-              <TextField ref='value'
+              <TextField
+                ref='value'
                 floatingLabelText={'Device Type'}
                 fullWidth
                 value={this.state.deviceType}
                 onBlur={(e) => { this.setState({deviceType: this.state.deviceType.trim()}); }}
-                onChange={(e) => {
-                  this.setState({
-                    deviceType: e.target.value
-                  });
-                }} />
+                onChange={(e) => { this.setState({deviceType: e.target.value}); }}
+              />
             </div>
           </div>
         </Dialog>

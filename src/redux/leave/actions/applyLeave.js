@@ -4,7 +4,6 @@ import * as jwt from 'jwt-simple';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import * as constants from 'appRedux/constants';
-import {getUserPendingHourList} from 'appRedux/workingHours/actions/manageUserPendingHour';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 
 export function leave_sucess (data) {
@@ -85,7 +84,6 @@ export function apply_leave (from_date, to_date, no_of_days, reason, userId, day
   if (json.error == 0) {
     reslove(json.data.message);
     dispatch(leave_sucess(json.data.message));
-    dispatch(getUserPendingHourList(year, month));
   } else {
     dispatch(leave_fail(json.data.message));
     reject(json.data.message);

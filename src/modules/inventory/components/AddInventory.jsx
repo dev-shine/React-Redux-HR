@@ -1,5 +1,4 @@
 import React from 'react';
-import * as _ from 'lodash';
 import 'react-date-picker/index.css';
 import Dialog from 'material-ui/Dialog';
 import {DateField} from 'react-date-picker';
@@ -40,6 +39,7 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   componentWillReceiveProps (props) {
+    // let {open, edit} = props;
     this.setState({
       open:             props.open,
       edit:             props.edit,
@@ -98,7 +98,7 @@ export default class FormAddNewInventory extends React.Component {
       machine_price:    this.state.machine_price.trim(),
       serial_no:        this.state.serial_no.trim(),
       purchase_date:    this.state.purchase_date,
-      mac_address:      this.state.mac_address,
+      mac_address:      null,
       operating_system: this.state.operating_system,
       status:           this.state.status,
       comment:          this.state.comment.trim(),
@@ -108,84 +108,51 @@ export default class FormAddNewInventory extends React.Component {
       warranty:         this.state.warranty,
       user_Id:          this.state.user_Id
     };
-    if (this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') {
-      let mac = this.state.mac_address;
-      // regex for mac_address
+    let resetFields = {
+      machine_type:     '',
+      machine_name:     '',
+      machine_price:    '',
+      serial_no:        '',
+      purchase_date:    '',
+      mac_address:      '',
+      operating_system: '',
+      comment:          '',
+      warranty_comment: '',
+      repair_comment:   '',
+      bill_no:          '',
+      warranty:         '',
+      user_Id:          ''
+    };
+    let validate = true;
+    let mac = this.state.mac_address;
+    if (this.isMacRequired(this.state.machine_type)) {
+      apiData.mac_address = mac;
       var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
-      mac = mac.trim();
-      if (!mac.match(pattern)) {
+      if (!mac.trim().match(pattern)) {
+        validate = false;
         notify('Oops', 'MAC Adress type is Invalid', 'error');
-      } else {
-        if (!this.props.edit) {
-          this.props.onAddNewMachine(apiData).then((val) => {
-            this.setState({
-              machine_type:     '',
-              machine_name:     '',
-              machine_price:    '',
-              serial_no:        '',
-              purchase_date:    '',
-              mac_address:      '',
-              operating_system: '',
-              comment:          '',
-              warranty_comment: '',
-              repair_comment:   '',
-              bill_no:          '',
-              warranty:         '',
-              user_Id:          ''
-            });
-            notify('Success !', val, 'success');
-            this.props.onFetchDevice();
-            this.props.handleClose();
-          }, (error) => {
-            notify('Error !', error, 'error');
-          });
-        } else {
-          this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-            notify('', message, '');
-            this.props.handleClose();
-            this.props.onFetchDevice();
-          }).catch((message) => {
-            this.setState({
-              msg: message
-            });
-          });
-        }
       }
-    } else {
-      if (!this.props.edit) {
-        this.props.onAddNewMachine(apiData).then((val) => {
-          this.setState({
-            machine_type:     '',
-            machine_name:     '',
-            machine_price:    '',
-            serial_no:        '',
-            purchase_date:    '',
-            mac_address:      '',
-            operating_system: '',
-            comment:          '',
-            warranty_comment: '',
-            repair_comment:   '',
-            bill_no:          '',
-            warranty:         '',
-            user_Id:          ''
-          });
-          notify('Success !', val, 'success');
-          this.props.onFetchDevice();
-          this.props.handleClose();
-        }, (error) => {
-          notify('Error !', error, 'error');
+    }
+    if (validate && !this.props.edit) {
+      console.log('apiData', apiData);
+      this.props.onAddNewMachine(apiData).then((val) => {
+        this.setState(resetFields);
+        notify('Success !', val, 'success');
+        this.props.onFetchDevice();
+        this.props.handleClose();
+      }, (error) => {
+        notify('Error !', error, 'error');
+      });
+    } else if (validate) {
+      this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
+        notify('', message, '');
+        this.props.handleClose();
+        this.props.onFetchDevice();
+      }).catch((message) => {
+        this.setState({
+          msg: message
         });
-      } else {
-        this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-          notify('', message, '');
-          this.props.handleClose();
-          this.props.onFetchDevice();
-        }).catch((message) => {
-          this.setState({
-            msg: message
-          });
-        });
-      }
+      });
     }
   }
   handleAssign (deviceId, Userid) {
@@ -198,7 +165,9 @@ export default class FormAddNewInventory extends React.Component {
       purchase_date: date
     });
   }
-
+  isMacRequired (machineType) {
+    return (machineType.trim().toLowerCase() === 'laptop' || machineType.trim().toLowerCase() === 'cpu');
+  }
   render () {
     let userList = this.props.usersList.users.map((val, i) => {
       return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;
@@ -212,11 +181,11 @@ export default class FormAddNewInventory extends React.Component {
           title={this.state.edit ? 'UPDATE INVENTORY' : 'ADD INVENTORY'}
           titleStyle={{opacity: '0.56'}}
           modal={false}
-          open={this.state.open} onRequestClose={this.props.handleClose} contentStyle={{
-            width:    '70%',
-            maxWidth: 'none'
-          }} autoScrollBodyContent >
-
+          open={this.state.open}
+          onRequestClose={this.props.handleClose}
+          contentStyle={{width: '70%', maxWidth: 'none'}}
+          autoScrollBodyContent
+          >
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-6">
@@ -244,11 +213,15 @@ export default class FormAddNewInventory extends React.Component {
 
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Machine/Device Type'}
-                <select className="form-control" ref="machine_type" value={this.state.machine_type}
-                  onChange={(evt) => { this.setState({machine_type: evt.target.value}); }}>
+                <select className="form-control"
+                  ref="machine_type"
+                  value={this.state.machine_type}
+                  onChange={(evt) => {
+                    this.setState({machine_type: evt.target.value});
+                  }}>
                   <option value='' disabled>--Select Device--</option>
                   {this.state.deviceTypeList.map((val, i) => {
-                    return <option key={i} value={val}> {val}</option>;
+                    return <option key={i} value={val} > {val}</option>;
                   })}
                 </select>
               </div>
@@ -278,9 +251,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Assign User'}
                 <select
                   value={this.state.user_Id}
-                  onChange={(evt) => {
-                    this.setState({user_Id: evt.target.value});
-                  }}
+                  onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
                   <option value='' disabled>Select User</option>
                   {userList}
@@ -291,11 +262,11 @@ export default class FormAddNewInventory extends React.Component {
                 <TextField
                   floatingLabelText="Mac Address"
                   hintText='00:25:96:FF:FE:12'
-                  disabled={!((this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU'))}
+                  disabled={!this.isMacRequired(this.state.machine_type)}
                   fullWidth
                   onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
                   onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={(this.state.machine_type === 'Laptop' || this.state.machine_type === 'CPU') ? this.state.mac_address : null} />
+                  value={this.isMacRequired(this.state.machine_type) ? this.state.mac_address : ''} />
               </div>
             }
 
@@ -339,16 +310,20 @@ export default class FormAddNewInventory extends React.Component {
 
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Extended Warranty Comment'}
-                <textarea style={{width: '100%'}}
+                <textarea
+                  style={{width: '100%'}}
                   onBlur={(e) => { this.setState({warranty_comment: this.state.warranty_comment.trim()}); }}
-                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }} value={this.state.warranty_comment} />
+                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
+                  value={this.state.warranty_comment} />
               </div>
 
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Previous Repair Comment'}
-                <textarea style={{width: '100%'}}
+                <textarea
+                  style={{width: '100%'}}
                   onBlur={(e) => { this.setState({repair_comment: this.state.repair_comment.trim()}); }}
-                  onChange={(e) => { this.setState({repair_comment: e.target.value}); }} value={this.state.repair_comment} />
+                  onChange={(e) => { this.setState({repair_comment: e.target.value}); }}
+                  value={this.state.repair_comment} />
               </div>
             </div>
           </div>

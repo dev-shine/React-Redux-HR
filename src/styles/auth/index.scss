@@ -1,3 +1,15 @@
 @import "login";
 @import "logout";
 @import "forgotPassword";
+
+.logo-container {
+  background-color: #284665;
+  padding: 30px 40px;
+  margin: .5rem 1rem;
+  border-radius: 6px;
+}
+@media (max-width: 767px) {
+  .logo-container {
+    margin: .5rem 1rem !important;
+  }
+}

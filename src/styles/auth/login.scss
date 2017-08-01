@@ -1,16 +1,8 @@
-.logo-container {
-  background-color: #284665;
-  padding: 30px 40px;
-  margin: .5rem 1rem;
-  border-radius: 6px;
-}
 .auth-form{
   margin: 1rem !important;
 }
+
 @media (max-width: 767px) {
-  .logo-container {
-    margin: .5rem 1rem !important;
-  }
   .auth-form{
     margin: .5rem 1rem !important;
   }

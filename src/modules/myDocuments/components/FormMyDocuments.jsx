@@ -55,8 +55,10 @@ class FormMyDocuments extends React.Component {
     function toggleCollapse () {
       if ($(window).width() > 767) {
         $('#uploadDoc').addClass('in').removeClass('p-b-md');
+        $('#uploadMyDoc').removeClass('md-btn md indigo').css('transition', '.2s');
       } else {
         $('#uploadDoc').removeClass('in').addClass('p-b-md');
+        $('#uploadMyDoc').addClass('md-btn md indigo').css('transition', '.2s');
       }
     }
     let userId = this.props.user_id;
@@ -64,7 +66,7 @@ class FormMyDocuments extends React.Component {
     return (
       <div className="row">
         <div className="col-sm-6 p-x-md p-t-md">
-          <h6 className="text-center pointer" data-toggle="collapse" data-target="#uploadDoc">Upload New Documents</h6>
+          <h6 id="uploadMyDoc" className="text-center pointer" data-toggle="collapse" data-target="#uploadDoc">Upload New Documents</h6>
           <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data" className="collapse" id="uploadDoc">
             <div className="form-group">
               <label>Document Type</label>

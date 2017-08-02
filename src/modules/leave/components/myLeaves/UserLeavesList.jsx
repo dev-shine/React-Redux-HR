@@ -58,10 +58,12 @@ class UserLeavesList extends React.Component {
     });
     return (
       <div className="row">
-        <Dialog title="Upload Leave Document" modal={false} open={this.state.open} onRequestClose={this.handleClose} contentStyle={{
-          width:    '45%',
-          maxWidth: 'none'
-        }} autoScrollBodyContent>
+        <Dialog title="Upload Leave Document"
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          contentStyle={{width: 'auto', maxWidth: '400px'}}
+          autoScrollBodyContent>
           <div>
             <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">
               <input type="hidden" name="token" value={this.state.user_token} />

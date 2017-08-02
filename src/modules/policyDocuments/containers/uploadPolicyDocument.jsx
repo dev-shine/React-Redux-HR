@@ -62,14 +62,15 @@ class UploadPolicyDocumentContainer extends React.Component {
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
           <div className="app-body m-t-md">
-            <div className="row m-x-md">
-              <div className='col-xs-12'>
+            <div className=" container-fluid m-x-md">
+              <div className='row'>
                 <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
               </div>
-              <div className="col-xs-6">
+              <div className="col-sm-5 col-md-6">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props} />
               </div>
-              <div className="col-xs-6">
+              <br />
+              <div className="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
                 <ListAllPolicyDocument policyDocuments={this.state.docs} submitNewListofDocs={this.submitNewListofDocs} />
               </div>
             </div>

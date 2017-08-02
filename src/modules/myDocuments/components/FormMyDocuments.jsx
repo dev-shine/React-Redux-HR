@@ -1,9 +1,7 @@
 import React from 'react';
-import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/notify';
 import {getToken} from 'src/services/generic';
-import {ButtonRaised} from 'components/generic/buttons';
 import ListDocuments from 'components/myDocuments/ListDocuments';
 
 class FormMyDocuments extends React.Component {
@@ -27,13 +25,13 @@ class FormMyDocuments extends React.Component {
     let stop = false;
     if (type === '') {
       stop = true;
-      notify('Please select document type');
+      notify('Warning!', 'Please select document type', 'warning');
     } else if (link1 === '') {
       stop = true;
-      notify('Please select a file');
+      notify('Warning!', 'Please select a file', 'warning');
     } else if (this.refs.declear.checked !== true) {
       stop = true;
-      notify('Mark declearation before submit');
+      notify('Warning!', 'Mark declearation before submit', 'warning');
     }
     if (stop) {
       e.preventDefault();
@@ -42,9 +40,9 @@ class FormMyDocuments extends React.Component {
   deleteDocument (docId) {
     this.props.onDeleteDocument(docId).then((msg) => {
       this.props.onGetMydocuments();
-      notify(msg.toString());
+      notify('Success!', msg.toString(), 'success');
     }).catch((err) => {
-      notify(err.toString());
+      notify('Error!', err.toString(), 'error');
     });
   }
   render () {
@@ -99,7 +97,7 @@ class FormMyDocuments extends React.Component {
               <span> <b>*IMPORTANT:</b> By uploading this document you certify that these document are true and all information is correct</span>
             </div>
             <div className="form-group">
-              <ButtonRaised label="Upload" className="col-xs-12 indigo" onClick={(e) => { this.callUpdateDocuments(e); }} />
+              <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => { this.callUpdateDocuments(e); }} />
             </div>
           </form>
         </div>

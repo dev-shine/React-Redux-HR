@@ -8,7 +8,7 @@ import FormMyDocuments from 'modules/myDocuments/components/FormMyDocuments';
 import * as actions from 'appRedux/actions';
 import * as actionsMyDocument from 'appRedux/myDocuments/actions/myDocument';
 
-class MyDoduments extends React.Component {
+class MyDocuments extends React.Component {
   constructor (props) {
     super(props);
     this.props.onIsAlreadyLogin();
@@ -70,11 +70,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const VisibleMyDoduments = connect(
+const VisibleMyDocuments = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyDoduments);
+)(MyDocuments);
 
-const RouterVisibleMyDoduments = withRouter(VisibleMyDoduments);
+const RouterVisibleMyDocuments = withRouter(VisibleMyDocuments);
 
-export default RouterVisibleMyDoduments;
+export default RouterVisibleMyDocuments;

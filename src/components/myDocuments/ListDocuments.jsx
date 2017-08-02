@@ -5,11 +5,11 @@ import _ from 'lodash';
 const ListDocuments = ({myDocuments, deleteDocument}) => {
   let myDocs = _.map(myDocuments, (doc, key) => {
     return (<li key={key} className="list-group-item">
-      <div className="clear b-t p-t">
-        <div className="_500 block">{doc.document_type}
+      <div className="clear">
+        <h5>{doc.document_type}
           <span className="glyphicon glyphicon-remove-circle pull-right pointer" onClick={() => { deleteDocument(doc.id); }}></span>
-        </div>
-       {typeof doc.link_1 === 'undefined' ? '' : <span className="text-muted"><div dangerouslySetInnerHTML={{__html: doc.link_1}}></div><br /></span>}
+        </h5>
+        {typeof doc.link_1 === 'undefined' ? '' : <div dangerouslySetInnerHTML={{__html: doc.link_1}}></div>}
       </div>
     </li>);
   });
@@ -19,7 +19,7 @@ const ListDocuments = ({myDocuments, deleteDocument}) => {
   return (
     <div className="col-sm-6 p-a-md">
       <h6 className="text-center">Uploaded Documents</h6>
-      <ul className="list-group m-b ">
+      <ul className="list-group m-b thumbnail">
         {myDocs}
       </ul>
     </div>

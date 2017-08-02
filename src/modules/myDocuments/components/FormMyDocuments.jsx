@@ -53,10 +53,10 @@ class FormMyDocuments extends React.Component {
     function toggleCollapse () {
       if ($(window).width() > 767) {
         $('#uploadDoc').addClass('in').removeClass('p-b-md');
-        $('#uploadMyDoc').removeClass('md-btn md indigo').css('transition', '.2s');
+        $('#uploadMyDoc').removeClass('md-btn md indigo');
       } else {
         $('#uploadDoc').removeClass('in').addClass('p-b-md');
-        $('#uploadMyDoc').addClass('md-btn md indigo').css('transition', '.2s');
+        $('#uploadMyDoc').addClass('md-btn md indigo');
       }
     }
     let userId = this.props.user_id;

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {Card, CardHeader} from 'material-ui/Card';
 import Message from 'components/generic/Message';
 
 class DocumentsList extends React.Component {
@@ -35,30 +34,24 @@ class DocumentsList extends React.Component {
     let documentsList = _.map(this.props.policyDocuments.data, (doc, i) => {
       let isReadStrip = doc.read ? ' is-read-document' : ' is-not-read-document';
       return (
-        <Card key={i} className={'m-y-sm border-left' + isReadStrip}>
-          <CardHeader
-            title={<span>{doc.name}</span>}
-            subtitle={<a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>}
-            titleColor={doc.read ? 'rgba(12, 12, 12, 0.54)' : ''}
-          />
-        </Card>
+        <div key={i} className={'m-y-sm policyDocumentsList clear' + isReadStrip}>
+          <h5>{doc.name}</h5>
+          <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
+        </div>
       );
     });
     return (
       <div className="app-body" id="view">
-        <div className="col-xs-12 col-sm-12">
+        <div className="col-sm-12">
           <div className="row">
-            <div className='col-xs-12'>
+            <div className='col-sm-12'>
               <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
             </div>
-            <div className="col-xs-11 m-t-md m-l-md">
-              <Card className="">
-                <CardHeader
-                  title="Policy Documents List"
-                  subtitle={<span><small><i>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</i></small></span>}
-                  subtitleColor='rgba(255, 0, 0, 0.66)'
-                />
-              </Card>
+            <div className="col-xs-12 col-sm-11 m-x-sm">
+              <div className="policyDocumentsList m-t-md clear">
+                <h4>Policy Documents List</h4>
+                <small className="text-danger"><i>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</i></small>
+              </div>
               {documentsList}
             </div>
           </div>

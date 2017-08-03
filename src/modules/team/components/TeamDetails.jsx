@@ -22,7 +22,7 @@ const TeamDetails = ({teamList, team, fetchUserDetails}) => {
         <td>{emp.jobtitle}</td>
         <td>{emp.salary_detail}</td>
         <td>{emp.holdin_amt_detail !== ''
-          ? <ul style={{'padding': '0'}}>
+          ? <ul className="p-0">
             <li>Holding amount : {emp.holdin_amt_detail.holding_amt}</li>
             <li>Start date : {emp.holdin_amt_detail.holding_start_date}</li>
             <li>End date : {emp.holdin_amt_detail.holding_end_date}</li>

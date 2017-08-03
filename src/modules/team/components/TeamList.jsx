@@ -101,7 +101,7 @@ class TeamList extends React.Component {
     ];
     return (
       <div className="app-body" id="view">
-        <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
+        <div className="col-xs-12 col-sm-12 right">
           <Dialog
             title={this.state.dialogTitle}
             actions={actions}
@@ -147,9 +147,9 @@ class TeamList extends React.Component {
                           </TableRowColumn>
                         </TableRow>
                         <TableRow>
-                          <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Sr. no.</TableRowColumn>
-                          <TableRowColumn style={{'fontWeight': 'bold'}}>Teams Name</TableRowColumn>
-                          <TableRowColumn colSpan={1} style={{'fontWeight': 'bold', textAlign: 'center'}}>Delete</TableRowColumn>
+                          <TableRowColumn colSpan={1} className="_700">{'Sr. no.'}</TableRowColumn>
+                          <TableRowColumn className="_700">Teams Name</TableRowColumn>
+                          <TableRowColumn colSpan={1} className="_700" style={{'textAlign': 'center'}}>Delete</TableRowColumn>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -157,7 +157,7 @@ class TeamList extends React.Component {
                           <TableRow key={i}
                             style={{'cursor': 'pointer'}}>
                             <TableRowColumn colSpan={1} >{i + 1}</TableRowColumn>
-                            <TableRowColumn style={{'padding': '0'}} colSpan={1} >{vari}</TableRowColumn>
+                            <TableRowColumn className="p-0" colSpan={1} >{vari}</TableRowColumn>
                             <TableRowColumn colSpan={1} style={{textAlign: 'center'}}>
                               <IconButton
                                 tooltip="Delete Team"

@@ -84,18 +84,27 @@ class MyProfile extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter">
-                <UserHorizontalView profileImage={this.props.loggedUser.data.profileImage} name={this.state.user_profile_detail.name} jobtitle={this.state.user_profile_detail.jobtitle} dateofjoining={this.state.user_profile_detail.dateofjoining} gender={this.state.user_profile_detail.gender} dob={this.state.user_profile_detail.dob} work_email={this.state.user_profile_detail.work_email} />
+                <UserHorizontalView
+                  profileImage={this.props.loggedUser.data.profileImage}
+                  name={this.state.user_profile_detail.name}
+                  jobtitle={this.state.user_profile_detail.jobtitle}
+                  dateofjoining={this.state.user_profile_detail.dateofjoining}
+                  gender={this.state.user_profile_detail.gender}
+                  dob={this.state.user_profile_detail.dob}
+                  workEmail={this.state.user_profile_detail.work_email}
+                />
               </div>
               <div className="row no-gutter">
-                <div className="col-xs-6 p-t p-r b-r">
+                <div className="col-sm-6 p-t p-r b-r">
                   <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
-                  <br /><br /><br />
-                  <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
-                  <br /><br /><br />
                 </div>
-                <div className="col-xs-6 p-t p-l">
+                <div className="col-sm-6 p-t p-l">
                   <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
-                  <br /><br /><br />
+                </div>
+                <div className="col-sm-6 p-t p-l">
+                  <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
+                </div>
+                <div className="col-sm-6 p-t p-l">
                   <h6 className="text-center">Previous Payslips</h6>
                   <PayslipHistory payslip_history={this.state.payslip_history} />
                 </div>

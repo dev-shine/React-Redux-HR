@@ -25,29 +25,25 @@ const DeviceDetails = ({userAssignMachine}) => {
   }
 
   return (
-    <div>
+    <div className="row box">
       <h6 className="text-center">Asssigned Device Details</h6>
       <br />
-      <ul className="list-group m-b">
-        <li className="list-group-item">
-          <div className="clear">
-            <table key='' className="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>Device Type</th>
-                  <th>Name</th>
-                  <th>Mac Address</th>
-                  <th>Serial Number</th>
-                  <th>Assign Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {machineList}
-              </tbody>
-            </table>
-          </div>
-        </li>
-      </ul>
+      <div className="table-responsive">
+        <table key='' className="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Device Type</th>
+              <th>Name</th>
+              <th>Mac Address</th>
+              <th>Serial Number</th>
+              <th>Assign Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {machineList}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

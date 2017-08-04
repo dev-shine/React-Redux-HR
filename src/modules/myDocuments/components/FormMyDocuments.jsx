@@ -13,11 +13,16 @@ class FormMyDocuments extends React.Component {
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
+    this.toggleCollapse = this.toggleCollapse.bind(this);
   }
   componentWillReceiveProps (props) {
+    this.toggleCollapse();
     this.setState({
       user_token: getToken()
     });
+  }
+  componentDidUpdate () {
+    window.addEventListener('resize', this.toggleCollapse);
   }
   callUpdateDocuments (e) {
     let type = this.state.doc_type;
@@ -45,20 +50,16 @@ class FormMyDocuments extends React.Component {
       notify('Error!', err.toString(), 'error');
     });
   }
-  render () {
-    toggleCollapse();
-    $(window).resize(function () {
-      toggleCollapse();
-    });
-    function toggleCollapse () {
-      if ($(window).width() > 767) {
-        $('#uploadDoc').addClass('in');
-        $('#uploadMyDoc').removeClass('md-btn md-raised indigo autoWidthCenter');
-      } else {
-        $('#uploadDoc').removeClass('in');
-        $('#uploadMyDoc').addClass('md-btn md-raised indigo autoWidthCenter');
-      }
+  toggleCollapse () {
+    if ($(window).width() > 767) {
+      $('#uploadDoc').addClass('in');
+      $('#uploadMyDoc').removeClass('md-btn md-raised indigo autoWidthCenter');
+    } else {
+      $('#uploadDoc').removeClass('in');
+      $('#uploadMyDoc').addClass('md-btn md-raised indigo autoWidthCenter');
     }
+  }
+  render () {
     let userId = this.props.user_id;
     let pageUrl = window.location.href;
     return (

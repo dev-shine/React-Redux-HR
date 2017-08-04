@@ -16,3 +16,9 @@
   margin: 0 !important;
   vertical-align: middle;
 }
+@media (max-width: 540px) {
+  option {
+    font-size: 12px;
+    padding: 10px !important;
+  }
+}

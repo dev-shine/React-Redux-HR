@@ -71,21 +71,21 @@ class FormProfileDetails extends React.Component {
             />
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-md-6">
             <div className="form-group">
               <label>Current Address</label>
-              <textarea placeholder="your current address..." className="form-control" ref="address1" onChange={() => this.setState({address1: this.refs.address1.value})} value={this.state.address1}></textarea>
+              <textarea placeholder="your current address..." className="form-control resizeY" ref="address1" onChange={() => this.setState({address1: this.refs.address1.value})} value={this.state.address1}></textarea>
             </div>
           </div>
           <div className="col-md-6">
             <div className="form-group">
               <label>Permanent Address</label>
-              <textarea placeholder="your permanent address..." className="form-control" ref="address2" onChange={() => this.setState({address2: this.refs.address2.value})} value={this.state.address2}></textarea>
+              <textarea placeholder="your permanent address..." className="form-control resizeY" ref="address2" onChange={() => this.setState({address2: this.refs.address2.value})} value={this.state.address2}></textarea>
             </div>
           </div>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-md-6">
             <div className="form-group">
               <label>Emergency Contact Information 1</label>
               <input type="text" className="form-control" ref="emr_con_1" onChange={() => this.setState({emr_con_1: this.refs.emr_con_1.value})} value={this.state.emr_con_1} />
@@ -124,7 +124,7 @@ class FormProfileDetails extends React.Component {
         </div>
         <div className="form-group">
           <label>Any Medical Conditions</label>
-          <textarea placeholder="your medical conditions..." className="form-control" ref="medical_con" onChange={() => this.setState({medical_con: this.refs.medical_con.value})} value={this.state.medical_con}></textarea>
+          <textarea placeholder="your medical conditions..." className="form-control resizeY" ref="medical_con" onChange={() => this.setState({medical_con: this.refs.medical_con.value})} value={this.state.medical_con}></textarea>
         </div>
         <button className="col-xs-12 md-btn md-raised indigo" onClick={() => this.props.callUpdateProfileDetails(this.state)}>Update Profile Details</button>
       </div>

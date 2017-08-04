@@ -1,3 +1,18 @@
 #uploadMyDoc{
   transition: .2s;
 }
+.autoWidthCenter {
+  left: 50%;
+  -ms-transform: translate(-50%) !important;
+  -webkit-transform: translate(-50%) !important;
+  transform: translate(-50%) !important;
+}
+.declaration {
+  display: inline-flex;
+  width: 90%;
+  margin-left: 1vw;
+}
+.verticalMiddle {
+  margin: 0 !important;
+  vertical-align: middle;
+}

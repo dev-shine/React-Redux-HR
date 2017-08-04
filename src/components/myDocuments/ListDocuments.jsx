@@ -17,7 +17,7 @@ const ListDocuments = ({myDocuments, deleteDocument}) => {
     myDocs = <li className="list-group-item text-center"><span>No document uploaded</span></li>;
   }
   return (
-    <div className="col-sm-6 p-a-md">
+    <div className="col-sm-6 p-x-md">
       <h6 className="text-center">Uploaded Documents</h6>
       <ul className="list-group m-b thumbnail">
         {myDocs}

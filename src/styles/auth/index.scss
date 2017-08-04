@@ -8,8 +8,11 @@
   margin: 1rem;
   border-radius: 6px;
 }
-@media (max-width: 767px) {
+@media (max-width: 543px) and ( min-width: 340px) {
   .logo-container {
     margin: .5rem 1rem !important;
+  }
+  .w-auto-xs {
+    width: 320px;
   }
 }

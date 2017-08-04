@@ -36,7 +36,7 @@ class Login extends React.Component {
   render () {
     return (
       <div>
-        <div className="center-block w-xxl w-auto-xs p-y-md">
+        <div className="center-block w-auto-xs w-xxl p-y-md">
           <GetLogo />
           <Navbar />
           <div className="p-a-md box-color r box-shadow-z1 text-color auth-form">

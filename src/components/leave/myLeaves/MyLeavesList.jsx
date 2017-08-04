@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ButtonRaised, ButtonInfo, Button} from 'components/generic/buttons';
+import {ButtonInfo, Button} from 'components/generic/buttons';
 
 const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
   let s = leave.status;
@@ -35,7 +35,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
         <div>
           <span className="_500">From {leave.from_date} to {leave.to_date}</span>
           &nbsp;&nbsp;&nbsp;<span className="label cyan">{leave.no_of_days} Day</span>
-          <span className="label cyan" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => cancelLeave(leave.user_Id, leave.from_date)}>Cancel</span>
+        <span className="label cyan margin-l" onClick={() => cancelLeave(leave.user_Id, leave.from_date)}>Cancel</span>
         </div>
         <div className="text-ellipsis text-muted text-sm">Reason : {leave.reason}</div>
         {
@@ -57,7 +57,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
       {
         leave.doc_require !== '0'
         ? <div className="col-md-12 btn-group">
-          <div className='col-md-2' style={{marginTop: '10px'}}>
+          <div className='col-md-2 margin-t'>
             <ButtonInfo
               className="text-right btn-responsive"
               onClick={() => { handleOpen(leave.id); }}
@@ -68,7 +68,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
               leave.doc_link === ''
               ? null
               : <form method="get" target="_blank" action={leave.doc_link}>
-                <div style={{marginTop: '10px'}}>
+                <div className="margin-t">
                   <Button
                     className="text-left indigo btn-responsive"
                     label="View Document" />

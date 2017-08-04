@@ -62,7 +62,7 @@ class UserLeavesList extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: 'auto', maxWidth: '400px'}}
+          className="dialogcontent"
           autoScrollBodyContent>
           <div>
             <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">

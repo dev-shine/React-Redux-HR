@@ -1,0 +1,22 @@
+.margin-t {
+  margin-top: 10px;
+ }
+.margin-l {
+  margin-left: 10px;
+  cursor: pointer;
+ }
+.dialogcontent {
+  width: auto;
+  max-width: 400px;
+ }
+
+ @media screen and (max-width: 992px) {
+   p,.btn,.btn-responsive,input,div,span,h4 {
+     font-size: 95%;
+   }
+ }
+   @media screen and (max-width: 768px) {
+     p,.btn,input,div,span,h4 {
+       font-size: 90%;
+     }
+   }

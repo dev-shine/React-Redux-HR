@@ -35,7 +35,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
         <div>
           <span className="_500">From {leave.from_date} to {leave.to_date}</span>
           &nbsp;&nbsp;&nbsp;<span className="label cyan">{leave.no_of_days} Day</span>
-        <span className="label cyan margin-l" onClick={() => cancelLeave(leave.user_Id, leave.from_date)}>Cancel</span>
+        <span className="label cyan m-l-xs" onClick={() => cancelLeave(leave.user_Id, leave.from_date)}>Cancel</span>
         </div>
         <div className="text-ellipsis text-muted text-sm">Reason : {leave.reason}</div>
         {

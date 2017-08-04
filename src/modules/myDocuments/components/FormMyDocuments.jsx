@@ -15,14 +15,14 @@ class FormMyDocuments extends React.Component {
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
   }
-  componentWillReceiveProps (props) {
+  componentDidMount () {
     this.toggleCollapse();
+    window.addEventListener('resize', this.toggleCollapse);
+  }
+  componentWillReceiveProps (props) {
     this.setState({
       user_token: getToken()
     });
-  }
-  componentDidUpdate () {
-    window.addEventListener('resize', this.toggleCollapse);
   }
   callUpdateDocuments (e) {
     let type = this.state.doc_type;

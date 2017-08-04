@@ -54,31 +54,31 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
           : null
         }
       </div>
-      {
-        leave.doc_require !== '0'
-        ? <div className="col-md-12 btn-group">
-          <div className='col-md-2 margin-t'>
-            <ButtonInfo
-              className="text-right btn-responsive"
+
+      <div className="row">
+        {
+          leave.doc_require !== '0'
+          ? <div className="col-xs-12 row">
+            <button
               onClick={() => { handleOpen(leave.id); }}
-              label="Upload Leave Documents" />
-          </div>
-          <div className="col-md-4">
-            {
-              leave.doc_link === ''
-              ? null
-              : <form method="get" target="_blank" action={leave.doc_link}>
-                <div className="margin-t">
-                  <Button
-                    className="text-left indigo btn-responsive"
-                    label="View Document" />
-                </div>
+              className="btn btn-info btn-responsive col-xs-2">{'Upload Leave Document'}
+            </button>
+          {
+            leave.doc_link === ''
+            ? null
+            : <div>
+              <form method="get" target="_blank" action={leave.doc_link}>
+                <button
+                  className="btn btn-primary btn-responsive col-xs-2">
+                  {'View Document'}
+                </button>
               </form>
-            }
+            </div>
+        }
           </div>
-        </div>
-      : null
-      }
+          : null
+        }
+      </div>
     </div>
   );
 };

@@ -39,8 +39,9 @@ const TeamDetails = ({teamList, team, fetchUserDetails}) => {
   });
 
   if (_.isEmpty(row)) {
-    row = <tr><td colSpan="9"
-      style={{'textAlign': 'center'}}>No any employee in this team</td>
+    row = <tr>
+      <td colSpan="10" className="text-center">{'No any employee in this team'}
+      </td>
     </tr>;
   }
   return (
@@ -48,7 +49,7 @@ const TeamDetails = ({teamList, team, fetchUserDetails}) => {
       <div className="row no-gutter">
         <div className="col-md-3 p-r">
           <div className="form-group">
-            <label style={{'fontSize': 15}}>Select Team:</label>
+            <h5>Select Team:</h5>
             <select className="form-control"
               onChange={(emp) => onSelectTeam(emp)}>
               <option value="">--Select team--</option>

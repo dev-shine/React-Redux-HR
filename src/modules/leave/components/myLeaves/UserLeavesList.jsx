@@ -52,23 +52,24 @@ class UserLeavesList extends React.Component {
   }
 
   render () {
-    let pageUrl = window.location.href;
+    let page_url = window.location.href;
     let leavesList = _.map(this.props.userLeaves.leaves, (leave, key) => {
       return <MyLeavesList key={key} leave={leave} handleOpen={this.handleOpen} cancelLeave={this.cancelLeave} />;
     });
+    // className="dialog-content"
     return (
       <div className="row">
         <Dialog title="Upload Leave Document"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: 'auto', maxWidth: '400px'}}
+          contentClassName="dialog-content"
           autoScrollBodyContent>
           <div>
             <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">
               <input type="hidden" name="token" value={this.state.user_token} />
               <input type="hidden" name="leaveid" value={this.state.id} />
-              <input type="hidden" name="page_url" value={pageUrl} />
+              <input type="hidden" name="page_url" value={page_url} />
               <div className="form-group">
                 <label>Attachment</label>
                 <input type="file" className="form-control" ref="file" name="docProof" />

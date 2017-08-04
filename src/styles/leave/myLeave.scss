@@ -1,5 +1,10 @@
+.dialog-content {
+  width: auto;
+  max-width: 400px;
+ }
+
 @media (max-width: 768px){
-  .btn,.btn-responsive {
+  .btn-res {
     margin-left: 2%;
     margin-top: 1%;
     font-size: 9px;
@@ -9,7 +14,7 @@
   }
  }
 @media (min-width: 769px) and (max-width: 992px) {
-  .btn,.btn-responsive {
+  .btn-res {
     margin-left: 2%;
     margin-top: 1%;
     font-size: 10px;
@@ -17,7 +22,7 @@
   }
  }
 @media (min-width: 994px) and (max-width: 1199px) {
-  .btn,.btn-responsive {
+  .btn-res {
     font-size: 90%;
     width: auto;
     padding-left: 2px;
@@ -27,7 +32,7 @@
   }
  }
 @media (min-width: 1200px) {
-  .btn,.btn-responsive {
+  .btn-res {
     font-size: 11px;
     width: auto;
     margin-left: 2%;

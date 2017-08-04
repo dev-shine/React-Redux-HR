@@ -61,7 +61,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
           ? <div className="col-xs-12 row">
             <button
               onClick={() => { handleOpen(leave.id); }}
-              className="btn btn-info btn-responsive col-xs-2">{'Upload Leave Document'}
+              className="btn btn-info btn-responsive btn-res col-xs-2">{'Upload Leave Document'}
             </button>
           {
             leave.doc_link === ''
@@ -69,7 +69,7 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
             : <div>
               <form method="get" target="_blank" action={leave.doc_link}>
                 <button
-                  className="btn btn-primary btn-responsive col-xs-2">
+                  className="btn btn-primary btn-responsive btn-res col-xs-2">
                   {'View Document'}
                 </button>
               </form>

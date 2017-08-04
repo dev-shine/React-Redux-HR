@@ -28,7 +28,6 @@ class FormMyDocuments extends React.Component {
       notify('Warning!', 'Please select document type.', 'warning');
     } else if (link1 === '') {
       stop = true;
-      this.setState({errorDocType: ''});
       notify('Warning!', 'Please select a file', 'warning');
     } else if (this.refs.declear.checked !== true) {
       stop = true;

@@ -21,3 +21,21 @@
     word-wrap: break-word;
   }
 }
+.paddingResponsive{
+  padding: 0 3rem;
+  transition: .2s;
+}
+
+@media (max-width: 992px) and (min-width: 540px) {
+  .paddingResponsive{
+    padding: 0 2rem;
+    transition: .2s;
+  }
+}
+
+@media (max-width: 540px) {
+  .paddingResponsive{
+    padding: 0 1rem;
+    transition: .2s;
+  }
+}

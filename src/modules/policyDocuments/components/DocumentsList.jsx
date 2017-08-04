@@ -42,19 +42,15 @@ class DocumentsList extends React.Component {
     });
     return (
       <div className="app-body" id="view">
-        <div className="col-sm-12">
-          <div className="row">
-            <div className='col-sm-12'>
-              <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
-            </div>
-            <div className="col-xs-12 col-sm-11 m-x-sm">
-              <div className="policyDocumentsList m-t-md clear">
-                <h4>Policy Documents List</h4>
-                <small className="text-danger"><i>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</i></small>
-              </div>
-              {documentsList}
-            </div>
+        <div className='col-sm-12'>
+          <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
+        </div>
+        <div className="col-xs-12 paddingResponsive">
+          <div className="policyDocumentsList m-t-md clear">
+            <h4>Policy Documents List</h4>
+            <small className="text-danger"><i>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</i></small>
           </div>
+          {documentsList}
         </div>
       </div>
     );

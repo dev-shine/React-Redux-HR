@@ -4,6 +4,31 @@ import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
+  // let distance = 0;
+  // let scrollTop = 0;
+  // let elementOffset = 0;
+  // // $('#userList').width($('#abc').parent().width());
+  // const ab = (distance, r) => {
+  //   if (distance <= 65 && r) {
+  //     // $('#ad').css('position', 'fixed');
+  //     // $('#ad').addClass('list-box');
+  //     console.log('*************************************', parent);
+  //     console.log('scrollTop', scrollTop, elementOffset, distance);
+  //   } else if (distance > 65 && r) {
+  //     // $('#ad').css('position', 'relative');
+  //     console.log('+++++++++++++++++++++++++++++++++++++++++', parent);
+  //     console.log('scrollTop', scrollTop, elementOffset, distance);
+  //     // $('#ad').removeClass('list-box');
+  //   }
+  // };
+  // $(window).on('scroll', function () {
+  //   scrollTop = $(window).scrollTop();
+  //   elementOffset = $('#userList').offset().top;
+  //   distance = (elementOffset - scrollTop);
+  //   let parent = $('userList').parent();
+  //   let r = $('#ad').hasClass('list-box');
+  //   ab(distance, r);
+  // });
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';
@@ -30,7 +55,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
             <span className="w-40 avatar">{avatar}</span>
           </div>
           <div className="list-body">
-            <div>{user.name}</div>
+            <div className="text-ellipsis">{user.name}</div>
             <small className="text-muted text-ellipsis">{user.jobtitle}</small>
             <small className="text-muted text-ellipsis"><b>Emp Id : {user.user_Id}</b></small>
           </div>
@@ -40,15 +65,14 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
     );
   });
   return (
-    <div className="row">
+    <div id="abc" className="row">
       <div className="col-12">
-        <div className="box user-list-container">
-          <ul className="list no-border p-b">
-            {
-              // asdasd
-              usersList
-            }
-          </ul>
+        <div className="list-box">
+          <div className="user-list-container" id="userList">
+            <ul className="box list no-border p-b">
+              {usersList}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

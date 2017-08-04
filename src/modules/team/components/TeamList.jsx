@@ -91,7 +91,7 @@ class TeamList extends React.Component {
         label="Back"
         primary
         onTouchTap={this.handleClose}
-        className="margin-r"
+        className="m-r"
       />,
       <RaisedButton
         label="Submit"

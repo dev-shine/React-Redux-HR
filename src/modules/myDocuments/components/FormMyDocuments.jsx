@@ -86,6 +86,10 @@ class FormMyDocuments extends React.Component {
                   <option value="Other Documents">Other Documents</option>
                 </select>
               </div>
+              <input type="hidden" name="token" value={this.state.user_token} />
+              <input type="hidden" name="user_id" value={userId} />
+              <input type="hidden" name="document_type" value={this.state.doc_type} />
+              <input type="hidden" name="page_url" value={pageUrl} />
               <div className="form-group">
                 <label className="col-sm-12">Attachment </label>
                 <input type="file" className="form-control" ref="file" name="link_1" />
@@ -94,10 +98,6 @@ class FormMyDocuments extends React.Component {
                 <input type="checkbox" className="verticalMiddle" />
                 <span className="declaration"><b>*IMPORTANT: </b>&nbsp;By uploading this document you certify that these document are true and all information is correct</span>
               </div>
-              <input type="hidden" name="token" value={this.state.user_token} />
-              <input type="hidden" name="user_id" value={userId} />
-              <input type="hidden" name="document_type" value={this.state.doc_type} />
-              <input type="hidden" name="page_url" value={pageUrl} />
               <div className="form-group col-sm-12">
                 <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => { this.callUpdateDocuments(e); }} />
               </div>

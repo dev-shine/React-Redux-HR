@@ -1,8 +1,14 @@
-.logo-container {
-  background-color: #284665;
-  padding: 30px 40px 30px 40px;
-  width: 300px;
-  margin-left: 5px;
-  border-radius: 6px;
-  padding-bottom: 20px;
+.auth-form{
+  margin: 1rem !important;
+}
+
+@media (max-width: 767px) {
+  .auth-form{
+    margin: .5rem 1rem !important;
+  }
+  .md-form-group{
+  	padding: 14px 0 20px 0;
+  	position: relative;
+    transition: 1s;
+  }
 }

@@ -34,7 +34,7 @@ const requestSubmitDocs = (state, action) => update(state, {
 });
 
 const successSubmitDocs = (state, action) => update(state, {
-  policyDocument: {$setsuccessmessage: action.payload}
+  policyDocument: {$setSuccessMessage: action.payload}
 });
 
 const errorSubmitDocs = (state, action) => update(state, {
@@ -46,7 +46,7 @@ const requestUpdateRead = (state, action) => update(state, {
 });
 
 const successUpdateRead = (state, action) => update(state, {
-  policyDocument: {$setsuccessmessage: action.payload}
+  policyDocument: {$setSuccessMessage: action.payload}
 });
 
 const errorUpdateRead = (state, action) => update(state, {

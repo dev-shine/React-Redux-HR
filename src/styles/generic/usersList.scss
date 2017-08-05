@@ -6,17 +6,20 @@
   position: fixed;
   z-index: 10;
 }
+.list-item {
+  border-bottom: 1px solid #dcdcdc;
+}
 .list-item:hover {
   background: rgba(204, 204, 204, 0.32);
 }
 .user-list-container{
   max-width: 300px;
   min-width: 100%; //100%;
-  width: 180px;
+  width: 160px;
   transition: width 1s;
   -webkit-transition:width 1s;
   -moz-transition: width 1s;
-  max-height: 91vh;
+  max-height: 88vh;
   z-index: 10;
   overflow-y: hidden;
   overflow-x: hidden;

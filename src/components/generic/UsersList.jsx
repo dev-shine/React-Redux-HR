@@ -4,31 +4,6 @@ import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
-  // let distance = 0;
-  // let scrollTop = 0;
-  // let elementOffset = 0;
-  // // $('#userList').width($('#userListWrapper').parent().width());
-  // const ab = (distance, r) => {
-  //   if (distance <= 65 && r) {
-  //     // $('#ad').css('position', 'fixed');
-  //     // $('#ad').addClass('list-box');
-  //     console.log('*************************************', parent);
-  //     console.log('scrollTop', scrollTop, elementOffset, distance);
-  //   } else if (distance > 65 && r) {
-  //     // $('#ad').css('position', 'relative');
-  //     console.log('+++++++++++++++++++++++++++++++++++++++++', parent);
-  //     console.log('scrollTop', scrollTop, elementOffset, distance);
-  //     // $('#ad').removeClass('list-box');
-  //   }
-  // };
-  // $(window).on('scroll', function () {
-  //   scrollTop = $(window).scrollTop();
-  //   elementOffset = $('#userList').offset().top;
-  //   distance = (elementOffset - scrollTop);
-  //   let parent = $('userList').parent();
-  //   let r = $('#ad').hasClass('list-box');
-  //   ab(distance, r);
-  // });
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';

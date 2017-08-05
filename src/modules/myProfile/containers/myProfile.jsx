@@ -95,10 +95,18 @@ class MyProfile extends React.Component {
                 />
               </div>
               <div className="row no-gutter">
-                <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
-                <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
-                <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
-                <PayslipHistory className="col-sm-6 p-a" payslip_history={this.state.payslip_history} />
+                <div className="col-sm-6 p-a b-r m-b-md">
+                  <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
+                </div>
+                <div className="col-sm-6 p-a m-b-md">
+                  <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
+                </div>
+                <div className="col-sm-6 p-a m-b-md">
+                  <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
+                </div>
+                <div className="col-sm-6 p-a">
+                  <PayslipHistory payslip_history={this.state.payslip_history} />
+                </div>
               </div>
             </div>
           </div>

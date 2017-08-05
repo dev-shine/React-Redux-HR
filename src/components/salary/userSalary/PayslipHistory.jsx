@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-const PayslipHistory = ({payslip_history, className}) => {
+const PayslipHistory = ({payslip_history}) => {
   let previousPayslips = _.map(payslip_history, (d, key) => {
     return (
       <div className="sl-item b-info" key={key} >
@@ -23,8 +23,8 @@ const PayslipHistory = ({payslip_history, className}) => {
   });
 
   return (
-    <div className={className}>
-      <h6>Previous Payslips</h6>
+    <div>
+      <h6 className="text-center">Previous Payslips</h6>
       <hr />
       <div className="streamline b-l m-l">
         {previousPayslips}
@@ -34,8 +34,7 @@ const PayslipHistory = ({payslip_history, className}) => {
 };
 
 PayslipHistory.PropTypes = {
-  payslip_history: PropTypes.array.isRequired,
-  className:       PropTypes.string.isRequired
+  payslip_history: PropTypes.array.isRequired
 };
 
 export default PayslipHistory;

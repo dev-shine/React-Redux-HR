@@ -16,7 +16,7 @@ class FormUpdatePassword extends React.Component {
   }
   render () {
     return (
-      <div className="col-sm-6 p-a m-b-md">
+      <div>
         <h6 className="text-center">Update Password</h6>
         <div className="form-group">
           <label>Enter New Password</label>

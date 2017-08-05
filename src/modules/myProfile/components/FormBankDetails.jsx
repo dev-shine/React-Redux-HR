@@ -27,7 +27,7 @@ class FormBankDetails extends React.Component {
   }
   render () {
     return (
-      <div className="col-sm-6 p-a m-b-md">
+      <div>
         <h6 className="text-center">Bank Details</h6>
         <div className="form-group">
           <label>Bank Account Number</label>

@@ -46,7 +46,7 @@ class FormProfileDetails extends React.Component {
 
   render () {
     return (
-      <div className="col-sm-6 p-a b-r m-b-md">
+      <div>
         <h6 className="text-center">Personal Details</h6>
         <div className="form-group">
           <label>User Name</label>

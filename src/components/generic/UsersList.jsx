@@ -7,7 +7,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
   // let distance = 0;
   // let scrollTop = 0;
   // let elementOffset = 0;
-  // // $('#userList').width($('#abc').parent().width());
+  // // $('#userList').width($('#userListWrapper').parent().width());
   // const ab = (distance, r) => {
   //   if (distance <= 65 && r) {
   //     // $('#ad').css('position', 'fixed');
@@ -65,7 +65,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
     );
   });
   return (
-    <div id="abc" className="row">
+    <div id="userListWrapper" className="row">
       <div className="col-12">
         <div className="list-box">
           <div className="user-list-container" id="userList">

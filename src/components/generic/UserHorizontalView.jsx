@@ -17,7 +17,7 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
       <div className="item-bg">
         <img src={profileImage} className="blur opacity-3" />
       </div>
-      <div className="row p-y-md p-x-lg">
+      <div className="row padding-responsive">
         <div className="col-sm-12">
           <span className="avatar w-96 pointer">
             <img src={profileImage} />

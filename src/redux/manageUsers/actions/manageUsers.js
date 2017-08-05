@@ -442,10 +442,10 @@ export function changeEmployeeStatus (userid, status) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
       async_changeEmployeeStatus(userid, status).then((json) => {
-        if (json.error == 0) {
-          resolve('disabled');
+        if (json.error === 0) {
+          resolve('User disabled');
         } else {
-          reject('Error with response');
+          reject(json.data.message);
         }
       }, (error) => {
         reject('error occurs!!');

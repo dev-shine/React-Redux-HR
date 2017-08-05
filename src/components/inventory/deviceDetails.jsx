@@ -14,7 +14,7 @@ const DeviceDetails = ({userAssignMachine}) => {
     </tr>);
   });
   if (_.isEmpty(machineList)) {
-    machineList = <tr><td colSpan="5"><h6 className="text-center">{'Device Not Asssigned'}</h6></td></tr>;
+    machineList = <tr><td colSpan="5"><h5 className="text-center text-danger">{'Device Not Asssigned'}</h5></td></tr>;
   }
 
   return (

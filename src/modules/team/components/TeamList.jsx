@@ -69,7 +69,7 @@ class TeamList extends React.Component {
       if (func === 'save') {
         notify('Success', 'Team added Successfully.', 'success');
       } else if (func === 'delete') {
-        notify('Success', 'Team List updated Successfully.', 'success');
+        notify('Deleted', 'Team Deleted Successfully.', 'success');
       }
     }
   }
@@ -91,7 +91,7 @@ class TeamList extends React.Component {
         label="Back"
         primary
         onTouchTap={this.handleClose}
-        style={{marginRight: 5}}
+        className="m-r"
       />,
       <RaisedButton
         label="Submit"
@@ -101,7 +101,7 @@ class TeamList extends React.Component {
     ];
     return (
       <div className="app-body" id="view">
-        <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
+        <div className="col-xs-12 col-sm-12 pull-right">
           <Dialog
             title={this.state.dialogTitle}
             actions={actions}
@@ -133,9 +133,9 @@ class TeamList extends React.Component {
                     className="md-btn md-raised m-b-sm indigo"
                     onClick={this.openCreateTeam}>Add Team</button>
                 </div>
-                <div style={{'marginTop': '8%'}}>
-                  <Paper zDepth={1} style={{marginBottom: '10px'}} >
-                    <Table fixedHeader fixedFooter >
+                <div className='table-responsive table-condensed margin-t'>
+                  <Paper zDepth={1} >
+                    <Table fixedFooter >
                       <TableHeader
                         adjustForCheckbox={false}
                         displaySelectAll={false}>
@@ -145,18 +145,17 @@ class TeamList extends React.Component {
                           </TableRowColumn>
                         </TableRow>
                         <TableRow>
-                          <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Sr. no.</TableRowColumn>
-                          <TableRowColumn colSpan={1} style={{'fontWeight': 'bold'}}>Teams Name</TableRowColumn>
-                          <TableRowColumn colSpan={1} style={{'fontWeight': 'bold', textAlign: 'center'}}>Delete</TableRowColumn>
+                          <TableRowColumn colSpan={1} className="_700">{'Sr. no.'}</TableRowColumn>
+                          <TableRowColumn className="_700" >Teams Name</TableRowColumn>
+                          <TableRowColumn colSpan={1} className="_700">Delete</TableRowColumn>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {_.map(teams, (vari, i) => (
-                          <TableRow key={i}
-                            style={{'cursor': 'pointer'}}>
+                          <TableRow key={i} className="t-pointer">
                             <TableRowColumn colSpan={1} >{i + 1}</TableRowColumn>
-                            <TableRowColumn colSpan={1} >{vari}</TableRowColumn>
-                            <TableRowColumn colSpan={1} style={{textAlign: 'center'}}>
+                            <TableRowColumn className="row-0" colSpan={1} >{vari}</TableRowColumn>
+                            <TableRowColumn colSpan={1} className="row-0">
                               <IconButton
                                 tooltip="Delete Team"
                                 tooltipPosition="top-right"

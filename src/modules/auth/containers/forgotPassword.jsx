@@ -4,6 +4,8 @@ import {withRouter, Link} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {notify} from 'src/services/notify';
 import {isNotUserValid} from 'src/services/generic';
+import GetLogo from 'components/auth/login/GetLogo';
+import Navbar from 'components/auth/login/Navbar';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import {Button} from 'components/generic/buttons';
 import * as actions from 'appRedux/actions';
@@ -40,13 +42,8 @@ class ForgotPassword extends React.Component {
   render () {
     return (
       <div className="center-block w-xxl w-auto-xs p-y-md">
-        <div className="navbar">
-          <div className="pull-center">
-            <a className="navbar-brand">
-              <span className="hidden-folded inline">HR</span>
-            </a>
-          </div>
-        </div>
+        <GetLogo />
+        <Navbar />
         <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
           <LoadingIcon loading={this.props.forgotPassword.isLoading} />
           <br />

@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import HolidaysList from 'components/holidays/HolidaysList';
 import * as actions from 'appRedux/actions';
+import Menu from 'components/generic/Menu';
+import Header from 'components/generic/Header';
+import {isNotUserValid} from 'src/services/generic';
+import HolidaysList from 'components/holidays/HolidaysList';
 
 class Holidays extends React.Component {
   constructor (props) {
@@ -35,7 +35,6 @@ class Holidays extends React.Component {
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Holidays List'} showLoading={isLoading} />
           <div className="app-footer">
-            <div></div>
           </div>
           <div className="app-body" id="view">
             <div className="padding">

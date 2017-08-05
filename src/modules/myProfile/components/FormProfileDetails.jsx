@@ -74,7 +74,7 @@ class FormProfileDetails extends React.Component {
               <label>Current Address</label>
               <textarea
                 placeholder="your current address..."
-                className="form-control resizeY"
+                className="form-control resize-y"
                 ref="address1"
                 onChange={() => this.setState({address1: this.refs.address1.value})}
                 value={this.state.address1}>
@@ -86,7 +86,7 @@ class FormProfileDetails extends React.Component {
               <label>Permanent Address</label>
               <textarea
                 placeholder="your permanent address..."
-                className="form-control resizeY"
+                className="form-control resize-y"
                 ref="address2"
                 onChange={() => this.setState({address2: this.refs.address2.value})}
                 value={this.state.address2}>
@@ -144,7 +144,7 @@ class FormProfileDetails extends React.Component {
           <label>Any Medical Conditions</label>
           <textarea
             placeholder="your medical conditions..."
-            className="form-control resizeY"
+            className="form-control resize-y"
             ref="medical_con"
             onChange={() => this.setState({medical_con: this.refs.medical_con.value})}
             value={this.state.medical_con}>

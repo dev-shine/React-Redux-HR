@@ -42,7 +42,7 @@ class UserLeavesList extends React.Component {
   callUpdateDocuments (e) {
     let docProof = this.refs.file.value;
     let stop = false;
-    if (docProof == '') {
+    if (docProof === '') {
       stop = true;
       notify('Please select a file');
     }
@@ -56,12 +56,15 @@ class UserLeavesList extends React.Component {
     let leavesList = _.map(this.props.userLeaves.leaves, (leave, key) => {
       return <MyLeavesList key={key} leave={leave} handleOpen={this.handleOpen} cancelLeave={this.cancelLeave} />;
     });
+    // className="dialog-content"
     return (
       <div className="row">
-        <Dialog title="Upload Leave Document" modal={false} open={this.state.open} onRequestClose={this.handleClose} contentStyle={{
-          width:    '45%',
-          maxWidth: 'none'
-        }} autoScrollBodyContent>
+        <Dialog title="Upload Leave Document"
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          contentClassName="dialog-content"
+          autoScrollBodyContent>
           <div>
             <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">
               <input type="hidden" name="token" value={this.state.user_token} />

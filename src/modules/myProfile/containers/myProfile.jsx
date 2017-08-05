@@ -98,11 +98,7 @@ class MyProfile extends React.Component {
                 <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
                 <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
                 <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
-                <div className="col-sm-6 p-a">
-                  <h6 className="text-center">Previous Payslips</h6>
-                  <hr />
-                  <PayslipHistory payslip_history={this.state.payslip_history} />
-                </div>
+                <PayslipHistory className="col-sm-6 p-a" payslip_history={this.state.payslip_history} />
               </div>
             </div>
           </div>

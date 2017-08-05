@@ -53,10 +53,10 @@ class FormMyDocuments extends React.Component {
   toggleCollapse () {
     if ($(window).width() > 767) {
       $('#uploadDoc').addClass('in');
-      $('#uploadMyDoc').removeClass('md-btn md-raised indigo autoWidthCenter');
+      $('#uploadMyDoc').removeClass('md-btn md-raised indigo auto-width-center');
     } else {
       $('#uploadDoc').removeClass('in');
-      $('#uploadMyDoc').addClass('md-btn md-raised indigo autoWidthCenter');
+      $('#uploadMyDoc').addClass('md-btn md-raised indigo auto-width-center');
     }
   }
   render () {
@@ -95,7 +95,7 @@ class FormMyDocuments extends React.Component {
                 <input type="file" className="form-control" ref="file" name="link_1" />
               </div>
               <div className="form-group col-sm-12">
-                <input type="checkbox" className="verticalMiddle" />
+                <input type="checkbox" ref="declear" className="vertical-middle" />
                 <span className="declaration"><b>*IMPORTANT: </b>&nbsp;By uploading this document you certify that these document are true and all information is correct</span>
               </div>
               <div className="form-group col-sm-12">

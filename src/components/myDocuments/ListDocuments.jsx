@@ -9,7 +9,7 @@ const ListDocuments = ({myDocuments, deleteDocument}) => {
         <h5>{doc.document_type}
           <span className="glyphicon glyphicon-remove-circle pull-right pointer" onClick={() => { deleteDocument(doc.id); }}></span>
         </h5>
-        {typeof doc.link_1 === 'undefined' ? '' : <div dangerouslySetInnerHTML={{__html: doc.link_1}}></div>}
+        {typeof doc.link_1 === 'undefined' ? '' : <div className="col-xs-12" dangerouslySetInnerHTML={{__html: doc.link_1}}></div>}
       </div>
     </li>);
   });

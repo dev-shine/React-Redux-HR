@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import 'react-date-picker/index.css';
 
-const styles = {
-  h6: {
-    textAlign: 'center',
-    fontSize:  '16px',
-    color:     '#f44455'
-  }
-};
 const DeviceDetails = ({userAssignMachine}) => {
   let machineList = _.map(userAssignMachine, (val, i) => {
     return (<tr key={i}>
@@ -21,15 +14,14 @@ const DeviceDetails = ({userAssignMachine}) => {
     </tr>);
   });
   if (_.isEmpty(machineList)) {
-    machineList = <tr><td colSpan="5"><h6 style={styles.h6}>{'Device Not Asssigned'}</h6></td></tr>;
+    machineList = <tr><td colSpan="5"><h6 className="text-center">{'Device Not Asssigned'}</h6></td></tr>;
   }
 
   return (
-    <div className="row box">
+    <div className="row no-gutter box">
       <h6 className="text-center">Asssigned Device Details</h6>
-      <br />
       <div className="table-responsive">
-        <table key='' className="table table-striped table-hover">
+        <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th>Device Type</th>

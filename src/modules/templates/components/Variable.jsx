@@ -83,7 +83,7 @@ class Variables extends React.Component {
     if (!props.loggedUser.isLoggedIn) {
       this.props.router.push('/logout');
     } else {
-      if (props.loggedUser.data.role == CONFIG.ADMIN || props.loggedUser.data.role == CONFIG.HR) {
+      if (props.loggedUser.data.role === CONFIG.ADMIN || props.loggedUser.data.role === CONFIG.HR) {
 
       } else {
         this.props.router.push('/home');
@@ -95,7 +95,7 @@ class Variables extends React.Component {
     this.setState({variableValue: value});
   }
   changeEditor (e) {
-    if (e.target.value == 'textArea') {
+    if (e.target.value === 'textArea') {
       this.setState({
         textArea: 'show',
         editor:   'hidden'
@@ -139,7 +139,7 @@ class Variables extends React.Component {
   saveVariable () {
     let varCode = this.state.variableCode.replace(/^\s+|\s+$/gm, '').trim();
     let varVal = '';
-    if (this.state.editor == 'show') {
+    if (this.state.editor === 'show') {
       varVal = this.state.variableValue.toString('html'); // replace(/^\s+|\s+$/gm,'');
     } else {
       varVal = this.state.variableValue_forTextArea;
@@ -153,14 +153,14 @@ class Variables extends React.Component {
     let codeText = span.textContent || span.innerText;
     codeText = codeText.trim();
 
-    if (varCode != '') {
+    if (varCode !== '') {
       this.setState({varCodeError: ''});
     } else {
       state = false;
       this.setState({varCodeError: 'Required'});
     }
     if (varType === 'user') {
-      if (varVal != '') {
+      if (varVal !== '') {
         this.setState({varValError: ''});
       } else {
         state = false;
@@ -315,6 +315,7 @@ class Variables extends React.Component {
                     >Add New Variable</button>
                 </div>
                 <div className={this.state.paper} style={{'marginTop': '8%'}}>
+                  <div className="table-responsive table-condensed">
                   <Paper zDepth={1} style={{marginBottom: '10px'}} >
                     <Table
                       fixedHeader
@@ -350,7 +351,7 @@ class Variables extends React.Component {
                             style={{'cursor': 'pointer'}}
                             >
                             <TableRowColumn colSpan={1} >{vari.name}</TableRowColumn>
-                            <TableRowColumn colSpan={1} ><div className="p-l" dangerouslySetInnerHTML={{__html: vari.value}}></div></TableRowColumn>
+                            <TableRowColumn colSpan={1}><div className="p-l" dangerouslySetInnerHTML={{__html: vari.value}}></div></TableRowColumn>
                             <TableRowColumn colSpan={1} style={{textAlign: 'center'}}>
                               <IconButton
                                 tooltip="Delete Variable"
@@ -403,6 +404,7 @@ class Variables extends React.Component {
                       </TableBody>
                     </Table>
                   </Paper>
+                  </div>
                 </div>
               </div>
             </div>

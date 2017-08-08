@@ -2,7 +2,9 @@
   word-wrap: break-word;
   text-overflow: ellipsis;
  }
-
+.doc-opacity {
+  opacity: 0.56;
+ }
 
  @media (max-width: 540px) {
    .doc-subtitle {

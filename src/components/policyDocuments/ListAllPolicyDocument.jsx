@@ -16,14 +16,10 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
     });
   };
   let allDocuments = _.map(policyDocuments, (doc, i) => {
-    let docName = <h4 className="m-y-xs"> {doc.name}</h4>;
-    let docLink = <a href={doc.link} target="_blank">
-      <h5><i className="col-xs-10 m-t-sm">{doc.link}</i></h5></a>;
-
     return (
-      <div key={i} className='m-y-sm policyDocumentsList clear'>
+      <div key={i} className='m-y-sm policyDocumentsList  clear'>
         <h5>{doc.name}</h5>
-        <a href={docLink} target="_blank" onClick={() => this.updateReadStatus(doc)}>{docLink}</a>
+        <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
           <IconButton
             tooltip="Delete Document"
             tooltipPosition="top-right"

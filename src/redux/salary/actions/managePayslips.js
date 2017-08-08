@@ -14,7 +14,7 @@ export function error_user_manage_payslips_data (data) {
 }
 
 function async_get_user_manage_payslips_data (userid) {
-  return fireAjax('GET', '', {
+  return fireAjax('POST', '', {
     action:  'get_user_manage_payslips_data',
     user_id: userid
   });
@@ -44,7 +44,7 @@ export function get_user_manage_payslips_data (userid) {
 // /month payslip genrater
 
 function async_get_user_month_manage_payslips_data (userid, year, month) {
-  return fireAjax('GET', '', {
+  return fireAjax('POST', '', {
     action:  'get_user_manage_payslips_data',
     user_id: userid,
     year:    year,
@@ -76,7 +76,7 @@ export function get_user_month_manage_payslips_data (userid, year, month) {
 // /create arrear
 
 function async_create_arrear (userid, extraA, arrearMonth) {
-  return fireAjax('GET', '', {
+  return fireAjax('POST', '', {
     action:           'get_user_manage_payslips_data',
     user_id:          userid,
     extra_arrear:     extraA,

@@ -748,11 +748,11 @@ class Variables extends React.Component {
               autoScrollBodyContent
         >
         <div className="row">
-          <div className="col-xs-12">
+          <div className="col-md-12">
             <LoadingIcon {...this.props} />
           </div>
         </div>
-        <div className="col-xs-9" style={{borderRight: '1px solid gainsboro'}}>
+        <div className="col-md-9" style={{borderRight: '1px solid gainsboro'}}>
           <form className="form-inline">
           <div className="form-group" style={styles.formInput}>
           <TextField
@@ -795,7 +795,7 @@ class Variables extends React.Component {
           </div>
           </form>
         </div>
-        <div className="col-xs-3">
+        <div className="col-md-3">
           <h5 style={{textAlign: 'center', color: '#000'}}>System Variables</h5>
           <Divider />
             {_.map(this.props.templates.variable, (vari) => {
@@ -851,7 +851,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                            </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                        </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>
@@ -906,7 +906,7 @@ class Variables extends React.Component {
              autoScrollBodyContent
            >
             <div className="row">
-              <div className="col-xs-12">
+              <div className="col-md-12">
                 <LoadingIcon {...this.props} />
               </div>
             </div>
@@ -915,12 +915,12 @@ class Variables extends React.Component {
               <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
             </div>
          </Dialog>
-             <div className="col-xs-9" style={{borderRight: '1px solid gainsboro'}}>
+             <div className="col-md-9" style={{borderRight: '1px solid gainsboro'}}>
                <form className="form-inline">
                  <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#0000FF', cursor: 'pointer', display: 'block', width: '100%', textAlign: 'right'}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}>Add recipient</span>
                    <div className="dropdown">
                     <div id={'FilterBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}></div>
-                    <div id={'Filter'} className="dropdown-menu has-child has-arrow selectUser">
+                    <div id={'Filter'} className="dropdown-menu has-child has-arrow selectUser mail-recipient">
                           <ul className="list-unstyled pt-xs">
                           <li className="mb-sm b-b p-t p-b">
                               <div className="form-group" style={{width: '100%'}}>
@@ -948,17 +948,21 @@ class Variables extends React.Component {
                             </div>
                           </li>
                           : <span>
-                          <li className="mb-sm b-b p-t p-b">
-                            <div className="form-group" style={{width: '100%'}}>
-                              <input type="text" style={{width: '100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e) => this.filterList(e.target.value)} />
-                            </div>
-                          </li>
+                            <li className="mb-sm b-b p-t p-b">
+                              <div className="form-group">
+                                <input type="text"
+                                  name="search"
+                                  className="form-control select-all"
+                                  placeholder="search"
+                                  onKeyUp={(e) => this.filterList(e.target.value)} />
+                              </div>
+                            </li>
                               {listChartItems}
-                            </span>
+                          </span>
                             }
                           </ul>
-                      </div>
-                  </div>
+                    </div>
+                </div>
                 <div id="previewalert" className="alert alert-danger pull-left" style={styles.errorAlert}>
                   <a href="#" className="close" onClick={(e) => this.hideError(e, 'previewalert')} aria-label="close">&times;</a>
                 </div>
@@ -1045,7 +1049,7 @@ class Variables extends React.Component {
               </form>
 
              </div>
-             <div className="col-xs-3">
+             <div className="col-md-3">
                <h5 style={{textAlign: 'center', color: '#000'}}>System Variables</h5>
                <Divider />
                  {_.map(this.props.templates.variable, (vari) => {

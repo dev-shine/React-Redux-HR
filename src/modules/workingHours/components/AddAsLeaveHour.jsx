@@ -168,6 +168,7 @@ class AddAsLeaveHour extends React.Component {
       apply_half_day_button_2 = <ButtonFlat className="text-accent"
         onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half" />;
     }
+    
     let width = '63%';
     if (this.props.forAdmin == true) {
       width = '82%';
@@ -184,7 +185,7 @@ class AddAsLeaveHour extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: '70%', maxWidth: 'none'}}
+          contentStyle={{width: '70%', maxWidth: 'auto'}}
           autoScrollBodyContent>
           <div className="row">
             <div className="col-sm-4 text-center">

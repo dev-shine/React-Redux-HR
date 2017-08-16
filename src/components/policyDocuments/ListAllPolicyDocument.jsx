@@ -35,7 +35,7 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
     );
   });
   return (
-    <div className="row m-x-sm">
+    <div className="row">
       <div className="col-md-12">
         <Card>
           <CardHeader title="Policy Documents List" />

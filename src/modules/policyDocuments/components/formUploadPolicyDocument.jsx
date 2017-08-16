@@ -48,7 +48,7 @@ class FormUploadPolicyDocument extends React.Component {
   render () {
     return (
       <Paper
-        className="paper-style"
+        className="upload-doc-paper"
         zDepth={2} >
         <div className="row">
           <form className="form-inline">

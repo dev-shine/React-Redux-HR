@@ -63,10 +63,6 @@ class UploadPolicyDocumentContainer extends React.Component {
           <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
           <div className="app-body" id="view">
             <div className="row">
-              <div className="col-12">
-              </div>
-            </div>
-            <div className="row">
               <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
             </div>
             <div>

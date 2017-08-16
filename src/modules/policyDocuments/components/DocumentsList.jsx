@@ -45,7 +45,7 @@ class DocumentsList extends React.Component {
         <div className='col-sm-12'>
           <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
         </div>
-        <div className="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+        <div className="col-sm-6 col-md-6 col-xs-12">
           <div className="policyDocumentsList m-t-md clear">
             <h4>Policy Documents List</h4>
             <small className="text-danger"><i>(Please read & accept all the policy documents to get access to this site. Incase of issues contact HR)</i></small>

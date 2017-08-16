@@ -43,7 +43,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
     <div id="userListWrapper" className="row">
       <div className="col-12">
         <div className="list-box">
-          <div className="user-list-container" id="userList">
+          <div className="user-list-container scroll" id="userList">
             <ul className="box list no-border p-b">
               {usersList}
             </ul>

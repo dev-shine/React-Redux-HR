@@ -23,8 +23,7 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
           <IconButton
             tooltip="Delete Document"
             tooltipPosition="top-right"
-            style={{width: '4%', padding: '0'}}
-            className="pull-right btn-responsive "
+            className="pull-right btn-responsive icon-button p-0 "
             children={<Delete color='#B71C1C' />}
             onClick={(evt) => {
               evt.stopPropagation();

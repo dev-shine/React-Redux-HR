@@ -5,6 +5,11 @@
 .doc-opacity {
   opacity: 0.56;
  }
+.paper-style {
+  width: auto;
+  max-width: 600px;
+ }
+
 
  @media (max-width: 540px) {
    .doc-subtitle {

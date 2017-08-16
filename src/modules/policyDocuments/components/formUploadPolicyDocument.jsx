@@ -47,9 +47,8 @@ class FormUploadPolicyDocument extends React.Component {
   }
   render () {
     return (
-      <Paper style={{
-        width:    'auto',
-        maxWidth: '600px'}}
+      <Paper
+        className="paper-style"
         zDepth={2} >
         <div className="row">
           <form className="form-inline">

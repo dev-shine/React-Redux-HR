@@ -7,7 +7,6 @@ import {bindActionCreators} from 'redux';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import Message from 'components/generic/Message';
-import LoadingIcon from 'components/generic/LoadingIcon';
 import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUploadPolicyDocument';
 import ListAllPolicyDocument from 'components/policyDocuments/ListAllPolicyDocument';
 import * as actions from 'appRedux/actions';
@@ -62,17 +61,15 @@ class UploadPolicyDocumentContainer extends React.Component {
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Upload Policy Documents'} showLoading={this.props.policyDocuments.isLoading} />
-            <div className="app-body" id="view">
-              <div className="row">
-                <div className="col-12">
-                  <LoadingIcon loading={this.props.frontend.show_loading} />
-                </div>
+          <div className="app-body" id="view">
+            <div className="row">
+              <div className="col-12">
               </div>
-              <div className="row">
-                <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
-              </div>
-
-              <div>
+            </div>
+            <div className="row">
+              <Message className={this.state.errClass} message={this.state.errMsg} onClick={this.hideError} />
+            </div>
+            <div>
               <div className="col-sm-6 col-md-6 col-md-offset-0 m-t-md ">
                 <FormUploadPolicyDocument submitDocs={this.submitDocs} docs={this.state.docs} {...this.props} />
               </div>
@@ -82,14 +79,13 @@ class UploadPolicyDocumentContainer extends React.Component {
               </div>
             </div>
           </div>
-          </div>
         </div>
+      </div>
     );
   }
 }
 function mapStateToProps (state) {
   return {
-    frontend:        state.frontend.toJS(),
     loggedUser:      state.logged_user.userLogin,
     policyDocuments: state.policyDocuments.policyDocument
   };

@@ -155,7 +155,7 @@
       font-family: "sans-serif";
   }
 
-  input[type=text] {
+  .search-box{
     width: 130px;
     box-sizing: border-box;
     border: 2px solid #ccc;
@@ -167,11 +167,36 @@
     padding: 12px 20px 12px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-}
-
-input[type=text]:focus {
+  }
+  .search-box:focus {
     width: 100%;
-}
+  }
+  .editor-style {
+    overflow: auto;
+    display: block;
+    width:  100%;
+    height: 300px;
+    max-height:300px;
+    background: rgba(204,204,204,.51);
+  }
+  .form-input-style {
+    margin-left:  5%;
+    margin-right: 5%;
+    width:90%;
+  }
+  .error-alert-style {
+    margin-left:  5%;
+    margin-right: 5%;
+    width:       90%;
+    display:     none;
+  }
+  .upload-button-style {
+    position:   relative;
+    overflow:   hidden;
+    margin:     10px;
+    margin-left: 40px;
+    cursor:     pointer;
+  }
   @media (max-width: 540px) {
     .mail-recipient{
       margin-left: 5%;

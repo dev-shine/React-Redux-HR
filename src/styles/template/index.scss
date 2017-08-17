@@ -197,6 +197,30 @@
     margin-left: 40px;
     cursor:     pointer;
   }
+  .upload-input-style {
+    color:    transparent;
+    position: absolute;
+    top:      0;
+    right:    0;
+    margin:   0;
+    padding:  0;
+    font-size: 20px;
+    cursor:   pointer;
+    opacity:  0;
+  }
+  .uploaded-pdf-block-style {
+      box-shadow:  0px 0px 5px #888888;
+      height:     30px;
+      padding:    5px;
+      text-align:  left;
+      margin-left: 40px;
+      margin-top:  10px;
+      width:      350px;
+      display:    block;
+      font-style:  italic;
+      font-weight: bold;
+      color:    #0099cc;
+    }
   @media (max-width: 540px) {
     .mail-recipient{
       margin-left: 5%;

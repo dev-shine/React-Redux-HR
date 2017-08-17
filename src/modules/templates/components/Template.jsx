@@ -43,30 +43,6 @@ const styles = {
     marginRight: '-7px'
   },
 
-  uploadInput: {
-    'color':    'transparent',
-    'position': 'absolute',
-    'top':      0,
-    'right':    0,
-    'margin':   0,
-    'padding':  0,
-    'fontSize': '20px',
-    'cursor':   'pointer',
-    'opacity':  0
-  },
-  uploadedPdfBlock: {
-    'boxShadow':  '0px 0px 5px #888888',
-    'height':     '30px',
-    'padding':    '5px',
-    'textAlign':  'left',
-    'marginLeft': '40px',
-    'marginTop':  '10px',
-    'width':      '350px',
-    'display':    'block',
-    'fontStyle':  'italic',
-    'fontWeight': 'bold',
-    'color':      '#0099cc'
-  },
   crossButton: {
     'color':     'red',
     'float':     'right',
@@ -582,7 +558,7 @@ class Variables extends React.Component {
       form_data.append(i.toString(), file_data[i]);
     }
     for (i = 0; i < file_data['length']; i++) {
-      LinearProgressBar.push(<div key={i} className="row" style={styles.uploadedPdfBlock}>
+      LinearProgressBar.push(<div key={i} className="row uploaded-pdf-block-style">
             <div className="col-xs-7">
               {file_data[i].name}
             </div>
@@ -643,12 +619,12 @@ class Variables extends React.Component {
     let fileList = [];
     _.map(this.state.uploadedPDF, (name, key) => {
       fileList.push(
-             <div key={key} style={styles.uploadedPdfBlock}>
+             <div key={key}>
                {name}
                <i
                  onClick={() => { this.deleteAttachment(key); }}
                  style={styles.crossButton}
-                 className="fa fa-remove">
+                 className="fa fa-remove uploaded-pdf-block-style">
                </i>
              </div>);
     });
@@ -827,7 +803,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>
@@ -1018,8 +994,16 @@ class Variables extends React.Component {
               <form action={''} method="POST" encType="multipart/form-data">
                 <div className="form-group">
                   <button className="btn btn-blue upload-button-style" >
-                  <i className="fa fa-file-pdf-o" style={{'marginRight': '5px', 'cursor': 'pointer'}}></i>
-                  <input onChange={(e) => { this.uploadPDF(e); }} style={styles.uploadInput} id="file_image" type="file" name="image[]" ref="file" className="form-control" multiple />Attachment
+                    <i className="fa fa-file-pdf-o" style={{'marginRight': '5px', 'cursor': 'pointer'}}></i>
+                    <input
+                      multiple
+                      id="file_image"
+                      type="file"
+                      name="image[]"
+                      ref="file"
+                      className="form-control"
+                      onChange={(e) => { this.uploadPDF(e); }}
+                      /> Attachment
                   </button>
                 </div>
               </form>

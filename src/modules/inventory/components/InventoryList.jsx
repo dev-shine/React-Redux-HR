@@ -17,13 +17,14 @@ class InventoryList extends React.Component {
       id:               '',
       openSnackbar:     false,
       user:             '',
-      search:           '',
       status_message:   '',
+      search:           '',
       deviceTypeList:   [],
       deviceStatusList: [],
       device_status:    '',
       deviceList:       [],
-      statusList:       []
+      statusList:       [],
+      deviceVal:        ''
     };
 
     this.openEditDevice = this.openEditDevice.bind(this);
@@ -58,13 +59,19 @@ class InventoryList extends React.Component {
         openSnackbar: false
       });
     }
-
-    this.setState({deviceTypeList: props.manageDevice.deviceList, deviceList: props.manageDevice.device});
+    this.setState({
+      deviceTypeList: props.manageDevice.deviceList,
+      deviceList:     props.manageDevice.device
+    });
     this.setState({
       deviceStatusList: props.manageDevice.statusList,
       statusList:       props.manageDevice.statusList
     });
+    if (props.searchVal !== '') {
+      this.handleDeviceTypeFilter(props.searchVal);
+    }
   }
+
   openEditDevice (id) {
     this.props.openEditDevice(id);
   }
@@ -156,25 +163,27 @@ class InventoryList extends React.Component {
   }
 
   handleDeviceTypeFilter (deviceType) {
-    let devices = this.props.manageDevice.device;
-    if (this.state.device_status !== '') {
-      devices = this.state.deviceList;
-    }
-    if (deviceType !== '') {
-      devices = _.filter(devices, row => getLowerCase(row.machine_type) === getLowerCase(deviceType));
-    } else {
+    // let deviceType = this..search;
+    if (this.state.deviceTypeList === this.props.manageDevice.deviceList) {
+      let devices = this.props.manageDevice.device;
       if (this.state.device_status !== '') {
-        devices = _.filter(this.props.manageDevice.device, row => getLowerCase(row.status) === getLowerCase(this.state.device_status));
+        devices = this.state.deviceList;
       }
+      if (deviceType !== '') {
+        devices = _.filter(devices, row => getLowerCase(row.machine_type) === getLowerCase(deviceType));
+      } else {
+        if (this.state.device_status !== '') {
+          devices = _.filter(this.props.manageDevice.device, row => getLowerCase(row.status) === getLowerCase(this.state.device_status));
+        }
+      }
+      if (this.state.device_status !== '' && deviceType !== '') {
+        devices = _.filter(this.props.manageDevice.device, row => (getLowerCase(row.machine_type) === getLowerCase(deviceType) && getLowerCase(row.status) === getLowerCase(this.state.device_status)));
+      }
+      this.setState({
+        deviceList: devices,
+        search:     deviceType
+      });
     }
-    if (this.state.device_status !== '' && deviceType !== '') {
-      devices = _.filter(this.props.manageDevice.device, row => (getLowerCase(row.machine_type) === getLowerCase(deviceType) && getLowerCase(row.status) === getLowerCase(this.state.device_status)));
-    }
-    this.setState({
-      deviceList: devices,
-      search:     deviceType
-
-    });
   }
 
   handleStatusTypeFilter (statusType) {
@@ -270,7 +279,10 @@ class InventoryList extends React.Component {
 
         <td className="tdAlign" style={{marginTop: '5%'}}>
           <i className="fa fa-lg fa-pencil-square-o" aria-hidden="true" style={{color: '#3f51b5', cursor: 'pointer'}}
-            onClick={() => { this.openEditDevice(device.id); }}></i>
+            onClick={(e) => {
+              e.nativeEvent.stopImmediatePropagation();
+              this.openEditDevice(device.id);
+            }}></i>
           <br />
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
@@ -296,7 +308,7 @@ class InventoryList extends React.Component {
                       ref="device_type"
                       value={this.state.search}
                       onChange={(e) => {
-                        this.handleDeviceTypeFilter(e.target.value);
+                        this.props.deviceTypeData(e.target.value);
                       }}>
                       <option value="">--Select Device Type--</option>
                       {listDrop}
@@ -347,9 +359,9 @@ class InventoryList extends React.Component {
               <div className="col-12">
                 <div className="box">
                   <div className="box-divider m-a-0"></div>
-                  <div>
-                    <table key='' className="table table-hover">
-                      <thead className="col-12">
+                  <div className="table-responsive">
+                    <table key='' className="table">
+                      <thead className="success">
                         <tr>
                           <th>Sr. No</th>
                           <th>Device</th>

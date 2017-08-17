@@ -60,14 +60,12 @@ class InventoryList extends React.Component {
       });
     }
     this.setState({
-      deviceTypeList: props.manageDevice.deviceList,
-      deviceList:     props.manageDevice.device
-    });
-    this.setState({
+      deviceTypeList:   props.manageDevice.deviceList,
+      deviceList:       props.manageDevice.device,
       deviceStatusList: props.manageDevice.statusList,
       statusList:       props.manageDevice.statusList
     });
-    if (props.searchVal !== '') {
+    if (props.searchVal !== undefined) {
       this.handleDeviceTypeFilter(props.searchVal);
     }
   }

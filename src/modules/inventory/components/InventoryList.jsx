@@ -275,13 +275,12 @@ class InventoryList extends React.Component {
           </ul>
         </td>
 
-        <td className="tdAlign" style={{marginTop: '5%'}}>
+        <td className="tdAlign row" style={{marginTop: '5%'}}>
           <i className="fa fa-lg fa-pencil-square-o" aria-hidden="true" style={{color: '#3f51b5', cursor: 'pointer'}}
             onClick={(e) => {
               e.nativeEvent.stopImmediatePropagation();
               this.openEditDevice(device.id);
-            }}></i>
-          <br />
+            }}></i>&nbsp;&nbsp;&nbsp;&nbsp;
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {

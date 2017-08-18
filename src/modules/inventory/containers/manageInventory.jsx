@@ -24,6 +24,7 @@ class InventorySystem extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
       defaultUserDisplay:  '',
+      search:              '',
       status_message:      '',
       active:              'active',
       firstArrow:          'show',
@@ -181,7 +182,6 @@ class InventorySystem extends React.Component {
       edit:           false
     });
   }
-
   callAssign (id, userId) {
     this.setState({user: userId});
     this.props.onCallAssign(id, userId).then((message) => {
@@ -196,7 +196,6 @@ class InventorySystem extends React.Component {
   render () {
     return (
       <div>
-        <AlertNotification message={this.state.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Inventory Management'} showLoading={this.props.frontend.show_loading} />
@@ -263,6 +262,12 @@ class InventorySystem extends React.Component {
                   openEditDevice={this.openEditDevice}
                   deleteDevices={this.deleteDevices}
                   callFetchDevice={this.callFetchDevice}
+                  searchVal={this.state.search}
+                  deviceTypeData={(val) => {
+                    this.setState({
+                      search: val
+                    });
+                  }}
                   {...this.props} />
               </div>
               <div className={this.state.viewUser}>

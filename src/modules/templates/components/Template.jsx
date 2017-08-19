@@ -18,62 +18,8 @@ import LoadingIcon from 'components/generic/LoadingIcon';
 import EditableDiv from 'components/editor/EditableDiv';
 import FilterLabel from 'components/template/FilterLabel';
 import {getToken} from 'src/services/generic';
-import {Router, browserHistory, Link, withRouter} from 'react-router';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 var FormData = require('form-data');
 var moment = require('moment');
-
-const styles = {
-  block: {
-    maxWidth: 250
-  },
-  lable: {
-    fontWeight: 'normal',
-    fontSize:   15
-  },
-  container: {
-    position:   'relative',
-    textAlign:  'center',
-    paddingTop: '200px'
-  },
-
-  delete: {
-    float:       'right',
-    marginTop:   '-12px',
-    marginRight: '-7px'
-  },
-
-  crossButton: {
-    'color':     'red',
-    'float':     'right',
-    'marginTop': '3px',
-    'cursor':    'pointer'
-  },
-  pdfHeader: {
-    width:          '100%',
-    borderCollapse: 'collapse',
-    minHeight:      '50px'
-  },
-  tab1: {
-    borderCollapse: 'collapse',
-    minHeight:      '50px'
-  },
-  para: {
-    fontSize:     '29px',
-    fontWeight:   '800',
-    paddingTop:   '10px',
-    marginBottom: '12px',
-    marginTop:    '-20px'
-  },
-  span_bold: {
-    fontWeight: '600',
-    fontSize:   '14px'
-  },
-  pdfFooter: {
-    borderTop:    '3px solid',
-    marginBottom: '8px'
-  }
-};
 
 class Variables extends React.Component {
   constructor (props) {
@@ -244,8 +190,8 @@ class Variables extends React.Component {
 
         let variable = _.find(this.props.templates.variable, function (o) { return o.name == str; });
 
-        if (typeof variable !== 'undefined' && variable.name == str) {
-          if (variable.variable_type == 'user' || variable.name == '#logo') {
+        if (typeof variable !== 'undefined' && variable.name === str) {
+          if (variable.variable_type === 'user' || variable.name === '#logo') {
             templ = this.replaceVariablesWithValue(templ, str, variable.value);
           }
 
@@ -260,29 +206,29 @@ class Variables extends React.Component {
           }
           if (variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date')) {
             let value;
-            if (variable.name == '#joining_date') {
+            if (variable.name === '#joining_date') {
               value = recipient.dateofjoining;
               value = moment(value).format(format);
-            } else if (variable.name == '#employee_title') {
+            } else if (variable.name === '#employee_title') {
               value = recipient.jobtitle;
-            } else if (variable.name == '#employee_name') {
+            } else if (variable.name === '#employee_name') {
               value = recipient.name;
-            } else if (variable.name == '#salary') {
+            } else if (variable.name === '#salary') {
               value = recipient.salary_detail;
               value = value.toString();
-            } else if (variable.name == '#employee_user_name') {
+            } else if (variable.name === '#employee_user_name') {
               value = recipient.username;
-            } else if (variable.name == '#employee_email_id') {
+            } else if (variable.name === '#employee_email_id') {
               value = recipient.work_email;
-            } else if (variable.name == '#page_break') {
+            } else if (variable.name === '#page_break') {
               value = "<div style='page-break-after:always;'></div>";
-            } else if (variable.name == '#employee_user_id') {
+            } else if (variable.name === '#employee_user_id') {
               value = recipient.user_Id;
-            } else if (variable.name == '#employee_number') {
+            } else if (variable.name === '#employee_number') {
               value = recipient.emergency_ph1;
-            } else if (variable.name == '#training_completion_date') {
+            } else if (variable.name === '#training_completion_date') {
               var mydate = new Date(recipient.training_completion_date);
-              if (mydate != 'Invalid Date') {
+              if (mydate !== 'Invalid Date') {
                 value = moment(mydate).format(format);
               } else {
                 value = '#training_completion_date';
@@ -372,7 +318,7 @@ class Variables extends React.Component {
     });
   }
   selectUser (data, status, recipientType = this.state.recipientType) {
-    if (recipientType == 'Recipient') {
+    if (recipientType === 'Recipient') {
       let recipient = this.state.recipient;
         // status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       status ? recipient[0] = data : _.pullAllBy(recipient, [data], 'email');
@@ -380,13 +326,13 @@ class Variables extends React.Component {
         recipient: recipient
       });
       this.applyVariables(this.state.templateId);
-    } else if (recipientType == 'CC') {
+    } else if (recipientType === 'CC') {
       let recipient = this.state.cc;
       status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       this.setState({
         cc: recipient
       });
-    } else if (recipientType == 'BCC') {
+    } else if (recipientType === 'BCC') {
       let recipient = this.state.bcc;
       status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       this.setState({
@@ -582,7 +528,7 @@ class Variables extends React.Component {
         let uploadedPDF = self.state.uploadedPDF;
         let upload_file_path = self.state.upload_file;
         let preKey = uploadedPDF.length;
-        if (obj.error == 0) {
+        if (obj.error === 0) {
           let data = obj.data;
           _.map(data, (file, key) => {
             uploadedPDF.push(file.name);
@@ -619,14 +565,12 @@ class Variables extends React.Component {
     let fileList = [];
     _.map(this.state.uploadedPDF, (name, key) => {
       fileList.push(
-             <div key={key}>
-               {name}
-               <i
-                 onClick={() => { this.deleteAttachment(key); }}
-                 style={styles.crossButton}
-                 className="fa fa-remove uploaded-pdf-block-style">
-               </i>
-             </div>);
+        <div key={key}>
+          {name}
+          <i onClick={() => { this.deleteAttachment(key); }}
+            className="fa fa-remove uploaded-pdf-block-style cross-button-style">
+          </i>
+        </div>);
     });
     const actionsCreateTemplate = [
       <FlatButton label="Close" primary onTouchTap={this.handleCloseDialog} style={{marginRight: 5}} />,
@@ -650,11 +594,11 @@ class Variables extends React.Component {
     let listChartItems = [],
       recipientType = this.state.recipientType, // $('input[name="recipientType"]:checked').val(),
       recipient = [];
-    if (recipientType == 'Recipient') {
+    if (recipientType === 'Recipient') {
       recipient = this.state.recipient;
-    } else if (recipientType == 'CC') {
+    } else if (recipientType === 'CC') {
       recipient = this.state.cc;
-    } else if (recipientType == 'BCC') {
+    } else if (recipientType === 'BCC') {
       recipient = this.state.bcc;
     }
 
@@ -674,16 +618,16 @@ class Variables extends React.Component {
     let pendingVar = [];
     _.map(this.state.pValue, (variable, i) => {
       pendingVar.push(
-          <div className="form-group" key={i}>
-           <label>Enter value for {variable.name} :</label>
-           <input type="text" className="form-control" onChange={(e) => {
-             variable.value = e.target.value;
-             this.setState({
-               pValue: this.state.pValue
-             });
-           }}
-             value={variable.value} />
-          </div>);
+        <div className="form-group" key={i}>
+          <label>Enter value for {variable.name} :</label>
+          <input type="text" className="form-control" onChange={(e) => {
+            variable.value = e.target.value;
+            this.setState({
+              pValue: this.state.pValue
+            });
+          }}
+            value={variable.value} />
+        </div>);
     });
     return (
       <div className="app-body" id="view" style={{'marginTop': 10}}>
@@ -794,7 +738,7 @@ class Variables extends React.Component {
                     {_.map(this.props.templates.templates, (tmp, i) => (
                     <div className="col-md-6" key={i} style={{height: '400px', marginBottom: '20px'}}>
                       <Paper zDepth={0} className="paper scroll" style={{overflow: 'auto'}}>
-                        <div style={styles.delete}>
+                        <div className="delete-style">
                           <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#000', cursor: 'pointer', padding: '5px 10px'}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>
                           <div id={tmp.id + '_menuBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}></div>
                           <div id={tmp.id + '_menu'} className="menuOptions" onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}>
@@ -803,7 +747,7 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
                         <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
                     </Paper>
@@ -1043,5 +987,11 @@ class Variables extends React.Component {
     );
   }
 }
+
+const styles = {
+  block: {
+    maxWidth: 250
+  }
+};
 
 export default Variables;

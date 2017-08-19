@@ -221,6 +221,55 @@
       font-weight: bold;
       color:    #0099cc;
     }
+  .pdf-footer {
+      border-top:    3px solid;
+      margin-bottom: 8px;
+    }
+  .cross-button-style {
+      color:     red;
+      float:     right;
+      margin-top: 3px;
+      cursor:    pointer;
+    }
+  .delete-style {
+      float:       right;
+      margin-top:   -12px;
+      margin-right: -7px;
+    }
+    .lable {
+      font-weight: normal;
+    }
+    .container {
+      position:   relative;
+      text-align:  center;
+      padding-top: 200px;
+    }
+    .pdfHeader {
+      width:          100%;
+      border-collapse: collapse;
+      min-height:      50px;
+    }
+    .tab1 {
+      border-collapse: collapse;
+      min-height:      50px;
+    }
+    .para {
+      font-size:     29px;
+      font-weight:   800;
+      padding-top:   10px;
+      margin-bottom: 12px;
+      margin-top:    -20px;
+    }
+    .span_bold {
+      font-weight: 600;
+      font-size:  14px;
+    }
+    .pdf-footer {
+      border-top:    3px solid;
+      margin-bottom: 8px;
+    }
+
+    //-- Media ----
   @media (max-width: 540px) {
     .mail-recipient{
       margin-left: 5%;

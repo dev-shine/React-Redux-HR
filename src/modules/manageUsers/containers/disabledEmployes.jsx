@@ -100,7 +100,7 @@ class PageDisabledEmployes extends React.Component {
             <div style={styles.content} className="padding">
               <div className="row">
                 <div className="col-sm-3">
-                  {/* <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} /> */}
+                  <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
                 </div>
                 <div className="col-sm-9">
                   <div className="box">

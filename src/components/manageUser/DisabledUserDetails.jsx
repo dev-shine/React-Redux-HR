@@ -93,7 +93,7 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
           </div>
           <div className="col-sm-6 p-b">
             <small className="text-muted">Bank Account No.</small>
-            <div className="_500">{userDetails.bank_account_num == '' ? nA : userDetails.bank_account_num}</div>
+            <div className="_500">{userDetails.bank_account_num === '' ? nA : userDetails.bank_account_num}</div>
           </div>
           <div className="col-sm-6 p-b">
             <small className="text-muted">User Name</small>
@@ -113,7 +113,7 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
         <div className="row">
           <div className="col-sm-6 p-b">
             <small className="text-muted">Status</small>
-            <div className="_500">{userDetails.status == '' ? nA : <span className="label rounded primary">{userDetails.status}</span>}</div>
+            <div className="_500">{userDetails.status === '' ? nA : <span className="label rounded primary">{userDetails.status}</span>}</div>
           </div>
           <div className="col-sm-6 p-b">
             <div className="col-md-12 text-right">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
-  let nA = 'N/A';
+  let nA = '-';
   return (
     <div className="tab-content">
       <div className="tab-pane p-v-sm active">

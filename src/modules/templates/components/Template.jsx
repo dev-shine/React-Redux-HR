@@ -573,7 +573,7 @@ class Variables extends React.Component {
         </div>);
     });
     const actionsCreateTemplate = [
-      <FlatButton label="Close" primary onTouchTap={this.handleCloseDialog} style={{marginRight: 5}} />,
+      <FlatButton label="Close" className="m-r-5" primary onTouchTap={this.handleCloseDialog} />,
       <RaisedButton
         label={_.isEmpty(this.state.templateId) ? 'SAVE' : 'Update'}
         primary onClick={this.saveTemplate} />
@@ -582,8 +582,7 @@ class Variables extends React.Component {
       <FlatButton
         label="Close"
         primary
-        onTouchTap={this.handleCloseDialog}
-        style={{marginRight: 5}} />,
+        onTouchTap={this.handleCloseDialog} />,
       <RaisedButton
         label={'Preview'}
         primary
@@ -644,11 +643,11 @@ class Variables extends React.Component {
               autoScrollBodyContent
         >
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 col-sm-12">
             <LoadingIcon {...this.props} />
           </div>
         </div>
-        <div className="col-md-9" style={{borderRight: '1px solid gainsboro'}}>
+        <div className="col-md-9 border-right-style" >
           <form className="form-inline">
           <div className="form-group form-input-style">
           <TextField
@@ -692,7 +691,7 @@ class Variables extends React.Component {
           </form>
         </div>
         <div className="col-md-3">
-          <h5 style={{textAlign: 'center', color: '#000'}}>System Variables</h5>
+          <h5>System Variables</h5>
           <Divider />
             {_.map(this.props.templates.variable, (vari) => {
               if (vari.variable_type === 'system') {
@@ -705,7 +704,7 @@ class Variables extends React.Component {
               }
             })
             }
-            <h5 style={{textAlign: 'center', color: '#000'}}>User Variables</h5>
+            <h5 >User Variables</h5>
             <Divider />
               {_.map(this.props.templates.variable, (vari) => {
                 if (vari.variable_type == 'user') {
@@ -719,25 +718,25 @@ class Variables extends React.Component {
               })
               }
         </div>
-        </Dialog>
-             <div className="row" style={{margin: '0px 4px 0px'}}>
-               <div className="col-md-12">
-                 <div className='row'>
-                  <div className='col-md-12' style={{paddingTop: '16px', paddingRight: '0px'}}>
+            </Dialog>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs-12">
+              <div className='row'>
+                <div className='col-md-12 col-sm-12 col-xs-12 m-t-xs'>
                   <button
                     className="md-btn md-raised m-b-sm indigo"
                     onClick={this.openCreateTemplate}
-                  >Create New Template</button>
+                    >Create New Template</button>
+                </div>
+                <div className='col-md-12 col-xs-12 col-sm-12' style={{paddingTop: '10px', paddingRight: '0px', textAlign: 'center'}}>
+                  <div id="mailsentsuccessfully" className="alert alert-success pull-left error-alert-style">
+                    <a href="#" className="close" onClick={(e) => this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
                   </div>
-                  <div className='col-md-12' style={{paddingTop: '10px', paddingRight: '0px', textAlign: 'center'}}>
-                    <div id="mailsentsuccessfully" className="alert alert-success pull-left error-alert-style">
-                      <a href="#" className="close" onClick={(e) => this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
-                    </div>
-                  </div>
-                  <div className={this.state.paper} style={{'marginTop': '8%'}}>
-                    {_.map(this.props.templates.templates, (tmp, i) => (
-                    <div className="col-md-6" key={i} style={{height: '400px', marginBottom: '20px'}}>
-                      <Paper zDepth={0} className="paper scroll" style={{overflow: 'auto'}}>
+                </div>
+                <div className={this.state.paper} style={{'marginTop': '8%'}}>
+                  {_.map(this.props.templates.templates, (tmp, i) => (
+                    <div className="col-md-6 col-sm-6 col-xs-12 body-space" key={i}>
+                      <Paper zDepth={0} className="paper scroll" >
                         <div className="delete-style">
                           <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#000', cursor: 'pointer', padding: '5px 10px'}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>
                           <div id={tmp.id + '_menuBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}></div>
@@ -747,84 +746,101 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
-                        <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
-                        <div className="col-md-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
-                    </Paper>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Name:</b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
+                      </Paper>
                     </div>
-                        )
-                      )
-                    }
-                  </div>
-                 </div>
-               </div>
-             </div>
-             <Dialog
-               title={'Send Mail'}
-               actions={actionsSendMail}
-               modal={false}
-               bodyStyle={{minHeight: '70vh'}}
-               contentStyle={{maxWidth: '90%', width: '90%', transform: 'translate(0px, 0px)'}}
-               open={this.state.openSendMailDialog}
-               onRequestClose={this.handleCloseDialog}
-               autoDetectWindowHeight
-               autoScrollBodyContent
-             >
-             <Dialog
-               title={'Enter values'}
-               actions={[<FlatButton label="Close" primary onTouchTap={this.handleClose} style={{marginRight: 5}} />,
-                 <RaisedButton label={'Set Variables'} primary onClick={this.setVariable} />]}
-               modal={false}
-               bodyStyle={{minHeight: '50vh'}}
-               contentStyle={{maxWidth: '90%', width: '50%', transform: 'translate(0px, 0px)'}}
-               open={this.state.openVarDialog}
-               onRequestClose={this.handleClose}
-               autoDetectWindowHeight
-               autoScrollBodyContent
-             >
-             <div>
-             <div className="col-sx-12"></div>
-                {pendingVar}
-            </div>
-           </Dialog>
-           <Dialog
-             title={'Mail Preview'}
-             titleStyle={{padding: '5px 24px 0px', textAlign: 'center', fontSize: '18px', fontWeight: '500'}}
-             actions={[<FlatButton label="Cancel" primary onTouchTap={this.closeMailPreview} style={{marginRight: 5}} />,
-               <RaisedButton label={'Continue'} primary onClick={this.sendMail} />,
-               <FlatButton label={'Download Preview'} primary style={{'float': 'left'}} onClick={(e) => { this.download_mail_preview(e); }} />]}
-             modal={false}
-             bodyStyle={{minHeight: '70vh'}}
-             contentStyle={{maxWidth: '90%', width: '70%', transform: 'translate(0px, 0px)'}}
-             open={this.state.openPreview}
-             onRequestClose={this.closeMailPreview}
-             autoDetectWindowHeight
-             autoScrollBodyContent
-           >
-            <div className="row">
-              <div className="col-md-12">
-                <LoadingIcon {...this.props} />
+                  )
+                )
+              }
+                </div>
               </div>
             </div>
-            <div id="dialogContent" style={{'fontFamily': 'sans-serif', 'margin': '1.5cm 0 0', 'textAlign': 'justify'}}>
-              <div className="p-t p-b" style={{fontWeight: '600', fontSize: '17px', marginTop: '5px', textAlign: 'center', 'textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+          </div>
+          <Dialog
+            title={'Send Mail'}
+            actions={actionsSendMail}
+            modal={false}
+            bodyClassName="template-dialog-style"
+            contentClassName="dialog-content-style"
+            open={this.state.openSendMailDialog}
+            onRequestClose={this.handleCloseDialog}
+            autoDetectWindowHeight
+            autoScrollBodyContent
+            >
+            <Dialog
+              title={'Enter values'}
+              actions={[
+                <FlatButton
+                  label="Close"
+                  primary onTouchTap={this.handleClose}
+                  style={{marginRight: 5}} />,
+                <RaisedButton
+                  label={'Set Variables'}
+                  primary onClick={this.setVariable} />
+              ]}
+              modal={false}
+              bodyClassName="template-dialog-style"
+              contentClassName="nextdialog-content-style"
+              open={this.state.openVarDialog}
+              onRequestClose={this.handleClose}
+              autoDetectWindowHeight
+              autoScrollBodyContent
+             >
+              <div>
+                <div className="col-sx-12"></div>
+                  {pendingVar}
+              </div>
+            </Dialog>
+            <Dialog
+              title={'Mail Preview'}
+              titleClassName="templates-dialog-title"
+              actions={[
+                <FlatButton label="Cancel"
+                  primary onTouchTap={this.closeMailPreview}
+                  style={{marginRight: 5}} />,
+                <RaisedButton label={'Continue'}
+                  primary onClick={this.sendMail} />,
+                <FlatButton
+                  label={'Download Preview'}
+                  primary style={{'float': 'left'}}
+                  onClick={(e) => { this.download_mail_preview(e); }} />]}
+              modal={false}
+              bodyClassName="template-dialog-style"
+              contentClassName="nextdialog-content-style"
+              open={this.state.openPreview}
+              onRequestClose={this.closeMailPreview}
+              autoDetectWindowHeight
+              autoScrollBodyContent
+              >
+              <div className="row">
+                <div className="col-md-12">
+                  <LoadingIcon {...this.props} />
+                </div>
+              </div>
+              <div id="dialogContent template-dialog-content-style">
+              <div className="p-t p-b template-send-email" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
               <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
             </div>
          </Dialog>
-             <div className="col-md-9" style={{borderRight: '1px solid gainsboro'}}>
+             <div className="col-md-9 b-r-gainsboro">
                <form className="form-inline">
-                 <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#0000FF', cursor: 'pointer', display: 'block', width: '100%', textAlign: 'right'}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}>Add recipient</span>
+                 <span className="pull-right add-recipient-style" onClick={() => this.toggleDialog('FilterBack', 'Filter')}>Add recipient</span>
                    <div className="dropdown">
-                    <div id={'FilterBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}></div>
+                    <div id={'FilterBack'} className="dropdown-backdrop-custom filter-back-style" onClick={() => this.toggleDialog('FilterBack', 'Filter')}></div>
                     <div id={'Filter'} className="dropdown-menu has-child has-arrow selectUser mail-recipient">
                           <ul className="list-unstyled pt-xs">
                           <li className="mb-sm b-b p-t p-b">
-                              <div className="form-group" style={{width: '100%'}}>
+                              <div className="form-group form-group-full-width" >
                                 <input type="checkbox" id="notListed" className="not-listed" checked={this.state.recipientNotFound} onChange={(e) => this.setState({recipientNotFound: e.target.checked})} /> Recipient Not Listed
                               </div>
                           </li>
                           <li className="mb-sm b-b p-t p-b">
-                            <div className="form-group" style={{width: '40%', paddingLeft: '0px'}}>
+                            <div className="form-group form-group-p-0-w-4" >
                               <input type="radio" id="recipient" className="recipient" name="recipientType" checked={recipientType == 'Recipient'} value="Recipient" onChange={(e) => { this.setState({recipientType: e.target.value}); }} /> Recipient
                             </div>
                             <div className="form-group" style={{width: '30%', paddingLeft: '0px'}} >

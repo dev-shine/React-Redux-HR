@@ -86,9 +86,11 @@
   cursor: pointer; }
 
   .paper{
+    font-size: 11px;
     padding:20px;
     overflow:hidden;
     height:100%;
+    overflow: auto;
     border: 1px solid gainsboro;
     border-radius: 16px !important;
     /*border-top-right-radius: 0px !important;
@@ -161,7 +163,7 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    background-color: white;;
+    background-color: white;
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
@@ -268,15 +270,82 @@
       border-top:    3px solid;
       margin-bottom: 8px;
     }
-
+    .border-right-solid {
+      border-right: 1px solid gainsboro;
+    }
+    .body-space {
+      height: 400px;
+      margin-bottom:20px;
+    }
+    .flex-style {
+      display: inline-flex;
+    }
+    .dialog-content-style {
+      max-width: 90%;
+      width: 90%;
+      transform: translate(0px, 0px);
+    }
+    .nextdialog-content-style {
+      max-width: 90%;
+      width: 50%;
+      transform: translate(0px, 0px);
+    }
+    .templates-dialog-style {
+      min-height: 70vh;
+    }
+    .dialog-content-title {
+      padding:5px 24px 0px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .template-dialog-content-style {
+      font-family: sans-serif;
+      margin: 1.5cm 0 0;
+      text-align: justify;
+    }
+    .template-send-email {
+      font-weight: 600;
+      font-size: 17px;
+      margin-top: 5px;
+      text-align: center;
+      text-decoration: underline;
+    }
+    .b-r-gainsboro {
+      border-right: 1px solid gainsboro;
+    }
+    .add-recipient-style {
+      font-size: 13px;
+      font-style: italic;
+      color: #0000FF;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align:right;
+    }
+    .filter-back-style {
+      display: none;
+      opacity: 0.5;
+    }
+    .form-group-full-width {
+      width: 100%;
+    }
+    .form-group-p-0-w-4{
+      width: 40%;
+      padding-left:0px;
+    }
     //-- Media ----
   @media (max-width: 540px) {
-    .mail-recipient{
+    .mail-recipient {
       margin-left: 5%;
       float: left;
       max-height: 253px;
       overflow: auto;
       margin-top: 50px;
       width:89%;
+    }
+    .paper {
+      overflow: auto;
+      font-size: 9px;
     }
   }

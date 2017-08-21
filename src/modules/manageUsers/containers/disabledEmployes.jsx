@@ -99,10 +99,10 @@ class PageDisabledEmployes extends React.Component {
           <div className="app-body" id="view">
             <div style={styles.content} className="padding">
               <div className="row">
-                <div className="col-md-3">
-                  <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
+                <div className="col-sm-3">
+                  {/* <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} /> */}
                 </div>
-                <div className="col-md-9">
+                <div className="col-sm-9">
                   <div className="box">
                     <div className="box-body">{userDetails}</div>
                   </div>

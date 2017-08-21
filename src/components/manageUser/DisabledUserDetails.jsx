@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
   let nA = 'N/A';
-  console.log(userDetails);
   return (
     <div className="tab-content">
       <div className="tab-pane p-v-sm active">

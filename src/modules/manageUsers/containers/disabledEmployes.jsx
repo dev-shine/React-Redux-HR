@@ -6,6 +6,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
+import UsersListHeader from 'components/generic/UsersListHeader';
 import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
@@ -93,14 +94,15 @@ class PageDisabledEmployes extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Disabled Employees'} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Disabled Employees'} showLoading={this.props.frontend.show_loading} userListHeader />
+          <UsersListHeader disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
             <div className="padding p-t-lg">
               <div className="row">
-                <div className="col-sm-3">
+                <div className="col-sm-3 hidden-xs">
                   <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
                 </div>
-                <div className="col-sm-9">
+                <div className="col-sm-9 col-xs-12">
                   <div className="box">
                     <div className="box-body">{userDetails}</div>
                   </div>

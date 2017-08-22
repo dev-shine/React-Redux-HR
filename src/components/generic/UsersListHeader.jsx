@@ -4,7 +4,7 @@ import UsersList from 'components/generic/UsersList';
 
 const UsersListHeader = ({users, selectedUserId, onUserClick, disabledUser}) => {
   return (
-    <div id="user-list-header" className="app-aside modal fade nav-dropdown">
+    <div id="user-list-header" className="modal fade nav-dropdown hidden-md hidden-lg">
       <div className="right navside dark dk">
         <UsersList
           users={users}

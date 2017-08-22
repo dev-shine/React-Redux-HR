@@ -5,13 +5,16 @@ import {Link} from 'react-router';
 import {DATA} from 'components/menu/menuObject';
 
 const DisplayMenuList = ({rolePages, click}) => {
+  const menuToggle = () => {
+    $('#aside').modal('hide');
+  };
   let groupIndex = _.groupBy(DATA, function (value) { return value.plabel; });
   let links = _.map(groupIndex, (subChildren, parentLabel) => {
     let linkList = _.map(subChildren, (subChild, k) => {
       let validPath = subChild.path.replace(/\//g, '');
       if (!_.isEmpty(_.find(rolePages, ['page_name', validPath]))) {
         return (
-          <li key={k} className="hidden-folded">
+          <li key={k} className="hidden-folded" onClick={() => menuToggle()}>
             <span style={{'fontSize': 11, 'fontWeight': 600}}>
               <Link to={subChild.path}>{subChild.label}</Link>
             </span>

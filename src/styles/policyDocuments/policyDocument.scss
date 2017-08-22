@@ -1,13 +1,13 @@
-.is-read-document{
+.is-read-document {
   color: $grey-500;
   font-size: 18px;
   border-left: 5px solid $green-500;
-}
-.is-not-read-document{
+ }
+.is-not-read-document {
   font-size: 18px;
   border-left: 5px solid $red-00;
-}
-.policyDocumentsList{
+ }
+.policyDocumentsList {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   background-color: $white;
   border-radius: 2px;
@@ -21,11 +21,13 @@
     word-wrap: break-word;
   }
 }
-.paddingResponsive{
+.paddingResponsive {
   padding: 0 3rem;
   transition: .2s;
-}
-
+ }
+.icon-button {
+  width: 4%;
+ }
 @media (max-width: 992px) and (min-width: 540px) {
   .paddingResponsive{
     padding: 0 2rem;

@@ -134,7 +134,6 @@ export default class FormAddNewInventory extends React.Component {
       }
     }
     if (validate && !this.props.edit) {
-      console.log('apiData', apiData);
       this.props.onAddNewMachine(apiData).then((val) => {
         this.setState(resetFields);
         notify('Success !', val, 'success');

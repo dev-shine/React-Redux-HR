@@ -166,6 +166,7 @@ export function addNewMachine (new_machine_details) {
           dispatch(deviceCount());
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message));
+            dispatch(get_machines_detail());
             resolve(json.message);
           } else {
             dispatch(error_add_new_machine(json.message));
@@ -281,6 +282,7 @@ export function updateDevice (id, data) {
         dispatch(hide_loading());
         if (res.error === 0) {
           dispatch(deviceCount());
+          dispatch(get_machines_detail());
           dispatch(success_updateDevice(res.message));
           resolve(res.message);
         }
@@ -309,6 +311,7 @@ export function deleteDevice (id) {
       dispatch(show_loading());
       return getAsync_deleteDeviceById(id).then((res) => {
         dispatch(deviceCount());
+        dispatch(get_machines_detail());
         dispatch(hide_loading());
         if (res.error === 0) {
           dispatch(success_deleteDevice(res.message));

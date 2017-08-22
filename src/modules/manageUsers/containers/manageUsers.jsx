@@ -126,7 +126,8 @@ class ManageUsers extends React.Component {
     });
   }
   changeEmployeeStatus (userid, status) {
-    this.props.onChangeEmployeeStatus(userid, status).then(() => {
+    this.props.onChangeEmployeeStatus(userid, status).then((msg) => {
+      notify('Success!', msg, 'success');
       this.props.onUsersList().then(() => {
         if (this.props.usersList.users.length > 0) {
           let firstUser = this.props.usersList.users[0];
@@ -134,6 +135,8 @@ class ManageUsers extends React.Component {
           this.onUserClick(defaultUserId);
         }
       });
+    }).catch((err) => {
+      notify('Error!', err, 'error');
     });
   }
   handleChangeSteps (stepid, userid) {

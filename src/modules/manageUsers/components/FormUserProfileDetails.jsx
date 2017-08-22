@@ -195,7 +195,7 @@ class FormUserProfileDetails extends React.Component {
         </div>
         <hr />
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="name" text={'Name'} />
               <InputText
@@ -204,7 +204,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Job Title" text={'Job Title'} />
               <InputText
@@ -214,7 +214,7 @@ class FormUserProfileDetails extends React.Component {
             </div>
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group padding-x-5">
           <Label htmlfor="Team" text={'Team'} />
           <select
             className="form-control"
@@ -225,7 +225,7 @@ class FormUserProfileDetails extends React.Component {
           </select>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Date Of Birth" text={'Date Of Birth ( eg. 27/1/1988 )'} />
               <DateField
@@ -236,7 +236,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Date Of Joining" text={'Date Of Joining ( eg. 2016-12-30 )'} />
               <DateField
@@ -249,7 +249,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Training Completion Date" text={'Training Completion Date'} />
               <DateField
@@ -260,7 +260,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Date Of Termination" text={'Date Of Termination  ( eg. 2016-12-30 )'} />
               <DateField
@@ -270,7 +270,7 @@ class FormUserProfileDetails extends React.Component {
                 className="form-control" />
             </div>
           </div>
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Training Month" text={'Training Month ( eg. 0-4 month )'} />
               <select
@@ -287,7 +287,7 @@ class FormUserProfileDetails extends React.Component {
               </select>
             </div>
           </div>
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <label>Personal Email</label>
               <input type="text" className="form-control" ref="other_email"
@@ -297,7 +297,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <div className="row no-gutter">
-          <div className={userLevel ? 'col-md-6 p-r' : 'col-md-12 p-r'}>
+          <div className={(userLevel ? 'col-xs-6' : 'col-xs-12' ) + ' profile-input'}>
             <div className="form-group">
               <Label htmlfor="Work Email" text={'Work Email'} />
               <InputText
@@ -306,7 +306,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className={userLevel ? 'col-md-6' : 'hide'}>
+          <div className={userLevel ? 'col-xs-6 profile-input' : 'hide'}>
             <div className="form-group">
               <Label htmlfor="Employee Holding Comment" text={'Employee Holding Comment'} />
               <Textarea
@@ -318,7 +318,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Gender" text={'Gender'} />
               <select
@@ -333,7 +333,7 @@ class FormUserProfileDetails extends React.Component {
               </select>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Marital Status" text={'Marital Status'} />
               <select
@@ -350,7 +350,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Current Address" text={'Current Address'} />
               <Textarea
@@ -360,7 +360,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Permanent Address" text={'Permanent Address'} />
               <Textarea
@@ -372,7 +372,7 @@ class FormUserProfileDetails extends React.Component {
           </div>
         </div>
         <div className="row no-gutter">
-          <div className="col-md-6 p-r">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 1" text={'Emergency Contact Information 1'} />
               <InputText
@@ -381,7 +381,7 @@ class FormUserProfileDetails extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6 profile-input">
             <div className="form-group">
               <Label htmlfor="Emergency Contact Information 2" text={'Emergency Contact Information 2'} />
               <InputText
@@ -391,7 +391,7 @@ class FormUserProfileDetails extends React.Component {
             </div>
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group padding-x-5">
           <Label htmlfor="Blood Group" text={'Blood Group'} />
           <select
             className="form-control"
@@ -409,7 +409,7 @@ class FormUserProfileDetails extends React.Component {
             <option value="AB-">AB-</option>
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group padding-x-5">
           <Label htmlfor="Any Medical Conditions" text={'Any Medical Conditions'} />
           <Textarea
             placeHolder="your medical conditions..."
@@ -417,15 +417,10 @@ class FormUserProfileDetails extends React.Component {
             value={this.state.medical_condition}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group padding-x-5">
           <i className='fa fa-slack' aria-hidden='true'></i>{' '}
           <Label htmlfor="Don’t post on Slack" text={'Don’t post on Slack'} />
-          <input
-            value type="checkbox"
-            id="1"
-            name="loyalty_Bonus"
-            style={{'verticalAlign': 'middle', 'marginLeft': '20px'}}
-            onChange={(e) => {
+          <input value type="checkbox" id="1" name="send_slack_msg" className="send-slack-msg-checkbox" onChange={(e) => {
               if (e.target.checked) {
                 this.setState({
                   send_slack_msg: '1'
@@ -439,7 +434,7 @@ class FormUserProfileDetails extends React.Component {
           />
         </div>
         <ButtonRaised
-          className="col-md-12 m-b-sm indigo"
+          className="col-xs-12 m-b-sm indigo"
           onClick={() => this.props.callUpdateUserProfileDetails(this.state)}
           label={'Update Profile Details'}
         />

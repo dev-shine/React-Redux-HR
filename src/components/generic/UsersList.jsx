@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
-const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
+const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header}) => {
+  const userClick = (param) => {
+    onUserClick(param);
+    header && $('#user-list-header').modal('hide');
+  };
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';
@@ -24,7 +28,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
       param = user;
     }
     return (
-      <li className={'list-item ' + backgroundClass} key={key} onClick={() => onUserClick(param)}>
+      <li className={'list-item ' + backgroundClass} key={key} onClick={() => userClick(param)}>
         <div>
           <div className="list-left">
             <span className="w-40 avatar">{avatar}</span>
@@ -43,7 +47,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser}) => {
     <div id="userListWrapper" className="row">
       <div className="col-12">
         <div className="list-box">
-          <div className="user-list-container" id="userList">
+          <div className={'user-list-container ' + (!header && 'p-r-8')} id="userList">
             <ul className="box list no-border p-b">
               {usersList}
             </ul>

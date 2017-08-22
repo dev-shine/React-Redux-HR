@@ -66,7 +66,7 @@ class ViewLeave extends React.Component {
   _getChangeStatusButtons (leaveid, status) {
     let statusList = [ 'Approved', 'Pending', 'Rejected' ];
     let HRDisplay = '';
-    if (this.props.loggedUser.data.role == CONFIG.HR) {
+    if (this.props.loggedUser.data.role === CONFIG.HR) {
       HRDisplay = 'none';
     }
     if (this.props.selectedLeave.status === 'Approved') {
@@ -80,11 +80,11 @@ class ViewLeave extends React.Component {
 
       if (s == status) {
 
-      } else if (s == 'Approved') {
+      } else if (s === 'Approved') {
         return <ButtonRaised key={k} style={{display: HRDisplay}} className="indigo" onClick={() => this.changeStatus(leaveid, s)} label="Approve" />;
-      } else if (s == 'Pending') {
+      } else if (s === 'Pending') {
         return <ButtonRaised key={k} style={{display: HRDisplay}} className="blue" onClick={() => this.changeStatus(leaveid, s)} label="Mark Pending" />;
-      } else if (s == 'Rejected') {
+      } else if (s === 'Rejected') {
         return <ButtonFlat key={k} style={{display: HRDisplay}} className="m-b-sm text-danger" onClick={() => this.changeStatus(leaveid, s)} label="Reject" />;
       }
     });
@@ -139,15 +139,15 @@ class ViewLeave extends React.Component {
       last_applied_leaves_html = <div><hr /><h5>Leave history</h5>{aa}</div>;
     }
     let display = '';
-    if (this.props.loggedUser.data.role == CONFIG.ADMIN && this.props.selectedLeave.hr_comment === '') {
+    if (this.props.loggedUser.data.role === CONFIG.ADMIN && this.props.selectedLeave.hr_comment === '') {
       display = 'none';
     }
     let HRDisplay = '';
-    if (this.props.loggedUser.data.role == CONFIG.ADMIN) {
+    if (this.props.loggedUser.data.role === CONFIG.ADMIN) {
       HRDisplay = 'none';
     }
     let adminDisplay = '';
-    if (this.props.loggedUser.data.role == CONFIG.HR) {
+    if (this.props.loggedUser.data.role === CONFIG.HR) {
       adminDisplay = 'none';
     }
     let status = this.props.selectedLeave.status;
@@ -177,7 +177,7 @@ class ViewLeave extends React.Component {
             <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
             <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
             <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>
-            {this.props.selectedLeave.day_status == '' ? '' : <div>Leave apply for - <i><b>{this.props.selectedLeave.day_status == '1' ? 'First Half' : 'Second Half'}</b></i></div>}
+            {this.props.selectedLeave.day_status === '' ? '' : <div>Leave apply for - <i><b>{this.props.selectedLeave.day_status == '1' ? 'First Half' : 'Second Half'}</b></i></div>}
             <div>Reason - <i><b>{this.props.selectedLeave.reason}</b></i></div>
             {
               this.props.selectedLeave.leave_type != ''
@@ -317,7 +317,6 @@ class ViewLeave extends React.Component {
                  this.state.edit && this.props.loggedUser.data.role == CONFIG.HR
                  ? <div>
                    <input type="text" className="md-input"
-                     contentEditable="true"
                      onChange={(e) => this.setState({editedComment: e.target.value})}
                      value={this.state.editedComment} />
                    <div className="text-right" style={{marginTop: '10px'}}>
@@ -327,7 +326,7 @@ class ViewLeave extends React.Component {
                }
 
                {
-                  this.props.selectedLeave.hr_comment != ''
+                  this.props.selectedLeave.hr_comment !== ''
                ? <div className='row m-0' style={{display: HRDisplay}}>
                  <div className='col-sm-3 p-0'>
                    {

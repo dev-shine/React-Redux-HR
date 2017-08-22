@@ -45,7 +45,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header}) =
   });
   return (
     <div id="userListWrapper" className="row">
-      <div className="col-12">
+      <div className="col-xs-12">
         <div className="list-box">
           <div className={'user-list-container ' + (!header && 'p-r-8')} id="userList">
             <ul className="box list no-border p-b">

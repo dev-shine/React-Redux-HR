@@ -36,6 +36,7 @@ class PageDisabledEmployes extends React.Component {
   }
   componentWillMount () {
     window.scrollTo(0, 0);
+    this.windowScroll();
     this.props.onFetchDisabledEmployee();
   }
   componentWillReceiveProps (props) {
@@ -84,6 +85,16 @@ class PageDisabledEmployes extends React.Component {
       }
     });
   }
+  windowScroll () {
+    $(window).scroll(function () {
+      let scrollAmount = $(document).scrollTop();
+      if (scrollAmount > 40) {
+        $('#fixedScroll').addClass('fixedScroll');
+      } else {
+        $('#fixedScroll').removeClass('fixedScroll');
+      }
+    });
+  }
   render () {
     let disabledUsers = _.orderBy(this.props.usersList.disabled_users, 'user_Id', 'asc');
     let userDetails = '';
@@ -99,7 +110,7 @@ class PageDisabledEmployes extends React.Component {
           <div className="app-body" id="view">
             <div className="padding p-t-lg">
               <div className="row">
-                <div className="col-sm-3 hidden-xs">
+                <div className="col-sm-3 hidden-xs" id="fixedScroll">
                   <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
                 </div>
                 <div className="col-sm-9 col-xs-12">

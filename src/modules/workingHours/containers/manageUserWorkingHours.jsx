@@ -83,10 +83,10 @@ class ManageUserWorkingHours extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 col-xs-12">
                   <UsersList users={this.props.usersList.users} selectedUserId={this.state.defaultUserDisplay} onUserClick={this.onUserClick} />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-9 col-xs-12">
                   <div className="box">
                     <div className="item">
                       <div className="item-bg">
@@ -104,14 +104,14 @@ class ManageUserWorkingHours extends React.Component {
                     </div>
                   </div>
                   <div className="row no-gutter b-t box">
-                    <div className="col-xs-3 b-r box">
+                    <div className="col-md-3 col-xs-12 b-r box">
                       <div className="p-a block ">
                         <h6 className="text-center">Existing Working Hours</h6>
                         <hr />
                         <ListUserWorkingHours displayData={this.props.manageUserWorkingHours.displayData} />
                       </div>
                     </div>
-                    <div className="col-xs-9 b-r box">
+                    <div className="col-md-9 col-xs-12 b-r box">
                       <div className="p-a block">
                         <h6 className="text-center">Add New</h6>
                         <hr />

@@ -29,15 +29,15 @@ class SalaryDetails extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <div className="p-y text-center text-sm-left">
-              <a href="" className="inline p-x text-center">
+              <a href="" className="inline salary-p-x text-center">
                 <span className="h4 block m-a-0">{fTotalSalary}</span>
                 <small className="text-xs text-muted">Total Salary</small>
               </a>
-                <a href="" className="inline p-x b-l b-r text-center">
+                <a href="" className="inline salary-p-x b-l b-r text-center">
                 <span className="h4 block m-a-0">{fLeaveAllocated}</span>
                 <small className="text-xs text-muted">Leaves Allocated</small>
               </a>
-              <a href="" className="inline p-x text-center">
+              <a href="" className="inline salary-p-x text-center">
                 <span className="h4 block m-a-0">{fApplicableFrom}</span>
                 <small className="text-xs text-muted">Applicable From</small>
               </a>

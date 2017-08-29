@@ -71,16 +71,16 @@ class Salary extends React.Component {
                 <div className="box-divider m-a-0"></div>
                 <div className="box-body">
                   <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 col-xs-12">
                       <h6>Salary Details</h6>
                       <SalaryDetails data={this.state.holding_amt} />
                     </div>
-                    <div className="col-sm-3 salary-border-left">
+                    <div className="col-sm-3 col-xs-6 salary-border-left">
                       <h6>Salary Revisions</h6>
                       <hr />
                       <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary} />
                     </div>
-                    <div className="col-sm-3 salary-border-left">
+                    <div className="col-sm-3 col-xs-6 salary-border-left">
                       <h6>Previous Payslips</h6>
                       <hr />
                       <PayslipHistory payslip_history={this.state.payslip_history} />

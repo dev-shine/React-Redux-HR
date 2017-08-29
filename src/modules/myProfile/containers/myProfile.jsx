@@ -76,6 +76,7 @@ class MyProfile extends React.Component {
     }
   }
   render () {
+    let {name, jobtitle, dateofjoining, gender, dob, work_email} = this.state.user_profile_detail;
     return (
       <div>
         <Menu {...this.props} />
@@ -84,19 +85,27 @@ class MyProfile extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter">
-                <UserHorizontalView profileImage={this.props.loggedUser.data.profileImage} name={this.state.user_profile_detail.name} jobtitle={this.state.user_profile_detail.jobtitle} dateofjoining={this.state.user_profile_detail.dateofjoining} gender={this.state.user_profile_detail.gender} dob={this.state.user_profile_detail.dob} work_email={this.state.user_profile_detail.work_email} />
+                <UserHorizontalView
+                  profileImage={this.props.loggedUser.data.profileImage}
+                  name={name}
+                  jobtitle={jobtitle}
+                  dateofjoining={dateofjoining}
+                  gender={gender}
+                  dob={dob}
+                  workEmail={work_email}
+                />
               </div>
               <div className="row no-gutter">
-                <div className="col-xs-6 p-t p-r b-r">
+                <div className="col-sm-6 p-a b-r m-b-md">
                   <FormProfileDetails user_profile_detail={this.state.user_profile_detail} callUpdateProfileDetails={this.callUpdateProfileDetails} />
-                  <br /><br /><br />
-                  <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
-                  <br /><br /><br />
                 </div>
-                <div className="col-xs-6 p-t p-l">
+                <div className="col-sm-6 p-a m-b-md">
                   <FormBankDetails user_bank_detail={this.state.user_bank_detail} callUpdateBankDetails={this.callUpdateBankDetails} />
-                  <br /><br /><br />
-                  <h6 className="text-center">Previous Payslips</h6>
+                </div>
+                <div className="col-sm-6 p-a m-b-md">
+                  <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
+                </div>
+                <div className="col-sm-6 p-a">
                   <PayslipHistory payslip_history={this.state.payslip_history} />
                 </div>
               </div>
@@ -147,7 +156,5 @@ MyProfile.propTypes = {
   payslip_history:     PropTypes.array,
   user_assign_machine: PropTypes.array
 };
-const VisibleMyProfile = connect(mapStateToProps, mapDispatchToProps)(MyProfile);
-const RouterVisibleMyProfile = withRouter(VisibleMyProfile);
 
-export default RouterVisibleMyProfile;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyProfile));

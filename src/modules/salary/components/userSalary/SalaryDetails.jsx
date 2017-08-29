@@ -43,8 +43,8 @@ class SalaryDetails extends React.Component {
           </div>
         </div>
         <hr />
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -56,7 +56,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -68,9 +68,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -82,7 +81,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -94,9 +93,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -108,7 +106,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -120,9 +118,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -134,7 +131,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -146,9 +143,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -160,7 +156,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -172,9 +168,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6 col-sm-4">
+
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <h5 className="m-a-0 _500">
@@ -188,7 +183,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-4">
+          <div className="col-xs-6">
             <div className="box p-a">
               <div className="clear">
                 <div>
@@ -207,7 +202,7 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+
       </div>
     );
   }

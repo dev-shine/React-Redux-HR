@@ -18,17 +18,20 @@ class FormUpdatePassword extends React.Component {
     return (
       <div>
         <h6 className="text-center">Update Password</h6>
-        <div className="form-group">
-          <label>Enter New Password</label>
-          <input
-            type="password"
-            className="form-control"
-            ref="new_password"
-            onChange={(e) => this.setState({new_password: e.target.value})}
-            value={this.state.new_password}
-          />
+        <div className="row no-gutter">
+          <div className="col-xs-12 profile-input form-group">
+            <label>Enter New Password</label>
+            <input
+              type="password"
+              className="form-control"
+              onChange={(e) => this.setState({new_password: e.target.value})}
+              value={this.state.new_password}
+            />
+          </div>
+          <div className="profile-input form-group">
+            <ButtonRaised className="col-xs-12 indigo" onClick={() => this.props.callUpdatePassword(this.state.new_password)} label="Update Password" />
+          </div>
         </div>
-        <ButtonRaised className="col-xs-12 indigo" onClick={() => this.props.callUpdatePassword(this.state.new_password)} label="Update Password" />
       </div>
     );
   }

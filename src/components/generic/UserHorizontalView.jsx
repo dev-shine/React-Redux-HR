@@ -5,8 +5,7 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
   let joining, details;
   if (!inventory) {
     joining = <h5 className="text-muted">Joining Date: <b>{dateofjoining}</b></h5>;
-    details = <div className="col-sm-6 text-muted">
-      <br />
+    details = <div className="col-xs-6 profile-input text-muted">
       <h5>Gender: <b>{gender}</b></h5>
       <h5>Date Of Birth: <b>{dob}</b></h5>
       <h5>Work Email: <b>{workEmail}</b></h5>
@@ -18,14 +17,14 @@ const UserHorizontalView = ({profileImage, name, jobtitle, dateofjoining, gender
         <img src={profileImage} className="blur opacity-3" />
       </div>
       <div className="row padding-responsive">
-        <div className="col-sm-12">
+        <div className="col-xs-12 m-b">
           <span className="avatar w-96 pointer">
             <img src={profileImage} />
             <i className="on b-white"></i>
           </span>
         </div>
-        <div className="col-sm-6">
-          <h3 className="text-capitalize">{name}</h3>
+        <div className="col-xs-6 profile-input">
+          <h3 className="text-capitalize m-t-xs">{name}</h3>
           <h5 className="text-muted text-capitalize"><b>{jobtitle}</b></h5>
           {joining}
         </div>

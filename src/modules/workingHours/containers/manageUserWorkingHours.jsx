@@ -81,11 +81,15 @@ class ManageUserWorkingHours extends React.Component {
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Manage Employees Working Hours' + statusMessage} showLoading={this.props.frontend.show_loading} userListHeader />
-            <UsersListHeader users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
+          <UsersListHeader
+            users={this.props.usersList.users}
+            selectedUserId={this.state.selected_user_id}
+            onUserClick={this.onUserClick}
+              />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-3 col-xs-12 hidden-xs">
+                <div className="col-sm-3 hidden-xs">
                   <UsersList users={this.props.usersList.users}
                     selectedUserId={this.state.defaultUserDisplay}
                     onUserClick={this.onUserClick}
@@ -108,21 +112,28 @@ class ManageUserWorkingHours extends React.Component {
                       </p>
                     </div>
                   </div>
-                  <div className="row no-gutter b-t box">
-                    <div className="col-md-3 col-xs-12 b-r box hour-overflow">
-                      <div className="p-a block ">
-                        <h6 className="text-center">Existing Working Hours</h6>
-                        <hr />
-                        <ListUserWorkingHours displayData={this.props.manageUserWorkingHours.displayData} />
-                      </div>
-                    </div>
+                  <div className="row no-gutter b-t box ">
+
                     <div className="col-md-9 col-xs-12 b-r box">
                       <div className="p-a block">
                         <h6 className="text-center">Add New</h6>
                         <hr />
-                        <FormAddUserWorkingHours {...this.props} userid={this.state.defaultUserDisplay} callAddUserWorkingHours={this.callAddUserWorkingHours} />
+                        <FormAddUserWorkingHours {...this.props}
+                          userid={this.state.defaultUserDisplay}
+                          callAddUserWorkingHours={this.callAddUserWorkingHours}
+                          />
                       </div>
                     </div>
+                    <div className="col-md-3 col-xs-12  b-r box ">
+                      <div className="p-a block ">
+                        <h6 className="text-center">Existing Working Hours</h6>
+                        <hr />
+                        <div className="hour-overflow ">
+                          <ListUserWorkingHours displayData={this.props.manageUserWorkingHours.displayData} />
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>

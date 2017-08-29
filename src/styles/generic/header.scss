@@ -1,9 +1,15 @@
-.show-menu-icon{
-  display: block;
+.app-header {
+  .user-list-icon {
+    // display: none;
+    float: right;
+    margin-top: 9px;
+    // padding: 6px 23px;
+    cursor: pointer;
+    font-size: 27px;
+    color: rgb(39, 39, 71);
+  }
+  .user-list-icon:hover {
+    background: rgba(220, 220, 220, 0.45);
+    transition: background 1s;
+  }
 }
-
- @media (min-width: 992px) {
-   .show-menu-icon{
-     display: none;
-   }
- }

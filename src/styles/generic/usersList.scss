@@ -3,8 +3,16 @@
   color: white;
 }
 .list-box {
-  position: fixed;
+  // position: fixed;
   z-index: 10;
+  .p-r-8{
+    padding-right: 8px;
+  }
+}
+.list-box:hover{
+  .p-r-8{
+    padding-right: 0px;
+  }
 }
 .list-item {
   border-bottom: 1px solid #dcdcdc;
@@ -14,8 +22,8 @@
 }
 .user-list-container{
   max-width: 300px;
-  min-width: 100%; //100%;
-  width: 160px;
+  min-width: 100%;
+  // width: 160px;
   transition: width 1s;
   -webkit-transition:width 1s;
   -moz-transition: width 1s;
@@ -24,12 +32,14 @@
   overflow-y: hidden;
   overflow-x: hidden;
   position: relative;
-  padding-right: 8px;
+  // padding-right: 8px;
+
 }
 .user-list-container:hover{
-  width : 245px;
+  // width : 245px;
   overflow-y: scroll;
-  padding-right: 0px;
+  // padding-right: 0px;
+
   box-shadow: 2px 3px 3px 1px rgba(0, 0, 0, 0.47);
   .list {
     width: 100%;

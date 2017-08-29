@@ -24,7 +24,6 @@ const PayslipHistory = ({payslip_history}) => {
 
   return (
     <div>
-      <hr />
       <div className="streamline b-l m-l">
         {previousPayslips}
       </div>

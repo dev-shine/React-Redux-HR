@@ -26,21 +26,22 @@ class FormProfileDetails extends React.Component {
     };
   }
   componentWillReceiveProps (props) {
+    let {name, jobtitle, dateofjoining, dob, gender, marital_status, current_address, permanent_address, emergency_ph1, emergency_ph2, work_email, other_email, blood_group, medical_condition} = props.user_profile_detail;
     this.setState({
-      name:           props.user_profile_detail.name || '',
-      jobtitle:       props.user_profile_detail.jobtitle || '',
-      dateofjoining:  props.user_profile_detail.dateofjoining || '',
-      dob:            props.user_profile_detail.dob || '',
-      gender:         props.user_profile_detail.gender || '',
-      marital_status: props.user_profile_detail.marital_status || 'Single',
-      address1:       props.user_profile_detail.current_address || '',
-      address2:       props.user_profile_detail.permanent_address || '',
-      emr_con_1:      props.user_profile_detail.emergency_ph1 || '',
-      emr_con_2:      props.user_profile_detail.emergency_ph2 || '',
-      work_email:     props.user_profile_detail.work_email || '',
-      emp_email:      props.user_profile_detail.other_email || '',
-      blood_group:    props.user_profile_detail.blood_group || '',
-      medical_con:    props.user_profile_detail.medical_condition || ''
+      name:           name || '',
+      jobtitle:       jobtitle || '',
+      dateofjoining:  dateofjoining || '',
+      dob:            dob || '',
+      gender:         gender || '',
+      marital_status: marital_status || 'Single',
+      address1:       current_address || '',
+      address2:       permanent_address || '',
+      emr_con_1:      emergency_ph1 || '',
+      emr_con_2:      emergency_ph2 || '',
+      work_email:     work_email || '',
+      emp_email:      other_email || '',
+      blood_group:    blood_group || '',
+      medical_con:    medical_condition || ''
     });
   }
 
@@ -56,8 +57,7 @@ class FormProfileDetails extends React.Component {
           <label>Marital Status</label>
           <select
             className="form-control"
-            ref="marital_status"
-            onChange={() => this.setState({marital_status: this.refs.marital_status.value})}
+            onChange={(e) => this.setState({marital_status: e.target.value})}
             value={this.state.marital_status}>
             <option value="Single">Single</option>
             <option value="Married">Married</option>
@@ -75,8 +75,7 @@ class FormProfileDetails extends React.Component {
               <textarea
                 placeholder="your current address..."
                 className="form-control resize-y"
-                ref="address1"
-                onChange={() => this.setState({address1: this.refs.address1.value})}
+                onChange={(e) => this.setState({address1: e.target.value})}
                 value={this.state.address1}>
               </textarea>
             </div>
@@ -87,8 +86,7 @@ class FormProfileDetails extends React.Component {
               <textarea
                 placeholder="your permanent address..."
                 className="form-control resize-y"
-                ref="address2"
-                onChange={() => this.setState({address2: this.refs.address2.value})}
+                onChange={(e) => this.setState({address2: e.target.value})}
                 value={this.state.address2}>
               </textarea>
             </div>
@@ -101,8 +99,7 @@ class FormProfileDetails extends React.Component {
               <input
                 type="text"
                 className="form-control"
-                ref="emr_con_1"
-                onChange={() => this.setState({emr_con_1: this.refs.emr_con_1.value})}
+                onChange={(e) => this.setState({emr_con_1: e.target.value})}
                 value={this.state.emr_con_1} />
             </div>
           </div>
@@ -112,8 +109,7 @@ class FormProfileDetails extends React.Component {
               <input
                 type="text"
                 className="form-control"
-                ref="emr_con_2"
-                onChange={() => this.setState({emr_con_2: this.refs.emr_con_2.value})}
+                onChange={(e) => this.setState({emr_con_2: e.target.value})}
                 value={this.state.emr_con_2} />
             </div>
           </div>
@@ -122,13 +118,12 @@ class FormProfileDetails extends React.Component {
           <label>Personal Email Address</label>
           <input type="email"
             className="form-control"
-            ref="emp_email"
-            onChange={() => this.setState({emp_email: this.refs.emp_email.value})}
+            onChange={(e) => this.setState({emp_email: e.target.value})}
             value={this.state.emp_email} />
         </div>
         <div className="form-group">
           <label>Blood Group</label>
-          <select className="form-control" ref="blood_group" onChange={(evt) => this.setState({blood_group: evt.target.value})} value={this.state.blood_group}>
+          <select className="form-control" onChange={(e) => this.setState({blood_group: e.target.value})} value={this.state.blood_group}>
             <option value="">--select your blood group--</option>
             <option value="o+">O+</option>
             <option value="o-">O-</option>
@@ -145,8 +140,7 @@ class FormProfileDetails extends React.Component {
           <textarea
             placeholder="your medical conditions..."
             className="form-control resize-y"
-            ref="medical_con"
-            onChange={() => this.setState({medical_con: this.refs.medical_con.value})}
+            onChange={(e) => this.setState({medical_con: e.target.value})}
             value={this.state.medical_con}>
           </textarea>
         </div>

@@ -76,6 +76,7 @@ class MyProfile extends React.Component {
     }
   }
   render () {
+    let {name, jobtitle, dateofjoining, gender, dob, work_email} = this.state.user_profile_detail;
     return (
       <div>
         <Menu {...this.props} />
@@ -86,12 +87,12 @@ class MyProfile extends React.Component {
               <div className="row no-gutter">
                 <UserHorizontalView
                   profileImage={this.props.loggedUser.data.profileImage}
-                  name={this.state.user_profile_detail.name}
-                  jobtitle={this.state.user_profile_detail.jobtitle}
-                  dateofjoining={this.state.user_profile_detail.dateofjoining}
-                  gender={this.state.user_profile_detail.gender}
-                  dob={this.state.user_profile_detail.dob}
-                  workEmail={this.state.user_profile_detail.work_email}
+                  name={name}
+                  jobtitle={jobtitle}
+                  dateofjoining={dateofjoining}
+                  gender={gender}
+                  dob={dob}
+                  workEmail={work_email}
                 />
               </div>
               <div className="row no-gutter">
@@ -155,7 +156,5 @@ MyProfile.propTypes = {
   payslip_history:     PropTypes.array,
   user_assign_machine: PropTypes.array
 };
-const VisibleMyProfile = connect(mapStateToProps, mapDispatchToProps)(MyProfile);
-const RouterVisibleMyProfile = withRouter(VisibleMyProfile);
 
-export default RouterVisibleMyProfile;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyProfile));

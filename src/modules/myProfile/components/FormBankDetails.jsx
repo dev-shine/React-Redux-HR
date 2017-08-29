@@ -57,7 +57,7 @@ class FormBankDetails extends React.Component {
           <label>IFSC Code</label>
           <input type="text"
             className="form-control"
-            ref="ifsc" onChange={(e) => this.setState({ifsc: e.target.value})}
+            onChange={(e) => this.setState({ifsc: e.target.value})}
             value={this.state.ifsc} />
         </div>
         <ButtonRaised className="col-xs-12 indigo" onClick={() => this.props.callUpdateBankDetails(this.state)} label="Update Bank Details" />

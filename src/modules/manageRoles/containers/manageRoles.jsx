@@ -99,34 +99,20 @@ class ManageRoles extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-10 m-l p-l p-b">
-                  <AddRolesForm callAddNewRole={this.callAddNewRole} displayData={this.state.rolesData} />
-                </div>
+                <AddRolesForm callAddNewRole={this.callAddNewRole} displayData={this.state.rolesData} />
               </div>
               <div className="row">
-                <div className="col-md-7 m-l">
-                  <div className="row box">
-                    <div className="col-md-12 navside p-t">
-                      <DisplayRolesLists
-                        displayData={this.state.rolesData}
-                        handleClick={(id) => this.click(id)}
-                        handleChange={this.handleChange}
-                        handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
-                        handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
-                      />
-                    </div>
-                  </div>
+                <div className="col-sm-8">
+                  <DisplayRolesLists
+                    displayData={this.state.rolesData}
+                    handleClick={(id) => this.click(id)}
+                    handleChange={this.handleChange}
+                    handleChangeNotification={(notificationId, rolesId) => this.handleChangeNotification(notificationId, rolesId)}
+                    handleDelete={(id) => { this.handleDelete(id); this.setState({deleteId: id}); }}
+                  />
                 </div>
-                <div className="col-md-1 m-l"><div className="row p-l p-r"></div></div>
-                <div className="col-md-4 m-l">
-                  <div className="row box">
-                    <div className="col-md-12 p-t">
-                      <UsersRolesList
-                        users={this.state.rolesData}
-                        onChange={(userId, roleId) => { this.onUserClick(userId, roleId); }}
-                       />
-                    </div>
-                  </div>
+                <div className="col-sm-4">
+                  <UsersRolesList users={this.state.rolesData} onChange={(userId, roleId) => { this.onUserClick(userId, roleId); }} />
                 </div>
               </div>
             </div>

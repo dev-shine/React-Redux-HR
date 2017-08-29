@@ -24,7 +24,6 @@ const PayslipHistory = ({payslip_history}) => {
 
   return (
     <div>
-      <h6 className="text-center">Previous Payslips</h6>
       <hr />
       <div className="streamline b-l m-l">
         {previousPayslips}

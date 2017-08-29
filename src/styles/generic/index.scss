@@ -1,8 +1,58 @@
 @import "generic/color";
 @import "generic/usersList";
+@import "generic/userRolesList";
 @import "generic/userHorizontalView";
 @import "generic/header";
 
 .pointer{
   cursor: pointer;
+}
+.responsive-p-x-md{
+  padding-left: 2rem;
+  padding-right: 2rem;
+  transition: .2s;
+}
+.responsive-p-x{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  transition: .2s;
+}
+.responsive-p-x-sm{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: .2s;
+}
+@media (max-width: 992px) and (min-width: 540px) {
+  .responsive-p-x-md{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transition: .2s;
+  }
+  .responsive-p-x{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    transition: .2s;
+  }
+  .responsive-p-x-sm{
+    padding-left: .7rem;
+    padding-right: .7rem;
+    transition: .2s;
+  }
+}
+@media (max-width: 540px) {
+  .responsive-p-x-md{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    transition: .2s;
+  }
+  .responsive-p-x{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    transition: .2s;
+  }
+  .responsive-p-x-sm{
+    padding-left: .3rem;
+    padding-right: .3rem;
+    transition: .2s;
+  }
 }

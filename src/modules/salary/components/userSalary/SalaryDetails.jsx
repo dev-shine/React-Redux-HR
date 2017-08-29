@@ -12,6 +12,7 @@ class SalaryDetails extends React.Component {
   componentWillReceiveProps (props) {
     this.setState({holdingAmount: props.data});
   }
+
   render () {
     let fTotalSalary = '';
     let fLeaveAllocated = '';
@@ -21,6 +22,7 @@ class SalaryDetails extends React.Component {
       fLeaveAllocated = this.props.data.test.leaves_allocated;
       fApplicableFrom = this.props.data.test.applicable_from;
     }
+
     return (
       <div>
         <hr />
@@ -31,7 +33,7 @@ class SalaryDetails extends React.Component {
                 <span className="h4 block m-a-0">{fTotalSalary}</span>
                 <small className="text-xs text-muted">Total Salary</small>
               </a>
-              <a href="" className="inline p-x b-l b-r text-center">
+                <a href="" className="inline p-x b-l b-r text-center">
                 <span className="h4 block m-a-0">{fLeaveAllocated}</span>
                 <small className="text-xs text-muted">Leaves Allocated</small>
               </a>
@@ -183,8 +185,8 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-6">
-            <div className="box p-a">
+        <div className="col-xs-6">
+          <div className="box p-a">
               <div className="clear">
                 <div>
                   <small className="text-muted" >{'Holding Ammount'}</small>
@@ -202,7 +204,6 @@ class SalaryDetails extends React.Component {
               </div>
             </div>
           </div>
-
       </div>
     );
   }

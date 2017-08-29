@@ -59,7 +59,6 @@ class Salary extends React.Component {
     });
     this.setState({'salary_details': new_details});
   }
-
   render () {
     return (
       <div >
@@ -76,12 +75,12 @@ class Salary extends React.Component {
                       <h6>Salary Details</h6>
                       <SalaryDetails data={this.state.holding_amt} />
                     </div>
-                    <div className="col-sm-3 b-l">
+                    <div id="hide" className="col-sm-3 border-left">
                       <h6>Salary Revisions</h6>
                       <hr />
                       <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary} />
                     </div>
-                    <div className="col-sm-3 b-l">
+                    <div id="hide2" className="col-sm-3 border-left">
                       <h6>Previous Payslips</h6>
                       <hr />
                       <PayslipHistory payslip_history={this.state.payslip_history} />

@@ -11,7 +11,32 @@
 @import "inventory/index";
 @import "leave/index";
 @import "team/index";
+@import "manageUsers/index";
 
+
+input[type=checkbox] {
+  /* All browsers except webkit*/
+  transform: scale(2);
+
+  /* Webkit browsers*/
+  -webkit-transform: scale(2);
+}
+.m-t-0{
+  margin-top: 0;
+}
+.m-b-0{
+  margin-bottom: 0;
+}
+.m-l-0{
+  margin-left: 0;
+}
+.m-r-0{
+  margin-right: 0;
+}
+.m-y-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 a.primary:hover {
   background-color: #0bb69f;
  }

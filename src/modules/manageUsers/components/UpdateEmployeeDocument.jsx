@@ -92,10 +92,12 @@ class UpdateEmployeeDocument extends React.Component {
         </div>
         <Dialog
           title="Upload Employee Documents"
+          contentClassName="upload-doc-dialog"
+          titleClassName="title"
+          bodyClassName="body"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: '75%', maxWidth: 'none'}}
           autoScrollBodyContent
         >
           <div>

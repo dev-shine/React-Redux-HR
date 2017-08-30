@@ -1004,10 +1004,4 @@ class Variables extends React.Component {
   }
 }
 
-const styles = {
-  block: {
-    maxWidth: 250
-  }
-};
-
 export default Variables;

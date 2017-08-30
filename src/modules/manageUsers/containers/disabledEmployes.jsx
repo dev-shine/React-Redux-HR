@@ -36,7 +36,6 @@ class PageDisabledEmployes extends React.Component {
   }
   componentWillMount () {
     window.scrollTo(0, 0);
-    this.windowScroll();
     this.props.onFetchDisabledEmployee();
   }
   componentWillReceiveProps (props) {
@@ -85,16 +84,6 @@ class PageDisabledEmployes extends React.Component {
       }
     });
   }
-  windowScroll () {
-    $(window).scroll(function () {
-      let scrollAmount = $(document).scrollTop();
-      if (scrollAmount > 40) {
-        $('#fixedScroll').addClass('fixedScroll');
-      } else {
-        $('#fixedScroll').removeClass('fixedScroll');
-      }
-    });
-  }
   render () {
     let disabledUsers = _.orderBy(this.props.usersList.disabled_users, 'user_Id', 'asc');
     let userDetails = '';
@@ -108,24 +97,25 @@ class PageDisabledEmployes extends React.Component {
           <Header pageTitle={'Disabled Employees'} showLoading={this.props.frontend.show_loading} userListHeader />
           <UsersListHeader disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
-            <div className="padding p-t-lg">
+            <div className="p-t p-x">
               <div className="row">
                 <div className="col-sm-3 hidden-xs" id="fixedScroll">
-                  <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
+                  <UsersList disabledUser users={disabledUsers} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} top={5} />
                 </div>
                 <div className="col-sm-9 col-xs-12">
                   <div className="box">
+                    <div className="col-xs-12 p-y-sm"><h6 className="text-center">User Details</h6><hr /></div>
                     <div className="box-body">{userDetails}</div>
                   </div>
                   <div className="box">
                     <div className="box-body">
                       <div className="row">
-                        <div className="col-md-6">
-                          <h6 className="text-center"><u>Previous Payslips</u></h6>
+                        <div className="col-xs-6 col-md-6 profile-input">
+                          <h6 className="text-center">Previous Payslips</h6>
                           <hr />
                           <UserPayslipsHistory user_payslip_history={this.state.user_payslip_history} />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-xs-6 col-md-6 profile-input">
                           <UpdateEmployeeDocument
                             disabled user_documents={this.state.user_documents}
                             user_id={this.state.selected_user_id}

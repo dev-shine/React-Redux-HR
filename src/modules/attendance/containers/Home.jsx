@@ -76,8 +76,8 @@ class Home extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-2">
-                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} />
+                <div className="col-md-2" id="fixedScroll">
+                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} />
                 </div>
                 <div className="col-md-10">
                   <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} />

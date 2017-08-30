@@ -3,11 +3,19 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 
-const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header}) => {
+const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, top}) => {
   const userClick = (param) => {
     onUserClick(param);
     header && $('#user-list-header').modal('hide');
   };
+  $(window).scroll(function () {
+    let scrollAmount = $(document).scrollTop();
+    if (scrollAmount > top) {
+      $('#fixedScroll').addClass('fixedScroll');
+    } else {
+      $('#fixedScroll').removeClass('fixedScroll');
+    }
+  });
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';

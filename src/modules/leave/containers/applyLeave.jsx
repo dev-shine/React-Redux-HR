@@ -97,8 +97,8 @@ class ApplyLeave extends React.Component {
 
     let mainDivs = (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR
       ? <div className="row">
-        <div className="col-md-2">
-          <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} />
+        <div className="col-md-2" id="fixedScroll">
+          <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} top={10} />
         </div>
         <div className="col-md-10">
           <div className="box">

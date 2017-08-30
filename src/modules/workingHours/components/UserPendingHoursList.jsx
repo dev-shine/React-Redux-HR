@@ -43,6 +43,7 @@ export default class UserPendingHoursList extends React.Component {
         this.props.router.push('/home');
       }
     }
+
     this.setState({
       pendingTimeList: props.manageUserPendingHours,
       usersList:       props.manageUserPendingHours.displayData.user_list

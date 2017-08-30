@@ -168,7 +168,7 @@ class AddAsLeaveHour extends React.Component {
       apply_half_day_button_2 = <ButtonFlat className="text-accent"
         onClick={() => this._apply_half_day_1(2)} label="Apply Leave For Second Half" />;
     }
-    
+
     let width = '63%';
     if (this.props.forAdmin == true) {
       width = '82%';
@@ -185,7 +185,7 @@ class AddAsLeaveHour extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentStyle={{width: '70%', maxWidth: 'auto'}}
+          contentStyle={{width: '80%', maxWidth: 'auto'}}
           autoScrollBodyContent>
           <div className="row">
             <div className="col-sm-4 text-center">
@@ -197,7 +197,7 @@ class AddAsLeaveHour extends React.Component {
               <Calendar onChange={this.handleEndDate} />
             </div>
             <div className="col-sm-4">
-              <h5>Leave Summary</h5>
+              <h5 className="text-center">Leave Summary</h5>
               <br />
 
               <form role="form" onSubmit={this.doApplyLeave}>
@@ -244,18 +244,24 @@ class AddAsLeaveHour extends React.Component {
                           ? <div className="sl-item b-warning">
                             <div className="sl-content">
                               <div className="sl-date text-muted">Reason For Late Applying</div>
-                              <div><input type="text"
-                                onChange={(e) => this.setState({late_reason: e.target.value})}
-                                value={this.state.late_reason} required /></div>
-                            </div>
-                          </div> : null
+                                <div className="form-group">
+                                  <input type="text"
+                                    className="form-control"
+                                    onChange={(e) => this.setState({late_reason: e.target.value})}
+                                    value={this.state.late_reason} required /></div>
+                                </div>
+                              </div> : null
                         }
                     <div className="sl-item b-warning">
                       <div className="sl-content">
                         <div className="sl-date text-muted">Reason</div>
-                        <div><input type="text" ref="reason"
-                          onChange={() => this.setState({form_reason: this.refs.reason.value})}
-                          value={this.state.form_reason} /></div>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            type="text"
+                            ref="reason"
+                            onChange={() => this.setState({form_reason: this.refs.reason.value})}
+                            value={this.state.form_reason} /></div>
                       </div>
                     </div>
                     <div className="sl-item b-success">
@@ -273,8 +279,8 @@ class AddAsLeaveHour extends React.Component {
                 </div>
 
                 <div className="form-group row m-t-md">
-                  <div className="col-sm-10">
-                    <Button type="submit" className="green" label="Apply" />
+                  <div className="text-center">
+                    <Button type="submit" className="md-btn md-raised m-b-sm green" label="Apply Leave" />
                   </div>
                 </div>
               </form>

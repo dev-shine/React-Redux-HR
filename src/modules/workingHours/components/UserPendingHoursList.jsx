@@ -131,8 +131,7 @@ export default class UserPendingHoursList extends React.Component {
             </td>
             : <td><mark>{'Pending'}</mark></td>
         }
-
-        {val.status_merged !== 0
+        {val.status_merged === '0'
           ? <td>{addButton} {HalfdayButton} {leaveButton}</td>
           : <td> <mark>{'No Action Required'} </mark></td>
       }
@@ -170,8 +169,8 @@ export default class UserPendingHoursList extends React.Component {
                           {pendingTimeMap}
                         </tbody>
                       </table>
-                      : <div className="col-xs-6 col-xs-offset-3">
-                        <h5 className="col-md-6">
+                      : <div>
+                        <h5 className="text-center">
                           {'Not Updated !'}
                         </h5>
                       </div>

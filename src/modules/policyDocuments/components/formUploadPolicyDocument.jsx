@@ -47,10 +47,12 @@ class FormUploadPolicyDocument extends React.Component {
   }
   render () {
     return (
-      <Paper zDepth={1} >
+      <Paper
+        className="upload-doc-paper"
+        zDepth={2} >
         <div className="row">
           <form className="form-inline">
-            <div className="col-xs-10 form-group m-x-lg">
+            <div className="col-md-10 form-group m-x-lg">
               <TextField
                 ref='name'
                 fullWidth
@@ -64,7 +66,7 @@ class FormUploadPolicyDocument extends React.Component {
                 }}
               />
             </div>
-            <div className="col-xs-10 form-group m-x-lg">
+            <div className="col-md-10 form-group m-x-lg">
               <TextField
                 ref='link'
                 fullWidth
@@ -72,14 +74,16 @@ class FormUploadPolicyDocument extends React.Component {
                 errorText={this.state.errLink}
                 value={this.state.linkofdoc}
                 onChange={(e) => {
-                  this.setState({
-                    linkofdoc: e.target.value
-                  });
+                  this.setState({linkofdoc: e.target.value});
                 }}
               />
             </div>
-            <div className="col-xs-10 form-group m-x-lg">
-              <RaisedButton label="SUBMIT" primary className="m-y-md pull-right" onClick={this.submitDocs} />
+            <div className="col-xs-10 m-y-md ">
+              <RaisedButton
+                label="SUBMIT"
+                primary
+                className=" pull-right btn-responsive"
+                onClick={this.submitDocs} />
             </div>
           </form>
         </div>

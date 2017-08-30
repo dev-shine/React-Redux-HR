@@ -44,13 +44,13 @@ const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, 
       <div className="panel panel-default" style={{'border': 0}} key={key}>
         <div className="panel-heading p-b-lg">
           <div className="panel-title p-b-md">
-            <span className="col-xs-9">
+            <span className="col-xs-8 col-sm-9">
               <Link data-toggle="collapse" data-parent="#accordion" to={collapseLink} >
-                <h4 className="m-b-xs text-lg col-sm-10">{value.name}</h4>
+                <h4 className="m-b-xs text-lg col-xs-10">{value.name}</h4>
                 <span className="col-xs-12 text-sm">{value.description}</span>
               </Link>
             </span>
-            <Link to="/manage_roles" className="col-sm-3 m-t-sm p-t-sm text-sm text-danger"
+            <Link to="/manage_roles" className="col-xs-4 col-sm-3 m-t-sm p-t-sm text-sm text-danger"
               onClick={() => {
                 confirm('Are you sure ?', 'Do you want to Delete the Role ?', 'warning').then((res) => {
                   if (res) {
@@ -60,8 +60,8 @@ const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, 
               }}><i>Delete Role</i></Link>
           </div>
         </div>
-        <div id={collapseLink} className="table-responsive p-t p-r p-b p-l panel-collapse collapse">
-          <div className="panel-body">
+        <div id={collapseLink} className="table-responsive panel-collapse collapse">
+          <div className="navside panel-body p-a-xs">
             <table className="table table-condensed">
               <thead><tr><th>Pages - Actions</th><th> Notification </th></tr></thead>
               <tbody><tr><td><ul>{rolePages}</ul></td><td>{roleNotification}</td></tr></tbody>
@@ -72,7 +72,7 @@ const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, 
     );
   });
   return (
-    <div className="row p-t">
+    <div className="row box p-t">
       <div className="col-xs-12 panel-group" id="accordion">{rolesList}</div>
     </div>
   );

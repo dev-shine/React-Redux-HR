@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
+import Header from 'components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
 import UsersList from 'components/generic/UsersList';
-import Header from 'components/generic/Header';
+import UsersListHeader from 'components/generic/UsersListHeader';
 import ListUserWorkingHours from 'components/workingHours/ListUserWorkingHours';
 import FormAddUserWorkingHours from 'modules/workingHours/components/FormAddUserWorkingHours';
 import * as actions from 'appRedux/actions';
@@ -79,14 +80,22 @@ class ManageUserWorkingHours extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Manage Employees Working Hours' + statusMessage} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Manage Employees Working Hours' + statusMessage} showLoading={this.props.frontend.show_loading} userListHeader />
+          <UsersListHeader
+            users={this.props.usersList.users}
+            selectedUserId={this.state.selected_user_id}
+            onUserClick={this.onUserClick}
+              />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-3">
-                  <UsersList users={this.props.usersList.users} selectedUserId={this.state.defaultUserDisplay} onUserClick={this.onUserClick} />
+                <div className="col-sm-3 hidden-xs">
+                  <UsersList users={this.props.usersList.users}
+                    selectedUserId={this.state.defaultUserDisplay}
+                    onUserClick={this.onUserClick}
+                    />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-9 col-xs-12">
                   <div className="box">
                     <div className="item">
                       <div className="item-bg">
@@ -103,21 +112,28 @@ class ManageUserWorkingHours extends React.Component {
                       </p>
                     </div>
                   </div>
-                  <div className="row no-gutter b-t box">
-                    <div className="col-xs-3 b-r box">
-                      <div className="p-a block ">
-                        <h6 className="text-center">Existing Working Hours</h6>
-                        <hr />
-                        <ListUserWorkingHours displayData={this.props.manageUserWorkingHours.displayData} />
-                      </div>
-                    </div>
-                    <div className="col-xs-9 b-r box">
+                  <div className="row no-gutter b-t box ">
+
+                    <div className="col-md-9 col-xs-12 b-r box">
                       <div className="p-a block">
                         <h6 className="text-center">Add New</h6>
                         <hr />
-                        <FormAddUserWorkingHours {...this.props} userid={this.state.defaultUserDisplay} callAddUserWorkingHours={this.callAddUserWorkingHours} />
+                        <FormAddUserWorkingHours {...this.props}
+                          userid={this.state.defaultUserDisplay}
+                          callAddUserWorkingHours={this.callAddUserWorkingHours}
+                          />
                       </div>
                     </div>
+                    <div className="col-md-3 col-xs-12  b-r box ">
+                      <div className="p-a block ">
+                        <h6 className="text-center">Existing Working Hours</h6>
+                        <hr />
+                        <div className="hour-overflow ">
+                          <ListUserWorkingHours displayData={this.props.manageUserWorkingHours.displayData} />
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>

@@ -157,8 +157,8 @@ class ManageSalary extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-2">
-                  <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} />
+                <div className="col-md-2" id="fixedScroll">
+                  <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} top={10} />
                 </div>
                 <div className="col-md-10">
                   <div className="box">

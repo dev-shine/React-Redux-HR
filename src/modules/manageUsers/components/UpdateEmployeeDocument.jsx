@@ -63,7 +63,6 @@ class UpdateEmployeeDocument extends React.Component {
   }
   render () {
     let pageUrl = window.location.href;
-    let styles = _.cloneDeep(this.constructor.styles);
     let userDoc = [];
     _.map(this.props.user_documents, (doc, key) => {
       userDoc.push(
@@ -71,7 +70,7 @@ class UpdateEmployeeDocument extends React.Component {
           <div className="clear b-t p-t">
             <div className="_500 block">
               {doc.document_type}
-              <span className="glyphicon glyphicon-remove-circle pull-right" style={{fontSize: '12px', cursor: 'pointer'}} onClick={() => { this.deleteDocument(doc.id); }}></span>
+              <span className="glyphicon glyphicon-remove-circle pull-right pointer" onClick={() => { this.deleteDocument(doc.id); }}></span>
             </div>
             {typeof doc.link_1 === 'undefined' ? '' : <span className="text-muted"><div dangerouslySetInnerHTML={{__html: doc.link_1}}></div><br /></span>}
           </div>
@@ -132,8 +131,8 @@ class UpdateEmployeeDocument extends React.Component {
                 <input type="file" className="form-control" ref="file" name="link_1" />
               </div>
               <div className="form-group">
-                <input style={styles.checkbox} type="checkbox" ref="declear" />
-                <span style={styles.declearation}><b>*IMPORTANT:</b>By uploading this document you certify that these document are true and all information is correct</span>
+                <input className="vertical-middle" type="checkbox" ref="declear" />
+                <span className="declaration"><b>*IMPORTANT:</b>By uploading this document you certify that these document are true and all information is correct</span>
               </div>
               <div className="form-group">
                 <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => { this.callUpdateDocuments(e); }} />
@@ -145,10 +144,5 @@ class UpdateEmployeeDocument extends React.Component {
     );
   }
 }
-
-UpdateEmployeeDocument.styles = {
-  checkbox:     {verticalAlign: 'middle'},
-  declearation: {display: 'inline-flex', width: '90%', marginLeft: '10px'}
-};
 
 export default UpdateEmployeeDocument;

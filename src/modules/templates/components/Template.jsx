@@ -18,110 +18,8 @@ import LoadingIcon from 'components/generic/LoadingIcon';
 import EditableDiv from 'components/editor/EditableDiv';
 import FilterLabel from 'components/template/FilterLabel';
 import {getToken} from 'src/services/generic';
-import {Router, browserHistory, Link, withRouter} from 'react-router';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 var FormData = require('form-data');
 var moment = require('moment');
-
-const styles = {
-  block: {
-    maxWidth: 250
-  },
-  lable: {
-    fontWeight: 'normal',
-    fontSize:   15
-  },
-  container: {
-    position:   'relative',
-    textAlign:  'center',
-    paddingTop: '200px'
-  },
-  formInput: {
-    'marginLeft':  '5%',
-    'marginRight': '5%',
-    'width':       '90%'
-  },
-  delete: {
-    float:       'right',
-    marginTop:   '-12px',
-    marginRight: '-7px'
-  },
-  editorStyle: {
-    overflow:   'auto',
-    display:    'block',
-    width:      '100%',
-    height:     '300px',
-    maxHeight:  '300px',
-    background: 'rgba(204,204,204,.51)'
-  },
-  errorAlert: {
-    'marginLeft':  '5%',
-    'marginRight': '5%',
-    'width':       '90%',
-    'display':     'none'
-  },
-  uploadButton: {
-    'position':   'relative',
-    'overflow':   'hidden',
-    'margin':     '10px',
-    'marginLeft': '40px',
-    'cursor':     'pointer'
-  },
-  uploadInput: {
-    'color':    'transparent',
-    'position': 'absolute',
-    'top':      0,
-    'right':    0,
-    'margin':   0,
-    'padding':  0,
-    'fontSize': '20px',
-    'cursor':   'pointer',
-    'opacity':  0
-  },
-  uploadedPdfBlock: {
-    'boxShadow':  '0px 0px 5px #888888',
-    'height':     '30px',
-    'padding':    '5px',
-    'textAlign':  'left',
-    'marginLeft': '40px',
-    'marginTop':  '10px',
-    'width':      '350px',
-    'display':    'block',
-    'fontStyle':  'italic',
-    'fontWeight': 'bold',
-    'color':      '#0099cc'
-  },
-  crossButton: {
-    'color':     'red',
-    'float':     'right',
-    'marginTop': '3px',
-    'cursor':    'pointer'
-  },
-  pdfHeader: {
-    width:          '100%',
-    borderCollapse: 'collapse',
-    minHeight:      '50px'
-  },
-  tab1: {
-    borderCollapse: 'collapse',
-    minHeight:      '50px'
-  },
-  para: {
-    fontSize:     '29px',
-    fontWeight:   '800',
-    paddingTop:   '10px',
-    marginBottom: '12px',
-    marginTop:    '-20px'
-  },
-  span_bold: {
-    fontWeight: '600',
-    fontSize:   '14px'
-  },
-  pdfFooter: {
-    borderTop:    '3px solid',
-    marginBottom: '8px'
-  }
-};
 
 class Variables extends React.Component {
   constructor (props) {
@@ -292,8 +190,8 @@ class Variables extends React.Component {
 
         let variable = _.find(this.props.templates.variable, function (o) { return o.name == str; });
 
-        if (typeof variable !== 'undefined' && variable.name == str) {
-          if (variable.variable_type == 'user' || variable.name == '#logo') {
+        if (typeof variable !== 'undefined' && variable.name === str) {
+          if (variable.variable_type === 'user' || variable.name === '#logo') {
             templ = this.replaceVariablesWithValue(templ, str, variable.value);
           }
 
@@ -308,29 +206,29 @@ class Variables extends React.Component {
           }
           if (variable.variable_type === 'system' && !_.isEmpty(recipient) && !_.includes(variable.name, '#date')) {
             let value;
-            if (variable.name == '#joining_date') {
+            if (variable.name === '#joining_date') {
               value = recipient.dateofjoining;
               value = moment(value).format(format);
-            } else if (variable.name == '#employee_title') {
+            } else if (variable.name === '#employee_title') {
               value = recipient.jobtitle;
-            } else if (variable.name == '#employee_name') {
+            } else if (variable.name === '#employee_name') {
               value = recipient.name;
-            } else if (variable.name == '#salary') {
+            } else if (variable.name === '#salary') {
               value = recipient.salary_detail;
               value = value.toString();
-            } else if (variable.name == '#employee_user_name') {
+            } else if (variable.name === '#employee_user_name') {
               value = recipient.username;
-            } else if (variable.name == '#employee_email_id') {
+            } else if (variable.name === '#employee_email_id') {
               value = recipient.work_email;
-            } else if (variable.name == '#page_break') {
+            } else if (variable.name === '#page_break') {
               value = "<div style='page-break-after:always;'></div>";
-            } else if (variable.name == '#employee_user_id') {
+            } else if (variable.name === '#employee_user_id') {
               value = recipient.user_Id;
-            } else if (variable.name == '#employee_number') {
+            } else if (variable.name === '#employee_number') {
               value = recipient.emergency_ph1;
-            } else if (variable.name == '#training_completion_date') {
+            } else if (variable.name === '#training_completion_date') {
               var mydate = new Date(recipient.training_completion_date);
-              if (mydate != 'Invalid Date') {
+              if (mydate !== 'Invalid Date') {
                 value = moment(mydate).format(format);
               } else {
                 value = '#training_completion_date';
@@ -420,7 +318,7 @@ class Variables extends React.Component {
     });
   }
   selectUser (data, status, recipientType = this.state.recipientType) {
-    if (recipientType == 'Recipient') {
+    if (recipientType === 'Recipient') {
       let recipient = this.state.recipient;
         // status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       status ? recipient[0] = data : _.pullAllBy(recipient, [data], 'email');
@@ -428,13 +326,13 @@ class Variables extends React.Component {
         recipient: recipient
       });
       this.applyVariables(this.state.templateId);
-    } else if (recipientType == 'CC') {
+    } else if (recipientType === 'CC') {
       let recipient = this.state.cc;
       status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       this.setState({
         cc: recipient
       });
-    } else if (recipientType == 'BCC') {
+    } else if (recipientType === 'BCC') {
       let recipient = this.state.bcc;
       status ? recipient.push(data) : _.pullAllBy(recipient, [data], 'user_Id');
       this.setState({
@@ -606,7 +504,7 @@ class Variables extends React.Component {
       form_data.append(i.toString(), file_data[i]);
     }
     for (i = 0; i < file_data['length']; i++) {
-      LinearProgressBar.push(<div key={i} className="row" style={styles.uploadedPdfBlock}>
+      LinearProgressBar.push(<div key={i} className="row uploaded-pdf-block-style">
             <div className="col-xs-7">
               {file_data[i].name}
             </div>
@@ -630,7 +528,7 @@ class Variables extends React.Component {
         let uploadedPDF = self.state.uploadedPDF;
         let upload_file_path = self.state.upload_file;
         let preKey = uploadedPDF.length;
-        if (obj.error == 0) {
+        if (obj.error === 0) {
           let data = obj.data;
           _.map(data, (file, key) => {
             uploadedPDF.push(file.name);
@@ -667,17 +565,15 @@ class Variables extends React.Component {
     let fileList = [];
     _.map(this.state.uploadedPDF, (name, key) => {
       fileList.push(
-             <div key={key} style={styles.uploadedPdfBlock}>
-               {name}
-               <i
-                 onClick={() => { this.deleteAttachment(key); }}
-                 style={styles.crossButton}
-                 className="fa fa-remove">
-               </i>
-             </div>);
+        <div key={key}>
+          {name}
+          <i onClick={() => { this.deleteAttachment(key); }}
+            className="fa fa-remove uploaded-pdf-block-style cross-button-style">
+          </i>
+        </div>);
     });
     const actionsCreateTemplate = [
-      <FlatButton label="Close" primary onTouchTap={this.handleCloseDialog} style={{marginRight: 5}} />,
+      <FlatButton label="Close" className="m-r-5" primary onTouchTap={this.handleCloseDialog} />,
       <RaisedButton
         label={_.isEmpty(this.state.templateId) ? 'SAVE' : 'Update'}
         primary onClick={this.saveTemplate} />
@@ -686,8 +582,7 @@ class Variables extends React.Component {
       <FlatButton
         label="Close"
         primary
-        onTouchTap={this.handleCloseDialog}
-        style={{marginRight: 5}} />,
+        onTouchTap={this.handleCloseDialog} />,
       <RaisedButton
         label={'Preview'}
         primary
@@ -698,11 +593,11 @@ class Variables extends React.Component {
     let listChartItems = [],
       recipientType = this.state.recipientType, // $('input[name="recipientType"]:checked').val(),
       recipient = [];
-    if (recipientType == 'Recipient') {
+    if (recipientType === 'Recipient') {
       recipient = this.state.recipient;
-    } else if (recipientType == 'CC') {
+    } else if (recipientType === 'CC') {
       recipient = this.state.cc;
-    } else if (recipientType == 'BCC') {
+    } else if (recipientType === 'BCC') {
       recipient = this.state.bcc;
     }
 
@@ -722,16 +617,16 @@ class Variables extends React.Component {
     let pendingVar = [];
     _.map(this.state.pValue, (variable, i) => {
       pendingVar.push(
-          <div className="form-group" key={i}>
-           <label>Enter value for {variable.name} :</label>
-           <input type="text" className="form-control" onChange={(e) => {
-             variable.value = e.target.value;
-             this.setState({
-               pValue: this.state.pValue
-             });
-           }}
-             value={variable.value} />
-          </div>);
+        <div className="form-group" key={i}>
+          <label>Enter value for {variable.name} :</label>
+          <input type="text" className="form-control" onChange={(e) => {
+            variable.value = e.target.value;
+            this.setState({
+              pValue: this.state.pValue
+            });
+          }}
+            value={variable.value} />
+        </div>);
     });
     return (
       <div className="app-body" id="view" style={{'marginTop': 10}}>
@@ -748,13 +643,13 @@ class Variables extends React.Component {
               autoScrollBodyContent
         >
         <div className="row">
-          <div className="col-xs-12">
+          <div className="col-md-12 col-sm-12">
             <LoadingIcon {...this.props} />
           </div>
         </div>
-        <div className="col-xs-9" style={{borderRight: '1px solid gainsboro'}}>
+        <div className="col-md-9 border-right-style" >
           <form className="form-inline">
-          <div className="form-group" style={styles.formInput}>
+          <div className="form-group form-input-style">
           <TextField
             ref='value'
             floatingLabelText="Name"
@@ -770,7 +665,7 @@ class Variables extends React.Component {
             }}
           />
           </div>
-          <div className="form-group" style={styles.formInput}>
+          <div className="form-group form-input-style">
           <TextField
             ref='Name'
             floatingLabelText="Subject"
@@ -786,17 +681,17 @@ class Variables extends React.Component {
             }}
           />
           </div>
-          <div className="form-group" style={styles.formInput}>
+          <div className="form-group form-input-style">
             <RichTextEditor
-              style={styles.editorStyle}
+              className="editor-style"
               value={this.state.templateBody}
               onChange={this.handleContentChange}
              />
           </div>
           </form>
         </div>
-        <div className="col-xs-3">
-          <h5 style={{textAlign: 'center', color: '#000'}}>System Variables</h5>
+        <div className="col-md-3">
+          <h5>System Variables</h5>
           <Divider />
             {_.map(this.props.templates.variable, (vari) => {
               if (vari.variable_type === 'system') {
@@ -809,7 +704,7 @@ class Variables extends React.Component {
               }
             })
             }
-            <h5 style={{textAlign: 'center', color: '#000'}}>User Variables</h5>
+            <h5 >User Variables</h5>
             <Divider />
               {_.map(this.props.templates.variable, (vari) => {
                 if (vari.variable_type == 'user') {
@@ -823,26 +718,26 @@ class Variables extends React.Component {
               })
               }
         </div>
-        </Dialog>
-             <div className="row" style={{margin: '0px 4px 0px'}}>
-               <div className="col-xs-12">
-                 <div className='row'>
-                  <div className='col-xs-12' style={{paddingTop: '16px', paddingRight: '0px'}}>
+            </Dialog>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs-12">
+              <div className='row'>
+                <div className='col-md-12 col-sm-12 col-xs-12 m-t-xs'>
                   <button
                     className="md-btn md-raised m-b-sm indigo"
                     onClick={this.openCreateTemplate}
-                  >Create New Template</button>
+                    >Create New Template</button>
+                </div>
+                <div className='col-md-12 col-xs-12 col-sm-12' style={{paddingTop: '10px', paddingRight: '0px', textAlign: 'center'}}>
+                  <div id="mailsentsuccessfully" className="alert alert-success pull-left error-alert-style">
+                    <a href="#" className="close" onClick={(e) => this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
                   </div>
-                  <div className='col-xs-12' style={{paddingTop: '10px', paddingRight: '0px', textAlign: 'center'}}>
-                    <div id="mailsentsuccessfully" className="alert alert-success pull-left" style={styles.errorAlert}>
-                      <a href="#" className="close" onClick={(e) => this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
-                    </div>
-                  </div>
-                  <div className={this.state.paper} style={{'marginTop': '8%'}}>
-                    {_.map(this.props.templates.templates, (tmp, i) => (
-                    <div className="col-xs-6" key={i} style={{height: '400px', marginBottom: '20px'}}>
-                      <Paper zDepth={0} className="paper">
-                        <div style={styles.delete}>
+                </div>
+                <div className={this.state.paper} style={{'marginTop': '8%'}}>
+                  {_.map(this.props.templates.templates, (tmp, i) => (
+                    <div className="col-md-6 col-sm-6 col-xs-12 body-space" key={i}>
+                      <Paper zDepth={0} className="paper scroll" >
+                        <div className="delete-style">
                           <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#000', cursor: 'pointer', padding: '5px 10px'}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>
                           <div id={tmp.id + '_menuBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}></div>
                           <div id={tmp.id + '_menu'} className="menuOptions" onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}>
@@ -851,84 +746,101 @@ class Variables extends React.Component {
                             <span className="b-b" onClick={() => this.deleteTemplate(tmp)} ><i className="fa fa-trash tempalate-btn delete" aria-hidden="true" title="Delete"></i>Delete Template</span>
                           </div>
                         </div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Name:                                                                                                                                                                                                                                                                                                                        </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
-                        <div className="col-xs-12 m-b"><span style={{display: 'inline-flex'}}><b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
-                    </Paper>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Name:</b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.name}}></div></span></div>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Subject: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.subject}}></div></span></div>
+                        <div className="col-md-12 col-sm-12 col-xs-12 m-b"><span className="flex-style">
+                          <b>Body: </b><div className="p-l" dangerouslySetInnerHTML={{__html: tmp.body}}></div></span></div>
+                      </Paper>
                     </div>
-                        )
-                      )
-                    }
-                  </div>
-                 </div>
-               </div>
-             </div>
-             <Dialog
-               title={'Send Mail'}
-               actions={actionsSendMail}
-               modal={false}
-               bodyStyle={{minHeight: '70vh'}}
-               contentStyle={{maxWidth: '90%', width: '90%', transform: 'translate(0px, 0px)'}}
-               open={this.state.openSendMailDialog}
-               onRequestClose={this.handleCloseDialog}
-               autoDetectWindowHeight
-               autoScrollBodyContent
-             >
-             <Dialog
-               title={'Enter values'}
-               actions={[<FlatButton label="Close" primary onTouchTap={this.handleClose} style={{marginRight: 5}} />,
-                 <RaisedButton label={'Set Variables'} primary onClick={this.setVariable} />]}
-               modal={false}
-               bodyStyle={{minHeight: '50vh'}}
-               contentStyle={{maxWidth: '90%', width: '50%', transform: 'translate(0px, 0px)'}}
-               open={this.state.openVarDialog}
-               onRequestClose={this.handleClose}
-               autoDetectWindowHeight
-               autoScrollBodyContent
-             >
-             <div>
-             <div className="col-sx-12"></div>
-                {pendingVar}
-            </div>
-           </Dialog>
-           <Dialog
-             title={'Mail Preview'}
-             titleStyle={{padding: '5px 24px 0px', textAlign: 'center', fontSize: '18px', fontWeight: '500'}}
-             actions={[<FlatButton label="Cancel" primary onTouchTap={this.closeMailPreview} style={{marginRight: 5}} />,
-               <RaisedButton label={'Continue'} primary onClick={this.sendMail} />,
-               <FlatButton label={'Download Preview'} primary style={{'float': 'left'}} onClick={(e) => { this.download_mail_preview(e); }} />]}
-             modal={false}
-             bodyStyle={{minHeight: '70vh'}}
-             contentStyle={{maxWidth: '90%', width: '70%', transform: 'translate(0px, 0px)'}}
-             open={this.state.openPreview}
-             onRequestClose={this.closeMailPreview}
-             autoDetectWindowHeight
-             autoScrollBodyContent
-           >
-            <div className="row">
-              <div className="col-xs-12">
-                <LoadingIcon {...this.props} />
+                  )
+                )
+              }
+                </div>
               </div>
             </div>
-            <div id="dialogContent" style={{'fontFamily': 'sans-serif', 'margin': '1.5cm 0 0', 'textAlign': 'justify'}}>
-              <div className="p-t p-b" style={{fontWeight: '600', fontSize: '17px', marginTop: '5px', textAlign: 'center', 'textDecoration': 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+          </div>
+          <Dialog
+            title={'Send Mail'}
+            actions={actionsSendMail}
+            modal={false}
+            bodyClassName="template-dialog-style"
+            contentClassName="dialog-content-style"
+            open={this.state.openSendMailDialog}
+            onRequestClose={this.handleCloseDialog}
+            autoDetectWindowHeight
+            autoScrollBodyContent
+            >
+            <Dialog
+              title={'Enter values'}
+              actions={[
+                <FlatButton
+                  label="Close"
+                  primary onTouchTap={this.handleClose}
+                  style={{marginRight: 5}} />,
+                <RaisedButton
+                  label={'Set Variables'}
+                  primary onClick={this.setVariable} />
+              ]}
+              modal={false}
+              bodyClassName="template-dialog-style"
+              contentClassName="nextdialog-content-style"
+              open={this.state.openVarDialog}
+              onRequestClose={this.handleClose}
+              autoDetectWindowHeight
+              autoScrollBodyContent
+             >
+              <div>
+                <div className="col-sx-12"></div>
+                  {pendingVar}
+              </div>
+            </Dialog>
+            <Dialog
+              title={'Mail Preview'}
+              titleClassName="templates-dialog-title"
+              actions={[
+                <FlatButton label="Cancel"
+                  primary onTouchTap={this.closeMailPreview}
+                  style={{marginRight: 5}} />,
+                <RaisedButton label={'Continue'}
+                  primary onClick={this.sendMail} />,
+                <FlatButton
+                  label={'Download Preview'}
+                  primary style={{'float': 'left'}}
+                  onClick={(e) => { this.download_mail_preview(e); }} />]}
+              modal={false}
+              bodyClassName="template-dialog-style"
+              contentClassName="nextdialog-content-style"
+              open={this.state.openPreview}
+              onRequestClose={this.closeMailPreview}
+              autoDetectWindowHeight
+              autoScrollBodyContent
+              >
+              <div className="row">
+                <div className="col-md-12">
+                  <LoadingIcon {...this.props} />
+                </div>
+              </div>
+              <div id="dialogContent template-dialog-content-style">
+              <div className="p-t p-b template-send-email" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
               <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
             </div>
          </Dialog>
-             <div className="col-xs-9" style={{borderRight: '1px solid gainsboro'}}>
+             <div className="col-md-9 b-r-gainsboro">
                <form className="form-inline">
-                 <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#0000FF', cursor: 'pointer', display: 'block', width: '100%', textAlign: 'right'}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}>Add recipient</span>
+                 <span className="pull-right add-recipient-style" onClick={() => this.toggleDialog('FilterBack', 'Filter')}>Add recipient</span>
                    <div className="dropdown">
-                    <div id={'FilterBack'} className="dropdown-backdrop-custom" style={{'display': 'none', 'opacity': 0.5}} onClick={() => this.toggleDialog('FilterBack', 'Filter')}></div>
-                    <div id={'Filter'} className="dropdown-menu has-child has-arrow selectUser">
+                    <div id={'FilterBack'} className="dropdown-backdrop-custom filter-back-style" onClick={() => this.toggleDialog('FilterBack', 'Filter')}></div>
+                    <div id={'Filter'} className="dropdown-menu has-child has-arrow selectUser mail-recipient">
                           <ul className="list-unstyled pt-xs">
                           <li className="mb-sm b-b p-t p-b">
-                              <div className="form-group" style={{width: '100%'}}>
+                              <div className="form-group form-group-full-width" >
                                 <input type="checkbox" id="notListed" className="not-listed" checked={this.state.recipientNotFound} onChange={(e) => this.setState({recipientNotFound: e.target.checked})} /> Recipient Not Listed
                               </div>
                           </li>
                           <li className="mb-sm b-b p-t p-b">
-                            <div className="form-group" style={{width: '40%', paddingLeft: '0px'}}>
+                            <div className="form-group form-group-p-0-w-4" >
                               <input type="radio" id="recipient" className="recipient" name="recipientType" checked={recipientType == 'Recipient'} value="Recipient" onChange={(e) => { this.setState({recipientType: e.target.value}); }} /> Recipient
                             </div>
                             <div className="form-group" style={{width: '30%', paddingLeft: '0px'}} >
@@ -948,28 +860,32 @@ class Variables extends React.Component {
                             </div>
                           </li>
                           : <span>
-                          <li className="mb-sm b-b p-t p-b">
-                            <div className="form-group" style={{width: '100%'}}>
-                              <input type="text" style={{width: '100%'}} className="form-control select-all" placeholder="search" onKeyUp={(e) => this.filterList(e.target.value)} />
-                            </div>
-                          </li>
+                            <li className="mb-sm b-b p-t p-b">
+                              <div className="form-group">
+                                <input type="text"
+                                  name="search"
+                                  className="form-control select-all search-box"
+                                  placeholder="search"
+                                  onKeyUp={(e) => this.filterList(e.target.value)} />
+                              </div>
+                            </li>
                               {listChartItems}
-                            </span>
+                          </span>
                             }
                           </ul>
-                      </div>
-                  </div>
-                <div id="previewalert" className="alert alert-danger pull-left" style={styles.errorAlert}>
+                    </div>
+                </div>
+                <div id="previewalert" className="alert alert-danger pull-left error-alert-style">
                   <a href="#" className="close" onClick={(e) => this.hideError(e, 'previewalert')} aria-label="close">&times;</a>
                 </div>
-                <div className="form-group selected-recipient" style={styles.formInput}>
+                <div className="form-group selected-recipient form-input-style">
                   <div className="pull-left to">To</div>
                   <div className="pull-left filter-tags" style={{fontSize: '12px'}}>
                     {this.state.recipient.length > 0 ? <FilterLabel data={this.state.recipient} onClick={(label, indexLabel) => this.onClickLabel(label, indexLabel, 'Recipient')} onClear={this.onclearFilter} /> : ''}
                   </div>
                 </div>
                 {this.state.cc.length > 0
-                  ? <div className="form-group selected-recipient" style={styles.formInput}>
+                  ? <div className="form-group selected-recipient form-input-style">
                   <div className="pull-left to">CC</div>
                   <div className="pull-left filter-tags" style={{fontSize: '12px'}}>
                     <FilterLabel data={this.state.cc} onClick={(label, indexLabel) => this.onClickLabel(label, indexLabel, 'CC')} onClear={this.onclearFilter} />
@@ -977,14 +893,14 @@ class Variables extends React.Component {
                 </div>
                  : ''}
                 {this.state.bcc.length > 0
-                  ? <div className="form-group selected-recipient" style={styles.formInput}>
+                  ? <div className="form-group selected-recipient form-input-style">
                   <div className="pull-left to">BCC</div>
                   <div className="pull-left filter-tags" style={{fontSize: '12px'}}>
                     <FilterLabel data={this.state.bcc} onClick={(label, indexLabel) => this.onClickLabel(label, indexLabel, 'BCC')} onClear={this.onclearFilter} />
                   </div>
                 </div>
                  : ''}
-               <div className="form-group" style={styles.formInput}>
+               <div className="form-group form-input-style">
                <TextField
                  ref='value'
                  floatingLabelText="Name"
@@ -1001,7 +917,7 @@ class Variables extends React.Component {
                  }}
                />
                </div>
-               <div className="form-group" style={styles.formInput}>
+               <div className="form-group form-input-style">
                <TextField
                  ref='Name'
                  floatingLabelText="Subject"
@@ -1017,10 +933,10 @@ class Variables extends React.Component {
                  }}
                />
                </div>
-               <div className="form-group" style={styles.formInput}>
+               <div className="form-group form-input-style">
                <RichTextEditor
-                 style={styles.editorStyle}
                  id={'editor'}
+                 className="editor-style"
                  value={this.state.templateBody}
                  onChange={this.handleContentChange}
                  readOnly
@@ -1037,15 +953,23 @@ class Variables extends React.Component {
 
               <form action={''} method="POST" encType="multipart/form-data">
                 <div className="form-group">
-                  <button style={styles.uploadButton} className="btn btn-blue" >
-                  <i className="fa fa-file-pdf-o" style={{'marginRight': '5px', 'cursor': 'pointer'}}></i>
-                  <input onChange={(e) => { this.uploadPDF(e); }} style={styles.uploadInput} id="file_image" type="file" name="image[]" ref="file" className="form-control" multiple />Attachment
+                  <button className="btn btn-blue upload-button-style" >
+                    <i className="fa fa-file-pdf-o" style={{'marginRight': '5px', 'cursor': 'pointer'}}></i>
+                    <input
+                      multiple
+                      id="file_image"
+                      type="file"
+                      name="image[]"
+                      ref="file"
+                      className="form-control"
+                      onChange={(e) => { this.uploadPDF(e); }}
+                      /> Attachment
                   </button>
                 </div>
               </form>
 
              </div>
-             <div className="col-xs-3">
+             <div className="col-md-3">
                <h5 style={{textAlign: 'center', color: '#000'}}>System Variables</h5>
                <Divider />
                  {_.map(this.props.templates.variable, (vari) => {

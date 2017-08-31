@@ -119,8 +119,8 @@ class ViewLeave extends React.Component {
     if (!_.isUndefined(this.props.selectedLeave.doc_require) && this.props.selectedLeave.doc_require != '0') {
       return (
         <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
-            <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
-          </div>
+          <label style={{fontWeight: '500'}}>{this.state.notifyMsg}</label>
+        </div>
       );
     }
   }
@@ -161,7 +161,7 @@ class ViewLeave extends React.Component {
         </div>
         <div className="p-a-md">
           <div className="row m-t">
-            <div className="col-sm-4">
+            <div className="col-xs-12 col-sm-4 leave-profile">
               <a href="" className="pull-left m-r-md">
                 <span className="avatar w-96">
                   <img src={this.props.selectedLeave.user_profile_image} />
@@ -171,27 +171,28 @@ class ViewLeave extends React.Component {
                 <h6 className="m-a-0 m-b-xs">{this.props.selectedLeave.user_profile_name}</h6>
                 <div>{this.props.selectedLeave.user_profile_jobtitle}</div>
               </div>
+              <hr className="col-xs-12 hidden-sm hidden-md hidden-lg" />
             </div>
-            <div className="col-sm-8">
-            <div>Status - <i><b>{status}</b></i></div>
-            <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
-            <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
-            <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>
-            {this.props.selectedLeave.day_status === '' ? '' : <div>Leave apply for - <i><b>{this.props.selectedLeave.day_status == '1' ? 'First Half' : 'Second Half'}</b></i></div>}
-            <div>Reason - <i><b>{this.props.selectedLeave.reason}</b></i></div>
-            {
-              this.props.selectedLeave.leave_type != ''
-              ? <div>Leave Type - <i><b>{this.props.selectedLeave.leave_type}</b></i></div> : null
-            }
-            {
-              this.props.selectedLeave.late_reason != ''
-              ? <div>Reason For Late Applying - <i><b>{this.props.selectedLeave.late_reason}</b></i></div> : null
-            }
+            <div className="col-xs-12 col-sm-8 leave-details">
+              <div>Status - <i><b>{status}</b></i></div>
+              <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
+              <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
+              <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>
+              {this.props.selectedLeave.day_status === '' ? '' : <div>Leave apply for - <i><b>{this.props.selectedLeave.day_status === '1' ? 'First Half' : 'Second Half'}</b></i></div>}
+              <div>Reason - <i><b>{this.props.selectedLeave.reason}</b></i></div>
+              {
+                this.props.selectedLeave.leave_type !== ''
+                ? <div>Leave Type - <i><b>{this.props.selectedLeave.leave_type}</b></i></div> : null
+              }
+              {
+                this.props.selectedLeave.late_reason !== ''
+                ? <div>Reason For Late Applying - <i><b>{this.props.selectedLeave.late_reason}</b></i></div> : null
+              }
 
-            {
-              this.props.selectedLeave.extra_day != '0'
-              ? <div>Extra Day Added - <i><b>{this.props.selectedLeave.extra_day}</b></i></div> : null
-            }
+              {
+                this.props.selectedLeave.extra_day !== '0'
+                ? <div>Extra Day Added - <i><b>{this.props.selectedLeave.extra_day}</b></i></div> : null
+              }
             {/* {
               this.state.document_required ?
               <div className="text-left" style={{marginTop:'10px'}}>
@@ -200,160 +201,149 @@ class ViewLeave extends React.Component {
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
                   </div>
             } */}
-            {
-              this.props.selectedLeave.doc_require == '0' && this.props.selectedLeave.hr_approved !== '2' && this.props.selectedLeave.status !== 'Approved'
-              ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <ButtonRaised className="indigo" onClick={this.handleNotify} label="Notify Document Required" />
-              </div> : null
-            }
-            {
-              this.props.selectedLeave.hr_approved === '0' && this.props.selectedLeave.hr_comment != ''
-              ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
-                <ButtonRaised className="indigo" onClick={() => { this.handleSave('1'); }} label="HR Approval" />
-                <ButtonRaised className="indigo" style={{marginLeft: '3px'}} onClick={() => { this.handleSave('2'); }} label="HR Rejected" />
+              {
+                this.props.selectedLeave.doc_require === '0' && this.props.selectedLeave.hr_approved !== '2' && this.props.selectedLeave.status !== 'Approved'
+                ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
+                  <ButtonRaised className="indigo" onClick={this.handleNotify} label="Notify Document Required" />
+                </div> : null
+              }
+              {
+                this.props.selectedLeave.hr_approved === '0' && this.props.selectedLeave.hr_comment !== ''
+                ? <div className="text-left" style={{marginTop: '10px', display: HRDisplay}}>
+                  <ButtonRaised className="indigo" onClick={() => { this.handleSave('1'); }} label="HR Approval" />
+                  <ButtonRaised className="indigo" style={{marginLeft: '3px'}} onClick={() => { this.handleSave('2'); }} label="HR Rejected" />
 
-            </div>
-               : null
-            }
-            {
-                this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '2'
-              ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
-                   <label style={{fontWeight: '500'}}>Approved By HR</label>
-                 </div>
-                 : null
-            }
+                </div> : null
+              }
+              {
+                this.props.selectedLeave.hr_approved !== '0' && this.props.selectedLeave.hr_approved !== '2'
+                ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
+                  <label style={{fontWeight: '500'}}>Approved By HR</label>
+                </div> : null
+              }
 
-            {
-                this.props.selectedLeave.hr_approved != '0' && this.props.selectedLeave.hr_approved != '1'
-              ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
-                   <label style={{fontWeight: '500'}}>Rejected By HR</label>
-                 </div>
-                 : null
-            }
-            {
-              this.props.selectedLeave.doc_link === '' && this.props.selectedLeave.doc_require === '1'
-                ? notify
-                : null
-            }
-            {
-              this.props.selectedLeave.doc_link === ''
-                ? null
-                : <form method="get" target="_blank" action={this.props.selectedLeave.doc_link}>
-                <div className=" text-left" style={{marginTop: '10px'}}>
-                  <ButtonRaised className="indigo" label="View Document" />
-                </div>
-            </form>
-            }
-
-            {
-              this.props.selectedLeave.late_reason === '' && this.props.selectedLeave != 'Rejected' ? null
-              : <div className='row m-0' style={{display: adminDisplay}}>
-                <div className='col-sm-3 p-0 pt-5'>
+              {
+                this.props.selectedLeave.hr_approved !== '0' && this.props.selectedLeave.hr_approved !== '1'
+                ? <div className="text-left" style={{marginTop: '10px', border: '1px dotted green', width: '56%', padding: '11px 5px 5px', background: '#c8e4c8', color: '#0d7b2a', borderRadius: '7px'}}>
+                  <label style={{fontWeight: '500'}}>Rejected By HR</label>
+                </div> : null
+              }
+              {
+                this.props.selectedLeave.doc_link === '' && this.props.selectedLeave.doc_require === '1'
+                  ? notify : null
+              }
+              {
+                this.props.selectedLeave.doc_link !== ''
+                ? <form method="get" target="_blank" action={this.props.selectedLeave.doc_link}>
                   <div className=" text-left" style={{marginTop: '10px'}}>
-                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('0.5'); }} label="Add Half Day" />
+                    <ButtonRaised className="indigo" label="View Document" />
                   </div>
-                </div>
-                <div className='col-sm-3 p-0'>
-                  <div className="text-left" style={{marginTop: '10px'}}>
-                    <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('1'); }} label="Add Full Day" />
-                  </div>
-                </div>
-                {
-                  this.props.selectedLeave.extra_day == '0' ? null
-                  : <div className='col-sm-4 p-0'>
-                    <div className="text-left" style={{marginTop: '10px'}}>
-                      <ButtonRaised className="red" onClick={() => { this.handleExtraDay('0'); }} label="Remove Extra Day" />
+                </form> : null
+              }
+
+              {
+                this.props.selectedLeave.late_reason === '' && this.props.selectedLeave !== 'Rejected' ? null
+                : <div className='row m-0' style={{display: adminDisplay}}>
+                  <div className='col-sm-3 p-0 pt-5'>
+                    <div className=" text-left" style={{marginTop: '10px'}}>
+                      <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('0.5'); }} label="Add Half Day" />
                     </div>
                   </div>
-                }
-              </div>
-            }
+                  <div className='col-sm-3 p-0'>
+                    <div className="text-left" style={{marginTop: '10px'}}>
+                      <ButtonRaised className="indigo" onClick={() => { this.handleExtraDay('1'); }} label="Add Full Day" />
+                    </div>
+                  </div>
+                  {
+                    this.props.selectedLeave.extra_day === '0' ? null
+                    : <div className='col-sm-4 p-0'>
+                      <div className="text-left" style={{marginTop: '10px'}}>
+                        <ButtonRaised className="red" onClick={() => { this.handleExtraDay('0'); }} label="Remove Extra Day" />
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
             {/* {
               this.props.selectedLeave.doc_require === '0' ? null : <div className="text-left" style={{marginTop:'10px',border:"1px dotted green",width:"56%",padding:"11px 5px 5px",background:'#c8e4c8',color:'#0d7b2a',borderRadius:"7px"}}>
                   <label style={{fontWeight:"500"}}>{this.state.notifyMsg}</label>
                   </div>
             } */}
-            <br />
-            {
-              this.props.selectedLeave.comment === ''
-              ? <div style={{display: adminDisplay}}>
-              <b>Enter message for employee</b><br />
-              <input type="text" className="md-input" onChange={(e) => this.setState({messagetouser: e.target.value})} value={this.state.messagetouser} />
-              <div className="text-right" style={{marginTop: '10px'}}>
-                <ButtonRaised className="indigo" onClick={this.handleComment} label="Comment" />
-              </div>
-            </div> : <div>
-            <b>Comment</b><br />
-            <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
-               <label style={{fontWeight: '500'}}>{this.props.selectedLeave.comment}</label>
-               </div>
-            </div>
-            }
-            {
-              this.props.selectedLeave.hr_comment === '' && this.props.loggedUser.data.role == CONFIG.HR
-              ? <div>
-              <b>Write Entire Leave Details After Talking To Employee</b><br />
-              <input type="text" className="md-input"
-                onChange={(e) => this.setState({messageByHr: e.target.value})}
-                value={this.state.messageByHr} />
-              <div className="text-right" style={{marginTop: '10px'}}>
-                <ButtonRaised className="indigo" onClick={() => { this.handleSave(''); }} label="Save" />
-              </div>
-            </div>
-             : null
-           }
-           <div>
-           <div>
-           {this.props.loggedUser.data.role == CONFIG.HR && this.props.selectedLeave.hr_comment === ''
-             ? null : <div style={{display: display}}>
-            <b>Description By HR</b><br />
-            <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
-               <label style={{fontWeight: '500'}}>{this.props.selectedLeave.hr_comment}</label>
-               </div>
-             </div>
+              <br />
+              {
+                this.props.selectedLeave.comment === ''
+                ? <div style={{display: adminDisplay}}>
+                  <input type="text" className="md-input" placeholder="Enter message for employee" onChange={(e) => this.setState({messagetouser: e.target.value})} value={this.state.messagetouser} />
+                  <div className="text-right" style={{marginTop: '10px'}}>
+                    <ButtonRaised className="indigo" onClick={this.handleComment} label="Comment" />
+                  </div>
+                </div> : <div>
+                  <b>Comment</b><br />
+                  <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
+                    <label style={{fontWeight: '500'}}>{this.props.selectedLeave.comment}</label>
+                  </div>
+                </div>
+              }
+              {
+                this.props.selectedLeave.hr_comment === '' && this.props.loggedUser.data.role === CONFIG.HR
+                ? <div>
+                  <b>Write Entire Leave Details After Talking To Employee</b><br />
+                  <input type="text" className="md-input"
+                    onChange={(e) => this.setState({messageByHr: e.target.value})}
+                    value={this.state.messageByHr} />
+                  <div className="text-right" style={{marginTop: '10px'}}>
+                    <ButtonRaised className="indigo" onClick={() => { this.handleSave(''); }} label="Save" />
+                  </div>
+                </div> : null
              }
-
-               {
-                 this.state.edit && this.props.loggedUser.data.role == CONFIG.HR
-                 ? <div>
-                   <input type="text" className="md-input"
-                     onChange={(e) => this.setState({editedComment: e.target.value})}
-                     value={this.state.editedComment} />
-                   <div className="text-right" style={{marginTop: '10px'}}>
+              <div>
+                <div>
+                 {this.props.loggedUser.data.role === CONFIG.HR && this.props.selectedLeave.hr_comment === ''
+                   ? null : <div style={{display: display}}>
+                     <b>Description By HR</b><br />
+                     <div className="text-left" style={{marginTop: '10px', border: '1px dotted #514eff', width: '56%', padding: '11px 5px 5px', background: 'rgb(191, 195, 245)', color: 'rgb(64, 78, 247)', borderRadius: '7px'}}>
+                       <label style={{fontWeight: '500'}}>{this.props.selectedLeave.hr_comment}</label>
+                     </div>
                    </div>
-                 </div>
-                 : null
+                  }
+                 {
+                   this.state.edit && this.props.loggedUser.data.role === CONFIG.HR
+                   ? <div>
+                     <input type="text" className="md-input"
+                       onChange={(e) => this.setState({editedComment: e.target.value})}
+                       value={this.state.editedComment} />
+                     <div className="text-right" style={{marginTop: '10px'}}>
+                     </div>
+                   </div>
+                   : null
+                 }
+                 {
+                    this.props.selectedLeave.hr_comment !== ''
+                 ? <div className='row m-0' style={{display: HRDisplay}}>
+                   <div className='col-sm-3 p-0'>
+                     {
+                       this.state.edit
+                       ? <div className="text-left" style={{marginTop: '10px'}}>
+                         <ButtonRaised className="indigo" onClick={() => { this.handleUpdate(''); }} label="Save" />
+                       </div>
+                       : <div className=" text-left" style={{marginTop: '10px'}}>
+                         <ButtonRaised className="indigo" onClick={() => { this.handleEdit(); }} label="Edit" />
+                       </div>
+                     }
+                   </div>
+                 </div> : null
                }
-
-               {
-                  this.props.selectedLeave.hr_comment !== ''
-               ? <div className='row m-0' style={{display: HRDisplay}}>
-                 <div className='col-sm-3 p-0'>
-                   {
-                     this.state.edit
-                     ? <div className="text-left" style={{marginTop: '10px'}}>
-                     <ButtonRaised className="indigo" onClick={() => { this.handleUpdate(''); }} label="Save" />
-                     </div>
-                     : <div className=" text-left" style={{marginTop: '10px'}}>
-                     <ButtonRaised className="indigo" onClick={() => { this.handleEdit(); }} label="Edit" />
-                     </div>
-                   }
-                 </div>
-               </div>
-             : null
-           }
-          </div>
+                </div>
+              </div>
+              <br />
+              <br />
+              {changeStatusButton}
+              {last_applied_leaves_html}
             </div>
-            <br />
-            <br />
-            {changeStatusButton}
-            {last_applied_leaves_html}
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-	  );
+    );
   }
 }
 

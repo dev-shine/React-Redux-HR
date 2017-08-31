@@ -99,7 +99,7 @@ class ManageLeaves extends React.Component {
   render () {
     let styles = _.cloneDeep(this.constructor.styles);
     let status_message = '';
-    if (this.props.manageLeave.status_message != '') {
+    if (this.props.manageLeave.status_message !== '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
         <b className="arrow left b-primary"></b>{this.props.manageLeave.status_message}</span>;
     }
@@ -110,11 +110,11 @@ class ManageLeaves extends React.Component {
         <span className="" style={styles.spiner}>No data found</span>
       </div>);
     } else if (!this.state.loading && (!_.isEmpty(this.state.selectedLeave) && !_.isEmpty(this.state.leaveListItems))) {
-      tabContent = <div className="row-col row-col-xs b-b">
-        <div className="col-sm-3 light bg b-r">
+      tabContent = <div className="row no-gutter b-b">
+        <div className="col-xs-12 col-sm-3 box b-r">
           <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
         </div>
-        <div className="col-sm-9 light bg b-r">
+        <div id="leaveDetails" className="col-xs-12 col-sm-9 light bg b-r">
           <ViewLeave selectedLeave={this.state.selectedLeave} doLeaveStatusChange={this.doLeaveStatusChange} {...this.props} />
         </div>
       </div>;

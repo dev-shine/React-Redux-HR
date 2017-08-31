@@ -39,13 +39,7 @@ const WorkingHoursSummary = ({workingHoursSummary, onWorkingHoursChange, onWorki
                     <div className="fc-widget-content">
                       <div className="fc-day-grid-container">
                         <div className="fc-day-grid">
-<<<<<<< HEAD
                           <CalendarStructure month={workingHoursSummary.monthSummary} onWorkingHoursChange={onWorkingHoursChange} />
-=======
-                          <div className="fc-view fc-month-view fc-basic-view">
-                            <CalendarStructure month={workingHoursSummary.monthSummary} onWorkingHoursChange={onWorkingHoursChange} />
-                          </div>
->>>>>>> 25f1d4767e5e0a17ea2d37c79ae959fbebe7a011
                         </div>
                       </div>
                     </div>

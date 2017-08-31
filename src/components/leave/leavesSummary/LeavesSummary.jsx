@@ -3,34 +3,34 @@ import PropTypes from 'prop-types';
 
 const LeavesSummary = ({user}) => {
   let pendingPunchingDays = _.map(user.attendance, (day, key) => {
-    let check_class = "b-success"
-    if (day.day_type == 'WORKING_DAY') {
-      if (day.in_time == '' || day.out_time == '') {
-        check_class = "b-danger"
+    let checkClass = 'b-success';
+    if (day.day_type === 'WORKING_DAY') {
+      if (day.in_time === '' || day.out_time === '') {
+        checkClass = 'b-danger';
       }
     }
-    let show_text = ""
-    if (day.day_type == 'HALF_DAY') {
-      check_class = "b-warn"
-      show_text = day.day_type + ' / ' + "Timings : " + day.in_time + ' - ' + day.out_time + ' / Total Time : ' + day.total_time
+    let showText = '';
+    if (day.day_type === 'HALF_DAY') {
+      checkClass = 'b-warn';
+      showText = day.day_type + ' / ' + 'Timings : ' + day.in_time + ' - ' + day.out_time + ' / Total Time : ' + day.total_time;
     }
     return (
-      <div key={key} className={`sl-item ${check_class}`}>
+      <div key={key} className={`sl-item ${checkClass}`}>
         <div className="sl-icon">
           <i className="fa fa-check"></i>
         </div>
         <div className="sl-content">
           <div className="">{day.display_date}</div>
           <div>{day.day_text}</div>
-          <div>{show_text}</div>
+          <div>{showText}</div>
         </div>
       </div>
-    )
+    );
   });
   return (
-    <div className="row">
-      <div className="col-sm-12 col-md-12">
-        <div className="box">
+    <div className="col-12">
+      <div className="col-sm-4 col-md-4 col-xs-12  ">
+        <div className="box box-responsive-5 scroll">
           <div className="box-header">
             <h3>{user.name}</h3>
             <small>{user.jobtitle}</small>
@@ -43,15 +43,15 @@ const LeavesSummary = ({user}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 LeavesSummary.PropTypes = {
   user: PropTypes.shape({
     attendance: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired,
-    jobtitle: PropTypes.string.isRequired
+    name:       PropTypes.string.isRequired,
+    jobtitle:   PropTypes.string.isRequired
   }).isRequired
-}
+};
 
 export default LeavesSummary;

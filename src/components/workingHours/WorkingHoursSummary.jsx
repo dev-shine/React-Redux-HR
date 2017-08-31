@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import CalendarStructure from 'components/generic/employeeMonthGrid/CalendarStructure';
 
 const WorkingHoursSummary = ({workingHoursSummary, onWorkingHoursChange, onWorkingHoursSummary}) => {
+<<<<<<< HEAD
   // let weekWise = _.chunk(workingHoursSummary.monthSummary, 7);
   // let calendarStructure = _.map(weekWise, (week, key) => {
   //   return <CalendarStructure key={key} week={week} onWorkingHoursChange={onWorkingHoursChange} />;
   // });
+=======
+>>>>>>> 25f1d4767e5e0a17ea2d37c79ae959fbebe7a011
   const _onChangeMonth = (check) => {
     if (check === 'previous') {
       onWorkingHoursSummary(workingHoursSummary.previousMonth.year, workingHoursSummary.previousMonth.month);
@@ -44,7 +46,13 @@ const WorkingHoursSummary = ({workingHoursSummary, onWorkingHoursChange, onWorki
                     <div className="fc-widget-content">
                       <div className="fc-day-grid-container">
                         <div className="fc-day-grid">
+<<<<<<< HEAD
                           <CalendarStructure month={workingHoursSummary.monthSummary} onWorkingHoursChange={onWorkingHoursChange} />
+=======
+                          <div className="fc-view fc-month-view fc-basic-view">
+                            <CalendarStructure month={workingHoursSummary.monthSummary} onWorkingHoursChange={onWorkingHoursChange} />
+                          </div>
+>>>>>>> 25f1d4767e5e0a17ea2d37c79ae959fbebe7a011
                         </div>
                       </div>
                     </div>

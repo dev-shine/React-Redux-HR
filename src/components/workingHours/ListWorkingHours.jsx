@@ -8,8 +8,8 @@ const ListWorkingHour = ({row}) => {
         <i className="fa fa-check"></i>
       </div>
       <div className="sl-content">
-        <div >{row.working_hours} Hours</div>
-        <div >{row.date}</div>
+        <div> {row.working_hours} Hours</div>
+        <div> {row.date} </div>
         <div className="sl-date text-muted">
           Reason : {row.reason}
         </div>

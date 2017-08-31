@@ -11,13 +11,11 @@ const ListUserWorkingHours = ({displayData}) => {
   });
   return (
     <div className="row box">
-      <div className="col-12">
         <div className="box-body">
           <div className="streamline b-l m-l">
             {WorkingHoursList}
           </div>
         </div>
-      </div>
     </div>
   );
 };

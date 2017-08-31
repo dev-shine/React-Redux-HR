@@ -13,11 +13,6 @@ const UserMonthlyAttendance = ({monthlyAttendance, monthToggle, onShowDaySummary
       monthToggle(monthlyAttendance.userid, monthlyAttendance.nextMonth.year, monthlyAttendance.nextMonth.month);
     }
   };
-  // let weekWise = _.chunk(monthlyAttendance.attendance, 7);
-  // console.log('monthlyAttendance.attendance', monthlyAttendance.attendance, weekWise);
-  // let calendarStructure = _.map(weekWise, (week, key) => {
-  //   return <CalendarStructure key={key} userId={monthlyAttendance.userid} week={week} onShowDaySummary={onShowDaySummary} />;
-  // });
   return (
     <div id="content" className="app-content box-shadow-z0" role="main">
       <div className="app-body" id="view">
@@ -50,10 +45,7 @@ const UserMonthlyAttendance = ({monthlyAttendance, monthToggle, onShowDaySummary
                   <div className="fc-widget-content">
                     <div className="fc-day-grid-container">
                       <div className="fc-day-grid">
-                        {
-                          // calendarStructure
-                        }
-                        <CalendarStructure userId={monthlyAttendance.userid} week={monthlyAttendance.attendance} onShowDaySummary={onShowDaySummary} />
+                        <CalendarStructure userId={monthlyAttendance.userid} month={monthlyAttendance.attendance} onShowDaySummary={onShowDaySummary} />
                       </div>
                     </div>
                   </div>

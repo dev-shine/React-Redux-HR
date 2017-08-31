@@ -21,8 +21,8 @@ const ListWorkingHour = ({row}) => {
 ListWorkingHour.PropTypes = {
   row: PropTypes.shape({
     working_hours: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    reason: PropTypes.string.isRequired
+    date:          PropTypes.string.isRequired,
+    reason:        PropTypes.string.isRequired
   }).isRequired
 };
 

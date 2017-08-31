@@ -4,7 +4,7 @@ import {confirm} from 'src/services/notify';
 import {getToken, resetLoggedUser} from 'src/services/generic';
 import 'whatwg-fetch';
 
-const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_bank_detail',
+const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_profile_detail_by_id', 'update_user_bank_detail',
   'update_user_profile_detail', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary',
   'send_payslips_to_employees', 'get_user_document', 'insert_user_document', 'delete_user_document', 'get_all_users_detail',
   'create_template_variable', 'get_template_variable', 'delete_template_variable', 'update_template_variable', 'create_email_template',

@@ -8,6 +8,7 @@ import {isNotUserValid} from 'src/services/generic';
 import {CONFIG} from 'src/config/index';
 import UsersList from 'components/generic/UsersList';
 import Header from 'components/generic/Header';
+import UsersListHeader from 'components/generic/UsersListHeader';
 import ApplyLeaveForm from 'modules/leave/components/applyLeave/ApplyLeaveForm';
 import * as actions from 'appRedux/actions';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
@@ -97,10 +98,10 @@ class ApplyLeave extends React.Component {
 
     let mainDivs = (this.props.loggedUser.data.role === CONFIG.ADMIN || this.props.loggedUser.data.role === CONFIG.HR
       ? <div className="row">
-        <div className="col-md-2" id="fixedScroll">
+        <div className="col-sm-3 hidden-xs" id="fixedScroll">
           <UsersList users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} props={this.props} top={10} />
         </div>
-        <div className="col-md-10">
+        <div className="col-xs-12 col-sm-9">
           <div className="box">
             <div className="p-a text-center">
               <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
@@ -126,7 +127,8 @@ class ApplyLeave extends React.Component {
       <div >
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Apply Leave'} status={status_message} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Apply Leave'} status={status_message} showLoading={this.props.frontend.show_loading} userListHeader />
+          <UsersListHeader users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
             <div className="padding p-t-lg">
               {mainDivs}

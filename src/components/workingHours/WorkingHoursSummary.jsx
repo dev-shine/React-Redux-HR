@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import CalendarStructure from 'components/generic/employeeMonthGrid/CalendarStructure';
 
 const WorkingHoursSummary = ({workingHoursSummary, onWorkingHoursChange, onWorkingHoursSummary}) => {
-  // let weekWise = _.chunk(workingHoursSummary.monthSummary, 7);
-  // let calendarStructure = _.map(weekWise, (week, key) => {
-  //   return;
-  // });
   const _onChangeMonth = (check) => {
     if (check === 'previous') {
       onWorkingHoursSummary(workingHoursSummary.previousMonth.year, workingHoursSummary.previousMonth.month);

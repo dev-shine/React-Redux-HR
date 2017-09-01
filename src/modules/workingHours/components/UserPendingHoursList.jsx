@@ -111,7 +111,7 @@ export default class UserPendingHoursList extends React.Component {
 
       return (
         <tr key={i}>
-          <td style={{marginRight: '0%'}}>{i + 1}</td>
+          <td className="p-r-xs">{i + 1}</td>
           <td>{val.name}</td>
           {val.pending_hour >= 9
             ? <td><mark style={{color: '#ffffff', aling: 'center', backgroundColor: '#ff0000'}}>
@@ -124,7 +124,7 @@ export default class UserPendingHoursList extends React.Component {
           }
 
           {val.status
-            ? <td style={{align: 'center'}}>
+            ? <td className="max-w-200">
             {'Updated On : '}{val.date}
               <br />
               {val.status}
@@ -152,17 +152,17 @@ export default class UserPendingHoursList extends React.Component {
                 {...this.props} />
 
               <div className="col-md-12 b-r box">
-                <div className="p-a block table-responsive ">
-                  <div>
+                <div className="p-a block ">
+                  <div className="table-responsive ">
                     {
                       pendingTimeMap.length > 0
-                      ? <table key='' className="table table-striped">
+                      ? <table key='' className="table table-striped table-condensed">
                         <thead className="active">
                           <tr>
-                            <th>{'Sr.No'}</th>
+                            <th className="p-r-xs">{'Sr.'}</th>
                             <th>User Name</th>
-                            <th style={{textAlign: 'center'}}>Pending Time</th>
-                            <th>Status</th>
+                            <th className="text-center">Pending Time</th>
+                            <th className="max-w-200">Status</th>
                             <th>Actions</th>
                           </tr>
                         </thead>

@@ -157,11 +157,11 @@ class ManageSalary extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-2" id="fixedScroll">
-                  <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} top={10} />
+                <div className="col-md-2 col-sm-12 col-xs-12">
+                  <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} />
                 </div>
-                <div className="col-md-10">
-                  <div className="box">
+                <div className="col-md-10 col-sm-12 col-xs-12">
+                  <div className="box m-t-xs">
                     <div className="p-a text-center">
                       <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
                       <p>
@@ -170,21 +170,21 @@ class ManageSalary extends React.Component {
                     </div>
                   </div>
                   <div className="row no-gutter b-t box">
-                    <div className="col-xs-3 b-r box">
+                    <div className="col-md-3 col-sm-4 col-xs-12 b-r box">
                       <div className="p-a block ">
                         <h6 className="text-center">Salary Revision</h6>
                         <hr />
                         <UserSalaryHistory data={this.state.salary_history} message={this.state.msg} viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
                       </div>
                     </div>
-                    <div className="col-xs-6 b-r box">
+                    <div className="col-md-6 col-sm-8 col-xs-12 b-r box">
                       <div className="p-a block">
                         <h6 className="text-center">Add New</h6>
                         <hr />
                         <FormAddSalary {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details} />
                       </div>
                     </div>
-                    <div className="col-xs-3 b-r box">
+                    <div className="col-md-3 col-sm-8 col-xs-12 b-r box">
                       <div className="p-a block ">
                         <h6 className="text-center">Holding Revision</h6>
                         <hr />

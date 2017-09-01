@@ -192,7 +192,7 @@ class ManageUsers extends React.Component {
                       <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee} />
                     </div>
                     <div className="disable-user">
-                      <Button className="btn btn-fw btn-danger" label={'Disable Selected User'} onClick={() => this.changeEmployeeStatus(this.state.selected_user_id, 'Disabled')} />
+                      <Button className="btn-fw btn-danger responsive-p-x-sm" label={'Disable Selected User'} onClick={() => this.changeEmployeeStatus(this.state.selected_user_id, 'Disabled')} />
                     </div>
                     <div className="slack-notification">
                       <div className="btn-wrapper">

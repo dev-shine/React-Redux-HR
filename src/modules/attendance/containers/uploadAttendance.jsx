@@ -42,12 +42,18 @@ class UploadAttendance extends React.Component {
         <AlertNotification message={this.props.manageUsers.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'UPLOAD ATTENDANCE SHEAT'} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'UPLOAD ATTENDANCE SHEET'}
+            showLoading={this.props.frontend.show_loading}
+            />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 p">
-                  <AttendanceSheatForm user_documents={this.state.user_documents} onUpdatedocuments={this.props.onUpdatedocuments} {...this.props} />
+                  <AttendanceSheatForm
+                    user_documents={this.state.user_documents}
+                    onUpdatedocuments={this.props.onUpdatedocuments}
+                    {...this.props}
+                    />
                 </div>
               </div>
             </div>

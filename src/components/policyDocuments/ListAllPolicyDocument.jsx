@@ -20,17 +20,17 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
       <div key={i} className='m-y-sm policyDocumentsList  clear'>
         <h5>{doc.name}</h5>
         <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
-          <IconButton
-            tooltip="Delete Document"
-            tooltipPosition="top-right"
-            className="pull-right btn-responsive icon-button p-0 "
-            children={<Delete color='#B71C1C' />}
-            onClick={(evt) => {
-              evt.stopPropagation();
-              deleteDocument(doc);
-            }
+        <IconButton
+          tooltip="Delete Document"
+          tooltipPosition="top-left"
+          className="pull-right btn-responsive icon-button p-0 "
+          children={<Delete color='#B71C1C' />}
+          onClick={(evt) => {
+            evt.stopPropagation();
+            deleteDocument(doc);
           }
-          />
+        }
+        />
       </div>
     );
   });

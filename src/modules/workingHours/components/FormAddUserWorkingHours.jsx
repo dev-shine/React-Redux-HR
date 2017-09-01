@@ -30,7 +30,7 @@ class FormAddUserWorkingHours extends React.Component {
     return (
       <div className="row no-gutter">
         <div className="col-md-6 col-xs-12 b-r">
-          <div className="p-a block text-center">
+          <div className="p-a block text-center table-responsive">
             <h6 className="">Select Date</h6>
             <Calendar onInit={this.handleDateChange} onChange={this.handleDateChange} />
           </div>

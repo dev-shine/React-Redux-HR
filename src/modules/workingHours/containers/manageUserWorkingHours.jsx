@@ -96,7 +96,7 @@ class ManageUserWorkingHours extends React.Component {
                     top={10}
                     />
                 </div>
-                <div className="col-md-9 col-xs-12">
+                <div className="col-md-9 col-xs-12 col-sm-9">
                   <div className="box">
                     <div className="item">
                       <div className="item-bg">

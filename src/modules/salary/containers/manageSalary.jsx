@@ -9,6 +9,7 @@ import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
 import UsersList from 'components/generic/UsersList';
+import UsersListHeader from 'components/generic/UsersListHeader';
 import UserSalaryHistory from 'components/salary/manageSalary/UserSalaryHistory';
 import UserHoldingHistory from 'components/salary/manageSalary/UserHoldingHistory';
 import FormAddHolding from 'modules/salary/components/manageSalary/FormAddHolding';
@@ -153,11 +154,12 @@ class ManageSalary extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Manage Salaries' + status_message} showLoading={this.props.frontend.show_loading} />
+          <Header pageTitle={'Manage Salaries' + status_message} showLoading={this.props.frontend.show_loading} userListHeader />
+          <UsersListHeader users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className="col-md-2 col-sm-12 col-xs-12">
+                <div className="col-md-2 col-sm-12 col-xs-12 hidden-xs" id="fixedScroll">
                   <UsersList users={this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList : this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} {...this.props} />
                 </div>
                 <div className="col-md-10 col-sm-12 col-xs-12">

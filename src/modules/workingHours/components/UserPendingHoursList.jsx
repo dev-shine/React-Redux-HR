@@ -151,18 +151,17 @@ export default class UserPendingHoursList extends React.Component {
                 onUserPendingHoursData={this.props.onUserPendingHoursData}
                 {...this.props} />
 
-              <div className="col-md-12 b-r box">
-                <div className="p-a block ">
-                  <div className="table-responsive ">
+              <div className="col-md-12 b-r box table-responsive">
+                <div className="p-a block">
                     {
                       pendingTimeMap.length > 0
-                      ? <table key='' className="table table-striped table-condensed">
+                      ? <table key='' className="table table-striped">
                         <thead className="active">
                           <tr>
                             <th className="p-r-xs">{'Sr.'}</th>
                             <th>User Name</th>
                             <th className="text-center">Pending Time</th>
-                            <th className="max-w-200">Status</th>
+                            <th >Status</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -176,7 +175,7 @@ export default class UserPendingHoursList extends React.Component {
                         </h5>
                       </div>
                     }
-                  </div>
+
                 </div>
               </div>
             </div>

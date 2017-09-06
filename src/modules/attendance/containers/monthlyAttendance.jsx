@@ -5,12 +5,17 @@ import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'components/generic/Header';
+import {notify} from 'src/services/notify';
+import EmpDaySummary from 'modules/attendance/components/empDaySummary';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
+import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
+import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 import * as actions from 'appRedux/actions';
 
 class MonthlyAttendance extends React.Component {
   constructor (props) {
     super(props);
+    this.props.isAlreadyLogin();
     this.state = {
       'defaultUserDisplay': '',
       'daysummary_userid':  '',
@@ -18,6 +23,7 @@ class MonthlyAttendance extends React.Component {
       'year':               '',
       'month':              ''
     };
+    this.onUserClick = this.onUserClick.bind(this);
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
   }
@@ -36,11 +42,18 @@ class MonthlyAttendance extends React.Component {
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
+
+    if (props.userDaySummary.status_message !== '') {
+      notify(props.userDaySummary.status_message);
+    }
   }
   onShowDaySummary (userid, date) {
-    // show & update day summary functionality disabled for employee attendance section. code exist and can be enable in future if required.
-    // this.setState({daysummary_userid: userid, daysummary_date: date});
-    // this.props.requestUserDaySummary({userid, date});
+    this.setState({daysummary_userid: userid, daysummary_date: date});
+    this.props.requestUserDaySummary({userid, date});
+  }
+  onUserClick (userid) {
+    this.setState({'defaultUserDisplay': userid});
+    this.props.requestUserAttendance({userid, year: this.state.year, month: this.state.month});
   }
   monthToggle (u, y, m) {
     this.setState({year: y, month: m});
@@ -50,6 +63,7 @@ class MonthlyAttendance extends React.Component {
     return (
       <div >
         <Menu {...this.props} />
+        <EmpDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'My Attendance'} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
@@ -57,15 +71,13 @@ class MonthlyAttendance extends React.Component {
               <div className="row">
                 <div className="col-md-1"></div>
                 <div className="col-md-10">
-                  <UserMonthlyAttendance
-                    monthlyAttendance={this.props.monthlyAttendance}
-                    monthToggle={this.monthToggle}
-                    onShowDaySummary={this.onShowDaySummary} />
+                  <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} />
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     );
   }

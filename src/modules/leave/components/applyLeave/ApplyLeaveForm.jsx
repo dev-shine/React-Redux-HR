@@ -109,15 +109,15 @@ class ApplyLeaveForm extends React.Component {
     }
     return (
       <div className="row">
-        <div className="col-xs-6 text-center calendar">
+        <div className="col-xs-6 col-md-4 text-center calendar">
           <h6>Select Start Date</h6>
           <Calendar onChange={this.handleStartDate} />
         </div>
-        <div className="col-xs-6 text-center calendar">
+        <div className="col-xs-6 col-md-4 text-center calendar">
           <h6>Select End Date</h6>
           <Calendar onChange={this.handleEndDate} />
         </div>
-        <div className="col-xs-12">
+        <div className="col-xs-12 col-md-4">
           <h5>Leave Summary</h5>
           <br />
           <form role="form" onSubmit={this.doApplyLeave}>
@@ -188,7 +188,7 @@ class ApplyLeaveForm extends React.Component {
             </div>
 
             <div className="form-group row m-t-md">
-              <div className="col-xs-12 text-center">
+              <div className="col-xs-12 col-md-6 text-center">
                 <Button type="submit" className="green apply-leave-btn" label="Apply" />
               </div>
             </div>

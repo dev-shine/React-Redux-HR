@@ -45,3 +45,29 @@ export function* updateUserDaySummary (action) {
     console.warn('Some error found in "update_user_day_summary" action\n', e);
   }
 }
+
+export function* empUpdateDaySummary (action) {
+  let {userid, date, entryTime, exitTime, reason, year, month} = action.payload;
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':     'update_time_by_employee',
+      'userid':     userid,
+      'date':       date,
+      'entry_time': entryTime,
+      'exit_time':  exitTime,
+      'reason':     reason
+    });
+    if (response.error === 0) {
+      yield put(actions.successUpdateEmpDaySummary(response.data));
+      yield put(actions.requestUserDaySummary({userid, date}));
+      yield put(actions.requestUserAttendance({userid, year, month}));
+    } else {
+      yield put(actions.errorUpdateEmpDaySummary(response.data.message));
+      yield put(actions.requestUserDaySummary({userid, date}));
+    }
+  } catch (e) {
+    yield put(actions.errorUpdateEmpDaySummary('Error Occurs !!'));
+    yield put(actions.requestUserDaySummary({userid, date}));
+    console.warn('Some error found in "update_user_day_summary" action\n', e);
+  }
+}

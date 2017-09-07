@@ -14,6 +14,8 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
 
 const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role'];
 
+const actionForExcelWeburl = ['update_time_by_employee'];
+
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
@@ -40,6 +42,10 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (_.indexOf(actionForExcelWeburl, data.action) >= 0) {
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.excel_web_url;
+    console.log('index.js console', URL, headers);
   }
 
   return fetch(URL, headers).then((response) => {
@@ -50,7 +56,7 @@ export function fireAjax (method, url, data) {
         });
       });
     } else if (response.status === 401) {
-      confirm('401 ! Access denied!', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
+      confirm('401 Access Denied !', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
         resetLoggedUser();
         location.href = CONFIG.BASE_URL;
       });

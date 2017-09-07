@@ -52,7 +52,7 @@ export default class empDaySummary extends React.Component {
   doUpdateDaySummary (evt) {
     evt.preventDefault();
     let {current_userid, current_date, form_entry_time, form_exit_time, form_reason, year, month} = this.state;
-    this.props.requestUpdateUserDaySummary({
+    this.props.requestUpdateEmpDaySummary({
       userid:    current_userid,
       date:      current_date,
       entryTime: form_entry_time,

@@ -16,7 +16,7 @@ const CONFIG = {
   pdf_url:                   'http://dev.hr.excellencetechnologies.in/attendance/sal_info/',
   upload_email_attachment:   'http://dev.hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
   transfer_link:             'http://dev.hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
-  excel_web_url:             'http://144.76.34.244:3017/'
+  express_web_url:           'http://144.76.34.244:3017/attendance/update_time_by_employee'
 };
 
 export default CONFIG;

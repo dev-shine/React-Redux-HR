@@ -51,7 +51,7 @@ export function* empUpdateDaySummary (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':     'update_time_by_employee',
-      'userid':     userid,
+      'userid':     parseInt(userid),
       'date':       date,
       'entry_time': entryTime,
       'exit_time':  exitTime,

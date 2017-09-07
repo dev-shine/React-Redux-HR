@@ -18,7 +18,7 @@ export default class empDaySummary extends React.Component {
       year:            '',
       month:           ''
     };
-    this.doUpdateDaySummary = this.doUpdateDaySummary.bind(this);
+    this.updateDaySummary = this.updateDaySummary.bind(this);
   }
   componentDidMount () {
     $('.timepickerInput').timepicker({'minTime': '09:00 AM', 'maxTime': '09:00 PM', 'timeFormat': 'h:i A', 'step': 5});
@@ -33,7 +33,7 @@ export default class empDaySummary extends React.Component {
     let date = props.date;
     let year = props.year;
     let month = props.month;
-    if (this.props.loggedUser.data.role === CONFIG.EMPLOYEE && props.userDaySummary.entry_time !== '' && props.userDaySummary.exit_time !== '') {
+    if (props.empDaySummary.entry_time !== '' && props.empDaySummary.exit_time !== '') {
       this.setState({inputAccess: '', buttonAccess: 'show'});
     } else {
       this.setState({inputAccess: ''});
@@ -43,13 +43,13 @@ export default class empDaySummary extends React.Component {
       month:           props.month,
       current_userid:  props.userDaySummary.userid,
       current_date:    props.date,
-      form_entry_time: props.userDaySummary.entry_time,
-      form_exit_time:  props.userDaySummary.exit_time,
+      form_entry_time: props.empDaySummary.entry_time,
+      form_exit_time:  props.empDaySummary.exit_time,
       form_reason:     this.state.form_reason
     });
   }
 
-  doUpdateDaySummary (evt) {
+  updateDaySummary (evt) {
     evt.preventDefault();
     let {current_userid, current_date, form_entry_time, form_exit_time, form_reason, year, month} = this.state;
     this.props.requestUpdateEmpDaySummary({
@@ -73,7 +73,7 @@ export default class empDaySummary extends React.Component {
               <div className="modal-header">
                 <div className="row">
                   <div className="col-xs-11">
-                    <h5 className="modal-title">{this.props.userDaySummary.name} {'Your Day Summary of '} - {this.props.date}</h5>
+                    <h5 className="modal-title">{this.props.empDaySummary.name} {'Your Day Summary of '} - {this.props.date}</h5>
                   </div>
                   <div className="col-xs-1">
                     <button className="btn btn-icon white" data-dismiss="modal">
@@ -89,7 +89,7 @@ export default class empDaySummary extends React.Component {
                 <br />
                 <br />
                 <form role="form" onSubmit={(evt) => {
-                  this.doUpdateDaySummary(evt);
+                  this.updateDaySummary(evt);
                 }}>
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">{'Entry Time'}</label>

@@ -2,6 +2,8 @@ import React from 'react';
 import {CONFIG} from 'src/config/index';
 import 'timepicker/jquery.timepicker.min.css';
 import 'timepicker/jquery.timepicker.min.js';
+var moment = require('moment');
+import {notify} from 'src/services/notify';
 
 export default class empDaySummary extends React.Component {
   constructor (props) {
@@ -33,7 +35,7 @@ export default class empDaySummary extends React.Component {
     let date = props.date;
     let year = props.year;
     let month = props.month;
-    if (props.empDaySummary.entry_time !== '' && props.empDaySummary.exit_time !== '') {
+    if (this.props.loggedUser.data.role === CONFIG.EMPLOYEE && props.empDaySummary.entry_time !== '' && props.empDaySummary.exit_time !== '') {
       this.setState({inputAccess: '', buttonAccess: 'show'});
     } else {
       this.setState({inputAccess: ''});
@@ -42,7 +44,7 @@ export default class empDaySummary extends React.Component {
       year:            props.year,
       month:           props.month,
       current_userid:  props.userDaySummary.userid,
-      current_date:    props.date,
+      current_date:    moment(props.date).format('MM-DD-YYYY'),
       form_entry_time: props.empDaySummary.entry_time,
       form_exit_time:  props.empDaySummary.exit_time,
       form_reason:     this.state.form_reason
@@ -88,34 +90,52 @@ export default class empDaySummary extends React.Component {
                   {'20 min will be added/deducted from your entry/exit time as compensation in case you forgot to push in/out. If there is some other reason for your using this form contact HR'}</i>
                 <br />
                 <br />
-                <form role="form" onSubmit={(evt) => {
-                  this.updateDaySummary(evt);
-                }}>
+                <form role="form"
+                  type="form"
+                  name="empForm"
+                  onSubmit={(evt) => {
+                    this.updateDaySummary(evt);
+                  }}>
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">{'Entry Time'}</label>
                     <div className="col-sm-9">
-                      <input type="text" className="timepickerInput form-control" disabled={this.state.inputAccess} ref="entry_time" value={this.state.form_entry_time} onBlur={() => this.setState({form_entry_time: this.refs.entry_time.value})} required />
+                      <input type="text"
+                        name="entry_time"
+                        className="timepickerInput form-control"
+                        disabled={this.state.inputAccess}
+                        ref="entry_time"
+                        value={this.state.form_entry_time}
+                        onBlur={() => this.setState({form_entry_time: this.refs.entry_time.value})} required />
                     </div>
                   </div>
-
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">{'Exit Time'}</label>
                     <div className="col-sm-9">
-                      <input type="text" className="timepickerInput form-control" ref="exit_time" disabled={this.state.inputAccess} value={this.state.form_exit_time} onBlur={() => this.setState({form_exit_time: this.refs.exit_time.value})} required />
+                      <input type="text"
+                        name="exit_time"
+                        className="timepickerInput form-control"
+                        ref="exit_time" disabled={this.state.inputAccess}
+                        value={this.state.form_exit_time}
+                        onBlur={() => this.setState({form_exit_time: this.refs.exit_time.value})} required />
                     </div>
                   </div>
-
                   <div className="form-group row">
                     <label className="col-sm-2 form-control-label">{'Reason'}</label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" ref="reason" disabled={this.state.inputAccess} value={this.state.form_reason} onChange={() => this.setState({form_reason: this.refs.reason.value})} required />
+                      <input type="text"
+                        name="reason"
+                        className="form-control"
+                        ref="reason"
+                        disabled={this.state.inputAccess}
+                        value={this.state.form_reason}
+                        onChange={() => this.setState({form_reason: this.refs.reason.value})} required />
                     </div>
                   </div>
-
                   <div className="form-group row m-t-md">
                     <div className="col-sm-10">
                       <div className={this.state.buttonAccess}>
-                        <button id="submit" type="submit" className="md-btn md-raised m-b-sm w-xs blue">{'Update'}</button>
+                        <button id="submit" type="submit" name="emButton"
+                          className="md-btn md-raised m-b-sm w-xs blue">{'Update'}</button>
                       </div>
                     </div>
                   </div>

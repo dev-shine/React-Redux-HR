@@ -4,7 +4,6 @@ const token = getToken();
 
 const CONFIG = {
   BASE_URL:                  window.location.href.split('/#')[0] || 'http://dev.hr.excellencetechnologies.in/',
-  // dev apis
   api_url:                   'http://dev.hr.excellencetechnologies.in/attendance/API_HR/api.php',
   other_api_url:             'http://dev.hr.excellencetechnologies.in/attendance/sal_info/api.php',
   api_url_salary:            'http://dev.hr.excellencetechnologies.in/attendance/sal_info',
@@ -16,7 +15,8 @@ const CONFIG = {
   pdf_url:                   'http://dev.hr.excellencetechnologies.in/attendance/sal_info/',
   upload_email_attachment:   'http://dev.hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
   transfer_link:             'http://dev.hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
-  express_web_url:           'http://144.76.34.244:3017/attendance/update_time_by_employee'
+  express_web_url:           'http://144.76.34.244:3017'
+  // express_web_url:           'http://192.168.1.41:3016'
 };
 
 export default CONFIG;

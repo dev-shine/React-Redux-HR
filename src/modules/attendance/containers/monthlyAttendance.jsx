@@ -8,7 +8,6 @@ import Header from 'components/generic/Header';
 import {notify} from 'src/services/notify';
 import EmpDaySummary from 'modules/attendance/components/empDaySummary';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
-import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 import * as actions from 'appRedux/actions';
 
@@ -43,8 +42,8 @@ class MonthlyAttendance extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
 
-    if (props.empDaySummary.status_message !== '') {
-      notify(props.empDaySummary.status_message);
+    if (props.empDaySummary.message !== '') {
+      notify('Success', props.empDaySummary.message, 'success');
     }
   }
   onShowDaySummary (userid, date) {
@@ -60,6 +59,7 @@ class MonthlyAttendance extends React.Component {
     this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
   render () {
+    // console.log('this', this.props.empDaySummary);
     return (
       <div >
         <Menu {...this.props} />
@@ -92,8 +92,8 @@ MonthlyAttendance.styles = {
 function mapStateToProps (state) {
   return {
     frontend:          state.frontend.toJS(),
-    empDaySummary:     state.empDaySummary.toJS(),
     userDaySummary:    state.userDaySummary.toJS(),
+    empDaySummary:     state.empDaySummary.toJS(),
     loggedUser:        state.logged_user.userLogin,
     monthlyAttendance: state.monthlyAttendance.toJS()
   };

@@ -1,6 +1,7 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
+const ExpessUrl = 'http://144.76.34.244:3017/attendance/update_time_by_employee';
 
 export function* getUserDaySummary (action) {
   try {
@@ -50,15 +51,15 @@ export function* empUpdateDaySummary (action) {
   let {userid, date, entryTime, exitTime, reason, year, month} = action.payload;
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action':     'update_time_by_employee',
-      'userid':     parseInt(userid),
+      action:       'update_time_by_employee',
+      'userid':     userid,
       'date':       date,
       'entry_time': entryTime,
       'exit_time':  exitTime,
       'reason':     reason
     });
     if (response.error === 0) {
-      yield put(actions.successUpdateEmpDaySummary(response.data));
+      yield put(actions.successUpdateEmpDaySummary(response.success));
       yield put(actions.requestUserDaySummary({userid, date}));
       yield put(actions.requestUserAttendance({userid, year, month}));
     } else {

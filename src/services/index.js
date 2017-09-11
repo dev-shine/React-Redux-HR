@@ -25,6 +25,7 @@ export function fireAjax (method, url, data) {
     method: method,
     mode:   'cors',
     cache:  'no-cache',
+    Accept: 'application/json',
     body:   JSON.stringify(data)
   };
 
@@ -42,12 +43,13 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
-  } else if (_.indexOf(actionForExpressWeburl, data.action) >= 0) {
-    delete data.action;
-    delete data.token;
+  } else if (data.action === 'update_time_by_employee') {
+    delete (data.token);
+    headers['Content-Type'] = 'application/x-www-form-urlencoded';
     headers.body = JSON.stringify(data);
-    URL = CONFIG.express_web_url;
-    console.log('index.js console', URL, headers);
+    URL = CONFIG.express_web_url + '/attendance/update_time_by_employee';
+    // console.log(URL, 'URL----------S');
+    // console.log(headers, data, 'headers');
   }
 
   return fetch(URL, headers).then((response) => {

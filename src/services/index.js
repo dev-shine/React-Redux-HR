@@ -14,6 +14,8 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
 
 const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role'];
 
+const expressApi = ['manual', 'approval'];
+
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
@@ -40,8 +42,13 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (data.action === 'manual') {
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApi + '/attendance/manual';
+  } if (data.action === 'approval') {
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApi + '/attendance/approval';
   }
-
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {
       return new Promise((resolve, reject) => {

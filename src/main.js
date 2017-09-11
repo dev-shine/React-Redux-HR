@@ -45,6 +45,7 @@ import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
 import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
+import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
 
 import store from './store';
 // import APP from './App';
@@ -103,6 +104,7 @@ let render = (routerKey = null) => {
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} />
             <Route path="inventory_system" component={Page_InventorySystem} />
+            <Route path="attendanceReq" component={Page_AttendanceReq} />
           </Route>
         </Router>
       </Provider>

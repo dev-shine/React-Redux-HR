@@ -14,6 +14,7 @@ import * as actionsManageUserAttendance from 'appRedux/attendance/actions/attend
 class ManageAttendanceRequest extends React.Component {
   constructor (props) {
     super(props);
+    this.props.isAlreadyLogin();
     this.state = {
       'defaultUserDisplay':  '',
       'daysummary_date':     '',
@@ -28,6 +29,10 @@ class ManageAttendanceRequest extends React.Component {
     this.props.requestUserDayAttendance();
   }
   componentWillReceiveProps (props) {
+    // let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    // if (isNotValid.status) {
+    //   this.props.router.push(isNotValid.redirectTo);
+    // }
     let {route, router, loggedUser, attendanceReqList: {isError, message}} = props;
     if (isError) {
       notify('Error !', message, 'error');
@@ -56,12 +61,10 @@ class ManageAttendanceRequest extends React.Component {
   }
 
   render () {
-    console.log(this.props, 'render');
     let {status} = this.props.attendanceStatus;
     let {isLoading, data} = this.props.attendanceReqList;
     let attendance_hour_list = <UserPendingAttendanceList
-      attandanceList={data}
-      {...this.props} />;
+      attandanceList={data} {...this.props} />;
     return (
       <div>
         <Menu {...this.props} />

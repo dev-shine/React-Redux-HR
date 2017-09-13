@@ -19,7 +19,6 @@ export function* getUserDayAttendance (action) {
 }
 
 export function* userAttendanceStatus (action) {
-  console.log(action.payload, 'action');
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action': 'approval',

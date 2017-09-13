@@ -10,41 +10,41 @@ class AttendanceApprove extends React.Component {
       selectedId:            '',
       approve_request:       '1',
       reject_request:        '0',
+      message:               '',
       'show_status_message': false
     };
     this._approve_attendance_req = this._approve_attendance_req.bind(this);
   }
   componentWillMount (props) {
     this.setState({
-      selectedId: this.props.val.id
+      selectedId: this.props.val.id,
+      message:    this.props.attendanceStatus.data
     });
   }
   componentWillReceiveProps (props) {
     this.setState({
-      selectedId: this.props.val.id
+      selectedId: props.val.id,
+      message:    props.attendanceStatus.data
     });
   }
 
   _approve_attendance_req (shift) {
     if (shift === 1) {
       let attendance_status = '1';
-      this.props.requestUserAttendanceStatus({status: this.state.approve_request, id: this.state.selectedId});
+      this.props.requestUserAttendanceStatus({status: shift, id: this.state.selectedId});
       this.setState({
         selectedId: ''
       });
     } else if (shift === 0) {
-      console.log(shift, 'shift2');
       let attendance_status = '';
-      this.props.requestUserAttendanceStatus({status: this.state.reject_request, id: this.state.selectedId});
+      this.props.requestUserAttendanceStatus({status: shift, id: this.state.selectedId});
       this.setState({
         selectedId: ''
       });
-    } if (this.props.attendanceStatus.isSuccess) {
-      if (shift === 1) {
-        notify('Success', 'Working Time Added Successfully.', 'success');
-      } else if (shift === 0) {
-        notify('Rejected', 'Request Rejected', 'success');
-      }
+    }
+
+    if (this.state.message === true) {
+      notify('DONE', '', 'success');
     }
   }
 

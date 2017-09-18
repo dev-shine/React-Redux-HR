@@ -50,14 +50,6 @@ class PageEmpHours extends Component {
     }
   }
   render () {
-    const pieData = [{
-      name: 'Jane',
-      y:    13
-    }, {
-      name: 'John',
-      y:    23
-    }];
-
     return (
       <div>
         <div className="row">

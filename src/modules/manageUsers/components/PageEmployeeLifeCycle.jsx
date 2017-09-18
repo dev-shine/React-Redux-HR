@@ -18,27 +18,6 @@ class PageEmployeeLifeCycle extends Component {
     window.scrollTo(0, 0);
   }
   render () {
-    const pieData = [{
-      name: 'Jane',
-      y:    13
-    }, {
-      name: 'John',
-      y:    23
-    }, {
-      name: 'Joe',
-      y:    19
-    },
-    {
-      name: 'Jane',
-      y:    13
-    }, {
-      name: 'John',
-      y:    23
-    }, {
-      name: 'Joe',
-      y:    19
-    }];
-
     return (
       <div>
         <div className="team">

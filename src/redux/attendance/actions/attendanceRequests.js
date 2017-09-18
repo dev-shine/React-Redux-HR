@@ -19,11 +19,12 @@ export function* getUserDayAttendance (action) {
 }
 
 export function* userAttendanceStatus (action) {
+  const {status, id} = action.payload;
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action': 'approval',
-      'status': parseInt(action.payload.status),
-      'id':     action.payload.id
+      'status': parseInt(status),
+      'id':     id
     });
     if (response.error === 0) {
       yield put(actions.successUserAttendanceStatus(response.data));

@@ -17,14 +17,18 @@ class AttendanceApprove extends React.Component {
   }
   componentWillMount (props) {
     this.setState({
-      selectedId: this.props.val.id,
-      message:    this.props.attendanceStatus.data
+      selectedId: this.props.val.id
     });
   }
   componentWillReceiveProps (props) {
+    if (this.props.status.isSuccess && !this.props.status.data) {
+      // this.setState({'message': 'Request Rejected Successfully.'});
+      notify('Success!', 'Request Rejected Successfully.', 'success');
+    } else {
+      notify('Success!', 'Request Approved Successfully.', 'success');
+    }
     this.setState({
-      selectedId: props.val.id,
-      message:    props.attendanceStatus.data
+      selectedId: props.val.id
     });
   }
 
@@ -41,10 +45,6 @@ class AttendanceApprove extends React.Component {
       this.setState({
         selectedId: ''
       });
-    }
-
-    if (this.state.message === true) {
-      notify('DONE', '', 'success');
     }
   }
 

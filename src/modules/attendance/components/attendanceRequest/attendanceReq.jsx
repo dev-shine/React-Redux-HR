@@ -22,7 +22,7 @@ export default class UserPendingAttendanceList extends React.Component {
     let {isLoading, data} = this.props.attendanceReqList;
   // Map UserPendingDetails -->
     let row = data.map((val, i) => {
-      let AttandenceButtons = <AttendanceApprove val={val}{...this.props} />;
+      let AttandenceButtons = <AttendanceApprove status={this.props.attendanceStatus} val={val}{...this.props} />;
       return (
         <tr key={i}>
           <td className="p-r-xs">{val.id}</td>

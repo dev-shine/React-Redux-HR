@@ -43,9 +43,11 @@ export function fireAjax (method, url, data) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
   } else if (data.action === 'manual') {
+    delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApi + '/attendance/manual';
   } if (data.action === 'approval') {
+    delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApi + '/attendance/approval';
   }

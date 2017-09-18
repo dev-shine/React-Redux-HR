@@ -32,9 +32,17 @@ class ManageDashboard extends React.Component {
   }
   componentWillMount (props) {
     window.scrollTo(0, 0);
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = d.getMonth();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     this.props.requestTeamStats();
+    this.props.requestEmployeeHours({
+      'id':    this.props.loggedUser.data.id,
+      'month': months[month],
+      'year':  year
+    });
     this.props.requestEmployeLifeCycle();
-    this.props.requestEmployeeHours();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -123,7 +131,7 @@ class ManageDashboard extends React.Component {
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
-                    <PageEmpHours {...this.props} />
+                    <PageEmpHours />
                   </div>
                 </div>
               </div>

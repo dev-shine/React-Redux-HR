@@ -40,12 +40,13 @@ export function* getEmployeLifeCycle (action) {
 export function* getEmployeeHours (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action': 'get_employee_hours'
+      'action': 'get_employee_hours',
+      'id':     action.payload.id,
+      'month':  action.payload.month,
+      'year':   action.payload.year
     });
     if (response.error === 0) {
-      yield put(
-        actions.successEmployeeHours(response.data)
-      );
+      yield put(actions.successEmployeeHours(response.data));
     } else {
       yield put(actions.errorEmployeeHours(response.message));
     }

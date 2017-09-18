@@ -57,9 +57,12 @@ const requestEmployeeHours = (state, action) => update(state, {
   empHours: {$setRequestLoading: null}
 });
 
-const successEmployeeHours = (state, action) => update(state, {
-  empHours: {$setRequestSuccess: action.payload}
-});
+const successEmployeeHours = (state, action) => {
+  console.log(action);
+  return update(state, {
+    empHours: {$setRequestSuccess: action.payload}
+  });
+};
 
 const errorEmployeeHours = (state, action) => update(state, {
   empHours: {$setRequestError: action.payload}

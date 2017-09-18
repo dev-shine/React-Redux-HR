@@ -40,6 +40,18 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (data.action === 'get_team_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_team_stats';
+  } else if (data.action === 'get_termination_joining_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_termination_joining_stats';
+  } else if (data.action === 'get_employee_hours') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_employee_hours';
   }
 
   return fetch(URL, headers).then((response) => {

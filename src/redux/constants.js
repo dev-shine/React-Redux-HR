@@ -67,6 +67,18 @@ export const REQUEST_GET_TEAM = 'REQUEST_GET_TEAM';
 export const SUCCESS_GET_TEAM = 'SUCCESS_GET_TEAM';
 export const ERROR_GET_TEAM = 'ERROR_GET_TEAM';
 
+export const REQUEST_TEAM_STATS = 'REQUEST_TEAM_STATS';
+export const SUCCESS_TEAM_STATS = 'SUCCESS_TEAM_STATS';
+export const ERROR_TEAM_STATS = 'ERROR_TEAM_STATS';
+
+export const REQUEST_EMP_LIFE_CYCLE = 'REQUEST_EMP_LIFE_CYCLE';
+export const SUCCESS_EMP_LIFE_CYCLE = 'SUCCESS_EMP_LIFE_CYCLE';
+export const ERROR_EMP_LIFE_CYCLE = 'ERROR_EMP_LIFE_CYCLE';
+
+export const REQUEST_EMP_HOURS = 'REQUEST_EMP_HOURS';
+export const SUCCESS_EMP_HOURS = 'SUCCESS_EMP_HOURS';
+export const ERROR_EMP_HOURS = 'ERROR_EMP_HOURS';
+
 //* **********************************************************************************
 // +++""ADMIN""+++
 

@@ -2,6 +2,7 @@ import {takeLatest} from 'redux-saga/effects';
 import * as constants from 'appRedux/constants';
 import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'appRedux/auth/actions';
 import {holidayList} from 'appRedux/holidays/actions';
+import {getTeamStats, getEmployeLifeCycle, getEmployeeHours} from 'appRedux/manageUsers/actions/dashboard';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDaySummary, updateUserDaySummary} from 'appRedux/attendance/actions/userDaySummary';
 import {getUsersList} from 'appRedux/generic/actions/usersList';
@@ -21,6 +22,10 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_UPDATE_USER_DAY_SUMMARY, updateUserDaySummary);
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
+
+  yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);
+  yield takeLatest(constants.REQUEST_EMP_LIFE_CYCLE, getEmployeLifeCycle);
+  yield takeLatest(constants.REQUEST_EMP_HOURS, getEmployeeHours);
 
   yield takeLatest(constants.REQUEST_USER_POLICY_DOCUMENT, fetchUserPolicyDocument);
 

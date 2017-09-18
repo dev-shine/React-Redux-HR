@@ -2,47 +2,73 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
 import {
   HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries
 } from 'react-jsx-highcharts';
-import userDashboard from 'components/manageUser/userDashboard';
 
 class PageUserDashboard extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      teamGraphData: ''
+    };
+  }
+  componentsWillMount (props) {
+    this.setState({
+      teamGraphData: this.props.team
+    });
+  }
 
+  componentWillReceiveProps (props) {
+    window.scrollTo(0, 0);
+    this.setState({
+      teamGraphData: this.props.team
+    });
+  }
   render () {
-    const pieData = [{
-      name: 'Jane',
-      y:    13
-    }, {
-      name: 'John',
-      y:    23
-    }, {
-      name: 'Joe',
-      y:    19
-    }];
+    let teamUser = this.state.teamGraphData;
+    let UserList = _.map(teamUser, (teamData, key) => {
+      let member = teamData.member;
+      let noOfMonths = [];
+      const pieData = [];
+      let memberName = [];
+      let data = teamData.name;
+      let graphdata = _.map(member, (memberData, k) => {
+        noOfMonths.push(memberData.number_of_months);
+        memberName.push(memberData.name);
+        pieData.push(memberData.name);
+        return (
+          <XAxis key={k} id="x" categories={memberName} />
+        );
+      });
 
-    return (
-      <div>
-        <div className="app">
-        <HighchartsChart>
+      return (
+        <div key={teamData.count_members} className="p-t p-m">
+          {teamData.name !== ''
+        ? <HighchartsChart>
           <Chart />
-          <Title>{'Team Dashboard'}</Title>
+          <Title>{teamData.name}</Title>
           <Legend />
-
-          <XAxis id="x" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />
-
+          {graphdata}
           <YAxis id="number">
-            <ColumnSeries id="jane" name="Jane" data={[3, 2, 1, 3, 4]} />
-            <ColumnSeries id="john" name="John" data={[2, 3, 5, 7, 6]} />
-            <ColumnSeries id="joe" name="Joe" data={[4, 3, 3, 9, 0]} />
-            <SplineSeries id="average" name="Average" data={[3, 2.67, 3, 6.33, 3.33]} />
-            <PieSeries id="total-consumption" name="Total consumption" data={pieData} center={[100, 80]} size={100} showInLegend={false} />
+            <ColumnSeries id="employee" name="Employees" data={noOfMonths} />
+            <PieSeries key={key} id="total-consumption"
+              name="Total consumption"
+              data={pieData}
+              center={[100, 80]}
+              size={100}
+              showInLegend={false} />
           </YAxis>
         </HighchartsChart>
+        : null
+      }
+        </div>
+      );
+    });
+    return (
+      <div>
+        {UserList}
       </div>
-    </div>
     );
   }
 }

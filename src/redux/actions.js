@@ -21,6 +21,14 @@ export const errorHolidayList = createAction(constants.ERROR_HOLIDAYSLIST);
 export const requestUserAttendance = createAction(constants.REQUEST_USER_ATTENDANCE);
 export const successUserAttendance = createAction(constants.SUCCESS_USER_ATTENDANCE);
 export const errorUserAttendance = createAction(constants.ERROR_USER_ATTENDANCE);
+
+export const requestUserDayAttendance = createAction(constants.REQUEST_USER_ATTENDANCE_REQUEST);
+export const successUserDayAttendance = createAction(constants.SUCCESS_USER_ATTENDANCE_REQUEST);
+export const errorUserDayAttendance = createAction(constants.ERROR_USER_ATTENDANCE_REQUEST);
+
+export const requestUserAttendanceStatus = createAction(constants.REQUEST_USER_ATTENDANCE_STATUS);
+export const successUserAttendanceStatus = createAction(constants.SUCCESS_USER_ATTENDANCE_STATUS);
+export const errorUserAttendanceStatus = createAction(constants.ERROR_USER_ATTENDANCE_STATUS);
 // -===-
 export const requestUserDaySummary = createAction(constants.REQUEST_USER_DAY_SUMMARY);
 export const successUserDaySummary = createAction(constants.SUCCESS_USER_DAY_SUMMARY);

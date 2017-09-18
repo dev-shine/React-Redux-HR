@@ -32,12 +32,13 @@ export default class empDaySummary extends React.Component {
     } else {
       this.setState({formInfo: 'hidden'});
     }
+
     let user_id = props.userid;
     let date = props.date;
     let year = props.year;
     let month = props.month;
-    if (this.props.loggedUser.data.role === CONFIG.EMPLOYEE && props.empDaySummary.entry_time !== '' && props.empDaySummary.exit_time !== '') {
-      this.setState({inputAccess: '', buttonAccess: 'show'});
+    if (this.props.loggedUser.data.role === CONFIG.EMPLOYEE && props.userDaySummary.userid !== '' && props.empDaySummary.exit_time !== '') {
+      this.setState({inputAccess: '', buttonAccess: ''});
     } else {
       this.setState({inputAccess: ''});
     }
@@ -45,11 +46,9 @@ export default class empDaySummary extends React.Component {
       year:            props.year,
       month:           props.month,
       current_userid:  props.userDaySummary.userid,
-      current_date:    moment(props.date).format('MM-DD-YYYY'),
-      form_entry_time: props.empDaySummary.entry_time,
-      form_exit_time:  props.empDaySummary.exit_time,
-      form_reason:     this.state.form_reason,
-      message:         props.empDaySummary.message
+      form_entry_time: props.userDaySummary.entry_time,
+      form_exit_time:  props.userDaySummary.exit_time,
+      current_date:    moment(props.date).format('MM-DD-YYYY')
     });
   }
 
@@ -65,8 +64,8 @@ export default class empDaySummary extends React.Component {
       year,
       month
     });
-
     $('#modalUserDaySummary').modal('hide');
+    notify('success', '', 'success');
   }
 
   render () {
@@ -78,7 +77,7 @@ export default class empDaySummary extends React.Component {
               <div className="modal-header">
                 <div className="row">
                   <div className="col-xs-11">
-                    <h5 className="modal-title">{this.props.empDaySummary.name} {'Your Day Summary of '} - {this.props.date}</h5>
+                    <h5 className="modal-title">{this.props.userDaySummary.name} {'Your Day Summary of '} - {this.props.date}</h5>
                   </div>
                   <div className="col-xs-1">
                     <button className="btn btn-icon white" data-dismiss="modal">

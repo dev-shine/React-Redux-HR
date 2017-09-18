@@ -46,16 +46,16 @@ export function fireAjax (method, url, data) {
   } else if (data.action === 'manual') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApi + '/attendance/manual';
+    URL = CONFIG.expressWeburl + '/attendance/manual';
   } if (data.action === 'approval') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApi + '/attendance/approval';
+    URL = CONFIG.expressWeburl + '/attendance/approval';
   } else if (data.action === 'update_time_by_employee') {
     delete (data.action);
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
     headers.body = JSON.stringify(data);
-    URL = CONFIG.express_web_url + '/attendance/update_time_by_employee';
+    URL = CONFIG.expressWeburl + '/attendance/update_time_by_employee';
   }
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {

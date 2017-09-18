@@ -7,7 +7,6 @@ import {
 } from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
 var moment = require('moment');
-import userDashboard from 'components/manageUser/userDashboard';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
 
@@ -83,9 +82,8 @@ class PageEmpHours extends Component {
           <XAxis id="x" categories={['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']} />
           <YAxis id="number">
             <ColumnSeries id="jane" name="emp1" data={[3, 2, 1, 3, 14]} />
-            <ColumnSeries id="john" name="emp2" data={[2, 3, 5, 7, 6]} />
             <SplineSeries id="average" name="Average" data={[3, 2.67, 3, 6.33, 3.33]} />
-            <PieSeries id="total-consumption" name="Total consumption" data={pieData} center={[100, 80]} size={100} showInLegend={false} />
+            <PieSeries id="total-consumption" name="Total consumption" center={[100, 80]} size={100} showInLegend={false} />
           </YAxis>
         </HighchartsChart>
       </div>

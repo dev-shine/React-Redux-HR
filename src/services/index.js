@@ -44,7 +44,8 @@ export function fireAjax (method, url, data) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
   } else if (data.action === 'update_time_by_employee') {
-    delete (data.token);
+    delete (data.action);
+    headers['Content-Type'] = 'application/x-www-form-urlencoded';
     headers.body = JSON.stringify(data);
     URL = CONFIG.express_web_url + '/attendance/update_time_by_employee';
   }

@@ -18,7 +18,8 @@ export default class empDaySummary extends React.Component {
       inputAccess:     '',
       buttonAccess:    'show',
       year:            '',
-      month:           ''
+      month:           '',
+      message:         ''
     };
     this.updateDaySummary = this.updateDaySummary.bind(this);
   }
@@ -47,7 +48,8 @@ export default class empDaySummary extends React.Component {
       current_date:    moment(props.date).format('MM-DD-YYYY'),
       form_entry_time: props.empDaySummary.entry_time,
       form_exit_time:  props.empDaySummary.exit_time,
-      form_reason:     this.state.form_reason
+      form_reason:     this.state.form_reason,
+      message:         props.empDaySummary.message
     });
   }
 
@@ -63,6 +65,7 @@ export default class empDaySummary extends React.Component {
       year,
       month
     });
+
     $('#modalUserDaySummary').modal('hide');
   }
 

@@ -1,33 +1,31 @@
-import Immutable from 'immutable';
+import {handleActions} from 'redux-actions';
+import update from 'immutability-helper';
+import * as constants from 'appRedux/constants';
+import 'appRedux/update';
 
 let initialState = {
-  'message':       '',
-  'name':          '',
-  'profileImage':  '',
-  'userid':        '',
-  'year':          '',
-  'month':         '',
-  'monthName':     '',
-  'date':          '',
-  'day':           '',
-  'entry_time':    '',
-  'exit_time':     '',
-  'total_working': ''
+  empDaySummary: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   '',
+    reason:    ''
+  }
 };
 
-export function empDaySummary (state = Immutable.fromJS(initialState), action) {
-  // console.log(action, action.payload, 'fffffffffff');
-  if (action.type === 'SUCCESS_UPDATE_EMP_DAY_SUMMARY') {
-    return state.set('message', action.payload);
-  } else if (action.type === 'ACTION_EMPTY_EMP_DAY_SUMMARY') {
-    return state.set('message', '');
-  } else if (action.type === 'ACTION_ERROR_EMP_DAY_SUMMARY') {
-    return state.set('message', '');
-  } else if (action.type === 'ACTION_EMPTY_UPDATE_EMP_DAY_SUMMARY') {
-    return state.set('message', action.payload);
-  } else if (action.type === 'ACTION_ERROR_UPDATE_EMP_DAY_SUMMARY') {
-    return state.set('message', '');
-  } else {
-    return state.set('message', '');
-  }
-}
+const requestUpdateEmpDaySummary = (state, action) => update(state, {
+  empDaySummary: {$setRequestLoading: null}
+});
+const successUpdateEmpDaySummary = (state, action) => update(state, {
+  empDaySummary: {$setRequestSuccess: action.payload}
+});
+const errorUpdateEmpDaySummary = (state, action) => update(state, {
+  empDaySummary: {$setRequestError: action.payload}
+});
+
+export default handleActions({
+  [constants.REQUEST_UPDATE_EMP_DAY_SUMMARY]: requestUpdateEmpDaySummary,
+  [constants.SUCCESS_UPDATE_EMP_DAY_SUMMARY]: successUpdateEmpDaySummary,
+  [constants.ACTION_ERROR_EMP_DAY_SUMMARY]:   errorUpdateEmpDaySummary
+}, initialState);

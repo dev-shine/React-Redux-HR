@@ -41,10 +41,6 @@ class MonthlyAttendance extends React.Component {
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-
-    if (props.empDaySummary.message !== '') {
-      notify('Success', props.empDaySummary.message, 'success');
-    }
   }
   onShowDaySummary (userid, date) {
     this.setState({daysummary_userid: userid, daysummary_date: date});
@@ -93,7 +89,7 @@ function mapStateToProps (state) {
   return {
     frontend:          state.frontend.toJS(),
     userDaySummary:    state.userDaySummary.toJS(),
-    empDaySummary:     state.empDaySummary.toJS(),
+    empDaySummary:     state.empDaySummary,
     loggedUser:        state.logged_user.userLogin,
     monthlyAttendance: state.monthlyAttendance.toJS()
   };

@@ -4,7 +4,6 @@ const token = getToken();
 
 const CONFIG = {
   BASE_URL:                  window.location.href.split('/#')[0] || 'http://dev.hr.excellencetechnologies.in/',
-  // dev apis
   api_url:                   'http://dev.hr.excellencetechnologies.in/attendance/API_HR/api.php',
   other_api_url:             'http://dev.hr.excellencetechnologies.in/attendance/sal_info/api.php',
   api_url_salary:            'http://dev.hr.excellencetechnologies.in/attendance/sal_info',

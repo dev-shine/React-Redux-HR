@@ -4,7 +4,7 @@ import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'appRedux/
 import {holidayList} from 'appRedux/holidays/actions';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDayAttendance, userAttendanceStatus} from 'appRedux/attendance/actions/attendanceRequests';
-import {getUserDaySummary, updateUserDaySummary} from 'appRedux/attendance/actions/userDaySummary';
+import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appRedux/attendance/actions/userDaySummary';
 import {getUsersList} from 'appRedux/generic/actions/usersList';
 import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
 import {getTeamList, saveTeam, getTeam} from 'appRedux/team/actions/teamList';
@@ -20,8 +20,10 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_USER_ATTENDANCE, userMonthlyAttendance);
   yield takeLatest(constants.REQUEST_USER_DAY_SUMMARY, getUserDaySummary);
   yield takeLatest(constants.REQUEST_UPDATE_USER_DAY_SUMMARY, updateUserDaySummary);
+
   yield takeLatest(constants.REQUEST_USER_ATTENDANCE_REQUEST, getUserDayAttendance);
   yield takeLatest(constants.REQUEST_USER_ATTENDANCE_STATUS, userAttendanceStatus);
+  yield takeLatest(constants.REQUEST_UPDATE_EMP_DAY_SUMMARY, empUpdateDaySummary);
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
 

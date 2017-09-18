@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
-import { CONFIG } from 'src/config/index';
+import {CONFIG} from 'src/config/index';
 import * as actions_login from 'appRedux/auth/actions/index';
 import AddUserPendingHour from './AddUserPendingHour';
 import 'react-date-picker/index.css';
@@ -57,9 +57,9 @@ const PendingHourSummary = ({manageUserPendingHours, onUserPendingHoursData}) =>
 PendingHourSummary.PropTypes = {
   manageUserPendingHours: PropTypes.shape({
     previousMonth: PropTypes.object.isRequired,
-    nextMonth: PropTypes.object.isRequired,
-    monthName: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
+    nextMonth:     PropTypes.object.isRequired,
+    monthName:     PropTypes.string.isRequired,
+    year:          PropTypes.number.isRequired
   }).isRequired
 };
 export default PendingHourSummary;

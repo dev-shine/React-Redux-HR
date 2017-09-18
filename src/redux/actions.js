@@ -37,6 +37,10 @@ export const errorUserDaySummary = createAction(constants.ERROR_USER_DAY_SUMMARY
 export const requestUpdateUserDaySummary = createAction(constants.REQUEST_UPDATE_USER_DAY_SUMMARY);
 export const successUpdateUserDaySummary = createAction(constants.SUCCESS_UPDATE_USER_DAY_SUMMARY);
 export const errorUpdateUserDaySummary = createAction(constants.ERROR_UPDATE_USER_DAY_SUMMARY);
+// --Employee Update Day Summary ---
+export const requestUpdateEmpDaySummary = createAction(constants.REQUEST_UPDATE_EMP_DAY_SUMMARY);
+export const successUpdateEmpDaySummary = createAction(constants.SUCCESS_UPDATE_EMP_DAY_SUMMARY);
+export const errorUpdateEmpDaySummary = createAction(constants.ERROR_UPDATE_EMP_DAY_SUMMARY);
 
 export const requestUsersList = createAction(constants.REQUEST_USERSLIST);
 export const successUsersList = createAction(constants.SUCCESS_USERSLIST);

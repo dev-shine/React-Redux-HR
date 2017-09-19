@@ -3,12 +3,11 @@ import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
 
 export function* getTeamStats (action) {
-  console.log('sdsdsdsdsd');
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action': 'get_team_stats'
     });
-    if (response.status === 0) {
+    if (response.error === 0) {
       yield put(actions.successTeamStats(response.data));
     } else {
       yield put(actions.errorTeamStats(response.message));
@@ -23,8 +22,8 @@ export function* getEmployeLifeCycle (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':    'get_termination_joining_stats',
-      'startYear': action.payload.startYear,
-      'endYear':   action.payload.endYear
+      'startYear': action.payload.start_year,
+      'endYear':   action.payload.end_year
     });
     if (response.error === 0) {
       yield put(actions.successEmployeLifeCycle(response.data));
@@ -40,10 +39,10 @@ export function* getEmployeLifeCycle (action) {
 export function* getEmployeeHours (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action': 'get_employee_hours',
-      'id':     action.payload.id,
-      'month':  action.payload.month,
-      'year':   action.payload.year
+      'action':  'get_employee_hours',
+      'user_id': action.payload.id,
+      'month':   action.payload.month,
+      'year':    action.payload.year
     });
     if (response.error === 0) {
       yield put(actions.successEmployeeHours(response.data));

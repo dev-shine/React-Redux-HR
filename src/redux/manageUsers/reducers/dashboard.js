@@ -45,9 +45,11 @@ const requestEmployeLifeCycle = (state, action) => update(state, {
   empLifeCycle: {$setRequestLoading: null}
 });
 
-const successEmployeLifeCycle = (state, action) => update(state, {
-  empLifeCycle: {$setRequestSuccess: action.payload}
-});
+const successEmployeLifeCycle = (state, action) => {
+  return update(state, {
+    empLifeCycle: {$setRequestSuccess: action.payload}
+  });
+};
 
 const errorEmployeLifeCycle = (state, action) => update(state, {
   empLifeCycle: {$setRequestError: action.payload}
@@ -58,7 +60,6 @@ const requestEmployeeHours = (state, action) => update(state, {
 });
 
 const successEmployeeHours = (state, action) => {
-  console.log(action);
   return update(state, {
     empHours: {$setRequestSuccess: action.payload}
   });

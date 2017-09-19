@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {
-  HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries
+  HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, PieSeries
 } from 'react-jsx-highcharts';
 
 class PageUserDashboard extends Component {
@@ -14,6 +14,7 @@ class PageUserDashboard extends Component {
     };
   }
   componentsWillMount (props) {
+    const userId = localStorage.getItem('userid');
     this.setState({
       teamGraphData: this.props.team
     });

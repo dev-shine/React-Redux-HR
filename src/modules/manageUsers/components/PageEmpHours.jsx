@@ -2,13 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-// import _ from 'lodash';
+import _ from 'lodash';
 import * as actions from 'appRedux/actions';
 import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
-// import {DateField} from 'react-date-picker';
-// import 'react-date-picker/index.css';
-// var moment = require('moment');
+var moment = require('moment');
 
 class PageEmpHours extends Component {
   constructor (props) {
@@ -19,63 +17,102 @@ class PageEmpHours extends Component {
       end_year:    '',
       pendingData: '',
       year:        '',
-      month:       ''
+      month:       '',
+      empHours:    ''
     };
-    this.onChangeMonthData = this.onChangeMonthData.bind(this);
+    this.getByData = this.getByData.bind(this);
   }
   componentsWillMount () {
-
+    this.setState({
+      empHours: this.props.empHours
+    });
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
+    this.setState({
+      empHours: this.props.empHours.data
+    });
   }
-  onChangeMonthData (check) {
-    if (check === 'previous') {
 
-    } else if (check === 'next') {
-
-    }
+  getByData (evt) {
+    const userId = localStorage.getItem('userid');
+    this.props.requestEmployeeHours({
+      'id':    userId,
+      'month': this.state.month,
+      'year':  this.state.year
+    });
   }
   render () {
-    console.log(this.props);
+    let EmpTimeTable = this.state.empHours;
+    var noOfDays = [];
+    var noOfHours = [];
+    var noOfMinuts = [];
+    let timeList = _.map(EmpTimeTable, (hoursData, j) => {
+      noOfDays.push(hoursData.day);
+      noOfHours.push(parseFloat(hoursData.total_time));
+      noOfMinuts.push(hoursData.working_time.minutes);
+      return (
+        <div></div>
+      );
+    });
+
     return (
       <div>
-        <div className="row">
-          <div className="fullcalendar fc fc-ltr fc-unthemed">
-            <div className="fc-toolbar">
-              <div className="fc-left">
-                <button type="button" className="fc-prev-button fc-button fc-state-default fc-corner-left fc-corner-right"
-                  onClick={() => this.onChangeMonthData('previous')}>
-                  <span className="fc-icon fc-icon-left-single-arrow"></span>
-                </button>
-              </div>
-              <div className="fc-right">
-                <button type="button" className="fc-next-button fc-button fc-state-default fc-corner-left fc-corner-right"
-                  onClick={() => this.onChangeMonthData('next')}>
-                  <span className="fc-icon fc-icon-right-single-arrow"></span>
-                </button>
-              </div>
-              <div className="fc-center">
-                <h2>{'SEP-2017'}</h2>
-              </div>
-              <div className="fc-clear"></div>
+        <div>
+          <div className="team row">
+            <HighchartsChart >
+              <Chart />
+              <Title>{'Employee Time Table'}</Title>
+              <Legend />
+              <XAxis id="x" categories={noOfDays} />
+              <YAxis id='attendance'>
+                <ColumnSeries id='emp' name="Hours" data={noOfHours} />
+              </YAxis>
+              <SplineSeries id="average" name="Average" />
+            </HighchartsChart>
+          </div>
+        </div>
+          <div className="col-md-12 row">
+            <div className="form-group col-md-4">
+              <label htmlFor="sel1">Select Months:</label>
+              <select className="form-control" id="sel1"
+                onChange={(evt) => { this.setState({month: evt.target.value}); }}>
+                <option value="Jan">Jan</option>
+                <option value="Feb">Feb</option>
+                <option value="March">Mar</option>
+                <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="Feb">June</option>
+                  <option value="June">July</option>
+                  <option value="April">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
+              </select>
+            </div>
+            <div className="form-group col-md-4">
+              <label htmlFor="sel1">Select Year:</label>
+              <select className="form-control" id="sel12"
+                onChange={(evt) => { this.setState({year: evt.target.value}); }}>
+                <option value="2014" >2010</option>
+                <option value="2015">2011</option>
+                <option value="2016">2012</option>
+                <option value="2017">2013</option>
+                <option value="2014" >2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                  <option value="2015">2018</option>
+                  <option value="2016">2019</option>
+                  <option value="2017">2020</option>
+              </select>
+            </div>
+            <div className="form-group col-md-4">
+              <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
             </div>
           </div>
         </div>
-        <div className="team row">
-          <HighchartsChart>
-            <Chart />
-            <Title>{'Employee Time Table'}</Title>
-            <Legend />
-            <XAxis id="x" categories={['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']} />
-            <YAxis id="number">
-              <ColumnSeries id="jane" name="emp1" data={[3, 2, 1, 3, 14]} />
-              <SplineSeries id="average" name="Average" data={[3, 2.67, 3, 6.33, 3.33]} />
-              <PieSeries id="total-consumption" name="Total consumption" center={[100, 80]} size={100} showInLegend={false} />
-            </YAxis>
-          </HighchartsChart>
-        </div>
-      </div>
     );
   }
 }

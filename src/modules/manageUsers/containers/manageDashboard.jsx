@@ -7,12 +7,12 @@ import {bindActionCreators} from 'redux';
 import {isNotUserValid} from 'src/services/generic';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions from 'appRedux/actions';
-import * as actionsDisabledEmployee from 'appRedux/generic/actions/usersList';
 import Header from 'components/generic/Header';
 import UsersListHeader from 'components/generic/UsersListHeader';
 import PageUserDashboard from 'modules/manageUsers/components/PageUserDashboard';
 import PageEmployeeLifeCycle from 'modules/manageUsers/components/PageEmployeeLifeCycle';
 import PageEmpHours from 'modules/manageUsers/components/PageEmpHours';
+import * as actionsManageUserPendingHours from 'appRedux/workingHours/actions/manageUserPendingHour';
 
 class ManageDashboard extends React.Component {
   constructor (props) {
@@ -26,7 +26,8 @@ class ManageDashboard extends React.Component {
       thirdArrow:         'hidden',
       teamList:           'show',
       empLifeCycle:       'hidden',
-      empHours:           'hidden'
+      empHours:           'hidden',
+      empData:            ''
     };
     this.openPage = this.openPage.bind(this);
   }
@@ -36,18 +37,20 @@ class ManageDashboard extends React.Component {
     const year = d.getFullYear();
     const month = d.getMonth();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    this.props.requestTeamStats();
+    const userId = localStorage.getItem('userid');
     this.props.requestEmployeeHours({
-      'id':    this.props.loggedUser.data.id,
+      'id':    userId,
       'month': months[month],
       'year':  year
     });
-    this.props.requestEmployeLifeCycle();
+    this.props.requestTeamStats();
+    this.props.requestEmployeLifeCycle(year, year);
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     this.setState({
-      defaultTeamDisplay: props.teamStats.teamStats.data.teams
+      defaultTeamDisplay: props.teamStats.teamStats.data.teams,
+      empData:            props.empHours
     });
   }
 
@@ -124,14 +127,14 @@ class ManageDashboard extends React.Component {
               </div>
               <div className="padding">
                 <div className={this.state.teamList}>
-                  <PageUserDashboard {...this.props} team={this.state.defaultTeamDisplay} />
+                  <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
                 </div>
                 <div className={this.state.empLifeCycle}>
-                  <PageEmployeeLifeCycle {...this.props} />
+                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} />
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
-                    <PageEmpHours />
+                    <PageEmpHours empHours={this.props.empHours}{...this.props} />
                   </div>
                 </div>
               </div>
@@ -145,12 +148,13 @@ class ManageDashboard extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:     state.frontend.toJS(),
-    loggedUser:   state.logged_user.userLogin,
-    usersList:    state.usersList.toJS(),
-    teamStats:    state.teamStats,
-    empLifeCycle: state.teamStats.empLifeCycle,
-    empHours:     state.teamStats.empHours
+    frontend:               state.frontend.toJS(),
+    loggedUser:             state.logged_user.userLogin,
+    usersList:              state.usersList.toJS(),
+    teamStats:              state.teamStats,
+    empLifeCycle:           state.teamStats.empLifeCycle,
+    manageUserPendingHours: state.manageUserPendingHours.toJS(),
+    empHours:               state.teamStats.empHours
   };
 }
 const mapDispatchToProps = (dispatch) => {

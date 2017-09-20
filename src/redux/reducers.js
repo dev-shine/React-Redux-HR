@@ -25,6 +25,7 @@ import {empSalaryList} from 'appRedux/salary/reducers/empSalaryDetails';
 import policyDocuments from 'appRedux/policyDocuments/reducers/policyDocuments';
 import {template} from 'appRedux/templates/reducers/template';
 import teamList from 'appRedux/team/reducers/teamList';
+import teamStats from 'appRedux/manageUsers/reducers/dashboard';
 import {manageDevice} from 'appRedux/inventory/reducers/inventory';
 import attendanceReq from 'appRedux/attendance/reducers/attendanceReq';
 import empDaySummary from 'appRedux/attendance/reducers/empDaySummary';
@@ -55,6 +56,7 @@ export default combineReducers({
   policyDocuments,
   template,
   teamList,
+  teamStats,
   manageDevice,
   attendanceReq,
   empDaySummary

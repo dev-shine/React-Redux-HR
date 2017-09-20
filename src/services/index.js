@@ -43,19 +43,31 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (data.action === 'get_team_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_team_stats';
+  } else if (data.action === 'get_termination_joining_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_termination_joining_stats';
+  } else if (data.action === 'get_employee_hours') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_employee_hours';
   } else if (data.action === 'manual') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApi + '/attendance/manual';
+    URL = CONFIG.expressApiUrl + '/attendance/manual';
   } if (data.action === 'approval') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApi + '/attendance/approval';
+    URL = CONFIG.expressApiUrl + '/attendance/approval';
   } else if (data.action === 'update_time_by_employee') {
     delete (data.action);
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
     headers.body = JSON.stringify(data);
-    URL = CONFIG.express_web_url + '/attendance/update_time_by_employee';
+    URL = CONFIG.expressApiUrl + '/attendance/update_time_by_employee';
   }
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {

@@ -5,6 +5,8 @@ const DATA = [
   {'path': '/attendanceRequests', 'label': 'Attendance Requests', 'plabel': 'Attendance'},
   {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
   {'path': '/manage_roles', 'label': 'Manage Roles', 'plabel': 'Roles'},
+  {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
+  {'path': '/dashboard', 'label': 'Dashboard', 'plabel': 'Manage Employees'},
   {'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees'},
   {'path': '/manage_working_hours', 'label': 'Office Hours', 'plabel': 'Manage Hours'},
   {'path': '/manage_user_pending_hours', 'label': 'Pending Hours', 'plabel': 'Manage Hours'},

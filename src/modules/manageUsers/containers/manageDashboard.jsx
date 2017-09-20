@@ -44,7 +44,10 @@ class ManageDashboard extends React.Component {
       'year':  year
     });
     this.props.requestTeamStats();
-    this.props.requestEmployeLifeCycle(year, year);
+    this.props.requestEmployeLifeCycle({
+      'start_year': year,
+      'end_year':   year
+    });
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);

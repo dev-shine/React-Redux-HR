@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {withRouter, Link} from 'react-router';
 import _ from 'lodash';
 import Menu from 'components/generic/Menu';
 import {bindActionCreators} from 'redux';
@@ -8,6 +8,7 @@ import {isNotUserValid} from 'src/services/generic';
 import LoadingIcon from 'components/generic/LoadingIcon';
 import * as actions from 'appRedux/actions';
 import Header from 'components/generic/Header';
+import GetLogo from 'components/auth/login/GetLogo';
 import UsersListHeader from 'components/generic/UsersListHeader';
 import PageUserDashboard from 'modules/manageUsers/components/PageUserDashboard';
 import PageEmployeeLifeCycle from 'modules/manageUsers/components/PageEmployeeLifeCycle';
@@ -47,6 +48,9 @@ class ManageDashboard extends React.Component {
     this.props.requestEmployeLifeCycle({
       'start_year': year,
       'end_year':   year
+    });
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip();
     });
   }
   componentWillReceiveProps (props) {
@@ -90,9 +94,24 @@ class ManageDashboard extends React.Component {
   render () {
     return (
       <div>
-        <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Employees Dashboard'} />
+          <div className="nav-dashboard box-shadow m-b">
+            <div className="navbar">
+              <img className="p-0" style={{'marginTop': '0.7%'}} src="./logo.png" height="40" width="220"></img>
+              <Link to="login">
+                <p className='p-dashboard'
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Login">
+                   <i className="material-icons">power_settings_new</i>
+                   </p>
+              </Link>
+            </div>
+            <div className="row no-gutter">
+              <div className="col-12">
+              </div>
+            </div>
+          </div>
           <div className="app-body" id="view">
             <div className="col-12">
               <LoadingIcon loading={this.props.teamStats.isLoading} />

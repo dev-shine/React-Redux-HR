@@ -74,9 +74,10 @@ let render = (routerKey = null) => {
       <Provider store={store}>
         <Router history={appHistory} queryKey={false}>
           <Route path="/" component={APP}>
-            <IndexRoute component={Page_Login} />
+            <IndexRoute component={PageManageDashboard} />
             //this will be the default page which will opens when app starts
             <Route path="home" component={Page_Home} />
+            <Route path="login" component={Page_Login} />
             <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
             <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
             <Route path="logout" component={Page_Logout} />
@@ -104,7 +105,6 @@ let render = (routerKey = null) => {
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} />
-            <Route path="dashboard" component={PageManageDashboard} />
             <Route path="inventory_system" component={Page_InventorySystem} />
             <Route path="attendanceReq" component={Page_AttendanceReq} />
           </Route>

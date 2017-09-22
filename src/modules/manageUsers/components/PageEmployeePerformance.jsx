@@ -30,7 +30,7 @@ class PageEmployeePerformance extends Component {
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     this.setState({
-      employeePerformance: this.props.employeePerformance.data
+      employeePerformance: props.employeePerformance
     });
   }
 
@@ -43,19 +43,20 @@ class PageEmployeePerformance extends Component {
     });
   }
   render () {
-    let EmpTimeTable = this.state.monthlyHours;
+    let EmpPerformance = this.state.employeePerformance;
     var noOfDays = [];
-    var noOfHours = [];
-    var noOfMinuts = [];
-    let timeList = _.map(EmpTimeTable, (hoursData, j) => {
-      noOfDays.push(hoursData.day);
-      noOfHours.push(parseFloat(hoursData.total_time));
-      noOfMinuts.push(hoursData.working_time.minutes);
-      return (
+    var noOfActiveHours = [];
+    var noOfTotalHours = [];
+    if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
+      let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
+        noOfDays.push(performanceData.day);
+        noOfActiveHours.push(parseFloat(performanceData.top_active_hrs.hours));
+        noOfTotalHours.push(parseFloat(performanceData.top_total_hrs.hours));
+        return (
         <div></div>
-      );
-    });
-
+        );
+      });
+    }
     return (
       <div>
         <div>
@@ -65,10 +66,12 @@ class PageEmployeePerformance extends Component {
               <Title>{'Employee Monthly Performance'}</Title>
               <Legend />
               <XAxis id="x" categories={noOfDays} />
-              <YAxis id='attendance'>
-                <ColumnSeries id='emp' name="Hours" data={noOfHours} />
+              <YAxis id='EmpPerformance'>
+                <ColumnSeries id='emp' name="Active Hours" data={noOfActiveHours} />
               </YAxis>
-              <SplineSeries id="average" name="Average" />
+              <YAxis id='EmpPerformance'>
+                <ColumnSeries id='emp2' name="Total Hours" data={noOfTotalHours} />
+              </YAxis>
             </HighchartsChart>
           </div>
         </div>

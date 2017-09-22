@@ -77,7 +77,7 @@ export function* getEmployeeMonthlyHours (action) {
 export function* getEmployeePerformance (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action':  'get_monthly_performance',
+      'action':  'get_employee_performance',
       'user_id': action.payload.id,
       'month':   action.payload.month,
       'year':    action.payload.year

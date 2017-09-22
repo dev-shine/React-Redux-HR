@@ -163,7 +163,7 @@ class ManageDashboard extends React.Component {
             <div>
               <div className="dker p-x">
                 <div className="row">
-                  <div className="col-sm-6 pull-sm-6">
+                  <div className="col-sm-12 pull-sm-12">
                     <div className="p-y-md clearfix nav-active-primary">
                       <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
                         <li onClick={() => { this.openPage('team_list'); }} className={`nav-item ${this.state.active}`}>
@@ -214,7 +214,7 @@ class ManageDashboard extends React.Component {
                   <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} />
                 </div>
                 <div className={this.state.empPerformance}>
-                  <PageEmployeePerformance employeePerformance={this.props.empPerformance} {...this.props} />
+                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} />
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
@@ -240,7 +240,7 @@ function mapStateToProps (state) {
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours:               state.teamStats.empHours,
     monthlyHours:           state.teamStats.monthlyHours,
-    empPerformance:         state.teamStats.employeePerformance
+    employeePerformance:    state.teamStats.employeePerformance
   };
 }
 const mapDispatchToProps = (dispatch) => {

@@ -67,12 +67,11 @@ class PageMonthlyHours extends Component {
               <Legend />
               <XAxis id="x" categories={noOfDays} />
               <YAxis id='activeHour'>
-                <ColumnSeries id='emp' name="Hours" data={activeHour} />
+                <ColumnSeries id='emp' name="Active Hours" data={activeHour} />
               </YAxis>
               <YAxis id='activeHour'>
-                <ColumnSeries id='emp2' name="Hours" data={totalHour} />
+                <ColumnSeries id='emp2' name="Total Hours" data={totalHour} />
               </YAxis>
-              <SplineSeries id="average" name="Average" />
             </HighchartsChart>
           </div>
         </div>

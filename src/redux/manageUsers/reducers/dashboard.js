@@ -24,6 +24,20 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  monthlyHours: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
+  },
+  employeePerformance: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
   }
 };
 
@@ -56,10 +70,10 @@ const errorEmployeLifeCycle = (state, action) => update(state, {
   empLifeCycle: {$setRequestError: action.payload}
 });
 
+// empHours
 const requestEmployeeHours = (state, action) => update(state, {
   empHours: {$setRequestLoading: null}
 });
-// empHours
 const successEmployeeHours = (state, action) => {
   return update(state, {
     empHours: {$setRequestSuccess: action.payload}
@@ -68,6 +82,34 @@ const successEmployeeHours = (state, action) => {
 
 const errorEmployeeHours = (state, action) => update(state, {
   empHours: {$setRequestError: action.payload}
+});
+// employee monthly Hours
+const requestEmployeeMonthlyHours = (state, action) => update(state, {
+  monthlyHours: {$setRequestLoading: null}
+});
+
+const successEmployeeMonthlyHours = (state, action) => {
+  return update(state, {
+    monthlyHours: {$setRequestSuccess: action.payload}
+  });
+};
+
+const errorEmployeeMonthlyHours = (state, action) => update(state, {
+  monthlyHours: {$setRequestError: action.payload}
+});
+// employee performance
+const requestEmployeePerformance = (state, action) => update(state, {
+  employeePerformance: {$setRequestLoading: null}
+});
+
+const successEmployeePerformance = (state, action) => {
+  return update(state, {
+    employeePerformance: {$setRequestSuccess: action.payload}
+  });
+};
+
+const errorEmployeePerformance = (state, action) => update(state, {
+  employeePerformance: {$setRequestError: action.payload}
 });
 
 export default handleActions({
@@ -81,5 +123,13 @@ export default handleActions({
 
   [constants.REQUEST_EMP_HOURS]: requestEmployeeHours,
   [constants.SUCCESS_EMP_HOURS]: successEmployeeHours,
-  [constants.ERROR_EMP_HOURS]:   errorEmployeeHours
+  [constants.ERROR_EMP_HOURS]:   errorEmployeeHours,
+
+  [constants.REQUEST_EMP_MONTHLY_HOURS]: requestEmployeeMonthlyHours,
+  [constants.SUCCESS_EMP_MONTHLY_HOURS]: successEmployeeMonthlyHours,
+  [constants.ERROR_EMP_MONTHLY_HOURS]:   errorEmployeeMonthlyHours,
+
+  [constants.REQUEST_EMP_PERFORMANCE]: requestEmployeePerformance,
+  [constants.SUCCESS_EMP_PERFORMANCE]: successEmployeePerformance,
+  [constants.ERROR_EMP_PERFORMANCE]:   errorEmployeePerformance
 }, initialState);

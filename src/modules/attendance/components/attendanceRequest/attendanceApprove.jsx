@@ -24,7 +24,8 @@ class AttendanceApprove extends React.Component {
     if (this.props.status.isSuccess && !this.props.status.data) {
       // this.setState({'message': 'Request Rejected Successfully.'});
       notify('Success!', 'Request Rejected Successfully.', 'success');
-    } else {
+    } else if (this.props.status.isSuccess && this.props.status.data) {
+      // this.setState({'message': 'Request Accept Successfully.'});
       notify('Success!', 'Request Approved Successfully.', 'success');
     }
     this.setState({

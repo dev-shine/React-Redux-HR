@@ -17,9 +17,11 @@ let initialState = {
 const requestUpdateEmpDaySummary = (state, action) => update(state, {
   empDaySummary: {$setRequestLoading: null}
 });
-const successUpdateEmpDaySummary = (state, action) => update(state, {
-  empDaySummary: {$setRequestSuccess: action.payload}
-});
+const successUpdateEmpDaySummary = (state, action) => {
+  return update(state, {
+    empDaySummary: {$setRequestSuccess: action.payload}
+  });
+};
 const errorUpdateEmpDaySummary = (state, action) => update(state, {
   empDaySummary: {$setRequestError: action.payload}
 });

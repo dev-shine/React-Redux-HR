@@ -23,10 +23,7 @@ class PageEmployeeLifeCycle extends Component {
     this.setState({
       empLifeCycle: this.props.empLifeCycle
     });
-    this.props.requestEmployeLifeCycle({
-      'start_year': start_year,
-      'end_year':   end_year
-    });
+    this.props.requestEmployeLifeCycle();
   }
 
   componentWillReceiveProps (props) {
@@ -44,12 +41,14 @@ class PageEmployeeLifeCycle extends Component {
   }
   render () {
     let yearS = [];
+    let yearOptions = [];
     let noOfMonths = [];
     let countJoinees = [];
     let countTerminations = [];
     let EmpLife = this.state.empLifeCycle;
     let EmpGraphData = _.map(EmpLife, (memberData, k) => {
       yearS[k] = memberData.Year;
+      yearOptions.push(<option key={k} value={memberData.Year}>{memberData.Year}</option>);
       let dataStatus = _.map(memberData.Stats, (empData, j) => {
         noOfMonths.push(empData.Month);
         countJoinees.push(empData.details[0].count_joinees);
@@ -74,7 +73,6 @@ class PageEmployeeLifeCycle extends Component {
             </YAxis>
           </HighchartsChart>
         </div>
-
       );
     });
     return (
@@ -88,17 +86,7 @@ class PageEmployeeLifeCycle extends Component {
             <select className="form-control" id="sel1"
               onChange={(evt) => { this.setState({start_year: evt.target.value}); }}>
               <option>Select Start Year</option>
-              <option value="2014" >2010</option>
-              <option value="2015">2011</option>
-              <option value="2016">2012</option>
-              <option value="2017">2013</option>
-              <option value="2014" >2014</option>
-              <option value="2015">2015</option>
-              <option value="2016">2016</option>
-              <option value="2017">2017</option>
-              <option value="2015">2018</option>
-              <option value="2016">2019</option>
-              <option value="2017">2020</option>
+              {yearOptions}
             </select>
           </div>
           <div className="form-group col-md-4">
@@ -106,17 +94,7 @@ class PageEmployeeLifeCycle extends Component {
             <select className="form-control" id="sel12"
               onChange={(evt) => { this.setState({end_year: evt.target.value}); }}>
               <option>Select End Year</option>
-              <option value="2014" >2010</option>
-              <option value="2015">2011</option>
-              <option value="2016">2012</option>
-              <option value="2017">2013</option>
-              <option value="2014" >2014</option>
-              <option value="2015">2015</option>
-              <option value="2016">2016</option>
-              <option value="2017">2017</option>
-              <option value="2015">2018</option>
-              <option value="2016">2019</option>
-              <option value="2017">2020</option>
+              {yearOptions}
             </select>
           </div>
           <div className="form-group col-md-4">

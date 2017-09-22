@@ -8,67 +8,70 @@ import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, Splin
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
-class PageEmpHours extends Component {
+class PageEmployeePerformance extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      search:      '',
-      start_year:  '',
-      end_year:    '',
-      pendingData: '',
-      year:        '',
-      month:       '',
-      empHours:    ''
+      search:              '',
+      start_year:          '',
+      end_year:            '',
+      pendingData:         '',
+      year:                '',
+      month:               '',
+      employeePerformance: ''
     };
     this.getByData = this.getByData.bind(this);
   }
   componentsWillMount () {
     this.setState({
-      empHours: this.props.empHours
+      employeePerformance: this.props.employeePerformance
     });
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     this.setState({
-      empHours: this.props.empHours.data
+      employeePerformance: props.employeePerformance
     });
   }
 
   getByData (evt) {
     const userId = localStorage.getItem('userid');
-    this.props.requestEmployeeHours({
+    this.props.requestEmployeePerformance({
       'id':    userId,
       'month': this.state.month,
       'year':  this.state.year
     });
   }
   render () {
-    let EmpTimeTable = this.state.empHours;
+    let EmpPerformance = this.state.employeePerformance;
     var noOfDays = [];
-    var noOfHours = [];
-    var noOfMinuts = [];
-    let timeList = _.map(EmpTimeTable, (hoursData, j) => {
-      noOfDays.push(hoursData.day);
-      noOfHours.push(parseFloat(hoursData.total_time));
-      noOfMinuts.push(hoursData.working_time.minutes);
-      return (
+    var noOfActiveHours = [];
+    var noOfTotalHours = [];
+    if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
+      let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
+        noOfDays.push(performanceData.day);
+        noOfActiveHours.push(parseFloat(performanceData.top_active_hrs.hours));
+        noOfTotalHours.push(parseFloat(performanceData.top_total_hrs.hours));
+        return (
         <div></div>
-      );
-    });
-
+        );
+      });
+    }
     return (
       <div>
         <div>
           <div className="team row">
             <HighchartsChart >
               <Chart />
-              <Title>{'Employee Time Table'}</Title>
+              <Title>{'Employee Monthly Performance'}</Title>
               <Legend />
               <XAxis id="x" categories={noOfDays} />
-              <YAxis id='attendance'>
-                <ColumnSeries id='emp' name="Hours" data={noOfHours} />
+              <YAxis id='EmpPerformance'>
+                <ColumnSeries id='emp' name="Active Hours" data={noOfActiveHours} />
               </YAxis>
-              <SplineSeries id="average" name="Average" />
+              <YAxis id='EmpPerformance'>
+                <ColumnSeries id='emp2' name="Total Hours" data={noOfTotalHours} />
+              </YAxis>
             </HighchartsChart>
           </div>
         </div>
@@ -83,7 +86,7 @@ class PageEmpHours extends Component {
                 <option value="April">April</option>
                   <option value="May">May</option>
                   <option value="June">June</option>
-                  <option value="July">July</option>
+                  <option value="June">July</option>
                   <option value="August">Aug</option>
                     <option value="Sep">Sep</option>
                     <option value="Oct">Oct</option>
@@ -119,16 +122,18 @@ class PageEmpHours extends Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:     state.frontend.toJS(),
-    loggedUser:   state.logged_user.userLogin,
-    usersList:    state.usersList.toJS(),
-    teamStats:    state.teamStats,
-    empLifeCycle: state.teamStats.empLifeCycle,
-    empHours:     state.teamStats.empHours
+    frontend:       state.frontend.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    teamStats:      state.teamStats,
+    empLifeCycle:   state.teamStats.empLifeCycle,
+    empHours:       state.teamStats.empHours,
+    monthlyHours:   state.teamStats.monthlyHours,
+    empPerformance: state.teamStats.employeePerformance
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageEmpHours));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageEmployeePerformance));

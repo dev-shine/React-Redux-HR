@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries} from 'react-jsx-highcharts';
 
 class PageEmployeeLifeCycle extends Component {
   constructor (props) {
@@ -62,12 +62,17 @@ class PageEmployeeLifeCycle extends Component {
       });
       return (
         <div key={k} className="team">
-          <HighchartsChart>
+          <HighchartsChart >
             <Chart />
             <Title >{'Employee Life Cycle in'}{memberData.Year}</Title>
+            <Subtitle>{'Number of Employee Join and Leave Company'}</Subtitle>
             <Legend />
-            <XAxis id="j" key={noOfMonths} categories={noOfMonths} />
+            <Tooltip />
+            <XAxis id="j" key={noOfMonths} categories={noOfMonths} >
+              <XAxis.Title>Month</XAxis.Title>
+            </XAxis>
             <YAxis id="number">
+              <YAxis.Title>No. of employee</YAxis.Title>
               <ColumnSeries id="countJoinees" name="Total Joining" data={countJoinees} />
               <ColumnSeries id="countTerminations" name="Total Terminations" data={countTerminations} />
             </YAxis>

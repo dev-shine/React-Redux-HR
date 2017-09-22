@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import * as actions from 'appRedux/actions';
-import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, Chart, XAxis, Tooltip, YAxis, Title, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
@@ -64,12 +64,15 @@ class PageMonthlyHours extends Component {
             <HighchartsChart >
               <Chart />
               <Title>{'Employee Monthly Hours'}</Title>
+              <Subtitle>{'Monthly Active Hour of Employee'}</Subtitle>
               <Legend />
-              <XAxis id="x" categories={noOfDays} />
+              <Tooltip />
+              <XAxis id="x" categories={noOfDays}>
+                <XAxis.Title>Month Days</XAxis.Title>
+              </XAxis>
               <YAxis id='activeHour'>
+                <YAxis.Title>Hours</YAxis.Title>
                 <ColumnSeries id='emp' name="Active Hours" data={activeHour} />
-              </YAxis>
-              <YAxis id='activeHour'>
                 <ColumnSeries id='emp2' name="Total Hours" data={totalHour} />
               </YAxis>
             </HighchartsChart>

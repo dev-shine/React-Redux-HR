@@ -55,6 +55,16 @@ class ManageDashboard extends React.Component {
       'start_year': year,
       'end_year':   year
     });
+    this.props.requestEmployeeMonthlyHours({
+      'id':    userId,
+      'month': months[month],
+      'year':  year
+    });
+    this.props.requestEmployeePerformance({
+      'id':    userId,
+      'month': months[month],
+      'year':  year
+    });
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });

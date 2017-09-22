@@ -56,7 +56,6 @@ export function* getEmployeeHours (action) {
 }
 
 export function* getEmployeeMonthlyHours (action) {
-  console.log(action);
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':  'get_employee_monthly_hours',

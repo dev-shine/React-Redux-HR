@@ -54,3 +54,42 @@ export function* getEmployeeHours (action) {
     console.warn('Some error found in "get_employee_hours" Request action\n', e);
   }
 }
+
+export function* getEmployeeMonthlyHours (action) {
+  console.log(action);
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':  'get_employee_monthly_hours',
+      'user_id': action.payload.id,
+      'month':   action.payload.month,
+      'year':    action.payload.year
+    });
+    if (response.error === 0) {
+      yield put(actions.successEmployeeMonthlyHours(response.data));
+    } else {
+      yield put(actions.errorEmployeeMonthlyHours(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorEmployeeHours('Error Occurs !!'));
+    console.warn('Some error found in "get_employee_hours" Request action\n', e);
+  }
+}
+
+export function* getEmployeePerformance (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':  'get_monthly_performance',
+      'user_id': action.payload.id,
+      'month':   action.payload.month,
+      'year':    action.payload.year
+    });
+    if (response.error === 0) {
+      yield put(actions.successEmployeePerformance(response.data));
+    } else {
+      yield put(actions.errorEmployeePerformance(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorEmployeeHours('Error Occurs !!'));
+    console.warn('Some error found in "get_employee_hours" Request action\n', e);
+  }
+}

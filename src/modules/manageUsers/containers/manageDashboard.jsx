@@ -11,6 +11,8 @@ import Header from 'components/generic/Header';
 import GetLogo from 'components/auth/login/GetLogo';
 import UsersListHeader from 'components/generic/UsersListHeader';
 import PageUserDashboard from 'modules/manageUsers/components/PageUserDashboard';
+import PageMonthlyHours from 'modules/manageUsers/components/PageMonthlyHours';
+import PageEmployeePerformance from 'modules/manageUsers/components/PageEmployeePerformance';
 import PageEmployeeLifeCycle from 'modules/manageUsers/components/PageEmployeeLifeCycle';
 import PageEmpHours from 'modules/manageUsers/components/PageEmpHours';
 import * as actionsManageUserPendingHours from 'appRedux/workingHours/actions/manageUserPendingHour';
@@ -25,9 +27,13 @@ class ManageDashboard extends React.Component {
       firstArrow:         'show',
       secondArrow:        'hidden',
       thirdArrow:         'hidden',
+      fourthArrow:        'hidden',
+      fifthArrow:         'hidden',
       teamList:           'show',
       empLifeCycle:       'hidden',
       empHours:           'hidden',
+      monthlyHours:       'hidden',
+      empPerformance:     'hidden',
       empData:            ''
     };
     this.openPage = this.openPage.bind(this);
@@ -64,30 +70,68 @@ class ManageDashboard extends React.Component {
   openPage (toDisplay) {
     if (toDisplay === 'team_list') {
       this.setState({
-        teamList:     'row',
-        firstArrow:   'show',
-        empLifeCycle: 'hidden',
-        empHours:     'hidden',
-        secondArrow:  'hidden',
-        thirdArrow:   'hidden'
+        teamList:       'row',
+        firstArrow:     'show',
+        empLifeCycle:   'hidden',
+        empHours:       'hidden',
+        monthlyHours:   'hidden',
+        empPerformance: 'hidden',
+        secondArrow:    'hidden',
+        thirdArrow:     'hidden',
+        fourthArrow:    'hidden',
+        fifthArrow:     'hidden'
       });
     } else if ((toDisplay === 'emp_life_cycle')) {
       this.setState({
-        empLifeCycle: 'row',
-        secondArrow:  'show',
-        teamList:     'hidden',
-        firstArrow:   'hidden',
-        thirdArrow:   'hidden',
-        empHours:     'hidden'
+        empLifeCycle:   'row',
+        secondArrow:    'show',
+        teamList:       'hidden',
+        firstArrow:     'hidden',
+        thirdArrow:     'hidden',
+        fourthArrow:    'hidden',
+        fifthArrow:     'hidden',
+        empHours:       'hidden',
+        monthlyHours:   'hidden',
+        empPerformance: 'hidden'
       });
     } else if ((toDisplay === 'attendance_list')) {
       this.setState({
-        empHours:     'row',
-        thirdArrow:   'show',
-        teamList:     'hidden',
-        firstArrow:   'hidden',
-        empLifeCycle: 'hidden',
-        secondArrow:  'hidden'
+        empHours:       'row',
+        thirdArrow:     'show',
+        teamList:       'hidden',
+        firstArrow:     'hidden',
+        empLifeCycle:   'hidden',
+        secondArrow:    'hidden',
+        fourthArrow:    'hidden',
+        fifthArrow:     'hidden',
+        monthlyHours:   'hidden',
+        empPerformance: 'hidden'
+      });
+    } else if ((toDisplay === 'monthlyHours')) {
+      this.setState({
+        monthlyHours:   'row',
+        fourthArrow:    'show',
+        empHours:       'hidden',
+        thirdArrow:     'hidden',
+        teamList:       'hidden',
+        firstArrow:     'hidden',
+        empLifeCycle:   'hidden',
+        empPerformance: 'hidden',
+        secondArrow:    'hidden',
+        fifthArrow:     'hidden'
+      });
+    } else if ((toDisplay === 'employee_performance')) {
+      this.setState({
+        empPerformance: 'row',
+        fifthArrow:     'show',
+        monthlyHours:   'hidden',
+        fourthArrow:    'hidden',
+        empHours:       'hidden',
+        thirdArrow:     'hidden',
+        teamList:       'hidden',
+        firstArrow:     'hidden',
+        empLifeCycle:   'hidden',
+        secondArrow:    'hidden'
       });
     }
   }
@@ -140,6 +184,18 @@ class ManageDashboard extends React.Component {
                             <span className="arrow bottom b-accent"></span>
                           </div>
                         </li>
+                        <li onClick={() => { this.openPage('monthlyHours'); }} className={'nav-item'}>
+                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_4" aria-expanded="false">Employee Monthly Hours</a>
+                          <div className={this.state.fourthArrow}>
+                            <span className="arrow bottom b-accent"></span>
+                          </div>
+                        </li>
+                        <li onClick={() => { this.openPage('employee_performance'); }} className={'nav-item'}>
+                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_5" aria-expanded="false">Employee Monthly Performance</a>
+                          <div className={this.state.fifthArrow}>
+                            <span className="arrow bottom b-accent"></span>
+                          </div>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -153,6 +209,12 @@ class ManageDashboard extends React.Component {
                 </div>
                 <div className={this.state.empLifeCycle}>
                   <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} />
+                </div>
+                <div className={this.state.monthlyHours}>
+                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} />
+                </div>
+                <div className={this.state.empPerformance}>
+                  <PageEmployeePerformance employeePerformance={this.props.empPerformance} {...this.props} />
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
@@ -176,7 +238,9 @@ function mapStateToProps (state) {
     teamStats:              state.teamStats,
     empLifeCycle:           state.teamStats.empLifeCycle,
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
-    empHours:               state.teamStats.empHours
+    empHours:               state.teamStats.empHours,
+    monthlyHours:           state.teamStats.monthlyHours,
+    empPerformance:         state.teamStats.employeePerformance
   };
 }
 const mapDispatchToProps = (dispatch) => {

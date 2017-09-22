@@ -8,65 +8,69 @@ import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, Splin
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
-class PageEmpHours extends Component {
+class PageMonthlyHours extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      search:      '',
-      start_year:  '',
-      end_year:    '',
-      pendingData: '',
-      year:        '',
-      month:       '',
-      empHours:    ''
+      search:       '',
+      start_year:   '',
+      end_year:     '',
+      pendingData:  '',
+      year:         '',
+      month:        '',
+      monthlyHours: ''
     };
     this.getByData = this.getByData.bind(this);
   }
   componentsWillMount () {
     this.setState({
-      empHours: this.props.empHours
+      monthlyHours: this.props.monthlyHours
     });
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     this.setState({
-      empHours: this.props.empHours.data
+      monthlyHours: this.props.monthlyHours.data
     });
   }
 
   getByData (evt) {
     const userId = localStorage.getItem('userid');
-    this.props.requestEmployeeHours({
+    this.props.requestEmployeeMonthlyHours({
       'id':    userId,
       'month': this.state.month,
       'year':  this.state.year
     });
   }
   render () {
-    let EmpTimeTable = this.state.empHours;
+    let EmpMonthltHours = this.state.monthlyHours;
     var noOfDays = [];
-    var noOfHours = [];
-    var noOfMinuts = [];
-    let timeList = _.map(EmpTimeTable, (hoursData, j) => {
-      noOfDays.push(hoursData.day);
-      noOfHours.push(parseFloat(hoursData.total_time));
-      noOfMinuts.push(hoursData.working_time.minutes);
-      return (
+    var activeHour = [];
+    var totalHour = [];
+    if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
+      let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {
+        noOfDays.push(Data.day);
+        activeHour.push(Data.active_hours.hours);
+        totalHour.push(Data.total_hours.hours);
+        return (
         <div></div>
-      );
-    });
-
+        );
+      });
+    }
     return (
       <div>
         <div>
           <div className="team row">
             <HighchartsChart >
               <Chart />
-              <Title>{'Employee Time Table'}</Title>
+              <Title>{'Employee Monthly Hours'}</Title>
               <Legend />
               <XAxis id="x" categories={noOfDays} />
-              <YAxis id='attendance'>
-                <ColumnSeries id='emp' name="Hours" data={noOfHours} />
+              <YAxis id='activeHour'>
+                <ColumnSeries id='emp' name="Hours" data={activeHour} />
+              </YAxis>
+              <YAxis id='activeHour'>
+                <ColumnSeries id='emp2' name="Hours" data={totalHour} />
               </YAxis>
               <SplineSeries id="average" name="Average" />
             </HighchartsChart>
@@ -124,11 +128,12 @@ function mapStateToProps (state) {
     usersList:    state.usersList.toJS(),
     teamStats:    state.teamStats,
     empLifeCycle: state.teamStats.empLifeCycle,
-    empHours:     state.teamStats.empHours
+    empHours:     state.teamStats.empHours,
+    monthlyHours: state.teamStats.monthlyHours
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageEmpHours));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageMonthlyHours));

@@ -84,3 +84,11 @@ export const errorEmployeLifeCycle = createAction(constants.ERROR_EMP_LIFE_CYCLE
 export const requestEmployeeHours = createAction(constants.REQUEST_EMP_HOURS);
 export const successEmployeeHours = createAction(constants.SUCCESS_EMP_HOURS);
 export const errorEmployeeHours = createAction(constants.ERROR_EMP_HOURS);
+
+export const requestEmployeeMonthlyHours = createAction(constants.REQUEST_EMP_MONTHLY_HOURS);
+export const successEmployeeMonthlyHours = createAction(constants.SUCCESS_EMP_MONTHLY_HOURS);
+export const errorEmployeeMonthlyHours = createAction(constants.ERROR_EMP_MONTHLY_HOURS);
+
+export const requestEmployeePerformance = createAction(constants.REQUEST_EMP_PERFORMANCE);
+export const successEmployeePerformance = createAction(constants.SUCCESS_EMP_PERFORMANCE);
+export const errorEmployeePerformance = createAction(constants.ERROR_EMP_PERFORMANCE);

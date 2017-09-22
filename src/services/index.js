@@ -12,7 +12,7 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
   'save_policy_document', 'get_user_policy_document', 'update_user_policy_document', 'add_team_list', 'get_team_list',
   'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id' ];
 
-const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role'];
+const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours'];
 
 const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 
@@ -72,7 +72,16 @@ export function fireAjax (method, url, data) {
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl + '/attendance/update_time_by_employee';
+  } else if (data.action === 'get_employee_monthly_hours') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_monthly_report';
+  } else if (data.action === 'get_employee_performance') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_monthly_report';
   }
+
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {
       return new Promise((resolve, reject) => {

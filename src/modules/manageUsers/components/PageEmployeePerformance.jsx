@@ -8,42 +8,42 @@ import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, Splin
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
-class PageEmpHours extends Component {
+class PageEmployeePerformance extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      search:      '',
-      start_year:  '',
-      end_year:    '',
-      pendingData: '',
-      year:        '',
-      month:       '',
-      empHours:    ''
+      search:              '',
+      start_year:          '',
+      end_year:            '',
+      pendingData:         '',
+      year:                '',
+      month:               '',
+      employeePerformance: ''
     };
     this.getByData = this.getByData.bind(this);
   }
   componentsWillMount () {
     this.setState({
-      empHours: this.props.empHours
+      employeePerformance: this.props.employeePerformance
     });
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     this.setState({
-      empHours: this.props.empHours.data
+      employeePerformance: this.props.employeePerformance.data
     });
   }
 
   getByData (evt) {
     const userId = localStorage.getItem('userid');
-    this.props.requestEmployeeHours({
+    this.props.requestEmployeePerformance({
       'id':    userId,
       'month': this.state.month,
       'year':  this.state.year
     });
   }
   render () {
-    let EmpTimeTable = this.state.empHours;
+    let EmpTimeTable = this.state.monthlyHours;
     var noOfDays = [];
     var noOfHours = [];
     var noOfMinuts = [];
@@ -62,7 +62,7 @@ class PageEmpHours extends Component {
           <div className="team row">
             <HighchartsChart >
               <Chart />
-              <Title>{'Employee Time Table'}</Title>
+              <Title>{'Employee Monthly Performance'}</Title>
               <Legend />
               <XAxis id="x" categories={noOfDays} />
               <YAxis id='attendance'>
@@ -83,7 +83,7 @@ class PageEmpHours extends Component {
                 <option value="April">April</option>
                   <option value="May">May</option>
                   <option value="June">June</option>
-                  <option value="July">July</option>
+                  <option value="June">July</option>
                   <option value="August">Aug</option>
                     <option value="Sep">Sep</option>
                     <option value="Oct">Oct</option>
@@ -119,16 +119,18 @@ class PageEmpHours extends Component {
 
 function mapStateToProps (state) {
   return {
-    frontend:     state.frontend.toJS(),
-    loggedUser:   state.logged_user.userLogin,
-    usersList:    state.usersList.toJS(),
-    teamStats:    state.teamStats,
-    empLifeCycle: state.teamStats.empLifeCycle,
-    empHours:     state.teamStats.empHours
+    frontend:       state.frontend.toJS(),
+    loggedUser:     state.logged_user.userLogin,
+    usersList:      state.usersList.toJS(),
+    teamStats:      state.teamStats,
+    empLifeCycle:   state.teamStats.empLifeCycle,
+    empHours:       state.teamStats.empHours,
+    monthlyHours:   state.teamStats.monthlyHours,
+    empPerformance: state.teamStats.employeePerformance
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageEmpHours));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageEmployeePerformance));

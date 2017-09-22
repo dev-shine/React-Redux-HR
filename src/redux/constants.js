@@ -92,6 +92,14 @@ export const REQUEST_EMP_HOURS = 'REQUEST_EMP_HOURS';
 export const SUCCESS_EMP_HOURS = 'SUCCESS_EMP_HOURS';
 export const ERROR_EMP_HOURS = 'ERROR_EMP_HOURS';
 
+export const REQUEST_EMP_MONTHLY_HOURS = 'REQUEST_EMP_MONTHLY_HOURS';
+export const SUCCESS_EMP_MONTHLY_HOURS = 'SUCCESS_EMP_MONTHLY_HOURS';
+export const ERROR_EMP_MONTHLY_HOURS = 'ERROR_EMP_MONTHLY_HOURS';
+
+export const REQUEST_EMP_PERFORMANCE = 'REQUEST_EMP_PERFORMANCE';
+export const SUCCESS_EMP_PERFORMANCE = 'SUCCESS_EMP_PERFORMANCE';
+export const ERROR_EMP_PERFORMANCE = 'ERROR_EMP_PERFORMANCE';
+
 //* **********************************************************************************
 // +++""ADMIN""+++
 

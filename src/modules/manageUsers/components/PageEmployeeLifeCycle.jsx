@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import {HighchartsChart, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, LineSeries, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries} from 'react-jsx-highcharts';
 
 class PageEmployeeLifeCycle extends Component {
   constructor (props) {
@@ -42,13 +42,23 @@ class PageEmployeeLifeCycle extends Component {
   render () {
     let yearS = [];
     let yearOptions = [];
+    let endYearOptions = [];
     let noOfMonths = [];
     let countJoinees = [];
     let countTerminations = [];
     let EmpLife = this.state.empLifeCycle;
+    let startYearOptions = _.map(this.props.year, (data, i) => {
+      return (
+      yearOptions.push(<option key={i} selected={this.props.currentYear === data} value={data}>{data}</option>)
+      );
+    });
+    let endYearOption = _.map(this.props.year, (data, i) => {
+      return (
+      endYearOptions.push(<option key={i} selected={this.props.currentYear === data} value={data}>{data}</option>)
+      );
+    });
     let EmpGraphData = _.map(EmpLife, (memberData, k) => {
       yearS[k] = memberData.Year;
-      yearOptions.push(<option key={k} value={memberData.Year}>{memberData.Year}</option>);
       let dataStatus = _.map(memberData.Stats, (empData, j) => {
         noOfMonths.push(empData.Month);
         countJoinees.push(empData.details[0].count_joinees);
@@ -62,19 +72,19 @@ class PageEmployeeLifeCycle extends Component {
       });
       return (
         <div key={k} className="team">
-          <HighchartsChart >
-            <Chart />
-            <Title >{'Employee Life Cycle in'}{memberData.Year}</Title>
-            <Subtitle>{'Number of Employee Join and Leave Company'}</Subtitle>
-            <Legend />
-            <Tooltip />
-            <XAxis id="j" key={noOfMonths} categories={noOfMonths} >
+          <HighchartsChart>
+            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Life Cycle in'}{memberData.Year}</Title>
+            <Subtitle>{'Employee Recruit and Leave'}</Subtitle>
+            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
+            <XAxis id="j" key={noOfMonths} categories={noOfMonths} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}}>
               <XAxis.Title>Month</XAxis.Title>
             </XAxis>
-            <YAxis id="number">
-              <YAxis.Title>No. of employee</YAxis.Title>
-              <ColumnSeries id="countJoinees" name="Total Joining" data={countJoinees} />
-              <ColumnSeries id="countTerminations" name="Total Terminations" data={countTerminations} />
+            <YAxis id="number" title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
+              <YAxis.Title >No. of employee</YAxis.Title>
+              <LineSeries id="countJoinees" name="Total Joining" data={countJoinees} />
+              <LineSeries id="countTerminations" name="Total Terminations" data={countTerminations} />
             </YAxis>
           </HighchartsChart>
         </div>
@@ -90,7 +100,7 @@ class PageEmployeeLifeCycle extends Component {
             <label htmlFor="sel1">Start Year:</label>
             <select className="form-control" id="sel1"
               onChange={(evt) => { this.setState({start_year: evt.target.value}); }}>
-              <option>Select Start Year</option>
+              <option >Select Start Year</option>
               {yearOptions}
             </select>
           </div>
@@ -99,7 +109,7 @@ class PageEmployeeLifeCycle extends Component {
             <select className="form-control" id="sel12"
               onChange={(evt) => { this.setState({end_year: evt.target.value}); }}>
               <option>Select End Year</option>
-              {yearOptions}
+              {endYearOptions}
             </select>
           </div>
           <div className="form-group col-md-4">

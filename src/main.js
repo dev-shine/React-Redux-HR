@@ -1,7 +1,7 @@
 import 'styles/main.scss';
 import 'whatwg-fetch';
 import 'sweetalert';
-import 'sweetalert/dist/sweetalert.css';
+//import 'sweetalert/dist/sweetalert.css';
 import 'jquery';
 import 'jquery-ui';
 import 'tether';

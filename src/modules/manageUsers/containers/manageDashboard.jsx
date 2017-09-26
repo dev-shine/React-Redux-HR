@@ -34,7 +34,11 @@ class ManageDashboard extends React.Component {
       empHours:           'hidden',
       monthlyHours:       'hidden',
       empPerformance:     'hidden',
-      empData:            ''
+      empData:            '',
+      currentYear:        '',
+      currentMonth:       '',
+      months:             ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      years:              []
     };
     this.openPage = this.openPage.bind(this);
   }
@@ -43,8 +47,19 @@ class ManageDashboard extends React.Component {
     const d = new Date();
     const year = d.getFullYear();
     const month = d.getMonth();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = this.state.months;
     const userId = localStorage.getItem('userid');
+    let startYear = 2010;
+    let yearOptions = [];
+    while (startYear <= year) {
+      yearOptions.push(startYear);
+      startYear++;
+    }
+    this.setState({
+      currentMonth: months[month],
+      currentYear:  year,
+      years:        yearOptions
+    });
     this.props.requestEmployeeHours({
       'id':    userId,
       'month': months[month],
@@ -218,17 +233,17 @@ class ManageDashboard extends React.Component {
                   <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
                 </div>
                 <div className={this.state.empLifeCycle}>
-                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} />
+                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.monthlyHours}>
-                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} />
+                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.empPerformance}>
-                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} />
+                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
-                    <PageEmpHours empHours={this.props.empHours}{...this.props} />
+                    <PageEmpHours empHours={this.props.empHours}{...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                   </div>
                 </div>
               </div>

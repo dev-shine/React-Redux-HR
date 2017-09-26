@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {
-  HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, PieSeries
+  HighchartsChart, Tooltip, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, PieSeries
 } from 'react-jsx-highcharts';
 
 class PageUserDashboard extends Component {
@@ -39,7 +39,9 @@ class PageUserDashboard extends Component {
         memberName.push(memberData.name);
         pieData.push(memberData.name);
         return (
-          <XAxis key={k} id="x" categories={memberName} />
+          <XAxis key={k} id="x" categories={memberName} ltitle={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+            <XAxis.Title>Employee Name</XAxis.Title>
+          </XAxis>
         );
       });
 
@@ -47,18 +49,19 @@ class PageUserDashboard extends Component {
         <div key={teamData.count_members} className="p-t p-m">
           {teamData.name !== ''
         ? <HighchartsChart>
-          <Chart />
-          <Title>{teamData.name}</Title>
-          <Legend />
+          <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+          <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{teamData.name}</Title>
+          <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+          <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
           {graphdata}
-          <YAxis id="number">
+          <YAxis id="number" minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
+            <YAxis.Title>No. of Month Work</YAxis.Title>
             <ColumnSeries id="employee" name="Employees" data={noOfMonths} />
             <PieSeries key={key} id="total-consumption"
               name="Total consumption"
               data={pieData}
               center={[100, 80]}
-              size={100}
-              showInLegend={false} />
+              size={200} />
           </YAxis>
         </HighchartsChart>
         : null

@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import * as actions from 'appRedux/actions';
-import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, AreaSplineSeries, Chart, XAxis, Tooltip, YAxis, Title, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
@@ -18,6 +18,7 @@ class PageEmployeePerformance extends Component {
       pendingData:         '',
       year:                '',
       month:               '',
+      userId:              '',
       employeePerformance: ''
     };
     this.getByData = this.getByData.bind(this);
@@ -36,10 +37,11 @@ class PageEmployeePerformance extends Component {
 
   getByData (evt) {
     const userId = localStorage.getItem('userid');
+    let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
+    let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
     this.props.requestEmployeePerformance({
-      'id':    userId,
-      'month': this.state.month,
-      'year':  this.state.year
+      'month': month,
+      'year':  year
     });
   }
   render () {
@@ -47,13 +49,23 @@ class PageEmployeePerformance extends Component {
     var noOfDays = [];
     var noOfActiveHours = [];
     var noOfTotalHours = [];
+    let monthOptions = [];
+    let yearOptions = [];
+    let monthOption = _.map(this.props.months, (monthData, i) => {
+      monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
+    });
+    let yearOption = _.map(this.props.year, (data, i) => {
+      return (
+      yearOptions.push(<option key={i} value={data}>{data}</option>)
+      );
+    });
     if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
       let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
         noOfDays.push(performanceData.day);
         noOfActiveHours.push(parseFloat(performanceData.top_active_hrs.hours));
         noOfTotalHours.push(parseFloat(performanceData.top_total_hrs.hours));
         return (
-        <div></div>
+          <div></div>
         );
       });
     }
@@ -62,53 +74,35 @@ class PageEmployeePerformance extends Component {
         <div>
           <div className="team row">
             <HighchartsChart >
-              <Chart />
-              <Title>{'Employee Monthly Performance'}</Title>
-              <Legend />
-              <XAxis id="x" categories={noOfDays} />
-              <YAxis id='EmpPerformance'>
-                <ColumnSeries id='emp' name="Active Hours" data={noOfActiveHours} />
-              </YAxis>
-              <YAxis id='EmpPerformance'>
-                <ColumnSeries id='emp2' name="Total Hours" data={noOfTotalHours} />
+              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
+              <Subtitle>{'Performance of Employee'}</Subtitle>
+              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
+              <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+                <XAxis.Title>Days</XAxis.Title>
+              </XAxis>
+              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
+                <YAxis.Title>No. of Hours</YAxis.Title>
+                <SplineSeries id="emp" name="Active Hours" data={noOfActiveHours} />
+                <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} />
               </YAxis>
             </HighchartsChart>
           </div>
         </div>
-          <div className="col-md-12 row">
+        <div className="col-md-12 row">
             <div className="form-group col-md-4">
               <label htmlFor="sel1">Select Months:</label>
-              <select className="form-control" id="sel1"
+              <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
                 onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-                <option value="Jan">Jan</option>
-                <option value="Feb">Feb</option>
-                <option value="March">Mar</option>
-                <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="June">July</option>
-                  <option value="August">Aug</option>
-                    <option value="Sep">Sep</option>
-                    <option value="Oct">Oct</option>
-                    <option value="Nov">Nov</option>
-                    <option value="Dec">Dec</option>
+                  {monthOptions}
               </select>
             </div>
             <div className="form-group col-md-4">
               <label htmlFor="sel1">Select Year:</label>
-              <select className="form-control" id="sel12"
+              <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
                 onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-                <option value="2014" >2010</option>
-                <option value="2015">2011</option>
-                <option value="2016">2012</option>
-                <option value="2017">2013</option>
-                <option value="2014" >2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                  <option value="2015">2018</option>
-                  <option value="2016">2019</option>
-                  <option value="2017">2020</option>
+                {yearOptions}
               </select>
             </div>
             <div className="form-group col-md-4">

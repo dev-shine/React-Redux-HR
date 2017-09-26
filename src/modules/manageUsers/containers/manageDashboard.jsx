@@ -34,7 +34,11 @@ class ManageDashboard extends React.Component {
       empHours:           'hidden',
       monthlyHours:       'hidden',
       empPerformance:     'hidden',
-      empData:            ''
+      empData:            '',
+      currentYear:        '',
+      currentMonth:       '',
+      months:             ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      years:              []
     };
     this.openPage = this.openPage.bind(this);
   }
@@ -43,17 +47,39 @@ class ManageDashboard extends React.Component {
     const d = new Date();
     const year = d.getFullYear();
     const month = d.getMonth();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = this.state.months;
     const userId = localStorage.getItem('userid');
+    let startYear = 2010;
+    let yearOptions = [];
+    while (startYear <= year) {
+      yearOptions.push(startYear);
+      startYear++;
+    }
+    this.setState({
+      currentMonth: months[month],
+      currentYear:  year,
+      years:        yearOptions
+    });
     this.props.requestEmployeeHours({
       'id':    userId,
       'month': months[month],
       'year':  year
     });
+    this.props.requestUserList();
     this.props.requestTeamStats();
     this.props.requestEmployeLifeCycle({
       'start_year': year,
       'end_year':   year
+    });
+    this.props.requestEmployeeMonthlyHours({
+      'id':    userId,
+      'month': months[month],
+      'year':  year
+    });
+    this.props.requestEmployeePerformance({
+      'id':    userId,
+      'month': months[month],
+      'year':  year
     });
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
@@ -142,7 +168,7 @@ class ManageDashboard extends React.Component {
           <div className="nav-dashboard box-shadow m-b">
             <div className="navbar">
               <img className="p-0" style={{'marginTop': '0.7%'}} src="./logo.png" height="40" width="220"></img>
-              <Link to="login">
+              <Link to="page_login">
                 <p className='p-dashboard'
                   data-toggle="tooltip"
                   data-placement="bottom"
@@ -208,17 +234,17 @@ class ManageDashboard extends React.Component {
                   <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
                 </div>
                 <div className={this.state.empLifeCycle}>
-                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} />
+                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.monthlyHours}>
-                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} />
+                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.empPerformance}>
-                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} />
+                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className="padding">
                   <div className={this.state.empHours}>
-                    <PageEmpHours empHours={this.props.empHours}{...this.props} />
+                    <PageEmpHours empHours={this.props.empHours}{...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                   </div>
                 </div>
               </div>
@@ -240,7 +266,8 @@ function mapStateToProps (state) {
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours:               state.teamStats.empHours,
     monthlyHours:           state.teamStats.monthlyHours,
-    employeePerformance:    state.teamStats.employeePerformance
+    employeePerformance:    state.teamStats.employeePerformance,
+    employeeList:           state.teamStats.employeeList
   };
 }
 const mapDispatchToProps = (dispatch) => {

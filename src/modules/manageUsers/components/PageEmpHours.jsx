@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import * as actions from 'appRedux/actions';
-import {HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, AreaSplineSeries, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
 var moment = require('moment');
 
@@ -14,6 +14,7 @@ class PageEmpHours extends Component {
     this.state = {
       search:      '',
       start_year:  '',
+      userId:      '',
       end_year:    '',
       pendingData: '',
       year:        '',
@@ -36,10 +37,12 @@ class PageEmpHours extends Component {
 
   getByData (evt) {
     const userId = localStorage.getItem('userid');
+    let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
+    let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
     this.props.requestEmployeeHours({
-      'id':    userId,
-      'month': this.state.month,
-      'year':  this.state.year
+      'id':    this.state.userId,
+      'month': month,
+      'year':  year
     });
   }
   render () {
@@ -47,6 +50,20 @@ class PageEmpHours extends Component {
     var noOfDays = [];
     var noOfHours = [];
     var noOfMinuts = [];
+    let monthOptions = [];
+    let yearOptions = [];
+    let userIdOptions = [];
+    let monthOption = _.map(this.props.months, (monthData, i) => {
+      monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
+    });
+    let yearOption = _.map(this.props.year, (data, i) => {
+      return (
+      yearOptions.push(<option key={i} value={data}>{data}</option>)
+      );
+    });
+    let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
+      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}</option>);
+    });
     let timeList = _.map(EmpTimeTable, (hoursData, j) => {
       noOfDays.push(hoursData.day);
       noOfHours.push(parseFloat(hoursData.total_time));
@@ -55,64 +72,55 @@ class PageEmpHours extends Component {
         <div></div>
       );
     });
-
     return (
       <div>
         <div>
           <div className="team row">
             <HighchartsChart >
-              <Chart />
-              <Title>{'Employee Time Table'}</Title>
-              <Legend />
-              <XAxis id="x" categories={noOfDays} />
-              <YAxis id='attendance'>
-                <ColumnSeries id='emp' name="Hours" data={noOfHours} />
+              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{'Employee Time Table'}</Title>
+              <Subtitle>{'Working Hours '}</Subtitle>
+              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
+              <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+                <XAxis.Title>Days</XAxis.Title>
+              </XAxis>
+              <YAxis id='attendance' minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
+                <YAxis.Title>No. of Hours</YAxis.Title>
+                  <AreaSplineSeries id="Hours" name="Hours" data={noOfHours} color="#284665" />
               </YAxis>
               <SplineSeries id="average" name="Average" />
             </HighchartsChart>
           </div>
         </div>
-          <div className="col-md-12 row">
+        <div className="col-md-12 row">
             <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Months:</label>
-              <select className="form-control" id="sel1"
-                onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-                <option value="Jan">Jan</option>
-                <option value="Feb">Feb</option>
-                <option value="March">Mar</option>
-                <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">Aug</option>
-                    <option value="Sep">Sep</option>
-                    <option value="Oct">Oct</option>
-                    <option value="Nov">Nov</option>
-                    <option value="Dec">Dec</option>
+              <label htmlFor="sel1">Select User</label>
+              <select className="form-control" id="user"
+                onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
+                <option>Select User</option>
+                {userIdOptions}
               </select>
             </div>
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Year:</label>
-              <select className="form-control" id="sel12"
-                onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-                <option value="2014" >2010</option>
-                <option value="2015">2011</option>
-                <option value="2016">2012</option>
-                <option value="2017">2013</option>
-                <option value="2014" >2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                  <option value="2015">2018</option>
-                  <option value="2016">2019</option>
-                  <option value="2017">2020</option>
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
-            </div>
+          <div className="form-group col-md-4">
+            <label htmlFor="sel1">Select Months:</label>
+            <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
+              onChange={(evt) => { this.setState({month: evt.target.value}); }}>
+              {monthOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-4">
+            <label htmlFor="sel1">Select Year:</label>
+            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
+              onChange={(evt) => { this.setState({year: evt.target.value}); }}>
+              {yearOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-4">
+            <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
           </div>
         </div>
+      </div>
     );
   }
 }

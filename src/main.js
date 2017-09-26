@@ -77,7 +77,8 @@ let render = (routerKey = null) => {
             <IndexRoute component={PageManageDashboard} />
             //this will be the default page which will opens when app starts
             <Route path="home" component={Page_Home} />
-            <Route path="login" component={Page_Login} />
+            <Route path="PageManageDashboard" component={PageManageDashboard} />
+            <Route path="page_login" component={Page_Login} />
             <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
             <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
             <Route path="logout" component={Page_Logout} />

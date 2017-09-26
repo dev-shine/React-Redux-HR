@@ -167,7 +167,7 @@ class ManageDashboard extends React.Component {
           <div className="nav-dashboard box-shadow m-b">
             <div className="navbar">
               <img className="p-0" style={{'marginTop': '0.7%'}} src="./logo.png" height="40" width="220"></img>
-              <Link to="login">
+              <Link to="page_login">
                 <p className='p-dashboard'
                   data-toggle="tooltip"
                   data-placement="bottom"

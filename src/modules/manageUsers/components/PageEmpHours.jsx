@@ -14,6 +14,7 @@ class PageEmpHours extends Component {
     this.state = {
       search:      '',
       start_year:  '',
+      userId:      '',
       end_year:    '',
       pendingData: '',
       year:        '',
@@ -37,9 +38,10 @@ class PageEmpHours extends Component {
   getByData (evt) {
     const userId = localStorage.getItem('userid');
     let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
+    let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
     this.props.requestEmployeeHours({
-      'id':    userId,
-      'month': this.state.month,
+      'id':    this.state.userId,
+      'month': month,
       'year':  year
     });
   }
@@ -50,6 +52,7 @@ class PageEmpHours extends Component {
     var noOfMinuts = [];
     let monthOptions = [];
     let yearOptions = [];
+    let userIdOptions = [];
     let monthOption = _.map(this.props.months, (monthData, i) => {
       monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
     });
@@ -57,6 +60,9 @@ class PageEmpHours extends Component {
       return (
       yearOptions.push(<option key={i} value={data}>{data}</option>)
       );
+    });
+    let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
+      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}</option>);
     });
     let timeList = _.map(EmpTimeTable, (hoursData, j) => {
       noOfDays.push(hoursData.day);
@@ -88,6 +94,14 @@ class PageEmpHours extends Component {
           </div>
         </div>
         <div className="col-md-12 row">
+            <div className="form-group col-md-4">
+              <label htmlFor="sel1">Select User</label>
+              <select className="form-control" id="user"
+                onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
+                <option>Select User</option>
+                {userIdOptions}
+              </select>
+            </div>
           <div className="form-group col-md-4">
             <label htmlFor="sel1">Select Months:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}

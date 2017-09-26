@@ -19,8 +19,6 @@ const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval']
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
-  let token = getToken();
-  data.token = token;
   let headers = {
     method: method,
     mode:   'cors',
@@ -80,6 +78,10 @@ export function fireAjax (method, url, data) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl + '/reports/get_monthly_performance';
+  } else if (data.action === 'get_user_list') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/user/get_user_list';
   }
 
   return fetch(URL, headers).then((response) => {

@@ -18,6 +18,7 @@ class PageEmployeePerformance extends Component {
       pendingData:         '',
       year:                '',
       month:               '',
+      userId:              '',
       employeePerformance: ''
     };
     this.getByData = this.getByData.bind(this);
@@ -37,9 +38,9 @@ class PageEmployeePerformance extends Component {
   getByData (evt) {
     const userId = localStorage.getItem('userid');
     let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
+    let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
     this.props.requestEmployeePerformance({
-      'id':    userId,
-      'month': this.state.month,
+      'month': month,
       'year':  year
     });
   }
@@ -64,7 +65,7 @@ class PageEmployeePerformance extends Component {
         noOfActiveHours.push(parseFloat(performanceData.top_active_hrs.hours));
         noOfTotalHours.push(parseFloat(performanceData.top_total_hrs.hours));
         return (
-        <div></div>
+          <div></div>
         );
       });
     }
@@ -89,7 +90,7 @@ class PageEmployeePerformance extends Component {
             </HighchartsChart>
           </div>
         </div>
-          <div className="col-md-12 row">
+        <div className="col-md-12 row">
             <div className="form-group col-md-4">
               <label htmlFor="sel1">Select Months:</label>
               <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}

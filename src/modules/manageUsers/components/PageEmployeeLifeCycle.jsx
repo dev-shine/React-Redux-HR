@@ -98,17 +98,6 @@ class PageEmployeeLifeCycle extends Component {
           {EmpGraphData}
         </div>
         <div className="col-md-12 row">
-          {this.props.roll === 'admin'
-            ? <div className="form-group col-md-4">
-              <label htmlFor="sel1">Start Year:</label>
-              <select className="form-control" id="sel1" defaultValue={this.props.currentYear}
-                onChange={(evt) => { this.setState({start_year: evt.target.value}); }}>
-                <option >Select Start Year</option>
-                {yearOptions}
-              </select>
-            </div>
-            : null
-          }
           <div className="form-group col-md-4">
             <label htmlFor="sel1">Start Year:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentYear}

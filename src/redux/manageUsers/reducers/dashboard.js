@@ -38,6 +38,13 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  employeeList: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
   }
 };
 
@@ -102,14 +109,26 @@ const requestEmployeePerformance = (state, action) => update(state, {
   employeePerformance: {$setRequestLoading: null}
 });
 
-const successEmployeePerformance = (state, action) => {
-  return update(state, {
-    employeePerformance: {$setRequestSuccess: action.payload}
-  });
-};
+const successEmployeePerformance = (state, action) => update(state, {
+  employeePerformance: {$setRequestSuccess: action.payload}
+});
 
 const errorEmployeePerformance = (state, action) => update(state, {
   employeePerformance: {$setRequestError: action.payload}
+});
+// User List
+const requestUsersList = (state, action) => update(state, {
+  employeeList: {$setRequestLoading: null}
+});
+
+const successUsersList = (state, action) => {
+  return update(state, {
+    employeeList: {$setRequestSuccess: action.payload}
+  });
+};
+
+const errorUsersList = (state, action) => update(state, {
+  employeeList: {$setRequestError: action.payload}
 });
 
 export default handleActions({
@@ -131,5 +150,9 @@ export default handleActions({
 
   [constants.REQUEST_EMP_PERFORMANCE]: requestEmployeePerformance,
   [constants.SUCCESS_EMP_PERFORMANCE]: successEmployeePerformance,
-  [constants.ERROR_EMP_PERFORMANCE]:   errorEmployeePerformance
+  [constants.ERROR_EMP_PERFORMANCE]:   errorEmployeePerformance,
+
+  [constants.REQUEST_USER_LIST]: requestUsersList,
+  [constants.SUCCESS_USER_LIST]: successUsersList,
+  [constants.ERROR_USER_LIST]:   errorUsersList
 }, initialState);

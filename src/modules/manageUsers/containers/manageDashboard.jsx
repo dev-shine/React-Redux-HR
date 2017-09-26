@@ -65,6 +65,7 @@ class ManageDashboard extends React.Component {
       'month': months[month],
       'year':  year
     });
+    this.props.requestUserList();
     this.props.requestTeamStats();
     this.props.requestEmployeLifeCycle({
       'start_year': year,
@@ -265,7 +266,8 @@ function mapStateToProps (state) {
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours:               state.teamStats.empHours,
     monthlyHours:           state.teamStats.monthlyHours,
-    employeePerformance:    state.teamStats.employeePerformance
+    employeePerformance:    state.teamStats.employeePerformance,
+    employeeList:           state.teamStats.employeeList
   };
 }
 const mapDispatchToProps = (dispatch) => {

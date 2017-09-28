@@ -1,12 +1,13 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
+import {CONFIG} from 'src/config/index';
 
 export function* getTeamStats (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_team_stats',
-      'express_request_url':    'http://5.9.144.226:3017/reports/get_team_stats',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_team_stats',
       'express_request_method': 'POST',
       'express_request_body':   ''
     });
@@ -25,7 +26,7 @@ export function* getEmployeLifeCycle (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_termination_joining_stats',
-      'express_request_url':    'http://5.9.144.226:3017/reports/get_termination_joining_stats',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_termination_joining_stats',
       'express_request_method': 'POST',
       'express_request_body':   {
         'startYear': action.payload.start_year,
@@ -47,7 +48,7 @@ export function* getUserIdList (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_user_list',
-      'express_request_url':    'http://5.9.144.226:3017/user/get_user_list',
+      'express_request_url':    CONFIG.expressRequestUrl + '/user/get_user_list',
       'express_request_method': 'POST',
       'express_request_body':   ''
     });
@@ -66,7 +67,7 @@ export function* getEmployeeHours (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_employee_hours',
-      'express_request_url':    'http://5.9.144.226:3017/reports/get_employee_hours',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_employee_hours',
       'express_request_method': 'POST',
       'express_request_body':   {
         'user_id': action.payload.id,
@@ -89,7 +90,7 @@ export function* getEmployeeMonthlyHours (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_employee_monthly_hours',
-      'express_request_url':    'http://5.9.144.226:3017/reports/get_monthly_report',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_monthly_report',
       'express_request_method': 'POST',
       'express_request_body':   {
         'user_id': action.payload.id,
@@ -112,7 +113,7 @@ export function* getEmployeePerformance (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_employee_performance',
-      'express_request_url':    'http://5.9.144.226:3017/reports/get_monthly_performance',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_monthly_performance',
       'express_request_method': 'POST',
       'express_request_body':   {
         'month': action.payload.month,

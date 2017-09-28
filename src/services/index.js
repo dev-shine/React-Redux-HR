@@ -16,9 +16,13 @@ const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'g
 
 const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 
-export function fireAjax (method, url, data) {
+export function fireAjax (method, url, data, api) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
+  let token = getToken();
+  if (data.action !== 'get_team_stats' && data.action !== 'get_user_list' && data.action !== 'get_employee_hours' && data.action !== 'get_employee_performance' && data.action !== 'get_employee_monthly_hours' && data.action !== 'get_termination_joining_stats') {
+    data.token = token;
+  }
   let headers = {
     method: method,
     mode:   'cors',
@@ -44,23 +48,20 @@ export function fireAjax (method, url, data) {
   } else if (data.action === 'get_team_stats') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/reports/get_team_stats';
+    URL = CONFIG.expressApiUrl;
+    api = '/reports/get_team_stats';
   } else if (data.action === 'get_termination_joining_stats') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/reports/get_termination_joining_stats';
+    URL = CONFIG.expressApiUrl;
   } else if (data.action === 'get_employee_hours') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/reports/get_employee_hours';
+    URL = CONFIG.expressApiUrl;
   } else if (data.action === 'manual') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressWeburl + '/attendance/manual';
-  } if (data.action === 'approval') {
-    delete (data.action);
-    headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/attendance/manual';
+    URL = CONFIG.expressApiurl + '/attendance/manual';
   } if (data.action === 'approval') {
     delete (data.action);
     headers.body = JSON.stringify(data);
@@ -73,15 +74,15 @@ export function fireAjax (method, url, data) {
   } else if (data.action === 'get_employee_monthly_hours') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/reports/get_monthly_report';
+    URL = CONFIG.expressApiUrl;
   } else if (data.action === 'get_employee_performance') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/reports/get_monthly_performance';
+    URL = CONFIG.expressApiUrl;
   } else if (data.action === 'get_user_list') {
     delete (data.action);
     headers.body = JSON.stringify(data);
-    URL = CONFIG.expressApiUrl + '/user/get_user_list';
+    URL = CONFIG.expressApiUrl;
   }
 
   return fetch(URL, headers).then((response) => {

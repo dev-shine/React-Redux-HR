@@ -15,7 +15,8 @@ const CONFIG = {
   pdf_url:                   'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
   upload_email_attachment:   'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
   transfer_link:             'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/display_user_info.php',
-  expressApiUrl:             'http://5.9.144.226:3017'
+  expressApiUrl:             'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/express_api_call.php',
+  expressRequestUrl:         'http://5.9.144.226:3017'
 };
 
 export default CONFIG;

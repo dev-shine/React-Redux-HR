@@ -92,3 +92,7 @@ export const errorEmployeeMonthlyHours = createAction(constants.ERROR_EMP_MONTHL
 export const requestEmployeePerformance = createAction(constants.REQUEST_EMP_PERFORMANCE);
 export const successEmployeePerformance = createAction(constants.SUCCESS_EMP_PERFORMANCE);
 export const errorEmployeePerformance = createAction(constants.ERROR_EMP_PERFORMANCE);
+
+export const requestUserList = createAction(constants.REQUEST_USER_LIST);
+export const successUserList = createAction(constants.SUCCESS_USER_LIST);
+export const errorUserList = createAction(constants.ERROR_USER_LIST);

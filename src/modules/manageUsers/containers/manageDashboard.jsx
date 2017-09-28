@@ -65,6 +65,7 @@ class ManageDashboard extends React.Component {
       'month': months[month],
       'year':  year
     });
+    this.props.requestUserList();
     this.props.requestTeamStats();
     this.props.requestEmployeLifeCycle({
       'start_year': year,
@@ -167,7 +168,7 @@ class ManageDashboard extends React.Component {
           <div className="nav-dashboard box-shadow m-b">
             <div className="navbar">
               <img className="p-0" style={{'marginTop': '0.7%'}} src="./logo.png" height="40" width="220"></img>
-              <Link to="login">
+              <Link to="page_login">
                 <p className='p-dashboard'
                   data-toggle="tooltip"
                   data-placement="bottom"
@@ -265,7 +266,8 @@ function mapStateToProps (state) {
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours:               state.teamStats.empHours,
     monthlyHours:           state.teamStats.monthlyHours,
-    employeePerformance:    state.teamStats.employeePerformance
+    employeePerformance:    state.teamStats.employeePerformance,
+    employeeList:           state.teamStats.employeeList
   };
 }
 const mapDispatchToProps = (dispatch) => {

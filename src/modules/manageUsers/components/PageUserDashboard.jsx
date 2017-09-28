@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import {
-  HighchartsChart, Tooltip, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, PieSeries
+  HighchartsChart, Tooltip, Chart, XAxis, YAxis, Title, Legend, ColumnSeries, PieSeries, Subtitle
 } from 'react-jsx-highcharts';
 
 class PageUserDashboard extends Component {
@@ -51,12 +51,13 @@ class PageUserDashboard extends Component {
         ? <HighchartsChart>
           <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
           <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{teamData.name}</Title>
+          <Subtitle>{'Team Experience '}</Subtitle>
           <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
           <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
           {graphdata}
           <YAxis id="number" minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
             <YAxis.Title>No. of Month Work</YAxis.Title>
-            <ColumnSeries id="employee" name="Employees" data={noOfMonths} />
+            <ColumnSeries id="employee" name="Employee Experience" data={noOfMonths} />
             <PieSeries key={key} id="total-consumption"
               name="Total consumption"
               data={pieData}

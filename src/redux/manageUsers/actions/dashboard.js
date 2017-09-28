@@ -36,6 +36,22 @@ export function* getEmployeLifeCycle (action) {
   }
 }
 
+export function* getUserIdList (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'get_user_list'
+    });
+    if (response.error === 0) {
+      yield put(actions.successUserList(response.data));
+    } else {
+      yield put(actions.errorUserList(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorUserList('Error Occurs !!'));
+    console.warn('Some error found in "get_termination_joining_stats" Request action\n', e);
+  }
+}
+
 export function* getEmployeeHours (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
@@ -69,7 +85,7 @@ export function* getEmployeeMonthlyHours (action) {
       yield put(actions.errorEmployeeMonthlyHours(response.message));
     }
   } catch (e) {
-    yield put(actions.errorEmployeeHours('Error Occurs !!'));
+    yield put(actions.errorEmployeeMonthlyHours('Error Occurs !!'));
     console.warn('Some error found in "get_employee_hours" Request action\n', e);
   }
 }
@@ -77,10 +93,9 @@ export function* getEmployeeMonthlyHours (action) {
 export function* getEmployeePerformance (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action':  'get_employee_performance',
-      'user_id': action.payload.id,
-      'month':   action.payload.month,
-      'year':    action.payload.year
+      'action': 'get_employee_performance',
+      'month':  action.payload.month,
+      'year':   action.payload.year
     });
     if (response.error === 0) {
       yield put(actions.successEmployeePerformance(response.data));
@@ -88,7 +103,7 @@ export function* getEmployeePerformance (action) {
       yield put(actions.errorEmployeePerformance(response.message));
     }
   } catch (e) {
-    yield put(actions.errorEmployeeHours('Error Occurs !!'));
+    yield put(actions.errorEmployeePerformance('Error Occurs !!'));
     console.warn('Some error found in "get_employee_hours" Request action\n', e);
   }
 }

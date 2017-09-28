@@ -34,9 +34,11 @@ class PageEmployeeLifeCycle extends Component {
   }
   getByYearData (evt) {
     const userId = localStorage.getItem('userid');
+    let start_year = this.state.start_year !== '' ? this.state.start_year : this.props.currentYear;
+    let end_year = this.state.end_year !== '' ? this.state.end_year : this.props.currentYear;
     this.props.requestEmployeLifeCycle({
-      'start_year': this.state.start_year,
-      'end_year':   this.state.end_year
+      'start_year': start_year,
+      'end_year':   end_year
     });
   }
   render () {
@@ -49,12 +51,12 @@ class PageEmployeeLifeCycle extends Component {
     let EmpLife = this.state.empLifeCycle;
     let startYearOptions = _.map(this.props.year, (data, i) => {
       return (
-      yearOptions.push(<option key={i} selected={this.props.currentYear === data} value={data}>{data}</option>)
+      yearOptions.push(<option key={i} value={data}>{data}</option>)
       );
     });
     let endYearOption = _.map(this.props.year, (data, i) => {
       return (
-      endYearOptions.push(<option key={i} selected={this.props.currentYear === data} value={data}>{data}</option>)
+      endYearOptions.push(<option key={i} value={data}>{data}</option>)
       );
     });
     let EmpGraphData = _.map(EmpLife, (memberData, k) => {
@@ -98,7 +100,7 @@ class PageEmployeeLifeCycle extends Component {
         <div className="col-md-12 row">
           <div className="form-group col-md-4">
             <label htmlFor="sel1">Start Year:</label>
-            <select className="form-control" id="sel1"
+            <select className="form-control" id="sel1" defaultValue={this.props.currentYear}
               onChange={(evt) => { this.setState({start_year: evt.target.value}); }}>
               <option >Select Start Year</option>
               {yearOptions}
@@ -106,7 +108,7 @@ class PageEmployeeLifeCycle extends Component {
           </div>
           <div className="form-group col-md-4">
             <label htmlFor="sel1">End Year:</label>
-            <select className="form-control" id="sel12"
+            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
               onChange={(evt) => { this.setState({end_year: evt.target.value}); }}>
               <option>Select End Year</option>
               {endYearOptions}

@@ -13,3 +13,18 @@
     transition: background 1s;
   }
 }
+.nav-dashboard {
+ background-color: #284665 ;
+ height: 64px;
+ width: 100%;
+ color: #fff;
+ text-align: center;
+
+ .p-dashboard {
+   display: inline-block;
+   float: right;
+   padding-right: 2em;
+   padding-top: 1.2em;
+   cursor: pointer;
+ }
+}

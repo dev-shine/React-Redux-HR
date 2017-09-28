@@ -42,7 +42,6 @@ class ManageUserPendingHours extends React.Component {
     let year = d.getFullYear();
     let months = d.getMonth();
     let month = (months + 1 < 10 ? ('0' + months) : months);
-    this.props.onUserPendingHoursData(year, month);
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {

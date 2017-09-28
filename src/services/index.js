@@ -12,17 +12,18 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
   'save_policy_document', 'get_user_policy_document', 'update_user_policy_document', 'add_team_list', 'get_team_list',
   'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id' ];
 
-const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role'];
+const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
+
+const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 
 export function fireAjax (method, url, data) {
   let URL = CONFIG.api_url + url;
   let action = data.action;
-  let token = getToken();
-  data.token = token;
   let headers = {
     method: method,
     mode:   'cors',
     cache:  'no-cache',
+    Accept: 'application/json',
     body:   JSON.stringify(data)
   };
 
@@ -40,6 +41,47 @@ export function fireAjax (method, url, data) {
   } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (data.action === 'get_team_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_team_stats';
+  } else if (data.action === 'get_termination_joining_stats') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_termination_joining_stats';
+  } else if (data.action === 'get_employee_hours') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_employee_hours';
+  } else if (data.action === 'manual') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressWeburl + '/attendance/manual';
+  } if (data.action === 'approval') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/attendance/manual';
+  } if (data.action === 'approval') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/attendance/approval';
+  } else if (data.action === 'update_time_by_employee') {
+    delete (data.action);
+    headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/attendance/update_time_by_employee';
+  } else if (data.action === 'get_employee_monthly_hours') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_monthly_report';
+  } else if (data.action === 'get_employee_performance') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/reports/get_monthly_performance';
+  } else if (data.action === 'get_user_list') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl + '/user/get_user_list';
   }
 
   return fetch(URL, headers).then((response) => {
@@ -50,7 +92,7 @@ export function fireAjax (method, url, data) {
         });
       });
     } else if (response.status === 401) {
-      confirm('401 ! Access denied!', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
+      confirm('401 Access Denied !', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
         resetLoggedUser();
         location.href = CONFIG.BASE_URL;
       });

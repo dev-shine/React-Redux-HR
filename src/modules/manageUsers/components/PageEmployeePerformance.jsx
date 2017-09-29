@@ -69,47 +69,54 @@ class PageEmployeePerformance extends Component {
         );
       });
     }
+    const plotOptions= {
+        spline: {
+            dataLabels: {
+                enabled: true
+            },
+        }
+    };
     return (
       <div>
         <div>
           <div className="team row">
-            <HighchartsChart >
+            <HighchartsChart plotOptions={plotOptions} >
               <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
               <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
-              <Subtitle>{'Performance of Employee'}</Subtitle>
+              <Subtitle>{'Active of Employee'}</Subtitle>
               <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
               <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
               <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
                 <XAxis.Title>Days</XAxis.Title>
               </XAxis>
-              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
+              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
                 <YAxis.Title>No. of Hours</YAxis.Title>
-                <SplineSeries id="emp" name="Active Hours" data={noOfActiveHours} />
-                <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} />
+                <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
+                <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
               </YAxis>
             </HighchartsChart>
           </div>
         </div>
         <div className="col-md-12 row">
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Months:</label>
-              <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
-                onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-                  {monthOptions}
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Year:</label>
-              <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-                onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-                {yearOptions}
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
-            </div>
+          <div className="form-group col-md-4">
+            <label htmlFor="sel1">Select Months:</label>
+            <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
+              onChange={(evt) => { this.setState({month: evt.target.value}); }}>
+              {monthOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-4">
+            <label htmlFor="sel1">Select Year:</label>
+            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
+              onChange={(evt) => { this.setState({year: evt.target.value}); }}>
+              {yearOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-4">
+            <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
           </div>
         </div>
+      </div>
     );
   }
 }

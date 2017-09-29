@@ -11,7 +11,7 @@ const styles = {
 };
 
 const LoadingIcon = ({loading}) => {
-  if (loading === 1) {
+  if (loading === true) {
     return (
       <div style={styles.loadingDivHeight}>
         <div className="progress progress-striped active">

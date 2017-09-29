@@ -62,8 +62,8 @@ class PageEmployeePerformance extends Component {
     if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
       let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
         noOfDays.push(performanceData.day);
-        noOfActiveHours.push(parseFloat(performanceData.top_active_hrs.hours));
-        noOfTotalHours.push(parseFloat(performanceData.top_total_hrs.hours));
+        noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+        noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
         return (
           <div></div>
         );
@@ -85,7 +85,10 @@ class PageEmployeePerformance extends Component {
               <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
               <Subtitle>{'Active of Employee'}</Subtitle>
               <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
+              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
+                pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
+                }
+              />
               <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
                 <XAxis.Title>Days</XAxis.Title>
               </XAxis>

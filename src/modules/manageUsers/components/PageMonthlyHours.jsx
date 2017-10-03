@@ -62,7 +62,7 @@ class PageMonthlyHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}  {userList.name}</option>);
+      userIdOptions.push(<option key={k} value={userList.id}>{userList.user_id}  {userList.name}</option>);
     });
     if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
       let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {

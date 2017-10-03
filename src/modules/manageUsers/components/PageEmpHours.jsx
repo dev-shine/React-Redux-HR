@@ -62,7 +62,7 @@ class PageEmpHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.id}>{userList.user_id}     {userList.name}</option>);
+      userIdOptions.push(<option key={k} value={userList.user_id}>{userList.user_id}     {userList.name}</option>);
     });
     let timeList = _.map(EmpTimeTable, (hoursData, j) => {
       noOfDays.push(hoursData.day);
@@ -87,36 +87,36 @@ class PageEmpHours extends Component {
               </XAxis>
               <YAxis id='attendance' minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
                 <YAxis.Title>No. of Hours</YAxis.Title>
-                  <AreaSplineSeries id="Hours" name="Hours" data={noOfHours} color="#284665" />
+                <AreaSplineSeries id="Hours" name="Hours" data={noOfHours} color="#284665" />
               </YAxis>
               <SplineSeries id="average" name="Average" />
             </HighchartsChart>
           </div>
         </div>
         <div className="col-md-12 row">
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select User</label>
-              <select className="form-control" id="user"
-                onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
-                <option>Select User</option>
-                {userIdOptions}
-              </select>
-            </div>
-          <div className="form-group col-md-4">
+          <div className="form-group col-md-3">
+            <label htmlFor="sel1">Select User</label>
+            <select className="form-control" id="user"
+              onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
+              <option>Select User</option>
+              {userIdOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-3">
             <label htmlFor="sel1">Select Months:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
               onChange={(evt) => { this.setState({month: evt.target.value}); }}>
               {monthOptions}
             </select>
           </div>
-          <div className="form-group col-md-4">
+          <div className="form-group col-md-3">
             <label htmlFor="sel1">Select Year:</label>
             <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
               onChange={(evt) => { this.setState({year: evt.target.value}); }}>
               {yearOptions}
             </select>
           </div>
-          <div className="form-group col-md-4">
+          <div className="form-group col-md-3">
             <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
           </div>
         </div>

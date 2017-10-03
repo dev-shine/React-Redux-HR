@@ -62,7 +62,7 @@ class PageMonthlyHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.id}>{userList.user_id}  {userList.name}</option>);
+      userIdOptions.push(<option key={k} value={userList.user_id}>{userList.user_id}  {userList.name}</option>);
     });
     if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
       let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {
@@ -96,33 +96,33 @@ class PageMonthlyHours extends Component {
           </div>
         </div>
         <div className="col-md-12 row">
-          <div className="form-group col-md-4">
+          <div className="form-group col-md-3">
             <label htmlFor="sel1">Select User</label>
             <select className="form-control" id="user"
-              onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
+              onChange={(evt) => { console.log(evt.target.value); this.setState({userId: evt.target.value}); }}>
               <option>Select User</option>
               {userIdOptions}
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Months:</label>
-              <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
-                onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-                {monthOptions}
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select Year:</label>
-              <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-                onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-                {yearOptions}
-              </select>
-            </div>
-            <div className="form-group col-md-4">
-              <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
-            </div>
+            </select>
+          </div>
+          <div className="form-group col-md-3">
+            <label htmlFor="sel1">Select Months:</label>
+            <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
+              onChange={(evt) => { this.setState({month: evt.target.value}); }}>
+              {monthOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-3">
+            <label htmlFor="sel1">Select Year:</label>
+            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
+              onChange={(evt) => { this.setState({year: evt.target.value}); }}>
+              {yearOptions}
+            </select>
+          </div>
+          <div className="form-group col-md-3">
+            <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
           </div>
         </div>
+      </div>
     );
   }
 }

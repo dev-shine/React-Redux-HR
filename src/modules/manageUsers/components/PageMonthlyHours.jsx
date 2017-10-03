@@ -67,8 +67,8 @@ class PageMonthlyHours extends Component {
     if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
       let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {
         noOfDays.push(Data.day);
-        activeHour.push(Data.active_hours.hours);
-        totalHour.push(Data.total_hours.hours);
+        activeHour.push(parseFloat(Data.active_hours.total_time));
+        totalHour.push(parseFloat(Data.total_hours.total_time));
         return (
         <div></div>
         );
@@ -99,7 +99,7 @@ class PageMonthlyHours extends Component {
           <div className="form-group col-md-3">
             <label htmlFor="sel1">Select User</label>
             <select className="form-control" id="user"
-              onChange={(evt) => { console.log(evt.target.value); this.setState({userId: evt.target.value}); }}>
+              onChange={(evt) => {  this.setState({userId: evt.target.value}); }}>
               <option>Select User</option>
               {userIdOptions}
             </select>

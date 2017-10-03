@@ -49,7 +49,6 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
-    api = '/reports/get_team_stats';
   } else if (data.action === 'get_termination_joining_stats') {
     delete (data.action);
     headers.body = JSON.stringify(data);

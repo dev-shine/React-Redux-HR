@@ -165,7 +165,7 @@ class ManageDashboard extends React.Component {
     return (
       <div>
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <div className="nav-dashboard box-shadow m-b">
+          <div className="nav-dashboard box-shadow m-b p-y-sm">
             <div className="navbar">
               <img className="p-0" style={{'marginTop': '0.7%'}} src="./logo.png" height="40" width="220"></img>
               <Link to="page_login">

@@ -62,7 +62,7 @@ class PageMonthlyHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}</option>);
+      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}  {userList.name}</option>);
     });
     if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
       let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {
@@ -95,13 +95,13 @@ class PageMonthlyHours extends Component {
             </HighchartsChart>
           </div>
         </div>
-          <div className="col-md-12 row">
-            <div className="form-group col-md-4">
-              <label htmlFor="sel1">Select User</label>
-              <select className="form-control" id="user"
-                onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
-                <option>Select User</option>
-                {userIdOptions}
+        <div className="col-md-12 row">
+          <div className="form-group col-md-4">
+            <label htmlFor="sel1">Select User</label>
+            <select className="form-control" id="user"
+              onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
+              <option>Select User</option>
+              {userIdOptions}
               </select>
             </div>
             <div className="form-group col-md-4">

@@ -62,7 +62,7 @@ class PageEmpHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}</option>);
+      userIdOptions.push(<option key={k} value={userList.id}>{userList.id}    {userList.name}</option>);
     });
     let timeList = _.map(EmpTimeTable, (hoursData, j) => {
       noOfDays.push(hoursData.day);

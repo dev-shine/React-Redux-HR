@@ -172,9 +172,9 @@ class ManageDashboard extends React.Component {
                 <p className='p-dashboard'
                   data-toggle="tooltip"
                   data-placement="bottom"
-                  title="Login">
-                   <i className="material-icons">power_settings_new</i>
-                   </p>
+                title="Login">
+                  <i className="material-icons">power_settings_new</i>
+                </p>
               </Link>
             </div>
             <div className="row no-gutter">

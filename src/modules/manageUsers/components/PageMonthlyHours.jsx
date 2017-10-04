@@ -23,7 +23,7 @@ class PageMonthlyHours extends Component {
     };
     this.getByData = this.getByData.bind(this);
   }
-  componentsWillMount () {
+  componentWillMount () {
     this.setState({
       monthlyHours: this.props.monthlyHours
     });
@@ -62,7 +62,7 @@ class PageMonthlyHours extends Component {
       );
     });
     let userIdOption = _.map(this.props.employeeList.data, (userList, k) => {
-      userIdOptions.push(<option key={k} value={userList.user_id}>{userList.user_id}  {userList.name}</option>);
+      userIdOptions.push(<option key={k} value={userList.user_Id}>{userList.user_Id}  {userList.name}</option>);
     });
     if (EmpMonthltHours[0] !== null && EmpMonthltHours[0] !== undefined) {
       let timeList = _.map(EmpMonthltHours[0].day_wise_detail, (Data, j) => {
@@ -119,7 +119,7 @@ class PageMonthlyHours extends Component {
             </select>
           </div>
           <div className="form-group col-md-3">
-            <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
+            <button type="button" onClick={(evt) => this.getByData()} className="btn btn-primary form-group m-t-md">Get Details</button>
           </div>
         </div>
       </div>

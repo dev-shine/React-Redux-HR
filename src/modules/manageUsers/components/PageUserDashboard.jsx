@@ -13,7 +13,7 @@ class PageUserDashboard extends Component {
       teamGraphData: ''
     };
   }
-  componentsWillMount (props) {
+  componentWillMount (props) {
     const userId = localStorage.getItem('userid');
     this.setState({
       teamGraphData: this.props.team

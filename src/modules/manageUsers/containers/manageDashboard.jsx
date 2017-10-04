@@ -24,19 +24,21 @@ class ManageDashboard extends React.Component {
       defaultTeamDisplay: '',
       status_message:     '',
       active:             'active',
-      firstArrow:         'show',
+      firstArrow:         'hidden',
       secondArrow:        'hidden',
       thirdArrow:         'hidden',
       fourthArrow:        'hidden',
-      fifthArrow:         'hidden',
-      teamList:           'show',
+      fifthArrow:         'show',
+      teamList:           'hidden',
       empLifeCycle:       'hidden',
       empHours:           'hidden',
       monthlyHours:       'hidden',
-      empPerformance:     'hidden',
+      empPerformance:     'show',
       empData:            '',
+      currentDate:        '',
       currentYear:        '',
       currentMonth:       '',
+      date:               '',
       months:             ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       years:              []
     };
@@ -44,9 +46,11 @@ class ManageDashboard extends React.Component {
   }
   componentWillMount (props) {
     window.scrollTo(0, 0);
-    const d = new Date();
-    const year = d.getFullYear();
-    const month = d.getMonth();
+    const dateData = new Date();
+    const dataDate = dateData.toString().split(" ");
+    const year = dateData.getFullYear();
+    const month = dateData.getMonth();
+    const date = dataDate[2];
     const months = this.state.months;
     const userId = localStorage.getItem('userid');
     let startYear = 2010;
@@ -58,10 +62,13 @@ class ManageDashboard extends React.Component {
     this.setState({
       currentMonth: months[month],
       currentYear:  year,
-      years:        yearOptions
+      currentDate:  date,
+      years:        yearOptions,
+      date:         dateData
     });
     this.props.requestEmployeeHours({
       'id':    userId,
+      'date':  date,
       'month': months[month],
       'year':  year
     });
@@ -192,12 +199,13 @@ class ManageDashboard extends React.Component {
                   <div className="col-sm-12 pull-sm-12">
                     <div className="p-y-md clearfix nav-active-primary">
                       <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                        <li onClick={() => { this.openPage('team_list'); }} className={`nav-item ${this.state.active}`}>
-                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Team Dashboard</a>
-                          <div className={this.state.firstArrow}>
-                            <span className="arrow bottom b-accent"></span>
-                          </div>
-                        </li>
+                        {this.state.role==='admin'?
+                          <li onClick={() => { this.openPage('team_list'); }} className={`nav-item ${this.state.active}`}>
+                            <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Team Dashboard</a>
+                            <div className={this.state.firstArrow}>
+                              <span className="arrow bottom b-accent"></span>
+                            </div>
+                          </li>:null}
                         <li onClick={() => { this.openPage('emp_life_cycle'); }} className={'nav-item'}>
                           <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Employee Life Cycle</a>
                           <div className={this.state.secondArrow}>
@@ -216,7 +224,7 @@ class ManageDashboard extends React.Component {
                             <span className="arrow bottom b-accent"></span>
                           </div>
                         </li>
-                        <li onClick={() => { this.openPage('employee_performance'); }} className={'nav-item'}>
+                        <li onClick={() => { this.openPage('employee_performance'); }} className={`nav-item ${this.state.active}`}>
                           <a className="nav-link" href="" data-toggle="tab" data-target="#tab_5" aria-expanded="false">Employee Monthly Performance</a>
                           <div className={this.state.fifthArrow}>
                             <span className="arrow bottom b-accent"></span>
@@ -230,22 +238,21 @@ class ManageDashboard extends React.Component {
                 </div>
               </div>
               <div className="padding">
-                <div className={this.state.teamList}>
-                  <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
-                </div>
+                {this.state.role === 'admin'?
+                  <div className={this.state.teamList}>
+                    <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
+                  </div>:null}
                 <div className={this.state.empLifeCycle}>
                   <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
+                </div>
+                <div className={this.state.empHours}>
+                  <PageEmpHours empHours={this.props.empHours}{...this.props}  currentDate={this.state.date} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.monthlyHours}>
                   <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
                 <div className={this.state.empPerformance}>
                   <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                </div>
-                <div className="padding">
-                  <div className={this.state.empHours}>
-                    <PageEmpHours empHours={this.props.empHours}{...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                  </div>
                 </div>
               </div>
             </div>

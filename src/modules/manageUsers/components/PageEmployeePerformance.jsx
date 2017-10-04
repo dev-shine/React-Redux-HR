@@ -83,26 +83,6 @@ class PageEmployeePerformance extends Component {
           <HighchartsChart plotOptions={plotOptions} >
             <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
             <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
-            <Subtitle>{'Active and Total Hours Spend by Employee'}</Subtitle>
-            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-              pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
-              }
-            />
-            <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
-              <XAxis.Title>Days</XAxis.Title>
-            </XAxis>
-            <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
-              <YAxis.Title>No. of Hours</YAxis.Title>
-              <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
-              <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
-            </YAxis>
-          </HighchartsChart>
-        </div>
-        <div className="team row">
-          <HighchartsChart plotOptions={plotOptions} >
-            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
             <Subtitle>{'Active Hours Spend by Employee'}</Subtitle>
             <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
             <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}

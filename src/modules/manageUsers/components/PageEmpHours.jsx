@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
 import * as actions from 'appRedux/actions';
-import {HighchartsChart, AreaSplineSeries,LineSeries, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
+import {HighchartsChart, AreaSplineSeries, LineSeries, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import DatePicker from 'material-ui/DatePicker';
 import 'react-date-picker/index.css';
 var moment = require('moment');
@@ -52,6 +52,7 @@ class PageEmpHours extends Component {
   }
   render () {
     let EmpTimeTable = this.state.empHours;
+    var name = [];
     var date = [];
     var inTime = [];
     var outTime = [];
@@ -71,6 +72,7 @@ class PageEmpHours extends Component {
     });
     if(EmpTimeTable !== null && EmpTimeTable.isSuccess){
       date.push(EmpTimeTable.data.date);
+      name.push(EmpTimeTable.data.employee_name);
     let inTimeList = _.map(EmpTimeTable.data.entry_time, (hoursData, j) => {
       inTime.push({y:parseFloat(hoursData.in_time),dateData:hoursData.in_time});
     });
@@ -78,24 +80,8 @@ class PageEmpHours extends Component {
       outTime.push({y:parseFloat(hoursData.out_time),dateData:hoursData.out_time});
     });
   }
-  const inTimeOptions= {
-      areaspline: {
-          dataLabels: {
-              enabled: true,
-              format: 'In Time: {point.dateData}'
-          },
-      }
-  };
-  const outTimeOptions= {
-      areaspline: {
-          dataLabels: {
-              enabled: true,
-              format: 'Out Time: {point.dateData}'
-          },
-      }
-  };
-  const inOutTimeOptions= {
-      line: {
+  const spinOutTimeOptions= {
+      spline: {
           dataLabels: {
               enabled: true,
               format: 'Time: {point.dateData}'
@@ -106,48 +92,19 @@ class PageEmpHours extends Component {
       <div>
         <div>
           <div className="team row">
-            <HighchartsChart plotOptions={inTimeOptions} >
+            <HighchartsChart  plotOptions={spinOutTimeOptions}>
               <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
               <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{'Employee Time Table'}</Title>
-              <Subtitle>{'In/Out Time Of Employee '}</Subtitle>
+              <Subtitle>{'In/Out Time Of Employee'}{name}</Subtitle>
               <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
               <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-                pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Hours: <b>{point.dateData}</b><br/>'
-                }
+                pointFormat={  '<span style="color:{point.color}">\u25CF</span> Hours: <b>{point.dateData}</b><br/>' }
               />
               <XAxis id="x"  title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} />
               <YAxis id='attendance'  minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
                 <YAxis.Title>In and Out Time on {date}</YAxis.Title>
-                <AreaSplineSeries id="In-Time" name="In-Time" data={inTime} color="#284665" />
-              </YAxis>
-            </HighchartsChart>
-          </div>
-          <div className="team row">
-            <HighchartsChart  plotOptions={outTimeOptions}>
-              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{'Employee Time Table'}</Title>
-              <Subtitle>{'In/Out Time Of Employee'}</Subtitle>
-              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
-              <XAxis id="x"  title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} />
-              <YAxis id='attendance'  minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
-                <YAxis.Title>In and Out Time on {date}</YAxis.Title>
-                <AreaSplineSeries id="Out-Time" name="Out-Time" data={outTime} color="#284665" />
-              </YAxis>
-            </HighchartsChart>
-          </div>
-          <div className="team row">
-            <HighchartsChart  plotOptions={inOutTimeOptions}>
-              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{'Employee Time Table'}</Title>
-              <Subtitle>{'In/Out Time Of Employee'}</Subtitle>
-              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0} />
-              <XAxis id="x"  title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} />
-              <YAxis id='attendance'  minorTickInterval={'auto'} title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
-                <YAxis.Title>In and Out Time on {date}</YAxis.Title>
-                <LineSeries id="In-Time" name="In-Time" data={inTime}  />
-                <LineSeries id="Out-Time" name="Out-Time" data={outTime}  />
+                <SplineSeries id="In-Time" name="In-Time" data={inTime}  />
+                <SplineSeries id="Out-Time" name="Out-Time" data={outTime}  />
               </YAxis>
             </HighchartsChart>
           </div>

@@ -73,7 +73,7 @@ class PageEmployeePerformance extends Component {
         spline: {
             dataLabels: {
                 enabled: true,
-                format: 'Employee: {point.nameData} {point.y} hrs'
+                format: 'Name: {point.nameData} {point.y} hrs'
             },
         }
     };

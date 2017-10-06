@@ -16,20 +16,6 @@ import FlatButton from 'material-ui/FlatButton';
 class PageEmpHours extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      search:      '',
-      start_year:  '',
-      userId:      '',
-      end_year:    '',
-      pendingData: '',
-      year:        '',
-      month:       '',
-      empHours:    '',
-      date:        {}
-    };
-    // this.getByData = this.getByData.bind(this);
-    // this.handleUserId = this.handleUserId.bind(this);
-    // this.handleDate = this.handleDate.bind(this);
   }
   componentWillMount () {
     this.setState({
@@ -50,36 +36,6 @@ class PageEmpHours extends Component {
       empHours: props.empHours
     });
   }
-
-  // handleDate (data) {
-  //   this.setState({ date: data});
-  //   this.getByData({ date: data, change: 'date' });
-  // }
-  //
-  // handleUserId (data) {
-  //   this.setState({ userId: data});
-  //   this.getByData({ userId: data, change: 'user_id' });
-  // }
-  //
-  // getByData (data) {
-  //   let userId = this.state.userId;
-  //   let date= this.state.date.toString().split(" ");
-  //     if(data.change === 'date'){
-  //       date=data.date.toString().split(" ");
-  //     }else if (data.change === 'user_id') {
-  //       userId=data.userId;
-  //     }
-  //     if(userId === ''){
-  //       notify('Error!', 'Please Select user', 'error');
-  //     }else{
-  //     this.props.requestEmployeeHours({
-  //       'id':    userId,
-  //       'date':  date[2],
-  //       'month': date[1],
-  //       'year':  date[3]
-  //     });
-  //   }
-  // }
   render () {
     let EmpTimeTable = this.state.empHours;
     var name = [];
@@ -104,22 +60,13 @@ class PageEmpHours extends Component {
       date.push(EmpTimeTable.data.date);
       name.push(EmpTimeTable.data.employee_name);
     let inTimeList = _.map(EmpTimeTable.data.entry_time, (hoursData, j) => {
-      inTime.push({y:parseFloat(hoursData.in_time),dateData:hoursData.in_time,status:'in'});
+      inTime.push({y:parseFloat(hoursData.in_time),dateData:hoursData.in_time,status:'In-Time'});
 
     });
     let outTimeList = _.map(EmpTimeTable.data.exit_time, (hoursData, j) => {
-      outTime.push({y:parseFloat(hoursData.out_time),dateData:hoursData.out_time,status:'out'});
+      outTime.push({y:parseFloat(hoursData.out_time),dateData:hoursData.out_time,status:'Out-Time'});
     });
   }
-  // const spinOutTimeOptions= {
-  //     spline: {
-  //         dataLabels: {
-  //             enabled: true,
-  //             format: 'Time: {point.dateData}'
-  //         },
-  //         pointStart: Date.UTC(2017, 4, 0, 9, 0, 0)
-  //     }
-  // };
   let inOutTime= _.concat(inTime,outTime);
   let timeData = inOutTime.sort(function compare(a, b) {
    var dateA = new Date('1970/01/01 ' + a.dateData);
@@ -128,7 +75,7 @@ class PageEmpHours extends Component {
  });
   let inTimeData = _.map(timeData, (hoursData, j) =>{
       let checkClass = 'b-success';
-      if (hoursData.status === 'out') {
+      if (hoursData.status === 'Out-Time') {
           checkClass = 'b-danger';
       }
       let showText = `In/Out time of ${this.state.empHours.data.employee_name}`;
@@ -139,98 +86,33 @@ class PageEmpHours extends Component {
           </div>
           <div className="sl-content">
             <div>{hoursData.dateData}</div>
+            <small>{hoursData.status}</small>
           </div>
         </div>
       );
     });
   return (
-    <div>
-      <div className="team row p-a ">
-        <div className="col-xs-12 table-responsive">
-          <div className="box">
-            <div className="box-header">
-              <h3>{this.state.empHours.data.employee_name}</h3>
-              <small>In time of {this.props.date} <sup className="sup-date" >th</sup> {this.props.selectedMonth}, {this.props.selectedYear}</small>
-            </div>
-            <div className="box-body">
-              <div className="streamline b-l m-l">
-                {inTimeData}
-              </div>
+    <div className="col-md-12 p-a">
+      <div className="row">
+        <div className="col-xs-12 ">
+          <div className="col-xs-12">
+            <h3>{this.state.empHours.data.employee_name}</h3>
+            <small>In time of {this.props.date} <sup className="sup-date" >th</sup> {this.props.selectedMonth}, {this.props.selectedYear}</small>
+          </div>
+          <div className="col-xs-12">
+            <div className="streamline b-l m-l">
+              {inTimeData}
             </div>
           </div>
-          <div className=" col-md-2 col-sm-3 col-xs-3 pull-right">
-            <RaisedButton onTouchTap={(evt) => this.props.handleClose()} primary label="close" />
-          </div>
-          {/* <HighchartsChart  plotOptions={spinOutTimeOptions}>
-              <Chart  backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}} >{'Employee Time Table'}</Title>
-              <Subtitle>{'In/Out Time Of Employee'}{name}</Subtitle>
-              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-            pointFormat={  '<span style="color:{point.color}">\u25CF</span> Hours: <b>{point.dateData}</b><br/>' }
-              />
-              <XAxis id="x" type="datetime" min title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
-            <SplineSeries id="In-Time" name="In-Time" data={inTime}  />
-            <SplineSeries id="Out-Time" name="Out-Time" data={outTime}  />
-              </XAxis>
-              <YAxis id='y' reversed title={{'style': {'textTransform': 'uppercase'}}} labels={{'style': {'fontSize': '12px'}}} >
-            <YAxis.Title>In and Out Time on {date}</YAxis.Title>
-            <SplineSeries id="In-Time" name="In-Time" data={inTime}  />
-            <SplineSeries id="Out-Time" name="Out-Time" data={outTime}  />
-              </YAxis>
-          </HighchartsChart> */}
+        </div>
+        <div className="col-md-2 col-sm-3 col-xs-3 pull-right">
+          <RaisedButton onTouchTap={() => this.props.handleClose()} primary label="Close" />
         </div>
       </div>
-      {/* <div className="row"> */}
-        {/* <div className="container p-t">
-            <div className="row">
-          <DatePicker
-            hintText="Landscape Dialog"
-            mode="landscape"
-            className="col-sm-6 p-a m-t"
-            onChange={(event, date) => { this.handleDate(date); }}
-            value={this.state.date}
-          />
-          <div className="form-group col-sm-6  p-a">
-            <label htmlFor="sel1">Select User</label>
-            <select className="form-control" id="user"
-            onChange={(evt) => {  this.handleUserId(evt.target.value); }}>
-            <option>Select User</option>
-            {userIdOptions}
-            </select>
-          </div>
-            </div>
-        </div> */}
-        {/*<div className="form-group col-md-3">
-            <label htmlFor="sel1">Select User</label>
-            <select className="form-control" id="user"
-          onChange={(evt) => { this.setState({userId: evt.target.value}); }}>
-          <option>Select User</option>
-          {userIdOptions}
-            </select>
-            </div>
-            <div className="form-group col-md-3">
-            <label htmlFor="sel1">Select Months:</label>
-            <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
-          onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-          {monthOptions}
-            </select>
-            </div>
-            <div className="form-group col-md-3">
-            <label htmlFor="sel1">Select Year:</label>
-            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-          onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-          {yearOptions}
-            </select>
-        </div>*/}
-        {/* <div className="form-group col-md-2 col-sm-3 col-xs-3">
-            <button type="button" onClick={(evt) => this.getByData()} className="btn btn-primary form-group m-t-md">Get Details</button>
-        </div> */}
-        {/* </div> */}
     </div>
-            );
-        }
-    }
+    );
+  }
+}
 
 function mapStateToProps (state) {
   return {

@@ -9,8 +9,9 @@
 .dialog-inout-time{
   width: 60% !important;
   max-width: none !important;
-  line-height:  40px;
   transition: .2s;
+  margin: 25vh auto !important;
+  transform: translateY(-50%) !important;
 }
 .sup-date{
   position: relative;

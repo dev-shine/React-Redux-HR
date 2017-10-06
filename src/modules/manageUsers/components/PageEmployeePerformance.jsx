@@ -80,8 +80,10 @@ class PageEmployeePerformance extends Component {
     if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
       let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
         noOfDays.push(performanceData.day);
-        noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
-        noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+        if(parseFloat(performanceData.top_active_hrs.hours) !== 0 && parseFloat(performanceData.top_total_hrs.hours) !==0 ){
+          noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+          noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+        }
         return (
           <div></div>
         );

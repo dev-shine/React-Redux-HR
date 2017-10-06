@@ -74,7 +74,7 @@ class PageEmpHours extends Component {
    return dateA - dateB;
  });
   let inTimeData = _.map(timeData, (hoursData, j) =>{
-      let checkClass = 'b-success';
+      let checkClass = 'b-success left100';
       if (hoursData.status === 'Out-Time') {
           checkClass = 'b-danger';
       }
@@ -92,14 +92,14 @@ class PageEmpHours extends Component {
       );
     });
   return (
-    <div className="col-md-12 p-a">
+    <div className="col-md-12">
       <div className="row">
         <div className="col-xs-12 ">
-          <div className="col-xs-12">
+          <div className="row text-center">
             <h3>{this.state.empHours.data.employee_name}</h3>
             <small>In time of {this.props.date} <sup className="sup-date" >th</sup> {this.props.selectedMonth}, {this.props.selectedYear}</small>
           </div>
-          <div className="col-xs-12">
+          <div className="row m-x-auto p-t">
             <div className="streamline b-l m-l">
               {inTimeData}
             </div>

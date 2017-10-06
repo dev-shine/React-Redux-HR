@@ -14,7 +14,7 @@ class PageEmployeeLifeCycle extends Component {
     };
     this.getByYearData = this.getByYearData.bind(this);
   }
-  componentsWillMount (props) {
+  componentWillMount (props) {
     window.scrollTo(0, 0);
     const d = new Date();
     const start_year = d.getFullYear();
@@ -101,7 +101,7 @@ class PageEmployeeLifeCycle extends Component {
           <div className="form-group col-md-4">
             <label htmlFor="sel1">Start Year:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentYear}
-              onChange={(evt) => { this.setState({start_year: evt.target.value}); }}>
+              onChange={(evt) => { this.setState({start_year: evt.target.value}); this.getByYearData();}}>
               <option >Select Start Year</option>
               {yearOptions}
             </select>
@@ -109,16 +109,15 @@ class PageEmployeeLifeCycle extends Component {
           <div className="form-group col-md-4">
             <label htmlFor="sel1">End Year:</label>
             <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-              onChange={(evt) => { this.setState({end_year: evt.target.value}); }}>
+              onChange={(evt) => { this.setState({end_year: evt.target.value}); this.getByYearData();}}>
               <option>Select End Year</option>
               {endYearOptions}
             </select>
           </div>
           <div className="form-group col-md-4">
             <button type="button"
-              style={{marginTop: '6%'}}
               onClick={(evt) => this.getByYearData()}
-              className="btn btn-primary form-group">Get Details
+            className="btn btn-primary form-group m-t-md">Get Details
             </button>
           </div>
         </div>

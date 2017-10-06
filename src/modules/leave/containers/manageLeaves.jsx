@@ -28,12 +28,13 @@ class ManageLeaves extends React.Component {
     this.filterLeaveList = this.filterLeaveList.bind(this);
     this.selectLeave = this.selectLeave.bind(this);
   }
-  componentDidMount () {
+  componentWillMount () {
     this.props.onListLeaves(this.props.loggedUser.data.role);
   }
   componentWillReceiveProps (props) {
     let selectedTab = '';
-    let isNotValid = isNotUserValid(this.props.route.path, this.props.loggedUser);
+    let { route, loggedUser } = props;
+    let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }

@@ -23,7 +23,7 @@ class PageEmployeePerformance extends Component {
     };
     this.getByData = this.getByData.bind(this);
   }
-  componentsWillMount () {
+  componentWillMount () {
     this.setState({
       employeePerformance: this.props.employeePerformance
     });
@@ -72,51 +72,69 @@ class PageEmployeePerformance extends Component {
     const plotOptions= {
         spline: {
             dataLabels: {
-                enabled: true
+                enabled: true,
+                format: 'Name: {point.nameData} {point.y} hrs'
             },
         }
     };
     return (
       <div>
-        <div>
-          <div className="team row">
-            <HighchartsChart plotOptions={plotOptions} >
-              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
-              <Subtitle>{'Active of Employee'}</Subtitle>
-              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-                pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
-                }
-              />
-              <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
-                <XAxis.Title>Days</XAxis.Title>
-              </XAxis>
-              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
-                <YAxis.Title>No. of Hours</YAxis.Title>
-                <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
-                <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
-              </YAxis>
-            </HighchartsChart>
-          </div>
+        <div className="team row">
+          <HighchartsChart plotOptions={plotOptions} >
+            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
+            <Subtitle>{'Active Hours Spend by Employee'}</Subtitle>
+            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
+              pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
+              }
+            />
+            <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+              <XAxis.Title>Days</XAxis.Title>
+            </XAxis>
+            <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
+              <YAxis.Title>No. of Hours</YAxis.Title>
+              <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
+            </YAxis>
+          </HighchartsChart>
         </div>
-        <div className="col-md-12 row">
-          <div className="form-group col-md-4">
+        <div className="team row">
+          <HighchartsChart plotOptions={plotOptions} >
+            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
+            <Subtitle>{'Total Hours Spend by Employee'}</Subtitle>
+            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
+              pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
+              }
+            />
+            <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+              <XAxis.Title>Days</XAxis.Title>
+            </XAxis>
+            <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
+              <YAxis.Title>No. of Hours</YAxis.Title>
+              {/* <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  /> */}
+              <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
+            </YAxis>
+          </HighchartsChart>
+        </div>
+        <div className="row">
+          <div className="form-group col-md-3">
             <label htmlFor="sel1">Select Months:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
               onChange={(evt) => { this.setState({month: evt.target.value}); }}>
               {monthOptions}
             </select>
           </div>
-          <div className="form-group col-md-4">
+          <div className="form-group col-md-3">
             <label htmlFor="sel1">Select Year:</label>
             <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
               onChange={(evt) => { this.setState({year: evt.target.value}); }}>
               {yearOptions}
             </select>
           </div>
-          <div className="form-group col-md-4">
-            <button type="button" style={{marginTop: '6%'}} onClick={(evt) => this.getByData()} className="btn btn-primary form-group">Get Details</button>
+          <div className="form-group col-md-2">
+            <button type="button" onClick={() => this.getByData()} className="btn btn-primary form-group m-t-md">Get Details</button>
           </div>
         </div>
       </div>

@@ -71,6 +71,7 @@ export function* getEmployeeHours (action) {
       'express_request_method': 'POST',
       'express_request_body':   {
         'user_id': action.payload.id,
+        'date': action.payload.date,
         'month':   action.payload.month,
         'year':    action.payload.year
       }

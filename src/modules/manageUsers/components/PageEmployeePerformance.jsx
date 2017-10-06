@@ -22,23 +22,41 @@ class PageEmployeePerformance extends Component {
       employeePerformance: ''
     };
     this.getByData = this.getByData.bind(this);
+    this.handleMonth = this.handleMonth.bind(this);
+    this.handleYear = this.handleYear.bind(this);
   }
   componentWillMount () {
     this.setState({
+      year:this.props.currentYear,
+      month:this.props.currentMonth,
       employeePerformance: this.props.employeePerformance
     });
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
     this.setState({
       employeePerformance: props.employeePerformance
     });
   }
 
-  getByData (evt) {
+  handleMonth(data){
+    this.setState({month:data});
+    this.getByData({month:data, change: 'month' });
+  }
+
+  handleYear(data){
+    this.setState({ year: data});
+    this.getByData({ year: data, change: 'year' });
+  }
+
+  getByData (data) {
     const userId = localStorage.getItem('userid');
     let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
     let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
+    if(data.change === 'month'){
+      month=data.month;
+    }else if (data.change === 'year') {
+      year=data.year;
+    }
     this.props.requestEmployeePerformance({
       'month': month,
       'year':  year
@@ -52,7 +70,7 @@ class PageEmployeePerformance extends Component {
     let monthOptions = [];
     let yearOptions = [];
     let monthOption = _.map(this.props.months, (monthData, i) => {
-      monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
+        monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
     });
     let yearOption = _.map(this.props.year, (data, i) => {
       return (
@@ -73,13 +91,13 @@ class PageEmployeePerformance extends Component {
         spline: {
             dataLabels: {
                 enabled: true,
-                format: 'Name: {point.nameData} {point.y} hrs'
+                format: ' {point.nameData} {point.y} hrs'
             },
         }
     };
     return (
-      <div>
-        <div className="team row">
+      <div className="row p-a">
+        <div className="col-xs-12 well">
           <HighchartsChart plotOptions={plotOptions} >
             <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
             <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
@@ -98,7 +116,7 @@ class PageEmployeePerformance extends Component {
             </YAxis>
           </HighchartsChart>
         </div>
-        <div className="team row">
+        <div className="col-xs-12 well">
           <HighchartsChart plotOptions={plotOptions} >
             <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
             <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
@@ -118,24 +136,26 @@ class PageEmployeePerformance extends Component {
             </YAxis>
           </HighchartsChart>
         </div>
-        <div className="row">
-          <div className="form-group col-md-3">
-            <label htmlFor="sel1">Select Months:</label>
-            <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
-              onChange={(evt) => { this.setState({month: evt.target.value}); }}>
-              {monthOptions}
-            </select>
+        <div className="container p-t">
+          <div className="row">
+            <div className="form-group col-xs-6 profile-input p-a">
+              <label htmlFor="sel1">Select Months:</label>
+              <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
+                onChange={(evt) => { this.handleMonth(evt.target.value); }}>
+                {monthOptions}
+              </select>
+            </div>
+            <div className="form-group col-xs-6 profile-input p-a">
+              <label htmlFor="sel1">Select Year:</label>
+              <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
+                onChange={(evt) => { this.handleYear(evt.target.value); }}>
+                {yearOptions}
+              </select>
+            </div>
           </div>
-          <div className="form-group col-md-3">
-            <label htmlFor="sel1">Select Year:</label>
-            <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-              onChange={(evt) => { this.setState({year: evt.target.value}); }}>
-              {yearOptions}
-            </select>
-          </div>
-          <div className="form-group col-md-2">
+          {/* <div className="form-group col-md-2">
             <button type="button" onClick={() => this.getByData()} className="btn btn-primary form-group m-t-md">Get Details</button>
-          </div>
+          </div> */}
         </div>
       </div>
     );

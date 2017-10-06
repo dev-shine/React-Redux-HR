@@ -1,0 +1,19 @@
+.highcharts-container{
+  width: 100% !important;
+  margin: 0;
+  svg{
+    width: 100% !important;
+  }
+}
+
+.dialog-inout-time{
+  width: 60% !important;
+  max-width: none !important;
+  line-height:  40px;
+  transition: .2s;
+}
+.sup-date{
+  position: relative;
+    top: -0.5em;
+    font-size: 75%;
+}

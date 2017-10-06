@@ -93,7 +93,6 @@ class ManageDashboard extends React.Component {
     });
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
     this.setState({
       defaultTeamDisplay: props.teamStats.teamStats.data.teams,
       empData:            props.empHours
@@ -184,76 +183,80 @@ class ManageDashboard extends React.Component {
                 </p>
               </Link>
             </div>
-            <div className="row no-gutter">
-              <div className="col-12">
-              </div>
-            </div>
           </div>
-          <div className="app-body" id="view">
-            <div className="col-12">
+          <div className="app-body " id="view">
+            <div className="padding">
               <LoadingIcon loading={this.props.teamStats.isLoading} />
             </div>
-            <div>
-              <div className="dker p-x">
+            <div className="p-a-lg">
+              {/* <div className="dker p-x">
                 <div className="row">
                   <div className="col-sm-12 pull-sm-12">
-                    <div className="p-y-md clearfix nav-active-primary">
-                      <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                        {this.state.role==='admin'?
-                          <li onClick={() => { this.openPage('team_list'); }} className={`nav-item ${this.state.active}`}>
-                            <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Team Dashboard</a>
-                            <div className={this.state.firstArrow}>
-                              <span className="arrow bottom b-accent"></span>
-                            </div>
-                          </li>:null}
-                        <li onClick={() => { this.openPage('emp_life_cycle'); }} className={'nav-item'}>
-                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Employee Life Cycle</a>
-                          <div className={this.state.secondArrow}>
-                            <span className="arrow bottom b-accent"></span>
-                          </div>
-                        </li>
-                        <li onClick={() => { this.openPage('attendance_list'); }} className={'nav-item'}>
-                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Employee TimeTable</a>
-                          <div className={this.state.thirdArrow}>
-                            <span className="arrow bottom b-accent"></span>
-                          </div>
-                        </li>
-                        <li onClick={() => { this.openPage('monthlyHours'); }} className={'nav-item'}>
-                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_4" aria-expanded="false">Employee Monthly Hours</a>
-                          <div className={this.state.fourthArrow}>
-                            <span className="arrow bottom b-accent"></span>
-                          </div>
-                        </li>
-                        <li onClick={() => { this.openPage('employee_performance'); }} className={`nav-item ${this.state.active}`}>
-                          <a className="nav-link" href="" data-toggle="tab" data-target="#tab_5" aria-expanded="false">Employee Monthly Performance</a>
-                          <div className={this.state.fifthArrow}>
-                            <span className="arrow bottom b-accent"></span>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                <div className="p-y-md clearfix nav-active-primary">
+                <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
+                {this.state.role==='admin'?
+                <li onClick={() => { this.openPage('team_list'); }} className={`nav-item ${this.state.active}`}>
+                <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Team Dashboard</a>
+                <div className={this.state.firstArrow}>
+                <span className="arrow bottom b-accent"></span>
+                </div>
+                </li>:null}
+                <li onClick={() => { this.openPage('employee_performance'); }} className={`nav-item ${this.state.active}`}>
+                <a className="nav-link" href="" data-toggle="tab" data-target="#tab_5" aria-expanded="false">Employee Monthly Performance</a>
+                <div className={this.state.fifthArrow}>
+                <span className="arrow bottom b-accent"></span>
+                </div>
+                </li>
+
+                <li onClick={() => { this.openPage('emp_life_cycle'); }} className={'nav-item'}>
+                <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">Employee Life Cycle</a>
+                <div className={this.state.secondArrow}>
+                <span className="arrow bottom b-accent"></span>
+                </div>
+                </li>
+
+                <li onClick={() => { this.openPage('attendance_list'); }} className={'nav-item'}>
+                <a className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Employee TimeTable</a>
+                <div className={this.state.thirdArrow}>
+                <span className="arrow bottom b-accent"></span>
+                </div>
+                </li>
+                <li onClick={() => { this.openPage('monthlyHours'); }} className={'nav-item'}>
+                <a className="nav-link" href="" data-toggle="tab" data-target="#tab_4" aria-expanded="false">Employee Monthly Hours</a>
+                <div className={this.state.fourthArrow}>
+                <span className="arrow bottom b-accent"></span>
+                </div>
+                </li>
+
+                </ul>
+                </div>
                   </div>
                   <div className="col-md-offset-10" style={{marginTop: '2%'}}>
                   </div>
                 </div>
-              </div>
-              <div className="padding">
+              </div> */}
+              <div className="row">
                 {this.state.role === 'admin'?
-                  <div className={this.state.teamList}>
+                  <div className="col-xs-12 well box-shadow-deep p-a box">
                     <PageUserDashboard {...this.props} team={this.props.teamStats.teamStats.data.teams} />
-                  </div>:null}
-                <div className={this.state.empLifeCycle}>
-                  <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                </div>
-                <div className={this.state.empHours}>
-                  <PageEmpHours empHours={this.props.empHours}{...this.props}  currentDate={this.state.date} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                </div>
-                <div className={this.state.monthlyHours}>
-                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                </div>
-                <div className={this.state.empPerformance}>
+                  </div>
+                :null}
+                <div className="col-xs-12 well box-shadow-deep p-a box">
                   <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                 </div>
+                <div className="col-xs-12 well box-shadow-deep p-a box">
+                  <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
+                </div>
+                {this.state.role === 'admin'?
+                  <div className="col-xs-12 well box-shadow-deep p-a box">
+                    <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
+                  </div>
+                :null}
+                {this.state.role === 'admin'?
+                  <div className="col-xs-12 well box-shadow-deep p-a box">
+                    <PageEmpHours empHours={this.props.empHours}{...this.props}  currentDate={this.state.date} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
+                  </div>
+                :null}
               </div>
             </div>
           </div>

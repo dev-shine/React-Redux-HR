@@ -70,7 +70,7 @@ class PageEmployeePerformance extends Component {
     let monthOptions = [];
     let yearOptions = [];
     let monthOption = _.map(this.props.months, (monthData, i) => {
-        monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
+      monthOptions.push(<option key={i} value={monthData}>{monthData}</option>);
     });
     let yearOption = _.map(this.props.year, (data, i) => {
       return (
@@ -79,10 +79,20 @@ class PageEmployeePerformance extends Component {
     });
     if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
       let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
+        let date= this.props.currentDate.toString().split(" ");
         noOfDays.push(performanceData.day);
-        if(parseFloat(performanceData.top_active_hrs.hours) !== 0 && parseFloat(performanceData.top_total_hrs.hours) !==0 ){
+        let thedate=performanceData.day.split(" ");
+        let dateData = thedate[0].toString().length > 1 ? thedate[0]: '0' + thedate[0];
+        if(this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && (dateData === date[2]) !== true ){
+          console.log('this');
           noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
           noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+        }else if( this.state.year !== this.props.currentYear){
+          console.log('that');
+          noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+          noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+        }else if ((dateData === date[2]) === true) {
+          return false;
         }
         return (
           <div></div>
@@ -93,52 +103,55 @@ class PageEmployeePerformance extends Component {
         spline: {
             dataLabels: {
                 enabled: true,
-                format: ' {point.nameData} {point.y} hrs'
+                format: '{point.nameData} <br/> {point.y} hrs'
             },
         }
     };
     return (
-      <div className="row p-a">
-        <div className="col-xs-12 well">
-          <HighchartsChart plotOptions={plotOptions} >
-            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
-            <Subtitle>{'Active Hours Spend by Employee'}</Subtitle>
-            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-              pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
-              }
-            />
-            <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
-              <XAxis.Title>Days</XAxis.Title>
-            </XAxis>
-            <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
-              <YAxis.Title>No. of Hours</YAxis.Title>
-              <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
-            </YAxis>
-          </HighchartsChart>
+      <div>
+        <div className="row p-a">
+          <div className="well p-a">
+            <HighchartsChart plotOptions={plotOptions} >
+              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
+              <Subtitle>{'Active of Employee'}</Subtitle>
+              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
+                pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
+                }
+              />
+              <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+                <XAxis.Title>Days</XAxis.Title>
+              </XAxis>
+              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
+                <YAxis.Title>No. of Hours</YAxis.Title>
+                <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  />
+                {/* <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} /> */}
+              </YAxis>
+            </HighchartsChart>
+          </div>
+          <div className="well p-a">
+            <HighchartsChart plotOptions={plotOptions} >
+              <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
+              <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
+              <Subtitle>{'Active of Employee'}</Subtitle>
+              <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
+              <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
+                pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
+                }
+              />
+              <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
+                <XAxis.Title>Days</XAxis.Title>
+              </XAxis>
+              <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
+                <YAxis.Title>No. of Hours</YAxis.Title>
+                {/* <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  /> */}
+                <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
+              </YAxis>
+            </HighchartsChart>
+          </div>
         </div>
-        <div className="col-xs-12 well">
-          <HighchartsChart plotOptions={plotOptions} >
-            <Chart backgroundColor={null} style={{'fontFamily': 'Dosis, sans-serif'}} />
-            <Title style={{'fontSize': '16px', 'fontWeight': 'bold', 'textTransform': 'uppercase'}}>{'Employee Monthly Performance'}</Title>
-            <Subtitle>{'Total Hours Spend by Employee'}</Subtitle>
-            <Legend itemStyle={{'fontWeight': 'bold', 'fontSize': '13px'}} />
-            <Tooltip backgroundColor={'rgba(219,219,216,0.8)'} shadow={false} borderWidth={0}
-              pointFormat={  '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Name: <b>{point.nameData}</b><br/>Hours: <b>{point.y:.1f}</b><br/>'
-              }
-            />
-            <XAxis id="x" categories={noOfDays} title={{'style': {'textTransform': 'uppercase'}}} gridLineWidth={1} labels={{'style': {'fontSize': '12px'}}} >
-              <XAxis.Title>Days</XAxis.Title>
-            </XAxis>
-            <YAxis id='EmpPerformance' title={{'style': {'textTransform': 'uppercase'}}}  labels={{'style': {'fontSize': '12px'}}} >
-              <YAxis.Title>No. of Hours</YAxis.Title>
-              {/* <SplineSeries id="emp" name="Active Hours"  data={noOfActiveHours}  /> */}
-              <SplineSeries id="emp2" name="Total Hours" data={noOfTotalHours} color={'black'} />
-            </YAxis>
-          </HighchartsChart>
-        </div>
-        <div className="container p-t">
+        <div className="container p-t ">
           <div className="row">
             <div className="form-group col-xs-6 profile-input p-a">
               <label htmlFor="sel1">Select Months:</label>
@@ -150,14 +163,11 @@ class PageEmployeePerformance extends Component {
             <div className="form-group col-xs-6 profile-input p-a">
               <label htmlFor="sel1">Select Year:</label>
               <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-                onChange={(evt) => { this.handleYear(evt.target.value); }}>
+                  onChange={(evt) => { this.handleYear(evt.target.value); }}>
                 {yearOptions}
               </select>
             </div>
           </div>
-          {/* <div className="form-group col-md-2">
-            <button type="button" onClick={() => this.getByData()} className="btn btn-primary form-group m-t-md">Get Details</button>
-          </div> */}
         </div>
       </div>
     );

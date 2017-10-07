@@ -242,7 +242,7 @@ class ManageDashboard extends React.Component {
                   </div>
                 :null}
                 <div className="col-xs-12 well box-shadow-deep p-a box">
-                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
+                  <PageEmployeePerformance employeePerformance={this.props.employeePerformance} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} currentDate={this.state.date} />
                 </div>
                 <div className="col-xs-12 well box-shadow-deep p-a box">
                   <PageMonthlyHours monthlyHours={this.props.monthlyHours} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
@@ -250,11 +250,6 @@ class ManageDashboard extends React.Component {
                 {this.state.role === 'admin'?
                   <div className="col-xs-12 well box-shadow-deep p-a box">
                     <PageEmployeeLifeCycle empLifeCycle={this.props.empLifeCycle} {...this.props} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
-                  </div>
-                :null}
-                {this.state.role === 'admin'?
-                  <div className="col-xs-12 well box-shadow-deep p-a box">
-                    <PageEmpHours empHours={this.props.empHours}{...this.props}  currentDate={this.state.date} currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} year={this.state.years} months={this.state.months} />
                   </div>
                 :null}
               </div>

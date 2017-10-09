@@ -49,6 +49,7 @@ class PageEmployeePerformance extends Component {
   }
 
   getByData (data) {
+    console.log(data.change);
     const userId = localStorage.getItem('userid');
     let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
     let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
@@ -78,20 +79,29 @@ class PageEmployeePerformance extends Component {
       );
     });
     if (EmpPerformance !== undefined && EmpPerformance.isSuccess) {
+      let performanceData = EmpPerformance.data;
       let timeList = _.map(EmpPerformance.data, (performanceData, j) => {
         let date= this.props.currentDate.toString().split(" ");
         noOfDays.push(performanceData.day);
         let thedate=performanceData.day.split(" ");
         let dateData = thedate[0].toString().length > 1 ? thedate[0]: '0' + thedate[0];
-        if(this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && (dateData === date[2]) !== true ){
-          console.log('this');
-          noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
-          noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
-        }else if( this.state.year !== this.props.currentYear){
-          console.log('that');
-          noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
-          noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
-        }else if ((dateData === date[2]) === true) {
+          if(this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && dateData <= date[2]  ){
+            if(parseFloat(performanceData.top_active_hrs.hours) !== 0.0 && parseFloat(performanceData.top_total_hrs.hours) !== 0.0){
+              noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+              noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+            }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0 && parseFloat(performanceData.top_total_hrs.hours) === 0.0){
+              noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:""});
+              noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:""});
+            }
+        }else if( this.state.year !== this.props.currentYear || this.state.month !== this.props.currentMonth){
+          if(parseFloat(performanceData.top_active_hrs.hours) !== 0.0 && parseFloat(performanceData.top_total_hrs.hours) !== 0.0){
+            noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+            noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+          }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0 && parseFloat(performanceData.top_total_hrs.hours) === 0.0){
+            noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:""});
+            noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:""});
+          }
+        }else if (this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && dateData >= date[2]) {
           return false;
         }
         return (
@@ -163,7 +173,7 @@ class PageEmployeePerformance extends Component {
             <div className="form-group col-xs-6 profile-input p-a">
               <label htmlFor="sel1">Select Year:</label>
               <select className="form-control" id="sel12" defaultValue={this.props.currentYear}
-                  onChange={(evt) => { this.handleYear(evt.target.value); }}>
+                onChange={(evt) => { this.handleYear(evt.target.value); }}>
                 {yearOptions}
               </select>
             </div>

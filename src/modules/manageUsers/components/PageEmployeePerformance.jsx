@@ -49,7 +49,6 @@ class PageEmployeePerformance extends Component {
   }
 
   getByData (data) {
-    console.log(data.change);
     const userId = localStorage.getItem('userid');
     let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
     let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
@@ -85,24 +84,28 @@ class PageEmployeePerformance extends Component {
         noOfDays.push(performanceData.day);
         let thedate=performanceData.day.split(" ");
         let dateData = thedate[0].toString().length > 1 ? thedate[0]: '0' + thedate[0];
-          if(this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && dateData <= date[2]  ){
-            if(parseFloat(performanceData.top_active_hrs.hours) !== 0.0 && parseFloat(performanceData.top_total_hrs.hours) !== 0.0){
+        if(this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && dateData <= date[2]  ){
+            if(parseFloat(performanceData.top_active_hrs.hours) > 0.0 ){
               noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
-              noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
-            }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0 && parseFloat(performanceData.top_total_hrs.hours) === 0.0){
+            }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0){
               noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:""});
+            }
+            if (parseFloat(performanceData.top_total_hrs.hours) > 0.0) {
+             noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+           } else if ( parseFloat(performanceData.top_total_hrs.hours) === 0.0) {
               noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:""});
             }
-        }else if( this.state.year !== this.props.currentYear || this.state.month !== this.props.currentMonth){
-          if(parseFloat(performanceData.top_active_hrs.hours) !== 0.0 && parseFloat(performanceData.top_total_hrs.hours) !== 0.0){
-            noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
-            noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
-          }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0 && parseFloat(performanceData.top_total_hrs.hours) === 0.0){
-            noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:""});
-            noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:""});
-          }
-        }else if (this.state.year === this.props.currentYear && this.state.month === this.props.currentMonth && dateData >= date[2]) {
-          return false;
+          }else if( this.state.year !== this.props.currentYear || this.state.month !== this.props.currentMonth){
+            if(parseFloat(performanceData.top_active_hrs.hours) > 0.0 ){
+              noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:performanceData.top_active_hrs.username});
+            }else if(parseFloat(performanceData.top_active_hrs.hours) === 0.0){
+              noOfActiveHours.push({y:parseFloat(performanceData.top_active_hrs.hours),nameData:""});
+            }
+            if (parseFloat(performanceData.top_total_hrs.hours) > 0.0) {
+             noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:performanceData.top_total_hrs.username});
+           } else if ( parseFloat(performanceData.top_total_hrs.hours) === 0.0) {
+              noOfTotalHours.push({y:parseFloat(performanceData.top_total_hrs.hours),nameData:""});
+            }
         }
         return (
           <div></div>

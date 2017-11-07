@@ -12,11 +12,10 @@ class DialogInOut extends Component {
   }
 
   render() {
-   const title = (<h3>In/Out Time on <span className="text-muted p-a">{this.props.date} <sup className="sup-date" >th</sup> {this.props.selectedMonth}, {this.props.selectedYear}</span></h3>);
+  //  const title = (<h3>In/Out Time on <span className="text-muted p-a">{this.props.date} <sup className="sup-date" >th</sup> {this.props.selectedMonth}, {this.props.selectedYear}</span></h3>);
     return (
       <div>
         <Dialog
-          title={title}
           modal={false}
           open={this.props.open}
           onRequestClose={this.props.handleClose}

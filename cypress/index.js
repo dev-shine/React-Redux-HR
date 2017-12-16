@@ -1,7 +1,9 @@
 import * as visit from './visitRoutes';
+import * as helper from './helper';
 
 export const urlVisited = visit.urlVisited;
 export const visitIndexRoute = visit.visitIndexRoute;
+export const signin = helper.signin;
 
 export const urls = {
   baseUrl: 'http://localhost:3000/#/',
@@ -38,3 +40,30 @@ export const urls = {
   inventorySystem: 'inventory_system',
   attendanceReq: 'attendanceReq',
 };
+
+export const user = {
+  admin:{
+    username: 'arun',
+    password:'java@123',
+  },
+  user:{
+    username:'atul',
+    password:'java@123',
+  },
+  hr:{
+    username:'deepak',
+    password:'java@123',
+  },
+  hrWrongPassword: {
+    username:'deepak',
+    password:'wrongpassword',
+  },
+  userWrongPassword: {
+    username:'atul',
+    password:'wrongpassword'
+  },
+  adminWrongPassword:{
+    username:'admin',
+    password:'wrongpassword',
+  }
+}

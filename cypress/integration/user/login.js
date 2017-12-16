@@ -3,11 +3,11 @@ import { urls, visitIndexRoute, urlVisited, user, signin, signinWithWhitespace, 
 describe('User login', () => {
   it('user should able to login and redirected to home page', () => {
     signin(user.user);
-    urlVisited(urls.baseUrl+urls.policyDocuments);
+    urlVisited(urls.baseUrl+urls.monthlyAttendance);
   });
   it('trim email, so there is no space at the end', () => {
       signin(user.userWhiteSpace);
-      urlVisited(urls.baseUrl+urls.policyDocuments);
+      urlVisited(urls.baseUrl+urls.monthlyAttendance);
   });
   it('user should get promoted for worng password', () => {
       signin(user.userWrongPassword);
@@ -23,12 +23,12 @@ describe('User login', () => {
       cy.get('#guestLogin').click();
       urlVisited(urls.baseUrl+urls.policyDocuments);
   });
-  it('On click to guest login user should redirect to policy_documents route', () => {
-      visitIndexRoute();
-      cy.get('#openLogin').click();
-      cy.get('#guestLogin').click();
-      urlVisited(urls.baseUrl+urls.policyDocuments);
-  });
+  // it('On click to guest login user should redirect to policy_documents route', () => {
+  //     visitIndexRoute();
+  //     cy.get('#openLogin').click();
+  //     cy.get('#guestLogin').click();
+  //     urlVisited(urls.baseUrl+urls.monthlyAttendance);
+  // });
   it('should not go to other page when left blank username/password', () => {
     visitIndexRoute();
     cy.get('#openLogin').click();

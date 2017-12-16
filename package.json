@@ -15,7 +15,7 @@
     "start": "npm run start:dev",
     "eslint": "./node_modules/eslint/bin/eslint.js --fix src",
     "postinstall": "npm rebuild node-sass",
-    "cypress:open": "cypress open"
+    "cypress": "cypress open"
   },
   "betterScripts": {
     "start:development": {

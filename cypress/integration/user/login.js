@@ -19,4 +19,21 @@ describe('User login', () => {
       cy.get('.sweet-alert').should('be.visible');
       cy.get('.confirm').click();
   });
+  it('On click to guest login user should redirect to policy_documents route', () => {
+      cy.get('#guestLogin').click();
+      urlVisited(urls.baseUrl+urls.policyDocuments);
+  });
+  it('On click to guest login user should redirect to policy_documents route', () => {
+      visitIndexRoute();
+      cy.get('#openLogin').click();
+      cy.get('#guestLogin').click();
+      urlVisited(urls.baseUrl+urls.policyDocuments);
+  });
+  it('should not go to other page when left blank username/password', () => {
+    visitIndexRoute();
+    cy.get('#openLogin').click();
+    cy.get('#usernameInput').type('atul');
+    cy.get('#loginButton').click();
+    urlVisited(urls.baseUrl+urls.login);
+  });
 });

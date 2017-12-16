@@ -1,7 +1,7 @@
 import { urls, visitIndexRoute, urlVisited } from '../../index';
 
 describe('Test dashboard', () => {
-  it('cheking page is change to login', () => {
+  it('after clicking button should load login page', () => {
     visitIndexRoute();
     urlVisited(urls.baseUrl);
     cy.server();

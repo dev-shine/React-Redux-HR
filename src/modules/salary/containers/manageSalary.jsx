@@ -54,10 +54,7 @@ class ManageSalary extends React.Component {
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    let userListHR = _.filter(this.props.usersList.users, (user) => {
-      return (moment().diff(moment(user.dateofjoining), 'months') < CONFIG.minimum_months_hr_salary_view);
-    });
-    this.setState({subList: userListHR});
+    this.setState({subList: this.props.usersList.users});
     let s_salary_history = [];
     let s_user_latest_salary_details = {};
     let s_holding_history = [];

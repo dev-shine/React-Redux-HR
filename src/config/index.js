@@ -18,6 +18,6 @@ CONFIG['LEAVE_DAY'] = 'LEAVE_DAY';
 CONFIG['DEFAULT_PASSWORD'] = 'java@123';
 CONFIG['jwt_secret_key'] = 'HR_APP';
 CONFIG['PAGEROLES'] = [];
-CONFIG['minimum_months_hr_salary_view'] = 5;
+CONFIG['minimum_months_hr_salary_view'] = 8;
 
 export {CONFIG};

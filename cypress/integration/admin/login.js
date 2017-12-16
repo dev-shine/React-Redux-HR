@@ -1,7 +1,7 @@
 import { urls, visitIndexRoute, urlVisited } from '../../index';
 
 describe('Test Login Form.', () => {
-  it('.should() - assert that <title> is correct', () => {
+  it('testing login form on various condition', () => {
     visitIndexRoute();
     cy.get('#openLogin').click();
     urlVisited(urls.baseUrl+urls.login);

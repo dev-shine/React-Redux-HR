@@ -4,6 +4,7 @@ import * as helper from './helper';
 export const urlVisited = visit.urlVisited;
 export const visitIndexRoute = visit.visitIndexRoute;
 export const signin = helper.signin;
+export const signout = helper.signout;
 
 export const urls = {
   baseUrl: 'http://localhost:3000/#/',
@@ -48,6 +49,10 @@ export const user = {
   },
   user:{
     username:'atul',
+    password:'java@123',
+  },
+  userWhiteSpace: {
+    username:'atul       ',
     password:'java@123',
   },
   hr:{

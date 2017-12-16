@@ -179,7 +179,7 @@ class ManageDashboard extends React.Component {
                   data-toggle="tooltip"
                   data-placement="bottom"
                 title="Login">
-                  <i className="material-icons">power_settings_new</i>
+                  <i id='openLogin' className="material-icons">power_settings_new</i>
                 </p>
               </Link>
             </div>

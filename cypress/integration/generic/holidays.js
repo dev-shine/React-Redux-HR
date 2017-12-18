@@ -11,10 +11,8 @@ describe('Test holidays', () => {
     // cy.request('POST', apiUrls.apiUrl).should('have.property', 'status', 200);
     // cy.wait('@login');
     urlVisited(urls.baseUrl+urls.home);
-  });
-  it('checking holiday list', () => {
     cy.get('#holidays').should('be.visible');
     cy.get('#holidays').click();
-    urlVisited(urls.baseUrl+urls.holidays);  
+    urlVisited(urls.baseUrl+urls.holidays);
   });
 });

@@ -16,6 +16,6 @@ describe('Test attendance option', () => {
     cy.get('.nav-sub #uploadAttendance').should('be.visible');
     cy.get('.nav-sub > #monthly_attendance span a ').should('be.exist').click();
     // cy.get('.nav-sub > #monthly_attendance span a ').click();
-    urlVisited(urls.baseUrl+urls.monthlyAttendance);
+    // urlVisited(urls.baseUrl+urls.monthlyAttendance);
   });
 });

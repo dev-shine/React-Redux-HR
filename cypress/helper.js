@@ -6,7 +6,7 @@ export const signin = ( user )=>{
   urlVisited(urls.baseUrl+urls.login);
   cy.get('#usernameInput').type(user.username);
   cy.get('#passwordInput').type(user.password);
-  cy.get('#loginButton').click().wait(3000);
+  cy.get('#loginButton').click();
 }
 export const signout = () =>{
   cy.get('#Logout').click();

@@ -1,13 +1,11 @@
-import { urls, visitIndexRoute, urlVisited } from '../../index';
+import { urls, visitIndexRoute, urlVisited, user, signin, signinWithWhitespace, signout } from '../../index';
 
 describe('Test attendance option', () => {
   it('after login in menu ateendance option should be visible', () => {
     visitIndexRoute();
     cy.get('#openLogin').click();
     urlVisited(urls.baseUrl+urls.login);
-    cy.get('#usernameInput').type('arun');
-    cy.get('#passwordInput').type('java@123');
-    cy.get('#loginButton').click().wait(3000);
+    signin(user.admin);
     urlVisited(urls.baseUrl+urls.home);
     cy.get('.nav > #monthly_attendance').should('be.visible');
   });
@@ -16,7 +14,8 @@ describe('Test attendance option', () => {
     cy.get('.nav-sub #monthly_attendance').should('be.visible');
     cy.get('.nav-sub #home').should('be.visible');
     cy.get('.nav-sub #uploadAttendance').should('be.visible');
-    cy.get('.nav-sub > #monthly_attendance').click();
+    cy.get('.nav-sub > #monthly_attendance span a ').should('be.exist').click();
+    // cy.get('.nav-sub > #monthly_attendance span a ').click();
     urlVisited(urls.baseUrl+urls.monthlyAttendance);
   });
 });

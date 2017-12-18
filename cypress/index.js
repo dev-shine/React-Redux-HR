@@ -72,3 +72,19 @@ export const user = {
     password:'wrongpassword',
   }
 }
+
+export const apiUrls = {
+  BASE_URL:                  'http://dev.hr.excellencetechnologies.in/',
+  apiUrl:                    'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/api.php',
+  otherApiUrl:               'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/api.php',
+  apiUrlSalary:              'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info',
+  loginPageUrl:              'http://dev.hr.excellencetechnologies.in/hr',
+  uploadUrl:                 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file.php',
+  uploadLeaveUrl:            'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/upload_leave_doc.php',
+  uploadAttendanceUrl:       'http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php',
+  pdfUrl:                    'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
+  uploadEmailAttachment:     'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
+  transferLink:              'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/display_user_info.php',
+  expressApiUrl:             'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/express_api_call.php',
+  expressRequestUrl:         'http://5.9.144.226:3017'
+};

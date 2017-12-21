@@ -32,9 +32,10 @@ class DocumentsList extends React.Component {
   }
   render () {
     let documentsList = _.map(this.props.policyDocuments.data, (doc, i) => {
+      const docId = doc.name.replace(/ /g,'');
       let isReadStrip = doc.read ? ' is-read-document' : ' is-not-read-document';
       return (
-        <div key={i} className={'m-y-sm policyDocumentsList clear' + isReadStrip}>
+        <div key={i} id={docId} className={'m-y-sm policyDocumentsList clear' + isReadStrip}>
           <h5>{doc.name}</h5>
           <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
         </div>

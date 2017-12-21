@@ -70,7 +70,7 @@ export const user = {
   adminWrongPassword:{
     username:'admin',
     password:'wrongpassword',
-  }
+  },
   blankField : {
     username: ' ',
     password: ' ',

@@ -16,8 +16,9 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
     });
   };
   let allDocuments = _.map(policyDocuments, (doc, i) => {
+    const docId = doc.name.replace(/ /g,'');
     return (
-      <div key={i} className='m-y-sm policyDocumentsList  clear'>
+      <div key={i} id={docId} className='m-y-sm policyDocumentsList  clear'>
         <h5>{doc.name}</h5>
         <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
         <IconButton

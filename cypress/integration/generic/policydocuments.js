@@ -5,7 +5,6 @@ describe('Test policy documents', () => {
     cy.server();
     cy.route({method:'POST',url: apiUrls.apiUrl}).as('login');
     signin(user.admin);
-    // cy.request('POST', apiUrls.apiUrl).should('have.property', 'status', 200);
     cy.wait('@login');
     urlVisited(urls.baseUrl+urls.home);
     cy.get('#policy_documents').should('be.visible');

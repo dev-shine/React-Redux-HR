@@ -185,3 +185,10 @@ body{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 ```
+### Error while npm install
+
+```
+ERROR in ./~/css-loader!./~/sass-loader!./~/postcss-loader!./src/styles/main.scss
+Module build failed: Error: ENOENT: no such file or directory, scandir '/var/www/html/UpworkTest/ReactReduxHR/node_modules/node-sass/vendor'
+```  
+In case of this error run the `npm rebuild node-sass --force`. 

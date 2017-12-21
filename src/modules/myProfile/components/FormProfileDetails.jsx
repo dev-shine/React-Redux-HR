@@ -52,7 +52,7 @@ class FormProfileDetails extends React.Component {
         <div className="row no-gutter">
           <div className="col-xs-12 profile-input form-group">
             <label>User Name</label>
-            <input type="text" className="form-control" value={this.state.name} disabled />
+            <input id="user_name" type="text" className="form-control" value={this.state.name} disabled />
           </div>
         </div>
         <div className="row no-gutter">
@@ -101,6 +101,7 @@ class FormProfileDetails extends React.Component {
             <div className="form-group">
               <label>Emergency Contact 1</label>
               <input
+                id="user_Contact"
                 type="text"
                 className="form-control"
                 onChange={(e) => this.setState({emr_con_1: e.target.value})}
@@ -152,7 +153,7 @@ class FormProfileDetails extends React.Component {
             </textarea>
           </div>
         </div>
-        <div className="row no-gutter">
+        <div id ="profile_update" className="row no-gutter">
           <div className="col-xs-12 profile-input form-group">
             <ButtonRaised className="col-xs-12 indigo" onClick={() => this.props.callUpdateProfileDetails(this.state)} label="Update Profile Details" />
           </div>

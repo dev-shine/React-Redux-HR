@@ -25,6 +25,5 @@ describe('Test policy documents', () => {
     cy.get('#policy_documents').click();
     cy.get('#PolicyTest a').click();
     cy.get('#test a').click();
-    cy.get('#testing a').click();
   });
 });

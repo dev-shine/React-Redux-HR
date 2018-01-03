@@ -719,7 +719,7 @@ class Variables extends React.Component {
                 <div className="col-md-12"><LoadingIcon {...this.props} /></div>
               </div>
               <div id="dialogContent" className="template-dialog-content-style">
-                <div className="p-t p-b template-send-email" style={{'textAlign': 'center'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                <div className="p-t p-b template-send-email" style={{'textAlign': 'center',fontWeight: '600',fontSize:'17px',marginTop:'5px',textDecoration:'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
               </div>
             </Dialog>

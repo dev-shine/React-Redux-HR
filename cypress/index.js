@@ -5,6 +5,7 @@ export const urlVisited = visit.urlVisited;
 export const visitIndexRoute = visit.visitIndexRoute;
 export const signin = helper.signin;
 export const signout = helper.signout;
+export const apiCall = helper.apiCall;
 
 export const urls = {
   baseUrl: 'http://localhost:3000/#/',

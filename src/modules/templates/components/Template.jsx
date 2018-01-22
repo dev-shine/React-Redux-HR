@@ -326,7 +326,7 @@ class Variables extends React.Component {
   }
 
   submitEmail (email) {
-    var pattern = /^\w[a-zA-Z_.1-9]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     email = email.trim();
     if (_.isEmpty(email)) {
       this.setState({emailValidationError: 'Empty field'});
@@ -719,7 +719,7 @@ class Variables extends React.Component {
                 <div className="col-md-12"><LoadingIcon {...this.props} /></div>
               </div>
               <div id="dialogContent" className="template-dialog-content-style">
-                <div className="p-t p-b template-send-email" style={{'textAlign': 'center',fontWeight: '600',fontSize:'17px',marginTop:'5px',textDecoration:'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
+                <div className="p-t p-b template-send-email" style={{'textAlign': 'center', fontWeight: '600', fontSize: '17px', marginTop: '5px', textDecoration: 'underline'}} dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].subject}}></div>
                 <div className="p-t p-b" dangerouslySetInnerHTML={{__html: this.state.sentMail && this.state.sentMail.email && this.state.sentMail.email[0].body}}></div>
               </div>
             </Dialog>
@@ -756,17 +756,17 @@ class Variables extends React.Component {
                           </div>
                         </li>
                       : <span>
-                          <li className="mb-sm b-b p-t p-b">
-                            <div className="form-group">
-                              <input type="text"
-                                name="search"
-                                className="form-control select-all search-box"
-                                placeholder="search"
-                                onKeyUp={(e) => this.filterList(e.target.value)} />
-                            </div>
-                          </li>
-                          {listChartItems}
-                        </span>
+                        <li className="mb-sm b-b p-t p-b">
+                          <div className="form-group">
+                            <input type="text"
+                              name="search"
+                              className="form-control select-all search-box"
+                              placeholder="search"
+                              onKeyUp={(e) => this.filterList(e.target.value)} />
+                          </div>
+                        </li>
+                        {listChartItems}
+                      </span>
                       }
                     </ul>
                   </div>

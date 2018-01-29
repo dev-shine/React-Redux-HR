@@ -9,9 +9,9 @@ const CompensationSummary = ({monthlyAttendance}) => {
   const secondHalf = [];
   _.map(compensationSummary.compensation_break_up, (data, index) => {
     if (compensationDataLength / 2 > index) {
-      firstHalf.push(<small className="text-muted">{data.text}</small>);
+      firstHalf.push(<small key={index} className="text-muted">{data.text}</small>);
     } else {
-      secondHalf.push(<small className="text-muted">{data.text}</small>);
+      secondHalf.push(<small key={index} className="text-muted">{data.text}</small>);
     }
   });
 

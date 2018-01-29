@@ -5,7 +5,6 @@ import TimeSummary from './TimeSummary';
 import CompensationSummary from './compensationSummary';
 
 const MonthSummary = ({monthlyAttendance}) => {
-  console.log(monthlyAttendance);
   return (
     <div>
       <TimeSummary monthlyAttendance={monthlyAttendance} />

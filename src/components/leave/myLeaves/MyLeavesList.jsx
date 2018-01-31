@@ -75,6 +75,9 @@ const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
               </form>
             </div>
         }
+        <div className="col-xs-12 row">
+          <small className="uploadnotic" >* Upload file size should be less than 1 MB</small>
+        </div>
           </div>
           : null
         }

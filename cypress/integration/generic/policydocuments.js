@@ -1,14 +1,16 @@
-import { urls, apiUrls, visitIndexRoute, urlVisited, user, signin, signinWithWhitespace, signout } from '../../index';
+import {urls, user, apiUrls} from '../../index';
+import {signin, signout} from '../../helper';
+import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Test policy documents', () => {
   it('policy documents list is not empty', () => {
     cy.server();
-    cy.route({method:'POST',url: apiUrls.apiUrl}).as('login');
+    cy.route({method: 'POST', url: apiUrls.apiUrl}).as('login');
     signin(user.admin);
-    urlVisited(urls.baseUrl+urls.home);
+    urlVisited(urls.baseUrl + urls.home);
     cy.get('#policy_documents').should('be.visible');
     cy.get('#policy_documents').click();
-    urlVisited(urls.baseUrl+urls.policyDocuments);
+    urlVisited(urls.baseUrl + urls.policyDocuments);
     cy.get('#SamplePolicy1').should('be.visible');
     cy.get('#PolicyTest').should('be.visible');
     cy.get('#test').should('be.visible');
@@ -16,9 +18,9 @@ describe('Test policy documents', () => {
   });
   it('click on any document url will open a new tab, fire an api and status from red change to green or will be green if already green', () => {
     cy.server();
-    cy.route({method:'POST',url: apiUrls.apiUrl}).as('login');
+    cy.route({method: 'POST', url: apiUrls.apiUrl}).as('login');
     signin(user.admin);
-    urlVisited(urls.baseUrl+urls.home);
+    urlVisited(urls.baseUrl + urls.home);
     cy.get('#policy_documents').should('be.visible');
     cy.get('#policy_documents').click();
     cy.get('#SamplePolicy1 a').click();

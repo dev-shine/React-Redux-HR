@@ -1,16 +1,18 @@
-import { urls, apiUrls, apiCall, visitIndexRoute, urlVisited, user, signin, signinWithWhitespace, signout } from '../../index';
+import {urls, user, apiUrls} from '../../index';
+import {signin, signout} from '../../helper';
+import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 const apiData = {
-  action: "login",
-  username: "arun",
-  password: "java@123",
-  token: null
+  action:   'login',
+  username: 'arun',
+  password: 'java@123',
+  token:    null
 };
 
 export const profileData = (token) => {
   cy.get('#my_profile').should('be.visible');
   cy.get('#my_profile').click();
-  apiCall('POST',apiUrls.apiUrl,{action: "get_user_profile_detail", token: token});
+  apiCall('POST', apiUrls.apiUrl, {action: 'get_user_profile_detail', token: token});
 };
 
 describe('Test my profile', () => {
@@ -36,16 +38,16 @@ describe('Test my profile', () => {
   // });
   it('on UPDATE PROFILE DETAILS button click Person Details will be updated with new data', () => {
     cy.server();
-    cy.route({method:'POST',url: apiUrls.apiUrl}).as('login');
+    cy.route({method: 'POST', url: apiUrls.apiUrl}).as('login');
     signin(user.user);
-    apiCall('POST',apiUrls.apiUrl, apiData, 'loginprofile').then((data) => {
+    apiCall('POST', apiUrls.apiUrl, apiData, 'loginprofile').then((data) => {
       console.log(data);
       cy.get('#my_profile').should('be.visible');
       cy.get('#my_profile').click();
-      apiCall('POST',apiUrls.apiUrl,{action: "get_user_profile_detail", token: data})
+      apiCall('POST', apiUrls.apiUrl, {action: 'get_user_profile_detail', token: data});
     });
 
-    urlVisited(urls.baseUrl+urls.myProfile);
+    urlVisited(urls.baseUrl + urls.myProfile);
     cy.get('#user_Contact').clear().type('7838912921');
     cy.get('#profile_update').click();
   });

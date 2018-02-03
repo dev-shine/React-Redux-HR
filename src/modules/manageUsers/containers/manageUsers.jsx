@@ -186,7 +186,7 @@ class ManageUsers extends React.Component {
                     top={5} {...this.props}
                   />
                 </div>
-                <div className="col-md-10 col-sm-9 col-xs-12 p">
+                <div className="col-md-10 col-sm-9 col-xs-12 p" id="manage-user">
                   <div className="row emp-action-btn p-b">
                     <div className="add-new-emp">
                       <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee} />

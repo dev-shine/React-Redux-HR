@@ -11,6 +11,7 @@ describe('Test employees attendance listing', () => {
     cy.get('.nav > #monthly_attendance').click();
     cy.get('.nav-sub #home').should('be.visible');
     cy.get('.nav-sub #home').click();
+    urlVisited(urls.baseUrl + urls.home);
     cy.get('.app-body').should('be.visible');
     cy.get('.app-body .padding').should('be.visible');
     cy.get('#userList').should('be.visible');
@@ -23,6 +24,7 @@ describe('Test employees attendance listing', () => {
     cy.get('.nav > #monthly_attendance').click();
     cy.get('.nav-sub #home').should('be.visible');
     cy.get('.nav-sub #home').click();
+    urlVisited(urls.baseUrl + urls.home);
     cy.get('.app-body').should('be.visible');
     cy.get('.app-body .padding').should('be.visible');
     cy.get('#content').should('be.visible');

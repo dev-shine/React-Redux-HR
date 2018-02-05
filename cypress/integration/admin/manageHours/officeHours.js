@@ -1,4 +1,4 @@
-import {urls, user, apiUrls} from '../../../index';
+import {urls, user, apiUrls, monthName} from '../../../index';
 import {signin, signout, apiCall} from '../../../helper';
 import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
@@ -26,6 +26,11 @@ describe('Test office hours', () => {
     cy.get('.app-body').should('be.visible');
     cy.get('.app-body .padding').should('be.visible');
     cy.get('#content').should('be.visible');
+    var currentDate = new Date();
+    var currentMonth = monthName[currentDate.getMonth()];
+    var currentYear = currentDate.getFullYear();
+    cy.get('.fullcalendar .fc-toolbar > .fc-center h2 ').should('be.visible');
+    cy.get('.fullcalendar .fc-toolbar > .fc-center h2 ').contains(`${currentMonth}-${currentYear}`);
   });
   it('clicking on next and previous month will show the respective month data, month name and year text will also change', () => {
 

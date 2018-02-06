@@ -26,8 +26,8 @@ const CalendarWeek = ({userId, dayData, onShowDaySummary, onWorkingHoursChange})
     dayHtml = <Day forEmployeeHours dayData={dayData} onWorkingHoursChange={onWorkingHoursChange} />;
   }
   return (
-    <div id="calendarDay" className="calendar-day">
-      <div className="fc-event-container">
+    <div id="calendarDay" className="calendar-day" >
+      <div className="fc-event-container" id={`${dayData.full_date}`} >
         {dayHtml}
       </div>
     </div>

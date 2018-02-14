@@ -26,6 +26,13 @@ describe('Test leaves page', () => {
     cy.get('.app-body').should('be.visible');
     cy.get('.app-body .padding').should('be.visible');
     cy.get('.app-body .padding .row > div').should('be.visible');
+    cy.get('#manage_leave_header').should('be.visible');
+    cy.get('#manage_leave_header .leaves-tab .blue').should('be.visible');
+    cy.get('#manage_leave_header .leaves-tab .yellow-A200').should('be.visible');
+    cy.get('#manage_leave_header .leaves-tab .green-A200').should('be.visible');
+    cy.get('#manage_leave_header .leaves-tab .red-500').should('be.visible');
+    cy.get('#manage_leave_header .leaves-tab .blue').click();
+    cy.get('#no_manage_leave').should('be.visible');
   });
   it('clicking any user on left panel will show respective leave detail on right panel', () => {
 

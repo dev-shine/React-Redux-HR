@@ -33,7 +33,7 @@ class ManageLeaves extends React.Component {
   }
   componentWillReceiveProps (props) {
     let selectedTab = '';
-    let { route, loggedUser } = props;
+    let {route, loggedUser} = props;
     let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
@@ -107,11 +107,11 @@ class ManageLeaves extends React.Component {
 
     let tabContent;
     if (!this.state.loading && (_.isEmpty(this.state.selectedLeave) || _.isEmpty(this.state.leaveListItems))) {
-      tabContent = (<div className="row-col row-col-xs b-b" style={styles.spinContainer}>
+      tabContent = (<div className="row-col row-col-xs b-b" id="no_manage_leave" style={styles.spinContainer}>
         <span className="" style={styles.spiner}>No data found</span>
       </div>);
     } else if (!this.state.loading && (!_.isEmpty(this.state.selectedLeave) && !_.isEmpty(this.state.leaveListItems))) {
-      tabContent = <div className="row no-gutter b-b">
+      tabContent = <div className="row no-gutter b-b" id="manage_leave_data">
         <div className="col-xs-12 col-sm-3 box b-r">
           <ListLeaves listItems={this.state.leaveListItems} selectedLeave={this.state.selectedLeave} selectLeave={this.selectLeave} {...this.props} />
         </div>

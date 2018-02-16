@@ -21,8 +21,8 @@ jobs:
       - run: npm install pm2 -g
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
-      - run: git clone https://github.com/reactexcel/ReactReduxHR
-      - run: cd ReactReduxHR && npm install && pm2 start npm --name hrSystem -- run start
+      # - run: git clone https://github.com/reactexcel/ReactReduxHR
+      # - run: cd ReactReduxHR && npm install && pm2 start npm --name hrSystem -- run start
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:

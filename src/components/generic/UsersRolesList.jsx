@@ -13,7 +13,7 @@ let UsersRolesList = ({users, onChange}) => {
       let profileImae = '';
       let userId = user.user_Id;
       let roleName = user.role_name;
-      let roleLabelValue = <span className="text-success text-sm" id={`${roleName}_span`}><b>Role</b> : {roleName} {' '}<span onClick={() => { onChange(userId, '0'); }} className='glyphicon glyphicon-remove text-danger' title="Remove Role"></span></span>;
+      let roleLabelValue = <span className="text-success text-sm" id={`${user.username}_span`}><b>Role</b> : {roleName} {' '}<span onClick={() => { onChange(userId, '0'); }} className='glyphicon glyphicon-remove text-danger' title="Remove Role"></span></span>;
       if (roleName === null || roleName === 0) {
         roleLabelValue = <span className="text-danger text-sm"><b>Role</b> : -- </span>;
       }
@@ -21,11 +21,11 @@ let UsersRolesList = ({users, onChange}) => {
         profileImae = user.slack_profile.image_72;
         avatar = <img src={profileImae} />;
       } else {
-        profileImae = user.name.charAt(0);
+        profileImae = user.name != null ? user.name.charAt(0) : '';
         avatar = <Avatar>{profileImae}</Avatar>;
       }
       let optionMenu = _.map(rolesName, (name, index) => {
-        return (<option key={index} value={name.id} >{name.name}</option>);
+        return (<option key={index} id={`${name.name}_val`} value={name.id} >{name.name}</option>);
       });
       let selectMenu = <select key={userId} name={userId} id={`${userId}_change`} onChange={(e) => { onChange(userId, e.target.value); }} className="form-control text-muted text-ellipsis"><option value="-1"> CHANGE ROLE </option>{optionMenu}</select>;
       return (

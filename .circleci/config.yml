@@ -1,0 +1,40 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      # the Docker image with Cypress dependencies
+      - image: cypress/base:8
+        environment:
+          - TERM: xterm
+      - image: node:7.10.1
+
+    working_directory: ~/app
+    parallelism: 1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps
+      - run: npm install
+      - run: npm rebuild node-sass --force
+      - run: npm install pm2 -g
+      - run: pm2 start npm --name recruit_front -- run start
+      - run: apt-get install git
+      - run: git clone https://github.com/reactexcel/ReactReduxHR.git
+      - run: cd ReactReduxHR && npm install && pm2 start npm --name hrsystem -- run start
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: npm install cypress
+      - run: ss -lptn 'sport = :3000'
+      - run:
+        
+          name: Login Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/login.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots/

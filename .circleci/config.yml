@@ -18,21 +18,15 @@ jobs:
             - v1-npm-deps
       - run: npm install
       - run: npm rebuild node-sass --force
-      - run: npm install pm2 -g
-      - run: pm2 start npm --name recruit_front -- run start
-      - run: apt-get install git
-      # - run: git clone https://github.com/reactexcel/ReactReduxHR
-      # - run: cd ReactReduxHR && npm install && pm2 start npm --name hrSystem -- run start
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-      # - run: npm install cypress
       - run: ss -lptn 'sport = :3000'
 
       - run:
           name: Login Test
-          command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/login.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:

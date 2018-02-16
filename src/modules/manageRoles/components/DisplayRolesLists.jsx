@@ -41,16 +41,16 @@ const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, 
     });
     let collapseLink = 'coll' + rolesId;
     return (
-      <div className="panel panel-default" style={{'border': 0}} key={key}>
+      <div className="panel panel-default" id={`${value.name}_body`} style={{'border': 0}} key={key}>
         <div className="panel-heading p-b-lg">
           <div className="panel-title p-b-md">
             <span className="col-xs-8 col-sm-9">
               <Link data-toggle="collapse" data-parent="#accordion" to={collapseLink} >
-                <h4 className="m-b-xs text-lg col-xs-10">{value.name}</h4>
+                <h4 className="m-b-xs text-lg col-xs-10" id={`${value.name}_span`}>{value.name}</h4>
                 <span className="col-xs-12 text-sm">{value.description}</span>
               </Link>
             </span>
-            <Link to="/manage_roles" className="col-xs-4 col-sm-3 m-t-sm p-t-sm text-sm text-danger"
+            <Link to="/manage_roles" id={`${value.name}_delete`} className="col-xs-4 col-sm-3 m-t-sm p-t-sm text-sm text-danger"
               onClick={() => {
                 confirm('Are you sure ?', 'Do you want to Delete the Role ?', 'warning').then((res) => {
                   if (res) {

@@ -1,6 +1,10 @@
 import * as helpers from './helper';
 
 export const click = helpers.click;
+export const type = helpers.type;
+export const scrollTo = helpers.scrollTo;
+export const wait = helpers.wait;
+export const contains = helpers.contains;
 
 export const urls = {
   baseUrl:                'http://localhost:3000/#/',
@@ -41,6 +45,13 @@ export const urls = {
 export const monthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
+
+export const month = (month) => {
+  return monthName[(new Date()).getMonth() + month];
+};
+export const year = (year) => {
+  return (new Date()).getFullYear() + year;
+};
 
 export const user = {
   admin: {

@@ -7,7 +7,7 @@ jobs:
       - image: cypress/base:8
         environment:
           - TERM: xterm
-      - image: node:8.6.0
+      - image: node:7.10.1
 
     parallelism: 1
     steps:

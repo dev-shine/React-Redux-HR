@@ -1,6 +1,6 @@
-import {urls, user, apiUrls} from '../../../index';
-import {signin, signout} from '../../../helper';
-import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
+import {urls, user, apiUrls} from '../../index';
+import {signin, signout} from '../../helper';
+import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Testing forget password', () => {
   it('testing forget password button while clicking', () => {

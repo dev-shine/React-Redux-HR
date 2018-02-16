@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test office hours', () => {
   it('header title is Manage Working Hours', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_working_hours').should('be.visible');
@@ -15,7 +14,6 @@ describe('Test office hours', () => {
     cy.get('.navbar .navbar-item').contains('Manage Working Hours');
   });
   it('is listing current month working hours', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_working_hours').should('be.visible');
@@ -36,7 +34,6 @@ describe('Test office hours', () => {
 
   });
   it('clicking on Change To text box of any date will open a select box listing time', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_working_hours').should('be.visible');

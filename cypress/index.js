@@ -1,3 +1,7 @@
+import * as helpers from './helper';
+
+export const click = helpers.click;
+
 export const urls = {
   baseUrl:                'http://localhost:3000/#/',
   login:                  'page_login',

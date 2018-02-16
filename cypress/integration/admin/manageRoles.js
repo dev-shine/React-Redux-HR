@@ -43,16 +43,16 @@ describe('Test roles page', () => {
     cy.get('#role_desc').type('Test_Role description');
     cy.get('#role_submit_button').click();
     cy.get('#accordion #Test_Role_body').should('be.visible');
-    cy.get('#accordion #Test_Role_body ##Test_Role_delete').should('be.visible');
-    cy.get('#accordion #Test_Role_body ##Test_Role_delete').click();
-    cy.get('#showSweetAlert').should('be.visible');
-    cy.get('#sa-button-container').should('be.visible');
-    cy.get('#sa-confirm-button-container').should('be.visible');
-    cy.get('#sa-confirm-button-container').click();
-    cy.get('#showSweetAlert').should('be.visible');
-    cy.get('#sa-button-container').should('be.visible');
-    cy.get('#sa-confirm-button-container').should('be.visible');
-    cy.get('#sa-confirm-button-container').click();
+    cy.get('#accordion #Test_Role_body #Test_Role_delete').should('be.visible');
+    cy.get('#accordion #Test_Role_body #Test_Role_delete').click();
+    cy.get('.showSweetAlert').should('be.visible');
+    cy.get('.sa-button-container').should('be.visible');
+    cy.get('.sa-confirm-button-container').should('be.visible');
+    cy.get('.sa-confirm-button-container').click();
+    cy.get('.showSweetAlert').should('be.visible');
+    cy.get('.sa-button-container').should('be.visible');
+    cy.get('.sa-confirm-button-container').should('be.visible');
+    cy.get('.sa-confirm-button-container').click();
   });
   it('on left panel, selecting new role from select box will change the role of the selected employee ', () => {
     visitIndexRoute();
@@ -75,12 +75,10 @@ describe('Test roles page', () => {
     cy.get('#role_submit_button').click();
     cy.get('#accordion #Test_Role_body').should('be.visible');
     cy.get('#user_list').should('be.visible');
-    cy.get('#abhishek_list').should('be.visible');
-    cy.get('#abhishek_list #384_change').should('be.visible');
-    cy.get('#384_change').select('Test_Role');
-    cy.get('#user_list').scrollTo('top');
-    // cy.scrollTo('top');
-
-    cy.get('#abhishek_span').should('be.visible').contains('Test_Role');
+    cy.get('#global_guest_list').should('be.visible');
+    cy.get('#global_guest_list #389_change').should('be.visible');
+    cy.get('#389_change').select('Test_Role');
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    cy.get('#global_guest_list').should('be.visible').contains('Test_Role');
   });
 });

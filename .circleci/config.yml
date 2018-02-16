@@ -1,50 +1,37 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
+      # the Docker image with Cypress dependencies
       - image: cypress/base:8
-      - image: node: 8.6.0
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+        environment:
+          - TERM: xterm
+      - image: node:8.6.0
 
     working_directory: ~/src
-
+    parallelism: 1
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: npm install
-      - run: npm rebuild node-sass --force
-      - run: npm install pm2 -g
-      - run: pm2 start npm --name recruit_front -- run start
+            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps
       - run: apt-get install git
-      - run: git clone https://github.com/reactexcel/ReactReduxHR.git
-      - run: cd ReactReduxHR && npm install && npm run start:dev
+      - run: git clone https://github.com/reactexcel/ReactReduxHR
+      - run: cd ReactReduxHR/
+      - run: npm install
       - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm install cypress
-      - run: ss -lptn 'sport = :3000'
-
       - run:
-          name: Login Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/login.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+          name: Running E2E tests with JUnit reporter
+          command: npm run test-junit
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/screenshots/
+          path: cypress/videos
+      - store_artifacts:
+path: cypress/screenshots

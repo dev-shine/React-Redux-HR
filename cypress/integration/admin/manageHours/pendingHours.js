@@ -1,20 +1,19 @@
-import {urls, user, apiUrls, monthName} from '../../../index';
-import {signin, signout, apiCall} from '../../../helper';
-import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
+import {urls, user, click, shouldBeVisible} from '../../../index';
+import {signin} from '../../../helper';
+import {urlVisited} from '../../../visitRoutes';
 
 describe('Test office hours', () => {
   it('header title is Manage Employee Pending Hours', () => {
     cy.server();
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.route(apiUrls.apiUrl).then((response) => {
       expect(response.status).to.eq(200);
     });
-    cy.get('.nav > #manage_working_hours').should('be.visible');
-    cy.get('.nav > #manage_working_hours').click();
-    cy.get('.nav-sub #manage_user_pending_hours').should('be.visible');
-    cy.get(' #manage_user_pending_hours').click();
+    shouldBeVisible('.nav > #manage_working_hours');
+    click('.nav > #manage_working_hours');
+    shouldBeVisible('.nav-sub #manage_user_pending_hours');
+    click(' #manage_user_pending_hours');
     urlVisited(urls.baseUrl + urls.manageUserPendingHours);
     cy.get('.navbar .navbar-item').contains('Manage Employee Pending Hours');
   });

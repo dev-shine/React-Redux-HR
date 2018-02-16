@@ -1,4 +1,4 @@
-import {urls, signin, user, month, year, contains, click, wait} from '../../../index';
+import {urls, signin, user, month, year, contains, click, wait, shouldBeVisible} from '../../../index';
 import {urlVisited, visitOfficeHours} from '../../../visitRoutes';
 
 describe('Test office hours', () => {
@@ -14,10 +14,10 @@ describe('Test office hours', () => {
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     urlVisited(urls.baseUrl + urls.manageWorkingHours);
-    cy.get('.app-body').should('be.visible');
-    cy.get('.app-body .padding').should('be.visible');
-    cy.get('#content').should('be.visible');
-    cy.get('.fullcalendar .fc-toolbar > .fc-center h2 ').should('be.visible');
+    shouldBeVisible('.app-body');
+    shouldBeVisible('.app-body .padding');
+    shouldBeVisible('#content');
+    shouldBeVisible('.fullcalendar .fc-toolbar > .fc-center h2 ');
     cy.get('.fullcalendar .fc-toolbar > .fc-center h2 ').contains(`${month(0)}-${year(0)}`);
   });
   it('clicking on next and previous month will show the respective month data, month name and year text will also change', () => {
@@ -35,19 +35,19 @@ describe('Test office hours', () => {
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     urlVisited(urls.baseUrl + urls.manageWorkingHours);
-    cy.get('.app-body').should('be.visible');
-    cy.get('.app-body .padding').should('be.visible');
-    cy.get('#content').should('be.visible');
-    cy.get('#calendar').should('be.visible');
-    cy.get('#calendar .fc-event-container .fc-content').should('be.visible');
-    cy.get('#calendar .fc-event-container .fc-content .fc-time .timepicker').should('be.visible');
+    shouldBeVisible('.app-body');
+    shouldBeVisible('.app-body .padding');
+    shouldBeVisible('#content');
+    shouldBeVisible('#calendar');
+    shouldBeVisible('#calendar .fc-event-container .fc-content');
+    shouldBeVisible('#calendar .fc-event-container .fc-content .fc-time .timepicker');
     const data = [];
     cy.get('#calendarDay').each((item, index, list) => {
       cy.get('#calendarDay:nth-child(' + (index + 1) + ') > div').then((id) => {
         data.push(id.attr('id'));
       });
     });
-    // cy.get('#calendar .fc-event-container .fc-content .fc-time input').click({multiple: true, force: true}).get('.ui-timepicker-wrapper').should('be.visible');
+    // cy.get('#calendar .fc-event-container .fc-content .fc-time input').click({multiple: true, force: true}).get('.ui-timepicker-wrapper');
   });
   it('on selecting time for any date text box value will be the opted time and Hours will also change to the opted value', () => {
     signin(user.admin);
@@ -55,6 +55,6 @@ describe('Test office hours', () => {
     visitOfficeHours();
     click('#calendar #calendarDay:nth-child(1) .ui-timepicker-input');
     click('.ui-timepicker-wrapper .ui-timepicker-list li:nth-child(10)');
-    contains('#calendar #calendarDay:nth-child(1) .fc-time h6', 'Hours : 06:30')
+    contains('#calendar #calendarDay:nth-child(1) .fc-time h6', 'Hours : 06:30');
   });
 });

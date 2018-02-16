@@ -16,12 +16,13 @@ const ListAllPolicyDocument = ({policyDocuments, submitNewListofDocs}) => {
     });
   };
   let allDocuments = _.map(policyDocuments, (doc, i) => {
-    const docId = doc.name.replace(/ /g,'');
+    const docId = doc.name.replace(/ /g, '');
     return (
       <div key={i} id={docId} className='m-y-sm policyDocumentsList  clear'>
         <h5>{doc.name}</h5>
         <a href={doc.link} target="_blank" onClick={() => this.updateReadStatus(doc)}>{doc.link}</a>
         <IconButton
+          id="docIconDelete"
           tooltip="Delete Document"
           tooltipPosition="top-left"
           className="pull-right btn-responsive icon-button p-0 "

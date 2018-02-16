@@ -7,6 +7,8 @@ export const scrollTo = helpers.scrollTo;
 export const wait = helpers.wait;
 export const contains = helpers.contains;
 export const signin = helpers.signin;
+export const shouldBeVisible = helpers.shouldBeVisible;
+export const shouldNotBeVisible = helpers.shouldNotBeVisible;
 
 export const visitMailTemplates = visits.visitMailTemplates;
 

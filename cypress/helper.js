@@ -8,6 +8,8 @@ export const scrollTo = (position) => {
   document.body.scrollTop = document.documentElement.scrollTop = position;
 }
 export const wait = (time) => cy.wait(time);
+export const shouldBeVisible = (id) => cy.get(id).should('be.visible');
+export const shouldNotBeVisible = (id) => cy.get(id).should('not.be.visible');
 
 export const signin = (user) => {
   visitIndexRoute();

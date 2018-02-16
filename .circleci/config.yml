@@ -27,7 +27,7 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm install cypress
+      # - run: npm install cypress
       - run: ss -lptn 'sport = :3000'
 
       - run:

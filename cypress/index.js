@@ -5,6 +5,8 @@ export const type = helpers.type;
 export const scrollTo = helpers.scrollTo;
 export const wait = helpers.wait;
 export const contains = helpers.contains;
+export const shouldBeVisible = helpers.shouldBeVisible;
+export const shouldNotBeVisible = helpers.shouldNotBeVisible;
 
 export const urls = {
   baseUrl:                'http://localhost:3000/#/',

@@ -26,12 +26,12 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install
-      - run: npm rebuild node-sass --force
       - run: npm install pm2 -g
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/reactexcel/ReactReduxHR.git
+      # - run: npm install
+      # - run: npm rebuild node-sass --force
       - run: cd ReactReduxHR && npm install && npm run start:dev
       - save_cache:
           paths:

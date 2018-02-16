@@ -1,5 +1,4 @@
-import {urls, user, month, year, contains, click, wait, shouldBeVisible} from '../../../index';
-import {signin} from '../../../helper';
+import {urls, signin, user, month, year, contains, click, wait, shouldBeVisible} from '../../../index';
 import {urlVisited, visitOfficeHours} from '../../../visitRoutes';
 
 describe('Test office hours', () => {

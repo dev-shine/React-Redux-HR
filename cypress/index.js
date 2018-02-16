@@ -1,12 +1,16 @@
 import * as helpers from './helper';
+import * as visits from './visitRoutes';
 
 export const click = helpers.click;
 export const type = helpers.type;
 export const scrollTo = helpers.scrollTo;
 export const wait = helpers.wait;
 export const contains = helpers.contains;
+export const signin = helpers.signin;
 export const shouldBeVisible = helpers.shouldBeVisible;
 export const shouldNotBeVisible = helpers.shouldNotBeVisible;
+
+export const visitMailTemplates = visits.visitMailTemplates;
 
 export const urls = {
   baseUrl:                'http://localhost:3000/#/',

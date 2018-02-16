@@ -3,7 +3,7 @@ import {signin, signout, apiCall} from '../../helper';
 import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Test roles page', () => {
-  xit('roles list are on left panel', () => {
+  it('roles list are on left panel', () => {
     visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
@@ -13,7 +13,7 @@ describe('Test roles page', () => {
     cy.get('.app-body .padding').should('be.visible');
     cy.get('#accordion').should('be.visible');
   });
-  xit('users list on right panel', () => {
+  it('users list on right panel', () => {
     visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
@@ -23,7 +23,7 @@ describe('Test roles page', () => {
     cy.get('.app-body .padding').should('be.visible');
     cy.get('#user_list').should('be.visible');
   });
-  xit('click on Add New Role will open form to add new role, on submit of add role form will list newly added role on left panel', () => {
+  it('click on Add New Role will open form to add new role, on submit of add role form will list newly added role on left panel', () => {
     visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
@@ -75,11 +75,12 @@ describe('Test roles page', () => {
     cy.get('#role_submit_button').click();
     cy.get('#accordion #Test_Role_body').should('be.visible');
     cy.get('#user_list').should('be.visible');
-    cy.get('#deepak_list').should('be.visible');
-    cy.get('#deepak_list #288_change').should('be.visible');
-    cy.get('#288_change').click();
-    cy.get('#Test_Role_val').should('be.visible');
-    cy.get('#Test_Role_val').click();
+    cy.get('#abhishek_list').should('be.visible');
+    cy.get('#abhishek_list #384_change').should('be.visible');
+    cy.get('#384_change').select('Test_Role');
+    cy.get('#user_list').scrollTo('top');
+    // cy.scrollTo('top');
+
     cy.get('#abhishek_span').should('be.visible').contains('Test_Role');
   });
 });

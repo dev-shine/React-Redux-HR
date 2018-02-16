@@ -21,7 +21,7 @@ let UsersRolesList = ({users, onChange}) => {
         profileImae = user.slack_profile.image_72;
         avatar = <img src={profileImae} />;
       } else {
-        profileImae = user.name.charAt(0);
+        profileImae = user.name != null ? user.name.charAt(0) : '';
         avatar = <Avatar>{profileImae}</Avatar>;
       }
       let optionMenu = _.map(rolesName, (name, index) => {

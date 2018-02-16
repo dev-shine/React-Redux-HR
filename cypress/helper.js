@@ -6,6 +6,8 @@ export const contains = (id, text) => cy.get(id).contains(text);
 export const type = (id, text) => cy.get(id).type(text);
 export const scrollTo = (id, position) => cy.get(id).scrollTo(position);
 export const wait = (time) => cy.wait(time);
+export const shouldBeVisible = (id) => cy.get(id).should('be.visible');
+export const shouldNotBeVisible = (id) => cy.get(id).should('not.be.visible');
 
 export const signin = (user) => {
   visitIndexRoute();

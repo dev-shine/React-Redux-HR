@@ -19,6 +19,7 @@ jobs:
       - run: npm install
       - run: npm rebuild node-sass --force
       - run: npm run start:dev
+        background: true
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:

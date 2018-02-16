@@ -1,6 +1,6 @@
-import {urls, user, apiUrls} from '../../../index';
-import {signin, signout} from '../../../helper';
-import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
+import {urls, user, apiUrls} from './../../index';
+import {signin, signout} from './../../helper';
+import {urlVisited, visitIndexRoute} from './../../visitRoutes';
 
 describe('Test Logout', () => {
   it('testing logout functionality', () => {
@@ -11,7 +11,7 @@ describe('Test Logout', () => {
     cy.get('#passwordInput').type('java@123');
     cy.get('#loginButton').click();
     urlVisited(urls.baseUrl + urls.home);
-    cy.get('#Logout').click();
+    cy.get('#logout').click();
     urlVisited(urls.baseUrl);
   });
 });

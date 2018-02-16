@@ -1,7 +1,10 @@
 import {urlVisited, visitIndexRoute} from './visitRoutes';
 import {urls} from './index';
 
+export const click = (id) => cy.get(id).click();
+
 export const signin = (user) => {
+  cy.visit(urls.baseUrl);
   cy.get('#openLogin').click();
   urlVisited(urls.baseUrl + urls.login);
   cy.get('#usernameInput').type(user.username);

@@ -16,21 +16,24 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
+      - run: npm install
+      - run: npm rebuild node-sass --force
+      - run: npm install pm2 -g
+      - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/reactexcel/ReactReduxHR
-      - run: cd ReactReduxHR/
-      - run: npm install
+      - run: cd ReactReduxHR && npm install && pm2 start npm --name hrSystem -- run start
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run: npm install cypress
+      - run: ss -lptn 'sport = :3000'
+
       - run:
-          name: Running E2E tests with JUnit reporter
-          command: npm run test-junit
+          name: Login Test
+          command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-path: cypress/screenshots
+          path: cypress/screenshots

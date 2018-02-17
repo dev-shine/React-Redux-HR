@@ -14,7 +14,7 @@ describe('Test view salary page', () => {
     cy.get('.app-body').should('be.visible');
     cy.get('.app-body .padding').should('be.visible');
   });
-  it('search text box will filter the listing', () => {
+  xit('search text box will filter the listing', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_salary').should('be.visible');

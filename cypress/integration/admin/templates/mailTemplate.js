@@ -1,4 +1,5 @@
 import {urls, signin, user, month, year, contains, click, wait, visitMailTemplates} from '../../../index';
+import $ from 'jquery';
 
 const deleteTemplate = () => {
   click('#template-4 .delete-style');
@@ -18,9 +19,9 @@ describe('Test mail template page', () => {
     click('#createNewTemplate');
     click('.m-r-5');
   });
-  it('delete dropdown menu will result in delete of template', () => {
+  xit('delete dropdown menu will result in delete of template', () => {
     $('html, body').animate({
-      scrollTop: $('#template-4').offset().top
+      scrollTop: ($('#template-4').offset('top'))
     }, 2000);
     deleteTemplate();
   });

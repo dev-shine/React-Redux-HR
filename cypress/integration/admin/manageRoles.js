@@ -46,6 +46,7 @@ describe('Test roles page', () => {
     cy.get('.sa-button-container').should('be.visible');
     cy.get('.sa-confirm-button-container').should('be.visible');
     cy.get('.sa-confirm-button-container').click();
+    cy.get('.showSweetAlert').should('not.be.visible');
     cy.get('.showSweetAlert').should('be.visible');
     cy.get('.sa-button-container').should('be.visible');
     cy.get('.sa-confirm-button-container').should('be.visible');
@@ -69,12 +70,13 @@ describe('Test roles page', () => {
     cy.get('#role_name').type('Test_Role');
     cy.get('#role_desc').type('Test_Role description');
     cy.get('#role_submit_button').click();
+    cy.get('.dialog-add-role').should('not.be.visible');
     cy.get('#accordion #Test_Role_body').should('be.visible');
     cy.get('#user_list').should('be.visible');
-    cy.get('#global_guest_list').should('be.visible');
-    cy.get('#global_guest_list #389_change').should('be.visible');
-    cy.get('#389_change').select('Test_Role');
+    cy.get('#0_list').should('be.visible');
+    cy.get('#0_list #0_change').should('be.visible');
+    cy.get('#0_change').select('Test_Role');
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-    cy.get('#global_guest_list').should('be.visible').contains('Test_Role');
+    cy.get('#0_list').should('be.visible').contains('Test_Role');
   });
 });

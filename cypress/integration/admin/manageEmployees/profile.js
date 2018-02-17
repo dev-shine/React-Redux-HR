@@ -3,13 +3,14 @@ import {signin} from '../../../helper';
 import {urlVisited} from '../../../visitRoutes';
 
 describe('Test profile page', () => {
-  xit('employees list is loaded on left side panel', () => {
+  it('employees list is loaded on left side panel', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
-    shouldBeVisible('.nav > #manage_users');
+    shouldBeVisible('.nav > #manage_users a');
     click('.nav > #manage_users');
-    shouldBeVisible('.nav-sub > #manage_users');
-    click('.nav-sub  #manage_users');
+    shouldBeVisible('.nav-sub > #manage_users a');
+    click('.nav-sub  #manage_users a');
     urlVisited(urls.baseUrl + urls.manageUsers);
     shouldBeVisible('.app-body');
     shouldBeVisible('.app-body .padding');

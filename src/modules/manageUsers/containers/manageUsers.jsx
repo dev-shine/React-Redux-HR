@@ -52,7 +52,7 @@ class ManageUsers extends React.Component {
   }
   componentWillMount () {
     this.props.onUsersList();
-    this.props.onFetchTeam();
+    this.props.onFetchTeams();
   }
   componentWillReceiveProps (props) {
     let {route, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
@@ -307,8 +307,8 @@ const mapDispatchToProps = (dispatch) => {
     onUserManagePayslipsData: (userid) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
-    onFetchTeam: () => {
-      return dispatch(actions.requestGetTeam());
+    onFetchTeams: () => {
+      return dispatch(actions.requestTeamList());
     },
     onGetStages: (id) => {
       return dispatch(actionsManageUsers.getSteps(id));

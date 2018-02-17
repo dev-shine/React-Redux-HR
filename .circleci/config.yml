@@ -44,7 +44,7 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: Login Test
+          name: Manage Role Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/manageRoles.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
@@ -52,7 +52,7 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: Login Test
+          name: Uploaad Document Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/uploadDocuments.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
@@ -60,7 +60,7 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: Login Test
+          name: Logout Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/logout.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
@@ -68,7 +68,7 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: Login Test
+          name: My Attendance Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/myattendance.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results

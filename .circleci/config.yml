@@ -98,3 +98,11 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+
+      - run:
+          name: disable Employee Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageEmployees/disableEmployees.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots

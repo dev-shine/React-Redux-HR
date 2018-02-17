@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Test roles page', () => {
   it('roles list are on left panel', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_roles').should('be.visible');
@@ -14,7 +13,6 @@ describe('Test roles page', () => {
     cy.get('#accordion').should('be.visible');
   });
   it('users list on right panel', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_roles').should('be.visible');
@@ -24,7 +22,6 @@ describe('Test roles page', () => {
     cy.get('#user_list').should('be.visible');
   });
   it('click on Add New Role will open form to add new role, on submit of add role form will list newly added role on left panel', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_roles').should('be.visible');
@@ -55,7 +52,6 @@ describe('Test roles page', () => {
     cy.get('.sa-confirm-button-container').click();
   });
   it('on left panel, selecting new role from select box will change the role of the selected employee ', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_roles').should('be.visible');

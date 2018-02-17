@@ -38,7 +38,6 @@ export function* saveTeam (action) {
 }
 
 export function* getTeam (action) {
-  console.log(action, '============================================');
   try {
     const response = yield call(fireAjax, 'POST', '', {
       action: 'get_team_users_detail',

@@ -4,13 +4,11 @@ import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Test attendance option', () => {
   it('after login in menu ateendance option should be visible', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #monthly_attendance').should('be.visible');
   });
   it('after clicking attendance it should show drop-down list', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #monthly_attendance').should('be.visible');

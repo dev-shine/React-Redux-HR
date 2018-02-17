@@ -3,8 +3,7 @@ import {signin, signout, apiCall} from '../../../helper';
 import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test add variable', () => {
-  xit('open page open will list all variables', () => {
-    visitIndexRoute();
+  it('open page open will list all variables', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');
@@ -14,8 +13,7 @@ describe('Test add variable', () => {
     urlVisited(urls.baseUrl + urls.addVariables);
     cy.get('.variable-list').should('be.visible');
   });
-  xit('click on add new variable modal, submitting new variable form will list the newly added variable', () => {
-    visitIndexRoute();
+  it('click on add new variable modal, submitting new variable form will list the newly added variable', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');
@@ -48,7 +46,6 @@ describe('Test add variable', () => {
         // cy.get('.add-variable-dialog .action-buttons div > button').click();
   });
   it('delete on right side panel will reuslt to delete of variable', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');

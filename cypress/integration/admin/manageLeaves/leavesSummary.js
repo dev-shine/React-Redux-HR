@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test leaves summary', () => {
   it('api will be fired and list all employees summary on page', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_leaves').should('be.visible');

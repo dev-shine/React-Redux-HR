@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../visitRoutes';
 
 describe('Test case for Side menu', () => {
   it('login to admin page', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
   });

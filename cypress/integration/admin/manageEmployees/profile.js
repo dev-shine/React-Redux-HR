@@ -16,9 +16,10 @@ describe('Test profile page', () => {
     shouldBeVisible('.app-body .padding');
     shouldBeVisible(' #userList');
   });
-  xit('first employee profile details are shown on right panel', () => {
+  it('first employee profile details are shown on right panel', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
+    cy.wait(3000);
     shouldBeVisible('.nav > #manage_users');
     click('.nav > #manage_users');
     shouldBeVisible('.nav-sub #manage_users');

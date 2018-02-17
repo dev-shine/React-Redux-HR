@@ -90,3 +90,11 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+
+      - run:
+          name: upload Attendance Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/attendance/uploadAttendance.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots

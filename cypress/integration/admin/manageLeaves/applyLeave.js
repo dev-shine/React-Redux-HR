@@ -3,9 +3,10 @@ import {signin} from '../../../helper';
 import {urlVisited} from '../../../visitRoutes';
 
 describe('Test apply leave page', () => {
-  xit('left panel will have all users list', () => {
+  it('left panel will have all users list', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
+    cy.wait(3000);
     shouldBeVisible('.nav > #manage_leaves');
     click('.nav > #manage_leaves');
     shouldBeVisible('.nav-sub > #apply_leave');
@@ -13,9 +14,10 @@ describe('Test apply leave page', () => {
     shouldBeVisible('.app-body');
     shouldBeVisible('.app-body .padding');
   });
-  xit('clicking on any user on left panel and filling information on right side, click on apply button will apply leave', () => {
+  it('clicking on any user on left panel and filling information on right side, click on apply button will apply leave', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
+    cy.wait(3000);
     shouldBeVisible('.nav > #manage_leaves');
     click('.nav > #manage_leaves');
     shouldBeVisible('.nav-sub > #apply_leave');

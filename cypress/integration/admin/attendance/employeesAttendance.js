@@ -5,6 +5,7 @@ import {urlVisited} from '../../../visitRoutes';
 describe('Test employees attendance listing', () => {
   it('employees list is loaded on left side panel', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #monthly_attendance');
     click('.nav > #monthly_attendance');
@@ -17,6 +18,7 @@ describe('Test employees attendance listing', () => {
   });
   it('first employee attendance details are shown on right panel', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #monthly_attendance');
     click('.nav > #monthly_attendance');

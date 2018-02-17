@@ -5,6 +5,7 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 describe('Test view salary page', () => {
   it('api will be fired and will list all employees salary', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_salary').should('be.visible');
     cy.get('.nav > #manage_salary').click();
@@ -16,6 +17,7 @@ describe('Test view salary page', () => {
   });
   xit('search text box will filter the listing', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_salary').should('be.visible');
     cy.get('.nav > #manage_salary').click();

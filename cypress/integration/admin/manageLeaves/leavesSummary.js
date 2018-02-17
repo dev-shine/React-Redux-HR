@@ -5,6 +5,7 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 describe('Test leaves summary', () => {
   it('api will be fired and list all employees summary on page', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_leaves').should('be.visible');
     cy.get('.nav > #manage_leaves').click();

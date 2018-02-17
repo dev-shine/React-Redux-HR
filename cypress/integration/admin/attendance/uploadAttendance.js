@@ -5,6 +5,7 @@ import {urlVisited} from '../../../visitRoutes';
 describe('Test attendance upload page', () => {
   it('page load successfully', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #monthly_attendance');
     click('.nav > #monthly_attendance');

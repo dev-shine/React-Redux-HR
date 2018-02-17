@@ -11,6 +11,7 @@ const deleteTemplate = () => {
 describe('Test mail template page', () => {
   it('open page open will list all templates', () => {
     signin(user.admin);
+    cy.wait(4000);
     visitMailTemplates();
     cy.get('#templatesList, #templatesList div').should('be.visible');
   });

@@ -5,6 +5,7 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 describe('Test add variable', () => {
   it('open page open will list all variables', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');
     cy.get('.nav > #mail_templates').click();
@@ -15,6 +16,7 @@ describe('Test add variable', () => {
   });
   it('click on add new variable modal, submitting new variable form will list the newly added variable', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');
     cy.get('.nav > #mail_templates').click();
@@ -47,6 +49,7 @@ describe('Test add variable', () => {
   });
   it('delete on right side panel will reuslt to delete of variable', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #mail_templates').should('be.visible');
     cy.get('.nav > #mail_templates').click();

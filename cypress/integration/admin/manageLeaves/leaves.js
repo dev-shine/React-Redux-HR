@@ -5,6 +5,7 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 describe('Test leaves page', () => {
   it('api is fired to get leaves and will list under the 4 tabs', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_leaves');
     click('.nav > #manage_leaves');
@@ -17,6 +18,7 @@ describe('Test leaves page', () => {
   });
   it('every tab will have list of employees falls under that tab in left panel', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_leaves');
     click('.nav > #manage_leaves');
@@ -42,6 +44,7 @@ describe('Test leaves page', () => {
   });
   it('clicking any user on left panel will show respective leave detail on right panel', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_leaves');
     click('.nav > #manage_leaves');

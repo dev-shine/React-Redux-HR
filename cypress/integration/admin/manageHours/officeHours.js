@@ -4,6 +4,7 @@ import {urlVisited, visitOfficeHours} from '../../../visitRoutes';
 describe('Test office hours', () => {
   it('header title is Manage Working Hours', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     urlVisited(urls.baseUrl + urls.manageWorkingHours);
@@ -11,6 +12,7 @@ describe('Test office hours', () => {
   });
   it('is listing current month working hours', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     urlVisited(urls.baseUrl + urls.manageWorkingHours);
@@ -22,6 +24,7 @@ describe('Test office hours', () => {
   });
   it('clicking on next and previous month will show the respective month data, month name and year text will also change', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     wait(3000);
@@ -32,6 +35,7 @@ describe('Test office hours', () => {
   });
   it('clicking on Change To text box of any date will open a select box listing time', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     urlVisited(urls.baseUrl + urls.manageWorkingHours);
@@ -51,6 +55,7 @@ describe('Test office hours', () => {
   });
   it('on selecting time for any date text box value will be the opted time and Hours will also change to the opted value', () => {
     signin(user.admin);
+    cy.wait(4000);
     urlVisited(urls.baseUrl + urls.home);
     visitOfficeHours();
     click('#calendar #calendarDay:nth-child(1) .ui-timepicker-input');

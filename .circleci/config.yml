@@ -115,34 +115,34 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
 
-- run:
-    name: leave Test
-    command: $(npm bin)/cypress run --spec cypress/integration/admin/manageLeaves/leaves.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-- store_test_results:
-    path: results
-- store_artifacts:
-    path: cypress/screenshots
+      - run:
+          name: leave Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageLeaves/leaves.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
 
-- run:
-    name: leave Summary Test
-    command: $(npm bin)/cypress run --spec cypress/integration/admin/manageLeaves/leavesSummary.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-- store_test_results:
-    path: results
-- store_artifacts:
-    path: cypress/screenshots
+      - run:
+          name: leave Summary Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageLeaves/leavesSummary.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
 
-- run:
-    name: Add Variable Test
-    command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/addVariables.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-- store_test_results:
-    path: results
-- store_artifacts:
-    path: cypress/screenshots
+      - run:
+          name: Add Variable Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/addVariables.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
 
-- run:
-    name: mail templates Test
-    command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/mailTemplate.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-- store_test_results:
-    path: results
-- store_artifacts:
-    path: cypress/screenshots
+      - run:
+          name: mail templates Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/mailTemplate.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots

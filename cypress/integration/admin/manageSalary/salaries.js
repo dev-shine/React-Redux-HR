@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test salaries page', () => {
   xit('empoyees list will be visible on left side panel', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_salary').should('be.visible');

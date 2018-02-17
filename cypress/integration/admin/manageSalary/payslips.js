@@ -4,7 +4,6 @@ import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test payslips page', () => {
   xit('list all employees on left panel', () => {
-    visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     cy.get('.nav > #manage_salary').should('be.visible');

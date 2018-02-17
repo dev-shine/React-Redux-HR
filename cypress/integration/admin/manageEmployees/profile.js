@@ -3,7 +3,7 @@ import {signin} from '../../../helper';
 import {urlVisited} from '../../../visitRoutes';
 
 describe('Test profile page', () => {
-  it('employees list is loaded on left side panel', () => {
+  xit('employees list is loaded on left side panel', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_users');
@@ -15,7 +15,7 @@ describe('Test profile page', () => {
     shouldBeVisible('.app-body .padding');
     shouldBeVisible(' #userList');
   });
-  it('first employee profile details are shown on right panel', () => {
+  xit('first employee profile details are shown on right panel', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_users');
@@ -27,7 +27,7 @@ describe('Test profile page', () => {
     shouldBeVisible('.app-body .padding');
     shouldBeVisible(' #manage-user');
   });
-  it('add new employee form opens when click on Add New Employee button', () => {
+  xit('add new employee form opens when click on Add New Employee button', () => {
 
   });
 });

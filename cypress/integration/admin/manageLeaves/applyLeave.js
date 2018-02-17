@@ -3,7 +3,7 @@ import {signin} from '../../../helper';
 import {urlVisited} from '../../../visitRoutes';
 
 describe('Test apply leave page', () => {
-  it('left panel will have all users list', () => {
+  xit('left panel will have all users list', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_leaves');
@@ -13,7 +13,7 @@ describe('Test apply leave page', () => {
     shouldBeVisible('.app-body');
     shouldBeVisible('.app-body .padding');
   });
-  it('clicking on any user on left panel and filling information on right side, click on apply button will apply leave', () => {
+  xit('clicking on any user on left panel and filling information on right side, click on apply button will apply leave', () => {
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
     shouldBeVisible('.nav > #manage_leaves');

@@ -3,7 +3,7 @@ import {signin, signout, apiCall} from '../../../helper';
 import {urlVisited, visitIndexRoute} from '../../../visitRoutes';
 
 describe('Test payslips page', () => {
-  it('list all employees on left panel', () => {
+  xit('list all employees on left panel', () => {
     visitIndexRoute();
     signin(user.admin);
     urlVisited(urls.baseUrl + urls.home);
@@ -13,10 +13,10 @@ describe('Test payslips page', () => {
     cy.get('.nav-sub #manage_payslips').click();
     urlVisited(urls.baseUrl + urls.manageSalary);
   });
-  if ('clicking on an employee on right panel will open his salary details on right panel which will include Generate Payslip, Employee Actual Salary and Previous Payslips', () => {
+  xit('clicking on an employee on right panel will open his salary details on right panel which will include Generate Payslip, Employee Actual Salary and Previous Payslips', () => {
 
   });
-  if ('create payslip button will create salary slip and will add under previous payslip', () => {
+  xit('create payslip button will create salary slip and will add under previous payslip', () => {
 
   });
 });

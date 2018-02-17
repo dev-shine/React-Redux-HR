@@ -27,61 +27,6 @@ jobs:
             - node_modules
       - run: ss -lptn 'sport = :3000'
 
-      - run:
-          name: Login Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/login.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Login Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/dashboard.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Manage Role Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageRoles.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Uploaad Document Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/uploadDocuments.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Logout Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/logout.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: My Attendance Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/myattendance.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Menu Test
-          command: $(npm bin)/cypress run --spec cypress/integration/admin/menutest.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
 
       - run:
           name: Employee Attendance Test
@@ -108,8 +53,32 @@ jobs:
           path: cypress/screenshots
 
       - run:
+          name: profile Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageEmployees/profile.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
           name: office Hours Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/manageHours/officeHours.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: pending hours Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageHours/pendingHours.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: apply leave Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageLeaves/applyLeave.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
@@ -132,6 +101,30 @@ jobs:
           path: cypress/screenshots
 
       - run:
+          name: payslip Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageSalary/payslips.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: salaries Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageSalary/salaries.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: viewSalary Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageSalary/viewSalary.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
           name: Add Variable Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/addVariables.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
@@ -142,6 +135,71 @@ jobs:
       - run:
           name: mail templates Test
           command: $(npm bin)/cypress run --spec cypress/integration/admin/templates/mailTemplate.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: dashboard Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/dashboard.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: forgetpassword Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/forgetpassword.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+
+      - run:
+          name: Login Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/login.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Logout Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/logout.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Manage Role Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/manageRoles.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Menu Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/menutest.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: My Attendance Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/myattendance.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Uploaad Document Test
+          command: $(npm bin)/cypress run --spec cypress/integration/admin/uploadDocuments.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:

@@ -24,14 +24,14 @@ class LoginForm extends React.Component {
     return (
       <form name="form" onSubmit={this.doLogin}>
         <div className="md-form-group float-label">
-          <input type="text" className="md-input" required onChange={(e) => this.setState({form_login_username: e.target.value})} value={this.state.form_login_username} />
+          <input type="text" className="md-input" id='usernameInput' required onChange={(e) => this.setState({form_login_username: e.target.value})} value={this.state.form_login_username} />
           <label>Username</label>
         </div>
         <div className="md-form-group float-label">
-          <input type="password" className="md-input" required onChange={(e) => this.setState({form_login_password: e.target.value})} value={this.state.form_login_password} />
+          <input type="password" className="md-input" id='passwordInput' required onChange={(e) => this.setState({form_login_password: e.target.value})} value={this.state.form_login_password} />
           <label>Password</label>
         </div>
-        <Button type="submit" className="btn primary btn-block p-x-md" label="Sign in" />
+        <Button type="submit" className="btn primary btn-block p-x-md" id='loginButton' label="Sign in" />
       </form>
     );
   }

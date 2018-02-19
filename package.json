@@ -13,7 +13,9 @@
     "start:prod": "better-npm-run start:production",
     "deploy:prod": "better-npm-run deploy:production",
     "start": "npm run start:dev",
-    "eslint": "./node_modules/eslint/bin/eslint.js --fix src"
+    "eslint": "./node_modules/eslint/bin/eslint.js --fix src",
+    "postinstall": "npm rebuild node-sass",
+    "cypress": "cypress open"
   },
   "betterScripts": {
     "start:development": {
@@ -140,6 +142,7 @@
     "chai-enzyme": "^0.5.0",
     "cheerio": "^0.20.0",
     "codecov": "^1.0.1",
+    "cypress": "^2.0.0",
     "enzyme": "^2.0.0",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^5.1.0",

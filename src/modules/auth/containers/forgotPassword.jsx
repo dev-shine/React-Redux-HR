@@ -53,13 +53,14 @@ class ForgotPassword extends React.Component {
           <form name="form" onSubmit={this.doResetPassword}>
             <div className="md-form-group float-label">
               <input
+                id='forgotPasswordInput'
                 className="md-input"
                 required type="text"
                 onChange={(e) => this.setState({form_username: e.target.value})}
                 value={this.state.form_username} />
               <label>Enter Username</label>
             </div>
-            <Button type="submit" className="btn primary btn-block p-x-md" label="Reset Password" />
+            <Button type="submit" id="resetPasswordButton" className="btn primary btn-block p-x-md" label="Reset Password" />
           </form>
           <div className="m-b text-sm text-center">
             <br />

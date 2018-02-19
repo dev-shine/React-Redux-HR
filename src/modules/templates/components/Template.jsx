@@ -640,16 +640,16 @@ class Variables extends React.Component {
             <div className="col-md-12 col-sm-12 col-xs-12">
               <div className='row'>
                 <div className='col-md-12 col-sm-12 col-xs-12 m-t-xs'>
-                  <button className="md-btn md-raised m-b-sm indigo" onClick={this.openCreateTemplate}>Create New Template</button>
+                  <button className="md-btn md-raised m-b-sm indigo" id='createNewTemplate' onClick={this.openCreateTemplate}>Create New Template</button>
                 </div>
                 <div className='col-md-12 col-xs-12 col-sm-12' style={{paddingTop: '10px', paddingRight: '0px', textAlign: 'center'}}>
                   <div id="mailsentsuccessfully" className="alert alert-success pull-left error-alert-style">
                     <a href="#" className="close" onClick={(e) => this.hideError(e, 'mailsentsuccessfully')} aria-label="close">&times;</a>
                   </div>
                 </div>
-                <div className={this.state.paper} style={{'marginTop': '8%'}}>
+                <div className={this.state.paper} id='templatesList' style={{'marginTop': '8%'}}>
                   {_.map(this.props.templates.templates, (tmp, i) => (
-                    <div className="col-md-6 col-sm-6 col-xs-12 body-space" key={i}>
+                    <div className="col-md-6 col-sm-6 col-xs-12 body-space" id={`template-${i}`} key={i}>
                       <Paper zDepth={0} className="paper scroll" >
                         <div className="delete-style">
                           <span className="pull-right" style={{fontSize: '13px', fontStyle: 'italic', color: '#000', cursor: 'pointer', padding: '5px 10px'}} onClick={() => this.toggleDialog(tmp.id + '_menuBack', tmp.id + '_menu')}><i className="fa fa-ellipsis-v" aria-hidden="true"></i></span>

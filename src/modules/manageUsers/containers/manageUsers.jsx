@@ -52,7 +52,7 @@ class ManageUsers extends React.Component {
   }
   componentWillMount () {
     this.props.onUsersList();
-    this.props.onFetchTeam();
+    this.props.onFetchTeams();
   }
   componentWillReceiveProps (props) {
     let {route, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
@@ -186,7 +186,7 @@ class ManageUsers extends React.Component {
                     top={5} {...this.props}
                   />
                 </div>
-                <div className="col-md-10 col-sm-9 col-xs-12 p">
+                <div className="col-md-10 col-sm-9 col-xs-12 p" id="manage-user">
                   <div className="row emp-action-btn p-b">
                     <div className="add-new-emp">
                       <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee} />
@@ -307,8 +307,8 @@ const mapDispatchToProps = (dispatch) => {
     onUserManagePayslipsData: (userid) => {
       return dispatch(actionsManagePayslips.get_user_manage_payslips_data(userid));
     },
-    onFetchTeam: () => {
-      return dispatch(actions.requestGetTeam());
+    onFetchTeams: () => {
+      return dispatch(actions.requestTeamList());
     },
     onGetStages: (id) => {
       return dispatch(actionsManageUsers.getSteps(id));

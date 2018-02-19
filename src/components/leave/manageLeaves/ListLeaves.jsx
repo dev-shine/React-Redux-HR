@@ -41,7 +41,7 @@ const ListLeaves = ({listItems, selectedLeave, selectLeave}) => {
       selectedDivClass = 'yellow';
     }
     return (
-      <div key={key} className={`list-item pointer m-b b-l b-l-2x b-${leaveStatusColor} ${selectedDivClass}`} onClick={() => selectLeave(leave.id)}>
+      <div key={key} id={`leaveList${key}`} className={`list-item pointer m-b b-l b-l-2x b-${leaveStatusColor} ${selectedDivClass}`} onClick={() => selectLeave(leave.id)}>
         <div className="list-left">
           <span className="w-40 avatar">
             <img src={leave.user_profile_image} className="img-circle" />

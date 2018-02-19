@@ -5,7 +5,7 @@ import {CONFIG} from 'src/config/index';
 const LeaveColorReference = ({filterLeaveList, selectedTab, userRole}) => {
   if (userRole === CONFIG.ADMIN) {
     return (
-      <div className="row no-gutter m-b text-xs l-h-1x">
+      <div className="row no-gutter m-b text-xs l-h-1x" id="manage_leave_header">
         <div className="col-xs-6 col-sm-3 text-center leaves-tab" onClick={() => filterLeaveList('ApprovedByHr')} >
           <div className={'top-bar ' + (selectedTab === 'ApprovedByHr' ? 'active-tab' : '')}></div>
           <div className="p-a blue">
@@ -38,7 +38,7 @@ const LeaveColorReference = ({filterLeaveList, selectedTab, userRole}) => {
     );
   }
   return (
-    <div className="row no-gutter m-b text-xs l-h-1x">
+    <div className="row no-gutter m-b text-xs l-h-1x" id="leave_manage">
       <div className="col-xs-4 text-center" onClick={() => filterLeaveList('Pending')} >
         <div className={'top-bar ' + (selectedTab === 'Pending' ? 'active-tab' : '')} ></div>
         <div className="p-a blue">

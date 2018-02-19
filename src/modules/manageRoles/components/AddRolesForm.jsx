@@ -52,23 +52,29 @@ export default class AddRolesForm extends React.Component {
   }
   render () {
     let optionMenu = _.map(this.props.displayData.roles, (role, index) => (
-      <MenuItem key={index} value={role.id} primaryText={role.name} />
+      <div id={`${role.name}_list`} key={index}>
+        <MenuItem key={index} value={role.id} primaryText={role.name} />
+      </div>
     ));
     return (
-      <div className="col-sm-12 p-y">
-        <Button className="btn-fw info" onClick={this.handleOpen} label="Add New Role" />
+      <div className="col-sm-12 p-y" id="role_button">
+        <Button className="btn-fw info" id="add_role" onClick={this.handleOpen} label="Add New Role" />
         <Dialog
+          id="add_role_dialog"
           title="Add Role"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
           contentClassName="dialog-add-role"
           autoScrollBodyContent><br />
-          <SelectField fullWidth value={this.state.baseRoleId} onChange={(event, index, value) => { this.setState({baseRoleId: value}); }}>
+          <SelectField fullWidth id="role_selector" value={this.state.baseRoleId} onChange={(event, index, value) => { this.setState({baseRoleId: value}); }}>
             <MenuItem value={''} primaryText=" Select Base Role " />
-            {optionMenu}
+            <div id="role_list">
+              {optionMenu}
+            </div>
           </SelectField>
           <TextField
+            id="role_name"
             floatingLabelText="Name"
             floatingLabelFixed fullWidth
             onChange={(e) => (this.setState({name: e.target.value}))}
@@ -76,13 +82,14 @@ export default class AddRolesForm extends React.Component {
             errorText={this.state.error.name}
           />
           <TextField
+            id="role_desc"
             floatingLabelText="Description"
             floatingLabelFixed fullWidth
             onChange={(e) => (this.setState({description: e.target.value}))}
             value={this.state.description}
             errorText={this.state.error.description}
           />
-          <ButtonRaised className="col-md-12 m-y-sm indigo" onClick={() => this.handleSubmit()} label={'Submit New Role'} />
+          <ButtonRaised className="col-md-12 m-y-sm indigo" id="role_submit_button" onClick={() => this.handleSubmit()} label={'Submit New Role'} />
         </Dialog>
       </div>
     );

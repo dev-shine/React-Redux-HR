@@ -79,7 +79,7 @@ class SalaryList extends React.Component {
           <div className="col-md-6 p-r">
             <div className="form-group">
               <label style={{'fontSize': 15}}>Search:</label>
-              <input type="text" className="form-control" ref="search" onChange={() => this.search(this.refs.search.value)} />
+              <input type="text" id="search-form" className="form-control" ref="search" onChange={() => this.search(this.refs.search.value)} />
             </div>
           </div>
         </div>

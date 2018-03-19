@@ -11,17 +11,18 @@ class SalaryList extends React.Component {
     };
     this.search = this.search.bind(this);
   }
+
   search (searchValue) {
-    if (searchValue !== 'null' && searchValue !== '') {
+    if (searchValue !== 'null' && searchValue !== '' && !_.isEmpty(searchValue)) {
       var emps = [];
       _.forEach(this.props.empList, function (emp, i) {
-        if ((emp.empName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.designation.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.salary.indexOf(searchValue) !== -1) ||
-         (emp.dateOfJoining.indexOf(searchValue) !== -1) ||
-         (emp.noOfDaysSinceJoined.indexOf(searchValue) !== -1) ||
-         (emp.preSalaryIncDetail.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.nextSallaryInc.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)) {
+        if ((emp.empName !== null && emp.empName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (emp.designation !== null && emp.designation.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (emp.salary.toString().indexOf(searchValue.toString()) !== -1) ||
+         (emp.dateOfJoining !== null && emp.dateOfJoining.toString().indexOf(searchValue.toString()) !== -1) ||
+         (emp.noOfDaysSinceJoined !== null && emp.noOfDaysSinceJoined.toString().indexOf(searchValue.toString()) !== -1) ||
+         (emp.preSalaryIncDetail !== null && emp.preSalaryIncDetail.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (emp.nextSallaryInc !== null && emp.nextSallaryInc.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)) {
           emps.push({
             'image':               emp.image,
             'empName':             emp.empName,

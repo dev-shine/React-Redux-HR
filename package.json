@@ -142,7 +142,6 @@
     "chai-enzyme": "^0.5.0",
     "cheerio": "^0.20.0",
     "codecov": "^1.0.1",
-    "cypress": "^2.0.0",
     "enzyme": "^2.0.0",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^5.1.0",

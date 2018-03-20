@@ -277,7 +277,7 @@ class InventoryList extends React.Component {
           </ul>
         </td>
 
-        {role ==='Admin' ? <td className="tdAlign row" style={{marginTop: '5%'}}>
+        {role === CONFIG.ADMIN ? <td className="tdAlign row" style={{marginTop: '5%'}}>
           <i className="fa fa-lg fa-pencil-square-o" aria-hidden="false" style={{color: '#3f51b5', cursor: 'pointer'}}
             onClick={(e) => {
               e.nativeEvent.stopImmediatePropagation();
@@ -367,7 +367,7 @@ class InventoryList extends React.Component {
                           <th>Name</th>
                           <th>Informations</th>
                           <th>Status/Commments</th>
-                          {role === 'Admin' ? <th>Actions</th> : null}
+                          {role === CONFIG.ADMIN ? <th>Actions</th> : null}
                         </tr>
                       </thead>
                       <tbody>

@@ -60,7 +60,6 @@ class InventoryList extends React.Component {
         openSnackbar: false
       });
     }
-    console.log(localStorage.userToken)
     this.setState({
       deviceTypeList:   props.manageDevice.deviceList,
       deviceList:       props.manageDevice.device,

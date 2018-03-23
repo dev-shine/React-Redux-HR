@@ -39,13 +39,10 @@ class InventorySystem extends React.Component {
       user_profile_detail: {},
       user_assign_machine: [],
       getByIdData:         {},
-      inventoryItem:       '',
-      inventoryItemName:       '' 
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
     this.openEditDevice = this.openEditDevice.bind(this);
-    this.handleInventory = this.handleInventory.bind(this);
     this.handleAddDialog = this.handleAddDialog.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.deleteDevices = this.deleteDevices.bind(this);
@@ -149,9 +146,7 @@ class InventorySystem extends React.Component {
       });
     }
   }
-  handleInventory (device) {
-    console.log(device.id,"==", device.machine_name)
-  }
+  
 
   openEditDevice (id) {
     this.props.onGetDeviceById(id).then((val) => {

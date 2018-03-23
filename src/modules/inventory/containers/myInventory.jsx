@@ -16,7 +16,7 @@ class MyInventory extends React.Component {
     this.state = {
       status_message:      '',
       user_profile_detail: {},
-      user_assign_machine: []
+      user_assign_machine: [],
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
@@ -42,7 +42,7 @@ class MyInventory extends React.Component {
   render () {
     return (
       <div>
-        <Menu {...this.props} />
+          <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'My Inventory'} {...this.props} />
           <div className="app-body" id="view">
@@ -61,7 +61,7 @@ class MyInventory extends React.Component {
               />
             </div>
           </div>
-        </div>
+        </div> 
       </div>
     );
   }

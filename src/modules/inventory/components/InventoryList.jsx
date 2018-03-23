@@ -4,7 +4,7 @@ import {notify, confirm} from 'src/services/notify';
 import {getLowerCase , getLoggedUser} from 'src/services/generic';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
-import {CONFIG} from 'config'
+import {CONFIG} from 'config';
 var moment = require('moment');
 
 class InventoryList extends React.Component {
@@ -27,7 +27,6 @@ class InventoryList extends React.Component {
       statusList:       [],
       deviceVal:        ''
     };
-
     this.openEditDevice = this.openEditDevice.bind(this);
     this.deleteDevices = this.deleteDevices.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
@@ -228,7 +227,7 @@ class InventoryList extends React.Component {
       if (rowColorData.length > 0) {
         rowColor = rowColorData[0].color;
       }
-      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
+      rows.push(<tr onClick={() => this.props.handleInventory(device)} key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
         <td style={{marginRight: '0%', width: '5%'}}>{i + 1}</td>
         <td style={{marginRight: '0%', width: '16%'}}>
           {device.machine_type}

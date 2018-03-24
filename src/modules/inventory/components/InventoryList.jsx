@@ -187,6 +187,7 @@ class InventoryList extends React.Component {
 
   handleInventory (device) {
     this.props.router.push(`inventory_system/${device.id}`)
+
   }
 
   handleStatusTypeFilter (statusType) {
@@ -310,9 +311,9 @@ class InventoryList extends React.Component {
                     <select className="form-control"
                       ref="device_type"
                       value={this.state.search}
-                      onChange={(e) => {
-                        this.props.deviceTypeData(e.target.value);
-                      }}>
+                      onChange={(e) => 
+                        this.props.deviceTypeData(e.target.value)
+                        }>
                       <option value="">--Select Device Type--</option>
                       {listDrop}
                     </select>

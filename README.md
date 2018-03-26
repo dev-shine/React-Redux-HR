@@ -43,7 +43,7 @@ $ npm run deploy:prod
 
 ```
 $ npm run cypress
-``
+```
 
 ## Application Structure
 

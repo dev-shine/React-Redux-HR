@@ -200,3 +200,4 @@ It is to test every page(route) as a user by Automation testing.
 run test through UI in default browser.
 
 ```
+**NOTE:** Every Time a PR is created circleci must pass the test.

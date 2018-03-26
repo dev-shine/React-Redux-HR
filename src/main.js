@@ -92,7 +92,7 @@ let render = (routerKey = null) => {
             <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
             <Route path="manage_user_pending_hours" component={Page_ManageUserPendingHours} />
             <Route path="leaves_summary" component={Page_LeavesSummary} />
-            <Route path="salary" component={Page_Salary} />
+              <Route path="salary" component={Page_Salary} />
             <Route path="manage_salary" component={Page_ManageSalary} />
             <Route path="my_profile" component={Page_MyProfile} />
             <Route path="my_inventory" component={Page_MyInventory} />

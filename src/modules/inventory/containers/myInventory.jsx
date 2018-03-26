@@ -9,18 +9,24 @@ import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
 import * as actions from 'appRedux/actions';
+import UnassignDevice from 'modules/inventory/components/UnassignDevice'
 
 class MyInventory extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       status_message:      '',
+      openUnassigned:      false,
       user_profile_detail: {},
       user_assign_machine: [],
+      device:              []
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
+    this.unassignDevice = this.unassignDevice.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
+  
   componentWillMount () {
     this.props.onMyProfileDetails();
   }
@@ -36,6 +42,19 @@ class MyInventory extends React.Component {
   callUpdateUserDeviceDetails (newDeviceDetails) {
     this.props.onUpdateDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
       notify('Error', error, 'error');
+    });
+  }
+  unassignDevice (val) {
+    this.setState({
+      openUnassigned: true,
+      status_message: '',
+      device:         val
+    });
+  }
+  handleClose () {
+    this.setState({
+      openUnassigned: false,
+      status_message: '',
     });
   }
 
@@ -56,11 +75,20 @@ class MyInventory extends React.Component {
                 />
               </div>
               <DeviceDetails
+                unassignDevice={this.unassignDevice}
                 userAssignMachine={this.state.user_assign_machine}
                 callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
               />
             </div>
+            <UnassignDevice 
+              handleClose={this.handleClose}
+              open={this.state.openUnassigned}
+              device={this.state.device}
+            /> 
           </div>
+          <AssignDevice 
+            
+          />
         </div> 
       </div>
     );

@@ -43,7 +43,6 @@ class ManagePayslips extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
@@ -118,7 +117,7 @@ class ManagePayslips extends React.Component {
   }
 
   callCreateUserPayslip (payslipData, evt) {
-    // evt.preventDefault();
+    evt.preventDefault();
     this.props.onCreateUserPayslip(payslipData).then((data) => {
       this.onUserClick(this.state.selected_user_id);
     }, (error) => {

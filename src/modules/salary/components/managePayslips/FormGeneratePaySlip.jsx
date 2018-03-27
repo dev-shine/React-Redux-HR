@@ -515,7 +515,7 @@ class FormGeneratePaySlip extends React.Component {
 
           <div className="row  p-t">
             <div className="col-xs-4 p-r">
-              <input type="submit" value="Create Payslip" className="col-xs-12 md-btn md-raised indigo" onClick={(e)=>e.preventDefault()}/>
+              <input type="submit" value="Create Payslip" className="col-xs-12 md-btn md-raised indigo"/>
             </div>
             <div className="col-xs-4 p-r">
               <button type="button" className="col-xs-12 md-btn md-raised info" onClick={() => {

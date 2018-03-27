@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, top}) => {
   const userClick = (param) => {
     onUserClick(param);
-    header && $('#user-list-header').modal('hide');
+    header && $('#user-list-header').modal('hide'); 
   };
   $(window).scroll(function () {
     let scrollAmount = $(document).scrollTop();
@@ -55,7 +55,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
     <div id="userListWrapper" className="row">
       <div className="col-sm-12">
         <div className="list-box">
-          <div className={'user-list-container ' + (!header && 'p-r-8')} id="userList">
+          <div className='' id="userList">
             <ul className="box list no-border p-b">
               {usersList}
             </ul>

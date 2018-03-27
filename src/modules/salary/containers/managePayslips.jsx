@@ -123,7 +123,7 @@ class ManagePayslips extends React.Component {
     }, (error) => {
       notify(error);
     });
-  }
+  } 
 
   callMonthlyPayslip (userid, year, month) {
     this.setState({year: year, month: month});

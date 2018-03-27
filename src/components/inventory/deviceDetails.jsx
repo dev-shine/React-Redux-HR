@@ -13,7 +13,7 @@ const DeviceDetails = ({userAssignMachine, unassignDevice}) => {
       <td>{val.mac_address}</td>
       <td>{val.serial_number}</td>
       <td>{val.assign_date}</td>
-      <td><i className="fa fa-lg fa fa-trash" onClick={() => unassignDevice(val)} aria-hidden="true" style={{color: "rgb(183, 28, 28)",textAlign:"center", cursor: "pointer"}}></i></td>
+      <td style={{textAlign:"center"}}><i className="fa fa-lg fa fa-trash" onClick={() => unassignDevice(val)} aria-hidden="true" style={{color: "rgb(183, 28, 28)",textAlign:"center", cursor: "pointer"}}></i></td>
     </tr>);
   });
   if (_.isEmpty(machineList)) {
@@ -34,7 +34,7 @@ const DeviceDetails = ({userAssignMachine, unassignDevice}) => {
               <th>Mac Address</th>
               <th>Serial Number</th>
               <th>Assign Date</th>
-              <th>Unassign</th>
+              <th style={{textAlign:"center"}}>Unassign</th>
             </tr>
           </thead>
           <tbody>

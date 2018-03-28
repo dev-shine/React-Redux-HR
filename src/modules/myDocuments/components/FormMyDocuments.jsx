@@ -3,17 +3,21 @@ import {CONFIG} from 'src/config/index';
 import {notify} from 'src/services/notify';
 import {getToken} from 'src/services/generic';
 import ListDocuments from 'components/myDocuments/ListDocuments';
+import ImageCompressor from 'image-compressor.js';
 
 class FormMyDocuments extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       doc_type:   '',
-      user_token: ''
+      user_token: '',
+      file:[]
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount () {
     this.toggleCollapse();
@@ -24,6 +28,43 @@ class FormMyDocuments extends React.Component {
       user_token: getToken()
     });
   }
+  handleFileChange(e){
+    console.log(Array.from(e.target.files));
+    this.setState({file:Array.from(e.target.files)});
+  }
+  handleSubmit(e){
+    e.preventDefault();
+    console.log(this.state.file);
+    const file = this.state.file[0];  
+    if(!file) return;
+    // const formData = new FormData();
+    // fetch(CONFIG.upload_url, {method : "POST",body : formData}).then((data)=>{console.log(data);
+    //   console.log("success")});
+  
+      
+    new ImageCompressor(file, {
+      quality: 0.6,
+      success(result) {
+        const formData = new FormData();
+        console.log(formData);
+       
+        formData.append('file', result, result.name);
+        formData.append('sadsad','sadsadas')
+        console.log('file', result, result.name)
+        console.log(formData);
+        console.log(dafsasda)
+        // console.log(formData.file);
+        // Send the compressed image file to server with XMLHttpRequest.
+        fetch(CONFIG.upload_url, {method : "POST",body : result}).then((data)=>{console.log(data);
+          console.log("success")});
+      },
+      error(e) {
+        console.log(e.message);
+      },
+    });
+
+  }
+
   callUpdateDocuments (e) {
     let type = this.state.doc_type;
     let link1 = this.refs.file.value;
@@ -60,6 +101,7 @@ class FormMyDocuments extends React.Component {
     }
   }
   render () {
+    console.log(this.state)
     let userId = this.props.user_id;
     let pageUrl = window.location.href;
     return (
@@ -67,7 +109,10 @@ class FormMyDocuments extends React.Component {
         <div className="col-sm-6 p-x-md">
           <h6 id="uploadMyDoc" className="text-center pointer" data-toggle="collapse" data-target="#uploadDoc">Upload New Documents</h6>
           <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
-            <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
+            <form 
+            onSubmit = {this.handleSubmit}
+            // action={CONFIG.upload_url} method="POST" 
+            encType="multipart/form-data">
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
                 <select className="form-control" ref="doc_type" onChange={() => this.setState({doc_type: this.refs.doc_type.value})} value={this.state.doc_type} >
@@ -92,7 +137,7 @@ class FormMyDocuments extends React.Component {
               <input type="hidden" name="page_url" value={pageUrl} />
               <div className="form-group">
                 <label className="col-sm-12">Attachment </label>
-                <input type="file" className="form-control" ref="file" name="link_1" />
+                <input type="file" className="form-control" ref="file" name="link_1" multiple='multiple' onChange = {this.handleFileChange}/>
               </div>
               <div className="form-group col-sm-12">
                 <input type="checkbox" ref="declear" className="vertical-middle" />

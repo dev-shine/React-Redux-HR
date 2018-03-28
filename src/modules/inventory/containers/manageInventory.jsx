@@ -238,7 +238,7 @@ class InventorySystem extends React.Component {
                     </ul>
                   </div>
                 </div>
-                <div className="col-md-offset-10" style={{marginTop: '2%'}}>
+                <div className="col-md-offset-6" style={{marginTop: '2%'}}>
                   {this.state.firstArrow === 'show'
                     ? <FormAddNewInventory
                       deviceId={this.state.id}

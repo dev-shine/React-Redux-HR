@@ -1,5 +1,7 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
+import queue from 'async/queue';
+
 import {fireAjax} from 'src/services/index';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 var moment = require('moment');
@@ -460,28 +462,32 @@ function successGetStep (data) {
 function errorGetStep (data) {
   return createAction(constants.ACTION_ERROR_GET_STEPS)(data);
 }
-function asyncGetSteps (userid) {
-  return fireAjax('POST', '', {
+
+
+var callApiSteps = queue(function (userid,dispatch,callback) {
+   return fireAjax('POST', '', {
     'action': 'get_employee_life_cycle',
     'userid': userid
-  });
-}
+  }).then( (json) => {
+    if (json.error == 0) {
+      dispatch(successGetStep(json.data));
+    } else {
+      reject(json.data.message);
+      dispatch(errorGetStep());
+    }
+  })
+  callback(json);
+}, 1);
+
 
 export function getSteps (userid) {
   return function (dispatch, getState) {
     return new Promise((resolve, reject) => {
-      asyncGetSteps(userid).then((json) => {
-        if (json.error == 0) {
-          resolve(json.message);
-          dispatch(successGetStep(json.data));
-        } else {
-          reject(json.data.message);
-          dispatch(errorGetStep(json.data.message));
-        }
-      }, (error) => {
-        reject('error occurs!!');
-      });
-    });
+        callApiSteps.push(userid, dispatch, function(err) {    
+                  }, (error) => {
+          reject('error occurs!!');
+        });
+      })
   };
 }
 
@@ -498,7 +504,7 @@ function asyncChangeSteps (userid, stepid) {
     'userid': userid,
     'stepid': stepid
   });
-}
+};
 
 export function changeSteps (userid, stepid) {
   return function (dispatch, getState) {
@@ -506,8 +512,6 @@ export function changeSteps (userid, stepid) {
       asyncChangeSteps(userid, stepid).then((json) => {
         if (json.error == 0) {
           resolve(json.data.message);
-          dispatch(getSteps(userid));
-          // dispatch(successEmployeeStep(json.data));
         } else {
           reject(json.data.message);
           dispatch(errorEmployeeStep(json.data.message));

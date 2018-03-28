@@ -24,6 +24,7 @@ const EmployeeLifeCycle = ({employee_life_cycle, handleChangeSteps}) => {
               value={!!step.status}
               onToggle={() => {
                 handleChangeSteps(step.id);
+                console.log(step.id)
               }}
             />
           </span>

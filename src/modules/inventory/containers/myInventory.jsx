@@ -9,18 +9,28 @@ import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
 import * as actions from 'appRedux/actions';
+import UnassignDevice from 'modules/inventory/components/UnassignDevice'
+import AssignDevice from 'modules/inventory/components/AssignDevice'
 
 class MyInventory extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
+    this.state = {    
       status_message:      '',
+      openUnassigned:      false,
+      openAssigned:       false,
       user_profile_detail: {},
-      user_assign_machine: []
+      user_assign_machine: [],
+      device:              []
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
+    this.unassignDevice = this.unassignDevice.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleAddDialog = this.handleAddDialog.bind(this);
+    this.handleCloseAssign = this.handleCloseAssign.bind(this);
   }
+  
   componentWillMount () {
     this.props.onMyProfileDetails();
   }
@@ -38,11 +48,36 @@ class MyInventory extends React.Component {
       notify('Error', error, 'error');
     });
   }
+  unassignDevice (val) {
+    this.setState({
+      openUnassigned: true,
+      status_message: '',
+      device:         val
+    });
+  }
+  handleClose () {
+    this.setState({
+      openUnassigned: false,
+      status_message: '',
+    });
+  }
+  handleCloseAssign(){
+    this.setState({
+      openAssigned:   false,
+      status_message: '',
+    });
+  }
+  handleAddDialog () {
+    this.setState({
+      openAssigned:   true,
+      status_message: '',
+    });
+  }
 
   render () {
     return (
       <div>
-        <Menu {...this.props} />
+          <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'My Inventory'} {...this.props} />
           <div className="app-body" id="view">
@@ -55,13 +90,24 @@ class MyInventory extends React.Component {
                   inventory
                 />
               </div>
+              <AssignDevice 
+                handleCloseAssign={this.handleCloseAssign}
+                openAssign={this.state.openAssigned}
+                handleAddDialog={this.handleAddDialog}
+              />
               <DeviceDetails
+                unassignDevice={this.unassignDevice}
                 userAssignMachine={this.state.user_assign_machine}
                 callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
               />
             </div>
+              <UnassignDevice 
+                handleClose={this.handleClose}
+                open={this.state.openUnassigned}
+                device={this.state.device}
+              /> 
           </div>
-        </div>
+        </div> 
       </div>
     );
   }

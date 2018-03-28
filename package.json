@@ -50,6 +50,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.6.0",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
@@ -66,6 +67,7 @@
     "bootstrap-toggle": "^2.2.2",
     "css-loader": "^0.23.0",
     "cssnano": "^3.3.2",
+    "cypress": "^2.1.0",
     "debug": "^2.2.0",
     "draft-js": "^0.9.1",
     "extract-text-webpack-plugin": "^2.1.2",
@@ -142,7 +144,6 @@
     "chai-enzyme": "^0.5.0",
     "cheerio": "^0.20.0",
     "codecov": "^1.0.1",
-    "cypress": "^2.0.0",
     "enzyme": "^2.0.0",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^5.1.0",

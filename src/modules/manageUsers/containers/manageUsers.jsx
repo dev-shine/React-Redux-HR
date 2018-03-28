@@ -176,7 +176,7 @@ class ManageUsers extends React.Component {
           <Header pageTitle={'Manage Employees Profile'} showLoading={this.props.frontend.show_loading} userListHeader />
           <UsersListHeader users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
-            <div className="padding">
+             <div className="padding">
               <div className="row">
                 <div className="col-md-2 col-sm-3 hidden-xs" id="fixedScroll">
                   <UsersList
@@ -250,7 +250,7 @@ class ManageUsers extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-date-picker/index.css';
 import Dialog from 'material-ui/Dialog';
 import {DateField} from 'react-date-picker';
+import PropTypes from 'prop-types';
 import {notify} from 'src/services/notify';
 import TextField from 'material-ui/TextField';
 import * as actions from 'appRedux/actions';
@@ -12,17 +13,22 @@ export default class UnassignDevice extends React.Component{
     constructor (props){
         super(props);
         this.state = {
-            comment:""
+            comment:      "",
+            serial_number:"",
+            user_Id:      "",
           };
           this.handleAddUserComment = this.handleAddUserComment.bind(this);
     }
 
     handleAddUserComment () {
-        
+        let {serial_number , comment, user_Id} = this.state;
+        this.props.callAddUserComment({ serial_number, comment, user_Id});
     }
     handleChange  = (e) => {
         this.setState({
-            comment: e.target.value
+            user_Id: this.props.user_Id,
+            comment: e.target.value,
+            serial_number: this.props.device.serial_number
         });
     }
     
@@ -94,6 +100,13 @@ export default class UnassignDevice extends React.Component{
         )
     }
 }
+
+UnassignDevice.PropTypes = {
+    displayData: PropTypes.shape({
+      roles: PropTypes.Array
+    }).isRequired,
+    callAddUserComment: PropTypes.func.isRequired
+  };
 
 
 

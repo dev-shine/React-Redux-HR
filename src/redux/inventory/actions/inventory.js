@@ -538,27 +538,63 @@ export function deviceCount () {
   };
 }
 
+
+
+export function errorAddUserComment (data) {
+  return createAction(constants.ACTION_ERROR_ADD_USER_COMMENT)(data);
+}
+
 export function successAddUserComment (data) {
   return createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT)(data);
 }
 
-function getAsyncAddUserComment (){
+function asyncAddUserComment (comment, serial_number, user_Id){
   return fireAjax('POST', '', {
-    'action': 'add_user_comment'
+    'action':       'add_user_comment',
+    'comment':      comment,
+    'serial_number':serial_number,
+    'user_Id':      user_Id,
   });
 }
 
-export function addUserComment () {
+export function addUserComment (new_comment) {
   return (dispatch, getState) => {
+
+    let comment = '';
+    let serial_number = '';
+    let user_Id = '';
+
+    if (typeof new_comment.comment === 'undefined' || new_comment.comment == '') {
+      return Promise.reject('comment is empty');
+    } else {
+      comment = new_comment.comment;
+    }
+
+    if (typeof new_comment.serial_number === 'undefined' || new_comment.serial_number == '') {
+      return Promise.reject('serial_number is empty');
+    } else {
+      serial_number = new_comment.serial_number;
+    }
+    
+    if (typeof new_comment.user_Id === 'undefined' || new_comment.user_Id == '') {
+      return Promise.reject('user_Id is empty');
+    } else {
+      user_Id = new_comment.user_Id;
+    }
+
     return new Promise(function (resolve, reject){
       dispatch(show_loading());
-      return getAsyncAddUserComment().then((res) => {
+      return asyncAddUserComment(comment, serial_number, user_Id).then((json) => {
         dispatch(hide_loading());
-        resolve(res.data);
-        dispatch(successAddUserComment(res.data));
+        if(json.error==0){
+          dispatch(successAddUserComment(json.message));
+        }else{
+          dispatch(errorAddUserComment(json.message))
+        }
       }, (error) => {
         dispatch(hide_loading());
-        reject(error);
+        dispatch(errorAddUserComment('error occurs!!!'));
+        reject('error occurs!!');
       });
     });
   };

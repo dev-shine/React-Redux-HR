@@ -30,11 +30,11 @@ class MyInventory extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleAddDialog = this.handleAddDialog.bind(this);
     this.handleCloseAssign = this.handleCloseAssign.bind(this);
+    this.callAddUserComment = this.callAddUserComment.bind(this);
   }
   
   componentWillMount () {
     this.props.onMyProfileDetails();
-    this.props.onAddUserComment();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -75,6 +75,13 @@ class MyInventory extends React.Component {
       status_message: '',
     });
   }
+  callAddUserComment (addUserCommentDetails) {
+    this.props.onAddUserComment(addUserCommentDetails);
+    this.setState({
+      openUnassigned: false,
+      status_message: '',
+    })
+  }
 
   render () {
     return (
@@ -104,6 +111,8 @@ class MyInventory extends React.Component {
               />
             </div>
               <UnassignDevice 
+                callAddUserComment={this.callAddUserComment}
+                user_Id={this.state.user_profile_detail.user_Id}
                 handleClose={this.handleClose}
                 open={this.state.openUnassigned}
                 device={this.state.device}
@@ -133,14 +142,12 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateDeviceDetails: (newDeviceDetails) => {
       return dispatch(actionsMyProfile.updateUserDeviceDetails(newDeviceDetails));
     },
-    onAddUserComment: () => {
-      return dispatch(actionsManageDevice.addUserComment());
+    onAddUserComment: (addUserCommentDetails) => {
+      return dispatch(actionsManageDevice.addUserComment(addUserCommentDetails));
     }
   };
 };
 
-const VisibleMyInventory = connect(mapStateToProps, mapDispatchToProps)(MyInventory);
-
-const RouterVisibleMyInventory = withRouter(VisibleMyInventory);
+const RouterVisibleMyInventory = withRouter(connect(mapStateToProps, mapDispatchToProps)(MyInventory));
 
 export default RouterVisibleMyInventory;

@@ -35,7 +35,9 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
     return state.set('statusList', action.payload);
   } else if (action.type === 'ACTION_SUCCESS_ADD_USER_COMMENT') {
     return state.set('comment', action.payload);
-  } else {
+  } else if (action.type === 'ACTION_ERROR_ADD_USER_COMMENT') {
+    return state.set('comment', action.payload);
+  }else {
     return state;
   }
 }

@@ -34,28 +34,35 @@ class FormMyDocuments extends React.Component {
   }
   handleSubmit(e){
     e.preventDefault();
-    console.log(this.state.file);
     const file = this.state.file[0];  
     if(!file) return;
-    // const formData = new FormData();
-    // fetch(CONFIG.upload_url, {method : "POST",body : formData}).then((data)=>{console.log(data);
-    //   console.log("success")});
+    let quality;
+    switch (file.size) {
+      case (file.size<5000000 && file.size >= 4000000):
+        quality = 0.1
+        break;
+      case (file.size < 4000000 && file.size >=3500000 ) :
+      quality = 0.3;
+      break;
+      case  (file.size < 3500000 && file.size >= 3000000):
+      quality = 0.4;
+    
+      default:
+      quality = 0.6
+        break;
+    }
   
       
     new ImageCompressor(file, {
-      quality: 0.6,
+      quality: quality,
       success(result) {
         const formData = new FormData();
-        console.log(formData);
        
         formData.append('file', result, result.name);
-        formData.append('sadsad','sadsadas')
         console.log('file', result, result.name)
         console.log(formData);
-        console.log(dafsasda)
-        // console.log(formData.file);
         // Send the compressed image file to server with XMLHttpRequest.
-        fetch(CONFIG.upload_url, {method : "POST",body : result}).then((data)=>{console.log(data);
+        fetch(CONFIG.upload_url, {method : "POST",body : formData}).then((data)=>{console.log(data);
           console.log("success")});
       },
       error(e) {
@@ -68,6 +75,7 @@ class FormMyDocuments extends React.Component {
   callUpdateDocuments (e) {
     let type = this.state.doc_type;
     let link1 = this.refs.file.value;
+    let file = this.state.file[0];
     let stop = false;
     if (type === '') {
       stop = true;
@@ -78,6 +86,10 @@ class FormMyDocuments extends React.Component {
     } else if (this.refs.declear.checked !== true) {
       stop = true;
       notify('Warning!', 'Mark declearation before submit', 'warning');
+    }
+    else if (file.size > 5000000) {
+      stop = true;
+      notify('Warning!', 'File size must be less than 5mb', 'warning');
     }
     if (stop) {
       e.preventDefault();
@@ -101,7 +113,7 @@ class FormMyDocuments extends React.Component {
     }
   }
   render () {
-    console.log(this.state)
+    console.log(this.props)
     let userId = this.props.user_id;
     let pageUrl = window.location.href;
     return (

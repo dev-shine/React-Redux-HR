@@ -46,9 +46,7 @@ class MyInventory extends React.Component {
   }
 
   callUpdateUserDeviceDetails (newDeviceDetails) {
-    this.props.onUpdateDeviceDetails(newDeviceDetails).then((data) => {}, (error) => {
-      notify('Error', error, 'error');
-    });
+    this.props.onUpdateDeviceDetails(newDeviceDetails);
   }
   unassignDevice (val) {
     this.setState({
@@ -76,11 +74,13 @@ class MyInventory extends React.Component {
     });
   }
   callAddUserComment (addUserCommentDetails) {
-    this.props.onAddUserComment(addUserCommentDetails);
+    this.props.onAddUserComment(addUserCommentDetails).catch((error) => {
+      notify('Error !', error, 'error');
+    });
     this.setState({
       openUnassigned: false,
       status_message: '',
-    })
+    });
   }
 
   render () {

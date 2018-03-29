@@ -1,5 +1,6 @@
 import {createAction} from 'redux-actions';
 import {fireAjax} from 'src/services/index';
+import {notify} from 'src/services/notify'; 
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
 // -------add New machine
@@ -588,13 +589,15 @@ export function addUserComment (new_comment) {
         dispatch(hide_loading());
         if(json.error==0){
           dispatch(successAddUserComment(json.message));
+          notify('Success !','Comment added to unassign device','success');
         }else{
           dispatch(errorAddUserComment(json.message))
+          notify('Error !',error,'error');
         }
       }, (error) => {
         dispatch(hide_loading());
         dispatch(errorAddUserComment('error occurs!!!'));
-        reject('error occurs!!');
+        notify('Error !',error,'error');
       });
     });
   };

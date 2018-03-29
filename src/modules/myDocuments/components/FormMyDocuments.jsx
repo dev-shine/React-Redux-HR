@@ -47,26 +47,22 @@ class FormMyDocuments extends React.Component {
       });
     } else {
       let quality;
-      switch (file.size) {
-        case file.size < 5000000 && file.size >= 4000000:
-          quality = 0.1;
-          break;
-        case file.size < 4000000 && file.size >= 3500000:
-          quality = 0.3;
-          break;
-        case file.size < 3500000 && file.size >= 3000000:
-          quality = 0.4;
 
-        default:
-          quality = 0.6;
-          break;
+      if (file.size <= 5300000 && file.size >= 4000000) {
+        quality = 0.1;
+      } else if (file.size < 4000000 && file.size >= 3500000) {
+        quality = 0.3;
+      } else if (file.size < 3500000 && file.size >= 3000000) {
+        quality = 0.4;
+      } else if (file.size < 3000000) {
+        quality = 0.6;
       }
 
       new ImageCompressor(file, {
         quality: quality,
         success(result) {
           const formData = new FormData();
-
+          console.log("quality", quality);
           formData.append("file", result, result.name);
           console.log("file", result, result.name);
           console.log(formData);
@@ -102,7 +98,7 @@ class FormMyDocuments extends React.Component {
     } else if (this.refs.declear.checked !== true) {
       stop = true;
       notify("Warning!", "Mark declearation before submit", "warning");
-    } else if (file.size > 5000000) {
+    } else if (file.size > 5400000) {
       stop = true;
       notify("Warning!", "File size must be less than 5mb", "warning");
     }

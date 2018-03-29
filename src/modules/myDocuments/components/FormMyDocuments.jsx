@@ -38,7 +38,7 @@ class FormMyDocuments extends React.Component {
     if (!file) {
       return;
     } else if (!file.type.includes("image")) {
-      fetch(CONFIG.upload_url, { method: "POST", body: file }).then(data => {
+      fetch(CONFIG.upload_url, { method: "POST", body: {file:file,doc_type:this.state.doc_type} }).then(data => {
         console.log(data);
         if (data.status === 200) {
           notify("Success !", "File uploaded successfully", "success");
@@ -48,7 +48,7 @@ class FormMyDocuments extends React.Component {
     } else {
       let quality;
 
-      if (file.size <= 5300000 && file.size >= 4000000) {
+      if (file.size < 5000000 && file.size >= 4000000) {
         quality = 0.1;
       } else if (file.size < 4000000 && file.size >= 3500000) {
         quality = 0.3;
@@ -62,10 +62,7 @@ class FormMyDocuments extends React.Component {
         quality: quality,
         success(result) {
           const formData = new FormData();
-          console.log("quality", quality);
           formData.append("file", result, result.name);
-          console.log("file", result, result.name);
-          console.log(formData);
           // Send the compressed image file to server with XMLHttpRequest.
           fetch(CONFIG.upload_url, { method: "POST", body: formData }).then(
             data => {
@@ -98,7 +95,7 @@ class FormMyDocuments extends React.Component {
     } else if (this.refs.declear.checked !== true) {
       stop = true;
       notify("Warning!", "Mark declearation before submit", "warning");
-    } else if (file.size > 5400000) {
+    } else if (file.size > 5000000) {
       stop = true;
       notify("Warning!", "File size must be less than 5mb", "warning");
     }
@@ -129,7 +126,6 @@ class FormMyDocuments extends React.Component {
     }
   }
   render() {
-    console.log(this.props);
     let userId = this.props.user_id;
     let pageUrl = window.location.href;
     return (

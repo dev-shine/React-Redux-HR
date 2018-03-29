@@ -22,7 +22,7 @@ function async_addNewMachine (
   n_operating_system,
   n_status,
   n_comment,
-  n_warranty,
+  n_warranty, 
   n_warranty_comment,
   n_repair_comment,
   n_bill_no,
@@ -37,7 +37,7 @@ function async_addNewMachine (
     'serial_no':        n_serial_no,
     'purchase_date':    n_purchase_date,
     'mac_address':      n_mac_address,
-    'operating_system': n_operating_system,
+    'operating_system': n_operating_system, 
     'status':           n_status,
     'comment':          n_comment,
     'warranty':         n_warranty,
@@ -557,6 +557,32 @@ export function unapprovedUser () {
         dispatch(hide_loading());
         resolve(res);
         dispatch(successUnapprovedList(res));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
+      });
+    });
+  };
+}
+
+export function successApprovedList (data) {
+  return createAction(constants.ACTION_SUCCESS_UPDATE_APPROVED_USER)(data);
+}
+
+function getAsyncApprovedData(dataLogin){
+  return fireAjax('POST','',{
+    'action':'approve_machine'
+  });
+}
+
+export function approvedUser () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading());
+      return getAsyncApprovedData().then((res) => {
+        dispatch(hide_loading());
+        resolve(res);
+        dispatch(successApprovedList(res));
       }, (error) => {
         dispatch(hide_loading());
         reject(error);

@@ -62,6 +62,7 @@ class InventorySystem extends React.Component {
     this.props.onFetchDeviceStatus();
     this.props.onFetchDeviceCount();
     this.props.onFetchUnapprovedUser();
+    this.props.onFetchApprovedUser();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -222,6 +223,7 @@ class InventorySystem extends React.Component {
     })
   }
   render () {
+console.log(this.props);
 
     
     return (
@@ -302,6 +304,7 @@ class InventorySystem extends React.Component {
                   deleteDevices={this.deleteDevices}
                   callFetchDevice={this.callFetchDevice}
                   searchVal={this.state.search}
+                  fourthArrow={this.state.fourthArrow}
                   // handleInventory={this.handleInventory}
                   unapproveList={this.unapprovedList}
                   deviceTypeData={(val) => {
@@ -309,7 +312,8 @@ class InventorySystem extends React.Component {
                       search: val
                     });
                   }}
-                  {...this.props} />
+                  {...this.props}
+                  />
               </div>
               <div className={this.state.viewUser}>
                 <div className="col-md-2">
@@ -396,6 +400,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchUnapprovedUser:()=>{
       return dispatch(actionsManageDevice.unapprovedUser());
+    },
+    onFetchApprovedUser:()=>{
+      return dispatch(actionsManageDevice.approvedUser());
     }
   };
 };

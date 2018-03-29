@@ -537,3 +537,29 @@ export function deviceCount () {
     });
   };
 }
+
+export function successAddUserComment (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT)(data);
+}
+
+function getAsyncAddUserComment (){
+  return fireAjax('POST', '', {
+    'action': 'add_user_comment'
+  });
+}
+
+export function addUserComment () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject){
+      dispatch(show_loading());
+      return getAsyncAddUserComment().then((res) => {
+        dispatch(hide_loading());
+        resolve(res.data);
+        dispatch(successAddUserComment(res.data));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
+      });
+    });
+  };
+}

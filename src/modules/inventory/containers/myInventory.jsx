@@ -9,6 +9,7 @@ import UserHorizontalView from 'components/generic/UserHorizontalView';
 import DeviceDetails from 'components/inventory/deviceDetails';
 import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
 import * as actions from 'appRedux/actions';
+import * as actionsManageDevice from 'appRedux/inventory/actions/inventory'
 import UnassignDevice from 'modules/inventory/components/UnassignDevice'
 import AssignDevice from 'modules/inventory/components/AssignDevice'
 
@@ -33,6 +34,7 @@ class MyInventory extends React.Component {
   
   componentWillMount () {
     this.props.onMyProfileDetails();
+    this.props.onAddUserComment();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -130,6 +132,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateDeviceDetails: (newDeviceDetails) => {
       return dispatch(actionsMyProfile.updateUserDeviceDetails(newDeviceDetails));
+    },
+    onAddUserComment: () => {
+      return dispatch(actionsManageDevice.addUserComment());
     }
   };
 };

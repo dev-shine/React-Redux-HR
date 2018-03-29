@@ -5,7 +5,8 @@ let initialState = {
   'status_message':  '',
   'deviceList':      [],
   'statusList':      [],
-  'deviceCountList': {}
+  'deviceCountList': {},
+  'comment':         [],
 };
 export function manageDevice (state = Immutable.fromJS(initialState), action) {
   if (action.type === 'ACTION_SUCCESS_DEVICE_LIST') {
@@ -32,6 +33,8 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
     return state.set('deviceCountList', action.payload);
   } else if (action.type === 'ACTION_SUCCESS_GET_DEVICE_STATUS_LIST') {
     return state.set('statusList', action.payload);
+  } else if (action.type === 'ACTION_SUCCESS_ADD_USER_COMMENT') {
+    return state.set('comment', action.payload);
   } else {
     return state;
   }

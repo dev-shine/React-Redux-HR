@@ -4,13 +4,22 @@ import Dialog from 'material-ui/Dialog';
 import {DateField} from 'react-date-picker';
 import {notify} from 'src/services/notify';
 import TextField from 'material-ui/TextField';
+import * as actions from 'appRedux/actions';
+import * as actionsManageDevice from 'appRedux/inventory/actions/inventory'
 import AlertNotification from 'components/generic/AlertNotification';
 
 export default class UnassignDevice extends React.Component{
     constructor (props){
         super(props);
         this.state = {
+            machine_name:[],
+
           };
+          this.handleAddUserComment = this.handleAddUserComment.bind(this);
+    }
+
+    handleAddUserComment () {
+        
     }
     
     render(){
@@ -70,7 +79,7 @@ export default class UnassignDevice extends React.Component{
                             </div>
                         </div>
 
-                            <button className="col-md-12 md-btn md-raised m-b-sm indigo" style={{opacity: '0.76', marginTop: '2%'}}> 
+                            <button className="col-md-12 md-btn md-raised m-b-sm indigo" onClick={() => this.handleAddUserComment()} style={{opacity: '0.76', marginTop: '2%'}}> 
                             Unassign Device
                             </button>
                         </div>
@@ -79,3 +88,6 @@ export default class UnassignDevice extends React.Component{
         )
     }
 }
+
+
+

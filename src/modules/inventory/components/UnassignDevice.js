@@ -12,14 +12,18 @@ export default class UnassignDevice extends React.Component{
     constructor (props){
         super(props);
         this.state = {
-            machine_name:[],
-
+            comment:""
           };
           this.handleAddUserComment = this.handleAddUserComment.bind(this);
     }
 
     handleAddUserComment () {
         
+    }
+    handleChange  = (e) => {
+        this.setState({
+            comment: e.target.value
+        });
     }
     
     render(){
@@ -74,7 +78,9 @@ export default class UnassignDevice extends React.Component{
                             <div className="col-md-12" style={{opacity: '0.56'}} >
                                 {'Comment:'}
                                 <textarea
+                                    value={this.state.comment}
                                     style={{width: '100%'}}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                         </div>

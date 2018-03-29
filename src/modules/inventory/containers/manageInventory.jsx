@@ -33,12 +33,15 @@ class InventorySystem extends React.Component {
       deviceList:          'show',
       viewUser:            'hidden',
       viewUserNew:         'hidden',
+      fourthArrow:         'hidden',
       open:                false,
       edit:                false,
       deviceId:            '',
       user_profile_detail: {},
       user_assign_machine: [],
       getByIdData:         {},
+      unapprovedList:{},
+      openUnapprove:''
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
@@ -48,6 +51,7 @@ class InventorySystem extends React.Component {
     this.deleteDevices = this.deleteDevices.bind(this);
     this.callAssign = this.callAssign.bind(this);
     this.openPage = this.openPage.bind(this);
+    this.unapprovedList                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              = this.unapprovedList                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .bind(this);
     this.callFetchDeviceType = this.callFetchDeviceType.bind(this);
     this.callFetchDeviceStatus = this.callFetchDeviceStatus.bind(this);
   }
@@ -57,6 +61,7 @@ class InventorySystem extends React.Component {
     this.props.onFetchDeviceType();
     this.props.onFetchDeviceStatus();
     this.props.onFetchDeviceCount();
+    this.props.onFetchUnapprovedUser();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -125,7 +130,9 @@ class InventorySystem extends React.Component {
         viewUser:    'hidden',
         viewUserNew: 'hidden',
         secondArrow: 'hidden',
-        thirdArrow:  'hidden'
+        thirdArrow:  'hidden',
+        thirdArrow:  'hidden',
+        fourthArrow:'hidden'
       });
     } else if ((toDisplay === 'view_user')) {
       this.setState({
@@ -133,18 +140,32 @@ class InventorySystem extends React.Component {
         firstArrow:  'hidden',
         viewUser:    'row',
         secondArrow: 'show',
-        thirdArrow:  'hidden'
+        thirdArrow:  'hidden',
+        thirdArrow:  'hidden',
+        fourthArrow:'hidden'
       });
-    } else {
+    } else if((toDisplay==='view_user_new')) {
       this.setState({
         deviceList:  'hidden',
         firstArrow:  'hidden',
         viewUser:    'hidden',
         viewUserNew: 'row',
         secondArrow: 'hidden',
-        thirdArrow:  'show'
+        thirdArrow:  'show',
+        thirdArrow:  'hidden',
+        fourthArrow:'hidden'
       });
     }
+    else if ((toDisplay === 'unapproved_user')) {
+      this.setState({
+        deviceList:  'show',
+        firstArrow:  'hidden',
+        viewUser:    'hidden',
+        secondArrow: 'hidden',
+        thirdArrow:  'hidden',
+        fourthArrow:'show'
+      });
+    } 
   }
   
 
@@ -181,7 +202,7 @@ class InventorySystem extends React.Component {
       open:           true,
       status_message: '',
       edit:           false
-    });
+,    });
   }
   callAssign (id, userId) {
     this.setState({user: userId});
@@ -194,7 +215,15 @@ class InventorySystem extends React.Component {
       notify('Error !', error, '');
     });
   }
+  unapprovedList(){
+    this.setState({
+      openUnapprove:'true',
+      unapprovedList:this.props.manageDevice.unapprovedList 
+    })
+  }
   render () {
+
+    
     return (
       <div>
         <Menu {...this.props} />
@@ -216,8 +245,8 @@ class InventorySystem extends React.Component {
             }
             <div className="dker p-x">
               <div className="row">
-                <div className="col-sm-6 pull-sm-6">
-                  <div className="p-y-md clearfix nav-active-primary">
+                <div className="col-sm-10 pull-sm-10">
+                  <div className="p-y-md clearfix nav-active-primary" style={{width:'100%',display:'inline-block'}}>
                     <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
                       <li onClick={() => { this.openPage('device_list'); }} className={`nav-item ${this.state.active}`}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Inventory Details</a>
@@ -234,14 +263,22 @@ class InventorySystem extends React.Component {
                       <li onClick={() => { this.openPage('view_user_new'); }} className={'nav-item'}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</a>
                         <div className={this.state.thirdArrow}>
+
+                          <span className="arrow bottom b-accent"></span>
+                        </div>
+                      </li>
+                      <li onClick={() => { this.openPage('unapproved_user'); }} className={'nav-item'}>
+                        <a className="nav-link" href="" data-toggle="tab" data-target="#tab_4" aria-expanded="true">Unapproved Inventory</a>
+                        <div className={this.state.fourthArrow}>
+
                           <span className="arrow bottom b-accent"></span>
                         </div>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <div className="col-md-offset-6" style={{marginTop: '2%'}}>
-                  {this.state.firstArrow === 'show'
+                <div className="col-md-offset-10" style={{marginTop: '2%'}}>
+                  {this.state.firstArrow === 'show'|| this.state.fourthArrow==='show'
                     ? <FormAddNewInventory
                       deviceId={this.state.id}
                       handleClose={this.handleClose}
@@ -265,7 +302,8 @@ class InventorySystem extends React.Component {
                   deleteDevices={this.deleteDevices}
                   callFetchDevice={this.callFetchDevice}
                   searchVal={this.state.search}
-                  handleInventory={this.handleInventory}
+                  // handleInventory={this.handleInventory}
+                  unapproveList={this.unapprovedList}
                   deviceTypeData={(val) => {
                     this.setState({
                       search: val
@@ -355,6 +393,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchDeviceCount: () => {
       return dispatch(actionsManageDevice.deviceCount());
+    },
+    onFetchUnapprovedUser:()=>{
+      return dispatch(actionsManageDevice.unapprovedUser());
     }
   };
 };

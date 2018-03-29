@@ -537,3 +537,30 @@ export function deviceCount () {
     });
   };
 }
+
+
+export function successUnapprovedList (data) {
+  return createAction(constants.ACTION_SUCCESS_UPDATE_UNAPPROVED_USER)(data);
+}
+
+function getAsyncUnapprovedData(dataLogin){
+  return fireAjax('POST','',{
+    'action':'get_unapproved_machine_list'
+  });
+}
+
+export function unapprovedUser () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading());
+      return getAsyncUnapprovedData().then((res) => {
+        dispatch(hide_loading());
+        resolve(res);
+        dispatch(successUnapprovedList(res));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
+      });
+    });
+  };
+}

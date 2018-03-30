@@ -66,6 +66,7 @@
     "bootstrap-toggle": "^2.2.2",
     "css-loader": "^0.23.0",
     "cssnano": "^3.3.2",
+    "cypress": "^2.1.0",
     "debug": "^2.2.0",
     "draft-js": "^0.9.1",
     "extract-text-webpack-plugin": "^2.1.2",

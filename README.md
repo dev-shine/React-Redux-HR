@@ -60,6 +60,8 @@ The application structure presented below is to be strictly followed while devel
 |   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── server                   # Koa application (uses webpack middleware)
 │   └── main.js              # Server application entry point
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── src                      # Application source code
 │   ├── modules              # Reusable Container Components
 │   │   └── auth             # Route definitions and async split points

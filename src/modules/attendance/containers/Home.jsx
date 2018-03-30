@@ -67,7 +67,7 @@ class Home extends React.Component {
     this.props.requestUserDaySummary({userid, date});
   }
   render () {
-    return (
+    return ( 
       <div>
         <Menu {...this.props} />
         <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} />
@@ -77,7 +77,7 @@ class Home extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-2" id="fixedScroll">
-                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} />
+                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10}/>
                 </div>
                 <div className="col-md-10">
                   <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} />

@@ -2,12 +2,18 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import {Calendar} from 'react-date-range';
 import {notify} from 'src/services/notify';
-import {Button, ButtonFlat} from 'components/generic/buttons';
+import {Button, ButtonRaised, ButtonFlat} from 'components/generic/buttons';
+import AddLeaveDocument from './AddLeaveDocument'
 
+
+ 
 class ApplyLeaveForm extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      status_message:      '',
+      open:       false,
+      id:         '',
       form_from_date:       '',
       form_to_date:         '',
       form_no_of_days:      '',
@@ -17,6 +23,8 @@ class ApplyLeaveForm extends React.Component {
       leaveType:            '',
       late_reason:          ''
     };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
     this.doApplyLeave = this.doApplyLeave.bind(this);
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
@@ -30,6 +38,18 @@ class ApplyLeaveForm extends React.Component {
     }
   }
 
+  handleClose () {
+    this.setState({
+      open:          false,
+      status_message:'',
+    });
+  }
+  handleOpen () {
+    this.setState({
+      status_message:'',
+      open:          true,
+    });
+  }
   _apply_half_day_1 (shift) {
     if (shift == 1) {
       this.setState({
@@ -52,6 +72,8 @@ class ApplyLeaveForm extends React.Component {
     let endDate = date.format('YYYY-MM-DD');
     this.setState({form_to_date: endDate, form_no_of_days: ''});
   }
+  
+
  
   doApplyLeave (evt) {
     var reason_letter_count = this.state.form_reason
@@ -86,7 +108,7 @@ class ApplyLeaveForm extends React.Component {
       }
     }
     else{
-      notify('Warning','Reason Must be explained in 2-3 lines','warning');
+      notify('Warning','Explain your leave in detail, write atleast 2-3 lines','warning');
     }
     evt.preventDefault();
    
@@ -193,17 +215,26 @@ class ApplyLeaveForm extends React.Component {
                       {this.state.form_to_date}
                     </div>
                   </div>
+                  <div className="col-sm-12 ">
+                    <button type="button"
+                      onClick={() =>  this.handleOpen()}
+                      className="btn btn-info btn-responsive btn-res col-xs-2">{'Upload Leave Document'}
+                    </button>
+                    <small className="uploadnotic" >* Upload file size should be less than 1 MB</small>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="form-group row m-t-md">
+                <AddLeaveDocument 
+                handleClose={this.handleClose}
+                open={this.state.open}
+              /> 
+                </div>
+                <div className="form-group row m-t-md">
               <div className="col-xs-12 col-md-6 text-center">
                 <Button type="submit" className="green apply-leave-btn" label="Apply" />
               </div>
             </div>
+              </div>
           </form>
-
         </div>
       </div>
 

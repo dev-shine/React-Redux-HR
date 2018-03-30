@@ -602,3 +602,30 @@ export function addUserComment (new_comment) {
     });
   };
 }
+
+
+export function successUnassignedDeviceList (data) {
+  return createAction(constants.ACTION_SUCCESS_UNASSIGNED_DEVICE_LIST)(data);
+}
+
+function getAsyncUnassignDeviceList () {
+  return fireAjax('POST','',{
+    'action': 'get_unassigned_machine_list'
+  });
+}
+
+export function unassignDeviceList () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading());
+      return getAsyncUnassignDeviceList().then((res) => {
+        dispatch(hide_loading());
+        resolve(res.data);
+        dispatch(successUnassignedDeviceList(res.data));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
+      });
+    });
+  };
+}

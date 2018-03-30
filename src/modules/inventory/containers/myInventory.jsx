@@ -22,7 +22,8 @@ class MyInventory extends React.Component {
       openAssigned:       false,
       user_profile_detail: {},
       user_assign_machine: [],
-      device:              []
+      device:              [],
+      unassignDeviceList:  []
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
@@ -35,6 +36,7 @@ class MyInventory extends React.Component {
   
   componentWillMount () {
     this.props.onMyProfileDetails();
+    this.props.onUnassignDeviceList();
   }
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -144,6 +146,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddUserComment: (addUserCommentDetails) => {
       return dispatch(actionsManageDevice.addUserComment(addUserCommentDetails));
+    },
+    onUnassignDeviceList: () => {
+      return dispatch(actionsManageDevice.unassignDeviceList());
     }
   };
 };

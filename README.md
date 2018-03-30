@@ -56,6 +56,8 @@ The application structure presented below is to be strictly followed while devel
 ├── build                    # All build-related configuration
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── server                   # Koa application (uses webpack middleware)
 │   └── main.js              # Server application entry point
 ├──cypress                   # Cypress Unit Test files
@@ -200,3 +202,4 @@ It is to test every page(route) as a user by Automation testing.
 run test through UI in default browser.
 
 ```
+**NOTE:** Every Time a PR is created circleci must pass the test.

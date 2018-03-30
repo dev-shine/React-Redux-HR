@@ -3,6 +3,7 @@ import { CONFIG } from "src/config/index";
 import { notify } from "src/services/notify";
 import { getToken } from "src/services/generic";
 import ListDocuments from "components/myDocuments/ListDocuments";
+import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 import ImageCompressor from "image-compressor.js";
 
 class FormMyDocuments extends React.Component {
@@ -17,7 +18,7 @@ class FormMyDocuments extends React.Component {
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
   componentDidMount() {
     this.toggleCollapse();
@@ -32,55 +33,7 @@ class FormMyDocuments extends React.Component {
     console.log(Array.from(e.target.files));
     this.setState({ file: Array.from(e.target.files) });
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    const file = this.state.file[0];
-    if (!file) {
-      return;
-    } else if (!file.type.includes("image")) {
-      fetch(CONFIG.upload_url, { method: "POST", body: {file:file,doc_type:this.state.doc_type} }).then(data => {
-        console.log(data);
-        if (data.status === 200) {
-          notify("Success !", "File uploaded successfully", "success");
-        }
-        console.log("success");
-      });
-    } else {
-      let quality;
-
-      if (file.size < 5000000 && file.size >= 4000000) {
-        quality = 0.1;
-      } else if (file.size < 4000000 && file.size >= 3500000) {
-        quality = 0.3;
-      } else if (file.size < 3500000 && file.size >= 3000000) {
-        quality = 0.4;
-      } else if (file.size < 3000000) {
-        quality = 0.6;
-      }
-
-      new ImageCompressor(file, {
-        quality: quality,
-        success(result) {
-          const formData = new FormData();
-          formData.append("file", result, result.name);
-          // Send the compressed image file to server with XMLHttpRequest.
-          fetch(CONFIG.upload_url, { method: "POST", body: formData }).then(
-            data => {
-              console.log(data);
-              if (data.status === 200) {
-                notify("Success !", "File uploaded successfully", "success");
-              }
-              console.log("success");
-            }
-          );
-        },
-        error(e) {
-          console.log(e.message);
-        }
-      });
-    }
-  }
-
+  
   callUpdateDocuments(e) {
     let type = this.state.doc_type;
     let link1 = this.refs.file.value;
@@ -141,7 +94,7 @@ class FormMyDocuments extends React.Component {
           </h6>
           <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
             <form
-              onSubmit={this.handleSubmit}
+              // onSubmit={this.handleSubmit}
               // action={CONFIG.upload_url} method="POST"
               encType="multipart/form-data"
             >
@@ -212,7 +165,7 @@ class FormMyDocuments extends React.Component {
                 </span>
               </div>
               <div className="form-group col-sm-12">
-                <input
+                {/* <input
                   type="submit"
                   name="submit"
                   value="Upload"
@@ -220,6 +173,12 @@ class FormMyDocuments extends React.Component {
                   onClick={e => {
                     this.callUpdateDocuments(e);
                   }}
+                /> */}
+                <UploadImageComp
+                  callUpdateDocuments={this.callUpdateDocuments}
+                  url = {CONFIG.upload_url}
+                  file={this.state.file[0]}
+                  doc_type = {this.state.doc_type}
                 />
               </div>
             </form>

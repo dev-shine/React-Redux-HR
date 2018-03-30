@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import {Calendar} from 'react-date-range';
 import {notify} from 'src/services/notify';
-import Textarea from 'components/generic/input/TextArea';
 import {Button, ButtonFlat} from 'components/generic/buttons';
 
 class ApplyLeaveForm extends React.Component {

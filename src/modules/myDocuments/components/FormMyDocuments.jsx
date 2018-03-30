@@ -4,7 +4,6 @@ import { notify } from "src/services/notify";
 import { getToken } from "src/services/generic";
 import ListDocuments from "components/myDocuments/ListDocuments";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
-import ImageCompressor from "image-compressor.js";
 
 class FormMyDocuments extends React.Component {
   constructor(props) {

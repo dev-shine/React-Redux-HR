@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ImageCompressor from "image-compressor.js";
 import { notify } from "src/services/notify";
+import { connect } from 'react-redux';
+import {uploadFile} from 'appRedux/uploadImageComp/actions/uploadImageComp';
 
 class UploadImageComp extends Component {
   constructor() {
@@ -17,16 +19,8 @@ class UploadImageComp extends Component {
     if (!file) {
       return;
     } else if (!file.type.includes("image")) {
-      fetch(url, {
-        method: "POST",
-        body: { file: file, doc_type: doc_type }
-      }).then(data => {
-        console.log(data);
-        if (data.status === 200) {
-          notify("Success !", "File uploaded successfully", "success");
-        }
-        console.log("success");
-      });
+        console.log(file);
+      this.props.uploadFile(file,url);
     } else {
       let quality;
 
@@ -39,12 +33,14 @@ class UploadImageComp extends Component {
       } else if (file.size < 3000000) {
         quality = 0.6;
       }
+      console.log(this);
 
       new ImageCompressor(file, {
         quality: quality,
         success(result) {
           const formData = new FormData();
           formData.append("file", result, result.name);
+          console.log(this);
           // Send the compressed image file to server with XMLHttpRequest.
           fetch(url, { method: "POST", body: formData }).then(data => {
             console.log(data);
@@ -77,4 +73,4 @@ class UploadImageComp extends Component {
     );
   }
 }
-export default UploadImageComp;
+export default connect(null,{uploadFile})(UploadImageComp);

@@ -168,6 +168,7 @@ export function addNewMachine (new_machine_details) {
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message));
             dispatch(get_machines_detail());
+            dispatch(unapprovedUser());
             resolve(json.message);
           } else {
             dispatch(error_add_new_machine(json.message));
@@ -284,6 +285,7 @@ export function updateDevice (id, data) {
         if (res.error === 0) {
           dispatch(deviceCount());
           dispatch(get_machines_detail());
+          dispatch(successUnapprovedList());
           dispatch(success_updateDevice(res.message));
           resolve(res.message);
         }
@@ -313,6 +315,7 @@ export function deleteDevice (id) {
       return getAsync_deleteDeviceById(id).then((res) => {
         dispatch(deviceCount());
         dispatch(get_machines_detail());
+        dispatch(unapprovedUser());
         dispatch(hide_loading());
         if (res.error === 0) {
           dispatch(success_deleteDevice(res.message));
@@ -360,7 +363,7 @@ export function assignDevice (deviceId, id) {
 
 export function success_deviceType (data) {
   return createAction(constants.ACTION_SUCCESS_DEVICE_TYPE)(data);
-}
+} 
 
 export function error_deviceType (data) {
   return createAction(constants.ACTION_ERROR_DEVICE_TYPE)(data);
@@ -556,6 +559,8 @@ export function unapprovedUser () {
       dispatch(show_loading());
       return getAsyncUnapprovedData().then((res) => {
         dispatch(hide_loading());
+        console.log(res,'0000000000');
+        
         resolve(res);
         dispatch(successUnapprovedList(res));
       }, (error) => {
@@ -594,7 +599,12 @@ export function approvedUser (id) {
       return getAsyncApprovedData(id).then((json) => {
         dispatch(hide_loading());
         if(json.error==0){
+          console.log(json);
+          
         dispatch(successApprovedList(json.message));
+        dispatch(unapprovedUser());
+        dispatch(get_machines_detail());
+       
         }
         else{
         dispatch(errorApprovedList(json.message));

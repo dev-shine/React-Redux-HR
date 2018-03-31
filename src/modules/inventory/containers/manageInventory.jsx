@@ -164,6 +164,7 @@ class InventorySystem extends React.Component {
         viewUser:    'hidden',
         secondArrow: 'hidden',
         thirdArrow:  'hidden',
+        viewUserNew: 'hidden',
         fourthArrow:'show'
       });
     } 
@@ -238,20 +239,20 @@ console.log(this.props);
           <Header pageTitle={'Inventory Management'} showLoading={this.props.frontend.show_loading} />
          
           <div className="app-body" id="view">
-            <div className="row">
+            <div className="">
               <div className="col-12">
                 <LoadingIcon {...this.props} />
               </div>
             </div>
             {this.state.secondArrow === 'show'
               ? null
-              : <div className="row" style={{marginTop: '2%', marginLeft: '4%'}}>
+              : <div className="" style={{marginTop: '2%', marginLeft: '4%'}}>
                 <div className="col-md-11 col-xs-offset-0">
                 </div>
               </div>
             }
             <div className="dker p-x">
-              <div className="row">
+              <div className="">
                 <div className="col-sm-10 pull-sm-10">
                   <div className="p-y-md clearfix nav-active-primary" style={{width:'100%',display:'inline-block'}}>
                     <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
@@ -299,13 +300,13 @@ console.log(this.props);
                       {...this.props} />
                     : null
                   }
-                </div>
+                </div> 
               </div>
             </div>
             <div className="padding">
               <div className={this.state.deviceList}>
                 <InventoryList
-                  openEditDevice={this.openEditDevice}
+                  openEditDevice={this.openEditDevice} 
                   deleteDevices={this.deleteDevices}
                   callFetchDevice={this.callFetchDevice}
                   searchVal={this.state.search}
@@ -320,6 +321,7 @@ console.log(this.props);
                     });
                   }}
                   {...this.props}
+                  
                   />
               </div>
               <div className={this.state.viewUser}>

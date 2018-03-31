@@ -25,7 +25,8 @@ class InventoryList extends React.Component {
       device_status:    '',
       deviceList:       [],
       statusList:       [],
-      deviceVal:        ''
+      deviceVal:        '',
+        
     };
     this.openEditDevice = this.openEditDevice.bind(this);
     this.deleteDevices = this.deleteDevices.bind(this);
@@ -35,6 +36,7 @@ class InventoryList extends React.Component {
     this.handleStatusOpen = this.handleStatusOpen.bind(this);
     this.handleStatusClose = this.handleStatusClose.bind(this);
     this.callAddDevice = this.callAddDevice.bind(this);
+    this.sendUnapprovedId=this.sendUnapprovedId.bind(this);
     this.callAddStatus = this.callAddStatus.bind(this);
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
@@ -184,12 +186,6 @@ class InventoryList extends React.Component {
       });
     }
   }
-
-  // handleInventory (device) {
-  //   this.props.router.push(`inventory_system/${device.id}`)
-
-  // }
-
   handleStatusTypeFilter (statusType) {
     let status = this.props.manageDevice.device;
     if (this.state.search !== '') {
@@ -210,14 +206,15 @@ class InventoryList extends React.Component {
       device_status: statusType
     });
   }
-  check(){
-    console.log(devices);
-    
+  
+  sendUnapprovedId(id){
+    this.setState({id:id});
+    this.props.callUnapprovedId({id});
   }
   render () {
-    console.log(this.props,'oooooooooo');
-  console.log(this.props.manageDevice.unapprovedList,'datadayatata');
-  
+    console.log(this.props);
+    
+ console.log(this.props.manageDevice.unapprovedList.data);
     
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
@@ -304,7 +301,7 @@ class InventoryList extends React.Component {
               }
             });
           }} aria-hidden="true"></i>{this.props.fourthArrow==='show'?<div>
-          <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={(e)=>{this .check}}>Approve</button></div>:null}
+          <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button></div>:null}
         </td> : null}
       </tr>);
     });

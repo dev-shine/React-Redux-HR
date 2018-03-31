@@ -17,7 +17,7 @@ import * as actionsManageDevice from 'appRedux/inventory/actions/inventory';
 import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
-
+ 
 class InventorySystem extends React.Component {
   constructor (props) {
     super(props);
@@ -54,6 +54,7 @@ class InventorySystem extends React.Component {
     this.unapprovedList                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              = this.unapprovedList                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .bind(this);
     this.callFetchDeviceType = this.callFetchDeviceType.bind(this);
     this.callFetchDeviceStatus = this.callFetchDeviceStatus.bind(this);
+    this.callUnapprovedId=this.callUnapprovedId.bind(this);
   }
   componentWillMount () {
     this.props.onFetchDevice();
@@ -62,7 +63,6 @@ class InventorySystem extends React.Component {
     this.props.onFetchDeviceStatus();
     this.props.onFetchDeviceCount();
     this.props.onFetchUnapprovedUser();
-    this.props.onFetchApprovedUser();
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
@@ -222,6 +222,11 @@ class InventorySystem extends React.Component {
       unapprovedList:this.props.manageDevice.unapprovedList 
     })
   }
+  callUnapprovedId(id){
+  this.props.onFetchApprovedUser(id.id);
+
+  
+  }
   render () {
 console.log(this.props);
 
@@ -307,6 +312,8 @@ console.log(this.props);
                   fourthArrow={this.state.fourthArrow}
                   // handleInventory={this.handleInventory}
                   unapproveList={this.unapprovedList}
+                  callUnapprovedId={this.callUnapprovedId}
+                  //unapprovedId={this.props.manageDevice.unapprovedList.data.id}
                   deviceTypeData={(val) => {
                     this.setState({
                       search: val
@@ -401,8 +408,8 @@ const mapDispatchToProps = (dispatch) => {
     onFetchUnapprovedUser:()=>{
       return dispatch(actionsManageDevice.unapprovedUser());
     },
-    onFetchApprovedUser:()=>{
-      return dispatch(actionsManageDevice.approvedUser());
+    onFetchApprovedUser:(id)=>{
+      return dispatch(actionsManageDevice.approvedUser(id));
     }
   };
 };

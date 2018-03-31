@@ -2,6 +2,7 @@ import {createAction} from 'redux-actions';
 import {fireAjax} from 'src/services/index';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
+import { createInflate } from 'zlib';
 // -------add New machine
 
 export function success_add_new_machine (data) {
@@ -565,27 +566,43 @@ export function unapprovedUser () {
   };
 }
 
+export function errorApprovedList(data){
+  return createAction(constants.ACTION_ERROR_UPDATE_APPROVED_USER)
+}
 export function successApprovedList (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_APPROVED_USER)(data);
 }
 
-function getAsyncApprovedData(dataLogin){
+function getAsyncApprovedData(id){
   return fireAjax('POST','',{
-    'action':'approve_machine'
+    'action':'approve_machine',
+    id
   });
 }
 
-export function approvedUser () {
+export function approvedUser (id) {
   return (dispatch, getState) => {
+    
+    if(typeof id==='undefined'|| id==''){
+      return Promise.reject('id is empty')
+    }
+    else{
+      id=id;
+    }
     return new Promise(function (resolve, reject) {
       dispatch(show_loading());
-      return getAsyncApprovedData().then((res) => {
+      return getAsyncApprovedData(id).then((json) => {
         dispatch(hide_loading());
-        resolve(res);
-        dispatch(successApprovedList(res));
+        if(json.error==0){
+        dispatch(successApprovedList(json.message));
+        }
+        else{
+        dispatch(errorApprovedList(json.message));
+      
+        }
       }, (error) => {
-        dispatch(hide_loading());
-        reject(error);
+        dispatch(errorAddusercomment('error occur'));
+        reject('error occur');
       });
     });
   };

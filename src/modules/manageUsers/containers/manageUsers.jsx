@@ -17,6 +17,7 @@ import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails
 import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
+import FormAddNewEmployeeDetails from 'modules/manageUsers/components/FormAddNewEmployeeDetails';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
 import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
 import * as actions from 'appRedux/actions';
@@ -29,6 +30,7 @@ class ManageUsers extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
+      open:                 false,
       status_message:       '',
       'defaultUserDisplay': '',
       user_profile_detail:  {},
@@ -45,6 +47,7 @@ class ManageUsers extends React.Component {
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
     this.callUpdateUserProfileDetails = this.callUpdateUserProfileDetails.bind(this);
     this.callAddNewEmployee = this.callAddNewEmployee.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.handleOpenIframe = this.handleOpenIframe.bind(this);
     this.handleCloseIframe = this.handleCloseIframe.bind(this);
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
@@ -126,6 +129,10 @@ class ManageUsers extends React.Component {
     });
   }
   callAddNewEmployee (newEmployeeDetails) {
+    this.setState({
+      open:           true,
+      status_message: ''
+    })
     this.props.onAddNewEmployee(newEmployeeDetails).then((data) => {
       notify(data);
       this.props.onUsersList();
@@ -161,6 +168,12 @@ class ManageUsers extends React.Component {
     });
     this.props.onHandleChangeSteps(userid, stepid);
   }
+  handleClose () {
+    this.setState({
+      open:           false,
+      status_message: ''
+    })
+  }
   handleOpenIframe () {
     this.setState({openIframe: true});
   }
@@ -190,6 +203,10 @@ class ManageUsers extends React.Component {
                   <div className="row emp-action-btn p-b">
                     <div className="add-new-emp">
                       <FormAddNewEmployee callAddNewEmployee={this.callAddNewEmployee} />
+                      <FormAddNewEmployeeDetails 
+                        handleClose={this.handleClose}
+                        open={this.state.open}  
+                        />
                     </div>
                     <div className="disable-user">
                       <Button className="btn-fw btn-danger responsive-p-x-sm" label={'Disable Selected User'} onClick={() => this.changeEmployeeStatus(this.state.selected_user_id, 'Disabled')} />

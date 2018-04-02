@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 const DisplayUserDeviceDetails = ({userAssignMachine}) => {
   let machine = _.map(userAssignMachine, (val, i) => {
-    console.log('val', val);
     return (
       <tr key={i}>
         <td>

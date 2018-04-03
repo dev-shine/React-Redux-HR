@@ -17,7 +17,7 @@ import * as actionsManageDevice from 'appRedux/inventory/actions/inventory';
 import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
- 
+
 class InventorySystem extends React.Component {
   constructor (props) {
     super(props);

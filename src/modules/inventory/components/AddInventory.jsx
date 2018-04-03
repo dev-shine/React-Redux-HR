@@ -163,7 +163,7 @@ export default class FormAddNewInventory extends React.Component {
       }).catch((message) => {
         this.setState({
           msg: message
-        })
+        });
       });
     }
     return false;

@@ -67,7 +67,7 @@ class Home extends React.Component {
     this.props.requestUserDaySummary({userid, date});
   }
   render () {
-    return ( 
+    return (
       <div>
         <Menu {...this.props} />
         <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} />

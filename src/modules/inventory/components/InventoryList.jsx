@@ -4,7 +4,7 @@ import {notify, confirm} from 'src/services/notify';
 import {getLowerCase , getLoggedUser} from 'src/services/generic';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
-import {CONFIG} from 'config';
+import {CONFIG} from 'config'
 var moment = require('moment');
 let devices;
 class InventoryList extends React.Component {
@@ -28,8 +28,9 @@ class InventoryList extends React.Component {
       deviceVal:        '',
       unapprovedList:[],
       approveDialog:false
-        
+      
     };
+    
     this.openEditDevice = this.openEditDevice.bind(this);
     this.deleteDevices = this.deleteDevices.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
@@ -63,7 +64,7 @@ class InventoryList extends React.Component {
       this.setState({
         openSnackbar: false
       });
-    } 
+    }
     this.setState({
       deviceTypeList:   props.manageDevice.deviceList,
       deviceList:       props.manageDevice.device,
@@ -215,9 +216,9 @@ class InventoryList extends React.Component {
     if (statusType !== '' && this.state.search !== '') {
       status = _.filter(status, row => (getLowerCase(row.machine_type) === getLowerCase(this.state.search) && getLowerCase(row.status) === getLowerCase(statusType)));
     }
-    this.setState({ 
+    this.setState({
       deviceList:    status,
-      device_status: statusType 
+      device_status: statusType
     });
   }
   
@@ -238,7 +239,7 @@ class InventoryList extends React.Component {
       return (<option value={val} key={i}>{val}</option>);
     });
     let listDrop = listDropMap.reverse();
-     devices =this.props.fourthArrow==='show'?this.state.unapprovedList:this.state.deviceList;
+     devices = this.props.fourthArrow==='show'?this.state.unapprovedList:this.state.deviceList;
     let statusVal = this.state.deviceStatusList;
 
     let rowColor;
@@ -248,7 +249,7 @@ class InventoryList extends React.Component {
       if (rowColorData.length > 0) {
         rowColor = rowColorData[0].color;
       }
-      rows.push(<tr  key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
+      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
         <td style={{marginRight: '0%', width: '5%'}}>{i + 1}</td>
         <td style={{marginRight: '0%', width: '16%'}}>
           {device.machine_type}

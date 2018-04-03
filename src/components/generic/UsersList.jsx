@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, top}) => {
   const userClick = (param) => {
     onUserClick(param);
-    header && $('#user-list-header').modal('hide'); 
+    header && $('#user-list-header').modal('hide');
   };
   $(window).scroll(function () {
     let scrollAmount = $(document).scrollTop();

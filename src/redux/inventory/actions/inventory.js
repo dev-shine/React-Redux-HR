@@ -14,6 +14,7 @@ export function error_add_new_machine (data) {
 }
 
 function async_addNewMachine (
+  
   n_machine_type,
   n_machine_name,
   n_machine_price,
@@ -163,7 +164,7 @@ export function addNewMachine (new_machine_details) {
         n_repair_comment,
         n_bill_no,
         n_user_Id).then((json) => {
-          dispatch(hide_loading());
+          dispatch(show_loading());
           dispatch(deviceCount());
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message));
@@ -175,7 +176,7 @@ export function addNewMachine (new_machine_details) {
             reject(json.message);
           }
         }, (error) => {
-          dispatch(hide_loading());
+          dispatch(show_loading());
           dispatch(error_add_new_machine('error occurs!!!'));
           reject('error occurs!!!');
         });
@@ -285,7 +286,7 @@ export function updateDevice (id, data) {
         if (res.error === 0) {
           dispatch(deviceCount());
           dispatch(get_machines_detail());
-          dispatch(successUnapprovedList());
+          dispatch(unapprovedUser());
           dispatch(success_updateDevice(res.message));
           resolve(res.message);
         }

@@ -178,7 +178,7 @@ class InventorySystem extends React.Component {
         open:           true,
         deviceId:       id,
         status_message: '',
-        getByIdData:    val
+        getByIdData:    val 
       });
     });
   }
@@ -194,7 +194,23 @@ class InventorySystem extends React.Component {
     this.setState({
       open:           false,
       status_message: '',
-      edit:           false
+      edit:           false,
+        id:               '',
+        machine_type:     '',
+        machine_name:     '',
+        machine_price:    '',
+        serial_no:        '',
+        purchase_date:    '',
+        mac_address:      '',
+        operating_system: '',
+        status:           '',
+        comment:          '',
+        warranty_comment: '',
+        repair_comment:   '',
+        bill_no:          '',
+        warranty:         '',
+        user_Id:          ''
+      
     });
   }
 
@@ -285,6 +301,7 @@ console.log(this.props);
                     </ul>
                   </div>
                 </div>
+                
                 <div className="col-md-offset-10" style={{marginTop: '2%'}}>
                   {this.state.firstArrow === 'show'|| this.state.fourthArrow==='show'
                     ? <FormAddNewInventory
@@ -296,7 +313,7 @@ console.log(this.props);
                       edit={this.state.edit}
                       callAssign={this.callAssign}
                       callAddDevice={this.callAddDevice}
-                      getByIdData={this.state.getByIdData}
+                      getByIdData={this.state.getByIdData} 
                       {...this.props} />
                     : null
                   }
@@ -347,7 +364,7 @@ console.log(this.props);
     );
   }
 }
-
+ 
 function mapStateToProps (state) {
   return {
     frontend:     state.frontend.toJS(),

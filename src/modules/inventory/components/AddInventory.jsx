@@ -2,9 +2,11 @@ import React from 'react';
 import 'react-date-picker/index.css';
 import Dialog from 'material-ui/Dialog';
 import {DateField} from 'react-date-picker';
+import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import {notify} from 'src/services/notify';
 import TextField from 'material-ui/TextField';
 import AlertNotification from 'components/generic/AlertNotification';
+import CircularProgress from 'material-ui/CircularProgress';
 
 export default class FormAddNewInventory extends React.Component {
   constructor (props) {
@@ -20,7 +22,7 @@ export default class FormAddNewInventory extends React.Component {
       machine_price:    '',
       serial_no:        '',
       purchase_date:    '',
-      mac_address:      '',
+      mac_address:      '', 
       operating_system: '',
       comment:          '',
       warranty_comment: '',
@@ -30,7 +32,8 @@ export default class FormAddNewInventory extends React.Component {
       user_Id:          '',
       msg:              '',
       deviceTypeList:   [],
-      deviceStatusList: []
+      deviceStatusList: [],
+      loading:          false
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -46,6 +49,7 @@ export default class FormAddNewInventory extends React.Component {
       deviceTypeList:   props.manageDevice.deviceList,
       deviceStatusList: props.manageDevice.statusList
     });
+    <CircularProgress />
 
     if (props.edit) {
       this.setState({
@@ -65,7 +69,8 @@ export default class FormAddNewInventory extends React.Component {
         warranty:         props.getByIdData.warranty_end_date,
         user_Id:          props.getByIdData.user_Id
       });
-    } else {
+    } 
+    else if(this.props.manageDevice.status_message=='Machine added Successfully and Sent for Approval!!'||this.props.manageDevice.status_message=='Successfully Updated into table'){
       this.setState({
         id:               '',
         machine_type:     '',
@@ -81,17 +86,23 @@ export default class FormAddNewInventory extends React.Component {
         repair_comment:   '',
         bill_no:          '',
         warranty:         '',
-        user_Id:          ''
+        user_Id:          '',
+        loading:false
       });
+      this.props.manageDevice.status_message='';
+      console.log(this.props.manageDevice.status_message);
+      
     }
   }
+
+ 
 
   handleOpen (e) {
     e.stopPropagation();
     this.props.handleAddDialog();
   }
 
-  handleAddDevice () {
+  handleAddDevice (e) {  
     let apiData = {
       machine_type:     this.state.machine_type,
       machine_name:     this.state.machine_name.trim(),
@@ -124,27 +135,41 @@ export default class FormAddNewInventory extends React.Component {
       user_Id:          ''
     };
     let validate = true;
+    this.setState({
+      loading:true
+    })
    
     if (validate && !this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
-        this.setState(resetFields);
         notify('Success !', val, 'success');
-        this.props.onFetchDevice();
+       this.props.onFetchDevice();
         this.props.handleClose();
+
       }, (error) => {
         notify('Error !', error, 'error');
+        this.setState({
+          loading:false
+        })
       });
+      console.log(this.props,'kllllllllllllllll');
+      
     } else if (validate) {
       this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
         notify('', message, '');
+        if(message=='No fields updated into table'){
+          this.setState({
+            loading:false
+          })
+        }
         this.props.handleClose();
         this.props.onFetchDevice();
       }).catch((message) => {
         this.setState({
-          msg: message
-        });
+          msg: message,
+        })
       });
     }
+    return false;
   }
   handleAssign (deviceId, Userid) {
     this.setState({userId: Userid});
@@ -218,7 +243,7 @@ export default class FormAddNewInventory extends React.Component {
                   })}
                 </select>
               </div>
-
+              
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Status'}
                 <select className="form-control" ref="status" value={this.state.status}
@@ -288,7 +313,7 @@ export default class FormAddNewInventory extends React.Component {
                   value={this.state.comment}
                   />
               </div>
-
+ 
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Extended Warranty Comment'}
                 <textarea
@@ -297,7 +322,7 @@ export default class FormAddNewInventory extends React.Component {
                   onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
                   value={this.state.warranty_comment} />
               </div>
-
+              
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Previous Repair Comment'}
                 <textarea
@@ -308,9 +333,10 @@ export default class FormAddNewInventory extends React.Component {
               </div>
             </div>
           </div>
-          <button className="col-md-12 md-btn md-raised m-b-sm indigo" style={{opacity: '0.76', marginTop: '2%'}} onClick={this.handleAddDevice}>
-            {this.state.edit ? 'Update Inventory' : 'Add Inventory'}
-          </button>
+     {this.state.loading? <CircularProgress  size={30} thickness={3} style={{marginLeft:'50%'}} />:null}
+         {this.state.loading==false? <button className="col-md-12 md-btn md-raised m-b-sm indigo" style={{opacity: '0.76', marginTop: '2%'}} onClick={(e)=>this.handleAddDevice(e)}>
+       {this.state.edit ? 'Update Inventory' : 'Add Inventory'}
+          </button>:null}
         </Dialog>
       </div>
     );

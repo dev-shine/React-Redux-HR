@@ -178,7 +178,7 @@ class InventorySystem extends React.Component {
         open:           true,
         deviceId:       id,
         status_message: '',
-        getByIdData:    val 
+        getByIdData:    val
       });
     });
   }
@@ -241,13 +241,8 @@ class InventorySystem extends React.Component {
   }
   callUnapprovedId(id){
   this.props.onFetchApprovedUser(id.id);
-
-  
   }
   render () {
-console.log(this.props);
-
-    
     return (
       <div>
         <Menu {...this.props} />
@@ -313,7 +308,7 @@ console.log(this.props);
                       edit={this.state.edit}
                       callAssign={this.callAssign}
                       callAddDevice={this.callAddDevice}
-                      getByIdData={this.state.getByIdData} 
+                      getByIdData={this.state.getByIdData}
                       {...this.props} />
                     : null
                   }
@@ -364,7 +359,7 @@ console.log(this.props);
     );
   }
 }
- 
+
 function mapStateToProps (state) {
   return {
     frontend:     state.frontend.toJS(),

@@ -164,7 +164,7 @@ export function addNewMachine (new_machine_details) {
         n_repair_comment,
         n_bill_no,
         n_user_Id).then((json) => {
-          dispatch(show_loading());
+          dispatch(hide_loading());
           dispatch(deviceCount());
           if (json.error === 0) {
             dispatch(success_add_new_machine(json.message));
@@ -176,7 +176,7 @@ export function addNewMachine (new_machine_details) {
             reject(json.message);
           }
         }, (error) => {
-          dispatch(show_loading());
+          dispatch(hide_loading());
           dispatch(error_add_new_machine('error occurs!!!'));
           reject('error occurs!!!');
         });
@@ -560,8 +560,6 @@ export function unapprovedUser () {
       dispatch(show_loading());
       return getAsyncUnapprovedData().then((res) => {
         dispatch(hide_loading());
-        console.log(res,'0000000000');
-        
         resolve(res);
         dispatch(successUnapprovedList(res));
       }, (error) => {
@@ -590,7 +588,7 @@ export function approvedUser (id) {
   return (dispatch, getState) => {
     
     if(typeof id==='undefined'|| id==''){
-      return Promise.reject('id is empty')
+      return Promise.reject('id is empty') 
     }
     else{
       id=id;
@@ -600,8 +598,6 @@ export function approvedUser (id) {
       return getAsyncApprovedData(id).then((json) => {
         dispatch(hide_loading());
         if(json.error==0){
-          console.log(json);
-          
         dispatch(successApprovedList(json.message));
         dispatch(unapprovedUser());
         dispatch(get_machines_detail());

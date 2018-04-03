@@ -74,11 +74,7 @@ class InventoryList extends React.Component {
     if (props.searchVal !== undefined) {
       this.handleDeviceTypeFilter(props.searchVal);
     }
-    console.log(typeof(props.manageDevice.approvedList),'popopopopop');
-    console.log(props.manageDevice.approvedList);
-    console.log(props.manageDevice.approvedList=="Machine status updated successfully");
     if(props.manageDevice.approvedList=="Machine status updated successfully"){
-      console.log('saurabh');
       this.setState({
         approveDialog:true
       })
@@ -181,8 +177,6 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus();
   }
 
-  
-
   handleDeviceTypeFilter (deviceType) {  
     if (this.state.deviceTypeList === this.props.manageDevice.deviceList) {
       let devices = this.props.manageDevice.device;
@@ -243,7 +237,6 @@ class InventoryList extends React.Component {
     let listDropMap = this.state.deviceTypeList.map((val, i) => {
       return (<option value={val} key={i}>{val}</option>);
     });
-    
     let listDrop = listDropMap.reverse();
      devices =this.props.fourthArrow==='show'?this.state.unapprovedList:this.state.deviceList;
     let statusVal = this.state.deviceStatusList;
@@ -356,7 +349,6 @@ class InventoryList extends React.Component {
                   </div>
                 </div>
                 </div>:null}
-             
                 <div className='row m-0'>
                 { this.props.fourthArrow==='show' && this.state.approveDialog?<div style={{marginLeft:'35%',color:'red'}}>Machine is successfully approved</div>:null}
 

@@ -22,7 +22,7 @@ export default class FormAddNewInventory extends React.Component {
       machine_price:    '',
       serial_no:        '',
       purchase_date:    '',
-      mac_address:      '', 
+      mac_address:      '',
       operating_system: '',
       comment:          '',
       warranty_comment: '',
@@ -90,8 +90,6 @@ export default class FormAddNewInventory extends React.Component {
         loading:false
       });
       this.props.manageDevice.status_message='';
-      console.log(this.props.manageDevice.status_message);
-      
     }
   }
 
@@ -102,7 +100,7 @@ export default class FormAddNewInventory extends React.Component {
     this.props.handleAddDialog();
   }
 
-  handleAddDevice (e) {  
+  handleAddDevice () {
     let apiData = {
       machine_type:     this.state.machine_type,
       machine_name:     this.state.machine_name.trim(),
@@ -142,7 +140,7 @@ export default class FormAddNewInventory extends React.Component {
     if (validate && !this.props.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
         notify('Success !', val, 'success');
-       this.props.onFetchDevice();
+        this.props.onFetchDevice();
         this.props.handleClose();
 
       }, (error) => {
@@ -151,7 +149,6 @@ export default class FormAddNewInventory extends React.Component {
           loading:false
         })
       });
-      console.log(this.props,'kllllllllllllllll');
       
     } else if (validate) {
       this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
@@ -165,7 +162,7 @@ export default class FormAddNewInventory extends React.Component {
         this.props.onFetchDevice();
       }).catch((message) => {
         this.setState({
-          msg: message,
+          msg: message
         })
       });
     }
@@ -243,7 +240,7 @@ export default class FormAddNewInventory extends React.Component {
                   })}
                 </select>
               </div>
-              
+
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Status'}
                 <select className="form-control" ref="status" value={this.state.status}
@@ -313,7 +310,7 @@ export default class FormAddNewInventory extends React.Component {
                   value={this.state.comment}
                   />
               </div>
- 
+
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Extended Warranty Comment'}
                 <textarea
@@ -322,7 +319,7 @@ export default class FormAddNewInventory extends React.Component {
                   onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
                   value={this.state.warranty_comment} />
               </div>
-              
+
               <div className="col-md-6" style={{opacity: '0.56'}}>
                 {'Previous Repair Comment'}
                 <textarea

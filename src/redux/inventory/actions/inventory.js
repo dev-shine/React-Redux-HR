@@ -38,7 +38,6 @@ function async_addNewMachine (
     'machine_price':    n_machine_price,
     'serial_no':        n_serial_no,
     'purchase_date':    n_purchase_date,
-    'mac_address':      n_mac_address,
     'operating_system': n_operating_system, 
     'status':           n_status,
     'comment':          n_comment,
@@ -57,7 +56,6 @@ export function addNewMachine (new_machine_details) {
     let n_machine_price = '';
     let n_serial_no = '';
     let n_purchase_date = '';
-    let n_mac_address = '';
     let n_operating_system = '';
     let n_status = '';
     let n_comment = '';
@@ -96,13 +94,6 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_purchase_date = new_machine_details.purchase_date;
     }
-
-    if (typeof new_machine_details.mac_address === 'undefined') {
-      return Promise.reject('Mac Address is empty');
-    } else {
-      n_mac_address = new_machine_details.mac_address;
-    }
-
     if (typeof new_machine_details.operating_system === 'undefined') {
       return Promise.reject('Operating System is empty');
     } else {
@@ -155,7 +146,6 @@ export function addNewMachine (new_machine_details) {
         n_machine_price,
         n_serial_no,
         n_purchase_date,
-        n_mac_address,
         n_operating_system,
         n_status,
         n_comment,

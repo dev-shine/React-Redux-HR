@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DeviceCounter from './DeviceCounter';
 
-const DeviceCounterTab = ({statusList, deviceCountList}) => {
+const DeviceCounterTab = ({statusList, deviceCountList,router}) => {
   let total = 0;
   let newDeviceCountData = [];
   for (var key in deviceCountList) {
     if (deviceCountList.hasOwnProperty(key)) {
       let deviceData = deviceCountList[key];
       total = total + deviceData.total;
-      newDeviceCountData.push(<DeviceCounter key={key} deviceData={deviceData} deviceName={key} />);
+      newDeviceCountData.push(<DeviceCounter key={key} deviceData={deviceData} deviceName={key} router={router}/>);
     }
   }
   let statusList1 = statusList.map((val, i) => {
@@ -25,7 +25,7 @@ const DeviceCounterTab = ({statusList, deviceCountList}) => {
     <div>
       <div className="col-xs-12">
         <div className='row'>
-          <div className="box p-a" style={{height: '87px'}}>
+          <div className="box p-a" style={{height: '87px',marginTop:'6%'}}>
             <div className="pull-left m-r">
               <span className="w-48 rounded primary">
                 <i className="fa fa-pie-chart fa-lg" aria-hidden="true"></i>

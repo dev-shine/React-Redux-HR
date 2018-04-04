@@ -53,6 +53,7 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus().then((val) => {
       this.setState({deviceStatusList: val});
     });
+    this.handleDeviceTypeFilter(this.props.routeParams.device)
   }
 
   componentWillReceiveProps (props) {
@@ -86,6 +87,15 @@ class InventoryList extends React.Component {
       });
       props.manageDevice.approvedList="";
     },2000)
+    if( !_.isEqual(this.state.deviceList,props.manageDevice.device)){
+      console.log("ausukasaksu");
+      this.setState({
+        deviceList:       props.manageDevice.device,
+      },()=>{
+        this.handleDeviceTypeFilter(this.props.routeParams.device)
+      });
+    }  
+
   }
 
   openEditDevice (id) {
@@ -260,10 +270,7 @@ class InventoryList extends React.Component {
 
         <td className="tdAlign" style={{marginRight: '0%', width: '15%'}}>
           {device.machine_name}
-          <br /> <br />
-            {device.mac_address ? <b>Mac Address :</b> : null}
-          <br />
-            {device.mac_address ? device.mac_address : null}
+          
         </td>
 
         <td className="tdAlign">

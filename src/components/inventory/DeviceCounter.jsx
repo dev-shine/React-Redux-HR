@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DeviceCounter = ({deviceData, deviceName}) => {
+const DeviceCounter = ({deviceData, deviceName,router}) => {
   let list = Object.keys(deviceData).map((k, idx) => {
     if (k === 'User_Assign' || k === 'User_Not_Assign' || k === 'Assigned') {
       return;
@@ -10,7 +10,7 @@ const DeviceCounter = ({deviceData, deviceName}) => {
     }
   });
   return (
-    <div className="col-xs-11 col-sm-4">
+    <div className="col-xs-11 col-sm-4" onClick={() => router.push(`inventory_system/${deviceName}`)}>
       <div className="box p-a" style={{height: '350px'}}>
         <div className="pull-left m-r">
           <span className="w-48 rounded accent">
@@ -19,10 +19,10 @@ const DeviceCounter = ({deviceData, deviceName}) => {
         </div>
         <div className="clear">
           <h4 className="m-a-0 text-lg _300"></h4>
-          <small className="text-muted" style={{color: '#000'}}>{deviceName} </small>
-          <h4 style={{float: 'right', marginTop: '-1%', color: '#0E9BB1'}}>{deviceData.total}</h4>
+          <h4 className="text-muted"
+         style={{color: 'black',marginLeft:"30%",display:"inline-block",borderBottom:"2px solid red",textDecorationColor:"red",cursor:"pointer"}}>{deviceName}</h4>          <h4 style={{float: 'right', marginTop: '-1%', color: '#0E9BB1'}}>{deviceData.total}</h4>
         </div>
-        <div className='well'>
+        {/* <div className='well'>
           <ul className='text-muted'>
             <li>
               <h4 className="m-a-0 text-lg _300"></h4>
@@ -39,8 +39,8 @@ const DeviceCounter = ({deviceData, deviceName}) => {
               </h4>
             </li>
           </ul>
-        </div>
-        <br />
+        </div> */}
+        <br /><br/><br/>
         <ul className='text-muted'>
           {list}
         </ul>

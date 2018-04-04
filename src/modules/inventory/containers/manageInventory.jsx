@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {withRouter,Link} from 'react-router';
 import _ from 'lodash';
 import {notify} from 'src/services/notify';
 import Menu from 'components/generic/Menu';
@@ -27,12 +27,12 @@ class InventorySystem extends React.Component {
       search:              '',
       status_message:      '',
       active:              'active',
-      firstArrow:          'show',
+      firstArrow:          'hidden',
       secondArrow:         'hidden',
-      thirdArrow:          'hidden',
-      deviceList:          'show',
+      thirdArrow:          'show',
+      deviceList:          'hidden',
       viewUser:            'hidden',
-      viewUserNew:         'hidden',
+      viewUserNew:         'show',
       fourthArrow:         'hidden',
       open:                false,
       edit:                false,
@@ -63,13 +63,10 @@ class InventorySystem extends React.Component {
     this.props.onFetchDeviceStatus();
     this.props.onFetchDeviceCount();
     this.props.onFetchUnapprovedUser();
+    
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
-    if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
-    }
     this.setState({
       username:            props.manageUsers.username,
       user_profile_detail: props.manageUsers.user_profile_detail,
@@ -142,6 +139,7 @@ class InventorySystem extends React.Component {
         viewUser:    'row',
         secondArrow: 'show',
         thirdArrow:  'hidden',
+        viewUserNew: 'hidden',
         thirdArrow:  'hidden',
         fourthArrow:'hidden'
       });
@@ -150,12 +148,12 @@ class InventorySystem extends React.Component {
         deviceList:  'hidden',
         firstArrow:  'hidden',
         viewUser:    'hidden',
-        viewUserNew: 'row',
         secondArrow: 'hidden',
         thirdArrow:  'show',
         thirdArrow:  'hidden',
         fourthArrow:'hidden'
       });
+      this.props.router.push('inventoryOverview');
     }
     else if ((toDisplay === 'unapproved_user')) {
       this.setState({
@@ -201,7 +199,6 @@ class InventorySystem extends React.Component {
         machine_price:    '',
         serial_no:        '',
         purchase_date:    '',
-        mac_address:      '',
         operating_system: '',
         status:           '',
         comment:          '',
@@ -267,22 +264,23 @@ class InventorySystem extends React.Component {
                 <div className="col-sm-10 pull-sm-10">
                   <div className="p-y-md clearfix nav-active-primary" style={{width:'100%',display:'inline-block'}}>
                     <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                      <li onClick={() => { this.openPage('device_list'); }} className={`nav-item ${this.state.active}`}>
+                    <li onClick={() => { this.openPage('view_user_new'); }} className={`nav-item ${this.state.active}`}>
+                        <Link to='inventoryOverview' className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</Link>
+                        <div className={this.state.thirdArrow}>
+
+                          <span className="arrow bottom b-accent"></span>
+                        </div>
+                      </li>
+                      <li onClick={() => { this.openPage('device_list'); }} className={`nav-item`}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Inventory Details</a>
                         <div className={this.state.firstArrow}>
                           <span className="arrow bottom b-accent"></span>
                         </div>
                       </li>
+                      
                       <li onClick={() => { this.openPage('view_user'); }} className={'nav-item'}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">User Inventory Details</a>
                         <div className={this.state.secondArrow}>
-                          <span className="arrow bottom b-accent"></span>
-                        </div>
-                      </li>
-                      <li onClick={() => { this.openPage('view_user_new'); }} className={'nav-item'}>
-                        <a className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</a>
-                        <div className={this.state.thirdArrow}>
-
                           <span className="arrow bottom b-accent"></span>
                         </div>
                       </li>
@@ -323,10 +321,8 @@ class InventorySystem extends React.Component {
                   callFetchDevice={this.callFetchDevice}
                   searchVal={this.state.search}
                   fourthArrow={this.state.fourthArrow}
-                  // handleInventory={this.handleInventory}
                   unapproveList={this.unapprovedList}
                   callUnapprovedId={this.callUnapprovedId}
-                  //unapprovedId={this.props.manageDevice.unapprovedList.data.id}
                   deviceTypeData={(val) => {
                     this.setState({
                       search: val
@@ -344,12 +340,6 @@ class InventorySystem extends React.Component {
                     onUserClick={this.onUserClick}
                     callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
                     {...this.props} />
-                </div>
-                <ViewUserDevice userAssignMachine={this.state.user_assign_machine} />
-              </div>
-              <div className="padding">
-                <div className={this.state.viewUserNew}>
-                  <DeviceCounterTab statusList={this.props.manageDevice.statusList} deviceCountList={this.props.manageDevice.deviceCountList} />
                 </div>
               </div>
             </div>

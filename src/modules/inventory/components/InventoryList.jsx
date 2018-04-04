@@ -81,12 +81,10 @@ class InventoryList extends React.Component {
         approveDialog:true
       })
     }
-    setTimeout(()=>{
       this.setState({
         approveDialog:false
       });
       props.manageDevice.approvedList="";
-    },2000)
     if( !_.isEqual(this.state.deviceList,props.manageDevice.device)){
       this.setState({
         deviceList:       props.manageDevice.device,

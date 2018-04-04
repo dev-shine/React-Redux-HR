@@ -16,7 +16,7 @@ class InventoryOverviewContainer extends React.Component{
         super(props);
         this.props.onIsAlreadyLogin();
         this.state={
-            data:'saas'
+          
         }
     }
 
@@ -25,14 +25,12 @@ class InventoryOverviewContainer extends React.Component{
         this.props.onFetchDeviceCount();
     }
     render(){ 
-        console.log(this.props,'===========000000');
         return(
             <div>
                 <Menu {...this.props} />
                  <div id="content" className="app-content box-shadow-z0" role="main">
                     <Header pageTitle={'Inventory Overview'}  />
                     <div className="col-md-2">
-                   {/* <ViewUserDevice userAssignMachine={this.state.user_assign_machine} /> */}
                 </div>
                 <div className="padding">
                 <div className={this.state.viewUserNew}>

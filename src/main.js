@@ -48,7 +48,6 @@ import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
 // import InventoryItem from './modules/inventory/components/inventoryItem';
-import InventoryOverview from './modules/inventoryOverview/components/inventoryOverviewDetail.jsx';
 import store from './store';
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer.jsx';  
 // import APP from './App';

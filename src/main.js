@@ -47,6 +47,8 @@ import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
+import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
+import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
 
 import store from './store';
 // import APP from './App';
@@ -108,6 +110,8 @@ let render = (routerKey = null) => {
             <Route path="mail_templates" component={Page_mail_template} />
             <Route path="inventory_system" component={Page_InventorySystem} />
             <Route path="attendanceReq" component={Page_AttendanceReq} />
+            <Route path="add_new_employee" component={AddNewEmployee}/>
+            <Route path="add_new_employee_details" component={FormAddNewEmployeeDetails}/>
           </Route>
         </Router>
       </Provider>

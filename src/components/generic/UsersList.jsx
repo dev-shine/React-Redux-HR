@@ -8,14 +8,14 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
     onUserClick(param);
     header && $('#user-list-header').modal('hide');
   };
-  $(window).scroll(function () {
-    let scrollAmount = $(document).scrollTop();
-    if (scrollAmount > top) {
-      $('#fixedScroll').addClass('fixedScroll');
-    } else {
-      $('#fixedScroll').removeClass('fixedScroll');
-    }
-  });
+  // $(window).scroll(function () {
+  //   let scrollAmount = $(document).scrollTop();
+  //   if (scrollAmount > top) {
+  //     $('#fixedScroll').addClass('fixedScroll');
+  //   } else if (scrollAmount < top) {
+  //     $('#fixedScroll').removeClass('fixedScroll');
+  //   }
+  // });
   let usersList = _.map(users, (user, key) => {
     let avatar = '';
     let param = '';

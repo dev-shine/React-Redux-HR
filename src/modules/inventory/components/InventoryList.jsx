@@ -88,7 +88,6 @@ class InventoryList extends React.Component {
       props.manageDevice.approvedList="";
     },2000)
     if( !_.isEqual(this.state.deviceList,props.manageDevice.device)){
-      console.log("ausukasaksu");
       this.setState({
         deviceList:       props.manageDevice.device,
       },()=>{

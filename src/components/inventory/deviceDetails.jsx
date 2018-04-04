@@ -19,8 +19,6 @@ const DeviceDetails = ({userAssignMachine, unassignDevice}) => {
     machineList = <tr><td colSpan="5"><h5 className="text-center text-danger">{'Device Not Asssigned'}</h5></td></tr>;
   }
 
-  
-
   return (
     <div className="row no-gutter box">
       <h6 className="text-center">Asssigned Device Details</h6>

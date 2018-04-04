@@ -22,24 +22,6 @@ const DeviceCounter = ({deviceData, deviceName,router}) => {
           <h4 className="text-muted"
          style={{color: 'black',marginLeft:"30%",display:"inline-block",borderBottom:"2px solid red",textDecorationColor:"red",cursor:"pointer"}}>{deviceName}</h4>          <h4 style={{float: 'right', marginTop: '-1%', color: '#0E9BB1'}}>{deviceData.total}</h4>
         </div>
-        {/* <div className='well'>
-          <ul className='text-muted'>
-            <li>
-              <h4 className="m-a-0 text-lg _300"></h4>
-              <small className="text-muted" style={{color: '#000'}}>Assigned To User </small>
-              <h4 style={{float: 'right', marginTop: '-1%', color: '#838383'}}>
-                {deviceData.User_Assign ? deviceData.User_Assign : '0'}
-              </h4>
-            </li>
-            <li>
-              <h4 className="m-a-0 text-lg _300"></h4>
-              <small className="text-muted" style={{color: '#000'}}>Not Assigned </small>
-              <h4 style={{float: 'right', marginTop: '-1%', color: '#838383'}}>
-                {deviceData.User_Not_Assign ? deviceData.User_Not_Assign : '0'}
-              </h4>
-            </li>
-          </ul>
-        </div> */}
         <br /><br/><br/>
         <ul className='text-muted'>
           {list}

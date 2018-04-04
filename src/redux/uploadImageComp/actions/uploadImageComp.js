@@ -7,7 +7,7 @@ export const uploadFile = (file, url) => dispatch => {
     dispatch({ type: "UPLOAD_FILE", payload: data });
     console.log(data);
     if (data.status === 200) {
-      notify("Success !", "File uploaded successfully", "success");
+      notify("Success !", `${file.name} uploaded successfully`, "success");
     }
     console.log("success");
   });

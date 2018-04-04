@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default () => {
+const AddDocuments = () => {
   return (
     <div>
       Add Document
     </div>
   )
 }
+export default AddDocuments;

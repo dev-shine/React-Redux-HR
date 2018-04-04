@@ -32,11 +32,11 @@ class UploadImageComp extends Component {
           formData.append("file", result, result.name);
           // Send the compressed image file to server with XMLHttpRequest.
           fetch(url, { method: "POST", body: formData }).then(data => {
+            
             console.log(data);
             if (data.status === 200) {
-              notify("Success !", "File uploaded successfully", "success");
+              notify("Success !", `${doc_type} named ${result.name} uploaded successfully`, "success");
             }
-            console.log("success");
           });
         },
         error(e) {
@@ -58,6 +58,7 @@ class UploadImageComp extends Component {
             onClick={e => this.props.callUpdateDocuments(e)}
           />
         </form>
+
       </div>
     );
   }

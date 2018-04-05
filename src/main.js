@@ -49,6 +49,7 @@ import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard'
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
 import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
 import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
+import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 
 import store from './store';
 // import APP from './App';
@@ -112,6 +113,7 @@ let render = (routerKey = null) => {
             <Route path="attendanceReq" component={Page_AttendanceReq} />
             <Route path="add_new_employee" component={AddNewEmployee}/>
             <Route path="add_new_employee_details" component={FormAddNewEmployeeDetails}/>
+            <Route path="user_document" component={UserDocumentDetails}/>
           </Route>
         </Router>
       </Provider>

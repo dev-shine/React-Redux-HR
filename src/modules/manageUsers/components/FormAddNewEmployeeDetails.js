@@ -41,7 +41,9 @@ class FormAddNewEmployeeDetails extends React.Component {
     localStorage.setItem("signature", signaturePad.toDataURL());
     console.log(localStorage.signature);
   }
-  
+  callAddNewEmployeeDetails() {
+    this.props.router.push("/user_document");
+  }
   render() {
     return (
       <div>
@@ -198,7 +200,7 @@ class FormAddNewEmployeeDetails extends React.Component {
                 <div className="row p-y">
                   <ButtonRaised
                     className="col-xs-12 p-y-2 m-b-sm indigo"
-                    // onClick={() => this.callAddNewEmployeeDetails()}
+                    onClick={() => this.callAddNewEmployeeDetails()}
                     label={"Next"}
                   />
                 </div>

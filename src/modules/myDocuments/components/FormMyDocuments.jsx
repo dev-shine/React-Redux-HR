@@ -17,7 +17,6 @@ class FormMyDocuments extends React.Component {
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
-    
   }
   componentDidMount() {
     this.toggleCollapse();
@@ -31,7 +30,7 @@ class FormMyDocuments extends React.Component {
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
   }
-  
+
   callUpdateDocuments(e) {
     let type = this.state.doc_type;
     let link1 = this.refs.file.value;
@@ -175,9 +174,9 @@ class FormMyDocuments extends React.Component {
                 /> */}
                 <UploadImageComp
                   callUpdateDocuments={this.callUpdateDocuments}
-                  url = {CONFIG.upload_url}
+                  url={CONFIG.upload_url}
                   file={this.state.file[0]}
-                  doc_type = {this.state.doc_type}
+                  doc_type={this.state.doc_type}
                 />
               </div>
             </form>

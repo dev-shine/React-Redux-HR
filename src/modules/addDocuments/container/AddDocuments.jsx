@@ -13,8 +13,8 @@ class AddDocuments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid :''
-    }
+      userid: ""
+    };
     this.props.onIsAlreadyLogin();
     this.onUserClick = this.onUserClick.bind(this);
   }
@@ -28,10 +28,8 @@ class AddDocuments extends Component {
   componentDidMount() {
     this.props.requestUsersList();
   }
-  onUserClick (userid) {
-    console.log(userid);
+  onUserClick(userid) {
     this.props.history.push(`/add_documents/${userid}`);
-    // this.setState({userid});
   }
   render() {
     return (
@@ -45,9 +43,11 @@ class AddDocuments extends Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
-                <div className = "col-sm-12" id="fixedScroll">
-                  <UsersList users={this.props.usersList.users}
-                  onUserClick = {this.onUserClick} />
+                <div className="col-sm-12" id="fixedScroll">
+                  <UsersList
+                    users={this.props.usersList.users}
+                    onUserClick={this.onUserClick}
+                  />
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { CONFIG } from "src/config/index";
 import { notify } from "src/services/notify";
 import { getToken } from "src/services/generic";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
-import {browserHistory} from 'react-router';
+import { browserHistory } from "react-router";
 
 export default class FormAddDocuments extends Component {
   constructor(props) {
@@ -12,33 +12,20 @@ export default class FormAddDocuments extends Component {
       doc_type: "",
       user_token: "",
       file: [],
-      filelist:[]
+      filelist: []
     };
-    
-    this.toggleCollapse = this.toggleCollapse.bind(this);
+
     this.handleFileChange = this.handleFileChange.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
   }
   componentDidMount() {
-    this.toggleCollapse();
     window.addEventListener("resize", this.toggleCollapse);
   }
-  toggleCollapse() {
-    if ($(window).width() > 767) {
-      $("#uploadDoc").addClass("in");
-      $("#uploadMyDoc").removeClass(
-        "md-btn md-raised indigo auto-width-center"
-      );
-    } else {
-      $("#uploadDoc").removeClass("in");
-      $("#uploadMyDoc").addClass("md-btn md-raised indigo auto-width-center");
-    }
-  }
+
   callUpdateDocuments(e) {
     let type = this.state.doc_type;
     let link1 = this.refs.file.value;
     let file = this.state.file[0];
-    // const userId = this.props.userId;
     let userId = this.props.params.splat;
     let stop = false;
     if (!userId) {
@@ -52,7 +39,7 @@ export default class FormAddDocuments extends Component {
       notify("Warning!", "Please select a file", "warning");
     } else if (file.size > 5000000) {
       stop = true;
-      notify("Warning!", "File size must be less than 5mb", "warning");
+      notify("Warning!", "File doc_typesize must be less than 5mb", "warning");
     }
     if (stop) {
       e.preventDefault();
@@ -65,24 +52,16 @@ export default class FormAddDocuments extends Component {
   }
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
-  
   }
   render() {
     const userId = this.props.params.splat;
-    // const userId = this.props.userId;
-    console.log(userId);
     return (
       <div className="row p-t-md">
         <div className="col-sm-offset-3 col-sm-6 p-x-md">
-          <h6
-            id="uploadMyDoc"
-            className="text-center pointer"
-            data-toggle="collapse"
-            data-target="#uploadDoc"
-          >
+          <h6 id="uploadMyDoc" className="text-center pointer">
             Upload Documents
           </h6>
-          <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
+          <div className="row box p-a-md m-b-lg " id="uploadDoc">
             <form
               // onSubmit={this.handleSubmit}
               // action={CONFIG.upload_url} method="POST"
@@ -152,7 +131,13 @@ export default class FormAddDocuments extends Component {
               </div>
             </form>
           </div>
-          <button className="col-xs-4 col-xs-offset-4 md-btn md-raised indigo" onClick = {browserHistory.goBack}> Go Back</button>
+          <button
+            className="col-xs-4 col-xs-offset-4 md-btn md-raised indigo"
+            onClick={browserHistory.goBack}
+          >
+            {" "}
+            Go Back
+          </button>
         </div>
       </div>
     );

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {confirm} from 'src/services/notify';
 import {getToken, resetLoggedUser} from 'src/services/generic';
 import 'whatwg-fetch';
+import axios from 'axios';
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_profile_detail_by_id', 'update_user_bank_detail',
   'update_user_profile_detail', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary',
@@ -102,7 +103,14 @@ export function fireAjax (method, url, data, api) {
   });
 }
 
-export function uploadfile(file,url){
-  return fetch(url, 
-    { method: "POST", body: file });
+export function uploadfile(file, url,doc_type) {
+  return axios.post(url, file, {
+    onUploadProgress: progressEvent => {
+      console.log(
+        `Upload Progress ${doc_type} :` +
+          Math.round(progressEvent.loaded / progressEvent.total * 100) +
+          "%"
+      );
+    }
+  });
 }

@@ -349,8 +349,8 @@ export function addNewEmployee (new_employee_details) {
       async_addNewEmployee(n_dateofjoining, n_name, n_jobtitle, n_gender, n_dob, n_username, n_training_month, n_workemail).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         if (json.error == 0) {
-          dispatch(success_add_new_employee(json.data.message));
-          resolve(json.data.message);
+          dispatch(success_add_new_employee(json.data));
+          resolve(json.data);
         } else {
           dispatch(error_add_new_employee(json.data.message));
           reject(json.data.message);
@@ -515,6 +515,103 @@ export function changeSteps (userid, stepid) {
       }, (error) => {
         reject('error occurs!!');
       });
+    });
+  };
+}
+
+export function success_add_new_user_details (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_NEW_USER_DETAILS)(data);
+}
+export function error_add_new_user_details (data) {
+  return createAction(constants.ACTION_ERROR_ADD_NEW_USER_DETAILS)(data);
+}
+
+function async_addNewUserDetails (n_user_id,  n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,
+    n_holding_comments,n_signature ) {
+  return fireAjax('POST', '', {
+    'action':                   'update_user_profile_detail_by_id',
+    'user_id':                  n_user_id,
+    'permanent_address':        n_address2,
+    'emergency_ph1':            n_emergency_ph1,
+    'emergency_ph2':            n_emergency_ph2,
+    'blood_group':              n_blood_group,
+    'medical_condition':        n_medical_condition,
+    'holding_comments':         n_holding_comments,
+    'signature':                n_signature
+  });
+}
+
+
+export function addNewUserDetails (new_profile_details) {
+  return function (dispatch, getState) {
+    let n_user_id = '';
+    let n_address2 = '';
+    let n_emergency_ph1 = '';
+    let n_emergency_ph2 = '';
+    let n_blood_group = '';
+    let n_medical_condition = '';
+    let n_holding_comments = '';
+    let n_signature ='';
+    if (typeof new_profile_details.user_id !== 'undefined') {
+      n_user_id = new_profile_details.user_id;
+    }
+    if (typeof new_profile_details.signature !== 'undefined') {
+      n_signature = new_profile_details.signature;
+    }
+    if (typeof new_profile_details.permanent_address !== 'undefined') {
+      n_address2 = new_profile_details.permanent_address;
+    }
+    if (typeof new_profile_details.emergency_ph1 !== 'undefined') {
+      n_emergency_ph1 = new_profile_details.emergency_ph1;
+    }
+    if (typeof new_profile_details.emergency_ph2 !== 'undefined') {
+      n_emergency_ph2 = new_profile_details.emergency_ph2;
+    }
+    if (typeof new_profile_details.blood_group !== 'undefined') {
+      n_blood_group = new_profile_details.blood_group;
+    }
+    if (typeof new_profile_details.medical_condition !== 'undefined') {
+      n_medical_condition = new_profile_details.medical_condition;
+    }
+    if (typeof new_profile_details.holding_comments !== 'undefined') {
+      n_holding_comments = new_profile_details.holding_comments;
+    }
+    
+    if (n_user_id.trim() === '') {
+      return Promise.reject('User id is empty');
+    }
+    if (n_signature.trim() === '') {
+      return Promise.reject('signature is empty');
+    }
+    if (n_address2.trim() === '') {
+      return Promise.reject('Permanent address is empty');
+    }
+    if (n_emergency_ph1.trim() === '') {
+      return Promise.reject('Emmergency contact 1 is empty');
+    }
+    if (n_emergency_ph2.trim() === '') {
+      return Promise.reject('Emmergency contact 2 is empty');
+    }
+    if (n_blood_group.trim() === '') {
+      return Promise.reject('Blood group not selected');
+    }
+    if (n_medical_condition.trim() === '') {
+      return Promise.reject('Any medical conditions is empty');
+    }
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading()); // show loading icon
+      async_addNewUserDetails(n_user_id, n_address2, n_emergency_ph1, n_emergency_ph2, n_blood_group, n_medical_condition,n_holding_comments, n_signature).then((json) => {
+          dispatch(hide_loading()); // hide loading icon
+          if (json.error == 0) {
+            dispatch(getUserProfileDetails(n_user_id));
+            dispatch(success_add_new_user_details(json.data.message));
+          } else {
+            dispatch(error_add_new_user_details(json.data.message));
+          }
+        }, (error) => {
+          dispatch(hide_loading()); // hide loading icon
+          dispatch(error_add_new_user_details('error occurs!!!'));
+        });
     });
   };
 }

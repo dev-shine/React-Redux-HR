@@ -96,3 +96,8 @@ export const errorEmployeePerformance = createAction(constants.ERROR_EMP_PERFORM
 export const requestUserList = createAction(constants.REQUEST_USER_LIST);
 export const successUserList = createAction(constants.SUCCESS_USER_LIST);
 export const errorUserList = createAction(constants.ERROR_USER_LIST);
+
+
+export const requestAddNewUserDetails = createAction(constants.REQUEST_ADD_NEW_USER_DETAILS);
+export const successAddNewUserDetails = createAction(constants.ACTION_SUCCESS_ADD_NEW_USER_DETAILS);
+export const errorAddNewUserDetails = createAction(constants.ACTION_ERROR_ADD_NEW_USER_DETAILS)

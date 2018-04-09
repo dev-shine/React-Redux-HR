@@ -112,7 +112,7 @@ let render = (routerKey = null) => {
             <Route path="inventory_system" component={Page_InventorySystem} />
             <Route path="attendanceReq" component={Page_AttendanceReq} />
             <Route path="add_new_employee" component={AddNewEmployee}/>
-            <Route path="add_new_employee_details" component={FormAddNewEmployeeDetails}/>
+            <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
             <Route path="user_document" component={UserDocumentDetails}/>
           </Route>
         </Router>

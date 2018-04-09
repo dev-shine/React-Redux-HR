@@ -3,6 +3,7 @@ import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { notify } from "src/services/notify";
 import { DateField } from "react-date-picker";
 import ToggleButton from "react-toggle-button";
 import "react-date-picker/index.css";
@@ -23,8 +24,20 @@ class FormAddNewEmployeeDetails extends React.Component {
   constructor(props) {
     super(props);
     this.props.onIsAlreadyLogin();
-    this.state = {};
+    this.state = {
+      user_id : '',
+      permanent_address : '',
+      emergency_ph1 : '',
+      emergency_ph2 : '',
+      blood_group : '',
+      medical_condition : '',
+      holding_comments : '',
+      signature: ''
+    };
+    this.callAddNewEmployeeDetails = this.callAddNewEmployeeDetails.bind(this);
+    this.handleSaveButton = this.handleSaveButton.bind(this);
   }
+ 
   handleCanvas() {
     signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
       backgroundColor: "rgba(255, 255, 255, 0)",
@@ -39,10 +52,21 @@ class FormAddNewEmployeeDetails extends React.Component {
   }
   handleSaveButton() {
     localStorage.setItem("signature", signaturePad.toDataURL());
-    console.log(localStorage.signature);
+    this.setState({
+      signature: localStorage.signature
+    })
   }
-  callAddNewEmployeeDetails() {
-    this.props.router.push("/user_document");
+  callAddNewEmployeeDetails(new_profile_details) {
+    this.props.onAddNewUserDetails(new_profile_details).then(
+      data => {
+        notify(data);
+        this.props.onUsersList();
+        this.props.router.push("/user_document");
+      },
+      error => {
+        notify(error);
+      }
+    );
   }
   render() {
     return (
@@ -62,6 +86,10 @@ class FormAddNewEmployeeDetails extends React.Component {
                       floatingLabelText="Permanent Address"
                       floatingLabelFixed
                       fullWidth
+                      onChange={e =>
+                        this.setState({ permanent_address: e.target.value })
+                      }
+                      value={this.state.permanent_address}
                     />
                   </div>
                   <div className="col-md-4 input-wrapper">
@@ -69,6 +97,10 @@ class FormAddNewEmployeeDetails extends React.Component {
                       floatingLabelText="Phone No"
                       floatingLabelFixed
                       fullWidth
+                      onChange={e =>
+                        this.setState({ emergency_ph1: e.target.value })
+                      }
+                      value={this.state.emergency_ph1}
                     />
                   </div>
                 </div>
@@ -78,11 +110,19 @@ class FormAddNewEmployeeDetails extends React.Component {
                       floatingLabelText="Emergency Contact No"
                       floatingLabelFixed
                       fullWidth
+                      onChange={e =>
+                        this.setState({ emergency_ph2: e.target.value })
+                      }
+                      value={this.state.emergency_ph2}
                     />
                   </div>
                   <div className="col-md-4 input-wrapper">
                     Blood Group
-                    <select className="form-control" ref="training_month">
+                    <select className="form-control" ref="blood_group"
+                    onChange={e =>
+                      this.setState({ blood_group: e.target.value })
+                    }
+                    value={this.state.blood_group}>
                       <option disabled>--select blood group--</option>
                       <option value="0">B+ </option>
                       <option value="1">O+</option>
@@ -95,67 +135,15 @@ class FormAddNewEmployeeDetails extends React.Component {
                     </select>
                   </div>
                 </div>
-                {/* <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">
-                    2 photographs of new joinee
-                  </div>
-                  <div className="col-xs-4 md-p-x input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">Relieving letter</div>
-                  <div className="col-xs-6 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">Salary slip</div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">
-                    Photograph of Address proof
-                  </div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">
-                    Photocopy of educational cerificates
-                  </div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">Aadhar Card</div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">Pan Card</div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div>
-                <div className="col-xs-12 p-y input-wrapper">
-                  <div className="col-xs-4 input-wrapper">
-                    Signed offer Letter
-                  </div>
-                  <div className="col-xs-4 input-wrapper">
-                    <ToggleButton />
-                  </div>
-                </div> */}
                 <div className="col-md-8 input-wrapper">
                   <TextField
                     floatingLabelText="Any Medical issues in past/present"
                     floatingLabelFixed
                     fullWidth
+                    onChange={e =>
+                      this.setState({ medical_condition: e.target.value })
+                    }
+                    value={this.state.medical_condition}
                   />
                 </div>
                 <div className="col-md-8 input-wrapper">
@@ -163,13 +151,10 @@ class FormAddNewEmployeeDetails extends React.Component {
                     floatingLabelText="Any special joinining terms from employers"
                     floatingLabelFixed
                     fullWidth
-                  />
-                </div>
-                <div className="col-md-8 input-wrapper">
-                  <TextField
-                    floatingLabelText="Any special joining requirements from candidates"
-                    floatingLabelFixed
-                    fullWidth
+                    onChange={e =>
+                      this.setState({ holding_comments: e.target.value, user_id: this.props.params.id })
+                    }
+                    value={this.state.holding_comments}
                   />
                 </div>
               </div>
@@ -193,14 +178,14 @@ class FormAddNewEmployeeDetails extends React.Component {
                 />
                 <span> </span>
                 <ButtonRaised
-                  onClick={this.handleSaveButton}
+                  onClick={() => this.handleSaveButton()}
                   id="save"
                   label={"Save"}
                 />
                 <div className="row p-y">
                   <ButtonRaised
                     className="col-xs-12 p-y-2 m-b-sm indigo"
-                    onClick={() => this.callAddNewEmployeeDetails()}
+                    onClick={() => this.callAddNewEmployeeDetails(this.state)}
                     label={"Next"}
                   />
                 </div>
@@ -228,7 +213,10 @@ const mapDispatchToProps = dispatch => {
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());
-    }
+    },
+    onAddNewUserDetails:  new_profile_details => {
+      return dispatch(actionsManageUsers.addNewUserDetails(new_profile_details));
+    },
   };
 };
 const AddNewEmployeeDetails = withRouter(
@@ -240,5 +228,6 @@ export default AddNewEmployeeDetails;
 AddNewEmployeeDetails.PropTypes = {
   onIsAlreadyLogin: PropTypes.func.isRequired,
   usersList: PropTypes.object.isRequired,
+  onAddNewUserDetails : PropTypes.func.isRequired,
   router: PropTypes.object.isRequired
 };

@@ -26,7 +26,8 @@ function async_addNewMachine (
   n_warranty, 
   n_warranty_comment,
   n_repair_comment,
-  n_user_Id
+  n_user_Id,
+  n_unassign_comment
 
 ) {
   return fireAjax('POST', '', {
@@ -42,7 +43,8 @@ function async_addNewMachine (
     'warranty':         n_warranty,
     'warranty_comment': n_warranty_comment,
     'repair_comment':   n_repair_comment,
-    'user_id':          n_user_Id
+    'user_id':          n_user_Id,
+    'unassign_comment': n_unassign_comment
   });
 }
 
@@ -60,6 +62,9 @@ export function addNewMachine (new_machine_details) {
     let n_warranty_comment = '';
     let n_repair_comment = '';
     let n_user_Id = '';
+    let n_unassign_comment='';
+    console.log(new_machine_details,'mmmmmmmmmmm');
+    
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type === '') {
       return Promise.reject('Machine Type is empty');
@@ -94,22 +99,20 @@ export function addNewMachine (new_machine_details) {
       return Promise.reject('Operating System is empty');
     } else {
       n_operating_system = new_machine_details.operating_system;
-      console.log(n_operating_system,'operating');
-      
     }
 
     if (typeof new_machine_details.status === 'undefined' || new_machine_details.status === '') {
       return Promise.reject('Status is empty');
     } else {
       n_status = new_machine_details.status;
-      console.log(n_status,'status=====');
-      
     }
+
     if (typeof new_machine_details.comment === 'undefined') {
       return Promise.reject('Comment is empty');
     } else {
       n_comment = new_machine_details.comment;
     }
+
     if (typeof new_machine_details.warranty === 'undefined' || new_machine_details.warranty === '') {
       return Promise.reject('Warranty Expire Date is empty');
     } else {
@@ -129,9 +132,21 @@ export function addNewMachine (new_machine_details) {
     }
     if (typeof new_machine_details.user_Id === 'undefined' || new_machine_details.user_Id === '') {
       return Promise.reject('User Not Assign');
-    } else {
+    }else if(new_machine_details.user_Id=='unassign'){
+      n_user_Id=null;
+    }
+     else {
       n_user_Id = new_machine_details.user_Id;
-      
+    }
+    
+    if(new_machine_details.user_Id=='unassign'){
+       if (typeof new_machine_details.unassign_comment === 'undefined' || new_machine_details.unassign_comment.trim() === '') {
+        return Promise.reject('unassign comment is empty');
+       }
+       else{
+        n_unassign_comment=new_machine_details.unassign_comment;
+        console.log(n_unassign_comment,'saurabh');
+      }
     }
 
     return new Promise((resolve, reject) => {
@@ -147,7 +162,8 @@ export function addNewMachine (new_machine_details) {
         n_warranty,
         n_warranty_comment,
         n_repair_comment,
-        n_user_Id).then((json) => {
+        n_user_Id,
+      n_unassign_comment).then((json) => {
           dispatch(hide_loading());
           dispatch(deviceCount());
           if (json.error === 0) {

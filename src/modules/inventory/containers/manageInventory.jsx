@@ -125,7 +125,7 @@ class InventorySystem extends React.Component {
       this.setState({
         deviceList:  'row',
         firstArrow:  'show',
-        viewUser:    'show',
+        viewUser:    'hidden',
         viewUserNew: 'hidden',
         secondArrow: 'hidden',
         thirdArrow:  'hidden',
@@ -153,7 +153,7 @@ class InventorySystem extends React.Component {
         thirdArrow:  'hidden',
         fourthArrow:'hidden'
       });
-      this.props.router.push('inventoryOverview');
+      this.props.router.push('inventoryOverviewDetail');
     }
     else if ((toDisplay === 'unapproved_user')) {
       this.setState({
@@ -278,9 +278,8 @@ class InventorySystem extends React.Component {
                         </div>
                       </li>
                       <li onClick={() => { this.openPage('view_user_new'); }} className={`nav-item `}>
-                        <Link to='inventoryOverview' className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</Link>
+                        <Link to='inventoryOverviewDetail' className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</Link>
                         <div className={this.state.thirdArrow}>
-
                           <span className="arrow bottom b-accent"></span>
                         </div>
                       </li>

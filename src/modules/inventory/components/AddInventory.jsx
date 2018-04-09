@@ -32,7 +32,8 @@ export default class FormAddNewInventory extends React.Component {
       msg:              '',
       deviceTypeList:   [],
       deviceStatusList: [],
-      loading:          false
+      loading:          false,
+      unassign_comment: ''
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -64,7 +65,8 @@ export default class FormAddNewInventory extends React.Component {
         warranty_comment: props.getByIdData.warranty_comment,
         repair_comment:   props.getByIdData.repair_comment,
         warranty:         props.getByIdData.warranty_end_date,
-        user_Id:          props.getByIdData.user_Id
+        user_Id:          props.getByIdData.user_Id,
+        unassign_comment: props.getByIdData.unassign_comment
       });
     } 
     else if(this.props.manageDevice.status_message=='Machine added Successfully !!'||this.props.manageDevice.status_message=='Successfully Updated into table'){
@@ -82,7 +84,8 @@ export default class FormAddNewInventory extends React.Component {
         repair_comment:   '',
         warranty:         '',
         user_Id:          '',
-        loading:false
+        loading:          false,
+        unassign_comment: ''
       });
       this.props.manageDevice.status_message='';
     }
@@ -109,7 +112,8 @@ export default class FormAddNewInventory extends React.Component {
       warranty_comment: this.state.warranty_comment.trim(),
       repair_comment:   this.state.repair_comment.trim(),
       warranty:         this.state.warranty,
-      user_Id:          this.state.user_Id
+      user_Id:          this.state.user_Id,
+      unassign_comment: this.state.unassign_comment
     };
     let resetFields = {
       machine_type:     '',
@@ -122,7 +126,8 @@ export default class FormAddNewInventory extends React.Component {
       warranty_comment: '',
       repair_comment:   '',
       warranty:         '',
-      user_Id:          ''
+      user_Id:          '',
+      unassign_comment: ''
     };
     let validate = true;
     this.setState({
@@ -172,6 +177,8 @@ export default class FormAddNewInventory extends React.Component {
   }
  
   render () {
+    console.log(this.state.user_Id);
+    
     let userList = this.props.usersList.users.map((val, i) => {
       return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;
     });
@@ -198,7 +205,7 @@ export default class FormAddNewInventory extends React.Component {
               <div className="col-md-6" >
                 <DatePicker 
                   hintText="Date of Purchase"
-                  onChange={(e,date) => { this.setState({purchase_date: date}),console.log(date,'=====')}}
+                  onChange={(e,date) => { this.setState({purchase_date: date})}}
                   textFieldStyle={{width:"100%"}}
                   value={this.state.purchase_date}
                   required />
@@ -255,12 +262,12 @@ export default class FormAddNewInventory extends React.Component {
                   value={this.state.user_Id}
                   onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
-                  <option value='' disabled>Select User</option>
+                  <option value=''  disabled selected>Select User</option>
                   <option value="unassign">Unassign</option>
                   {userList}
                 </select>
               </div>
-              <div className="col-md-6">
+             <div className="col-md-6">
                 <TextField
                   floatingLabelText="Price"
                   hintText='₹'
@@ -269,6 +276,15 @@ export default class FormAddNewInventory extends React.Component {
                   onBlur={(e) => { this.setState({machine_price: this.state.machine_price.trim()}); }}
                   value={this.state.machine_price} required />
               </div>
+             {this.state.user_Id=='unassign'?<div className="col-md-6">
+                <TextField
+                  floatingLabelText="Unassign Device comment"
+                  hintText='₹'
+                  fullWidth
+                  onChange={(e) => (this.setState({unassign_comment: e.target.value}))}
+                  onBlur={(e) => { this.setState({unassign_comment: this.state.unassign_comment.trim()}); }}
+                  value={this.state.unassign_comment} required />
+              </div>:null}
 
               <div className="col-md-6">
                 <TextField

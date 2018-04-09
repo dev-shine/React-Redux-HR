@@ -91,7 +91,7 @@ class InventoryList extends React.Component {
         deviceList:       props.manageDevice.device,
       },()=>{
          capitalizeDevice= this.capitalize(this.props.routeParams.device);
-        this.handleDeviceTypeFilter(this.props.routeParams.device);
+        this.handleDeviceTypeFilter(capitalizeDevice);
       });
       this.handleStatusTypeFilter('Working');
     } 
@@ -303,6 +303,8 @@ class InventoryList extends React.Component {
             {device.warranty_comment} <br />
             <li>{<b>Pre Repair Comments:</b>}</li>
             {device.repair_comment} <br />
+            <li>{<b>Unassign Device Comment:</b>}</li>
+            {device.unassign_comment}
           </ul>
         </td>
 

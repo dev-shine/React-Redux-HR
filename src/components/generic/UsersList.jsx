@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, top}) => {
   const userClick = (param) => {
     onUserClick(param);
-    header && $('#user-list-header').modal('hide');
+    header && $('#user-list-header').modal('hide'); 
   };
   // $(window).scroll(function () {
   //   let scrollAmount = $(document).scrollTop();
@@ -18,8 +18,6 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
   // });
   let orderUser=_.orderBy(users, [ 'id'], ['asc']);
   let usersList = _.map(orderUser, (user, key) => {
-    console.log(orderUser,'oooooopppppppp');
-    
     let avatar = '';
     let param = '';
     let arrow = '';

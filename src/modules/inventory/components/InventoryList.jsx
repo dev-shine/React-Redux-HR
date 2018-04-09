@@ -44,7 +44,7 @@ class InventoryList extends React.Component {
     this.callAddStatus = this.callAddStatus.bind(this);
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
-    // this.capitalize=this.capitalize.bind(this);
+    this.capitalize=this.capitalize.bind(this);
     // this.handleInventory = this.handleInventory.bind(this);
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
@@ -231,9 +231,9 @@ class InventoryList extends React.Component {
     });
   }
 
-//   capitalize(string) {
-//     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-// }
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
   
   sendUnapprovedId(id){
     this.setState({id:id});

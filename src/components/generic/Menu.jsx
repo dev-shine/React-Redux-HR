@@ -6,7 +6,7 @@ import DisplayMenuList from 'components/menu/DisplayMenuList';
 class Menu extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { 
+    this.state = {
       role: props.loggedUser.data.role
     };
     this.click = this.click.bind(this);
@@ -22,14 +22,6 @@ class Menu extends React.Component {
     }
   }
   render () {
-
-    console.log(this.props.loggedUser.data.role_pages)
-    console.log(this.props.loggedUser.data.role_pages)
-    console.log(this.props.loggedUser.data.role_pages)
-    console.log(this.props.loggedUser.data.role_pages)
-    console.log(this.props.loggedUser.data.role_pages)
-    console.log(this.props.loggedUser.data.role_pages)
-    
     return (
       <div id="aside" className="app-aside modal fade nav-dropdown">
         <div className="left navside dark dk">

@@ -44,7 +44,7 @@ export const urls = {
   uploadPolicyDocuments:  'upload_policy_documents',
   addVariables:           'add_variables',
   mailTemplates:          'mail_templates',
-  inventorySystem:        'inventory_system',
+  inventorySystem:        'inventoryOverviewDetail',
   attendanceReq:          'attendanceReq'
 };
 

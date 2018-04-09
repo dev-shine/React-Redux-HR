@@ -107,8 +107,8 @@ let render = (routerKey = null) => {
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} />
-            <Route path="inventory_system" component={Page_InventorySystem} />
-            <Route path="inventory_system/:id" component={InventoryItem} />
+            <Route path="inventoryOverviewDetail" component={Page_InventorySystem} />
+            <Route path="inventoryOverviewDetail/:id" component={InventoryItem} />
             <Route path="attendanceReq" component={Page_AttendanceReq} />
           </Route>
         </Router>

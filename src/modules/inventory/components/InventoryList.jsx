@@ -186,7 +186,7 @@ class InventoryList extends React.Component {
   }
 
   handleInventory (device) {
-    this.props.router.push(`inventory_system/${device.id}`)
+    this.props.router.push(`inventoryOverviewDetail/${device.id}`)
 
   }
 

@@ -537,3 +537,63 @@ export function deviceCount () {
     });
   };
 }
+
+
+
+export function successAddInventoryComment (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_INVENTORY_COMMENT)(data);
+}
+
+export function errorAddInventoryComment (data) {
+  return createAction(constants.ACTION_ERROR_ADD_INVENTORY_COMMENT)(data);
+}
+
+function async_addInventoryComment (
+  n_repair_comment,
+  n_user_Id
+
+) {
+  return fireAjax('POST', '', {
+    'action':           'add_inventory_comment',
+    'comment':               n_comment,
+    'inventory_id':          n_inventory_id
+  });
+}
+
+export function addInventoryComment (add_inventory_comment) {
+  return function (dispatch, getState) {
+    let n_comment = '';
+    let n_inventory_id = '';
+    if (typeof add_inventory_comment.comment === 'undefined') {
+      return Promise.reject('Comment is empty');
+    } else {
+      n_comment = add_inventory_comment.comment;
+    }
+    if (typeof add_inventory_comment.inventory_id === 'undefined' || add_inventory_comment.inventory_id === '') {
+      return Promise.reject('Inventory id empty');
+    } else {
+      n_inventory_id = add_inventory_comment.inventory_id;
+    }
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading());
+      async_addInventoryComment(
+        n_comment,
+        n_inventory_id).then((json) => {
+          dispatch(hide_loading());
+          dispatch(deviceCount());
+          if (json.error === 0) {
+            dispatch(successAddInventoryComment(json.message));
+            dispatch(get_machines_detail());
+            resolve(json.message);
+          } else {
+            dispatch(errorAddInventoryComment(json.message));
+            reject(json.message);
+          }
+        }, (error) => {
+          dispatch(hide_loading());
+          dispatch(errorAddInventoryComment('error occurs!!!'));
+          reject('error occurs!!!');
+        });
+    });
+  };
+}

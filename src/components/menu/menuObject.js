@@ -26,7 +26,7 @@ const DATA = [
   {'path': '/documents', 'label': 'My Documents'},
   {'path': '/policy_documents', 'label': 'Policy Documents'},
   {'path': '/holidays', 'label': 'Holidays'},
-  {'path': '/inventory_system', 'label': 'Inventory'},
+  {'path': '/inventoryOverviewDetail', 'label': 'Inventory'},
   {'path': '/team_view', 'label': 'Team'},
   {'path': '/logout', 'label': 'Logout'}
 ];

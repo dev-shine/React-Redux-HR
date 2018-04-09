@@ -98,6 +98,10 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
           <small className="text-muted">User Name</small>
           <div className="_500">{userDetails.username === '' ? nA : userDetails.username}</div>
         </div>
+        <div className="col-xs-6 col-sm-6 profile-input p-b">
+          <small className="text-muted">Termination Date</small>
+          <div className="_500">{userDetails.termination_date === '' ? nA : userDetails.termination_date}</div>
+        </div>
       </div>
       <div className="row">
         <div className="col-xs-6 col-sm-6 profile-input p-b">

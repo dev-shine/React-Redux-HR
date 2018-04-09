@@ -7,6 +7,7 @@ import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
 import {CONFIG} from 'config'
 var moment = require('moment');
 let devices;
+let capitalizeDevice;
 class InventoryList extends React.Component {
   constructor (props) {
     super(props);
@@ -43,6 +44,7 @@ class InventoryList extends React.Component {
     this.callAddStatus = this.callAddStatus.bind(this);
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
+    // this.capitalize=this.capitalize.bind(this);
     // this.handleInventory = this.handleInventory.bind(this);
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
@@ -53,7 +55,6 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus().then((val) => {
       this.setState({deviceStatusList: val});
     });
-    this.handleDeviceTypeFilter(this.props.routeParams.device)
   }
 
   componentWillReceiveProps (props) {
@@ -89,9 +90,11 @@ class InventoryList extends React.Component {
       this.setState({
         deviceList:       props.manageDevice.device,
       },()=>{
-        this.handleDeviceTypeFilter(this.props.routeParams.device)
+         capitalizeDevice= this.capitalize(this.props.routeParams.device);
+        this.handleDeviceTypeFilter(this.props.routeParams.device);
       });
-    }  
+      this.handleStatusTypeFilter('Working');
+    } 
 
   }
 
@@ -99,7 +102,7 @@ class InventoryList extends React.Component {
     this.props.openEditDevice(id);
   }
 
-  deleteDevices (id) {
+  deleteDevices (id,userId) {
     this.props.deleteDevices(id);
   }
   callAddStatus (statusValue, colorValue) {
@@ -208,8 +211,7 @@ class InventoryList extends React.Component {
     }
   }
   handleStatusTypeFilter (statusType) {
-    let status = this.props.fourthArrow==='show'?this.props.manageDevice.unapprovedList.data:this.props.manageDevice.device;
-   
+    let status = this.props.manageDevice.device;
     if (this.state.search !== '') {
       status = this.state.deviceList;
     }
@@ -217,17 +219,21 @@ class InventoryList extends React.Component {
       status = _.filter(status, row => getLowerCase(row.status) === getLowerCase(statusType));
     } else {
       if (this.state.search !== '') {
-        status = _.filter(status, row => getLowerCase(row.machine_type) === getLowerCase(this.state.search));
+        status = _.filter(this.props.manageDevice.device, row => getLowerCase(row.machine_type) === getLowerCase(this.state.search));
       }
     }
     if (statusType !== '' && this.state.search !== '') {
-      status = _.filter(status, row => (getLowerCase(row.machine_type) === getLowerCase(this.state.search) && getLowerCase(row.status) === getLowerCase(statusType)));
+      status = _.filter(this.props.manageDevice.device, row => (getLowerCase(row.machine_type) === getLowerCase(this.state.search) && getLowerCase(row.status) === getLowerCase(statusType)));
     }
     this.setState({
       deviceList:    status,
       device_status: statusType
     });
   }
+
+//   capitalize(string) {
+//     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+// }
   
   sendUnapprovedId(id){
     this.setState({id:id});
@@ -284,8 +290,6 @@ class InventoryList extends React.Component {
             <li>{<b>Serial No : </b>} </li>
             {device.serial_number}
             <br />
-            <li>{<b>Bill No : </b>} </li>
-            {device.bill_number} <br />
           </ul>
         </td>
 
@@ -311,7 +315,9 @@ class InventoryList extends React.Component {
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {
-                this.deleteDevices(device.id);
+                console.log(this.props.loggedUser.data.id);
+                
+                this.deleteDevices(device.id,this.props.loggedUser.data.id);
                 notify('Deleted !', '', 'success');
               }
             });

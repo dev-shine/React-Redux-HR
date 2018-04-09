@@ -27,12 +27,12 @@ class InventorySystem extends React.Component {
       search:              '',
       status_message:      '',
       active:              'active',
-      firstArrow:          'hidden',
+      firstArrow:          'show',
       secondArrow:         'hidden',
-      thirdArrow:          'show',
-      deviceList:          'hidden',
+      thirdArrow:          'hidden',
+      deviceList:          'row ',
       viewUser:            'hidden',
-      viewUserNew:         'show',
+      viewUserNew:         'hidden',
       fourthArrow:         'hidden',
       open:                false,
       edit:                false,
@@ -125,7 +125,7 @@ class InventorySystem extends React.Component {
       this.setState({
         deviceList:  'row',
         firstArrow:  'show',
-        viewUser:    'hidden',
+        viewUser:    'show',
         viewUserNew: 'hidden',
         secondArrow: 'hidden',
         thirdArrow:  'hidden',
@@ -180,8 +180,8 @@ class InventorySystem extends React.Component {
       });
     });
   }
-  deleteDevices (id) {
-    this.props.onDeleteDevice(id).then((val) => {
+  deleteDevices (id,userId) {
+    this.props.onDeleteDevice(id,userId).then((val) => {
       this.setState({
         status_message: ''
       });
@@ -204,7 +204,6 @@ class InventorySystem extends React.Component {
         comment:          '',
         warranty_comment: '',
         repair_comment:   '',
-        bill_no:          '',
         warranty:         '',
         user_Id:          ''
       
@@ -264,14 +263,8 @@ class InventorySystem extends React.Component {
                 <div className="col-sm-10 pull-sm-10">
                   <div className="p-y-md clearfix nav-active-primary" style={{width:'100%',display:'inline-block'}}>
                     <ul className="nav nav-pills nav-sm" style={{marginLeft: '4%'}}>
-                    <li onClick={() => { this.openPage('view_user_new'); }} className={`nav-item ${this.state.active}`}>
-                        <Link to='inventoryOverview' className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</Link>
-                        <div className={this.state.thirdArrow}>
-
-                          <span className="arrow bottom b-accent"></span>
-                        </div>
-                      </li>
-                      <li onClick={() => { this.openPage('device_list'); }} className={`nav-item`}>
+                    
+                      <li onClick={() => { this.openPage('device_list'); }} className={`nav-item ${this.state.active}`}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_1" aria-expanded="true">Inventory Details</a>
                         <div className={this.state.firstArrow}>
                           <span className="arrow bottom b-accent"></span>
@@ -281,6 +274,13 @@ class InventorySystem extends React.Component {
                       <li onClick={() => { this.openPage('view_user'); }} className={'nav-item'}>
                         <a className="nav-link" href="" data-toggle="tab" data-target="#tab_2" aria-expanded="false">User Inventory Details</a>
                         <div className={this.state.secondArrow}>
+                          <span className="arrow bottom b-accent"></span>
+                        </div>
+                      </li>
+                      <li onClick={() => { this.openPage('view_user_new'); }} className={`nav-item `}>
+                        <Link to='inventoryOverview' className="nav-link" href="" data-toggle="tab" data-target="#tab_3" aria-expanded="false">Inventory Overview</Link>
+                        <div className={this.state.thirdArrow}>
+
                           <span className="arrow bottom b-accent"></span>
                         </div>
                       </li>
@@ -385,8 +385,8 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateDevice: (id, machineData) => {
       return dispatch(actionsManageDevice.updateDevice(id, machineData));
     },
-    onDeleteDevice: (id) => {
-      return dispatch(actionsManageDevice.deleteDevice(id));
+    onDeleteDevice: (id,userId) => {
+      return dispatch(actionsManageDevice.deleteDevice(id,userId));
     },
     onCallAssign: (deviceId, id) => {
       return dispatch(actionsManageDevice.assignDevice(deviceId, id));

@@ -111,7 +111,7 @@ let render = (routerKey = null) => {
             {/* <Route path="inventory_system/:id" component={InventoryItem} /> */}
             <Route path="inventory_system/:device" component={InventorySystem}/>
             <Route path="attendanceReq" component={Page_AttendanceReq} />
-            <Route path="inventoryOverview" component={Page_InventoryOverview}/>
+            <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>
           </Route>
         </Router>
       </Provider>

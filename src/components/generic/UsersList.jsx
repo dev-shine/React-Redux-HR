@@ -16,7 +16,10 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
   //     $('#fixedScroll').removeClass('fixedScroll');
   //   }
   // });
-  let usersList = _.map(users, (user, key) => {
+  let orderUser=_.orderBy(users, [ 'id'], ['asc']);
+  let usersList = _.map(orderUser, (user, key) => {
+    console.log(orderUser,'oooooopppppppp');
+    
     let avatar = '';
     let param = '';
     let arrow = '';

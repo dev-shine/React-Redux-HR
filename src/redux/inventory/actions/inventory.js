@@ -20,14 +20,12 @@ function async_addNewMachine (
   n_machine_price,
   n_serial_no,
   n_purchase_date,
-  n_mac_address,
   n_operating_system,
   n_status,
   n_comment,
   n_warranty, 
   n_warranty_comment,
   n_repair_comment,
-  n_bill_no,
   n_user_Id
 
 ) {
@@ -44,7 +42,6 @@ function async_addNewMachine (
     'warranty':         n_warranty,
     'warranty_comment': n_warranty_comment,
     'repair_comment':   n_repair_comment,
-    'bill_no':          n_bill_no,
     'user_id':          n_user_Id
   });
 }
@@ -62,7 +59,6 @@ export function addNewMachine (new_machine_details) {
     let n_warranty = '';
     let n_warranty_comment = '';
     let n_repair_comment = '';
-    let n_bill_no = '';
     let n_user_Id = '';
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type === '') {
@@ -98,24 +94,22 @@ export function addNewMachine (new_machine_details) {
       return Promise.reject('Operating System is empty');
     } else {
       n_operating_system = new_machine_details.operating_system;
+      console.log(n_operating_system,'operating');
+      
     }
 
     if (typeof new_machine_details.status === 'undefined' || new_machine_details.status === '') {
       return Promise.reject('Status is empty');
     } else {
       n_status = new_machine_details.status;
+      console.log(n_status,'status=====');
+      
     }
     if (typeof new_machine_details.comment === 'undefined') {
       return Promise.reject('Comment is empty');
     } else {
       n_comment = new_machine_details.comment;
     }
-    if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no.trim() === '') {
-      return Promise.reject('Bill No is empty');
-    } else {
-      n_bill_no = new_machine_details.bill_no;
-    }
-
     if (typeof new_machine_details.warranty === 'undefined' || new_machine_details.warranty === '') {
       return Promise.reject('Warranty Expire Date is empty');
     } else {
@@ -137,6 +131,7 @@ export function addNewMachine (new_machine_details) {
       return Promise.reject('User Not Assign');
     } else {
       n_user_Id = new_machine_details.user_Id;
+      
     }
 
     return new Promise((resolve, reject) => {
@@ -152,7 +147,6 @@ export function addNewMachine (new_machine_details) {
         n_warranty,
         n_warranty_comment,
         n_repair_comment,
-        n_bill_no,
         n_user_Id).then((json) => {
           dispatch(hide_loading());
           dispatch(deviceCount());
@@ -262,7 +256,6 @@ function getAsync_updateDeviceById (deviceId, data) {
     'warranty':         data.warranty,
     'warranty_comment': data.warranty_comment,
     'repair_comment':   data.repair_comment,
-    'bill_no':          data.bill_no,
     'user_id':          data.user_Id
   });
 }
@@ -292,18 +285,19 @@ export function success_deleteDevice (data) {
   return createAction(constants.ACTION_SUCCESS_DELETE_DEVICELIST)(data);
 }
 
-function getAsync_deleteDeviceById (deviceId) {
+function getAsync_deleteDeviceById (deviceId,userId) {
   return fireAjax('POST', '', {
     'action': 'remove_machine_detail',
-    'id':     deviceId
+    'id':     deviceId,
+    'userId':     userId
   });
 }
 
-export function deleteDevice (id) {
+export function deleteDevice (id,userId) {
   return (dispatch, getState) => {
     return new Promise(function (resolve, reject) {
       dispatch(show_loading());
-      return getAsync_deleteDeviceById(id).then((res) => {
+      return getAsync_deleteDeviceById(id,userId).then((res) => {
         dispatch(deviceCount());
         dispatch(get_machines_detail());
         dispatch(unapprovedUser());

@@ -7,6 +7,7 @@ import {notify} from 'src/services/notify';
 import TextField from 'material-ui/TextField';
 import AlertNotification from 'components/generic/AlertNotification';
 import CircularProgress from 'material-ui/CircularProgress';
+import DatePicker from 'material-ui/DatePicker';
 
 export default class FormAddNewInventory extends React.Component {
   constructor (props) {
@@ -26,7 +27,6 @@ export default class FormAddNewInventory extends React.Component {
       comment:          '',
       warranty_comment: '',
       repair_comment:   '',
-      bill_no:          '',
       warranty:         '',
       user_Id:          '',
       msg:              '',
@@ -63,12 +63,11 @@ export default class FormAddNewInventory extends React.Component {
         comment:          props.getByIdData.comments,
         warranty_comment: props.getByIdData.warranty_comment,
         repair_comment:   props.getByIdData.repair_comment,
-        bill_no:          props.getByIdData.bill_number,
         warranty:         props.getByIdData.warranty_end_date,
         user_Id:          props.getByIdData.user_Id
       });
     } 
-    else if(this.props.manageDevice.status_message=='Machine added Successfully and Sent for Approval!!'||this.props.manageDevice.status_message=='Successfully Updated into table'){
+    else if(this.props.manageDevice.status_message=='Machine added Successfully !!'||this.props.manageDevice.status_message=='Successfully Updated into table'){
       this.setState({
         id:               '',
         machine_type:     '',
@@ -81,7 +80,6 @@ export default class FormAddNewInventory extends React.Component {
         comment:          '',
         warranty_comment: '',
         repair_comment:   '',
-        bill_no:          '',
         warranty:         '',
         user_Id:          '',
         loading:false
@@ -98,6 +96,7 @@ export default class FormAddNewInventory extends React.Component {
   }
 
   handleAddDevice () {
+
     let apiData = {
       machine_type:     this.state.machine_type,
       machine_name:     this.state.machine_name.trim(),
@@ -109,7 +108,6 @@ export default class FormAddNewInventory extends React.Component {
       comment:          this.state.comment.trim(),
       warranty_comment: this.state.warranty_comment.trim(),
       repair_comment:   this.state.repair_comment.trim(),
-      bill_no:          this.state.bill_no.trim(),
       warranty:         this.state.warranty,
       user_Id:          this.state.user_Id
     };
@@ -123,7 +121,6 @@ export default class FormAddNewInventory extends React.Component {
       comment:          '',
       warranty_comment: '',
       repair_comment:   '',
-      bill_no:          '',
       warranty:         '',
       user_Id:          ''
     };
@@ -198,27 +195,22 @@ export default class FormAddNewInventory extends React.Component {
           >
           <div className="col-md-12">
             <div className="row">
-              <div className="col-md-6">
-                <p style={{opacity: '0.56'}}>Date Of Purchase</p>
-                <DateField
-                  style={{marginTop: '0%'}}
-                  dateFormat="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                  onChange={(date) => { this.setState({purchase_date: date}); }}
+              <div className="col-md-6" >
+                <DatePicker 
+                  hintText="Date of Purchase"
+                  onChange={(e,date) => { this.setState({purchase_date: date}),console.log(date,'=====')}}
+                  textFieldStyle={{width:"100%"}}
                   value={this.state.purchase_date}
-                  className="form-control"
                   required />
               </div>
 
               <div className="col-md-6">
-                <p style={{opacity: '0.56'}}>Date Of Warrenty Expiry</p>
-                <DateField style={{marginTop: '0%'}}
-                  dateFormat="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                  onChange={(date) => { this.setState({warranty: date}); }}
-                  value={this.state.warranty}
-                  className="form-control"
-                  required />
+                <DatePicker hintText="Date Of Warrenty Expiry"
+                 onChange={(e,date) => { this.setState({warranty: date}); }}
+                 value={this.state.warranty}
+                 required
+                 textFieldStyle={{width:"100%"}}
+                 />
               </div>
 
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
@@ -240,7 +232,7 @@ export default class FormAddNewInventory extends React.Component {
                 {'Status'}
                 <select className="form-control" ref="status" value={this.state.status}
                   onChange={(e) => (this.setState({status: e.target.value}))} required>
-                  <option value='' disabled>--Select Status--</option>
+                  <option value='' disabled selected>--Select Status--</option>
                   {this.state.deviceStatusList.map((val, i) => {
                     return <option key={i} value={val.status}> {val.status}</option>;
                   })}
@@ -264,10 +256,10 @@ export default class FormAddNewInventory extends React.Component {
                   onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
                   <option value='' disabled>Select User</option>
+                  <option value="unassign">Unassign</option>
                   {userList}
                 </select>
               </div>
-
               <div className="col-md-6">
                 <TextField
                   floatingLabelText="Price"
@@ -280,22 +272,18 @@ export default class FormAddNewInventory extends React.Component {
 
               <div className="col-md-6">
                 <TextField
-                  floatingLabelText="Bill No"
-                  fullWidth
-                  onChange={(e) => (this.setState({bill_no: e.target.value}))}
-                  onBlur={(e) => { this.setState({bill_no: this.state.bill_no.trim()}); }}
-                  value={this.state.bill_no} />
-              </div>
-
-              <div className="col-md-6">
-                <TextField
                   floatingLabelText="Serial No"
                   fullWidth
                   onChange={(e) => (this.setState({serial_no: e.target.value}))}
                   onBlur={(e) => { this.setState({serial_no: this.state.serial_no.trim()}); }}
                   value={this.state.serial_no} />
               </div>
-
+              {this.state.machine_price >5000?
+              <div className="col-md-6">
+              <h4>Upload inovice of Device</h4>
+                <input type="file" name="inoviceUpload"/>
+              </div>:null
+              }
               <div className="col-md-12" style={{opacity: '0.56'}} >
                 {'Comment'}
                 <textarea

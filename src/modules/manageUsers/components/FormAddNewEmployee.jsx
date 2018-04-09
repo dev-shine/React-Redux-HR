@@ -9,7 +9,7 @@ import { isNotUserValid } from "src/services/generic";
 import Header from "components/generic/Header";
 import { CONFIG } from "src/config/index";
 import { DateField } from "react-date-picker";
-import AddNewEmployeeDetails from './FormAddNewEmployeeDetails'
+import AddNewEmployeeDetails from "./FormAddNewEmployeeDetails";
 import "react-date-picker/index.css";
 import { withRouter } from "react-router";
 import CircularProgress from "material-ui/CircularProgress";
@@ -51,9 +51,9 @@ class FormAddNewEmployee extends React.Component {
         notify(data.message);
         this.props.onUsersList();
         this.setState({
-          user_id : data.user_id
+          user_id: data.user_id
         });
-        this.props.router.push(`/add_new_employee/${this.state.user_id}`)
+        this.props.router.push(`/add_new_employee/${this.state.user_id}`);
         let uname = this.props.usersList.username;
       },
       error => {
@@ -68,7 +68,6 @@ class FormAddNewEmployee extends React.Component {
   render() {
     return (
       <div>
-       
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header

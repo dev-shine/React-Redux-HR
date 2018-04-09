@@ -25,19 +25,19 @@ class FormAddNewEmployeeDetails extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      user_id : '',
-      permanent_address : '',
-      emergency_ph1 : '',
-      emergency_ph2 : '',
-      blood_group : '',
-      medical_condition : '',
-      holding_comments : '',
-      signature: ''
+      user_id: "",
+      permanent_address: "",
+      emergency_ph1: "",
+      emergency_ph2: "",
+      blood_group: "",
+      medical_condition: "",
+      holding_comments: "",
+      signature: ""
     };
     this.callAddNewEmployeeDetails = this.callAddNewEmployeeDetails.bind(this);
     this.handleSaveButton = this.handleSaveButton.bind(this);
   }
- 
+
   handleCanvas() {
     signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
       backgroundColor: "rgba(255, 255, 255, 0)",
@@ -54,7 +54,7 @@ class FormAddNewEmployeeDetails extends React.Component {
     localStorage.setItem("signature", signaturePad.toDataURL());
     this.setState({
       signature: localStorage.signature
-    })
+    });
   }
   callAddNewEmployeeDetails(new_profile_details) {
     this.props.onAddNewUserDetails(new_profile_details).then(
@@ -118,11 +118,14 @@ class FormAddNewEmployeeDetails extends React.Component {
                   </div>
                   <div className="col-md-4 input-wrapper">
                     Blood Group
-                    <select className="form-control" ref="blood_group"
-                    onChange={e =>
-                      this.setState({ blood_group: e.target.value })
-                    }
-                    value={this.state.blood_group}>
+                    <select
+                      className="form-control"
+                      ref="blood_group"
+                      onChange={e =>
+                        this.setState({ blood_group: e.target.value })
+                      }
+                      value={this.state.blood_group}
+                    >
                       <option disabled>--select blood group--</option>
                       <option value="0">B+ </option>
                       <option value="1">O+</option>
@@ -152,7 +155,10 @@ class FormAddNewEmployeeDetails extends React.Component {
                     floatingLabelFixed
                     fullWidth
                     onChange={e =>
-                      this.setState({ holding_comments: e.target.value, user_id: this.props.params.id })
+                      this.setState({
+                        holding_comments: e.target.value,
+                        user_id: this.props.params.id
+                      })
                     }
                     value={this.state.holding_comments}
                   />
@@ -214,9 +220,11 @@ const mapDispatchToProps = dispatch => {
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());
     },
-    onAddNewUserDetails:  new_profile_details => {
-      return dispatch(actionsManageUsers.addNewUserDetails(new_profile_details));
-    },
+    onAddNewUserDetails: new_profile_details => {
+      return dispatch(
+        actionsManageUsers.addNewUserDetails(new_profile_details)
+      );
+    }
   };
 };
 const AddNewEmployeeDetails = withRouter(
@@ -228,6 +236,6 @@ export default AddNewEmployeeDetails;
 AddNewEmployeeDetails.PropTypes = {
   onIsAlreadyLogin: PropTypes.func.isRequired,
   usersList: PropTypes.object.isRequired,
-  onAddNewUserDetails : PropTypes.func.isRequired,
+  onAddNewUserDetails: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired
 };

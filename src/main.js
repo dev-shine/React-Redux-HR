@@ -47,7 +47,9 @@ import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
-// import InventoryItem from './modules/inventory/components/inventoryItem';
+// import InventoryItem from './modules/inventory/components/inventoryItem'
+import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
+import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
 import store from './store';
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer.jsx';  
 // import APP from './App';
@@ -112,6 +114,8 @@ let render = (routerKey = null) => {
             <Route path="inventory_system/:device" component={InventorySystem}/>
             <Route path="attendanceReq" component={Page_AttendanceReq} />
             <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>
+            <Route path="add_documents" component = {Page_AddDocuments} />
+            <Route path="add_documents/*" component = {Page_FormAddDocuments} />
           </Route>
         </Router>
       </Provider>

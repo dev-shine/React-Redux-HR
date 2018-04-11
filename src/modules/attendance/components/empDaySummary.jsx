@@ -3,7 +3,6 @@ import { CONFIG } from "src/config/index";
 import "timepicker/jquery.timepicker.min.css";
 import "timepicker/jquery.timepicker.min.js";
 var moment = require("moment");
-import { notify } from "src/services/notify";
 
 export default class empDaySummary extends React.Component {
   constructor(props) {
@@ -80,13 +79,9 @@ export default class empDaySummary extends React.Component {
       reason: form_reason,
       year,
       month
-    });
+    })
     $("#modalUserDaySummary").modal("hide");
-    notify(
-      "success",
-      "Your In/Out time and reason are sent to the Admin for approval",
-      "success"
-    );
+   
   }
 
   render() {

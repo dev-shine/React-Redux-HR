@@ -1,6 +1,7 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
+import {notify} from 'src/services/notify';
 const ExpessUrl = 'http://144.76.34.244:3017/attendance/update_time_by_employee';
 
 export function* getUserDaySummary (action) {
@@ -62,6 +63,11 @@ export function* empUpdateDaySummary (action) {
       yield put(actions.successUpdateEmpDaySummary(response.success));
       yield put(actions.requestUserDaySummary({userid, date}));
       yield put(actions.requestUserAttendance({userid, year, month}));
+      notify(
+      "success",
+      "Your In/Out time and reason are sent to the Admin for approval",
+      "success"
+    );
     } else {
       yield put(actions.errorUpdateEmpDaySummary(response.data.message));
       yield put(actions.requestUserDaySummary({userid, date}));

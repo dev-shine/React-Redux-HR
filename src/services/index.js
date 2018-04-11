@@ -83,7 +83,6 @@ export function fireAjax (method, url, data, api) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
   }
-
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {
       return new Promise((resolve, reject) => {

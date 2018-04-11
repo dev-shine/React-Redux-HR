@@ -2,6 +2,7 @@ import React from "react";
 import * as _ from "lodash";
 import { connect } from "react-redux";
 import Menu from "components/generic/Menu";
+import {notify} from 'src/services/notify';
 import Header from "components/generic/Header";
 import { withRouter } from "react-router";
 import * as actions from "appRedux/actions";
@@ -17,6 +18,7 @@ class InventoryItem extends React.Component {
       comment: "",
       inventory_id: ""
     };
+    this.handleAddComment = this.handleAddComment.bind(this);
   }
 
   componentWillMount() {

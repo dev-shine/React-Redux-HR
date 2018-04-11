@@ -78,6 +78,7 @@ class FormMyDocuments extends React.Component {
   render() {
     let userId = this.props.user_id;
     let pageUrl = window.location.href;
+    console.log(pageUrl);
 
     return (
       <div className="row p-t-md">
@@ -177,6 +178,9 @@ class FormMyDocuments extends React.Component {
                   url={CONFIG.upload_url}
                   file={this.state.file[0]}
                   doc_type={this.state.doc_type}
+                  token = {this.state.user_token}
+                  user_id = {userId}
+                  pageUrl = {pageUrl}
                 />
               </div>
             </form>

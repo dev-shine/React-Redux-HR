@@ -10,36 +10,44 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
-
+let  device_id;
 class InventoryItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       comment: "",
-      inventory_id: ""
+      inventory_id: "",
+      history : ""
     };
     this.handleAddComment = this.handleAddComment.bind(this);
   }
 
   componentWillMount() {
+    device_id =  this.props.routeParams.id;
+    console.log(device_id)
     this.props.onUsersList();
     this.props.onIsAlreadyLogin();
     this.props.onFetchDevice();
+    this.props.onGetDevice(device_id);
   }
 
   handleAddComment(add_inventory_comment) {
     this.props.onAddInventoryComment(add_inventory_comment).then(
         data => {
-            notify(data);
+            notify('Success!', data, 'success');
+            console.log(data)
             this.props.onFetchDevice();
           },
           error => {
-            notify(error);
+            notify('Error!', error, 'error');
           }
         );
   }
 
   render() {
+    this.setState({
+      history : this.props.manageDevice.deviceHistory.history
+    })
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
@@ -168,6 +176,7 @@ function mapStateToProps(state) {
     usersList: state.usersList.toJS(),
     loggedUser: state.logged_user.userLogin,
     manageDevice: state.manageDevice.toJS()
+    
   };
 }
 
@@ -184,6 +193,9 @@ const mapDispatchToProps = dispatch => {
     },
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());
+    },
+    onGetDevice: () => {
+      return dispatch(actionsManageDevice.getDeviceById(device_id))
     }
   };
 };

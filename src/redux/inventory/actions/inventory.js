@@ -224,30 +224,36 @@ export function success_getDevice (data) {
   return createAction(constants.ACTION_SUCCESS_GET_DEVICELIST)(data);
 }
 
-function getAsync_getDeviceById (id) {
+function getAsync_getDeviceById (n_inventory_id) {
   return fireAjax('POST', '', {
     'action': 'get_machine',
-    'id':     id
+    'id':     n_inventory_id
   });
 }
 
-export function getDeviceById (id) {
+export function getDeviceById (device_id) {
   return (dispatch, getState) => {
-    return new Promise(function (resolve, reject) {
+    let n_inventory_id = '';
+    
+    if (typeof device_id !== "undefined") {
+      n_inventory_id = device_id;
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("inventory id is empty");
+    }
+    return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      return getAsync_getDeviceById(id).then((res) => {
+      return getAsync_getDeviceById(n_inventory_id).then((json) => {
         dispatch(hide_loading());
-        if (res.data) {
-          resolve(res.data);
-          dispatch(success_getDevice(res.data));
+        if (json.data) {
+          dispatch(success_getDevice(json.data));
         }
       }, (error) => {
         dispatch(hide_loading());
         reject(error);
       });
     });
-  };
-}
+  }}
 
 export function success_updateDevice (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_DEVICELIST)(data);

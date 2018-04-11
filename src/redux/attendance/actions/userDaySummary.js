@@ -51,7 +51,7 @@ export function* empUpdateDaySummary (action) {
   const {userid, date, entryTime, exitTime, reason, year, month} = action.payload;
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action':     'update_time_by_employee',
+      'action':     'add_manual_attendance',
       'userid':     parseInt(userid),
       'date':       date,
       'entry_time': entryTime,
@@ -69,6 +69,6 @@ export function* empUpdateDaySummary (action) {
   } catch (e) {
     yield put(actions.errorUpdateEmpDaySummary('Error Occurs !!'));
     yield put(actions.requestUserDaySummary({userid, date}));
-    console.warn('Some error found in "update_user_day_summary" action\n', e);
+    console.warn('Some error found in "add_manual_attendance" action\n', e);
   }
 }

@@ -63,7 +63,6 @@ export function addNewMachine (new_machine_details) {
     let n_repair_comment = '';
     let n_user_Id = '';
     let n_unassign_comment='';
-    console.log(new_machine_details,'mmmmmmmmmmm');
     
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type === '') {
@@ -145,7 +144,6 @@ export function addNewMachine (new_machine_details) {
        }
        else{
         n_unassign_comment=new_machine_details.unassign_comment;
-        console.log(n_unassign_comment,'saurabh');
       }
     }
 

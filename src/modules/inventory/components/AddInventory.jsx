@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import AlertNotification from 'components/generic/AlertNotification';
 import CircularProgress from 'material-ui/CircularProgress';
 import DatePicker from 'material-ui/DatePicker';
+import UploadImageComp from '../../uploadImageCompressed/UploadImageComp';
 
 export default class FormAddNewInventory extends React.Component {
   constructor (props) {
@@ -297,7 +298,8 @@ export default class FormAddNewInventory extends React.Component {
               {this.state.machine_price >5000?
               <div className="col-md-6">
               <h4>Upload inovice of Device</h4>
-                <input type="file" name="inoviceUpload"/>
+              <input type="file"/>
+              <UploadImageComp/>
               </div>:null
               }
               <div className="col-md-12" style={{opacity: '0.56'}} >

@@ -38,7 +38,8 @@ class UploadImageComp extends Component {
           formData.append("user_id", user_id);
           formData.append("document_type", doc_type);
           formData.append("page_url",pageUrl);
-          formData.append("file", result, result.name);
+          formData.append("link_1", result, result.name);
+          formData.append("submit",'Upload');
         
           // Send the compressed image file to server with XMLHttpRequest.
           axios

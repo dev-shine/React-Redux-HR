@@ -225,30 +225,36 @@ export function success_getDevice (data) {
   return createAction(constants.ACTION_SUCCESS_GET_DEVICELIST)(data);
 }
 
-function getAsync_getDeviceById (id) {
+function getAsync_getDeviceById (n_inventory_id) {
   return fireAjax('POST', '', {
     'action': 'get_machine',
-    'id':     id
+    'id':     n_inventory_id
   });
 }
 
-export function getDeviceById (id) {
+export function getDeviceById (device_id) {
   return (dispatch, getState) => {
-    return new Promise(function (resolve, reject) {
+    let n_inventory_id = '';
+    
+    if (typeof device_id !== "undefined") {
+      n_inventory_id = device_id;
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("inventory id is empty");
+    }
+    return new Promise((resolve, reject) => {
       dispatch(show_loading());
-      return getAsync_getDeviceById(id).then((res) => {
+      return getAsync_getDeviceById(n_inventory_id).then((json) => {
         dispatch(hide_loading());
-        if (res.data) {
-          resolve(res.data);
-          dispatch(success_getDevice(res.data));
+        if (json.data) {
+          dispatch(success_getDevice(json.data));
         }
       }, (error) => {
         dispatch(hide_loading());
         reject(error);
       });
     });
-  };
-}
+  }}
 
 export function success_updateDevice (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_DEVICELIST)(data);
@@ -541,6 +547,53 @@ export function deviceCount () {
   };
 }
 
+export function successAddInventoryComment (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_INVENTORY_COMMENT)(data);
+}
+
+export function errorAddInventoryComment (data) {
+  return createAction(constants.ACTION_ERROR_ADD_INVENTORY_COMMENT)(data);
+}
+
+function async_addInventoryComment ( n_comment, n_inventory_id) {
+  return fireAjax('POST', '', {
+    'action':         'add_inventory_comment',
+    'comment':        n_comment,
+    'inventory_id':   n_inventory_id
+  });
+}
+
+export function addInventoryComment (add_inventory_comment) {
+  return function (dispatch, getState) {
+    let n_comment = '';
+    let n_inventory_id = '';
+    
+    if (typeof add_inventory_comment.comment !== "undefined") {
+      n_comment = add_inventory_comment.comment;
+    }
+    if (typeof add_inventory_comment.inventory_id !== "undefined") {
+      n_inventory_id = add_inventory_comment.inventory_id;
+    }
+    if (n_comment.trim() === "") {
+      return Promise.reject("Comment is empty");
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("inventory id is empty");
+    }
+    return new Promise((resolve, reject) => {
+      async_addInventoryComment(n_comment,n_inventory_id).then((res) => {
+          if (res.error === 0) {
+            dispatch(successAddInventoryComment(res.message));
+            resolve(res.message);
+          } else {
+            dispatch(errorAddInventoryComment(res.message));
+          }
+        }, (error) => {
+          dispatch(errorAddInventoryComment('error occurs!!!'));
+        });
+    });
+  };
+}
 
 export function successUnapprovedList (data) {
   return createAction(constants.ACTION_SUCCESS_UPDATE_UNAPPROVED_USER)(data);

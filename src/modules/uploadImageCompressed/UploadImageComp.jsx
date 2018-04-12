@@ -26,7 +26,16 @@ class UploadImageComp extends Component {
     if (!file) {
       return;
     } else if (!file.type.includes("image")) {
-      this.props.uploadFile(file, url,doc_type);
+      const formData = new FormData();
+
+      formData.append("token", token);
+      formData.append("user_id", user_id);
+      formData.append("document_type", doc_type);
+      formData.append("page_url", pageUrl);
+      formData.append("link_1", file);
+      formData.append("submit", "Upload");
+
+      this.props.uploadFile(formData, url, doc_type);
     } else {
       let quality = qualityValue(file);
 
@@ -37,10 +46,10 @@ class UploadImageComp extends Component {
           formData.append("token", token);
           formData.append("user_id", user_id);
           formData.append("document_type", doc_type);
-          formData.append("page_url",pageUrl);
+          formData.append("page_url", pageUrl);
           formData.append("link_1", result, result.name);
-          formData.append("submit",'Upload');
-        
+          formData.append("submit", "Upload");
+
           // Send the compressed image file to server with XMLHttpRequest.
           axios
             .post(url, formData, {

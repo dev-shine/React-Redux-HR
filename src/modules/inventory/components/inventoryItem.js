@@ -16,7 +16,7 @@ class InventoryItem extends React.Component {
     super(props);
     this.state = {
       comment: "",
-      inventory_id: "",
+      inventory_id: ""
     };
     this.handleAddComment = this.handleAddComment.bind(this);
   }
@@ -27,9 +27,7 @@ class InventoryItem extends React.Component {
     this.props.onGetDevice(device_id);
     this.props.onIsAlreadyLogin();
     this.props.onFetchDevice();
-  
   }
- 
 
   handleAddComment(add_inventory_comment) {
     this.props.onAddInventoryComment(add_inventory_comment).then(
@@ -55,26 +53,29 @@ class InventoryItem extends React.Component {
         </option>
       );
     });
-    const history = _.map(this.props.manageDevice.deviceHistory.history, (val,i) => {
-      return(
-        <div key={i} className="streamline b-l m-l">
-        <div className="sl-item b-info">
-          <div className="sl-content">
-            <div className="sl-date text-muted">
-              Comment : {val.comment} 
-            </div>
-            <div className="sl-date text-muted">
-             Updated on : {val.updated_at}
-            </div>
-        
-            <div className="sl-date text-muted">
-              By : {val.updated_by_user}
+    const history = _.map(
+      this.props.manageDevice.deviceHistory.history,
+      (val, i) => {
+        return (
+          <div key={i} className="streamline b-l m-l">
+            <div className="sl-item b-info">
+              <div className="sl-content">
+                <div className="sl-date text-muted">
+                  Comment : {val.comment}
+                </div>
+                <div className="sl-date text-muted">
+                  Updated on : {val.updated_at}
+                </div>
+
+                <div className="sl-date text-muted">
+                  By : {val.updated_by_user}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-      );
-    })
+        );
+      }
+    );
     return (
       <div>
         <Menu {...this.props} />
@@ -135,10 +136,7 @@ class InventoryItem extends React.Component {
                           className="col-sm-15 p-8 pt-8"
                           style={{ marginTop: "4%" }}
                         >
-                         
-                         {history}
-                         
-                          
+                          {history}
                         </div>
                       </div>
                     </div>

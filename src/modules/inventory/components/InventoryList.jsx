@@ -302,7 +302,7 @@ class InventoryList extends React.Component {
             <li>{<b>Extended Warranty:</b>}</li>
             {device.warranty_comment} <br />
             <li>{<b>Pre Repair Comments:</b>}</li>
-            {device.repair_comment} <br />
+            {device.repair_comment} <br/>
           </ul>
         </td>
 
@@ -321,9 +321,12 @@ class InventoryList extends React.Component {
                 notify('Deleted !', '', 'success');
               }
             });
-          }} aria-hidden="true"></i>{this.props.fourthArrow==='show'?<div>
-          <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button></div>:null}
+          }} aria-hidden="true"></i>
+         <div>
+          {this.props.fourthArrow==='show'?
+          <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button>:null}</div>
         </td> : null}
+        
       </tr>);
     });
     return (

@@ -97,6 +97,20 @@ export default class FormAddNewInventory extends React.Component {
   handleOpen (e) {
     e.stopPropagation();
     this.props.handleAddDialog();
+    this.setState({
+      machine_type:     '',
+      machine_name:     '',
+      machine_price:    '',
+      serial_no:        '',
+      purchase_date:    '',
+      operating_system: '',
+      comment:          '',
+      warranty_comment: '',
+      repair_comment:   '',
+      warranty:         '',
+      user_Id:          '',
+      unassign_comment: ''
+    })
   }
 
   handleAddDevice () {
@@ -189,7 +203,7 @@ export default class FormAddNewInventory extends React.Component {
         <div>
           {/* <button style={{display:'inline-block',float:'left',marginRight:'2%'}} className="md-btn md-raised m-b-sm indigo">Approved Inventory</button>
           <button style={{display:'inline-block',float:'left',marginRight:'2%'}} className="md-btn md-raised m-b-sm indigo">Unapproved Inventory</button> */}
-          <button style={{display:'inline-block',float:'left'}} className="md-btn md-raised m-b-sm indigo"
+          <button style={{float:'right',marginRight:'25px'}} className="md-btn md-raised m-b-sm indigo"
             onTouchTap={this.handleOpen}>Add New Inventory </button>
         </div>
         <Dialog

@@ -62,11 +62,7 @@ export default class FormAddDocuments extends Component {
             Upload Documents
           </h6>
           <div className="row box p-a-md m-b-lg " id="uploadDoc">
-            <form
-              // onSubmit={this.handleSubmit}
-              // action={CONFIG.upload_url} method="POST"
-              encType="multipart/form-data"
-            >
+            <form encType="multipart/form-data">
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
                 <select

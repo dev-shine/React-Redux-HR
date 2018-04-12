@@ -7,7 +7,8 @@ let initialState = {
   'statusList':      [],
   'deviceCountList': {},
   'unapprovedList':  [],
-  'approvedList':[]
+  'approvedList':[],
+  'deviceHistory':{}
 };
 export function manageDevice (state = Immutable.fromJS(initialState), action) {
   if (action.type === 'ACTION_SUCCESS_DEVICE_LIST') {

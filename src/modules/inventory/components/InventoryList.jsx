@@ -45,7 +45,7 @@ class InventoryList extends React.Component {
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
     this.capitalize=this.capitalize.bind(this);
-    // this.handleInventory = this.handleInventory.bind(this);
+    this.handleInventory = this.handleInventory.bind(this);
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
   componentWillMount () {
@@ -211,11 +211,10 @@ class InventoryList extends React.Component {
     }
   }
 
+  handleInventory (id) {
+    this.props.router.push(`inventory_system/${this.props.routeParams.device}/${id}`)
 
-  // handleInventory (device) {
-  //   this.props.router.push(`inventoryOverviewDetail/${}${device.id}`)
-
-  // }
+  }
 
   handleStatusTypeFilter (statusType) {
     let status = this.props.manageDevice.device;
@@ -247,7 +246,6 @@ class InventoryList extends React.Component {
     this.props.callUnapprovedId({id});
   }
   render () {
-    console.log(this.props)
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
     let statusDropMap = statusList.map((val, i) => {
@@ -271,20 +269,20 @@ class InventoryList extends React.Component {
         rowColor = rowColorData[0].color;
       }
       rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
-        <td style={{marginRight: '0%', width: '5%'}}>{i + 1}</td>
-        <td style={{marginRight: '0%', width: '16%'}}>
+        <td onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '5%',cursor:'pointer'}}>{i + 1}</td>
+        <td onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '16%',cursor:'pointer'}}>
           {device.machine_type}
           <br />
           {<b>Assigned to :</b>}
           <mark> {device.name}</mark>
         </td>
 
-        <td className="tdAlign" style={{marginRight: '0%', width: '15%'}}>
+        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '15%',cursor:'pointer'}}>
           {device.machine_name}
           
         </td>
 
-        <td className="tdAlign">
+        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{cursor:'pointer'}}>
           <ul style={{padding: '0'}}>
             <li>{<b>Purchase Date : </b>} </li>
             {moment(device.date_of_purchase).format('Do MMMM YYYY')}
@@ -301,7 +299,7 @@ class InventoryList extends React.Component {
           </ul>
         </td>
 
-        <td className="tdAlign">
+        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{cursor:'pointer'}}>
           <ul style={{padding: '0'}}>
             <li>{<b>Status : </b>}</li>
             {device.status} <br />
@@ -323,7 +321,6 @@ class InventoryList extends React.Component {
           <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {
-                console.log(this.props.loggedUser.data.id);
                 
                 this.deleteDevices(device.id,this.props.loggedUser.data.id);
                 notify('Deleted !', '', 'success');

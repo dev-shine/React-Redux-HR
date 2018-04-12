@@ -547,7 +547,6 @@ export function deviceCount () {
   };
 }
 
-
 export function successAddInventoryComment (data) {
   return createAction(constants.ACTION_SUCCESS_ADD_INVENTORY_COMMENT)(data);
 }

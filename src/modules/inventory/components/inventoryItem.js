@@ -33,7 +33,6 @@ class InventoryItem extends React.Component {
     this.props.onAddInventoryComment(add_inventory_comment).then(
       data => {
         notify("Success!", data, "success");
-        console.log(data);
         this.props.onFetchDevice();
       },
       error => {
@@ -54,7 +53,7 @@ class InventoryItem extends React.Component {
       );
     });
     const history = _.map(
-      this.props.manageDevice.deviceHistory.history,
+      this.props.manageDevice.deviceHistory.history ,
       (val, i) => {
         return (
           <div key={i} className="streamline b-l m-l">

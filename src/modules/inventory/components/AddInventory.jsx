@@ -192,7 +192,6 @@ export default class FormAddNewInventory extends React.Component {
   }
  
   render () {
-    console.log(this.state.user_Id);
     
     let userList = this.props.usersList.users.map((val, i) => {
       return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;

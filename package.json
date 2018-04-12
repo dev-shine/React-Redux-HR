@@ -94,7 +94,7 @@
     "koa-proxy": "^0.6.0",
     "koa-static": "^3.0.0",
     "material-ui": "^0.16.4",
-    "moment": "^2.18.1",
+    "moment": "^2.22.0",
     "node-fetch": "^1.7.2",
     "node-sass": "^3.7.0",
     "normalize.css": "^4.1.1",

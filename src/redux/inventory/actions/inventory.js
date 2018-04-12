@@ -248,6 +248,7 @@ export function getDeviceById (device_id) {
         dispatch(hide_loading());
         if (json.data) {
           dispatch(success_getDevice(json.data));
+          dispatch(success_getDevice(json.data));
         }
       }, (error) => {
         dispatch(hide_loading());
@@ -342,19 +343,34 @@ export function error_assignDevice (data) {
   return createAction(constants.ACTION_ERROR_ASSIGN_DEVICE)(data);
 }
 
-function getAsync_assignDeviceToUser (deviceId, user_Id) {
+function getAsync_assignDeviceToUser (n_inventory_id, n_user_id) {
   return fireAjax('POST', '', {
     'action':     'assign_user_machine',
-    'machine_id': deviceId,
-    'user_id':    user_Id
+    'machine_id': n_inventory_id,
+    'user_id':    n_user_id
   });
 }
 
-export function assignDevice (deviceId, id) {
+export function assignDevice (assign_device) {
   return (dispatch, getState) => {
+    let n_inventory_id = '';
+    let n_user_id = '';
+    
+    if (typeof assign_device.user_id !== "undefined") {
+      n_user_id = assign_device.user_id;
+    }
+    if (typeof assign_device.inventory_id !== "undefined") {
+      n_inventory_id = assign_device.inventory_id;
+    }
+    if (n_user_id.trim() === "") {
+      return Promise.reject("User id is empty");
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("Inventory id is empty");
+    }
     return new Promise(function (resolve, reject) {
       dispatch(show_loading());
-      return getAsync_assignDeviceToUser(deviceId, id).then((res) => {
+      return getAsync_assignDeviceToUser(n_inventory_id, n_user_id).then((res) => {
         dispatch(hide_loading());
         resolve(res.message);// }
       }, (error) => {

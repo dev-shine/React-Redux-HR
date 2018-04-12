@@ -202,7 +202,7 @@ export function updateBankDetails (new_bank_details) {
       return Promise.reject('Bank name is empty');
     }
     if(!n_bank_name.includes("ICICI")){
-      return Promise.reject('We only accept ICICI bank account for now, if you dont have ICICI bank account \n Contact HR');
+      return Promise.reject('We only accept ICICI bank account for now, if you don\'t have ICICI bank account \n Contact HR');
     }
     if (n_bank_address === '') {
       return Promise.reject('Bank address is empty');
@@ -211,7 +211,7 @@ export function updateBankDetails (new_bank_details) {
       return Promise.reject('IFSC is empty');
     }
     if(!n_ifsc.includes("ICICI")){
-      return Promise.reject('We only accept ICICI bank account for now, if you dont have ICICI bank account \n Contact HR');
+      return Promise.reject('We only accept ICICI bank account for now, if you don\'t have ICICI bank account \n Contact HR');
     }
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon

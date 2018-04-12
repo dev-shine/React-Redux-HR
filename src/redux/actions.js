@@ -96,3 +96,16 @@ export const errorEmployeePerformance = createAction(constants.ERROR_EMP_PERFORM
 export const requestUserList = createAction(constants.REQUEST_USER_LIST);
 export const successUserList = createAction(constants.SUCCESS_USER_LIST);
 export const errorUserList = createAction(constants.ERROR_USER_LIST);
+
+export const requestAddInventoryComment = createAction(constants.ACTION_REQUEST_ADD_INVENTORY_COMMENT);
+export const successAddInventoryComment = createAction(constants.ACTION_SUCCESS_ADD_INVENTORY_COMMENT);
+export const errorAddInventoryComment = createAction(constants.ACTION_ERROR_ADD_INVENTORY_COMMENT);
+
+export const requestUnapprovedList = createAction(constants.ACTION_REQUEST_UPDATE_UNAPPROVED_USER);
+export const successUnapprovedList = createAction(constants.ACTION_SUCCESS_UPDATE_UNAPPROVED_USER); 
+export const errorUnapprovedList = createAction(constants.ACTION_ERROR_UPDATE_UNAPPROVED_USER);
+
+export const requestApprovedList = createAction(constants.ACTION_REQUEST_UPDATE_APPROVED_USER);
+export const successApprovedList = createAction(constants.ACTION_SUCCESS_UPDATE_APPROVED_USER); 
+export const errorApprovedList = createAction(constants.ACTION_ERROR_UPDATE_APPROVED_USER);
+

@@ -1,26 +1,49 @@
-import React from "react";
+import React, { Component } from "react";
 import { CONFIG } from "src/config/index";
 import { notify } from "src/services/notify";
 import { getToken } from "src/services/generic";
-import ListDocuments from "components/myDocuments/ListDocuments";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
+import { browserHistory } from "react-router";
 
-class FormMyDocuments extends React.Component {
+export default class FormAddDocuments extends Component {
   constructor(props) {
     super(props);
     this.state = {
       doc_type: "",
       user_token: "",
-      file: []
+      file: [],
+      filelist: []
     };
-    this.deleteDocument = this.deleteDocument.bind(this);
-    this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
+
     this.handleFileChange = this.handleFileChange.bind(this);
+    this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
   }
   componentDidMount() {
-    this.toggleCollapse();
     window.addEventListener("resize", this.toggleCollapse);
+  }
+
+  callUpdateDocuments(e) {
+    let type = this.state.doc_type;
+    let link1 = this.refs.file.value;
+    let file = this.state.file[0];
+    let userId = this.props.params.splat;
+    let stop = false;
+    if (!userId) {
+      stop = true;
+      notify("Warning!", "Please select a User.", "warning");
+    } else if (type === "") {
+      stop = true;
+      notify("Warning!", "Please select document type.", "warning");
+    } else if (link1 === "") {
+      stop = true;
+      notify("Warning!", "Please select a file", "warning");
+    } else if (file.size > 5000000) {
+      stop = true;
+      notify("Warning!", "File doc_typesize must be less than 5mb", "warning");
+    }
+    if (stop) {
+      e.preventDefault();
+    }
   }
   componentWillReceiveProps(props) {
     this.setState({
@@ -30,67 +53,15 @@ class FormMyDocuments extends React.Component {
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
   }
-
-  callUpdateDocuments(e) {
-    let type = this.state.doc_type;
-    let link1 = this.refs.file.value;
-    let file = this.state.file[0];
-    let stop = false;
-    if (type === "") {
-      stop = true;
-      notify("Warning!", "Please select document type.", "warning");
-    } else if (link1 === "") {
-      stop = true;
-      notify("Warning!", "Please select a file", "warning");
-    } else if (this.refs.declear.checked !== true) {
-      stop = true;
-      notify("Warning!", "Mark declearation before submit", "warning");
-    } else if (file.size > 5000000) {
-      stop = true;
-      notify("Warning!", "File size must be less than 5mb", "warning");
-    }
-    if (stop) {
-      e.preventDefault();
-    }
-  }
-  deleteDocument(docId) {
-    this.props
-      .onDeleteDocument(docId)
-      .then(msg => {
-        this.props.onGetMydocuments();
-        notify("Success!", msg.toString(), "success");
-      })
-      .catch(err => {
-        notify("Error!", err.toString(), "error");
-      });
-  }
-  toggleCollapse() {
-    if ($(window).width() > 767) {
-      $("#uploadDoc").addClass("in");
-      $("#uploadMyDoc").removeClass(
-        "md-btn md-raised indigo auto-width-center"
-      );
-    } else {
-      $("#uploadDoc").removeClass("in");
-      $("#uploadMyDoc").addClass("md-btn md-raised indigo auto-width-center");
-    }
-  }
   render() {
-    let userId = this.props.user_id;
-    let pageUrl = window.location.href;
-
+    const userId = this.props.params.splat;
     return (
       <div className="row p-t-md">
-        <div className="col-sm-6 p-x-md">
-          <h6
-            id="uploadMyDoc"
-            className="text-center pointer"
-            data-toggle="collapse"
-            data-target="#uploadDoc"
-          >
-            Upload New Documents
+        <div className="col-sm-offset-3 col-sm-6 p-x-md">
+          <h6 id="uploadMyDoc" className="text-center pointer">
+            Upload Documents
           </h6>
-          <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
+          <div className="row box p-a-md m-b-lg " id="uploadDoc">
             <form
               // onSubmit={this.handleSubmit}
               // action={CONFIG.upload_url} method="POST"
@@ -138,7 +109,7 @@ class FormMyDocuments extends React.Component {
                 name="document_type"
                 value={this.state.doc_type}
               />
-              <input type="hidden" name="page_url" value={pageUrl} />
+              {/* <input type="hidden" name="page_url" value={pageUrl} /> */}
               <div className="form-group">
                 <label className="col-sm-12">Attachment </label>
                 <input
@@ -151,27 +122,6 @@ class FormMyDocuments extends React.Component {
                 />
               </div>
               <div className="form-group col-sm-12">
-                <input
-                  type="checkbox"
-                  ref="declear"
-                  className="vertical-middle"
-                />
-                <span className="declaration">
-                  <b>*IMPORTANT: </b>&nbsp;By uploading this document you
-                  certify that these document are true and all information is
-                  correct
-                </span>
-              </div>
-              <div className="form-group col-sm-12">
-                {/* <input
-                  type="submit"
-                  name="submit"
-                  value="Upload"
-                  className="col-xs-12 md-btn md-raised indigo"
-                  onClick={e => {
-                    this.callUpdateDocuments(e);
-                  }}
-                /> */}
                 <UploadImageComp
                   callUpdateDocuments={this.callUpdateDocuments}
                   url={CONFIG.upload_url}
@@ -181,14 +131,15 @@ class FormMyDocuments extends React.Component {
               </div>
             </form>
           </div>
+          <button
+            className="col-xs-4 col-xs-offset-4 md-btn md-raised indigo"
+            onClick={browserHistory.goBack}
+          >
+            {" "}
+            Go Back
+          </button>
         </div>
-        <ListDocuments
-          myDocuments={this.props.my_documents}
-          deleteDocument={this.deleteDocument}
-        />
       </div>
     );
   }
 }
-
-export default FormMyDocuments;

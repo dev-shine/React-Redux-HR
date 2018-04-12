@@ -1,3 +1,17 @@
-.tdAlign{
+.tdAlign {
   align: center !important;
+}
+#deviceName {
+  color: black;
+  margin-left: 30%;
+  display: inline-block;
+  cursor: pointer;
+}
+#deviceTotal {
+  float: right;
+  color: #0e9bb1;
+}
+.upload{
+  background-color: red;
+  display: none;
 }

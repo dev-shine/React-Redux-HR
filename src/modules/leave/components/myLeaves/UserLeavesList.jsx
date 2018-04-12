@@ -22,6 +22,8 @@ class UserLeavesList extends React.Component {
 
   componentWillReceiveProps (props) {
     this.setState({user_token: getToken()});
+    console.log(props,'hhhhhhhhh');
+    
   }
 
   cancelLeave (userId, from_date) {
@@ -53,6 +55,8 @@ class UserLeavesList extends React.Component {
 
   render () {
     let page_url = window.location.href;
+    console.log(this.props,'pppppppppppppppppp');
+    
     let leavesList = _.map(this.props.userLeaves.leaves, (leave, key) => {
       return <MyLeavesList key={key} leave={leave} handleOpen={this.handleOpen} cancelLeave={this.cancelLeave} />;
     });
@@ -63,7 +67,7 @@ class UserLeavesList extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          contentClassName="dialog-content"
+          contentClassName="dialog-content" 
           autoScrollBodyContent>
           <div>
             <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">

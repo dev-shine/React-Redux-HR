@@ -2,7 +2,7 @@ import React from "react";
 import * as _ from "lodash";
 import { connect } from "react-redux";
 import Menu from "components/generic/Menu";
-import {notify} from 'src/services/notify';
+import { notify } from "src/services/notify";
 import Header from "components/generic/Header";
 import { withRouter } from "react-router";
 import * as actions from "appRedux/actions";
@@ -10,44 +10,41 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
-let  device_id;
+let device_id;
 class InventoryItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       comment: "",
       inventory_id: "",
-      history : ""
     };
     this.handleAddComment = this.handleAddComment.bind(this);
   }
 
   componentWillMount() {
-    device_id =  this.props.routeParams.id;
-    console.log(device_id)
+    device_id = this.props.routeParams.id;
     this.props.onUsersList();
+    this.props.onGetDevice(device_id);
     this.props.onIsAlreadyLogin();
     this.props.onFetchDevice();
-    this.props.onGetDevice(device_id);
+  
   }
+ 
 
   handleAddComment(add_inventory_comment) {
     this.props.onAddInventoryComment(add_inventory_comment).then(
-        data => {
-            notify('Success!', data, 'success');
-            console.log(data)
-            this.props.onFetchDevice();
-          },
-          error => {
-            notify('Error!', error, 'error');
-          }
-        );
+      data => {
+        notify("Success!", data, "success");
+        console.log(data);
+        this.props.onFetchDevice();
+      },
+      error => {
+        notify("Error!", error, "error");
+      }
+    );
   }
 
   render() {
-    this.setState({
-      history : this.props.manageDevice.deviceHistory.history
-    })
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
@@ -58,6 +55,26 @@ class InventoryItem extends React.Component {
         </option>
       );
     });
+    const history = _.map(this.props.manageDevice.deviceHistory.history, (val,i) => {
+      return(
+        <div key={i} className="streamline b-l m-l">
+        <div className="sl-item b-info">
+          <div className="sl-content">
+            <div className="sl-date text-muted">
+              Comment : {val.comment} 
+            </div>
+            <div className="sl-date text-muted">
+             Updated on : {val.updated_at}
+            </div>
+        
+            <div className="sl-date text-muted">
+              By : {val.updated_by_user}
+            </div>
+          </div>
+        </div>
+        </div>
+      );
+    })
     return (
       <div>
         <Menu {...this.props} />
@@ -97,9 +114,12 @@ class InventoryItem extends React.Component {
                             placeholder="Your comment"
                             className="form-control resize-y"
                             onChange={e =>
-                              this.setState({ comment: e.target.value, inventory_id : this.props.routeParams.id })
-                               }
-                              value={this.state.comment}
+                              this.setState({
+                                comment: e.target.value,
+                                inventory_id: this.props.routeParams.id
+                              })
+                            }
+                            value={this.state.comment}
                           />
                         </div>
                       </div>
@@ -115,48 +135,10 @@ class InventoryItem extends React.Component {
                           className="col-sm-15 p-8 pt-8"
                           style={{ marginTop: "4%" }}
                         >
-                          <div className="streamline b-l m-l">
-                            <div className="sl-item b-info">
-                              <div className="sl-content">
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--1</b>
-                                </div>
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--2</b>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="sl-item b-info">
-                              <div className="sl-content">
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--3</b>
-                                </div>
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--4</b>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="sl-item b-info">
-                              <div className="sl-content">
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--5</b>
-                                </div>
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--6</b>
-                                </div>
-                                <div className="sl-date text-muted">
-                                  {" "}
-                                  <b>History--7</b>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                         
+                         {history}
+                         
+                          
                         </div>
                       </div>
                     </div>
@@ -176,15 +158,16 @@ function mapStateToProps(state) {
     usersList: state.usersList.toJS(),
     loggedUser: state.logged_user.userLogin,
     manageDevice: state.manageDevice.toJS()
-    
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddInventoryComment: add_inventory_comment => {
-        return dispatch(actionsManageDevice.addInventoryComment(add_inventory_comment));
-      },
+      return dispatch(
+        actionsManageDevice.addInventoryComment(add_inventory_comment)
+      );
+    },
     onFetchDevice: () => {
       return dispatch(actionsManageDevice.get_machines_detail());
     },
@@ -195,7 +178,7 @@ const mapDispatchToProps = dispatch => {
       return dispatch(actions.isAlreadyLogin());
     },
     onGetDevice: () => {
-      return dispatch(actionsManageDevice.getDeviceById(device_id))
+      return dispatch(actionsManageDevice.getDeviceById(device_id));
     }
   };
 };

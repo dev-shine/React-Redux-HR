@@ -102,8 +102,8 @@ export function fireAjax (method, url, data, api) {
   });
 }
 
-export function uploadfile(file, url,doc_type) {
-  return axios.post(url, file, {
+export function uploadfile(formData, url,doc_type) {
+  return axios.post(url, formData, {
     onUploadProgress: progressEvent => {
       console.log(
         `Upload Progress ${doc_type} :` +

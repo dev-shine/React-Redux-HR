@@ -47,7 +47,7 @@ import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
-// import InventoryItem from './modules/inventory/components/inventoryItem'
+import InventoryItem from './modules/inventory/components/inventoryItem'
 import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
 import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
 import store from './store';
@@ -110,7 +110,7 @@ let render = (routerKey = null) => {
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} />
             <Route path="inventory_system" component={InventorySystem} />
-            {/* <Route path="inventory_system/:id" component={InventoryItem} /> */}
+            <Route path="inventory_system/:device/:id" component={InventoryItem} /> 
             <Route path="inventory_system/:device" component={InventorySystem}/>
             <Route path="attendanceReq" component={Page_AttendanceReq} />
             <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>

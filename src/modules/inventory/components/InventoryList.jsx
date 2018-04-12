@@ -45,7 +45,7 @@ class InventoryList extends React.Component {
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
     this.capitalize=this.capitalize.bind(this);
-    // this.handleInventory = this.handleInventory.bind(this);
+    this.handleInventory = this.handleInventory.bind(this);
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
   componentWillMount () {
@@ -159,6 +159,9 @@ class InventoryList extends React.Component {
     this.setState({user: userId});
     this.props.callAssign(id, userId);
   }
+  handleInventory(id){
+    this.props.router.push(`inventory_system/${this.props.routeParams.device}/${id}`)
+  }
 
   callDeleteDeviceStatus (checkValue) {
     this.props.onDeleteDeviceStatus(checkValue).then((val) => {
@@ -240,6 +243,8 @@ class InventoryList extends React.Component {
     this.props.callUnapprovedId({id});
   }
   render () {
+    console.log(this.props,'ooooooooooooo');
+    
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
     let statusDropMap = statusList.map((val, i) => {
@@ -293,7 +298,7 @@ class InventoryList extends React.Component {
           </ul>
         </td>
 
-        <td className="tdAlign">
+        <td className="tdAlign"  onClick={()=>{this.handleInventory(device.id)}}>
           <ul style={{padding: '0'}}>
             <li>{<b>Status : </b>}</li>
             {device.status} <br />
@@ -331,7 +336,7 @@ class InventoryList extends React.Component {
     });
     return (
       <div>
-        <div className="app-body" id="view">
+        <div className="app-body" id="view" >
           <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
             <div className="row">
               <div className="row no-gutter">

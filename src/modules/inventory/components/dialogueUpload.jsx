@@ -54,7 +54,7 @@
     render () {
      // let page_url = window.location.href;
      // console.log(page_url,'pppppppppppppppppp');
-      console.log(CONFIG,'KKKKKKKKKKK');
+      
       
       // className="dialog-content"
       return (

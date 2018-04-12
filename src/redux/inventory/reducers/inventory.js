@@ -6,7 +6,8 @@ let initialState = {
   'deviceList':      [],
   'statusList':      [],
   'deviceCountList': {},
-  'deviceHistory':   {}
+  'unapprovedList':  [],
+  'approvedList':[]
 };
 export function manageDevice (state = Immutable.fromJS(initialState), action) {
   if (action.type === 'ACTION_SUCCESS_DEVICE_LIST') {
@@ -39,7 +40,11 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
     return state.set('status_message', action.payload);
   }else if (action.type === 'ACTION_SUCCESS_GET_DEVICELIST') {
     return state.set('deviceHistory', action.payload);
-  } else {
+  } else if(action.type==='ACTION_SUCCESS_UPDATE_UNAPPROVED_USER'){
+    return state.set('unapprovedList',action.payload);
+  } else if(action.type==='ACTION_SUCCESS_UPDATE_APPROVED_USER'){
+    return state.set('approvedList',action.payload)
+  }else {
     return state;
   }
 }

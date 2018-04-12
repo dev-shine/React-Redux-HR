@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {confirm} from 'src/services/notify';
 import {getToken, resetLoggedUser} from 'src/services/generic';
 import 'whatwg-fetch';
+import axios from 'axios';
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_profile_detail_by_id', 'update_user_bank_detail',
   'update_user_profile_detail', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary',
@@ -10,7 +11,7 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
   'create_template_variable', 'get_template_variable', 'delete_template_variable', 'update_template_variable', 'create_email_template',
   'get_email_template', 'delete_email_template', 'update_email_template', 'send_employee_email', 'create_pdf', 'get_policy_document',
   'save_policy_document', 'get_user_policy_document', 'update_user_policy_document', 'add_team_list', 'get_team_list',
-  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id' ];
+  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id','get_unapproved_machine_list' ];
 
 const actionsForAPIurl = ['admin_user_apply_leave', 'get_machine','change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
 
@@ -97,6 +98,18 @@ export function fireAjax (method, url, data, api) {
       });
     } else {
       return response.json();
+    }
+  });
+}
+
+export function uploadfile(file, url,doc_type) {
+  return axios.post(url, file, {
+    onUploadProgress: progressEvent => {
+      console.log(
+        `Upload Progress ${doc_type} :` +
+          Math.round(progressEvent.loaded / progressEvent.total * 100) +
+          "%"
+      );
     }
   });
 }

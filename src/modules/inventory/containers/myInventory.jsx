@@ -15,7 +15,7 @@ import AssignDevice from 'modules/inventory/components/AssignDevice'
 class MyInventory extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {    
+    this.state = {
       status_message:      '',
       openUnassigned:      false,
       openAssigned:       false,
@@ -77,7 +77,7 @@ class MyInventory extends React.Component {
   render () {
     return (
       <div>
-          <Menu {...this.props} />
+        <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'My Inventory'} {...this.props} />
           <div className="app-body" id="view">
@@ -107,7 +107,7 @@ class MyInventory extends React.Component {
                 device={this.state.device}
               /> 
           </div>
-        </div> 
+        </div>
       </div>
     );
   }

@@ -15,7 +15,7 @@ body {
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0,0,0,0.1);  
-
+}
   .form-signin-heading,
 	.checkbox {
 	  margin-bottom: 30px;
@@ -29,7 +29,7 @@ body {
 	  position: relative;
 	  font-size: 16px;
 	  height: auto;
-	  padding: 10px;
+		padding: 10px;
 		@include box-sizing(border-box);
 
 		&:focus {

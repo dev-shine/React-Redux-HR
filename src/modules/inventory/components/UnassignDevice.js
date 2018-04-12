@@ -2,15 +2,35 @@ import React from "react";
 import "react-date-picker/index.css";
 import Dialog from "material-ui/Dialog";
 import { DateField } from "react-date-picker";
+import PropTypes from "prop-types";
 import { notify } from "src/services/notify";
 import TextField from "material-ui/TextField";
+import * as actions from "appRedux/actions";
+import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import AlertNotification from "components/generic/AlertNotification";
 
 export default class UnassignDevice extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      comment: "",
+      serial_number: "",
+      user_Id: ""
+    };
+    this.handleAddUserComment = this.handleAddUserComment.bind(this);
   }
+
+  handleAddUserComment() {
+    let { serial_number, comment, user_Id } = this.state;
+    this.props.callAddUserComment({ serial_number, comment, user_Id });
+  }
+  handleChange = e => {
+    this.setState({
+      user_Id: this.props.user_Id,
+      comment: e.target.value,
+      serial_number: this.props.device.serial_number
+    });
+  };
 
   render() {
     return (
@@ -64,12 +84,17 @@ export default class UnassignDevice extends React.Component {
             <div className="row p-y-sm">
               <div className="col-md-12" style={{ opacity: "0.56" }}>
                 {"Comment:"}
-                <textarea style={{ width: "100%" }} />
+                <textarea
+                  value={this.state.comment}
+                  style={{ width: "100%" }}
+                  onChange={this.handleChange}
+                />
               </div>
             </div>
 
             <button
               className="col-md-12 md-btn md-raised m-b-sm indigo"
+              onClick={() => this.handleAddUserComment()}
               style={{ opacity: "0.76", marginTop: "2%" }}
             >
               Unassign Device
@@ -80,3 +105,10 @@ export default class UnassignDevice extends React.Component {
     );
   }
 }
+
+UnassignDevice.PropTypes = {
+  displayData: PropTypes.shape({
+    roles: PropTypes.Array
+  }).isRequired,
+  callAddUserComment: PropTypes.func.isRequired
+};

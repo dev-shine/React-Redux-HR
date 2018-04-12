@@ -113,3 +113,8 @@ export const errorApprovedList = createAction(constants.ACTION_ERROR_UPDATE_APPR
 export const requestUnassignedDeviceList = createAction(constants.REQUEST_UNASSIGNED_DEVICE_LIST);
 export const successUnassignedDeviceList = createAction(constants.SUCCESS_UNASSIGNED_DEVICE_LIST);
 export const errorUnassignedDeviceList = createAction(constants.ERROR_UNASSIGNED_DEVICE_LIST);
+
+
+export const requestAddUserComment = createAction(constants.REQUEST_ADD_USER_COMMENT);
+export const successAddUserComment = createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT);
+export const errorAddUserComment = createAction(constants.ACTION_ERROR_ADD_USER_COMMENT);

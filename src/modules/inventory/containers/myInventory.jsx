@@ -56,6 +56,7 @@ class MyInventory extends React.Component {
       status_message: '',
       device:         val
     });
+    console.log(this.state)
   }
   handleClose () {
     this.setState({
@@ -86,6 +87,7 @@ class MyInventory extends React.Component {
   }
 
   render () {
+    
     return (
       <div>
         <Menu {...this.props} />

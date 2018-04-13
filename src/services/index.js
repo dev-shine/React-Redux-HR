@@ -11,7 +11,9 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
   'create_template_variable', 'get_template_variable', 'delete_template_variable', 'update_template_variable', 'create_email_template',
   'get_email_template', 'delete_email_template', 'update_email_template', 'send_employee_email', 'create_pdf', 'get_policy_document',
   'save_policy_document', 'get_user_policy_document', 'update_user_policy_document', 'add_team_list', 'get_team_list',
-  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id','get_unapproved_machine_list' ];
+
+  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id', 'get_unassigned_machine_list' , 'add_user_comment' ];
+
 
 const actionsForAPIurl = ['admin_user_apply_leave', 'get_machine','change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
 
@@ -102,8 +104,8 @@ export function fireAjax (method, url, data, api) {
   });
 }
 
-export function uploadfile(file, url,doc_type) {
-  return axios.post(url, file, {
+export function uploadfile(formData, url,doc_type) {
+  return axios.post(url, formData, {
     onUploadProgress: progressEvent => {
       console.log(
         `Upload Progress ${doc_type} :` +

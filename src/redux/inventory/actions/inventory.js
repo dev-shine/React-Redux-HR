@@ -1,5 +1,6 @@
 import {createAction} from 'redux-actions';
 import {fireAjax} from 'src/services/index';
+import {notify} from 'src/services/notify'; 
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
 import { createInflate } from 'zlib';
@@ -248,6 +249,7 @@ export function getDeviceById (device_id) {
         dispatch(hide_loading());
         if (json.data) {
           dispatch(success_getDevice(json.data));
+          dispatch(success_getDevice(json.data));
         }
       }, (error) => {
         dispatch(hide_loading());
@@ -342,19 +344,34 @@ export function error_assignDevice (data) {
   return createAction(constants.ACTION_ERROR_ASSIGN_DEVICE)(data);
 }
 
-function getAsync_assignDeviceToUser (deviceId, user_Id) {
+function getAsync_assignDeviceToUser (n_inventory_id, n_user_id) {
   return fireAjax('POST', '', {
     'action':     'assign_user_machine',
-    'machine_id': deviceId,
-    'user_id':    user_Id
+    'machine_id': n_inventory_id,
+    'user_id':    n_user_id
   });
 }
 
-export function assignDevice (deviceId, id) {
+export function assignDevice (assign_device) {
   return (dispatch, getState) => {
+    let n_inventory_id = '';
+    let n_user_id = '';
+    
+    if (typeof assign_device.user_id !== "undefined") {
+      n_user_id = assign_device.user_id;
+    }
+    if (typeof assign_device.inventory_id !== "undefined") {
+      n_inventory_id = assign_device.inventory_id;
+    }
+    if (n_user_id.trim() === "") {
+      return Promise.reject("User id is empty");
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("Inventory id is empty");
+    }
     return new Promise(function (resolve, reject) {
       dispatch(show_loading());
-      return getAsync_assignDeviceToUser(deviceId, id).then((res) => {
+      return getAsync_assignDeviceToUser(n_inventory_id, n_user_id).then((res) => {
         dispatch(hide_loading());
         resolve(res.message);// }
       }, (error) => {
@@ -616,6 +633,61 @@ export function unapprovedUser () {
       }, (error) => {
         dispatch(hide_loading());
         reject(error);
+    })
+    })
+  }
+}
+
+
+export function errorAddUserComment (data) {
+  return createAction(constants.ACTION_ERROR_ADD_USER_COMMENT)(data);
+}
+
+export function successAddUserComment (data) {
+  return createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT)(data);
+}
+
+function asyncAddUserComment (n_comment, n_inventory_id){
+  return fireAjax('POST', '', {
+    'action':       'unassigned_my_inventory',
+    'comment':      n_comment,
+    'inventory_id':      n_inventory_id,
+  });
+}
+
+export function addUserComment (addUserCommentDetails) {
+  return (dispatch, getState) => {
+
+    let n_comment = '';
+    let n_inventory_id = '';
+    if (typeof addUserCommentDetails.comment !== "undefined") {
+      n_comment = addUserCommentDetails.comment;
+    }
+    if (typeof addUserCommentDetails.inventory_id !== "undefined") {
+      n_inventory_id = addUserCommentDetails.inventory_id;
+    }
+    if (n_comment.trim() === "") {
+      return Promise.reject("Comment is empty");
+    }
+    if (n_inventory_id.trim() === "") {
+      return Promise.reject("inventory id is empty");
+    }
+
+    return new Promise(function (resolve, reject){
+      dispatch(show_loading());
+      return asyncAddUserComment(n_comment, n_inventory_id).then((json) => {
+        dispatch(hide_loading());
+        if(json.error==0){
+          dispatch(successAddUserComment(json.message));
+          notify('Success !','Comment added to unassign device','success');
+        }else{
+          dispatch(errorAddUserComment(json.message))
+          notify('Error !',error,'error');
+        }
+      }, (error) => {
+        dispatch(hide_loading());
+        dispatch(errorAddUserComment('error occurs!!!'));
+        notify('Error !',error,'error');
       });
     });
   };
@@ -656,12 +728,40 @@ export function approvedUser (id) {
         }
         else{
         dispatch(errorApprovedList(json.message));
-      
-        }
-      }, (error) => {
+      } (error) => {
         dispatch(errorAddusercomment('error occur'));
         reject('error occur');
+      }
+    })
+  })
+}
+}
+
+export function successUnassignedDeviceList (data) {
+  return createAction(constants.ACTION_SUCCESS_UNASSIGNED_DEVICE_LIST)(data);
+}
+
+function getAsyncUnassignDeviceList () {
+  return fireAjax('POST','',{
+    'action': 'get_unassigned_machine_list'
+  });
+}
+
+export function unassignDeviceList () {
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading());
+      return getAsyncUnassignDeviceList().then((res) => {
+        dispatch(hide_loading());
+        resolve(res.data);
+        dispatch(successUnassignedDeviceList(res.data));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
       });
     });
   };
 }
+
+
+

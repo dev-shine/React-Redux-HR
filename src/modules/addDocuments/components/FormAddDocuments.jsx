@@ -45,7 +45,7 @@ export default class FormAddDocuments extends Component {
       e.preventDefault();
     }
   }
-  componentWillReceiveProps(props) {
+  componentWillMount(props) {
     this.setState({
       user_token: getToken()
     });
@@ -54,7 +54,8 @@ export default class FormAddDocuments extends Component {
     this.setState({ file: Array.from(e.target.files) });
   }
   render() {
-    const userId = this.props.params.splat;
+    const user_id = this.props.params.splat;
+    let pageUrl = window.location.href;
     return (
       <div className="row p-t-md">
         <div className="col-sm-offset-3 col-sm-6 p-x-md">
@@ -62,11 +63,7 @@ export default class FormAddDocuments extends Component {
             Upload Documents
           </h6>
           <div className="row box p-a-md m-b-lg " id="uploadDoc">
-            <form
-              // onSubmit={this.handleSubmit}
-              // action={CONFIG.upload_url} method="POST"
-              encType="multipart/form-data"
-            >
+            <form encType="multipart/form-data">
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
                 <select
@@ -102,14 +99,12 @@ export default class FormAddDocuments extends Component {
                   <option value="Other Documents">Other Documents</option>
                 </select>
               </div>
-              <input type="hidden" name="token" value={this.state.user_token} />
-              <input type="hidden" name="user_id" value={userId} />
+
               <input
                 type="hidden"
                 name="document_type"
                 value={this.state.doc_type}
               />
-              {/* <input type="hidden" name="page_url" value={pageUrl} /> */}
               <div className="form-group">
                 <label className="col-sm-12">Attachment </label>
                 <input
@@ -127,6 +122,9 @@ export default class FormAddDocuments extends Component {
                   url={CONFIG.upload_url}
                   file={this.state.file[0]}
                   doc_type={this.state.doc_type}
+                  token = {this.state.user_token}
+                  user_id = {user_id}
+                  pageUrl = {pageUrl}
                 />
               </div>
             </form>

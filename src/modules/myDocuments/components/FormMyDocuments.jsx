@@ -91,11 +91,7 @@ class FormMyDocuments extends React.Component {
             Upload New Documents
           </h6>
           <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
-            <form
-              // onSubmit={this.handleSubmit}
-              // action={CONFIG.upload_url} method="POST"
-              encType="multipart/form-data"
-            >
+            <form encType="multipart/form-data">
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
                 <select
@@ -163,20 +159,15 @@ class FormMyDocuments extends React.Component {
                 </span>
               </div>
               <div className="form-group col-sm-12">
-                {/* <input
-                  type="submit"
-                  name="submit"
-                  value="Upload"
-                  className="col-xs-12 md-btn md-raised indigo"
-                  onClick={e => {
-                    this.callUpdateDocuments(e);
-                  }}
-                /> */}
+
                 <UploadImageComp
                   callUpdateDocuments={this.callUpdateDocuments}
                   url={CONFIG.upload_url}
                   file={this.state.file[0]}
                   doc_type={this.state.doc_type}
+                  token={this.state.user_token}
+                  user_id={userId}
+                  pageUrl={pageUrl}
                 />
               </div>
             </form>

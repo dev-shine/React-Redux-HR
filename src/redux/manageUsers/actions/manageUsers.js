@@ -1,14 +1,13 @@
-import {createAction} from 'redux-actions';
-import * as _ from 'lodash';
-import queue from 'async/queue';
+import { createAction } from "redux-actions";
+import * as _ from "lodash";
+import queue from "async/queue";
 
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-var moment = require('moment');
-import * as constants from 'appRedux/constants';
+import { fireAjax } from "src/services/index";
+import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
+var moment = require("moment");
+import * as constants from "appRedux/constants";
 
-export function success_user_profile (data, username) {
-
+export function success_user_profile(data, username) {
   return {
     type: constants.ACTION_SUCCESS_USER_PROFILE,
     payload: data,
@@ -586,18 +585,18 @@ function errorGetStep(data) {
   return createAction(constants.ACTION_ERROR_GET_STEPS)(data);
 }
 
-var callApiSteps = queue(function (userid,dispatch,callback) {
-   return fireAjax('POST', '', {
-    'action': 'get_employee_life_cycle',
-    'userid': userid
-  }).then( (json) => {
+var callApiSteps = queue(function(userid, dispatch, callback) {
+  return fireAjax("POST", "", {
+    action: "get_employee_life_cycle",
+    userid: userid
+  }).then(json => {
     if (json.error == 0) {
       dispatch(successGetStep(json.data));
     } else {
       reject(json.data.message);
       dispatch(errorGetStep());
     }
-  })
+  });
   callback(json);
 }, 1);
 
@@ -611,7 +610,6 @@ function asyncGetSteps(userid) {
 export function getSteps(userid) {
   return function(dispatch, getState) {
     return new Promise((resolve, reject) => {
-       
       asyncGetSteps(userid).then(
         json => {
           if (json.error == 0) {
@@ -643,7 +641,7 @@ function asyncChangeSteps(userid, stepid) {
     userid: userid,
     stepid: stepid
   });
-};
+}
 
 export function changeSteps(userid, stepid) {
   return function(dispatch, getState) {
@@ -667,10 +665,10 @@ export function changeSteps(userid, stepid) {
   };
 }
 
-export function success_add_new_user_details(data) {
+export function successAddNewUserDetails(data) {
   return createAction(constants.ACTION_SUCCESS_ADD_NEW_USER_DETAILS)(data);
 }
-export function error_add_new_user_details(data) {
+export function errorAddNewUserDetails(data) {
   return createAction(constants.ACTION_ERROR_ADD_NEW_USER_DETAILS)(data);
 }
 
@@ -765,18 +763,18 @@ export function addNewUserDetails(new_profile_details) {
         n_holding_comments,
         n_signature
       ).then(
-        json => {
+        res => {
           dispatch(hide_loading()); // hide loading icon
-          if (json.error == 0) {
-            dispatch(getUserProfileDetails(n_user_id));
-            dispatch(success_add_new_user_details(json.data.message));
+          if (res.error == 0) {
+            resolve(res.data);
+            dispatch(successAddNewUserDetails(res.data));
           } else {
-            dispatch(error_add_new_user_details(json.data.message));
+            dispatch(errorAddNewUserDetails(res.data));
           }
         },
         error => {
           dispatch(hide_loading()); // hide loading icon
-          dispatch(error_add_new_user_details("error occurs!!!"));
+          dispatch(errorAddNewUserDetails("error occurs!!!"));
         }
       );
     });

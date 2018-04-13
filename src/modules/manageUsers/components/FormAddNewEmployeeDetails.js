@@ -57,19 +57,19 @@ class FormAddNewEmployeeDetails extends React.Component {
     });
   }
   callAddNewEmployeeDetails(new_profile_details) {
+    console.log("==================");
     this.props.onAddNewUserDetails(new_profile_details).then(
       data => {
-        notify(data);
-        this.props.onUsersList();
-        this.props.router.push("/user_document");
+        console.log(data, "==================");
+        notify("Success!!", data.message, "success");
+        this.props.router.push(`/add_documents/${this.props.params.id}`);
       },
       error => {
-        notify(error);
+        notify("error", error, "error");
       }
     );
   }
   render() {
-    console.log(this.props.params.id)
     return (
       <div>
         <Menu {...this.props} />

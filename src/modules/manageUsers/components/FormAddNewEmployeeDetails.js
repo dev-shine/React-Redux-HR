@@ -80,90 +80,83 @@ class FormAddNewEmployeeDetails extends React.Component {
           />
           <div className="app-body" id="view">
             <div className="padding">
-              <div className="row">
-                <div className="col-xs-12">
-                  <div className="col-md-4 input-wrapper">
-                    <TextField
-                      floatingLabelText="Permanent Address"
-                      floatingLabelFixed
-                      fullWidth
-                      onChange={e =>
-                        this.setState({ permanent_address: e.target.value })
-                      }
-                      value={this.state.permanent_address}
-                    />
-                  </div>
-                  <div className="col-md-4 input-wrapper">
-                    <TextField
-                      floatingLabelText="Phone No"
-                      floatingLabelFixed
-                      fullWidth
-                      onChange={e =>
-                        this.setState({ emergency_ph1: e.target.value })
-                      }
-                      value={this.state.emergency_ph1}
-                    />
-                  </div>
-                </div>
-                <div className="col-xs-12">
-                  <div className="col-md-4 input-wrapper">
-                    <TextField
-                      floatingLabelText="Emergency Contact No"
-                      floatingLabelFixed
-                      fullWidth
-                      onChange={e =>
-                        this.setState({ emergency_ph2: e.target.value })
-                      }
-                      value={this.state.emergency_ph2}
-                    />
-                  </div>
-                  <div className="col-md-4 input-wrapper">
-                    Blood Group
-                    <select
-                      className="form-control"
-                      ref="blood_group"
-                      onChange={e =>
-                        this.setState({ blood_group: e.target.value })
-                      }
-                      value={this.state.blood_group}
-                    >
-                      <option disabled>--select blood group--</option>
-                      <option value="0">B+ </option>
-                      <option value="1">O+</option>
-                      <option value="2">AB+</option>
-                      <option value="3">A+</option>
-                      <option value="4">B- </option>
-                      <option value="5">O-</option>
-                      <option value="6">AB-</option>
-                      <option value="7">A-</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-8 input-wrapper">
-                  <TextField
-                    floatingLabelText="Any Medical issues in past/present"
-                    floatingLabelFixed
-                    fullWidth
-                    onChange={e =>
-                      this.setState({ medical_condition: e.target.value })
-                    }
-                    value={this.state.medical_condition}
-                  />
-                </div>
-                <div className="col-md-8 input-wrapper">
-                  <TextField
-                    floatingLabelText="Any special joinining terms from employers"
-                    floatingLabelFixed
-                    fullWidth
-                    onChange={e =>
-                      this.setState({
-                        holding_comments: e.target.value,
-                        user_id: this.props.params.id
-                      })
-                    }
-                    value={this.state.holding_comments}
-                  />
-                </div>
+              <div className="col-md-6 input-wrapper">
+                <TextField
+                  floatingLabelText="Permanent Address"
+                  floatingLabelFixed
+                  fullWidth
+                  onChange={e =>
+                    this.setState({ permanent_address: e.target.value })
+                  }
+                  value={this.state.permanent_address}
+                />
+              </div>
+              <div className="col-md-6 input-wrapper">
+                <TextField
+                  floatingLabelText="Phone No"
+                  floatingLabelFixed
+                  fullWidth
+                  onChange={e =>
+                    this.setState({ emergency_ph1: e.target.value })
+                  }
+                  value={this.state.emergency_ph1}
+                />
+              </div>
+
+              <div className="col-md-6 input-wrapper">
+                <TextField
+                  floatingLabelText="Emergency Contact No"
+                  floatingLabelFixed
+                  fullWidth
+                  onChange={e =>
+                    this.setState({ emergency_ph2: e.target.value })
+                  }
+                  value={this.state.emergency_ph2}
+                />
+              </div>
+              <div className="col-md-6 input-wrapper">
+                Blood Group
+                <select
+                  className="form-control"
+                  ref="blood_group"
+                  onChange={e => this.setState({ blood_group: e.target.value })}
+                  value={this.state.blood_group}
+                >
+                  <option disabled>--select blood group--</option>
+                  <option value="0">B+ </option>
+                  <option value="1">O+</option>
+                  <option value="2">AB+</option>
+                  <option value="3">A+</option>
+                  <option value="4">B- </option>
+                  <option value="5">O-</option>
+                  <option value="6">AB-</option>
+                  <option value="7">A-</option>
+                </select>
+              </div>
+              <div className="col-md-8 input-wrapper">
+                <TextField
+                  floatingLabelText="Any Medical issues in past/present"
+                  floatingLabelFixed
+                  fullWidth
+                  onChange={e =>
+                    this.setState({ medical_condition: e.target.value })
+                  }
+                  value={this.state.medical_condition}
+                />
+              </div>
+              <div className="col-md-8 input-wrapper">
+                <TextField
+                  floatingLabelText="Any special joinining terms from employers"
+                  floatingLabelFixed
+                  fullWidth
+                  onChange={e =>
+                    this.setState({
+                      holding_comments: e.target.value,
+                      user_id: this.props.params.id
+                    })
+                  }
+                  value={this.state.holding_comments}
+                />
               </div>
               <div className="col-md-8  input-wrapper">
                 <label>Employee Signature</label>

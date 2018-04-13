@@ -5,6 +5,7 @@ import { getToken } from "src/services/generic";
 import ListDocuments from "components/myDocuments/ListDocuments";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 
+
 class FormMyDocuments extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class FormMyDocuments extends React.Component {
       doc_type: "",
       user_token: "",
       file: []
+
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
@@ -48,6 +50,7 @@ class FormMyDocuments extends React.Component {
     } else if (file.size > 5000000) {
       stop = true;
       notify("Warning!", "File size must be less than 5mb", "warning");
+
     }
     if (stop) {
       e.preventDefault();
@@ -91,7 +94,12 @@ class FormMyDocuments extends React.Component {
             Upload New Documents
           </h6>
           <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
-            <form encType="multipart/form-data">
+
+            <form
+              action={CONFIG.upload_url}
+              method="POST"
+              encType="multipart/form-data"
+            >
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
                 <select

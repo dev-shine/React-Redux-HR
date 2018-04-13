@@ -97,7 +97,6 @@ export const requestUserList = createAction(constants.REQUEST_USER_LIST);
 export const successUserList = createAction(constants.SUCCESS_USER_LIST);
 export const errorUserList = createAction(constants.ERROR_USER_LIST);
 
-
 export const requestAddInventoryComment = createAction(constants.ACTION_REQUEST_ADD_INVENTORY_COMMENT);
 export const successAddInventoryComment = createAction(constants.ACTION_SUCCESS_ADD_INVENTORY_COMMENT);
 export const errorAddInventoryComment = createAction(constants.ACTION_ERROR_ADD_INVENTORY_COMMENT);
@@ -110,7 +109,7 @@ export const requestApprovedList = createAction(constants.ACTION_REQUEST_UPDATE_
 export const successApprovedList = createAction(constants.ACTION_SUCCESS_UPDATE_APPROVED_USER); 
 export const errorApprovedList = createAction(constants.ACTION_ERROR_UPDATE_APPROVED_USER);
 
-export const requestUnassignedDeviceList = createAction(constants.ACTION_REQUEST_UNASSIGNED_DEVICE_LIST);
+export const requestUnassignedDeviceList = createAction(constants.REQUEST_UNASSIGNED_DEVICE_LIST);
 export const successUnassignedDeviceList = createAction(constants.ACTION_SUCCESS_UNASSIGNED_DEVICE_LIST);
 export const errorUnassignedDeviceList = createAction(constants.ACTION_ERROR_UNASSIGNED_DEVICE_LIST);
 
@@ -118,4 +117,8 @@ export const errorUnassignedDeviceList = createAction(constants.ACTION_ERROR_UNA
 export const requestAddUserComment = createAction(constants.REQUEST_ADD_USER_COMMENT);
 export const successAddUserComment = createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT);
 export const errorAddUserComment = createAction(constants.ACTION_ERROR_ADD_USER_COMMENT);
+
+export const requestAddNewUserDetails = createAction(constants.REQUEST_ADD_NEW_USER_DETAILS);
+export const successAddNewUserDetails = createAction(constants.ACTION_SUCCESS_ADD_NEW_USER_DETAILS);
+export const errorAddNewUserDetails = createAction(constants.ACTION_ERROR_ADD_NEW_USER_DETAILS)
 

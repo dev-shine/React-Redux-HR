@@ -50,6 +50,9 @@ import Page_AttendanceReq from './modules/attendance/containers/manageAttendance
 import InventoryItem from './modules/inventory/components/inventoryItem'
 import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
 import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
+import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
+import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
+import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer.jsx';  
 // import APP from './App';
@@ -120,6 +123,9 @@ let render = (routerKey = null) => {
             <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>
             <Route path="add_documents" component = {Page_AddDocuments} />
             <Route path="add_documents/*" component = {Page_FormAddDocuments} />
+            <Route path="add_new_employee" component={AddNewEmployee}/>
+            <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
+            <Route path="user_document" component={UserDocumentDetails}/>
           </Route>
         </Router>
       </Provider>

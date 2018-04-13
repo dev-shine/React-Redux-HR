@@ -10,6 +10,7 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
+import DialogUpload from "./dialogueUpload";
 let device_id;
 class InventoryItem extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class InventoryItem extends React.Component {
       );
     });
     const history = _.map(
-      this.props.manageDevice.deviceHistory.history ,
+      this.props.manageDevice.deviceHistory.history,
       (val, i) => {
         return (
           <div key={i} className="streamline b-l m-l">
@@ -140,6 +141,7 @@ class InventoryItem extends React.Component {
                       </div>
                     </div>
                   </div>
+                  {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
                 </div>
               </div>
             </div>

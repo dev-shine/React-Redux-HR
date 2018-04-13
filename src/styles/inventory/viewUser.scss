@@ -1,13 +1,19 @@
 .h1Left {
   margin-left: 33% !important;
   opacity: 0.56;
-  }
-  
+}
+
 .o-auto {
   overflow: auto;
   margin-top: 2%;
-  }
-  .upload{
-    background-color: red;
-    display: none;
-  }
+}
+.upload {
+  background-color: red;
+  display: none;
+}
+
+.small {
+  margin-left: 15%;
+  width: 30%;
+  height: 30%;
+}

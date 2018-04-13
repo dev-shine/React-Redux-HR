@@ -9,10 +9,11 @@ export default class FormAddDocuments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      doc_type: "",
-      user_token: "",
+      document_type: "",
+      token: "",
       file: [],
-      filelist: []
+      user_id: this.props.params.splat,
+      page_url: window.location.href
     };
 
     this.handleFileChange = this.handleFileChange.bind(this);
@@ -23,7 +24,7 @@ export default class FormAddDocuments extends Component {
   }
 
   callUpdateDocuments(e) {
-    let type = this.state.doc_type;
+    let type = this.state.document_type;
     let link1 = this.refs.file.value;
     let file = this.state.file[0];
     let userId = this.props.params.splat;
@@ -39,7 +40,7 @@ export default class FormAddDocuments extends Component {
       notify("Warning!", "Please select a file", "warning");
     } else if (file.size > 5000000) {
       stop = true;
-      notify("Warning!", "File doc_typesize must be less than 5mb", "warning");
+      notify("Warning!", "File doc_type size must be less than 5mb", "warning");
     }
     if (stop) {
       e.preventDefault();
@@ -47,15 +48,13 @@ export default class FormAddDocuments extends Component {
   }
   componentWillMount(props) {
     this.setState({
-      user_token: getToken()
+      token: getToken()
     });
   }
   handleFileChange(e) {
-    this.setState({ file: Array.from(e.target.files) });
+    this.setState({ file: Array.from(e.target.files)});
   }
   render() {
-    const user_id = this.props.params.splat;
-    let pageUrl = window.location.href;
     return (
       <div className="row p-t-md">
         <div className="col-sm-offset-3 col-sm-6 p-x-md">
@@ -68,9 +67,9 @@ export default class FormAddDocuments extends Component {
                 <label className="col-sm-12">Document Type</label>
                 <select
                   className="form-control"
-                  ref="doc_type"
+                  ref="document_type"
                   onChange={() =>
-                    this.setState({ doc_type: this.refs.doc_type.value })
+                    this.setState({ document_type: this.refs.document_type.value })
                   }
                   value={this.state.doc_type}
                 >
@@ -120,11 +119,9 @@ export default class FormAddDocuments extends Component {
                 <UploadImageComp
                   callUpdateDocuments={this.callUpdateDocuments}
                   url={CONFIG.upload_url}
-                  file={this.state.file[0]}
-                  doc_type={this.state.doc_type}
-                  token = {this.state.user_token}
-                  user_id = {user_id}
-                  pageUrl = {pageUrl}
+                  params={this.state}
+                  file = {this.state.file[0]}
+                  fileName = "link_1"
                 />
               </div>
             </form>

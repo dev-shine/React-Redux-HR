@@ -104,14 +104,6 @@ export function fireAjax (method, url, data, api) {
   });
 }
 
-export function uploadfile(formData, url,doc_type) {
-  return axios.post(url, formData, {
-    onUploadProgress: progressEvent => {
-      console.log(
-        `Upload Progress ${doc_type} :` +
-          Math.round(progressEvent.loaded / progressEvent.total * 100) +
-          "%"
-      );
-    }
-  });
+export function uploadfile(formData, url) {
+  return axios.post(url, formData);
 }

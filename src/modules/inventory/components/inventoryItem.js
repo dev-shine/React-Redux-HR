@@ -47,6 +47,7 @@ class InventoryItem extends React.Component {
     this.props.onAssignDevice(assign_device).then(
       data => {
         notify("Success!", data, "success");
+        this.props.onGetDevice(device_id);
       },
       error => {
         notify("Error!", error, "error");
@@ -55,6 +56,7 @@ class InventoryItem extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
@@ -65,6 +67,25 @@ class InventoryItem extends React.Component {
         </option>
       );
     });
+    const Assignhistory = _.map(
+      this.props.manageDevice.deviceHistory.history,
+      (val, i) => {
+        return (
+          <div key={i} className="streamline b-l m-l">
+            <div className="sl-item b-info">
+              <div className="sl-content">
+                <div className="sl-date text-muted">
+                  Assigned to : {val.assign_unassign_user_name}
+                </div>
+                <div className="sl-date text-muted">
+                  By : {val.updated_by_user}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    );
     const history = _.map(
       this.props.manageDevice.deviceHistory.history,
       (val, i) => {
@@ -184,7 +205,7 @@ class InventoryItem extends React.Component {
                         <div
                           className="col-sm-15 p-8 pt-8"
                           style={{ marginTop: "4%" }}
-                        >
+                        > {Assignhistory}
                           {history}
                         </div>
                       </div>

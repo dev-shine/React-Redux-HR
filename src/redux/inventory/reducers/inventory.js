@@ -53,8 +53,8 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
   } else if (action.type === 'ACTION_ERROR_ADD_USER_COMMENT') {
     return state.set('comment', action.payload);
   } else if (action.type === 'ACTION_SUCCESS_UNASSIGNED_DEVICE_LIST') {
-    return state.set('comment', action.payload);
-  } else {
+    return state.set('unassignedDeviceList', action.payload);
+  }  else {
     return state;
   }
 }

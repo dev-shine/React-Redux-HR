@@ -38,6 +38,10 @@ export function manageUsers (state = Immutable.fromJS(initialState), action) {
     return state.set('stages', action.payload);
   } else if (action.type === 'ACTION_ERROR_GET_STEPS') {
     return state.set('status_message', action.payload).set('stages', {});
+  } else if (action.type === 'ACTION_SUCCESS_ADD_NEW_USER_DETAILS') {
+    return state.set('status_message', action.payload);
+  } else if (action.type === 'ACTION_ERROR_ADD_NEW_USER_DETAILS') {
+    return state.set('status_message', action.payload);
   } else {
     return state.set('status_message', '');
   }

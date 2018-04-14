@@ -48,11 +48,12 @@ class FormMyDocuments extends React.Component {
     } else if (this.refs.declear.checked !== true) {
       stop = true;
       notify("Warning!", "Mark declearation before submit", "warning");
-    } else if (file.size > 5000000) {
-      stop = true;
-      notify("Warning!", "File size must be less than 5mb", "warning");
+     } 
+    // else if (file.size > 5000000) {
+    //   stop = true;
+    //   notify("Warning!", "File size must be less than 5mb", "warning");
 
-    }
+    // }
     if (stop) {
       e.preventDefault();
     }

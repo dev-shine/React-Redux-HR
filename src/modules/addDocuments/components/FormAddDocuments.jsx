@@ -4,6 +4,7 @@ import { notify } from "src/services/notify";
 import { getToken } from "src/services/generic";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 import { browserHistory } from "react-router";
+// import ListDocuments from "components/myDocuments/ListDocuments";
 
 export default class FormAddDocuments extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class FormAddDocuments extends Component {
     });
   }
   handleFileChange(e) {
-    this.setState({ file: Array.from(e.target.files)});
+    this.setState({ file: Array.from(e.target.files) });
   }
   render() {
     return (
@@ -69,7 +70,9 @@ export default class FormAddDocuments extends Component {
                   className="form-control"
                   ref="document_type"
                   onChange={() =>
-                    this.setState({ document_type: this.refs.document_type.value })
+                    this.setState({
+                      document_type: this.refs.document_type.value
+                    })
                   }
                   value={this.state.doc_type}
                 >
@@ -120,8 +123,8 @@ export default class FormAddDocuments extends Component {
                   callUpdateDocuments={this.callUpdateDocuments}
                   url={CONFIG.upload_url}
                   params={this.state}
-                  file = {this.state.file[0]}
-                  fileName = "link_1"
+                  file={this.state.file[0]}
+                  fileName="link_1"
                 />
               </div>
             </form>
@@ -133,6 +136,12 @@ export default class FormAddDocuments extends Component {
             {" "}
             Go Back
           </button>
+          <br />
+          <br />
+          {/* <ListDocuments
+            myDocuments={this.props.my_documents}
+            deleteDocument={this.deleteDocument}
+          /> */}
         </div>
       </div>
     );

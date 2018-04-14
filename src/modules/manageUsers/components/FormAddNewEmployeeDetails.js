@@ -93,6 +93,7 @@ class FormAddNewEmployeeDetails extends React.Component {
               </div>
               <div className="col-md-6 input-wrapper">
                 <TextField
+                type="number"
                   floatingLabelText="Phone No"
                   floatingLabelFixed
                   fullWidth
@@ -105,6 +106,7 @@ class FormAddNewEmployeeDetails extends React.Component {
 
               <div className="col-md-6 input-wrapper">
                 <TextField
+                type="number"
                   floatingLabelText="Emergency Contact No"
                   floatingLabelFixed
                   fullWidth

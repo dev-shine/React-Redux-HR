@@ -1,37 +1,36 @@
-import React from 'react';
-import * as _ from 'lodash';
-import {notify, confirm} from 'src/services/notify';
-import {getLowerCase , getLoggedUser} from 'src/services/generic';
-import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
-import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
-import {CONFIG} from 'config'
-var moment = require('moment');
+import React from "react";
+import * as _ from "lodash";
+import { CONFIG } from "src/config/index";
+import { notify, confirm } from "src/services/notify";
+import { getLowerCase, getLoggedUser } from "src/services/generic";
+import AddDeviceDialoge from "modules/inventory/components/AddDeviceDialoge";
+import AddDeviceStatus from "modules/inventory/components/AddDeviceStatus";
+var moment = require("moment");
 let devices;
 let capitalizeDevice;
 class InventoryList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      edit:             false,
-      open:             false,
-      openStatus:       false,
-      id:               '',
-      openSnackbar:     false,
-      user:             '',
-      status_message:   '',
-      search:           '',
-      deviceTypeList:   [],
+      edit: false,
+      open: false,
+      openStatus: false,
+      id: "",
+      openSnackbar: false,
+      user: "",
+      status_message: "",
+      search: "",
+      deviceTypeList: [],
       deviceStatusList: [],
-      device_status:    '',
-      deviceList:       [],
-      statusList:       [],
-      deviceVal:        '',
-      unapprovedList:[],
-      approveDialog:false
-      
+      device_status: "",
+      deviceList: [],
+      statusList: [],
+      deviceVal: "",
+      unapprovedList: [],
+      approveDialog: false
     };
-    
+
     this.openEditDevice = this.openEditDevice.bind(this);
     this.deleteDevices = this.deleteDevices.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
@@ -40,24 +39,24 @@ class InventoryList extends React.Component {
     this.handleStatusOpen = this.handleStatusOpen.bind(this);
     this.handleStatusClose = this.handleStatusClose.bind(this);
     this.callAddDevice = this.callAddDevice.bind(this);
-    this.sendUnapprovedId=this.sendUnapprovedId.bind(this);
+    this.sendUnapprovedId = this.sendUnapprovedId.bind(this);
     this.callAddStatus = this.callAddStatus.bind(this);
     this.callDeleteDeviceStatus = this.callDeleteDeviceStatus.bind(this);
     this.handleDeviceTypeFilter = this.handleDeviceTypeFilter.bind(this);
-    this.capitalize=this.capitalize.bind(this);
+    this.capitalize = this.capitalize.bind(this);
     this.handleInventory = this.handleInventory.bind(this);
     this.handleStatusTypeFilter = this.handleStatusTypeFilter.bind(this);
   }
-  componentWillMount () {
-    this.props.onFetchDeviceType().then((val) => {
-      this.setState({deviceTypeList: val, deviceStatusList: val});
+  componentWillMount() {
+    this.props.onFetchDeviceType().then(val => {
+      this.setState({ deviceTypeList: val, deviceStatusList: val });
     });
-    this.props.onFetchDeviceStatus().then((val) => {
-      this.setState({deviceStatusList: val});
+    this.props.onFetchDeviceStatus().then(val => {
+      this.setState({ deviceStatusList: val });
     });
   }
 
-  componentWillReceiveProps (props) {
+  componentWillReceiveProps(props) {
     if (props.manageDevice.status_message !== this.state.status_message) {
       this.setState({
         openSnackbar: true
@@ -68,122 +67,133 @@ class InventoryList extends React.Component {
       });
     }
     this.setState({
-      deviceTypeList:   props.manageDevice.deviceList,
-      deviceList:       props.manageDevice.device,
+      deviceTypeList: props.manageDevice.deviceList,
+      deviceList: props.manageDevice.device,
       deviceStatusList: props.manageDevice.statusList,
-      statusList:       props.manageDevice.statusList,
-      unapprovedList:   props.manageDevice.unapprovedList.data
+      statusList: props.manageDevice.statusList,
+      unapprovedList: props.manageDevice.unapprovedList.data
     });
     if (props.searchVal !== undefined) {
       this.handleDeviceTypeFilter(props.searchVal);
     }
-    if(props.manageDevice.approvedList=="Machine status updated successfully"){
+    if (
+      props.manageDevice.approvedList == "Machine status updated successfully"
+    ) {
       this.setState({
-        approveDialog:true
-      })
+        approveDialog: true
+      });
     }
-      this.setState({
-        approveDialog:false
-      });
-      props.manageDevice.approvedList="";
-    if( !_.isEqual(this.state.deviceList,props.manageDevice.device)){
-      this.setState({
-        deviceList:       props.manageDevice.device,
-      },()=>{
-         capitalizeDevice= this.capitalize(this.props.routeParams.device);
-        this.handleDeviceTypeFilter(capitalizeDevice);
-      });
-      this.handleStatusTypeFilter('Working');
-    } 
-
+    this.setState({
+      approveDialog: false
+    });
+    props.manageDevice.approvedList = "";
+    if (!_.isEqual(this.state.deviceList, props.manageDevice.device)) {
+      this.setState(
+        {
+          deviceList: props.manageDevice.device
+        },
+        () => {
+          capitalizeDevice = this.capitalize(this.props.routeParams.device);
+          this.handleDeviceTypeFilter(capitalizeDevice);
+        }
+      );
+      this.handleStatusTypeFilter("Working");
+    }
   }
 
-  openEditDevice (id) {
+  openEditDevice(id) {
     this.props.openEditDevice(id);
   }
 
-  deleteDevices (id,userId) {
+  deleteDevices(id, userId) {
     this.props.deleteDevices(id);
   }
-  callAddStatus (statusValue, colorValue) {
-    this.props.onCallDeviceStatus(statusValue, colorValue).then((message) => {
-      this.setState({
-        statusType: '',
-        background: '',
-        checkValue: ''
-      });
-      notify('', message, '');
-      this.props.onFetchDeviceStatus();
-    }, (error) => {
-      notify('Error !', error, 'error');
-    });
+  callAddStatus(statusValue, colorValue) {
+    this.props.onCallDeviceStatus(statusValue, colorValue).then(
+      message => {
+        this.setState({
+          statusType: "",
+          background: "",
+          checkValue: ""
+        });
+        notify("", message, "");
+        this.props.onFetchDeviceStatus();
+      },
+      error => {
+        notify("Error !", error, "error");
+      }
+    );
   }
 
-  callAddDevice (deviceType) {
-    this.props.onCallDeviceType(deviceType).then((message) => {
-      this.setState({
-        status_message: message
-      });
-      this.props.onFetchDeviceType();
-    }, (error) => {
-      notify('Error !', error, 'error');
-    });
+  callAddDevice(deviceType) {
+    this.props.onCallDeviceType(deviceType).then(
+      message => {
+        this.setState({
+          status_message: message
+        });
+        this.props.onFetchDeviceType();
+      },
+      error => {
+        notify("Error !", error, "error");
+      }
+    );
   }
-  handleStatusClose () {
+  handleStatusClose() {
     this.setState({
       openStatus: false,
-      statusType: '',
-      background: ''
+      statusType: "",
+      background: ""
     });
   }
-  handleStatusOpen () {
+  handleStatusOpen() {
     this.setState({
       openStatus: true
     });
   }
 
-  handleOpen (e) {
+  handleOpen(e) {
     e.stopPropagation();
     this.setState({
       open: true
     });
   }
-  handleClose () {
+  handleClose() {
     this.setState({
       open: false
-
     });
   }
 
-  handleAssign (id, userId) {
-    this.setState({user: userId});
+  handleAssign(id, userId) {
+    this.setState({ user: userId });
     this.props.callAssign(id, userId);
   }
-  handleInventory(id){
-    this.props.router.push(`inventory_system/${this.props.routeParams.device}/${id}`)
+  handleInventory(id) {
+    this.props.router.push(
+      `inventory_system/${this.props.routeParams.device}/${id}`
+    );
   }
 
-  callDeleteDeviceStatus (checkValue) {
-    this.props.onDeleteDeviceStatus(checkValue).then((val) => {
+  callDeleteDeviceStatus(checkValue) {
+    this.props.onDeleteDeviceStatus(checkValue).then(val => {
       if (val.error === 1) {
         this.setState({
-          statusType: '',
-          background: '',
-          checkValue: ''
+          statusType: "",
+          background: "",
+          checkValue: ""
         });
-        notify('Error !', 'This Device Status Type Is In Use', 'error');
+        notify("Error !", "This Device Status Type Is In Use", "error");
         this.handleStatusClose();
       } else if (val.message) {
         this.setState({
           status_message: val.message
         });
-        notify('', this.state.status_message, 'info');
+        notify("", this.state.status_message, "info");
         this.handleStatusClose();
       } else {
         this.setState({
-          statusType: '',
-          background: '',
-          checkValue: ''
+          statusType: "",
+          background: "",
+          checkValue: ""
         });
         this.handleStatusClose();
       }
@@ -191,78 +201,114 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus();
   }
 
-  handleDeviceTypeFilter (deviceType) {  
+  handleDeviceTypeFilter(deviceType) {
     if (this.state.deviceTypeList === this.props.manageDevice.deviceList) {
       let devices = this.props.manageDevice.device;
-      if (this.state.device_status !== '') {
+      if (this.state.device_status !== "") {
         devices = this.state.deviceList;
       }
-      if (deviceType !== '') {
-        devices = _.filter(devices, row => getLowerCase(row.machine_type) === getLowerCase(deviceType));
+      if (deviceType !== "") {
+        devices = _.filter(
+          devices,
+          row => getLowerCase(row.machine_type) === getLowerCase(deviceType)
+        );
       } else {
-        if (this.state.device_status !== '') {
-          devices = _.filter(this.props.manageDevice.device, row => getLowerCase(row.status) === getLowerCase(this.state.device_status));
+        if (this.state.device_status !== "") {
+          devices = _.filter(
+            this.props.manageDevice.device,
+            row =>
+              getLowerCase(row.status) ===
+              getLowerCase(this.state.device_status)
+          );
         }
       }
-      if (this.state.device_status !== '' && deviceType !== '') {
-        devices = _.filter(this.props.manageDevice.device, row => (getLowerCase(row.machine_type) === getLowerCase(deviceType) && getLowerCase(row.status) === getLowerCase(this.state.device_status)));
+      if (this.state.device_status !== "" && deviceType !== "") {
+        devices = _.filter(
+          this.props.manageDevice.device,
+          row =>
+            getLowerCase(row.machine_type) === getLowerCase(deviceType) &&
+            getLowerCase(row.status) === getLowerCase(this.state.device_status)
+        );
       }
       this.setState({
         deviceList: devices,
-        search:     deviceType
+        search: deviceType
       });
     }
   }
 
-  handleInventory (id) {
-    this.props.router.push(`inventory_system/${this.props.routeParams.device}/${id}`)
-
+  handleInventory(id) {
+    this.props.router.push(
+      `inventory_system/${this.props.routeParams.device}/${id}`
+    );
   }
 
-  handleStatusTypeFilter (statusType) {
+  handleStatusTypeFilter(statusType) {
     let status = this.props.manageDevice.device;
-    if (this.state.search !== '') {
+    if (this.state.search !== "") {
       status = this.state.deviceList;
     }
-    if (statusType !== '') {
-      status = _.filter(status, row => getLowerCase(row.status) === getLowerCase(statusType));
+    if (statusType !== "") {
+      status = _.filter(
+        status,
+        row => getLowerCase(row.status) === getLowerCase(statusType)
+      );
     } else {
-      if (this.state.search !== '') {
-        status = _.filter(this.props.manageDevice.device, row => getLowerCase(row.machine_type) === getLowerCase(this.state.search));
+      if (this.state.search !== "") {
+        status = _.filter(
+          this.props.manageDevice.device,
+          row =>
+            getLowerCase(row.machine_type) === getLowerCase(this.state.search)
+        );
       }
     }
-    if (statusType !== '' && this.state.search !== '') {
-      status = _.filter(this.props.manageDevice.device, row => (getLowerCase(row.machine_type) === getLowerCase(this.state.search) && getLowerCase(row.status) === getLowerCase(statusType)));
+    if (statusType !== "" && this.state.search !== "") {
+      status = _.filter(
+        this.props.manageDevice.device,
+        row =>
+          getLowerCase(row.machine_type) === getLowerCase(this.state.search) &&
+          getLowerCase(row.status) === getLowerCase(statusType)
+      );
     }
     this.setState({
-      deviceList:    status,
+      deviceList: status,
       device_status: statusType
     });
   }
 
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-  
-  sendUnapprovedId(id){
-    this.setState({id:id});
-    this.props.callUnapprovedId({id});
   }
-  render () {
-    
+
+  sendUnapprovedId(id) {
+    this.setState({ id: id });
+    this.props.callUnapprovedId({ id });
+  }
+  render() {
+    let path = CONFIG.inventory_images;
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
     let statusDropMap = statusList.map((val, i) => {
       return (
-        <option value={val.status} key={i}>{val.status}</option>);
+        <option value={val.status} key={i}>
+          {val.status}
+        </option>
+      );
     });
 
     let statusDrop = statusDropMap;
     let listDropMap = this.state.deviceTypeList.map((val, i) => {
-      return (<option value={val} key={i}>{val}</option>);
+      return (
+        <option value={val} key={i}>
+          {val}
+        </option>
+      );
     });
     let listDrop = listDropMap.reverse();
-     devices = this.props.fourthArrow==='show'?this.state.unapprovedList:this.state.deviceList;
+    devices =
+      this.props.fourthArrow === "show"
+        ? this.state.unapprovedList
+        : this.state.deviceList;
     let statusVal = this.state.deviceStatusList;
 
     let rowColor;
@@ -272,112 +318,186 @@ class InventoryList extends React.Component {
       if (rowColorData.length > 0) {
         rowColor = rowColorData[0].color;
       }
-      rows.push(<tr key={i} style={{background: rowColor, borderBottom: '2px solid white'}}>
-        <td onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '5%',cursor:'pointer'}}>{i + 1}</td>
-        <td onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '16%',cursor:'pointer'}}>
-          {device.machine_type}
-          <br />
-          {<b>Assigned to :</b>}
-          <mark> {device.name}</mark>
-        </td>
-
-        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{marginRight: '0%', width: '15%',cursor:'pointer'}}>
-          {device.machine_name}
-          
-        </td>
-
-        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{cursor:'pointer'}}>
-          <ul style={{padding: '0'}}>
-            <li>{<b>Purchase Date : </b>} </li>
-            {moment(device.date_of_purchase).format('Do MMMM YYYY')}
+      rows.push(
+        <tr
+          key={i}
+          style={{ background: rowColor, borderBottom: "2px solid white" }}
+        >
+          <td
+            onClick={() => this.handleInventory(device.id)}
+            style={{ marginRight: "0%", width: "5%", cursor: "pointer" }}
+          >
+            {i + 1}
+          </td>
+          <td
+            onClick={() => this.handleInventory(device.id)}
+            style={{ marginRight: "0%", width: "16%", cursor: "pointer" }}
+          >
+            {device.machine_type}
             <br />
-            <li>{<b>Warranty Expire : </b>} </li>
-            {moment(device.warranty_end_date).format('Do MMMM YYYY')}
-            <br />
-            <li>{<b>Price : </b>} </li>
-            {'₹'}{device.machine_price}
-            <br />
-            <li>{<b>Serial No : </b>} </li>
-            {device.serial_number}
-            <br />
-          </ul>
-        </td>
+            {<b>Assigned to :</b>}
+            <mark> {device.name}</mark>
+          </td>
 
-        <td className="tdAlign" onClick={() => this.handleInventory(device.id)} style={{cursor:'pointer'}}>
-          <ul style={{padding: '0'}}>
-            <li>{<b>Status : </b>}</li>
-            {device.status} <br />
-            <li>{<b>Working Comments:</b>}</li>
-            {device.comments} <br />
-            <li>{<b>Extended Warranty:</b>}</li>
-            {device.warranty_comment} <br />
-            <li>{<b>Pre Repair Comments:</b>}</li>
-            {device.repair_comment} <br/>
-          </ul>
-        </td>
+          <td
+            className="tdAlign"
+            onClick={() => this.handleInventory(device.id)}
+            style={{ marginRight: "0%", width: "15%", cursor: "pointer" }}
+          >
+            {device.machine_name}
+            <br />
+            <br />
+            {(device.fileInventoryPhoto === null) | undefined ? (
+              ""
+            ) : (
+              <img src={path + device.fileInventoryPhoto} />
+            )}
+          </td>
 
-        {role === CONFIG.ADMIN ? <td className="tdAlign row" style={{marginTop: '5%'}}>
-          <i className="fa fa-lg fa-pencil-square-o" aria-hidden="false" style={{color: '#3f51b5', cursor: 'pointer'}}
-            onClick={(e) => {
-              e.nativeEvent.stopImmediatePropagation();
-              this.openEditDevice(device.id);
-            }}></i>&nbsp;&nbsp;&nbsp;&nbsp;
-          <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
-            confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
-              if (res) {
-                
-                this.deleteDevices(device.id,this.props.loggedUser.data.id);
-                notify('Deleted !', '', 'success');
-              }
-            });
-          }} aria-hidden="true"></i>
-         <div>
-          {this.props.fourthArrow==='show'?
-          <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button>:null}</div>
-        </td> : null}
-        
-      </tr>);
+          <td
+            className="tdAlign"
+            onClick={() => this.handleInventory(device.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <ul style={{ padding: "0" }}>
+              <li>{<b>Purchase Date : </b>} </li>
+              {moment(device.date_of_purchase).format("Do MMMM YYYY")}
+              <br />
+              <li>{<b>Warranty Expire : </b>} </li>
+              {moment(device.warranty_end_date).format("Do MMMM YYYY")}
+              <br />
+              <li>{<b>Price : </b>} </li>
+              {"₹"}
+              {device.machine_price}
+              <br />
+              <li>{<b>Serial No : </b>} </li>
+              {device.serial_number}
+              <br />
+            </ul>
+          </td>
+
+          <td
+            className="tdAlign"
+            onClick={() => this.handleInventory(device.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <ul style={{ padding: "0" }}>
+              <li>{<b>Status : </b>}</li>
+              {device.status} <br />
+              <li>{<b>Working Comments:</b>}</li>
+              {device.comments} <br />
+              <li>{<b>Extended Warranty:</b>}</li>
+              {device.warranty_comment} <br />
+              <li>{<b>Pre Repair Comments:</b>}</li>
+              {device.repair_comment} <br />
+            </ul>
+          </td>
+
+          {role === CONFIG.ADMIN ? (
+            <td className="tdAlign row" style={{ marginTop: "5%" }}>
+              <i
+                className="fa fa-lg fa-pencil-square-o"
+                aria-hidden="false"
+                style={{ color: "#3f51b5", cursor: "pointer" }}
+                onClick={e => {
+                  e.nativeEvent.stopImmediatePropagation();
+                  this.openEditDevice(device.id);
+                }}
+              />&nbsp;&nbsp;&nbsp;&nbsp;
+              <i
+                className="fa fa-lg fa fa-trash"
+                style={{ color: "#B71C1C", cursor: "pointer" }}
+                onClick={() => {
+                  confirm(
+                    "Are you sure ?",
+                    "Do you want to delete this record ?",
+                    "warning"
+                  ).then(res => {
+                    if (res) {
+                      this.deleteDevices(
+                        device.id,
+                        this.props.loggedUser.data.id
+                      );
+                      notify("Deleted !", "", "success");
+                    }
+                  });
+                }}
+                aria-hidden="true"
+              />
+              <div>
+                {this.props.fourthArrow === "show" ? (
+                  <button
+                    className="md-btn md-raised m-b-sm indigo"
+                    style={{ marginTop: "15%" }}
+                    onClick={() => {
+                      this.sendUnapprovedId(device.id);
+                    }}
+                  >
+                    Approve
+                  </button>
+                ) : null}
+              </div>
+            </td>
+          ) : null}
+        </tr>
+      );
     });
     return (
       <div>
-        <div className="app-body" id="view" >
-          <div className="col-xs-12 col-sm-12" style={{'float': 'right'}}>
+        <div className="app-body" id="view">
+          <div className="col-xs-12 col-sm-12" style={{ float: "right" }}>
             <div className="row">
               <div className="row no-gutter">
-             { this.props.fourthArrow==='hidden'?<div>
-                <div className="col-md-3 p-r" >
-                  <div className="form-group" style={{marginLeft: '4%'}}>
-                    <label style={{'fontSize': 15}}>Filter:</label>
-                    <select className="form-control"
-                      ref="device_type"
-                      value={this.state.search}
-                      onChange={(e) => 
-                        this.props.deviceTypeData(e.target.value)
-                        }>
-                      <option value="">--Select Device Type--</option>
-                      {listDrop}
-                    </select>
+                {this.props.fourthArrow === "hidden" ? (
+                  <div>
+                    <div className="col-md-3 p-r">
+                      <div className="form-group" style={{ marginLeft: "4%" }}>
+                        <label style={{ fontSize: 15 }}>Filter:</label>
+                        <select
+                          className="form-control"
+                          ref="device_type"
+                          value={this.state.search}
+                          onChange={e =>
+                            this.props.deviceTypeData(e.target.value)
+                          }
+                        >
+                          <option value="">--Select Device Type--</option>
+                          {listDrop}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="col-md-3 p-r">
+                      <div className="form-group">
+                        <label style={{ marginTop: "6%" }}> </label>
+                        <select
+                          className="form-control"
+                          ref="device_status"
+                          value={this.state.device_status}
+                          onChange={e => {
+                            this.handleStatusTypeFilter(e.target.value);
+                          }}
+                        >
+                          <option value="">--Select Device Status--</option>
+                          {statusDrop}
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-3 p-r">
-                  <div className="form-group">
-                    <label style={{marginTop: '6%'}}> </label>
-                    <select className="form-control"
-                      ref="device_status"
-                      value={this.state.device_status}
-                      onChange={(e) => { this.handleStatusTypeFilter(e.target.value); }}>
-                      <option value="">--Select Device Status--</option>
-                      {statusDrop}
-                    </select>
-                  </div>
-                </div>
-                </div>:null}
-                <div className='row m-0'>
-                { this.props.fourthArrow==='show' && this.state.approveDialog?<div style={{marginLeft:'35%',color:'red'}}>Machine is successfully approved</div>:null}
+                ) : null}
+                <div className="row m-0">
+                  {this.props.fourthArrow === "show" &&
+                  this.state.approveDialog ? (
+                    <div style={{ marginLeft: "35%", color: "red" }}>
+                      Machine is successfully approved
+                    </div>
+                  ) : null}
 
-                  <div className='buttonbox' style={{float:'right',marginRight:'1%'}}>
-                    <div className='col-sm-4 p-0 pt-5' >
-                      <div className=" text-left" style={{marginTop: '26px'}}>
+                  <div
+                    className="buttonbox"
+                    style={{ float: "right", marginRight: "1%" }}
+                  >
+                    <div className="col-sm-4 p-0 pt-5">
+                      <div className=" text-left" style={{ marginTop: "26px" }}>
                         <AddDeviceStatus
                           callAddStatus={this.callAddStatus}
                           handleStatusClose={this.handleStatusClose}
@@ -385,17 +505,23 @@ class InventoryList extends React.Component {
                           open={this.state.openStatus}
                           callDeleteDeviceStatus={this.callDeleteDeviceStatus}
                           deviceStatusList={this.state.deviceStatusList}
-                          {...this.props} />
+                          {...this.props}
+                        />
                       </div>
                     </div>
-                    <div className='col-sm-2 p-0 pt-5'>
-                      <div className="text-left" style={{marginTop: '26px', paddingLeft: '43px'}}>
-                        <AddDeviceDialoge callAddDevice={this.callAddDevice}
+                    <div className="col-sm-2 p-0 pt-5">
+                      <div
+                        className="text-left"
+                        style={{ marginTop: "26px", paddingLeft: "43px" }}
+                      >
+                        <AddDeviceDialoge
+                          callAddDevice={this.callAddDevice}
                           handleClose={this.handleClose}
                           handleOpen={this.handleOpen}
                           open={this.state.open}
                           deviceTypeList={this.state.deviceTypeList}
-                          {...this.props} />
+                          {...this.props}
+                        />
                       </div>
                     </div>
                   </div>
@@ -405,9 +531,9 @@ class InventoryList extends React.Component {
             <div className="row">
               <div className="col-12">
                 <div className="box">
-                  <div className="box-divider m-a-0"></div>
+                  <div className="box-divider m-a-0" />
                   <div className="table-responsive">
-                    <table key='' className="table">
+                    <table key="" className="table">
                       <thead className="success">
                         <tr>
                           <th>Sr. No</th>
@@ -418,9 +544,7 @@ class InventoryList extends React.Component {
                           {role === CONFIG.ADMIN ? <th>Actions</th> : null}
                         </tr>
                       </thead>
-                      <tbody>
-                        {rows}
-                      </tbody>
+                      <tbody>{rows}</tbody>
                     </table>
                   </div>
                 </div>

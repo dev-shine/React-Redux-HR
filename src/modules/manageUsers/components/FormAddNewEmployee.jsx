@@ -197,6 +197,7 @@ class FormAddNewEmployee extends React.Component {
                     </div>
                     <div className="col-md-4 input-wrapper">
                       <TextField
+                      type="email"
                         floatingLabelText="Work Email"
                         floatingLabelFixed
                         fullWidth

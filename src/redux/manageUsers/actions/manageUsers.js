@@ -650,7 +650,7 @@ export function changeSteps(userid, stepid) {
         json => {
           if (json.error == 0) {
             resolve(json.data.message);
-            dispatch(getSteps(userid));
+            // dispatch(getSteps(userid));
             // dispatch(successEmployeeStep(json.data));
           } else {
             reject(json.data.message);

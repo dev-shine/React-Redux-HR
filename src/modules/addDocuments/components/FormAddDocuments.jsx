@@ -5,12 +5,11 @@ import Menu from "components/generic/Menu";
 import { getToken } from "src/services/generic";
 import * as actions from "appRedux/actions";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import Header from "components/generic/Header"
+import Header from "components/generic/Header";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 import { browserHistory } from "react-router";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-
 
 class FormAddDocument extends Component {
   constructor(props) {
@@ -46,10 +45,8 @@ class FormAddDocument extends Component {
     } else if (link1 === "") {
       stop = true;
       notify("Warning!", "Please select a file", "warning");
-    } else if (file.size > 5000000) {
-      stop = true;
-      notify("Warning!", "File doc_type size must be less than 5mb", "warning");
     }
+
     if (stop) {
       e.preventDefault();
     }
@@ -71,6 +68,8 @@ class FormAddDocument extends Component {
             pageTitle={"Add Documents"}
             showLoading={this.props.frontend.show_loading}
           />
+          <br />
+          <br />
           <div className="row p-t-md">
             <div className="col-sm-offset-3 col-sm-6 p-x-md">
               <h6 id="uploadMyDoc" className="text-center pointer">
@@ -159,7 +158,6 @@ class FormAddDocument extends Component {
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {

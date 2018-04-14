@@ -62,9 +62,6 @@ class UploadImageComp extends Component {
             })
             .catch(error => {
               if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
                 notify("Error", "File too large to upload", "error");
                 this.setState({ loading: false });
                 console.log(error.request);

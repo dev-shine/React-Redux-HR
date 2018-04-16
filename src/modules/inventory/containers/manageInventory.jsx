@@ -215,7 +215,6 @@ class InventorySystem extends React.Component {
     });
   }
   addDevice(){
-    console.log(this,'kkkkkkkkkkk');
     this.setState({
       edit:false,
       open:true

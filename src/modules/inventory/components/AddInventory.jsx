@@ -46,14 +46,13 @@ class FormAddNewInventory extends React.Component {
       repair_comment:   '',
       bill_no:          '',
       warranty:         '',
-      user_Id:          '',
+      user_Id:          'unassign',
       msg:              '',
       deviceTypeList:   [],
       deviceStatusList: [],
       loading:          false,
       unassign_comment: ''
     };
-    // this.handleOpen = this.handleOpen.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
@@ -63,12 +62,10 @@ class FormAddNewInventory extends React.Component {
   }
 
   componentWillMount () {
-    this.props.onFetchDevice();
+    
     this.props.onUsersList();
     this.props.onFetchDeviceType();
     this.props.onFetchDeviceStatus();
-    this.props.onFetchDeviceCount();
-    this.props.onFetchUnapprovedUser();
     
   }
   openEditDevice (id) {
@@ -83,9 +80,7 @@ class FormAddNewInventory extends React.Component {
     });
   }
   componentWillReceiveProps (props) {
-    // console.log(props,'gggggggggggggggghhhhhhh');
-    
-    // let {open, edit} = props;
+
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     this.setState({
       open:             props.open,
@@ -120,12 +115,8 @@ class FormAddNewInventory extends React.Component {
 
       });
       if(this.props.manageDevice.status_message ==='Successfully Updated into table'){
-        
-        console.log(this.props.manageDevice.status_message,'oooooooooooo');
         this.props.manageDevice.status_message='';
-        console.log(this.props.manageDevice.status_message,'mmmmmmmmmmmm');
       }
-    // 
       
     } 
     else if(this.props.manageDevice.status_message=='Inventory added successfully and need to be approved by admin!!'){
@@ -149,7 +140,6 @@ class FormAddNewInventory extends React.Component {
         unassign_comment: ''
       });
       this.props.manageDevice.status_message='';
-      
     }
     
   }
@@ -193,11 +183,8 @@ class FormAddNewInventory extends React.Component {
     if (validate && !this.props.manageDevice.editData.edit) {
       this.props.onAddNewMachine(apiData).then((val) => {
         notify('Success !', val, 'success');
-        this.props.router.push('/inventory_system');
-        console.log('iiiiiiiiiiiiiiii');
-        
+        this.props.router.push(`/inventory_system/${this.state.machine_type}`);
         this.props.onFetchDevice();
-        this.props.handleClose();
         
       }, (error) => {
         notify('Error !', error, 'error');
@@ -220,7 +207,7 @@ class FormAddNewInventory extends React.Component {
         this.setState({
           msg: message
         });
-        this.props.router.push('/inventory_system') });
+        this.props.router.push(`/inventory_system/${this.state.machine_type}`) });
     }
     return false;
   }
@@ -303,7 +290,7 @@ class FormAddNewInventory extends React.Component {
                 {'Status'}
                 <select className="form-control" ref="status" value={this.state.status}
                   onChange={(e) => (this.setState({status: e.target.value}))} required>
-                  <option value='' disabled selected>--Select Status--</option>
+                  <option value='' disabled >--Select Status--</option>
                   {this.state.deviceStatusList.map((val, i) => {
                     return <option key={i} value={val.status}> {val.status}</option>;
                   })}
@@ -326,13 +313,14 @@ class FormAddNewInventory extends React.Component {
                   value={this.state.user_Id}
                   onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
-                  <option value='unassign'>Unassign</option>
-                  <option value="unassign" selected>Unassign1</option>
-                  {userList}
+                  <option value=''>Select User</option>
+                  <option value="unassign">Unassign</option>
+                 {userList.map((value, i) => {             
+                    return <option key={i} value={value}> {value.props.children}</option>;
+                  })}
                 </select>
               </div>
-             <div className="col-md-6">
-             {this.state.user_Id=='unassign'?<div className="col-md-6">
+              {this.state.user_Id=='unassign'?<div className="col-md-6">
                 <TextField
                   floatingLabelText="Unassign Device comment"
                   fullWidth
@@ -340,6 +328,7 @@ class FormAddNewInventory extends React.Component {
                   onBlur={(e) => { this.setState({unassign_comment: this.state.unassign_comment.trim()}); }}
                   value={this.state.unassign_comment} required />
               </div>:null}
+             <div className="col-md-6">
                 <TextField
                   floatingLabelText="Price"
                   hintText='₹'
@@ -365,47 +354,12 @@ class FormAddNewInventory extends React.Component {
                   onBlur={(e) => { this.setState({bill_no: this.state.bill_no.trim()}); }}
                   value={this.state.bill_no} />
               </div>
-              {/* {this.state.machine_price >5000?
-              <div className="col-md-6">
-              <h4>Upload inovice of Device</h4>
-              <input type="file"/>
-              <UploadImageComp/>
-              </div>:null
-              } */}
-              {/* <div className="col-md-12" style={{opacity: '0.56'}} >
-                {'Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({comment: this.state.comment.trim()}); }}
-                  onChange={(e) => { this.setState({comment: e.target.value}); }}
-                  value={this.state.comment}
-                  />
-              </div>
-
-              <div className="col-md-6" style={{opacity: '0.56'}}>
-                {'Extended Warranty Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({warranty_comment: this.state.warranty_comment.trim()}); }}
-                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
-                  value={this.state.warranty_comment} />
-              </div>
-
-              <div className="col-md-6" style={{opacity: '0.56'}}>
-                {'Previous Repair Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({repair_comment: this.state.repair_comment.trim()}); }}
-                  onChange={(e) => { this.setState({repair_comment: e.target.value}); }}
-                  value={this.state.repair_comment} />
-              </div> */}
             </div>
           </div>
-     {this.state.loading? <CircularProgress  size={30} thickness={3} style={{marginLeft:'50%'}} />:null}
-         {this.state.loading==false? <button className="col-md-12 md-btn md-raised m-b-sm indigo invbtn" style={{opacity: '0.76', marginTop: '2%'}} onClick={(e)=>this.handleAddDevice(e)}>
-       {this.props.manageDevice.editData.edit ? 'Update Inventory' : 'Add Inventory'}
+             {this.state.loading? <CircularProgress  size={30} thickness={3} style={{marginLeft:'50%'}} />:null}
+             {this.state.loading==false? <button className="col-md-12 md-btn md-raised m-b-sm indigo invbtn" style={{opacity: '0.76', marginTop: '2%'}} onClick={(e)=>this.handleAddDevice(e)}>
+             {this.props.manageDevice.editData.edit ? 'Update Inventory' : 'Add Inventory'}
           </button>:null}
-        
       </div>
       </div>
       </div>
@@ -433,9 +387,6 @@ const mapDispatchToProps = (dispatch) => {
     onUserProfileDetails: (userid, username) => {
       return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
     },
-    onUpdateUserDeviceDetails: (newDeviceDetails) => {
-      return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
-    },
     onAddNewMachine: (newMachineDetails) => {
       return dispatch(actionsManageDevice.addNewMachine(newMachineDetails));
     },
@@ -448,36 +399,12 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateDevice: (id, machineData) => {
       return dispatch(actionsManageDevice.updateDevice(id, machineData));
     },
-    onDeleteDevice: (id,userId) => {
-      return dispatch(actionsManageDevice.deleteDevice(id,userId));
-    },
-    onCallAssign: (deviceId, id) => {
-      return dispatch(actionsManageDevice.assignDevice(deviceId, id));
-    },
-    onCallDeviceType: (deviceList) => {
-      return dispatch(actionsManageDevice.assignDeviceType(deviceList));
-    },
-    onCallDeviceStatus: (statusValue, colorValue) => {
-      return dispatch(actionsManageDevice.assignDeviceStatus(statusValue, colorValue));
-    },
     onFetchDeviceType: () => {
       return dispatch(actionsManageDevice.getDeviceType());
     },
     onFetchDeviceStatus: () => {
       return dispatch(actionsManageDevice.getDeviceStatus());
     },
-    onDeleteDeviceStatus: (checkValue) => {
-      return dispatch(actionsManageDevice.deleteDeviceStatus(checkValue));
-    },
-    onFetchDeviceCount: () => {
-      return dispatch(actionsManageDevice.deviceCount());
-    },
-    onFetchUnapprovedUser:()=>{
-      return dispatch(actionsManageDevice.unapprovedUser());
-    },
-    onFetchApprovedUser:(id)=>{
-      return dispatch(actionsManageDevice.approvedUser(id));
-    }
   };
 };
 

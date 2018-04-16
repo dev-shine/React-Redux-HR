@@ -1,6 +1,7 @@
 import React from "react";
 import * as _ from "lodash";
-import moment from 'moment'
+import moment from "moment";
+import { CONFIG } from "src/config/index";
 import { connect } from "react-redux";
 import Menu from "components/generic/Menu";
 import { notify } from "src/services/notify";
@@ -57,10 +58,12 @@ class InventoryItem extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
+    const pat = _.isEmpty(machineName)
+      ? null
+      : machineName[0].fileInventoryPhoto;
     const userName = _.map(this.props.usersList.users, (val, i) => {
       return (
         <option key={i} value={val.user_Id}>
@@ -98,7 +101,10 @@ class InventoryItem extends React.Component {
                   Comment : {val.comment}
                 </div>
                 <div className="sl-date text-muted">
-                  Updated on : {moment(val.updated_at).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                  Updated on :{" "}
+                  {moment(val.updated_at).format(
+                    "dddd, MMMM Do YYYY, h:mm:ss a"
+                  )}
                 </div>
 
                 <div className="sl-date text-muted">
@@ -110,7 +116,7 @@ class InventoryItem extends React.Component {
         );
       }
     );
-
+    let path = CONFIG.inventory_images
     return (
       <div>
         <Menu {...this.props} />
@@ -130,19 +136,24 @@ class InventoryItem extends React.Component {
                       }}
                     >
                       {" "}
-                        <div className="col-md-5">
-                          <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].machine_name}
+                      {pat === null || undefined ? null : (
+                        <div className="col-md-12">
+                          <img src={path + pat} />
                         </div>
-                        <div className="col-md-6">
-                          <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].machine_type}
-                        </div>
-                        <br />
+                      )}<br />
+                      <div className="col-md-5">
+                        <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
+                        {_.isEmpty(machineName)
+                          ? null
+                          : machineName[0].machine_name}
+                      </div>
+                      <div className="col-md-6">
+                        <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
+                        {_.isEmpty(machineName)
+                          ? null
+                          : machineName[0].machine_type}
+                      </div>
+                      <br />
                       <div className="col-md-6">
                         <label style={{ fontSize: 15 }}>Status:</label>{" "}
                         {_.isEmpty(machineName) ? null : machineName[0].status}
@@ -206,7 +217,9 @@ class InventoryItem extends React.Component {
                         <div
                           className="col-sm-15 p-8 pt-8"
                           style={{ marginTop: "4%" }}
-                        > {Assignhistory}
+                        >
+                          {" "}
+                          {Assignhistory}
                           {history}
                         </div>
                       </div>

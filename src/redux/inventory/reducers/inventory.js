@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import Immutable from "immutable";
 
 let initialState = {
   'unapprovedList':  [],
@@ -56,7 +56,6 @@ export function manageDevice (state = Immutable.fromJS(initialState), action) {
   } else if (action.type === 'ACTION_SUCCESS_UNASSIGNED_DEVICE_LIST') {
     return state.set('unassignedDeviceList', action.payload);
   }else if(action.type === 'ACTION_SUCCESS_EDIT_WITHOUT_API'){
-    console.log(action.payload,'hhhhhhhhhhhlllllllll');
       return state.set('editData',action.payload)
   }else {
     return state;

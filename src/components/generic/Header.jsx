@@ -7,7 +7,7 @@ const Header = ({pageTitle, status, showLoading, userListHeader}) => {
   if (userListHeader) {
     userListHeaderIcon = <div className="user-list-icon">
       <a data-toggle="modal" data-target="#user-list-header" className="hidden-sm hidden-md hidden-lg">
-        <i className="material-icons">more_vert</i>
+        {/* <i className="material-icons">more_vert</i> */}
       </a>
     </div>;
   }

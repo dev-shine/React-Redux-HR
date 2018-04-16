@@ -265,7 +265,7 @@ class FormAddNewInventory extends React.Component {
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-6" >
-              {this.state.purchase_date?'YYYY-MM-DD':''}
+              {this.state.purchase_date?'Date of Purchase':''}
                 <DatePicker 
                   hintText="Date of Purchase"
                   onChange={(e,date) => { this.setState({purchase_date: date})}}
@@ -275,7 +275,7 @@ class FormAddNewInventory extends React.Component {
               </div>
 
               <div className="col-md-6">
-              {this.state.warranty?'YYYY-MM-DD':''}
+              {this.state.warranty?'Date Of Warrenty Expiry':''}
                 <DatePicker hintText="Date Of Warrenty Expiry"
                  onChange={(e,date) => { this.setState({warranty: date}); }}
                  value={this.state.warranty}
@@ -326,8 +326,8 @@ class FormAddNewInventory extends React.Component {
                   value={this.state.user_Id}
                   onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
-                  <option value=''  disabled selected>Select User</option>
-                  <option value="unassign">Unassign</option>
+                  <option value='unassign'>Unassign</option>
+                  <option value="unassign" selected>Unassign1</option>
                   {userList}
                 </select>
               </div>
@@ -437,8 +437,6 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
     },
     onAddNewMachine: (newMachineDetails) => {
-      console.log(newMachineDetails,'=========jjjjjjj');
-      
       return dispatch(actionsManageDevice.addNewMachine(newMachineDetails));
     },
     onFetchDevice: () => {

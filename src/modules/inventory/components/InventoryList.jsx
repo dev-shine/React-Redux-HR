@@ -5,6 +5,7 @@ import {getLowerCase , getLoggedUser} from 'src/services/generic';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
 import {CONFIG} from 'config'
+import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
 var moment = require('moment');
 let devices;
 let capitalizeDevice;
@@ -13,7 +14,7 @@ class InventoryList extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      edit:             false,
+      edit:             true,
       open:             false,
       openStatus:       false,
       id:               '',
@@ -58,6 +59,8 @@ class InventoryList extends React.Component {
   }
 
   componentWillReceiveProps (props) {
+    console.log('----------------------------------------')
+    console.log(props,'asdasdasdas')
     if (props.manageDevice.status_message !== this.state.status_message) {
       this.setState({
         openSnackbar: true
@@ -95,11 +98,16 @@ class InventoryList extends React.Component {
       });
       this.handleStatusTypeFilter('Working');
     } 
-
   }
-
-  openEditDevice (id) {
-    this.props.openEditDevice(id);
+  openEditDevice(device){
+    // this.props.openEditDevice(id);
+    this.setState({
+      edit:true,
+      open:false
+    })
+    this.props.editAction(device,this.state.edit,this.state.open);  
+    this.props.router.push('/addInventory')
+    
   }
 
   deleteDevices (id,userId) {
@@ -249,8 +257,6 @@ class InventoryList extends React.Component {
     this.props.callUnapprovedId({id});
   }
   render () {
-    console.log(this.props,'ooooooooooooo');
-    
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
     let statusDropMap = statusList.map((val, i) => {
@@ -301,6 +307,8 @@ class InventoryList extends React.Component {
             <li>{<b>Serial No : </b>} </li>
             {device.serial_number}
             <br />
+            
+        
           </ul>
         </td>
 
@@ -308,30 +316,25 @@ class InventoryList extends React.Component {
           <ul style={{padding: '0'}}>
             <li>{<b>Status : </b>}</li>
             {device.status} <br />
-            <li>{<b>Working Comments:</b>}</li>
-            {device.comments} <br />
-            <li>{<b>Extended Warranty:</b>}</li>
-            {device.warranty_comment} <br />
-            <li>{<b>Pre Repair Comments:</b>}</li>
-            {device.repair_comment} <br/>
+            <li>{<b>Excellence No : </b>} </li>
+            {device.bill_no}
           </ul>
         </td>
 
         {role === CONFIG.ADMIN ? <td className="tdAlign row" style={{marginTop: '5%'}}>
-          <i className="fa fa-lg fa-pencil-square-o" aria-hidden="false" style={{color: '#3f51b5', cursor: 'pointer'}}
+          <button className="md-btn md-raised m-b-sm indigo"
             onClick={(e) => {
               e.nativeEvent.stopImmediatePropagation();
-              this.openEditDevice(device.id);
-            }}></i>&nbsp;&nbsp;&nbsp;&nbsp;
-          <i className="fa fa-lg fa fa-trash" style={{color: '#B71C1C', cursor: 'pointer'}} onClick={() => {
+              this.openEditDevice(device);
+            }}>Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+          <button className="md-btn md-raised m-b-sm indigo" onClick={() => {
             confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
               if (res) {
-                
                 this.deleteDevices(device.id,this.props.loggedUser.data.id);
                 notify('Deleted !', '', 'success');
               }
             });
-          }} aria-hidden="true"></i>
+          }} aria-hidden="true">Delete</button>
          <div>
           {this.props.fourthArrow==='show'?
           <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button>:null}</div>
@@ -361,7 +364,7 @@ class InventoryList extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-3 p-r">
-                  <div className="form-group">
+                  <div className="form-group selectDevice">
                     <label style={{marginTop: '6%'}}> </label>
                     <select className="form-control"
                       ref="device_status"
@@ -390,7 +393,7 @@ class InventoryList extends React.Component {
                       </div>
                     </div>
                     <div className='col-sm-2 p-0 pt-5'>
-                      <div className="text-left" style={{marginTop: '26px', paddingLeft: '43px'}}>
+                      <div className="text-left  addcomp" style={{marginTop: '26px', paddingLeft: '43px'}}>
                         <AddDeviceDialoge callAddDevice={this.callAddDevice}
                           handleClose={this.handleClose}
                           handleOpen={this.handleOpen}

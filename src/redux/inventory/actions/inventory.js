@@ -27,6 +27,7 @@ function async_addNewMachine (
   n_warranty, 
   n_warranty_comment,
   n_repair_comment,
+  n_bill_no,
   n_user_Id,
   n_unassign_comment
 
@@ -44,6 +45,7 @@ function async_addNewMachine (
     'warranty':         n_warranty,
     'warranty_comment': n_warranty_comment,
     'repair_comment':   n_repair_comment,
+    'bill_number ':     n_bill_no,
     'user_id':          n_user_Id,
     'unassign_comment': n_unassign_comment
   });
@@ -62,6 +64,7 @@ export function addNewMachine (new_machine_details) {
     let n_warranty = '';
     let n_warranty_comment = '';
     let n_repair_comment = '';
+    let n_bill_no='';
     let n_user_Id = '';
     let n_unassign_comment='';
     
@@ -130,6 +133,12 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_repair_comment = new_machine_details.repair_comment;
     }
+      if (typeof new_machine_details.bill_no === 'undefined' || new_machine_details.bill_no.trim() === '') {
+        return Promise.reject('Excellenece No is empty');
+      } else {
+        n_bill_no = new_machine_details.bill_no;
+      }
+    
     if (typeof new_machine_details.user_Id === 'undefined' || new_machine_details.user_Id === '') {
       return Promise.reject('User Not Assign');
     }else if(new_machine_details.user_Id=='unassign'){
@@ -161,6 +170,7 @@ export function addNewMachine (new_machine_details) {
         n_warranty,
         n_warranty_comment,
         n_repair_comment,
+        n_bill_no,
         n_user_Id,
       n_unassign_comment).then((json) => {
           dispatch(hide_loading());
@@ -618,7 +628,7 @@ export function successUnapprovedList (data) {
 
 function getAsyncUnapprovedData(dataLogin){
   return fireAjax('POST','',{
-    'action':'get_unapproved_machine_list'
+    'action':'get_unapproved_inventories'
   });
 }
 
@@ -637,7 +647,6 @@ export function unapprovedUser () {
     })
   }
 }
-
 
 export function errorAddUserComment (data) {
   return createAction(constants.ACTION_ERROR_ADD_USER_COMMENT)(data);
@@ -763,5 +772,14 @@ export function unassignDeviceList () {
   };
 }
 
+export function successEditDeviceData (device,edit,open) {
+  console.log(device,'sadasd',edit,'asdasdasd',open,'------------');
+  return createAction(constants.ACTION_SUCCESS_EDIT_WITHOUT_API)({device,edit,open});
+}
+export function editDeviceData (device,edit,open) {
+  return (dispatch, getState) => {
+    dispatch(successEditDeviceData(device,edit,open));
+  };
+}
 
 

@@ -119,3 +119,7 @@ export const requestAddUserComment = createAction(constants.REQUEST_ADD_USER_COM
 export const successAddUserComment = createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT);
 export const errorAddUserComment = createAction(constants.ACTION_ERROR_ADD_USER_COMMENT);
 
+export const requesteditwithoutapi = createAction(constants.ACTION_REQUEST_EDIT_WITHOUT_API);
+export const successeditwithoutapi = createAction(constants.ACTION_SUCCESS_EDIT_WITHOUT_API);
+export const erroreditwithoutapi = createAction(constants.ACTION_ERROR_EDIT_WITHOUT_API);
+

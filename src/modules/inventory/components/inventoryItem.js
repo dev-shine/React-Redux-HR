@@ -39,6 +39,7 @@ class InventoryItem extends React.Component {
         notify("Success!", data, "success");
         this.props.onFetchDevice();
         this.props.onGetDevice(device_id);
+        this.setState({ comment: "" });
       },
       error => {
         notify("Error!", error, "error");
@@ -167,6 +168,38 @@ class InventoryItem extends React.Component {
                           {_.isEmpty(machineName)
                             ? null
                             : machineName[0].serial_number}
+                        </div>
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>
+                            Approval Status:
+                          </label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].approval_status === 0
+                              ? "Not Approved"
+                              : "Approved"}
+                        </div>
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>
+                            Date of Purchase:
+                          </label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].date_of_purchase}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Assigned To:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].name
+                              ? machineName[0].name
+                              : "Not Assigned To Anyone"}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Price:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : `₹ ${machineName[0].machine_price}`}
                         </div>
                       </div>
                       <br />

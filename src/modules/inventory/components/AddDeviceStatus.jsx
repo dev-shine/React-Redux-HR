@@ -7,7 +7,7 @@ import {GithubPicker} from 'react-color';
 import {notify, confirm} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
 import 'react-date-picker/index.css';
-import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
+import style from 'src/styles/inventory/viewUser.scss'
 
 export default class AddDeviceStatus extends React.Component {
   constructor (props) {

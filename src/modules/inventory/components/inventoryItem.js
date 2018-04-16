@@ -116,7 +116,7 @@ class InventoryItem extends React.Component {
         );
       }
     );
-    let path = CONFIG.inventory_images
+    let path = CONFIG.inventory_images;
     return (
       <div>
         <Menu {...this.props} />
@@ -126,7 +126,7 @@ class InventoryItem extends React.Component {
             <div className="col-12">
               <div className="app-body" id="view">
                 <div className="col-xs-12 col-sm-12">
-                  <div className="col-md-5 p-r">
+                  <div className="col-md-6 p-r">
                     <div
                       className="form-group"
                       style={{
@@ -135,34 +135,39 @@ class InventoryItem extends React.Component {
                         textAlign: "left"
                       }}
                     >
-                      {" "}
-                      {pat === null || undefined ? null : (
+                      <div className="row">
+                        {" "}
+                        {pat === null || undefined ? null : (
+                          <div className="col-md-12">
+                            <img src={path + pat} />
+                          </div>
+                        )}
+                        <br />
                         <div className="col-md-12">
-                          <img src={path + pat} />
+                          <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_name}
                         </div>
-                      )}<br />
-                      <div className="col-md-5">
-                        <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].machine_name}
-                      </div>
-                      <div className="col-md-6">
-                        <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].machine_type}
-                      </div>
-                      <br />
-                      <div className="col-md-6">
-                        <label style={{ fontSize: 15 }}>Status:</label>{" "}
-                        {_.isEmpty(machineName) ? null : machineName[0].status}
-                      </div>
-                      <div className="col-md-6">
-                        <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].serial_number}
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_type}
+                        </div>
+                        <br />
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>Status:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].status}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].serial_number}
+                        </div>
                       </div>
                       <br />
                       <label style={{ fontSize: 15 }}>Users:</label>

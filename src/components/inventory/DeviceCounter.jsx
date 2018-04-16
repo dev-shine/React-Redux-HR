@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
+import style from 'src/styles/inventory/viewUser.scss'
 
 const DeviceCounter = ({ deviceData, deviceName, router }) => {
   let list = Object.keys(deviceData).map((k, idx) => {

@@ -6,7 +6,7 @@ import {getLowerCase , getLoggedUser} from 'src/services/generic';
 import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
 import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
 import {CONFIG} from 'config'
-import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
+import style from 'src/styles/inventory/viewUser.scss'
 var moment = require('moment');
 
 let devices;

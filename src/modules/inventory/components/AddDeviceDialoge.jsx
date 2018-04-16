@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {CONFIG} from 'src/config/index';
-import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
+import style from 'src/styles/inventory/viewUser.scss'
 import 'react-date-picker/index.css';
 
 export default class AddDeviceDialoge extends React.Component {

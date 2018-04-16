@@ -33,7 +33,6 @@ export function fireAjax (method, url, data, api) {
     Accept: 'application/json',
     body:   JSON.stringify(data)
   };
-
   if (data.action === 'add_user_salary') {
     delete (data.action);
     headers.body = JSON.stringify(data);
@@ -45,7 +44,8 @@ export function fireAjax (method, url, data, api) {
   } else if (_.indexOf(actionsForOtherAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.other_api_url;
-  } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
+  } 
+  else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
   } else if (data.action === 'get_team_stats') {

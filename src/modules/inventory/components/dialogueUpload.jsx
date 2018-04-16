@@ -1,91 +1,191 @@
-// import React from 'react';
-// import Dialog from 'material-ui/Dialog';
+
+// import React from "react";
+// import * as _ from "lodash";
+// import Dialog from "material-ui/Dialog";
+// import { notify } from "src/services/notify";
+// import { getToken } from "src/services/generic";
+// import { CONFIG } from "src/config/index";
+// import style from "/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss";
+// import Lightbox from "react-images";
 // import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import style from '../../../styles/inventory/manageInventory.scss';
 
-/**
- * A modal dialog can only be closed by selecting one of the actions.
- */
-  import React from 'react';
-  import * as _ from 'lodash';
-  import Dialog from 'material-ui/Dialog';
-  import {notify} from 'src/services/notify';
-  import {getToken} from 'src/services/generic';
-  import {CONFIG} from 'src/config/index';
+// export default class DialogUpload extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       inventoryid: "",
+//       user_token: "",
+//       inventory_files: "inventory_files",
+//       photoImage: "",
+//       warrantyImage: "",
+//       inoviceImage: ""
+//     };
+//   }
+//   componentWillReceiveProps(props) {
+//     this.setState({
+//       user_token: getToken(),
+//       photoImage: props.manageDevice.deviceHistory.fileInventoryPhoto,
+//       warrantyImage: props.manageDevice.deviceHistory.fileInventoryWarranty,
+//       inoviceImage: props.manageDevice.deviceHistory.fileInventoryInvoice
+//     });
+//   }
+//   handleInlargePhoto() {
+//     this.setState({
+//       open: true,
+//       open3: true,
+//       open2: false,
+//       open1: false
+//     });
+//   }
+//   handleInlargeInovice() {
+//     this.setState({
+//       open: true,
+//       open3: false,
+//       open2: true,
+//       open1: false
+//     });
+//   }
+//   handleInlargeWarranty() {
+//     this.setState({
+//       open: true,
+//       open3: false,
+//       open2: false,
+//       open1: true
+//     });
+//   }
+//   handleClose = () => {
+//     this.setState({ open: false });
+//   };
+//   render() {
+//       const actions = [
+//         <FlatButton
+//           label="Close"
+//           primary={true}
+//           onClick={this.handleClose}
+//         />,
+//       ];
 
-  export default class DialogUpload extends React.Component {
+//     let path = CONFIG.view_inventory_documents;
+//     let page_url = window.location.href;
+//     return (
+//       <div>
+//         <h2>Inventory Files</h2>
+//         <form
+//           action={CONFIG.inventory_upload_url}
+//           method="POST"
+//           encType="multipart/form-data"
+//         >
+//           <input type="hidden" name="token" value={this.state.user_token} />
+//           <input
+//             type="hidden"
+//             name="inventory_id"
+//             value={this.props.inventory_id}
+//           />
+//           <input
+//             type="hidden"
+//             name="file_upload_action"
+//             value={this.state.inventory_files}
+//           />
+//           <input type="hidden" name="page_url" value={page_url} />
+//           <div className="form-group">
+//             {this.state.photoImage ? (
+//               <div>
+//                 <img
+//                   src={path + this.state.photoImage}
+//                   onClick={() => {
+//                     this.handleInlargePhoto();
+//                   }}
+//                   className="small"
+//                 />
+//                 <br />
+//               </div>
+//             ) : null}
+//             <Dialog
+//              actions={actions}
+//               modal={false}
+//               open={this.state.open && this.state.open3}
+//               onRequestClose={this.handleClose}
+//             >
+//               <img src={path + this.state.photoImage} />
+//             </Dialog>
 
-    constructor (props) {
-      super(props);
-      this.state = {
-        open:       false,
-        id:         '',
-        user_token: ''
-      };
-      this.handleOpen = this.handleOpen.bind(this);
-      this.handleClose = this.handleClose.bind(this);
-      this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
-    }
-  
-    componentWillReceiveProps (props) {
-      this.setState({user_token: getToken()});
-    }
-  
-    handleOpen (id) {
-      this.setState({open: true, id: id});
-    }
-    handleClose () {
-      this.setState({open: false});
-    }
-  
-    callUpdateDocuments (e) {
-      let docProof = this.refs.file.value;
-      let stop = false;
-      if (docProof === '') {
-        stop = true;
-        notify('Please select a file');
-      }
-      if (stop) {
-        e.preventDefault();
-      }
-    }
-  
-    render () {
-     // let page_url = window.location.href;
-     // console.log(page_url,'pppppppppppppppppp');
-      
-      
-      // className="dialog-content"
-      return (
-        <div className="row">
-          <Dialog title="Upload Leave Document"
-            modal={false}
-            open={this.state.open}
-            onRequestClose={this.handleClose}
-            contentClassName="dialog-content" 
-            autoScrollBodyContent>
-            <div>
-              <form action={CONFIG.upload_leave_url} method="POST" encType="multipart/form-data">
-                {/* <input type="hidden" name="token" value={this.state.user_token} /> */}
-                {/* <input type="hidden" name="leaveid" value={this.state.id} /> */}
-                {/* <input type="hidden" name="page_url" value={page_url} /> */}
-                <div className="form-group">
-                  <label>Attachment</label>
-                  <input type="file" className="form-control" ref="file" name="docProof" />
-                </div>
-                <div className="form-group">
-                  <input type="submit" name="submit" value="Upload" className="col-xs-12 md-btn md-raised indigo" onClick={(e) => {
-                    this.callUpdateDocuments(e);
-                  }} />
-                </div>
-              </form>
-            </div>
-          </Dialog>
-        </div>
-      );
-    }
-  }
-  
-  
-  
+//             <label>Photo</label>
+//             <input
+//               type="file"
+//               className="form-control"
+//               ref="file"
+//               name="inventory_photo"
+//             />
+//           </div>
+//           <div className="form-group">
+//             {this.state.inoviceImage ? (
+//               <div>
+//                 {" "}
+//                 <img
+//                   src={path + this.state.inoviceImage}
+//                   onClick={() => {
+//                     this.handleInlargeInovice();
+//                   }}
+//                   className="small"
+//                 />
+//                 <br />
+//               </div>
+//             ) : null}
+//             <Dialog
+//              actions={actions}
+//               modal={false}
+//               open={this.state.open && this.state.open2}
+//               onRequestClose={this.handleClose}
+//             >
+//               <img src={path + this.state.inoviceImage} />
+//             </Dialog>
+
+//             <label>Invoice</label>
+//             <input
+//               type="file"
+//               className="form-control"
+//               ref="file"
+//               name="inventory_invoice"
+//             />
+//           </div>
+//           <div className="form-group">
+//             {this.state.warrantyImage ? (
+//               <div>
+//                 {" "}
+//                 <img
+//                   src={path + this.state.warrantyImage}
+//                   onClick={() => {
+//                     this.handleInlargeWarranty();
+//                   }}
+//                   className="small"
+//                 />
+//                 <br />
+//               </div>
+//             ) : null}
+//             <Dialog
+//              actions={actions}
+//               modal={false}
+//               open={this.state.open && this.state.open1}
+//               onRequestClose={this.handleClose}
+//             >
+//               <img src={path + this.state.warrantyImage} />
+//             </Dialog>
+//             <label>Warranty</label>
+//             <input
+//               type="file"
+//               className="form-control"
+//               ref="file"
+//               name="inventory_warranty"
+//             />
+//           </div>
+//           <input
+//             type="submit"
+//             name="submit"
+//             value="Upload"
+//             className="col-xs-12 md-btn md-raised indigo"
+//           />
+//         </form>
+//       </div>
+//     );
+//   }
+// }

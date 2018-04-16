@@ -1,11 +1,14 @@
-import React from "react";
-import * as _ from "lodash";
-import { CONFIG } from "src/config/index";
-import { notify, confirm } from "src/services/notify";
-import { getLowerCase, getLoggedUser } from "src/services/generic";
-import AddDeviceDialoge from "modules/inventory/components/AddDeviceDialoge";
-import AddDeviceStatus from "modules/inventory/components/AddDeviceStatus";
-var moment = require("moment");
+
+import React from 'react';
+import * as _ from 'lodash';
+import {notify, confirm} from 'src/services/notify';
+import {getLowerCase , getLoggedUser} from 'src/services/generic';
+import AddDeviceDialoge from 'modules/inventory/components/AddDeviceDialoge';
+import AddDeviceStatus from 'modules/inventory/components/AddDeviceStatus';
+import {CONFIG} from 'config'
+import style from '/home/etech/Documents/ReactReduxHR/src/styles/inventory/viewUser.scss'
+var moment = require('moment');
+
 let devices;
 let capitalizeDevice;
 class InventoryList extends React.Component {
@@ -13,15 +16,15 @@ class InventoryList extends React.Component {
     super(props);
     this.props.onIsAlreadyLogin();
     this.state = {
-      edit: false,
-      open: false,
-      openStatus: false,
-      id: "",
-      openSnackbar: false,
-      user: "",
-      status_message: "",
-      search: "",
-      deviceTypeList: [],
+      edit:             true,
+      open:             false,
+      openStatus:       false,
+      id:               '',
+      openSnackbar:     false,
+      user:             '',
+      status_message:   '',
+      search:           '',
+      deviceTypeList:   [],
       deviceStatusList: [],
       device_status: "",
       deviceList: [],
@@ -56,6 +59,7 @@ class InventoryList extends React.Component {
     });
   }
 
+
   componentWillReceiveProps(props) {
     if (props.manageDevice.status_message !== this.state.status_message) {
       this.setState({
@@ -79,30 +83,34 @@ class InventoryList extends React.Component {
     if (
       props.manageDevice.approvedList == "Machine status updated successfully"
     ) {
-      this.setState({
-        approveDialog: true
-      });
-    }
     this.setState({
       approveDialog: false
     });
     props.manageDevice.approvedList = "";
-    if (!_.isEqual(this.state.deviceList, props.manageDevice.device)) {
-      this.setState(
-        {
-          deviceList: props.manageDevice.device
-        },
-        () => {
-          capitalizeDevice = this.capitalize(this.props.routeParams.device);
-          this.handleDeviceTypeFilter(capitalizeDevice);
-        }
-      );
-      this.handleStatusTypeFilter("Working");
-    }
+ 
   }
+  if (!_.isEqual(this.state.deviceList, props.manageDevice.device)) {
+    this.setState(
+      {
+        deviceList: props.manageDevice.device
+      },
+      () => {
+        capitalizeDevice = this.capitalize(this.props.routeParams.device);
+        this.handleDeviceTypeFilter(capitalizeDevice);
+      }
+    );
+    this.handleStatusTypeFilter("Working");
+  }
+}
 
-  openEditDevice(id) {
-    this.props.openEditDevice(id);
+  openEditDevice(device){
+    // this.props.openEditDevice(id);
+    this.setState({
+      edit:true,
+      open:false
+    })
+    this.props.editAction(device,this.state.edit,this.state.open);  
+    this.props.router.push('/addInventory')
   }
 
   deleteDevices(id, userId) {
@@ -347,6 +355,7 @@ class InventoryList extends React.Component {
             {device.machine_name}
             <br />
             <br />
+
             {(device.fileInventoryPhoto === null) | undefined ? (
               ""
             ) : (
@@ -392,55 +401,26 @@ class InventoryList extends React.Component {
               {device.repair_comment} <br />
             </ul>
           </td>
-
-          {role === CONFIG.ADMIN ? (
-            <td className="tdAlign row" style={{ marginTop: "5%" }}>
-              <i
-                className="fa fa-lg fa-pencil-square-o"
-                aria-hidden="false"
-                style={{ color: "#3f51b5", cursor: "pointer" }}
-                onClick={e => {
-                  e.nativeEvent.stopImmediatePropagation();
-                  this.openEditDevice(device.id);
-                }}
-              />&nbsp;&nbsp;&nbsp;&nbsp;
-              <i
-                className="fa fa-lg fa fa-trash"
-                style={{ color: "#B71C1C", cursor: "pointer" }}
-                onClick={() => {
-                  confirm(
-                    "Are you sure ?",
-                    "Do you want to delete this record ?",
-                    "warning"
-                  ).then(res => {
-                    if (res) {
-                      this.deleteDevices(
-                        device.id,
-                        this.props.loggedUser.data.id
-                      );
-                      notify("Deleted !", "", "success");
-                    }
-                  });
-                }}
-                aria-hidden="true"
-              />
-              <div>
-                {this.props.fourthArrow === "show" ? (
-                  <button
-                    className="md-btn md-raised m-b-sm indigo"
-                    style={{ marginTop: "15%" }}
-                    onClick={() => {
-                      this.sendUnapprovedId(device.id);
-                    }}
-                  >
-                    Approve
-                  </button>
-                ) : null}
-              </div>
-            </td>
-          ) : null}
-        </tr>
-      );
+        {role === CONFIG.ADMIN ? <td className="tdAlign row" style={{marginTop: '5%'}}>
+        <button className="md-btn md-raised m-b-sm indigo"
+          onClick={(e) => {
+            e.nativeEvent.stopImmediatePropagation();
+            this.openEditDevice(device);
+          }}>Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button className="md-btn md-raised m-b-sm indigo" onClick={() => {
+          confirm('Are you sure ?', 'Do you want to delete this record ?', 'warning').then((res) => {
+            if (res) {
+              this.deleteDevices(device.id,this.props.loggedUser.data.id);
+              notify('Deleted !', '', 'success');
+            }
+          });
+        }} aria-hidden="true">Delete</button>
+       <div>
+        {this.props.fourthArrow==='show'?
+        <button className="md-btn md-raised m-b-sm indigo" style={{marginTop:'15%'}} onClick={()=>{this.sendUnapprovedId(device. id)}}>Approve</button>:null}</div>
+      </td> : null}
+      
+    </tr>);
     });
     return (
       <div>
@@ -448,6 +428,7 @@ class InventoryList extends React.Component {
           <div className="col-xs-12 col-sm-12" style={{ float: "right" }}>
             <div className="row">
               <div className="row no-gutter">
+
                 {this.props.fourthArrow === "hidden" ? (
                   <div>
                     <div className="col-md-3 p-r">
@@ -467,7 +448,7 @@ class InventoryList extends React.Component {
                       </div>
                     </div>
                     <div className="col-md-3 p-r">
-                      <div className="form-group">
+                      <div className="form-group selectDevice">
                         <label style={{ marginTop: "6%" }}> </label>
                         <select
                           className="form-control"
@@ -509,13 +490,11 @@ class InventoryList extends React.Component {
                         />
                       </div>
                     </div>
-                    <div className="col-sm-2 p-0 pt-5">
-                      <div
-                        className="text-left"
-                        style={{ marginTop: "26px", paddingLeft: "43px" }}
-                      >
-                        <AddDeviceDialoge
-                          callAddDevice={this.callAddDevice}
+
+                    <div className='col-sm-2 p-0 pt-5'>
+                      <div className="text-left  addcomp" style={{marginTop: '26px', paddingLeft: '43px'}}>
+                        <AddDeviceDialoge callAddDevice={this.callAddDevice}
+
                           handleClose={this.handleClose}
                           handleOpen={this.handleOpen}
                           open={this.state.open}

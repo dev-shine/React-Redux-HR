@@ -1,33 +1,35 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UserHorizontalView from 'components/generic/UserHorizontalView';
-import DeviceDetails from 'components/inventory/deviceDetails';
-import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
-import * as actions from 'appRedux/actions';
-import * as actionsManageDevice from 'appRedux/inventory/actions/inventory'
-import UnassignDevice from 'modules/inventory/components/UnassignDevice'
-import AssignDevice from 'modules/inventory/components/AssignDevice'
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { notify } from "src/services/notify";
+import Menu from "components/generic/Menu";
+import { isNotUserValid } from "src/services/generic";
+import Header from "components/generic/Header";
+import UserHorizontalView from "components/generic/UserHorizontalView";
+import DeviceDetails from "components/inventory/deviceDetails";
+import * as actionsMyProfile from "appRedux/myProfile/actions/myProfile";
+import * as actions from "appRedux/actions";
+import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
+import UnassignDevice from "modules/inventory/components/UnassignDevice";
+import AssignDevice from "modules/inventory/components/AssignDevice";
 
 class MyInventory extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      user_id:             [],
-      status_message:      '',
-      openUnassigned:      false,
-      openAssigned:       false,
+      user_id: [],
+      status_message: "",
+      openUnassigned: false,
+      openAssigned: false,
       user_profile_detail: {},
       user_assign_machine: [],
-      device:              [],
-      unassignDeviceList:  []
+      device: [],
+      unassignDeviceList: []
     };
     this.props.onIsAlreadyLogin();
-    this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(this);
+    this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(
+      this
+    );
     this.unassignDevice = this.unassignDevice.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleAddDialog = this.handleAddDialog.bind(this);
@@ -35,21 +37,23 @@ class MyInventory extends React.Component {
     this.callAddUserComment = this.callAddUserComment.bind(this);
     this.callAssignDevice = this.callAssignDevice.bind(this);
   }
-  
-  componentWillMount () {
+
+  componentWillMount() {
     this.props.onUnassignDeviceList();
     this.props.onMyProfileDetails();
   }
-  componentWillReceiveProps (props) {
+  componentWillReceiveProps(props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    this.setState({user_profile_detail: props.myProfile.user_profile_detail,
-      user_assign_machine: props.myProfile.user_assign_machine});
+    this.setState({
+      user_profile_detail: props.myProfile.user_profile_detail,
+      user_assign_machine: props.myProfile.user_assign_machine
+    });
   }
 
-  callUpdateUserDeviceDetails (newDeviceDetails) {
+  callUpdateUserDeviceDetails(newDeviceDetails) {
     this.props.onUpdateDeviceDetails(newDeviceDetails);
   }
   callAssignDevice(assign_device) {
@@ -63,50 +67,49 @@ class MyInventory extends React.Component {
       }
     );
   }
-  unassignDevice (val) {
+  unassignDevice(val) {
     this.setState({
       openUnassigned: true,
-      status_message: '',
-      device:         val
+      status_message: "",
+      device: val
     });
   }
-  handleClose () {
+  handleClose() {
     this.setState({
       openUnassigned: false,
-      status_message: '',
+      status_message: ""
     });
   }
-  handleCloseAssign(){
+  handleCloseAssign() {
     this.setState({
-      openAssigned:   false,
-      status_message: '',
+      openAssigned: false,
+      status_message: ""
     });
   }
-  handleAddDialog () {
+  handleAddDialog() {
     this.setState({
-      user_id:this.props.loggedUser.data.id,
+      user_id: this.props.loggedUser.data.id,
       unassignDeviceList: this.props.unassignedDeviceList.unassignedDeviceList,
-      openAssigned:   true,
-      status_message: '',
+      openAssigned: true,
+      status_message: ""
     });
-    
   }
-  callAddUserComment (addUserCommentDetails) {
-    this.props.onAddUserComment(addUserCommentDetails).catch((error) => {
-      notify('Error !', error, 'error');
+  callAddUserComment(addUserCommentDetails) {
+    this.props.onAddUserComment(addUserCommentDetails).catch(error => {
+      notify("Error !", error, "error");
     });
     this.setState({
       openUnassigned: false,
-      status_message: '',
+      status_message: ""
     });
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'My Inventory'} {...this.props} />
+          <Header pageTitle={"My Inventory"} {...this.props} />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter m-b-md">
@@ -117,12 +120,12 @@ class MyInventory extends React.Component {
                   inventory
                 />
               </div>
-              <AssignDevice 
+              <AssignDevice
                 handleCloseAssign={this.handleCloseAssign}
                 openAssign={this.state.openAssigned}
                 handleAddDialog={this.handleAddDialog}
                 unassignDeviceList={this.state.unassignDeviceList}
-                callAssignDevice= {this.callAssignDevice}
+                callAssignDevice={this.callAssignDevice}
                 user_id={this.state.user_id}
               />
               <DeviceDetails
@@ -131,13 +134,13 @@ class MyInventory extends React.Component {
                 callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
               />
             </div>
-              <UnassignDevice 
-                callAddUserComment={this.callAddUserComment}
-                user_Id={this.state.user_profile_detail.user_Id}
-                handleClose={this.handleClose}
-                open={this.state.openUnassigned}
-                device={this.state.device}
-              /> 
+            <UnassignDevice
+              callAddUserComment={this.callAddUserComment}
+              user_Id={this.state.user_profile_detail.user_Id}
+              handleClose={this.handleClose}
+              open={this.state.openUnassigned}
+              device={this.state.device}
+            />
           </div>
         </div>
       </div>
@@ -145,15 +148,15 @@ class MyInventory extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
-    frontend:   state.frontend.toJS(),
+    frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
-    myProfile:  state.myProfile.toJS(),
+    myProfile: state.myProfile.toJS(),
     unassignedDeviceList: state.manageDevice.toJS()
   };
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());
@@ -161,11 +164,15 @@ const mapDispatchToProps = (dispatch) => {
     onMyProfileDetails: () => {
       return dispatch(actionsMyProfile.getMyProfileDetails());
     },
-    onUpdateDeviceDetails: (newDeviceDetails) => {
-      return dispatch(actionsMyProfile.updateUserDeviceDetails(newDeviceDetails));
+    onUpdateDeviceDetails: newDeviceDetails => {
+      return dispatch(
+        actionsMyProfile.updateUserDeviceDetails(newDeviceDetails)
+      );
     },
-    onAddUserComment: (addUserCommentDetails) => {
-      return dispatch(actionsManageDevice.addUserComment(addUserCommentDetails));
+    onAddUserComment: addUserCommentDetails => {
+      return dispatch(
+        actionsManageDevice.addUserComment(addUserCommentDetails)
+      );
     },
     onUnassignDeviceList: () => {
       return dispatch(actionsManageDevice.unassignDeviceList());
@@ -176,6 +183,8 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const RouterVisibleMyInventory = withRouter(connect(mapStateToProps, mapDispatchToProps)(MyInventory));
+const RouterVisibleMyInventory = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MyInventory)
+);
 
 export default RouterVisibleMyInventory;

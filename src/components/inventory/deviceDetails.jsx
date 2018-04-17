@@ -8,6 +8,7 @@ const DeviceDetails = ({userAssignMachine, unassignDevice}) => {
   let machineList = _.map(userAssignMachine, (val, i) => {
     
     return (<tr key={i}>
+      <td>{i}</td>
       <td>{val.machine_type}</td>
       <td>{val.machine_name}</td>
       <td>{val.serial_number}</td>
@@ -26,6 +27,7 @@ const DeviceDetails = ({userAssignMachine, unassignDevice}) => {
         <table className="table table-striped table-hover">
           <thead>
             <tr>
+              <th>Sr.No</th>
               <th>Device Type</th>
               <th>Name</th>
               <th>Serial Number</th>

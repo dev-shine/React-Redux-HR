@@ -71,7 +71,7 @@ class FormAddNewEmployee extends React.Component {
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header
-            pageTitle={"Add New Employee"}
+            pageTitle={"Add New Employee Details"}
             showLoading={this.props.frontend.show_loading}
           />
           <div className="app-body" id="view">
@@ -80,6 +80,7 @@ class FormAddNewEmployee extends React.Component {
                 <div className="col-md-12">
                   <div className="col-md-1" />
                   <div className="text-danger">
+
                     <i>
                       *Create a slack profile first and enter email in Work
                       Email

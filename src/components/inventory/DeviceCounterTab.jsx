@@ -39,7 +39,7 @@ const DeviceCounterTab = ({statusList, deviceCountList,router}) => {
           </div>
         </div>
       </div>
-      <div className="col-xs-12">
+      {/* <div className="col-xs-12">
         <div className='row'>
           <div className="box">
             <div className="box-header">
@@ -54,7 +54,7 @@ const DeviceCounterTab = ({statusList, deviceCountList,router}) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className='row'>
         {newDeviceCountData}
       </div>

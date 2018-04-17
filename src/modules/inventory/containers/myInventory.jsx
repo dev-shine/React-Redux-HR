@@ -53,10 +53,9 @@ class MyInventory extends React.Component {
     this.props.onUpdateDeviceDetails(newDeviceDetails);
   }
   callAssignDevice(assign_device) {
-    console.log(assign_device)
     this.props.onAssignDevice(assign_device).then(
       data => {
-        this.props.onUnassignDeviceList();
+        this.props.onMyProfileDetails();
         notify("Success!", data, "success");
       },
       error => {

@@ -24,7 +24,6 @@ export default class DialogUpload extends React.Component {
       fileName: "",
       page_url: window.location.href
     };
-    this.documentType = this.documentType.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
   }
@@ -42,21 +41,8 @@ export default class DialogUpload extends React.Component {
   };
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
-  }
-  documentType() {
-    if (this.state.document === "photo") {
-      this.setState({
-        fileName: "inventory_photo"
-      });
-    } else if (this.state.document === "warranty") {
-      this.setState({
-        fileName: "inventory_warranty"
-      });
-    } else if (this.state.document === "inovice") {
-      this.setState({
-        fileName: "inventory_invoice"
-      });
-    }
+
+    
   }
 
   callUpdateDocuments(e) {
@@ -122,15 +108,15 @@ export default class DialogUpload extends React.Component {
               ref="status"
               value={this.state.document}
               onChange={e => (
-                this.setState({ document: e.target.value }), this.documentType()
+                this.setState({ document: e.target.value })
               )}
             >
               <option value="" disabled>
                 --Select document--
               </option>
-              <option value="photo">Photo</option>
-              <option value="warranty">Warranty</option>
-              <option value="inovice">Inovice</option>
+              <option value="file_inventory_photo">Photo</option>
+              <option value="file_inventory_warranty">Warranty</option>
+              <option value="file_inventory_inovice">Inovice</option>
             </select>
           </div>
           <div className="form-group">
@@ -139,7 +125,7 @@ export default class DialogUpload extends React.Component {
               type="file"
               className="form-control"
               ref="file"
-              name={this.state.fileName}
+              name={this.state.document}
               multiple="multiple"
               onChange={this.handleFileChange}
             />
@@ -219,7 +205,7 @@ export default class DialogUpload extends React.Component {
             url={CONFIG.inventory_upload_url}
             params={this.state}
             file={this.state.file[0]}
-            fileName={this.state.fileName}
+            fileName={this.state.document}
           />
       </div>
     );

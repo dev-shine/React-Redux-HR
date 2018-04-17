@@ -26,8 +26,7 @@ class UploadImageComp extends Component {
 
     if (!file) {
       return;
-    } 
-    else if (!file.type.includes("image")) {
+    } else if (!file.type.includes("image")) {
       const formData = new FormData();
       for (let key in params) {
         formData.append(key, params[key]);
@@ -54,6 +53,7 @@ class UploadImageComp extends Component {
           formData.append("submit", "Upload");
           // Send the compressed image file to server with XMLHttpRequest.
           // this.props.uploadFile(formData, url);
+
           axios
             .post(url, formData)
             .then(data => {
@@ -65,8 +65,7 @@ class UploadImageComp extends Component {
                 notify("Error", "File too large to upload", "error");
                 this.setState({ loading: false });
                 console.log(error.request);
-              } 
-              
+              }
             });
         });
     }

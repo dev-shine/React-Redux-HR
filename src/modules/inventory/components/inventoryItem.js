@@ -12,6 +12,7 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
+import DialogUpload from "./dialogueUpload";
 let device_id;
 class InventoryItem extends React.Component {
   constructor(props) {
@@ -38,14 +39,15 @@ class InventoryItem extends React.Component {
         notify("Success!", data, "success");
         this.props.onFetchDevice();
         this.props.onGetDevice(device_id);
+        this.setState({ comment: "" });
       },
       error => {
         notify("Error!", error, "error");
       }
     );
     this.setState({
-      comment : ''
-    })
+      comment: ""
+    });
   }
   AssignDevice(assign_device) {
     this.props.onAssignDevice(assign_device).then(
@@ -63,7 +65,7 @@ class InventoryItem extends React.Component {
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
-    console.log(machineName[0])
+    console.log(machineName[0]);
     const pat = _.isEmpty(machineName)
       ? null
       : machineName[0].fileInventoryPhoto;
@@ -119,7 +121,7 @@ class InventoryItem extends React.Component {
         );
       }
     );
-    let path = CONFIG.inventory_images
+    let path = CONFIG.inventory_images;
     return (
       <div>
         <Menu {...this.props} />
@@ -129,7 +131,7 @@ class InventoryItem extends React.Component {
             <div className="col-12">
               <div className="app-body" id="view">
                 <div className="col-xs-12 col-sm-12">
-                  <div className="col-md-5 p-r">
+                  <div className="col-md-6 p-r">
                     <div
                       className="form-group"
                       style={{
@@ -138,106 +140,172 @@ class InventoryItem extends React.Component {
                         textAlign: "left"
                       }}
                     >
-                      {" "}
-                      {pat === null || undefined ? null : (
+                      <div className="row">
+                        {" "}
+                        {pat === null || undefined ? null : (
+                          <div className="col-md-12">
+                            <img src={path + pat} />
+                          </div>
+                        )}
+                        <br />
                         <div className="col-md-12">
-                          <img src={path + pat} />
+                          <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_name}
                         </div>
-                      )}<br />
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].machine_name}
-                      </div>
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Date of purchase:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].date_of_purchase}
-                      </div>
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Price:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].machine_price}
-                      </div>
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].machine_type}
-                      </div>
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Status:</label>{" "}
-                        {_.isEmpty(machineName) ? null : machineName[0].status}
-                      </div>
-                      <div className="col-md-12">
-                        <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
-                        {_.isEmpty(machineName)
-                          ? null
-                          : machineName[0].serial_number}
-                      </div>
-                      <br />
-                      <label style={{ fontSize: 15 }}>Users:</label>
-                      <select
-                        onChange={e =>
-                          this.setState({
-                            user_id: e.target.value,
-                            inventory_id: this.props.routeParams.id
-                          })
-                        }
-                        className="form-control"
-                        ref="device_type"
-                        value={this.state.user}
-                      >
-                        <option value="">--Select User--</option>
-                        {userName}
-                      </select>
-                      <br />{" "}
-                      <button
-                        className="btn btn-fw info responsive-p-x-sm"
-                        onClick={() => this.AssignDevice(this.state)}
-                      >
-                        Assign Inventory
-                      </button>
-                      <div className="row m-1">
-                        <div
-                          className="col-sm-15 p-8 pt-8"
-                          style={{ marginTop: "4%" }}
-                        >
-                          <label style={{ fontSize: 15 }}>Comment:</label>
-                          <textarea
-                            placeholder="Your comment"
-                            className="form-control resize-y"
-                            onChange={e =>
-                              this.setState({
-                                comment: e.target.value,
-                                inventory_id: this.props.routeParams.id
-                              })
-                            }
-                            value={this.state.comment}
-                          />
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_type}
                         </div>
-                      </div>
-                      <br />
-                      <button
-                        className="btn btn-fw info responsive-p-x-sm"
-                        onClick={() => this.handleAddComment(this.state)}
-                      >
-                        Submit
-                      </button>
-                      <div className="row m-2">
-                        <div
-                          className="col-sm-15 p-8 pt-8"
-                          style={{ marginTop: "4%" }}
+                        <br />
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>Status:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].status}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].serial_number}
+                        </div>
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>
+                            Approval Status:
+                          </label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].approval_status === 0
+                              ? "Not Approved"
+                              : "Approved"}
+                        </div>
+                        <div className="col-md-6">
+                          <label style={{ fontSize: 15 }}>
+                            Date of Purchase:
+                          </label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].date_of_purchase}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Assigned To:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].name
+                              ? machineName[0].name
+                              : "Not Assigned To Anyone"}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Price:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : `₹ ${machineName[0].machine_price}`}
+                        </div>
+                        )}<br />
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_name}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>
+                            Date of purchase:
+                          </label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].date_of_purchase}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Price:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_price}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].machine_type}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Status:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].status}
+                        </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].serial_number}
+                        </div>
+                        <br />
+                        <label style={{ fontSize: 15 }}>Users:</label>
+                        <select
+                          onChange={e =>
+                            this.setState({
+                              user_id: e.target.value,
+                              inventory_id: this.props.routeParams.id
+                            })
+                          }
+                          className="form-control"
+                          ref="device_type"
+                          value={this.state.user}
                         >
-                          {" "}
-                          {Assignhistory}
-                          {history}
+                          <option value="">--Select User--</option>
+                          {userName}
+                        </select>
+                        <br />{" "}
+                        <button
+                          className="btn btn-fw info responsive-p-x-sm"
+                          onClick={() => this.AssignDevice(this.state)}
+                        >
+                          Assign Inventory
+                        </button>
+                        <div className="row m-1">
+                          <div
+                            className="col-sm-15 p-8 pt-8"
+                            style={{ marginTop: "4%" }}
+                          >
+                            <label style={{ fontSize: 15 }}>Comment:</label>
+                            <textarea
+                              placeholder="Your comment"
+                              className="form-control resize-y"
+                              onChange={e =>
+                                this.setState({
+                                  comment: e.target.value,
+                                  inventory_id: this.props.routeParams.id
+                                })
+                              }
+                              value={this.state.comment}
+                            />
+                          </div>
+                        </div>
+                        <br />
+                        <button
+                          className="btn btn-fw info responsive-p-x-sm"
+                          onClick={() => this.handleAddComment(this.state)}
+                        >
+                          Submit
+                        </button>
+                        <div className="row m-2">
+                          <div
+                            className="col-sm-15 p-8 pt-8"
+                            style={{ marginTop: "4%" }}
+                          >
+                            {" "}
+                            {Assignhistory}
+                            {history}
+                          </div>
                         </div>
                       </div>
                     </div>
+                    {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
                   </div>
                 </div>
               </div>

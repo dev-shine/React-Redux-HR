@@ -145,11 +145,14 @@ class FormAddDocument extends Component {
                 </form>
               </div>
               <button
-                className="col-xs-4 col-xs-offset-4 md-btn md-raised indigo"
-                onClick={browserHistory.goBack}
+                className="col-xs-4 col-xs-offset-4  md-btn md-raised indigo"
+                onClick={()=>{
+                  this.props.history.push('manage_users')
+                }
+                }
               >
                 {" "}
-                Go Back
+                Go to Employee Page
               </button>
             </div>
           </div>

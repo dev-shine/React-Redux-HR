@@ -2,6 +2,7 @@ import 'react-date-picker/index.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import DeviceCounter from './DeviceCounter';
+//  import FormAddNewInventory from '/home/etech/Documents/ReactReduxHR/src/modules/inventory/components/AddInventory.jsx'
 
 const DeviceCounterTab = ({statusList, deviceCountList,router}) => {
   let total = 0;
@@ -41,15 +42,15 @@ const DeviceCounterTab = ({statusList, deviceCountList,router}) => {
       </div>
       {/* <div className="col-xs-12">
         <div className='row'>
-          <div className="box">
-            <div className="box-header">
+          <div className="box"> */}
+            {/* <div className="box-header">
               <small className="text-muted"> Device Status Overview </small>
-            </div>
-            <div className="box-body">
+            </div> */}
+            {/* <div className="box-body">
               <div className="row no-gutter m-b text-xs l-h-1x">
-                <div className="row">
-                  {statusList1}
-                </div>
+                <div className="row"> */}
+                  {/* {statusList1} */}
+                {/* </div>
               </div>
             </div>
           </div>

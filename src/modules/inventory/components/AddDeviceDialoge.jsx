@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {CONFIG} from 'src/config/index';
+import style from 'src/styles/inventory/viewUser.scss'
 import 'react-date-picker/index.css';
 
 export default class AddDeviceDialoge extends React.Component {
@@ -96,7 +97,7 @@ export default class AddDeviceDialoge extends React.Component {
     ];
     return (
       <div>
-        <button className="md-btn md-raised m-b-sm indigo" onTouchTap={this.props.handleOpen}>Add Device Type</button>
+        <button className="md-btn md-raised m-b-sm indigo addDevice" onTouchTap={this.props.handleOpen}>Add Device Type</button>
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}

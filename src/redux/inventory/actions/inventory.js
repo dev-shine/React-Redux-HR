@@ -2,6 +2,7 @@ import {createAction} from 'redux-actions';
 import {fireAjax} from 'src/services/index';
 import {notify} from 'src/services/notify'; 
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as actionsMyProfile from "appRedux/myProfile/actions/myProfile";
 import * as constants from 'appRedux/constants';
 import { createInflate } from 'zlib';
 
@@ -178,6 +179,7 @@ export function addNewMachine (new_machine_details) {
             dispatch(success_add_new_machine(json.message));
             dispatch(get_machines_detail());
             dispatch(unapprovedUser());
+            dispatch(showTab())
             resolve(json.message);
           } else {
             dispatch(error_add_new_machine(json.message));
@@ -191,7 +193,12 @@ export function addNewMachine (new_machine_details) {
     });
   };
 }
-
+export function showTab() {
+  return { type: "ACTION_SHOW_TAB", payload: true };
+}
+export function noTab(){
+  return {type:"ACTION_NO_TAB", payload:false}
+}
 // Get Devicelist
 
 export function success_device_list (data) {
@@ -690,6 +697,7 @@ export function addUserComment (addUserCommentDetails) {
         if(json.error==0){
           dispatch(successAddUserComment(json.message));
           notify('Success !','Comment added to unassign device','success');
+          dispatch(actionsMyProfile.getMyProfileDetails());
         }else{
           dispatch(errorAddUserComment(json.message))
           notify('Error !',error,'error');

@@ -95,9 +95,7 @@ class MyInventory extends React.Component {
     });
   }
   callAddUserComment(addUserCommentDetails) {
-    this.props.onAddUserComment(addUserCommentDetails).catch(error => {
-      notify("Error !", error, "error");
-    });
+    this.props.onAddUserComment(addUserCommentDetails);
     this.setState({
       openUnassigned: false,
       status_message: ""

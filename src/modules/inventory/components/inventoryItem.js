@@ -36,10 +36,8 @@ class InventoryItem extends React.Component {
   handleAddComment(add_inventory_comment) {
     this.props.onAddInventoryComment(add_inventory_comment).then(
       data => {
-        notify("Success!", data, "success");
         this.props.onFetchDevice();
         this.props.onGetDevice(device_id);
-        this.setState({ comment: "" });
       },
       error => {
         notify("Error!", error, "error");
@@ -52,7 +50,7 @@ class InventoryItem extends React.Component {
   AssignDevice(assign_device) {
     this.props.onAssignDevice(assign_device).then(
       data => {
-        notify("Success!", data, "success");
+        // notify("Success!", data, "success");
         this.props.onGetDevice(device_id);
       },
       error => {

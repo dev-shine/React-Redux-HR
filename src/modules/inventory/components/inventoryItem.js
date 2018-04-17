@@ -230,7 +230,7 @@ class InventoryItem extends React.Component {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
+                  <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div>
                 </div>
               </div>
             </div>

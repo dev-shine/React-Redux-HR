@@ -56,9 +56,7 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus().then(val => {
       this.setState({ deviceStatusList: val });
     });
-    // let unapprovedList = _.reverse(this.props.manageDevice.unapprovedList.data);
 
-    // this.setState({ unapprovedList });
   }
 
   componentWillReceiveProps(props) {

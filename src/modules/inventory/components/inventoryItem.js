@@ -154,6 +154,12 @@ class InventoryItem extends React.Component {
                             ? null
                             : machineName[0].machine_name}
                         </div>
+                        <div className="col-md-12">
+                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
+                          {_.isEmpty(machineName)
+                            ? null
+                            : machineName[0].serial_number}
+                        </div>
                         <div className="col-md-6">
                           <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
                           {_.isEmpty(machineName)
@@ -167,12 +173,7 @@ class InventoryItem extends React.Component {
                             ? null
                             : machineName[0].status}
                         </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].serial_number}
-                        </div>
+
                         <div className="col-md-6">
                           <label style={{ fontSize: 15 }}>
                             Approval Status:
@@ -191,7 +192,7 @@ class InventoryItem extends React.Component {
                             ? null
                             : machineName[0].date_of_purchase}
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                           <label style={{ fontSize: 15 }}>Assigned To:</label>{" "}
                           {_.isEmpty(machineName)
                             ? null
@@ -199,7 +200,7 @@ class InventoryItem extends React.Component {
                               ? machineName[0].name
                               : "Not Assigned To Anyone"}
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                           <label style={{ fontSize: 15 }}>Price:</label>{" "}
                           {_.isEmpty(machineName)
                             ? null
@@ -322,7 +323,7 @@ function mapStateToProps(state) {
   return {
     usersList: state.usersList.toJS(),
     loggedUser: state.logged_user.userLogin,
-    manageDevice: state.manageDevice.toJS()
+    manageDevice: state.manageDevice.toJS(),
   };
 }
 
@@ -338,6 +339,9 @@ const mapDispatchToProps = dispatch => {
     },
     onUsersList: () => {
       return dispatch(actionsUsersList.get_users_list());
+    },
+    onMyProfileDetails: () => {
+      return dispatch(actionsMyProfile.getMyProfileDetails());
     },
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());

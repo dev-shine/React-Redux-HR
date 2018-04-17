@@ -15,7 +15,7 @@ class FormAddDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      document_type: "",
+      // document_type: "",
       token: "",
       file: [],
       user_id: this.props.params.splat,

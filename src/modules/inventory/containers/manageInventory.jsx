@@ -42,7 +42,8 @@ class InventorySystem extends React.Component {
       user_assign_machine: [],
       getByIdData: {},
       unapprovedList: {},
-      openUnapprove: ""
+      openUnapprove: "",
+      selectedTab: false
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(
@@ -76,11 +77,11 @@ class InventorySystem extends React.Component {
       user_profile_detail: props.manageUsers.user_profile_detail,
       user_assign_machine: props.manageUsers.user_assign_machine
     });
-    if (props.manageDevice.showTab) {this.openPage("unapproved_user");
-    this.props.onNoTab();
+    if (props.manageDevice.showTab) {
+      this.openPage("unapproved_user");
+      this.setState({ selectedTab: true });
+      this.props.onNoTab();
     }
-
-
   }
 
   componentDidUpdate() {
@@ -261,7 +262,6 @@ class InventorySystem extends React.Component {
     this.props.onFetchApprovedUser(id.id);
   }
   render() {
-
     return (
       <div>
         <Menu {...this.props} />
@@ -297,7 +297,7 @@ class InventorySystem extends React.Component {
                         onClick={() => {
                           this.openPage("device_list");
                         }}
-                        className={`nav-item ${this.state.active}`}
+                        className={this.state.selectedTab?"nav-item":`nav-item ${this.state.active}`}
                       >
                         <a
                           className="nav-link"
@@ -356,7 +356,7 @@ class InventorySystem extends React.Component {
                         onClick={() => {
                           this.openPage("unapproved_user");
                         }}
-                        className={"nav-item"}
+                        className={this.state.selectedTab?`nav-item ${this.state.active}`:"nav-item"}
                       >
                         <a
                           className="nav-link"
@@ -514,7 +514,7 @@ const mapDispatchToProps = dispatch => {
     onUserEditData: (device, edit, open) => {
       return dispatch(actionsManageDevice.editDeviceData(device, edit, open));
     },
-    onNoTab:()=>{
+    onNoTab: () => {
       return dispatch(actionsManageDevice.noTab());
     }
   };

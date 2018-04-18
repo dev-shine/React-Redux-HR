@@ -16,10 +16,10 @@ import * as actions from "appRedux/actions";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
 import style from "src/styles/inventory/viewUser.scss";
-import Header from 'components/generic/Header';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-var moment = require('moment');
+import Header from "components/generic/Header";
+import Menu from "components/generic/Menu";
+import { isNotUserValid } from "src/services/generic";
+var moment = require("moment");
 let newdate;
 let selectedOption;
 let purchase;
@@ -51,10 +51,10 @@ class FormAddNewInventory extends React.Component {
       msg: "",
       deviceTypeList: [],
       deviceStatusList: [],
-      status:           '',
-      loading:          false,
-      unassign_comment: '',
-      warranty_years:''
+      status: "",
+      loading: false,
+      unassign_comment: "",
+      warranty_years: ""
     };
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
@@ -93,30 +93,31 @@ class FormAddNewInventory extends React.Component {
     <CircularProgress />;
 
     if (props.manageDevice.editData.edit) {
-     purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;
-     warranty=moment(props.manageDevice.editData.device.warranty_end_date)._d;
-     
-    // var a = moment(props.manageDevice.editData.device.warranty_end_date);
-    // var b = moment(props.manageDevice.editData.device.date_of_purchase);
-    // var diffDuration = moment.duration(a.diff(b));
-    // let year=diffDuration.years();
-    // let month=diffDuration.months();
-    // let day=diffDuration.days();
-    // if(year>0 && month==0 && day==0){
-    //   this.setState({
-    //     warranty_years:year
-    //   })
-    // }
-    // else if(year<0 && month==6 && day==0){
-    //   this.setState({
-    //     warranty_years:month
-    //   })
-    // }
-    // else{
-    //   this.setState({
-    //     warranty_years:''
-    //   })
-    // }
+      purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;
+      warranty = moment(props.manageDevice.editData.device.warranty_end_date)
+        ._d;
+
+      // var a = moment(props.manageDevice.editData.device.warranty_end_date);
+      // var b = moment(props.manageDevice.editData.device.date_of_purchase);
+      // var diffDuration = moment.duration(a.diff(b));
+      // let year=diffDuration.years();
+      // let month=diffDuration.months();
+      // let day=diffDuration.days();
+      // if(year>0 && month==0 && day==0){
+      //   this.setState({
+      //     warranty_years:year
+      //   })
+      // }
+      // else if(year<0 && month==6 && day==0){
+      //   this.setState({
+      //     warranty_years:month
+      //   })
+      // }
+      // else{
+      //   this.setState({
+      //     warranty_years:''
+      //   })
+      // }
       this.setState({
         id: props.manageDevice.editData.device.id,
         machine_type: props.manageDevice.editData.device.machine_type,
@@ -128,14 +129,12 @@ class FormAddNewInventory extends React.Component {
         status: props.manageDevice.editData.device.status,
         comment: props.manageDevice.editData.device.comments,
         warranty_comment: props.manageDevice.editData.device.warranty_comment,
-        repair_comment:   props.manageDevice.editData.device.repair_comment,
-        bill_no:          props.manageDevice.editData.device.bill_number,
-        warranty:         warranty,
-        user_Id:          props.manageDevice.editData.device.user_Id,
+        repair_comment: props.manageDevice.editData.device.repair_comment,
+        bill_no: props.manageDevice.editData.device.bill_number,
+        warranty: warranty,
+        user_Id: props.manageDevice.editData.device.user_Id,
         unassign_comment: props.manageDevice.editData.device.unassign_comment,
-        warranty_years:props.manageDevice.editData.device.warranty_years
-        
-
+        warranty_years: props.manageDevice.editData.device.warranty_years
       });
       if (
         this.props.manageDevice.status_message ===
@@ -148,44 +147,44 @@ class FormAddNewInventory extends React.Component {
       "Inventory added successfully and need to be approved by admin!!"
     ) {
       this.setState({
-        id:               '',
-        machine_type:     '',
-        machine_name:     '',
-        machine_price:    '',
-        serial_no:        '',
-        purchase_date:    '',
-        operating_system: '',
-        status:           '',
-        comment:          '',
-        warranty_comment: '',
-        repair_comment:   '',
-        bill_no:          '',
-        warranty:         '',
-        user_Id:          '',
-        loading:          false,
-        unassign_comment: '',
-        warranty_years:   ''
+        id: "",
+        machine_type: "",
+        machine_name: "",
+        machine_price: "",
+        serial_no: "",
+        purchase_date: "",
+        operating_system: "",
+        status: "",
+        comment: "",
+        warranty_comment: "",
+        repair_comment: "",
+        bill_no: "",
+        warranty: "",
+        user_Id: "",
+        loading: false,
+        unassign_comment: "",
+        warranty_years: ""
       });
       this.props.manageDevice.status_message = "";
     }
   }
-  handleAddDevice () {
+  handleAddDevice() {
     newdate = new Date(this.state.purchase_date);
-           if(selectedOption == 0.5){
-             newdate.setMonth(newdate.getMonth()+6);
-           } else if(selectedOption  == 1) {
-             newdate.setFullYear(newdate.getFullYear()+1);     
-           } else if(selectedOption  == 2) {
-           newdate.setFullYear(newdate.getFullYear()+2);             
-           } else if(selectedOption  == 3){
-             newdate.setFullYear(newdate.getFullYear()+3);                       
-           }else if(selectedOption  == 5){
-             newdate.setFullYear(newdate.getFullYear()+5);                       
-           }
-              var dd = newdate.getDate();
-              var mm = newdate.getMonth() + 1;
-              var y = newdate.getFullYear();
-              var someFormattedDate = y + '-' + mm + '-' + dd;
+    if (selectedOption == 0.5) {
+      newdate.setMonth(newdate.getMonth() + 6);
+    } else if (selectedOption == 1) {
+      newdate.setFullYear(newdate.getFullYear() + 1);
+    } else if (selectedOption == 2) {
+      newdate.setFullYear(newdate.getFullYear() + 2);
+    } else if (selectedOption == 3) {
+      newdate.setFullYear(newdate.getFullYear() + 3);
+    } else if (selectedOption == 5) {
+      newdate.setFullYear(newdate.getFullYear() + 5);
+    }
+    var dd = newdate.getDate();
+    var mm = newdate.getMonth() + 1;
+    var y = newdate.getFullYear();
+    var someFormattedDate = y + "-" + mm + "-" + dd;
 
     let apiData = {
       machine_type: this.state.machine_type,
@@ -197,28 +196,28 @@ class FormAddNewInventory extends React.Component {
       status: this.state.status,
       comment: this.state.comment.trim(),
       warranty_comment: this.state.warranty_comment.trim(),
-      repair_comment:   this.state.repair_comment.trim(),
-      bill_no:          this.state.bill_no.trim(),
-      warranty:         someFormattedDate,
-      user_Id:          this.state.user_Id,
+      repair_comment: this.state.repair_comment.trim(),
+      bill_no: this.state.bill_no.trim(),
+      warranty: someFormattedDate,
+      user_Id: this.state.user_Id,
       unassign_comment: this.state.unassign_comment,
-      warranty_years:   this.state.warranty_years
+      warranty_years: this.state.warranty_years
     };
     let resetFields = {
-      machine_type:     '',
-      machine_name:     '',
-      machine_price:    '',
-      serial_no:        '',
-      purchase_date:    '',
-      operating_system: '',
-      comment:          '',
-      warranty_comment: '',
-      repair_comment:   '',
-      bill_no:          '',
-      warranty:         '',
-      user_Id:          '',
-      unassign_comment: '',
-      warranty_years:''
+      machine_type: "",
+      machine_name: "",
+      machine_price: "",
+      serial_no: "",
+      purchase_date: "",
+      operating_system: "",
+      comment: "",
+      warranty_comment: "",
+      repair_comment: "",
+      bill_no: "",
+      warranty: "",
+      user_Id: "",
+      unassign_comment: "",
+      warranty_years: ""
     };
     let validate = true;
     this.setState({
@@ -282,15 +281,15 @@ class FormAddNewInventory extends React.Component {
       edit: false
     });
   }
-  warranty_date=(e)=>{
+  warranty_date = e => {
     e.preventDefault();
-    selectedOption=e.target.value
-           this.setState({
-             warranty_years:e.target.value
-            });
-         }  
- 
-  render () {
+    selectedOption = e.target.value;
+    this.setState({
+      warranty_years: e.target.value
+    });
+  };
+
+  render() {
     let userList = this.props.usersList.users.map((val, i) => {
       return (
         <option key={val.id} id={i} value={val.user_Id}>
@@ -318,202 +317,188 @@ class FormAddNewInventory extends React.Component {
               {/* <button style={{float:'right',marginRight:'25px'}} className="md-btn md-raised m-b-sm indigo"
             onTouchTap={this.handleOpen}>Add New Inventory </button> */}
             </div>
+            <div className="col-md-6">
+              {this.state.warranty ? "Date Of Purchase" : ""}
+              <DatePicker
+                hintText="Date Of Purchase"
+                onChange={(e, date) => {
+                  this.setState({ purchase_date: date });
+                }}
+                value={this.state.purchase_date}
+                required
+                textFieldStyle={{ width: "100%" }}
+              />
+            </div>
 
+            <div className="col-md-6">
               <div className="col-md-6">
-                  <div className="col-md-6"><p style={{opacity: '0.56'}}>Date Of Warrenty Expiry</p> <p>{this.props.manageDevice.editData.device.warranty_end_date}</p></div>
-                  <select style={{marginTop: '0%'}}
-                    value={this.state.warranty_years}
-                    ref="warranty_period"                  
-                    onChange={this.warranty_date}
-                    className="form-control"
-                    required >
-                      <option value="" disabled>--Select warranty period--</option>
-                      <option value="0.5">6 Months</option>
-                      <option value="1">1 year</option>
-                      <option value="2">2 year</option>
-                      <option value="3">3 year</option>
-                      <option value="5">5 year</option>
-                    </select>
-                </div>
-
-                <div className="col-md-6">
-                  {this.state.warranty ? "Date Of Warrenty Expiry" : ""}
-                  <DatePicker
-                    hintText="Date Of Warrenty Expiry"
-                    onChange={(e, date) => {
-                      this.setState({ warranty: date });
-                    }}
-                    value={this.state.warranty}
-                    required
-                    textFieldStyle={{ width: "100%" }}
-                  />
-                </div>
-
-                <div
-                  className="col-md-6"
-                  style={{ opacity: "0.56", marginTop: "2%" }}
-                >
-                  {"Machine/Device Type"}
-                  <select
-                    className="form-control"
-                    ref="machine_type"
-                    value={this.state.machine_type}
-                    onChange={evt => {
-                      this.setState({ machine_type: evt.target.value });
-                    }}
-                  >
-                    <option value="" disabled>
-                      --Select Device--
-                    </option>
-                    {this.state.deviceTypeList.map((val, i) => {
-                      return (
-                        <option key={i} value={val}>
-                          {" "}
-                          {val}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div
-                  className="col-md-6"
-                  style={{ opacity: "0.56", marginTop: "2%" }}
-                >
-                  {"Status"}
-                  <select
-                    className="form-control"
-                    ref="status"
-                    value={this.state.status}
-                    onChange={e => this.setState({ status: e.target.value })}
-                    required
-                  >
-                    <option value="" disabled>
-                      --Select Status--
-                    </option>
-                    {this.state.deviceStatusList.map((val, i) => {
-                      return (
-                        <option key={i} value={val.status}>
-                          {" "}
-                          {val.status}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-              <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
-                {'Assign User'}
-                <select
-                  value={this.state.user_Id}
-                  onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
-                  className="form-control" required>
-                  <option value=''>Select User</option>
-                  <option value="unassign">Unassign Device to any employee</option>
-                 {userList}
-                </select>
+                <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
+                <p>
+                  {this.props.manageDevice.editData.device.warranty_end_date}
+                </p>
               </div>
-              {this.state.user_Id=='unassign'?<div className="col-md-6">
+              <select
+                style={{ marginTop: "0%" }}
+                value={this.state.warranty_years}
+                ref="warranty_period"
+                onChange={this.warranty_date}
+                className="form-control"
+                required
+              >
+                <option value="" disabled>
+                  --Select warranty period--
+                </option>
+                <option value="0.5">6 Months</option>
+                <option value="1">1 year</option>
+                <option value="2">2 year</option>
+                <option value="3">3 year</option>
+                <option value="5">5 year</option>
+              </select>
+            </div>
+
+            <div
+              className="col-md-6"
+              style={{ opacity: "0.56", marginTop: "2%" }}
+            >
+              {"Machine/Device Type"}
+              <select
+                className="form-control"
+                ref="machine_type"
+                value={this.state.machine_type}
+                onChange={evt => {
+                  this.setState({ machine_type: evt.target.value });
+                }}
+              >
+                <option value="" disabled>
+                  --Select Device--
+                </option>
+                {this.state.deviceTypeList.map((val, i) => {
+                  return (
+                    <option key={i} value={val}>
+                      {" "}
+                      {val}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <div
+              className="col-md-6"
+              style={{ opacity: "0.56", marginTop: "2%" }}
+            >
+              {"Status"}
+              <select
+                className="form-control"
+                ref="status"
+                value={this.state.status}
+                onChange={e => this.setState({ status: e.target.value })}
+                required
+              >
+                <option value="" disabled>
+                  --Select Status--
+                </option>
+                {this.state.deviceStatusList.map((val, i) => {
+                  return (
+                    <option key={i} value={val.status}>
+                      {" "}
+                      {val.status}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Machine Name"
+                fullWidth
+                onChange={e => this.setState({ machine_name: e.target.value })}
+                onBlur={e =>
+                  this.setState({
+                    machine_name: this.state.machine_name.trim()
+                  })
+                }
+                value={this.state.machine_name}
+                required
+              />
+            </div>
+
+            <div
+              className="col-md-6"
+              style={{ opacity: "0.56", marginTop: "2%" }}
+            >
+              {"Assign User"}
+              <select
+                value={this.state.user_Id}
+                onChange={evt => {
+                  this.setState({ user_Id: evt.target.value });
+                }}
+                className="form-control"
+                required
+              >
+                <option value="">Select User</option>
+                <option value="unassign">
+                  Unassign Device to any employee
+                </option>
+                {userList}
+              </select>
+            </div>
+            {this.state.user_Id == "unassign" ? (
+              <div className="col-md-6">
                 <TextField
                   floatingLabelText="Unassign Device comment"
                   fullWidth
-                  onChange={(e) => (this.setState({unassign_comment: e.target.value}))}
-                  onBlur={(e) => { this.setState({unassign_comment: this.state.unassign_comment.trim()}); }}
-                  value={this.state.unassign_comment} required />
-              </div>:null}
-             <div className="col-md-6">
-                <TextField
-                  floatingLabelText="Price"
-                  hintText='₹'
-                  fullWidth
-                  onChange={(e) => (this.setState({machine_price: e.target.value}))}
-                  onBlur={(e) => { this.setState({machine_price: this.state.machine_price.trim()}); }}
-                  value={this.state.machine_price} required />
+                  onChange={e =>
+                    this.setState({ unassign_comment: e.target.value })
+                  }
+                  onBlur={e => {
+                    this.setState({
+                      unassign_comment: this.state.unassign_comment.trim()
+                    });
+                  }}
+                  value={this.state.unassign_comment}
+                  required
+                />
               </div>
+            ) : null}
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Price"
+                hintText="₹"
+                fullWidth
+                onChange={e => this.setState({ machine_price: e.target.value })}
+                onBlur={e => {
+                  this.setState({
+                    machine_price: this.state.machine_price.trim()
+                  });
+                }}
+                value={this.state.machine_price}
+                required
+              />
+            </div>
 
-                <div
-                  className="col-md-6"
-                  style={{ opacity: "0.56", marginTop: "2%" }}
-                >
-                  {"Assign User"}
-                  <select
-                    value={this.state.user_Id}
-                    onChange={evt => {
-                      this.setState({ user_Id: evt.target.value });
-                    }}
-                    className="form-control"
-                    required
-                  >
-                    <option value="">Select User</option>
-                    <option value="unassign">Unassign</option>
-                    {userList.map((value, i) => {
-                      return (
-                        <option key={i} value={value}>
-                          {" "}
-                          {value.props.children}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                {this.state.user_Id == "unassign" ? (
-                  <div className="col-md-6">
-                    <TextField
-                      floatingLabelText="Unassign Device comment"
-                      fullWidth
-                      onChange={e =>
-                        this.setState({ unassign_comment: e.target.value })
-                      }
-                      onBlur={e => {
-                        this.setState({
-                          unassign_comment: this.state.unassign_comment.trim()
-                        });
-                      }}
-                      value={this.state.unassign_comment}
-                      required
-                    />
-                  </div>
-                ) : null}
-                <div className="col-md-6">
-                  <TextField
-                    floatingLabelText="Price"
-                    hintText="₹"
-                    fullWidth
-                    onChange={e =>
-                      this.setState({ machine_price: e.target.value })
-                    }
-                    onBlur={e => {
-                      this.setState({
-                        machine_price: this.state.machine_price.trim()
-                      });
-                    }}
-                    value={this.state.machine_price}
-                    required
-                  />
-                </div>
-
-                <div className="col-md-6">
-                  <TextField
-                    floatingLabelText="Serial No"
-                    fullWidth
-                    onChange={e => this.setState({ serial_no: e.target.value })}
-                    onBlur={e => {
-                      this.setState({ serial_no: this.state.serial_no.trim() });
-                    }}
-                    value={this.state.serial_no}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <TextField
-                    floatingLabelText="Excellence Serial no "
-                    fullWidth
-                    onChange={e => this.setState({ bill_no: e.target.value })}
-                    onBlur={e => {
-                      this.setState({ bill_no: this.state.bill_no.trim() });
-                    }}
-                    value={this.state.bill_no}
-                  />
-                </div>
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Serial No"
+                fullWidth
+                onChange={e => this.setState({ serial_no: e.target.value })}
+                onBlur={e => {
+                  this.setState({ serial_no: this.state.serial_no.trim() });
+                }}
+                value={this.state.serial_no}
+              />
+            </div>
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Excellence Serial no "
+                fullWidth
+                onChange={e => this.setState({ bill_no: e.target.value })}
+                onBlur={e => {
+                  this.setState({ bill_no: this.state.bill_no.trim() });
+                }}
+                value={this.state.bill_no}
+              />
+            </div>
 
             {this.state.loading ? (
               <CircularProgress
@@ -536,9 +521,8 @@ class FormAddNewInventory extends React.Component {
           </div>
         </div>
       </div>
-    
     );
-    }
+  }
 }
 
 function mapStateToProps(state) {
@@ -581,7 +565,7 @@ const mapDispatchToProps = dispatch => {
     onFetchDeviceStatus: () => {
       return dispatch(actionsManageDevice.getDeviceStatus());
     },
-    onShowTab: ()=>{
+    onShowTab: () => {
       return dispatch(actionsManageDevice.showTab());
     }
   };

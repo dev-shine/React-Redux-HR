@@ -89,6 +89,8 @@ export default class DialogUpload extends React.Component {
     this.setState({ open: false });
   };
   render() {
+    console.log(this.props,'kkkkkkkkk');
+    
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];

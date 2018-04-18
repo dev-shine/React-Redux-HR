@@ -20,7 +20,8 @@ import Header from 'components/generic/Header';
 import Menu from 'components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 var moment = require('moment');
-
+let newdate;
+let selectedOption;
 let purchase;
 let warranty;
 let datef;
@@ -50,8 +51,10 @@ class FormAddNewInventory extends React.Component {
       msg:              '',
       deviceTypeList:   [],
       deviceStatusList: [],
+      status:           '',
       loading:          false,
-      unassign_comment: ''
+      unassign_comment: '',
+      warranty_years:''
     };
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
@@ -96,6 +99,28 @@ class FormAddNewInventory extends React.Component {
     if (props.manageDevice.editData.edit) {
      purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;
      warranty=moment(props.manageDevice.editData.device.warranty_end_date)._d;
+     
+    // var a = moment(props.manageDevice.editData.device.warranty_end_date);
+    // var b = moment(props.manageDevice.editData.device.date_of_purchase);
+    // var diffDuration = moment.duration(a.diff(b));
+    // let year=diffDuration.years();
+    // let month=diffDuration.months();
+    // let day=diffDuration.days();
+    // if(year>0 && month==0 && day==0){
+    //   this.setState({
+    //     warranty_years:year
+    //   })
+    // }
+    // else if(year<0 && month==6 && day==0){
+    //   this.setState({
+    //     warranty_years:month
+    //   })
+    // }
+    // else{
+    //   this.setState({
+    //     warranty_years:''
+    //   })
+    // }
       this.setState({
         id:               props.manageDevice.editData.device.id,
         machine_type:     props.manageDevice.editData.device.machine_type,
@@ -112,6 +137,8 @@ class FormAddNewInventory extends React.Component {
         warranty:         warranty,
         user_Id:          props.manageDevice.editData.device.user_Id,
         unassign_comment: props.manageDevice.editData.device.unassign_comment,
+        warranty_years:props.manageDevice.editData.device.warranty_years
+        
 
       });
       if(this.props.manageDevice.status_message ==='Successfully Updated into table'){
@@ -137,13 +164,30 @@ class FormAddNewInventory extends React.Component {
         warranty:         '',
         user_Id:          '',
         loading:          false,
-        unassign_comment: ''
+        unassign_comment: '',
+        warranty_years:   ''
       });
       this.props.manageDevice.status_message='';
     }
     
   }
   handleAddDevice () {
+    newdate = new Date(this.state.purchase_date);
+           if(selectedOption == 0.5){
+             newdate.setMonth(newdate.getMonth()+6);
+           } else if(selectedOption  == 1) {
+             newdate.setFullYear(newdate.getFullYear()+1);     
+           } else if(selectedOption  == 2) {
+           newdate.setFullYear(newdate.getFullYear()+2);             
+           } else if(selectedOption  == 3){
+             newdate.setFullYear(newdate.getFullYear()+3);                       
+           }else if(selectedOption  == 5){
+             newdate.setFullYear(newdate.getFullYear()+5);                       
+           }
+              var dd = newdate.getDate();
+              var mm = newdate.getMonth() + 1;
+              var y = newdate.getFullYear();
+              var someFormattedDate = y + '-' + mm + '-' + dd;
 
     let apiData = {
       machine_type:     this.state.machine_type,
@@ -157,9 +201,10 @@ class FormAddNewInventory extends React.Component {
       warranty_comment: this.state.warranty_comment.trim(),
       repair_comment:   this.state.repair_comment.trim(),
       bill_no:          this.state.bill_no.trim(),
-      warranty:         this.state.warranty,
+      warranty:         someFormattedDate,
       user_Id:          this.state.user_Id,
-      unassign_comment: this.state.unassign_comment
+      unassign_comment: this.state.unassign_comment,
+      warranty_years:   this.state.warranty_years
     };
     let resetFields = {
       machine_type:     '',
@@ -174,7 +219,8 @@ class FormAddNewInventory extends React.Component {
       bill_no:          '',
       warranty:         '',
       user_Id:          '',
-      unassign_comment: ''
+      unassign_comment: '',
+      warranty_years:''
     };
     let validate = true;
     this.setState({
@@ -229,6 +275,13 @@ class FormAddNewInventory extends React.Component {
       edit:           false
     });
   }
+  warranty_date=(e)=>{
+    e.preventDefault();
+    selectedOption=e.target.value
+           this.setState({
+             warranty_years:e.target.value
+            });
+         }  
  
   render () {
     let userList = this.props.usersList.users.map((val, i) => {
@@ -262,14 +315,21 @@ class FormAddNewInventory extends React.Component {
               </div>
 
               <div className="col-md-6">
-              {this.state.warranty?'Date Of Warrenty Expiry':''}
-                <DatePicker hintText="Date Of Warrenty Expiry"
-                 onChange={(e,date) => { this.setState({warranty: date}); }}
-                 value={this.state.warranty}
-                 required
-                 textFieldStyle={{width:"100%"}}
-                 />
-              </div>
+                  <div className="col-md-6"><p style={{opacity: '0.56'}}>Date Of Warrenty Expiry</p> <p>{this.props.manageDevice.editData.device.warranty_end_date}</p></div>
+                  <select style={{marginTop: '0%'}}
+                    value={this.state.warranty_years}
+                    ref="warranty_period"                  
+                    onChange={this.warranty_date}
+                    className="form-control"
+                    required >
+                      <option value="" disabled>--Select warranty period--</option>
+                      <option value="0.5">6 Months</option>
+                      <option value="1">1 year</option>
+                      <option value="2">2 year</option>
+                      <option value="3">3 year</option>
+                      <option value="5">5 year</option>
+                    </select>
+                </div>
 
               <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
                 {'Machine/Device Type'}
@@ -314,10 +374,8 @@ class FormAddNewInventory extends React.Component {
                   onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
                   className="form-control" required>
                   <option value=''>Select User</option>
-                  <option value="unassign">Unassign</option>
-                 {userList.map((value, i) => {             
-                    return <option key={i} value={value}> {value.props.children}</option>;
-                  })}
+                  <option value="unassign">Unassign Device to any employee</option>
+                 {userList}
                 </select>
               </div>
               {this.state.user_Id=='unassign'?<div className="col-md-6">

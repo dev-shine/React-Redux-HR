@@ -65,7 +65,6 @@ class InventoryItem extends React.Component {
     const machineName = _.filter(this.props.manageDevice.device, {
       id: this.props.routeParams.id
     });
-    console.log(machineName[0]);
     const pat = _.isEmpty(machineName)
       ? null
       : machineName[0].fileInventoryPhoto;
@@ -206,44 +205,6 @@ class InventoryItem extends React.Component {
                             ? null
                             : `₹ ${machineName[0].machine_price}`}
                         </div>
-                        )}<br />
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Device Name:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].machine_name}
-                        </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>
-                            Date of purchase:
-                          </label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].date_of_purchase}
-                        </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Price:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].machine_price}
-                        </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Device Type:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].machine_type}
-                        </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Status:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].status}
-                        </div>
-                        <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Serial No:</label>{" "}
-                          {_.isEmpty(machineName)
-                            ? null
-                            : machineName[0].serial_number}
                         </div>
                         <br />
                         <label style={{ fontSize: 15 }}>Users:</label>
@@ -286,7 +247,6 @@ class InventoryItem extends React.Component {
                               value={this.state.comment}
                             />
                           </div>
-                        </div>
                         <br />
                         <button
                           className="btn btn-fw info responsive-p-x-sm"

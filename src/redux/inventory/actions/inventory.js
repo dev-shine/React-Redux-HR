@@ -28,7 +28,8 @@ function async_addNewMachine (
   n_repair_comment,
   n_bill_no,
   n_user_Id,
-  n_unassign_comment
+  n_unassign_comment,
+  n_option_warranty
 
 ) {
   return fireAjax('POST', '', {
@@ -46,11 +47,13 @@ function async_addNewMachine (
     'repair_comment':   n_repair_comment,
     'bill_no':          n_bill_no,
     'user_id':          n_user_Id,
-    'unassign_comment': n_unassign_comment
+    'unassign_comment': n_unassign_comment,
+    'warranty_years':n_option_warranty
   });
 }
 
 export function addNewMachine (new_machine_details) {
+  
   return function (dispatch, getState) {
     let n_machine_type = '';
     let n_machine_name = '';
@@ -66,6 +69,7 @@ export function addNewMachine (new_machine_details) {
     let n_bill_no='';
     let n_user_Id = '';
     let n_unassign_comment='';
+    let n_option_warranty='';
     
 
     if (typeof new_machine_details.machine_type === 'undefined' || new_machine_details.machine_type === '') {
@@ -126,6 +130,11 @@ export function addNewMachine (new_machine_details) {
     } else {
       n_warranty_comment = new_machine_details.warranty_comment;
     }
+    if (typeof new_machine_details.warranty_years === 'undefined' || new_machine_details.warranty_years === '') {
+      return Promise.reject('select warranty expiry option');
+    } else {
+      n_option_warranty = new_machine_details.warranty_years;
+    }
 
     if (typeof new_machine_details.repair_comment === 'undefined') {
       return Promise.reject('Repair Comment is empty');
@@ -146,6 +155,8 @@ export function addNewMachine (new_machine_details) {
      else {
       n_user_Id = new_machine_details.user_Id;
     }
+
+    
     
     if(new_machine_details.user_Id=='unassign'){
        if (typeof new_machine_details.unassign_comment === 'undefined' || new_machine_details.unassign_comment.trim() === '') {
@@ -171,7 +182,8 @@ export function addNewMachine (new_machine_details) {
         n_repair_comment,
         n_bill_no,
         n_user_Id,
-      n_unassign_comment).then((json) => {
+      n_unassign_comment,
+      n_option_warranty).then((json) => {
           dispatch(hide_loading());
           dispatch(deviceCount());
           if (json.error === 0) {
@@ -289,7 +301,8 @@ function getAsync_updateDeviceById (deviceId, data) {
     'repair_comment':   data.repair_comment,
     'bill_no':          data.bill_no,
     'user_id':          data.user_Id,
-    'unassign_comment': data.unassign_comment
+    'unassign_comment': data.unassign_comment,
+    'warranty_years':data.warranty_years
   });
 }
 

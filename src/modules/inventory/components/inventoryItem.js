@@ -60,7 +60,11 @@ class InventoryItem extends React.Component {
   }
 
   render() {
-    const machineName = _.filter(this.props.manageDevice.device, {
+    const machineList = _.concat(
+      this.props.manageDevice.device,
+      this.props.manageDevice.unapprovedList.data
+    );
+    const machineName = _.filter(machineList, {
       id: this.props.routeParams.id
     });
     const pat = _.isEmpty(machineName)
@@ -119,6 +123,8 @@ class InventoryItem extends React.Component {
       }
     );
     let path = CONFIG.inventory_images;
+    console.log(machineList,"machine list")
+    console.log(machineName,"machine name");
     return (
       <div>
         <Menu {...this.props} />
@@ -176,7 +182,7 @@ class InventoryItem extends React.Component {
                           </label>{" "}
                           {_.isEmpty(machineName)
                             ? null
-                            : machineName[0].approval_status === 0
+                            : machineName[0].approval_status === "0"
                               ? "Not Approved"
                               : "Approved"}
                         </div>

@@ -80,7 +80,6 @@ class InventoryList extends React.Component {
     });
     if (props.searchVal !== undefined) {
       this.handleDeviceTypeFilter(props.searchVal);
-      console.log(props.searchVal)
     }
     if (
       props.manageDevice.approvedList == "Machine status updated successfully"

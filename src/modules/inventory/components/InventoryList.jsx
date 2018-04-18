@@ -56,6 +56,7 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus().then(val => {
       this.setState({ deviceStatusList: val });
     });
+    
 
   }
 
@@ -79,6 +80,7 @@ class InventoryList extends React.Component {
     });
     if (props.searchVal !== undefined) {
       this.handleDeviceTypeFilter(props.searchVal);
+      console.log(props.searchVal)
     }
     if (
       props.manageDevice.approvedList == "Machine status updated successfully"
@@ -451,6 +453,7 @@ class InventoryList extends React.Component {
       );
     });
     return (
+
       <div>
         <div className="app-body" id="view">
           <div className="col-xs-12 col-sm-12" style={{ float: "right" }}>

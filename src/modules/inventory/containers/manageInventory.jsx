@@ -163,6 +163,7 @@ class InventorySystem extends React.Component {
         deviceList: "hidden",
         firstArrow: "hidden",
         viewUser: "hidden",
+        viewUserNew: "hidden",
         secondArrow: "hidden",
         thirdArrow: "show",
         thirdArrow: "hidden",
@@ -297,7 +298,11 @@ class InventorySystem extends React.Component {
                         onClick={() => {
                           this.openPage("device_list");
                         }}
-                        className={this.state.selectedTab?"nav-item":`nav-item ${this.state.active}`}
+                        className={
+                          this.state.selectedTab
+                            ? "nav-item"
+                            : `nav-item ${this.state.active}`
+                        }
                       >
                         <a
                           className="nav-link"
@@ -356,7 +361,11 @@ class InventorySystem extends React.Component {
                         onClick={() => {
                           this.openPage("unapproved_user");
                         }}
-                        className={this.state.selectedTab?`nav-item ${this.state.active}`:"nav-item"}
+                        className={
+                          this.state.selectedTab
+                            ? `nav-item ${this.state.active}`
+                            : "nav-item"
+                        }
                       >
                         <a
                           className="nav-link"
@@ -420,16 +429,25 @@ class InventorySystem extends React.Component {
                 />
               </div>
               <div className={this.state.viewUser}>
-                <div className="col-md-2">
-                  <UsersList
-                    users={this.props.usersList.users}
-                    selectedUserId={this.state.selectedUserId}
-                    onUserClick={this.onUserClick}
-                    callUpdateUserDeviceDetails={
-                      this.callUpdateUserDeviceDetails
-                    }
-                    {...this.props}
-                  />
+                <div className="row">
+                  <div className="col-md-3">
+                    <UsersList
+                      users={this.props.usersList.users}
+                      selectedUserId={this.state.selectedUserId}
+                      onUserClick={this.onUserClick}
+                      callUpdateUserDeviceDetails={
+                        this.callUpdateUserDeviceDetails
+                      }
+                      {...this.props}
+                    />
+                  </div>
+                  <div className="col-md-9">
+                    <ViewUserDevice
+                      userAssignMachine={
+                        this.props.manageUsers.user_assign_machine
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </div>

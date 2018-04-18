@@ -333,9 +333,11 @@ class FormAddNewInventory extends React.Component {
             <div className="col-md-6">
               <div className="col-md-6">
                 <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
+                  {this.props.manageDevice.editData.device.warranty_end_date ? 
                 <p>
-                  {this.props.manageDevice.editData.device.warranty_end_date}
+                   {this.props.manageDevice.editData.device.warranty_end_date}
                 </p>
+                    : null}
               </div>
               <select
                 style={{ marginTop: "0%" }}

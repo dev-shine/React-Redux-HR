@@ -340,7 +340,7 @@ class FormAddNewInventory extends React.Component {
                     : null}
               </div>
               <select
-                style={{ marginTop: "0%" }}
+                style={{ marginTop: "0%" ,opacity: "0.56"}}
                 value={this.state.warranty_years}
                 ref="warranty_period"
                 onChange={this.warranty_date}

@@ -36,10 +36,8 @@ class InventoryItem extends React.Component {
   handleAddComment(add_inventory_comment) {
     this.props.onAddInventoryComment(add_inventory_comment).then(
       data => {
-        notify("Success!", data, "success");
         this.props.onFetchDevice();
         this.props.onGetDevice(device_id);
-        this.setState({ comment: "" });
       },
       error => {
         notify("Error!", error, "error");
@@ -52,7 +50,7 @@ class InventoryItem extends React.Component {
   AssignDevice(assign_device) {
     this.props.onAssignDevice(assign_device).then(
       data => {
-        notify("Success!", data, "success");
+        // notify("Success!", data, "success");
         this.props.onGetDevice(device_id);
       },
       error => {
@@ -172,7 +170,6 @@ class InventoryItem extends React.Component {
                             ? null
                             : machineName[0].status}
                         </div>
-
                         <div className="col-md-6">
                           <label style={{ fontSize: 15 }}>
                             Approval Status:
@@ -205,70 +202,81 @@ class InventoryItem extends React.Component {
                             ? null
                             : `₹ ${machineName[0].machine_price}`}
                         </div>
+                      </div>
+                      <br />
+                      <br />
+                      <label style={{ fontSize: 15 }}>Users:</label>
+                      <select
+                        onChange={e =>
+                          this.setState({
+                            user_id: e.target.value,
+                            inventory_id: this.props.routeParams.id
+                          })
+                        }
+                        className="form-control"
+                        ref="device_type"
+                        value={this.state.user}
+                      >
+                        <option value="">--Select User--</option>
+                        {userName}
+                      </select>
+                      <br />{" "}
+                      <button
+                        className="btn btn-fw info responsive-p-x-sm"
+                        onClick={() => this.AssignDevice(this.state)}
+                      >
+                        Assign Inventory
+                      </button>
+                      <div className="row m-1">
+                        <div
+                          className="col-sm-15 p-8 pt-8"
+                          style={{ marginTop: "4%" }}
+                        >
+                          <label style={{ fontSize: 15 }}>Comment:</label>
+                          <textarea
+                            placeholder="Your comment"
+                            className="form-control resize-y"
+                            onChange={e =>
+                              this.setState({
+                                comment: e.target.value,
+                                inventory_id: this.props.routeParams.id
+                              })
+                            }
+                            value={this.state.comment}
+                          />
                         </div>
-                        <br />
-                        <label style={{ fontSize: 15 }}>Users:</label>
-                        <select
-                          onChange={e =>
-                            this.setState({
-                              user_id: e.target.value,
-                              inventory_id: this.props.routeParams.id
-                            })
-                          }
-                          className="form-control"
-                          ref="device_type"
-                          value={this.state.user}
+                      </div>
+                      <br />
+                      <button
+                        className="btn btn-fw info responsive-p-x-sm"
+                        onClick={() => this.handleAddComment(this.state)}
+                      >
+                        Submit
+                      </button>
+                      <div className="row m-2">
+                        <div
+                          className="col-sm-15 p-8 pt-8"
+                          style={{ marginTop: "4%" }}
                         >
-                          <option value="">--Select User--</option>
-                          {userName}
-                        </select>
-                        <br />{" "}
-                        <button
-                          className="btn btn-fw info responsive-p-x-sm"
-                          onClick={() => this.AssignDevice(this.state)}
-                        >
-                          Assign Inventory
-                        </button>
-                        <div className="row m-1">
-                          <div
-                            className="col-sm-15 p-8 pt-8"
-                            style={{ marginTop: "4%" }}
-                          >
-                            <label style={{ fontSize: 15 }}>Comment:</label>
-                            <textarea
-                              placeholder="Your comment"
-                              className="form-control resize-y"
-                              onChange={e =>
-                                this.setState({
-                                  comment: e.target.value,
-                                  inventory_id: this.props.routeParams.id
-                                })
-                              }
-                              value={this.state.comment}
-                            />
-                          </div>
-                        <br />
-                        <button
-                          className="btn btn-fw info responsive-p-x-sm"
-                          onClick={() => this.handleAddComment(this.state)}
-                        >
-                          Submit
-                        </button>
-                        <div className="row m-2">
-                          <div
-                            className="col-sm-15 p-8 pt-8"
-                            style={{ marginTop: "4%" }}
-                          >
-                            {" "}
-                            {Assignhistory}
-                            {history}
-                          </div>
+                          {" "}
+                          {Assignhistory}
+                          {history}
                         </div>
                       </div>
                     </div>
                     {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
                   </div>
-                  <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div>
+                  <div
+                    className="col-md-5 p-r col-sm-offset-1"
+                    style={{ marginTop: "17px" }}
+                  >
+                    {
+                      <DialogUpload
+                        inventory_id={this.props.routeParams.id}
+                        {...this.props}
+                      />
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -283,7 +291,7 @@ function mapStateToProps(state) {
   return {
     usersList: state.usersList.toJS(),
     loggedUser: state.logged_user.userLogin,
-    manageDevice: state.manageDevice.toJS(),
+    manageDevice: state.manageDevice.toJS()
   };
 }
 

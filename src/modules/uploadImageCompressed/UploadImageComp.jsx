@@ -61,6 +61,7 @@ class UploadImageComp extends Component {
               notify("Success !", `File uploaded successfully`, "success");
               this.setState({ loading: false });
               this.props.onFetchDevice();
+              this.props.onFetchUnapprovedUser();
             })
             .catch(error => {
               if (error.request) {
@@ -107,7 +108,10 @@ const mapDispatchToProps = dispatch => {
     },
     onUploadFile: () => {
       return dispatch(actionsUploadFile.uploadFile());
-    }
+    },
+    onFetchUnapprovedUser: () => {
+      return dispatch(actionsManageDevice.unapprovedUser());
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UploadImageComp);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ImageCompressor from "image-compressor.js";
 import { notify } from "src/services/notify";
 import { connect } from "react-redux";
-import { uploadFile } from "appRedux/uploadImageComp/actions/uploadImageComp";
 import { qualityValue } from "src/helper/helper";
 import axios from "axios";
 import CircularProgress from "material-ui/CircularProgress";

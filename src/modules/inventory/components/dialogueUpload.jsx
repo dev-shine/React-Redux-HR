@@ -20,10 +20,7 @@ export default class DialogUpload extends React.Component {
       inventory_photo: "",
       page_url: window.location.href,
       document: "",
-      file: [],
-      photoImage: "",
-      warrantyImage: "",
-      invoiceImage: ""
+      file: []
     };
     this.handleFileChange = this.handleFileChange.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
@@ -31,9 +28,6 @@ export default class DialogUpload extends React.Component {
   componentWillReceiveProps(props) {
     this.setState({
       token: getToken(),
-      photoImage: props.manageDevice.deviceHistory.fileInventoryPhoto,
-      warrantyImage: props.manageDevice.deviceHistory.fileInventoryWarranty,
-      invoiceImage: props.manageDevice.deviceHistory.fileInventoryInvoice
     });
   }
 
@@ -88,7 +82,24 @@ export default class DialogUpload extends React.Component {
     this.setState({ open: false });
   };
   render() {
-    console.table(this.state);
+    const machineList = _.concat(
+      this.props.manageDevice.device,
+      this.props.manageDevice.unapprovedList.data
+    );
+    const machineName = _.filter(machineList, {
+      id: this.props.inventory_id
+    });
+    const fileInventoryPhoto = _.isEmpty(machineName)
+      ? null
+      : machineName[0].fileInventoryPhoto;
+    const fileInventoryWarranty = _.isEmpty(machineName)
+      ? null
+      : machineName[0].fileInventoryWarranty;
+    const fileInventoryInvoice = _.isEmpty(machineName)
+      ? null
+      : machineName[0].fileInventoryInvoice;
+
+
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];
@@ -130,10 +141,13 @@ export default class DialogUpload extends React.Component {
           </div>
         </form>
         <div className="form-group">
-          {this.state.photoImage ? (
+          {fileInventoryPhoto ? (
             <div>
               <img
-                src={path + this.state.photoImage}
+                src={
+                  path +
+                  fileInventoryPhoto
+                }
                 onClick={() => {
                   this.handleInlargePhoto();
                 }}
@@ -147,20 +161,20 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open3}
             onRequestClose={this.handleClose}
-            autoScrollBodyContent = {true}
+            autoScrollBodyContent={true}
           >
             <div className="thumbnail">
-              <img src={path + this.state.photoImage} />
+              <img src={path + fileInventoryPhoto} />
             </div>
           </Dialog>
         </div>
 
         <div className="form-group">
-          {this.state.warrantyImage ? (
+          {fileInventoryWarranty? (
             <div>
               {" "}
               <img
-                src={path + this.state.warrantyImage}
+                src={path + fileInventoryWarranty}
                 onClick={() => {
                   this.handleInlargeWarranty();
                 }}
@@ -174,20 +188,20 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open1}
             onRequestClose={this.handleClose}
-            autoScrollBodyContent = {true}
+            autoScrollBodyContent={true}
           >
             {" "}
             <div className="thumbnail">
-              <img src={path + this.state.warrantyImage} />
+              <img src={path + fileInventoryWarranty} />
             </div>
           </Dialog>
         </div>
         <div className="form-group">
-          {this.state.invoiceImage ? (
+          {fileInventoryInvoice ? (
             <div>
               {" "}
               <img
-                src={path + this.state.invoiceImage}
+                src={path + fileInventoryInvoice}
                 onClick={() => {
                   this.handleInlargeInvoice();
                 }}
@@ -201,10 +215,10 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open2}
             onRequestClose={this.handleClose}
-            autoScrollBodyContent = {true}
+            autoScrollBodyContent={true}
           >
             <div className="thumbnail">
-              <img src={path + this.state.invoiceImage} />
+              <img src={path + fileInventoryInvoice} />
             </div>
           </Dialog>
         </div>

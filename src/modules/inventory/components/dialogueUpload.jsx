@@ -147,11 +147,14 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open3}
             onRequestClose={this.handleClose}
+            autoScrollBodyContent = {true}
           >
-            <img src={path + this.state.photoImage} />
+            <div className="thumbnail">
+              <img src={path + this.state.photoImage} />
+            </div>
           </Dialog>
         </div>
-        
+
         <div className="form-group">
           {this.state.warrantyImage ? (
             <div>
@@ -171,8 +174,12 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open1}
             onRequestClose={this.handleClose}
+            autoScrollBodyContent = {true}
           >
-            <img src={path + this.state.warrantyImage} />
+            {" "}
+            <div className="thumbnail">
+              <img src={path + this.state.warrantyImage} />
+            </div>
           </Dialog>
         </div>
         <div className="form-group">
@@ -194,8 +201,11 @@ export default class DialogUpload extends React.Component {
             modal={false}
             open={this.state.open && this.state.open2}
             onRequestClose={this.handleClose}
+            autoScrollBodyContent = {true}
           >
-            <img src={path + this.state.invoiceImage} />
+            <div className="thumbnail">
+              <img src={path + this.state.invoiceImage} />
+            </div>
           </Dialog>
         </div>
         <UploadImageComp

@@ -6,6 +6,8 @@ import { uploadFile } from "appRedux/uploadImageComp/actions/uploadImageComp";
 import { qualityValue } from "src/helper/helper";
 import axios from "axios";
 import CircularProgress from "material-ui/CircularProgress";
+import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
+import * as actionsUploadFile from "appRedux/uploadImageComp/actions/uploadImageComp";
 
 class UploadImageComp extends Component {
   constructor() {
@@ -21,7 +23,7 @@ class UploadImageComp extends Component {
     e.preventDefault();
     const { params } = this.props;
     const file = this.props.file;
-    const fileName = this.props.fileName;
+    const fileName = this.props.fileName; //the name must be same as in backend
     const url = this.props.url;
 
     if (!file) {
@@ -34,7 +36,7 @@ class UploadImageComp extends Component {
       formData.append(fileName, file);
       formData.append("submit", "Upload");
 
-      this.props.uploadFile(formData, url);
+      this.props.onUploadFile(formData, url);
     } else {
       this.setState({ loading: true });
       let quality = qualityValue(file);
@@ -59,6 +61,7 @@ class UploadImageComp extends Component {
             .then(data => {
               notify("Success !", `File uploaded successfully`, "success");
               this.setState({ loading: false });
+              this.props.onFetchDevice();
             })
             .catch(error => {
               if (error.request) {
@@ -98,4 +101,14 @@ class UploadImageComp extends Component {
 const mapStateToProps = state => ({
   loading: state.uploadImage.loading
 });
-export default connect(mapStateToProps, { uploadFile })(UploadImageComp);
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchDevice: () => {
+      return dispatch(actionsManageDevice.get_machines_detail());
+    },
+    onUploadFile: () => {
+      return dispatch(actionsUploadFile.uploadFile());
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UploadImageComp);

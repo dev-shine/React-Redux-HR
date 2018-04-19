@@ -14,14 +14,16 @@ export default class DialogUpload extends React.Component {
     this.state = {
       inventory_id: this.props.inventory_id,
       token: "",
-      inventory_files: "inventory_files",
-      photoImage: "",
-      warrantyImage: "",
-      inoviceImage: "",
+      file_upload_action: "inventory_files",
+      inventory_invoice: "",
+      inventory_warranty: "",
+      inventory_photo: "",
+      page_url: window.location.href,
       document: "",
       file: [],
-      fileName: "",
-      page_url: window.location.href
+      photoImage: "",
+      warrantyImage: "",
+      invoiceImage: ""
     };
     this.handleFileChange = this.handleFileChange.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
@@ -31,7 +33,7 @@ export default class DialogUpload extends React.Component {
       token: getToken(),
       photoImage: props.manageDevice.deviceHistory.fileInventoryPhoto,
       warrantyImage: props.manageDevice.deviceHistory.fileInventoryWarranty,
-      inoviceImage: props.manageDevice.deviceHistory.fileInventoryInvoice
+      invoiceImage: props.manageDevice.deviceHistory.fileInventoryInvoice
     });
   }
 
@@ -40,8 +42,6 @@ export default class DialogUpload extends React.Component {
   };
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
-
-    
   }
 
   callUpdateDocuments(e) {
@@ -68,7 +68,7 @@ export default class DialogUpload extends React.Component {
       open1: false
     });
   }
-  handleInlargeInovice() {
+  handleInlargeInvoice() {
     this.setState({
       open: true,
       open3: false,
@@ -88,7 +88,7 @@ export default class DialogUpload extends React.Component {
     this.setState({ open: false });
   };
   render() {
-    
+    console.table(this.state);
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];
@@ -107,16 +107,14 @@ export default class DialogUpload extends React.Component {
               className="form-control"
               ref="status"
               value={this.state.document}
-              onChange={e => (
-                this.setState({ document: e.target.value })
-              )}
+              onChange={e => this.setState({ document: e.target.value })}
             >
               <option value="" disabled>
                 --Select document--
               </option>
-              <option value="file_inventory_photo">Photo</option>
-              <option value="file_inventory_warranty">Warranty</option>
-              <option value="file_inventory_inovice">Inovice</option>
+              <option value="inventory_photo">Photo</option>
+              <option value="inventory_warranty">Warranty</option>
+              <option value="inventory_invoice">Inovice</option>
             </select>
           </div>
           <div className="form-group">
@@ -130,7 +128,6 @@ export default class DialogUpload extends React.Component {
               onChange={this.handleFileChange}
             />
           </div>
-          
         </form>
         <div className="form-group">
           {this.state.photoImage ? (
@@ -154,29 +151,7 @@ export default class DialogUpload extends React.Component {
             <img src={path + this.state.photoImage} />
           </Dialog>
         </div>
-        <div className="form-group">
-          {this.state.inoviceImage ? (
-            <div>
-              {" "}
-              <img
-                src={path + this.state.inoviceImage}
-                onClick={() => {
-                  this.handleInlargeInovice();
-                }}
-                className="small"
-              />
-              <br />
-            </div>
-          ) : null}
-          <Dialog
-            actions={actions}
-            modal={false}
-            open={this.state.open && this.state.open2}
-            onRequestClose={this.handleClose}
-          >
-            <img src={path + this.state.inoviceImage} />
-          </Dialog>
-        </div>
+        
         <div className="form-group">
           {this.state.warrantyImage ? (
             <div>
@@ -200,13 +175,36 @@ export default class DialogUpload extends React.Component {
             <img src={path + this.state.warrantyImage} />
           </Dialog>
         </div>
+        <div className="form-group">
+          {this.state.invoiceImage ? (
+            <div>
+              {" "}
+              <img
+                src={path + this.state.invoiceImage}
+                onClick={() => {
+                  this.handleInlargeInvoice();
+                }}
+                className="small"
+              />
+              <br />
+            </div>
+          ) : null}
+          <Dialog
+            actions={actions}
+            modal={false}
+            open={this.state.open && this.state.open2}
+            onRequestClose={this.handleClose}
+          >
+            <img src={path + this.state.invoiceImage} />
+          </Dialog>
+        </div>
         <UploadImageComp
-            callUpdateDocuments={this.callUpdateDocuments}
-            url={CONFIG.inventory_upload_url}
-            params={this.state}
-            file={this.state.file[0]}
-            fileName={this.state.document}
-          />
+          callUpdateDocuments={this.callUpdateDocuments}
+          url={CONFIG.inventory_upload_url}
+          params={this.state}
+          file={this.state.file[0]}
+          fileName={this.state.document}
+        />
       </div>
     );
   }

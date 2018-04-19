@@ -15,7 +15,7 @@ class FormAddDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // document_type: "",
+      document_type: "",
       token: "",
       file: [],
       user_id: this.props.params.splat,
@@ -87,7 +87,7 @@ class FormAddDocument extends Component {
                           document_type: this.refs.document_type.value
                         })
                       }
-                      value={this.state.doc_type}
+                      value={this.state.document_type}
                     >
                       <option value="">--- Select Doc Type ---</option>
                       <option value="CV">CV</option>
@@ -117,11 +117,6 @@ class FormAddDocument extends Component {
                     </select>
                   </div>
 
-                  <input
-                    type="hidden"
-                    name="document_type"
-                    value={this.state.doc_type}
-                  />
                   <div className="form-group">
                     <label className="col-sm-12">Attachment </label>
                     <input

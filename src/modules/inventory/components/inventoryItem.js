@@ -123,8 +123,7 @@ class InventoryItem extends React.Component {
       }
     );
     let path = CONFIG.inventory_images;
-    console.log(machineList,"machine list")
-    console.log(machineName,"machine name");
+
     return (
       <div>
         <Menu {...this.props} />

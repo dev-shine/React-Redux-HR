@@ -145,8 +145,10 @@ class InventoryItem extends React.Component {
                       <div className="row">
                         {" "}
                         {pat === null || undefined ? null : (
-                          <div className="col-md-12">
-                            <img src={path + pat} />
+                          <div className=" col-md-3">
+                            <a className="thumbnail">
+                              <img src={path + pat} />
+                            </a>
                           </div>
                         )}
                         <br />

@@ -56,8 +56,6 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus().then(val => {
       this.setState({ deviceStatusList: val });
     });
-    
-
   }
 
   componentWillReceiveProps(props) {
@@ -359,7 +357,9 @@ class InventoryList extends React.Component {
             {(device.fileInventoryPhoto === null) | undefined ? (
               ""
             ) : (
-              <img src={path + device.fileInventoryPhoto} />
+              <a className="thumbnail">
+                <img src={path + device.fileInventoryPhoto} />
+              </a>
             )}
           </td>
 
@@ -452,7 +452,6 @@ class InventoryList extends React.Component {
       );
     });
     return (
-
       <div>
         <div className="app-body" id="view">
           <div className="col-xs-12 col-sm-12" style={{ float: "right" }}>

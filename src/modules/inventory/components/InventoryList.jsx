@@ -93,7 +93,9 @@ class InventoryList extends React.Component {
           deviceList: props.manageDevice.device
         },
         () => {
-          this.handleDeviceTypeFilter(this.props.routeParams.device);
+          this.state.search
+            ? this.handleDeviceTypeFilter(this.state.search)
+            : this.handleDeviceTypeFilter(this.props.routeParams.device);
         }
       );
       this.handleStatusTypeFilter("Working");

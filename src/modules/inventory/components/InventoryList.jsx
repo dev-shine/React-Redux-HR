@@ -68,7 +68,7 @@ class InventoryList extends React.Component {
         openSnackbar: false
       });
     }
-    let unapprovedList = _.reverse(props.manageDevice.unapprovedList.data);
+    let unapprovedList = _.orderBy(props.manageDevice.unapprovedList.data,['id'],['desc']);
     this.setState({
       deviceTypeList: props.manageDevice.deviceList,
       deviceList: props.manageDevice.device,

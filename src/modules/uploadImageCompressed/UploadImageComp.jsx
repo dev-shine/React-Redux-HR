@@ -111,7 +111,7 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchUnapprovedUser: () => {
       return dispatch(actionsManageDevice.unapprovedUser());
-    },
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UploadImageComp);

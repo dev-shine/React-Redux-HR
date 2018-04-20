@@ -27,7 +27,7 @@ export default class DialogUpload extends React.Component {
   }
   componentWillReceiveProps(props) {
     this.setState({
-      token: getToken(),
+      token: getToken()
     });
   }
 
@@ -81,6 +81,7 @@ export default class DialogUpload extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   render() {
     const machineList = _.concat(
       this.props.manageDevice.device,
@@ -99,9 +100,6 @@ export default class DialogUpload extends React.Component {
       ? null
       : machineName[0].fileInventoryInvoice;
 
-      console.log(machineList,"machineList")
-console.log(machineName[0],"machinename");
-console.log(fileInventoryPhoto,"Inventoryphoto")
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];
@@ -145,11 +143,9 @@ console.log(fileInventoryPhoto,"Inventoryphoto")
         <div className="form-group">
           {fileInventoryPhoto ? (
             <div>
+              <label className="col-sm-12">Photo </label>
               <img
-                src={
-                  path +
-                  fileInventoryPhoto
-                }
+                src={path + fileInventoryPhoto}
                 onClick={() => {
                   this.handleInlargePhoto();
                 }}
@@ -172,9 +168,9 @@ console.log(fileInventoryPhoto,"Inventoryphoto")
         </div>
 
         <div className="form-group">
-          {fileInventoryWarranty? (
+          {fileInventoryWarranty ? (
             <div>
-              {" "}
+              <label className="col-sm-12">Warranty</label>
               <img
                 src={path + fileInventoryWarranty}
                 onClick={() => {
@@ -192,7 +188,6 @@ console.log(fileInventoryPhoto,"Inventoryphoto")
             onRequestClose={this.handleClose}
             autoScrollBodyContent={true}
           >
-            {" "}
             <div className="thumbnail">
               <img src={path + fileInventoryWarranty} />
             </div>
@@ -201,7 +196,7 @@ console.log(fileInventoryPhoto,"Inventoryphoto")
         <div className="form-group">
           {fileInventoryInvoice ? (
             <div>
-              {" "}
+              <label className="col-sm-12">Invoice </label>
               <img
                 src={path + fileInventoryInvoice}
                 onClick={() => {

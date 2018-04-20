@@ -161,7 +161,7 @@ class FormAddDocument extends Component {
                   <div className = "form-group">
                   {this.state.file[0] ? (
                     <div>
-                    <label className="col-sm-12">Image Preview </label>
+                    <label className="col-xs-12">Image Preview </label>
                       <img
                         src={this.state.imageUrl}
                         onClick={() => {

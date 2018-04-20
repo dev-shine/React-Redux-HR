@@ -143,7 +143,7 @@ export default class DialogUpload extends React.Component {
         <div className="form-group">
           {fileInventoryPhoto ? (
             <div>
-              <label className="col-sm-12">Photo </label>
+              <label className="col-xs-12">Photo </label>
               <img
                 src={path + fileInventoryPhoto}
                 onClick={() => {
@@ -170,7 +170,7 @@ export default class DialogUpload extends React.Component {
         <div className="form-group">
           {fileInventoryWarranty ? (
             <div>
-              <label className="col-sm-12">Warranty</label>
+              <label className="col-xs-12">Warranty</label>
               <img
                 src={path + fileInventoryWarranty}
                 onClick={() => {
@@ -196,7 +196,7 @@ export default class DialogUpload extends React.Component {
         <div className="form-group">
           {fileInventoryInvoice ? (
             <div>
-              <label className="col-sm-12">Invoice </label>
+              <label className="col-xs-12">Invoice </label>
               <img
                 src={path + fileInventoryInvoice}
                 onClick={() => {

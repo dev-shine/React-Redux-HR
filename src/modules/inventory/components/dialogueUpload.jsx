@@ -27,7 +27,7 @@ export default class DialogUpload extends React.Component {
   }
   componentWillReceiveProps(props) {
     this.setState({
-      token: getToken(),
+      token: getToken()
     });
   }
 
@@ -81,6 +81,7 @@ export default class DialogUpload extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   render() {
     const machineList = _.concat(
       this.props.manageDevice.device,
@@ -142,11 +143,9 @@ export default class DialogUpload extends React.Component {
         <div className="form-group">
           {fileInventoryPhoto ? (
             <div>
+              <label className="col-xs-12">Photo </label>
               <img
-                src={
-                  path +
-                  fileInventoryPhoto
-                }
+                src={path + fileInventoryPhoto}
                 onClick={() => {
                   this.handleInlargePhoto();
                 }}
@@ -169,9 +168,9 @@ export default class DialogUpload extends React.Component {
         </div>
 
         <div className="form-group">
-          {fileInventoryWarranty? (
+          {fileInventoryWarranty ? (
             <div>
-              {" "}
+              <label className="col-xs-12">Warranty</label>
               <img
                 src={path + fileInventoryWarranty}
                 onClick={() => {
@@ -189,7 +188,6 @@ export default class DialogUpload extends React.Component {
             onRequestClose={this.handleClose}
             autoScrollBodyContent={true}
           >
-            {" "}
             <div className="thumbnail">
               <img src={path + fileInventoryWarranty} />
             </div>
@@ -198,7 +196,7 @@ export default class DialogUpload extends React.Component {
         <div className="form-group">
           {fileInventoryInvoice ? (
             <div>
-              {" "}
+              <label className="col-xs-12">Invoice </label>
               <img
                 src={path + fileInventoryInvoice}
                 onClick={() => {

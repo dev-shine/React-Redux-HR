@@ -697,9 +697,11 @@ export function addUserComment (addUserCommentDetails) {
       n_inventory_id = addUserCommentDetails.inventory_id;
     }
     if (n_comment.trim() === "") {
+      notify('Warning!','Comment is empty','warning');
       return Promise.reject("Comment is empty");
     }
     if (n_inventory_id.trim() === "") {
+      notify('Warning!','Inventory id is empty','warning');
       return Promise.reject("inventory id is empty");
     }
 

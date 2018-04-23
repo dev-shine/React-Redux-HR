@@ -54,7 +54,6 @@ class UploadImageComp extends Component {
           formData.append("submit", "Upload");
           // Send the compressed image file to server with XMLHttpRequest.
           // this.props.uploadFile(formData, url);
-
           axios
             .post(url, formData)
             .then(data => {

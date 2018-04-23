@@ -36,6 +36,24 @@ export default class DialogUpload extends React.Component {
   };
   handleFileChange(e) {
     this.setState({ file: Array.from(e.target.files) });
+    const file = this.refs.file.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.setState({
+        imageUrl: reader.result
+      });
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+      this.setState({
+        imageUrl: reader.result
+      });
+    } else {
+      this.setState({
+        imageUrl: ""
+      });
+    }
   }
 
   callUpdateDocuments(e) {
@@ -218,6 +236,18 @@ export default class DialogUpload extends React.Component {
               <img src={path + fileInventoryInvoice} />
             </div>
           </Dialog>
+        </div>
+        <div className="form-group">
+          {this.state.file[0] ? (
+            <div>
+              <label className="col-xs-12">Image Preview </label>
+              <img
+                src={this.state.imageUrl}
+                className="small"
+              />
+              <br />
+            </div>
+          ) : null}
         </div>
         <UploadImageComp
           callUpdateDocuments={this.callUpdateDocuments}

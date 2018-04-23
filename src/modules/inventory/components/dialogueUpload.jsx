@@ -99,9 +99,6 @@ export default class DialogUpload extends React.Component {
       ? null
       : machineName[0].fileInventoryInvoice;
 
-      console.log(machineList,"machineList")
-console.log(machineName[0],"machinename");
-console.log(fileInventoryPhoto,"Inventoryphoto")
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];

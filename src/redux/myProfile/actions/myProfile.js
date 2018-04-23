@@ -210,7 +210,7 @@ export function updateBankDetails (new_bank_details) {
     if (n_ifsc === '') {
       return Promise.reject('IFSC is empty');
     }
-    if(!n_ifsc.includes("ICICI")){
+    if(!n_ifsc.includes("ICIC")){
       return Promise.reject('We only accept ICICI bank account for now, if you don\'t have ICICI bank account \n Contact HR');
     }
     return new Promise((reslove, reject) => {

@@ -83,7 +83,7 @@ webpackConfig.plugins = [
     minify:   {
       collapseWhitespace: true
     }
-  })
+  }),
 ];
 
 // if (__DEV__) {

@@ -402,7 +402,10 @@ export function assignDevice (assign_device) {
     }
     return new Promise(function (resolve, reject) {
       dispatch(show_loading());
+      dispatch(getDeviceById());
       return getAsync_assignDeviceToUser(n_inventory_id, n_user_id).then((res) => {
+        dispatch(unapprovedUser());
+        dispatch(get_machines_detail());
         dispatch(hide_loading());
         resolve(res.message);// }
       }, (error) => {

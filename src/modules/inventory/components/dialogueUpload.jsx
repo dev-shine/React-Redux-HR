@@ -162,80 +162,45 @@ export default class DialogUpload extends React.Component {
           {fileInventoryPhoto ? (
             <div>
               <label className="col-xs-12">Photo </label>
+              <a href={path + fileInventoryPhoto} target="_blank" >
               <img
                 src={path + fileInventoryPhoto}
-                onClick={() => {
-                  this.handleInlargePhoto();
-                }}
                 className="small"
               />
+              </a>
               <br />
             </div>
           ) : null}
-          <Dialog
-            actions={actions}
-            modal={false}
-            open={this.state.open && this.state.open3}
-            onRequestClose={this.handleClose}
-            autoScrollBodyContent={true}
-          >
-            <div className="thumbnail">
-              <img src={path + fileInventoryPhoto} />
-            </div>
-          </Dialog>
         </div>
 
         <div className="form-group">
           {fileInventoryWarranty ? (
             <div>
               <label className="col-xs-12">Warranty</label>
+              <a href={path + fileInventoryWarranty} target="_blank" >
               <img
                 src={path + fileInventoryWarranty}
-                onClick={() => {
-                  this.handleInlargeWarranty();
-                }}
                 className="small"
               />
+              </a>
               <br />
             </div>
           ) : null}
-          <Dialog
-            actions={actions}
-            modal={false}
-            open={this.state.open && this.state.open1}
-            onRequestClose={this.handleClose}
-            autoScrollBodyContent={true}
-          >
-            <div className="thumbnail">
-              <img src={path + fileInventoryWarranty} />
-            </div>
-          </Dialog>
+          
         </div>
         <div className="form-group">
           {fileInventoryInvoice ? (
             <div>
               <label className="col-xs-12">Invoice </label>
-              <img
+             <a href={path + fileInventoryInvoice} target="_blank" > <img
                 src={path + fileInventoryInvoice}
-                onClick={() => {
-                  this.handleInlargeInvoice();
-                }}
                 className="small"
               />
+              </a>
               <br />
             </div>
           ) : null}
-          <Dialog
-            actions={actions}
-            modal={false}
-            open={this.state.open && this.state.open2}
-            onRequestClose={this.handleClose}
-            autoScrollBodyContent={true}
-          >
-            <div className="thumbnail">
-              <img src={path + fileInventoryInvoice} />
-            </div>
-          </Dialog>
+         
         </div>
         <div className="form-group">
           {this.state.file[0] ? (

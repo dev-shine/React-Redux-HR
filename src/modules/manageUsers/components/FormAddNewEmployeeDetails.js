@@ -56,7 +56,6 @@ class FormAddNewEmployeeDetails extends React.Component {
   handleCancelButton() {
     signaturePad.clear();
   }
-
   callAddNewEmployeeDetails(new_profile_details) {
     this.props.onAddNewUserDetails(new_profile_details).then(
       data => {

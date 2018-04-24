@@ -210,8 +210,12 @@ export function updateBankDetails (new_bank_details) {
     if (n_ifsc === '') {
       return Promise.reject('IFSC is empty');
     }
-    if(!n_ifsc.includes("ICICI")){
+    const ifscRegex = /(ICIC)0[A-Z0-9]{6}$/;
+    if(!n_ifsc.includes("ICIC")){
       return Promise.reject('We only accept ICICI bank account for now, if you don\'t have ICICI bank account \n Contact HR');
+    }
+   else if(!n_ifsc.match(ifscRegex)){
+      return Promise.reject('ICICI IFSC code you have entered is not valid. \n Please enter valid ICICI IFSC code. ');
     }
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon

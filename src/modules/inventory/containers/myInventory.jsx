@@ -51,6 +51,7 @@ class MyInventory extends React.Component {
       user_profile_detail: props.myProfile.user_profile_detail,
       user_assign_machine: props.myProfile.user_assign_machine
     });
+    
   }
 
   callUpdateUserDeviceDetails(newDeviceDetails) {

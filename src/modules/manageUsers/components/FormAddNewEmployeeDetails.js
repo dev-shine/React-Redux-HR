@@ -183,7 +183,6 @@ class FormAddNewEmployeeDetails extends React.Component {
                   id="save"
                   label={"Save"}
                 />
-                <img src={this.state.signature}/>
                 <div className="row p-y">
                   <ButtonRaised
                     className="col-xs-12 p-y-2 m-b-sm indigo"

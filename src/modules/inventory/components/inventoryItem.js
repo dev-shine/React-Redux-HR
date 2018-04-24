@@ -177,7 +177,7 @@ class InventoryItem extends React.Component {
                             : machineName[0].serial_number}
                         </div>
                         <div className="col-md-12">
-                          <label style={{ fontSize: 15 }}>Excellence bill No:</label>{" "}
+                          <label style={{ fontSize: 15 }}>Excellence Serial No:</label>{" "}
                           {_.isEmpty(machineName)
                             ? null
                             : machineName[0].bill_number

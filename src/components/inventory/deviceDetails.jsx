@@ -10,7 +10,7 @@ const DeviceDetails = ({ userAssignMachine, unassignDevice }) => {
         <td>{val.id}</td>
         <td>{val.machine_type}</td>
         <td>{val.machine_name}</td>
-        <td>{val.serial_number}</td>
+        <td>{val.bill_number}</td>
         <td>{val.assign_date}</td>
         <td style={{ textAlign: "center" }}>
           <i

@@ -35,13 +35,19 @@ class FormAddNewEmployeeDetails extends React.Component {
       signature: ""
     };
     this.callAddNewEmployeeDetails = this.callAddNewEmployeeDetails.bind(this);
-    this.handleSaveButton = this.handleSaveButton.bind(this);
+    this.handleCanvas = this.handleCanvas.bind(this);
   }
 
   handleCanvas() {
     signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
       backgroundColor: "rgba(255, 255, 255, 0)",
-      penColor: "rgb(0, 0, 0)"
+      penColor: "rgb(0, 0, 0)",
+      onEnd: () => {
+        localStorage.setItem("signature", signaturePad.toDataURL());
+        this.setState({
+          signature: localStorage.signature
+        });
+      }
     });
   }
   componentWillMount() {
@@ -50,12 +56,7 @@ class FormAddNewEmployeeDetails extends React.Component {
   handleCancelButton() {
     signaturePad.clear();
   }
-  handleSaveButton() {
-    localStorage.setItem("signature", signaturePad.toDataURL());
-    this.setState({
-      signature: localStorage.signature
-    });
-  }
+
   callAddNewEmployeeDetails(new_profile_details) {
     this.props.onAddNewUserDetails(new_profile_details).then(
       data => {
@@ -91,7 +92,7 @@ class FormAddNewEmployeeDetails extends React.Component {
               </div>
               <div className="col-md-6 input-wrapper">
                 <TextField
-                type="number"
+                  type="number"
                   floatingLabelText="Phone No"
                   floatingLabelFixed
                   fullWidth
@@ -104,7 +105,7 @@ class FormAddNewEmployeeDetails extends React.Component {
 
               <div className="col-md-6 input-wrapper">
                 <TextField
-                type="number"
+                  type="number"
                   floatingLabelText="Emergency Contact No"
                   floatingLabelFixed
                   fullWidth
@@ -176,12 +177,7 @@ class FormAddNewEmployeeDetails extends React.Component {
                   id="clear"
                   label={"Clear"}
                 />
-                <span> </span>
-                <ButtonRaised
-                  onClick={() => this.handleSaveButton()}
-                  id="save"
-                  label={"Save"}
-                />
+
                 <div className="row p-y">
                   <ButtonRaised
                     className="col-xs-12 p-y-2 m-b-sm indigo"

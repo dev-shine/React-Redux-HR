@@ -146,7 +146,7 @@ class FormAddNewEmployeeDetails extends React.Component {
               </div>
               <div className="col-md-8 input-wrapper">
                 <TextField
-                  floatingLabelText="Any special joinining terms from employers"
+                  floatingLabelText="Employee Holding Comment"
                   floatingLabelFixed
                   fullWidth
                   onChange={e =>

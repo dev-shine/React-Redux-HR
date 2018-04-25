@@ -29,13 +29,20 @@ class UploadImageComp extends Component {
       return;
     } else if (!file.type.includes("image")) {
       const formData = new FormData();
+      let isAdmin;
+      if (
+        this.props.loggedUser.data.role === "Admin" ||
+        this.props.loggedUser.data.role === "HR"
+      ) {
+        isAdmin = true;
+      }
       for (let key in params) {
         formData.append(key, params[key]);
       }
       formData.append(fileName, file);
       formData.append("submit", "Upload");
 
-      this.props.onUploadFile(formData, url);
+      this.props.onUploadFile(formData, url,isAdmin);
     } else {
       this.setState({ loading: true });
       let quality = qualityValue(file);
@@ -59,8 +66,13 @@ class UploadImageComp extends Component {
             .then(data => {
               notify("Success !", `File uploaded successfully`, "success");
               this.setState({ loading: false });
-              this.props.onFetchDevice();
-              this.props.onFetchUnapprovedUser();
+              if (
+                this.props.loggedUser.data.role === "Admin" ||
+                this.props.loggedUser.data.role === "HR"
+              ) {
+                this.props.onFetchDevice();
+                this.props.onFetchUnapprovedUser();
+              }
               this.props.onGetMyDocuments();
             })
             .catch(error => {
@@ -99,7 +111,8 @@ class UploadImageComp extends Component {
   }
 }
 const mapStateToProps = state => ({
-  loading: state.uploadImage.loading
+  loading: state.uploadImage.loading,
+  loggedUser: state.logged_user.userLogin
 });
 const mapDispatchToProps = dispatch => {
   return {
@@ -112,7 +125,7 @@ const mapDispatchToProps = dispatch => {
     onFetchUnapprovedUser: () => {
       return dispatch(actionsManageDevice.unapprovedUser());
     },
-    onGetMyDocuments:()=>{
+    onGetMyDocuments: () => {
       return dispatch(actionMyDocuments.getMyDocument());
     }
   };

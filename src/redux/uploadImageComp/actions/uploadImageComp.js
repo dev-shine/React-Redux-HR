@@ -6,15 +6,21 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
 
 
-export const uploadFile = (formData, url,isAdmin) => dispatch => {
+export const uploadFile = (formData, url,isRole) => dispatch => {
   dispatch({ type: "UPLOADING_FILE" });
   uploadfile(formData, url).then(data => {
     dispatch({ type: "UPLOAD_FILE", payload: data });
     notify("Success !", `File uploaded successfully`, "success");
-    if(isAdmin){
+    if(isRole === "Admin"){
     dispatch(actionsManageDevice.get_machines_detail());
-    dispatch(actionsManageDevice.unapprovedUser());}
+    dispatch(actionsManageDevice.unapprovedUser());
     dispatch(actionMyDocuments.getMyDocument());
-
+}
+else if(isRole === "HR"){
+  dispatch(actionsManageDevice.get_machines_detail());
+}
+else {
+  dispatch(actionMyDocuments.getMyDocument());
+}
   });
 };

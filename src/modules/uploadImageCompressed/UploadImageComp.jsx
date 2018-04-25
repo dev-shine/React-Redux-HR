@@ -29,20 +29,15 @@ class UploadImageComp extends Component {
       return;
     } else if (!file.type.includes("image")) {
       const formData = new FormData();
-      let isAdmin;
-      if (
-        this.props.loggedUser.data.role === "Admin" ||
-        this.props.loggedUser.data.role === "HR"
-      ) {
-        isAdmin = true;
-      }
+      let isRole = this.props.loggedUser.data.role;
+
       for (let key in params) {
         formData.append(key, params[key]);
       }
       formData.append(fileName, file);
       formData.append("submit", "Upload");
 
-      this.props.onUploadFile(formData, url,isAdmin);
+      this.props.onUploadFile(formData, url,isRole);
     } else {
       this.setState({ loading: true });
       let quality = qualityValue(file);
@@ -67,13 +62,19 @@ class UploadImageComp extends Component {
               notify("Success !", `File uploaded successfully`, "success");
               this.setState({ loading: false });
               if (
-                this.props.loggedUser.data.role === "Admin" ||
-                this.props.loggedUser.data.role === "HR"
+                this.props.loggedUser.data.role === "Admin"
               ) {
                 this.props.onFetchDevice();
                 this.props.onFetchUnapprovedUser();
+                this.props.onGetMyDocuments();
               }
+              else if(this.props.loggedUser.data.role === "HR"
+            ){
+              this.props.onFetchDevice();
+            }
+            else{
               this.props.onGetMyDocuments();
+            }
             })
             .catch(error => {
               if (error.request) {

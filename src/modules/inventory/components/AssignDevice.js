@@ -28,7 +28,6 @@ export default class AssignDevice extends React.Component {
   }
 
   render() {
-    console.log(this.props,'bbbbbbbbbbb');
     
     
     const unassignInventory = _.map(

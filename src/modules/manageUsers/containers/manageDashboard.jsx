@@ -174,15 +174,13 @@ class ManageDashboard extends React.Component {
   
   componentWillMount(){
     let tokenData = getLoggedUser().data;
-    console.log(tokenData,'ffffffffffffff'); 
     let testDate=tokenData.login_date_time;
     let logintime=moment(testDate).format('MM/DD/YYYY hh:mm:ss a');
     var now = moment(new Date()),
     end = moment(testDate),
     hours = now.diff(end, 'hours');
  
-    if(hours>1){
-      console.log('dddddddddddddddddd');
+    if(hours>2){
      resetLoggedUser();
     }
     

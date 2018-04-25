@@ -369,7 +369,6 @@ class FormGeneratePaySlip extends React.Component {
                 <td><input type="text" name="extra_work" placeholder="Extra Working Days"
                 onChange={(e)=>{
                   let test = ((this.props.actualSalary.net_salary / this.state.total_working_days) * e.target.value );
-                  // console.log(test);
                   this.setState({bonus: parseInt(test)})}}/>
                 </td>
 

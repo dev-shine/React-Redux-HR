@@ -14,7 +14,6 @@ export const uploadFile = (formData, url) => dispatch => {
     dispatch(actionsManageDevice.get_machines_detail());
     dispatch(actionsManageDevice.unapprovedUser());
     dispatch(actionMyDocuments.getMyDocument());
-    console.log(data);
-    console.log("success");
+
   });
 };

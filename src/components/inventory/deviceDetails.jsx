@@ -37,7 +37,6 @@ const DeviceDetails = ({ userAssignMachine, unassignDevice,loggedUser }) => {
       </tr>
     );
   }
-console.log(loggedUser,'pppppppppppp');
 
   return (
     <div className="row no-gutter box">

@@ -7,7 +7,7 @@ import axios from "axios";
 import CircularProgress from "material-ui/CircularProgress";
 import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUploadFile from "appRedux/uploadImageComp/actions/uploadImageComp";
-
+import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
 class UploadImageComp extends Component {
   constructor() {
     super();
@@ -61,6 +61,7 @@ class UploadImageComp extends Component {
               this.setState({ loading: false });
               this.props.onFetchDevice();
               this.props.onFetchUnapprovedUser();
+              this.props.onGetMyDocuments();
             })
             .catch(error => {
               if (error.request) {
@@ -110,6 +111,9 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchUnapprovedUser: () => {
       return dispatch(actionsManageDevice.unapprovedUser());
+    },
+    onGetMyDocuments:()=>{
+      return dispatch(actionMyDocuments.getMyDocument());
     }
   };
 };

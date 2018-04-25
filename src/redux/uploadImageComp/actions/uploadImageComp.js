@@ -3,6 +3,8 @@ import { uploadfile } from "src/services/index";
 import { notify } from "src/services/notify";
 import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
 import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
+import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
+
 
 export const uploadFile = (formData, url) => dispatch => {
   dispatch({ type: "UPLOADING_FILE" });
@@ -11,6 +13,7 @@ export const uploadFile = (formData, url) => dispatch => {
     notify("Success !", `File uploaded successfully`, "success");
     dispatch(actionsManageDevice.get_machines_detail());
     dispatch(actionsManageDevice.unapprovedUser());
+    dispatch(actionMyDocuments.getMyDocument());
     console.log(data);
     console.log("success");
   });

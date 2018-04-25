@@ -19,6 +19,7 @@ import {resetLoggedUser} from 'src/services/generic';
 import {getLoggedUser} from 'src/services/generic';
 import * as actionsManageUserPendingHours from 'appRedux/workingHours/actions/manageUserPendingHour';
 
+var moment = require("moment");
 
 class ManageDashboard extends React.Component {
   constructor (props) {
@@ -173,9 +174,18 @@ class ManageDashboard extends React.Component {
   
   componentWillMount(){
     let tokenData = getLoggedUser().data;
-    if(!tokenData){
+    console.log(tokenData,'ffffffffffffff'); 
+    let testDate=tokenData.login_date_time;
+    let logintime=moment(testDate).format('MM/DD/YYYY hh:mm:ss a');
+    var now = moment(new Date()),
+    end = moment(testDate),
+    hours = now.diff(end, 'hours');
+ 
+    if(hours>1){
+      console.log('dddddddddddddddddd');
      resetLoggedUser();
     }
+    
   }
   
   render () {

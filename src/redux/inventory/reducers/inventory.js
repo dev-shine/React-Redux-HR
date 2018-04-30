@@ -12,7 +12,7 @@ let initialState = {
   comment: [],
   unassignedDeviceList: [],
   editData: [],
-  showTab: false
+  showTab: false,
 };
 
 export function manageDevice(state = Immutable.fromJS(initialState), action) {
@@ -62,7 +62,8 @@ export function manageDevice(state = Immutable.fromJS(initialState), action) {
     return state.set("unassignedDeviceList", action.payload);
   } else if (action.type === "ACTION_SUCCESS_EDIT_WITHOUT_API") {
     return state.set("editData", action.payload);
-  } else {
+  }
+   else {
     return state;
   }
 }

@@ -21,6 +21,14 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
           <div className="_500">{userDetails.dateofjoining === '' ? nA : userDetails.dateofjoining}</div>
         </div>
         <div className="col-xs-6 col-sm-6 profile-input p-b">
+          <small className="text-muted">Termination Date</small>
+          <div className="_500">{userDetails.termination_date === '' ? nA : userDetails.termination_date}</div>
+        </div>
+        <div className="col-xs-6 col-sm-6 profile-input p-b">
+          <small className="text-muted">Last Salary Details</small>
+          <div className="_500"> ₹ {userDetails.last_salary_details === '' ? nA : userDetails.last_salary_details.total_salary}</div>
+        </div>
+        <div className="col-xs-6 col-sm-6 profile-input p-b">
           <small className="text-muted">Work Email</small>
           <div className="_500">{userDetails.work_email === '' ? nA : userDetails.work_email}</div>
         </div>
@@ -97,10 +105,6 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
         <div className="col-xs-6 col-sm-6 profile-input p-b">
           <small className="text-muted">User Name</small>
           <div className="_500">{userDetails.username === '' ? nA : userDetails.username}</div>
-        </div>
-        <div className="col-xs-6 col-sm-6 profile-input p-b">
-          <small className="text-muted">Termination Date</small>
-          <div className="_500">{userDetails.termination_date === '' ? nA : userDetails.termination_date}</div>
         </div>
       </div>
       <div className="row">

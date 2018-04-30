@@ -15,7 +15,7 @@ const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_deta
   'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id', 'get_unassigned_machine_list' , 'add_user_comment' ];
 
 
-const actionsForAPIurl = ['admin_user_apply_leave', 'get_machine','change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
+const actionsForAPIurl = ['admin_user_apply_leave','get_my_inventories', 'get_machine','change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
 
 const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 

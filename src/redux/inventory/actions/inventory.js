@@ -715,7 +715,7 @@ export function addUserComment (addUserCommentDetails) {
         if(json.error==0){
           dispatch(successAddUserComment(json.message));
           notify('Success !','Comment added to unassign device','success');
-          dispatch(actionsMyProfile.getMyProfileDetails());
+          dispatch(actionsMyProfile.getMyInventory());
         }else{
           dispatch(errorAddUserComment(json.message))
           notify('Error !',error,'error');
@@ -806,5 +806,6 @@ export function editDeviceData (device,edit,open) {
     dispatch(successEditDeviceData(device,edit,open));
   };
 }
+
 
 

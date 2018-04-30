@@ -326,3 +326,21 @@ export function updateDocument (documents_link) {
     });
   };
 }
+
+function async_getMyInventory () {
+  return fireAjax('POST', '', {'action': "get_my_inventories"});
+}
+
+export function getMyInventory () {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()); // show loading icon
+      async_getMyInventory().then((json) => {
+        dispatch(hide_loading()); // hide loading icon
+        if (json.error == 0) {
+          dispatch({type : "ACTION_GET_MY_INVENTORY",payload:json.data});
+        } 
+      });
+    });
+  };
+}

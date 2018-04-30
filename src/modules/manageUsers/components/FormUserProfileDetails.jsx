@@ -199,6 +199,14 @@ class FormUserProfileDetails extends React.Component {
                 </div>
               </div> : null}
           </div>
+          <div className = "col-md-6">
+          {this.props.user_profile_detail.slack_profile ? <div>
+                <div>{"Profile Image:"}</div>
+                <div className="thumbnail">
+                  <img src={this.props.user_profile_detail.slack_profile.image_72} alt="image" />
+                </div>
+              </div> : null}
+          </div>
         </div>
         <hr />
         <div className="row no-gutter">

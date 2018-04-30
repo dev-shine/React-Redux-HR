@@ -70,7 +70,8 @@ class UploadImageComp extends Component {
               }
               else if(this.props.loggedUser.data.role === "HR"
             ){
-              this.props.onFetchDevice();
+              return;
+              // this.props.onFetchDevice();
             }
             else{
               this.props.onGetMyDocuments();

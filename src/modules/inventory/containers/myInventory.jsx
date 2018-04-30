@@ -41,6 +41,7 @@ class MyInventory extends React.Component {
   componentWillMount() {
     this.props.onUnassignDeviceList();
     this.props.onMyProfileDetails();
+    this.props.onGetMyInventory();
   }
   componentWillReceiveProps(props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
@@ -49,7 +50,7 @@ class MyInventory extends React.Component {
     }
     this.setState({
       user_profile_detail: props.myProfile.user_profile_detail,
-      user_assign_machine: props.myProfile.user_assign_machine
+      user_assign_machine: props.myProfile.myInventory
     });
     
   }
@@ -60,7 +61,7 @@ class MyInventory extends React.Component {
   callAssignDevice(assign_device) {
     this.props.onAssignDevice(assign_device).then(
       data => {
-        this.props.onMyProfileDetails();
+        this.props.onGetMyInventory();
         notify("Success!", data, "success");
       },
       error => {
@@ -155,7 +156,7 @@ function mapStateToProps(state) {
     frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
     myProfile: state.myProfile.toJS(),
-    unassignedDeviceList: state.manageDevice.toJS()
+    unassignedDeviceList: state.manageDevice.toJS(),
   };
 }
 const mapDispatchToProps = dispatch => {
@@ -181,6 +182,9 @@ const mapDispatchToProps = dispatch => {
     },
     onAssignDevice: assign_device => {
       return dispatch(actionsManageDevice.assignDevice(assign_device));
+    },
+    onGetMyInventory: () => {
+      return dispatch(actionsMyProfile.getMyInventory());
     }
   };
 };

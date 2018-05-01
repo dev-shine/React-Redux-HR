@@ -179,6 +179,8 @@ class FormUserProfileDetails extends React.Component {
     this.props.callUpdateUserProfileDetails(this.state);
   }
   render () {
+    let selectedUser = _.find(this.props.usersList.users,['id',this.props.user_profile_detail.id]);
+    let slackImg = selectedUser ? selectedUser.slack_profile.image_72 : '';  
     let teams = this.props.teamList.data.length > 0 ? this.props.teamList.data : [];
     let userLevel = this.props.loggedUser.data.role === CONFIG.ADMIN;
     return <div>
@@ -192,22 +194,21 @@ class FormUserProfileDetails extends React.Component {
             Username :
             <b> {this.state.username}</b>
             <br />
+            {slackImg ? <div>
+                <div>{"Profile Image"}</div>
+                <div>
+                  <img src={slackImg} alt="image" />
+                </div>
+              </div> : null}
+          </div>
+          <br />
             {this.props.user_profile_detail.signature ? <div>
-                <div>{"Signature:"}</div>
-                <div className="thumbnail">
+                <div>{"Signature"}</div>
+                <div>
                   <img src={this.props.user_profile_detail.signature} alt="Signature" />
                 </div>
               </div> : null}
           </div>
-          <div className = "col-md-6">
-          {this.props.user_profile_detail.slack_profile ? <div>
-                <div>{"Profile Image:"}</div>
-                <div className="thumbnail">
-                  <img src={this.props.user_profile_detail.slack_profile.image_72} alt="image" />
-                </div>
-              </div> : null}
-          </div>
-        </div>
         <hr />
         <div className="row no-gutter">
           <div className="col-xs-6 profile-input">

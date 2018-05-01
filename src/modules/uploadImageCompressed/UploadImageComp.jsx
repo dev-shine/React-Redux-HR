@@ -81,7 +81,6 @@ class UploadImageComp extends Component {
               if (error.request) {
                 notify("Error", "File too large to upload", "error");
                 this.setState({ loading: false });
-                console.log(error.request);
               }
             });
         });

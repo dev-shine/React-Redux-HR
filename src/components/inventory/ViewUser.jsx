@@ -15,7 +15,7 @@ const ViewUserDevice = ({userAssignMachine}) => {
   return (
     <div>
       <div className="col-md-12">
-        <h6 className="text-center">Asssigned Device Details</h6>
+        <h6 className="text-center">Assigned Device Details</h6>
         <div className='row'>
           <div className='col-xs-12'>
             <div style={{'marginTop': '2%'}}>

@@ -20,13 +20,9 @@ class FormMyDocuments extends React.Component {
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.callUpdateDocuments = this.callUpdateDocuments.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
   }
-  componentDidMount() {
-    this.toggleCollapse();
-    window.addEventListener("resize", this.toggleCollapse);
-  }
+
   componentWillReceiveProps(props) {
     this.setState({
       token: getToken()
@@ -74,11 +70,7 @@ class FormMyDocuments extends React.Component {
       stop = true;
       notify("Warning!", "Mark declearation before submit", "warning");
      } 
-    // else if (file.size > 5000000) {
-    //   stop = true;
-    //   notify("Warning!", "File size must be less than 5mb", "warning");
 
-    // }
     if (stop) {
       e.preventDefault();
     }
@@ -94,17 +86,7 @@ class FormMyDocuments extends React.Component {
         notify("Error!", err.toString(), "error");
       });
   }
-  toggleCollapse() {
-    if ($(window).width() > 767) {
-      $("#uploadDoc").addClass("in");
-      $("#uploadMyDoc").removeClass(
-        "md-btn md-raised indigo auto-width-center"
-      );
-    } else {
-      $("#uploadDoc").removeClass("in");
-      $("#uploadMyDoc").addClass("md-btn md-raised indigo auto-width-center");
-    }
-  }
+
   render() {
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
@@ -114,13 +96,11 @@ class FormMyDocuments extends React.Component {
         <div className="col-sm-6 p-x-md">
           <h6
             id="uploadMyDoc"
-            className="text-center pointer"
-            data-toggle="collapse"
-            data-target="#uploadDoc"
+            className="text-center pointer in"
           >
             Upload New Documents
           </h6>
-          <div className="row box p-a-md m-b-lg collapse" id="uploadDoc">
+          <div className="row box p-a-md m-b-lg " id="uploadDoc">
 
             <form
               action={CONFIG.upload_url}

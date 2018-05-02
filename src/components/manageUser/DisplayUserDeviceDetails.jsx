@@ -34,7 +34,7 @@ const DisplayUserDeviceDetails = ({userAssignMachine}) => {
   }
   return (
     <div>
-      <h6 className="text-center">Asssigned Device Details</h6>
+      <h6 className="text-center">Assigned Device Details</h6>
       <br />
       <div className="clear">
         {machineData}

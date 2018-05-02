@@ -41,6 +41,7 @@ class FormUserProfileDetails extends React.Component {
     this.handleTest = this.handleTest.bind(this);
   }
   componentWillReceiveProps (props) {
+    window.scrollTo(0,0);
     let username = "";
     let user_id = '';
     let name = '';
@@ -179,6 +180,7 @@ class FormUserProfileDetails extends React.Component {
     this.props.callUpdateUserProfileDetails(this.state);
   }
   render () {
+    console.log('saddsc')
     let selectedUser = _.find(this.props.usersList.users,['id',this.props.user_profile_detail.id]);
     let slackImg = selectedUser ? selectedUser.slack_profile.image_72 : '';  
     let teams = this.props.teamList.data.length > 0 ? this.props.teamList.data : [];

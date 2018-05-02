@@ -54,7 +54,7 @@ const DeviceDetails = ({ userAssignMachine, unassignDevice, loggedUser }) => {
 
   return (
     <div className="row no-gutter box">
-      <h6 className="text-center">Asssigned Device Details</h6>
+      <h6 className="text-center">Assigned Device Details</h6>
       <div className="table-responsive">
         <table className="table table-striped table-hover">
           <thead>

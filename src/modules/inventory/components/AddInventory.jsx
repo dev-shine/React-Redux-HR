@@ -333,14 +333,14 @@ class FormAddNewInventory extends React.Component {
             <div className="col-md-6">
               <div className="col-md-6">
                 <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
-                  {this.props.manageDevice.editData.device.warranty_end_date ? 
-                <p>
-                   {this.props.manageDevice.editData.device.warranty_end_date}
-                </p>
-                    : null}
+                {this.props.manageDevice.editData.device.warranty_end_date ? (
+                  <p>
+                    {this.props.manageDevice.editData.device.warranty_end_date}
+                  </p>
+                ) : null}
               </div>
               <select
-                style={{ marginTop: "0%" ,opacity: "0.56"}}
+                style={{ marginTop: "0%", opacity: "0.56" }}
                 value={this.state.warranty_years}
                 ref="warranty_period"
                 onChange={this.warranty_date}
@@ -425,26 +425,28 @@ class FormAddNewInventory extends React.Component {
               />
             </div>
 
-            <div
-              className="col-md-6"
-              style={{ opacity: "0.56", marginTop: "2%" }}
-            >
-              {"Assign User"}
-              <select
-                value={this.state.user_Id}
-                onChange={evt => {
-                  this.setState({ user_Id: evt.target.value });
-                }}
-                className="form-control"
-                required
+            {!this.props.manageDevice.editData.edit ? (
+              <div
+                className="col-md-6"
+                style={{ opacity: "0.56", marginTop: "2%" }}
               >
-                <option value="">Select User</option>
-                <option value="unassign">
-                  Unassign Device to any employee
-                </option>
-                {userList}
-              </select>
-            </div>
+                {"Assign User"}
+                <select
+                  value={this.state.user_Id}
+                  onChange={evt => {
+                    this.setState({ user_Id: evt.target.value });
+                  }}
+                  className="form-control"
+                  required
+                >
+                  <option value="">Select User</option>
+                  <option value="unassign">
+                    Unassign Device to any employee
+                  </option>
+                  {userList}
+                </select>
+              </div>
+            ) : null}
             {this.state.user_Id == "unassign" ? (
               <div className="col-md-6">
                 <TextField

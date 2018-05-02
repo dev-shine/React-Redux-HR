@@ -269,7 +269,7 @@ export function getDeviceById (device_id) {
       n_inventory_id = device_id;
     }
     if (n_inventory_id.trim() === "") {
-      return Promise.reject("inventory id is empty");
+      // return Promise.reject("inventory id is empty");
     }
     return new Promise((resolve, reject) => {
       dispatch(show_loading());
@@ -394,9 +394,9 @@ export function assignDevice (assign_device) {
     if (typeof assign_device.inventory_id !== "undefined") {
       n_inventory_id = assign_device.inventory_id;
     }
-    if (n_user_id.trim() === "") {
-      return Promise.reject("User id is empty");
-    }
+    // if (n_user_id.trim() === "") {
+    //   return Promise.reject("User id is empty");
+    // }
     if (n_inventory_id.trim() === "") {
       return Promise.reject("Inventory id is empty");
     }

@@ -18,8 +18,9 @@ const CONFIG = {
   transfer_link:             'https://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
   expressApiUrl:             'https://hr.excellencetechnologies.in/attendance/API_HR/express_api_call.php',
   expressRequestUrl:         'http://5.9.144.226:3020',
+  inventory_upload_url:      'http://hr.excellencetechnologies.in/hr/attendance/API_HR/generic-file-upload.php',
   view_inventory_documents:  'https://hr.excellencetechnologies.in/attendance/uploaded_files/',
-  inventory_images:          'http://dev.hr.excellencetechnologies.in/hr/attendance/uploaded_files/'
+  inventory_images:          'http://hr.excellencetechnologies.in/hr/attendance/uploaded_files/'
 
 };
 

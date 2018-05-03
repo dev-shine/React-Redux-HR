@@ -91,39 +91,33 @@ class FormMyDocuments extends React.Component {
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];
-    return (
-      <div className="row p-t-md">
+    return <div className="row p-t-md">
         <div className="col-sm-6 p-x-md">
-          <h6
-            id="uploadMyDoc"
-            className="text-center pointer in"
-          >
+          <h6 id="uploadMyDoc" className="text-center pointer in">
             Upload New Documents
           </h6>
           <div className="row box p-a-md m-b-lg " id="uploadDoc">
-
-            <form
-              action={CONFIG.upload_url}
-              method="POST"
-              encType="multipart/form-data"
-            >
+            <form action={CONFIG.upload_url} method="POST" encType="multipart/form-data">
               <div className="form-group">
                 <label className="col-sm-12">Document Type</label>
-                <select
-                  className="form-control"
-                  ref="document_type"
-                  onChange={() =>
-                    this.setState({ document_type: this.refs.document_type.value })
-                  }
-                  value={this.state.document_type}
-                >
+                <select className="form-control" ref="document_type" 
+                  onChange={() => {
+                    this.setState({
+                      document_type: this.refs.document_type.value,
+                      file: []
+                    });
+                    this.refs.file.value = "";
+                  }} 
+                  value={this.state.document_type}>
                   <option value="">--- Select Doc Type ---</option>
                   <option value="CV">CV</option>
                   <option value="PAN Card">PAN Card</option>
                   <option value="Address Proof">Address Proof</option>
                   <option value="Photo">Photo</option>
                   <option value="Offer Letter">Offer Letter</option>
-                  <option value="Appointment Letter">Appointment Letter</option>
+                  <option value="Appointment Letter">
+                    Appointment Letter
+                  </option>
                   <option value="Previous Company Experience Letter">
                     Previous Company Experience Letter
                   </option>
@@ -142,78 +136,39 @@ class FormMyDocuments extends React.Component {
                   <option value="Other Documents">Other Documents</option>
                 </select>
               </div>
-              <input
-                type="hidden"
-                name="document_type"
-                value={this.state.document_type}
-              />
+              <input type="hidden" name="document_type" value={this.state.document_type} />
               <div className="form-group">
                 <label className="col-sm-12">Attachment </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  ref="file"
-                  name="link_1"
-                  multiple="multiple"
-                  onChange={this.handleFileChange}
-                />
+                <input type="file" className="form-control" ref="file" name="link_1" multiple="multiple" onChange={this.handleFileChange} />
               </div>
               <div className="form-group col-sm-12">
-                <input
-                  type="checkbox"
-                  ref="declear"
-                  className="vertical-middle"
-                />
+                <input type="checkbox" ref="declear" className="vertical-middle" />
                 <span className="declaration">
-                  <b>*IMPORTANT: </b>&nbsp;By uploading this document you
-                  certify that these document are true and all information is
-                  correct
+                  <b>*IMPORTANT: </b>&nbsp;By uploading this document you certify that these document are true and all information is correct
                 </span>
               </div>
-              <div className = "form-group">
-                  {this.state.file[0] ? (
-                    <div>
+              <div className="form-group">
+                {this.state.file[0] ? <div>
                     <label className="col-xs-12">Image Preview </label>
-                      <img
-                        src={this.state.imageUrl}
-                        onClick={() => {
-                          this.handleOpen();
-                        }}
-                        className="small"
-                      />
-                      <br />
-                    </div>
-                  ) : null}
-                  <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                    autoScrollBodyContent={true}
-                  >
-                    <div className="thumbnail">
-                      <img src={this.state.imageUrl} />
-                    </div>
-                  </Dialog>
+                    <img src={this.state.imageUrl} onClick={() => {
+                        this.handleOpen();
+                      }} className="small" />
+                    <br />
+                  </div> : null}
+                <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose} autoScrollBodyContent={true}>
+                  <div className="thumbnail">
+                    <img src={this.state.imageUrl} />
                   </div>
+                </Dialog>
+              </div>
               <div className="form-group col-sm-12">
-                <UploadImageComp
-                  callUpdateDocuments={this.callUpdateDocuments}
-                  url={CONFIG.upload_url}
-                  params={this.state}
-                  file = {this.state.file[0]}
-                  fileName = "link_1"
-                />
+                <UploadImageComp callUpdateDocuments={this.callUpdateDocuments} url={CONFIG.upload_url} params={this.state} file={this.state.file[0]} fileName="link_1" />
               </div>
             </form>
           </div>
         </div>
-        <ListDocuments
-          myDocuments={this.props.my_documents}
-          deleteDocument={this.deleteDocument}
-        />
-      </div>
-    );
+        <ListDocuments myDocuments={this.props.my_documents} deleteDocument={this.deleteDocument} />
+      </div>;
   }
 }
 

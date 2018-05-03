@@ -90,14 +90,10 @@ class FormAddDocument extends Component {
     const actions = [
       <FlatButton label="Close" primary={true} onClick={this.handleClose} />
     ];
-    return (
-      <div>
+    return <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header
-            pageTitle={"Add Documents"}
-            showLoading={this.props.frontend.show_loading}
-          />
+          <Header pageTitle={"Add Documents"} showLoading={this.props.frontend.show_loading} />
           <br />
           <br />
           <div className="row p-t-md">
@@ -109,16 +105,15 @@ class FormAddDocument extends Component {
                 <form encType="multipart/form-data">
                   <div className="form-group">
                     <label className="col-sm-12">Document Type</label>
-                    <select
-                      className="form-control"
-                      ref="document_type"
-                      onChange={() =>
+                    <select className="form-control" ref="document_type" 
+                      onChange={() => {
                         this.setState({
-                          document_type: this.refs.document_type.value
-                        })
-                      }
-                      value={this.state.document_type}
-                    >
+                          document_type: this.refs.document_type.value,
+                          file: []
+                        });
+                        this.refs.file.value = "";
+                      }} 
+                      value={this.state.document_type}>
                       <option value="">--- Select Doc Type ---</option>
                       <option value="CV">CV</option>
                       <option value="PAN Card">PAN Card</option>
@@ -143,72 +138,45 @@ class FormAddDocument extends Component {
                       <option value="Qualification Certificate">
                         Qualification Certificate
                       </option>
-                      <option value="Other Documents">Other Documents</option>
+                      <option value="Other Documents">
+                        Other Documents
+                      </option>
                     </select>
                   </div>
 
                   <div className="form-group">
                     <label className="col-sm-12">Attachment </label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      ref="file"
-                      name="link_1"
-                      multiple="multiple"
-                      onChange={this.handleFileChange}
-                    />
+                    <input type="file" className="form-control" ref="file" name="link_1" multiple="multiple" onChange={this.handleFileChange} />
                   </div>
-                  <div className = "form-group">
-                  {this.state.file[0] ? (
-                    <div>
-                    <label className="col-xs-12">Image Preview </label>
-                      <img
-                        src={this.state.imageUrl}
-                        onClick={() => {
-                          this.handleOpen();
-                        }}
-                        className="small"
-                      />
-                      <br />
-                    </div>
-                  ) : null}
-                  <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                    autoScrollBodyContent={true}
-                  >
-                    <div className="thumbnail">
-                      <img src={this.state.imageUrl} />
-                    </div>
-                  </Dialog>
+                  <div className="form-group">
+                    {this.state.file[0] ? <div>
+                        <label className="col-xs-12">Image Preview </label>
+                        <img src={this.state.imageUrl} onClick={() => {
+                            this.handleOpen();
+                          }} className="small" />
+                        <br />
+                      </div> : null}
+                    <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose} autoScrollBodyContent={true}>
+                      <div className="thumbnail">
+                        <img src={this.state.imageUrl} />
+                      </div>
+                    </Dialog>
                   </div>
                   <div className="form-group col-sm-12">
-                    <UploadImageComp
-                      callUpdateDocuments={this.callUpdateDocuments}
-                      url={CONFIG.upload_url}
-                      params={this.state}
-                      file={this.state.file[0]}
-                      fileName="link_1"
-                    />
+                    <UploadImageComp callUpdateDocuments={this.callUpdateDocuments} url={CONFIG.upload_url} params={this.state} file={this.state.file[0]} fileName="link_1" />
                   </div>
                 </form>
               </div>
-              <button
-                className="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 md-btn md-raised indigo"
-                onClick={() => {
+              <button className="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 md-btn md-raised indigo" onClick={() => {
                   this.props.history.push("manage_users");
-                }}
-              >
+                }}>
                 {" "}
                 Go to Employee Page
               </button>
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 

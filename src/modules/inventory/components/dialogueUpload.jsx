@@ -136,7 +136,14 @@ export default class DialogUpload extends React.Component {
               className="form-control"
               ref="status"
               value={this.state.document}
-              onChange={e => this.setState({ document: e.target.value })}
+              onChange={e => {
+                               this.setState({
+                                 document:
+                                   e.target.value,
+                                 file: []
+                               });
+                               this.refs.file.value = "";
+                             }}
             >
               <option value="" disabled>
                 --Select document--

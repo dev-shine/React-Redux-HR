@@ -19,5 +19,8 @@ export const uploadFile = (formData, url, isRole) => dispatch => {
     } else {
       dispatch(actionMyDocuments.getMyDocument());
     }
+  }).catch(error => {
+    dispatch({ type: "UPLOAD_FILE", payload: false });
+    notify('Error',error,'error')
   });
 };

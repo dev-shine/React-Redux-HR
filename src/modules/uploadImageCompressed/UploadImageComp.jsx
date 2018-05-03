@@ -78,8 +78,12 @@ class UploadImageComp extends Component {
             }
             })
             .catch(error => {
-              if (error.request) {
+              if (error.request.status === 413) {
                 notify("Error", "File too large to upload", "error");
+                this.setState({ loading: false });
+              }
+              else{
+                notify("Error", error.request.statusText, "error");
                 this.setState({ loading: false });
               }
             });

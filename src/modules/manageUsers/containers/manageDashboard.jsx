@@ -180,7 +180,7 @@ class ManageDashboard extends React.Component {
     end = moment(testDate),
     hours = now.diff(end, 'hours');
  
-    if(hours>2){
+    if(hours>1){
      resetLoggedUser();
     }
     

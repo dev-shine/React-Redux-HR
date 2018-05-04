@@ -8,6 +8,7 @@ import CircularProgress from "material-ui/CircularProgress";
 import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import * as actionsUploadFile from "appRedux/uploadImageComp/actions/uploadImageComp";
 import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
+import { format } from "url";
 class UploadImageComp extends Component {
   constructor() {
     super();
@@ -41,7 +42,7 @@ class UploadImageComp extends Component {
     } else {
       this.setState({ loading: true });
       let quality = qualityValue(file);
-
+      console.log(file,"not compressed")
       let imageCompressor = new ImageCompressor();
       imageCompressor
         .compress(file, {
@@ -52,6 +53,7 @@ class UploadImageComp extends Component {
           for (let key in params) {
             formData.append(key, params[key]);
           }
+          formData.delete('imageUrl'); //IMPORTANT: it is the image in ImagePreview  
           formData.append(fileName, file, file.name);
           formData.append("submit", "Upload");
           // Send the compressed image file to server with XMLHttpRequest.

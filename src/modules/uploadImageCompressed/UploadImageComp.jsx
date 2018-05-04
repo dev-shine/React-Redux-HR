@@ -35,6 +35,7 @@ class UploadImageComp extends Component {
       for (let key in params) {
         formData.append(key, params[key]);
       }
+      formData.delete('imageUrl');
       formData.append(fileName, file);
       formData.append("submit", "Upload");
 
@@ -42,7 +43,6 @@ class UploadImageComp extends Component {
     } else {
       this.setState({ loading: true });
       let quality = qualityValue(file);
-      console.log(file,"not compressed")
       let imageCompressor = new ImageCompressor();
       imageCompressor
         .compress(file, {

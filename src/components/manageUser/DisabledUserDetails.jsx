@@ -26,7 +26,7 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
         </div>
         <div className="col-xs-6 col-sm-6 profile-input p-b">
           <small className="text-muted">Last Salary Details</small>
-          <div className="_500"> ₹ {userDetails.last_salary_details === '' ? nA : userDetails.last_salary_details.total_salary}</div>
+          <div className="_500"> ₹ {!userDetails.last_salary_details ? nA : userDetails.last_salary_details.total_salary}</div>
         </div>
         <div className="col-xs-6 col-sm-6 profile-input p-b">
           <small className="text-muted">Work Email</small>

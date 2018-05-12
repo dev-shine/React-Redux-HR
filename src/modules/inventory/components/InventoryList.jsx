@@ -403,7 +403,7 @@ class InventoryList extends React.Component {
               {device.repair_comment} <br />
             </ul>
           </td>
-          {role === CONFIG.ADMIN ? (
+          {role === CONFIG.ADMIN || CONFIG.HR ? (
             <td className="tdAlign row" style={{ marginTop: "5%" }}>
               <button
                 className="md-btn md-raised m-b-sm indigo"
@@ -553,7 +553,7 @@ class InventoryList extends React.Component {
                           <th>Name</th>
                           <th>Informations</th>
                           <th>Status/Commments</th>
-                          {role === CONFIG.ADMIN ? <th>Actions</th> : null}
+                          {role === CONFIG.ADMIN || CONFIG.HR ? <th>Actions</th> : null}
                         </tr>
                       </thead>
                       <tbody>{rows}</tbody>

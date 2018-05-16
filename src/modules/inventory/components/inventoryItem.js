@@ -87,33 +87,7 @@ class InventoryItem extends React.Component {
         </option>
       );
     });
-    const Assignhistory = _.map(
-      this.props.manageDevice.deviceHistory.history,
-      (val, i) => {
-        return (
-          <div key={i} className="streamline b-l m-l">
-            <div className="sl-item b-info">
-              {val.assign_unassign_user_name ? (
-                <div className="sl-content">
-                  <div className="sl-date text-muted">
-                    Assigned to : {val.assign_unassign_user_name}
-                  </div>
-                  <div className="sl-date text-muted">
-                    By : {val.updated_by_user}
-                  </div>
-                  <div className="sl-date text-muted">
-                    on :{" "}
-                    {moment(val.updated_at).format(
-                      "dddd, MMMM Do YYYY, h:mm:ss a"
-                    )}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        );
-      }
-    );
+
     const history = _.map(
       this.props.manageDevice.deviceHistory.history,
       (val, i) => {
@@ -121,16 +95,24 @@ class InventoryItem extends React.Component {
           <div key={i} className="streamline b-l m-l">
             <div className="sl-item b-info">
               <div className="sl-content">
-                <div className="sl-date text-muted">
-                  Comment : {val.comment}
-                </div>
+                {val.comment === "Inventory Assigned" ||
+                val.comment === "Inventory Removed" ? (
+                  <div className="sl-date text-muted">
+                    Comment : {val.comment}{" "}
+                    {val.comment === "Inventory Assigned" ? "to" : "from"}{" "}
+                    {val.assign_unassign_user_name}
+                  </div>
+                ) : (
+                  <div className="sl-date text-muted">
+                    Comment : {val.comment}
+                  </div>
+                )}
                 <div className="sl-date text-muted">
                   Updated on :{" "}
                   {moment(val.updated_at).format(
                     "dddd, MMMM Do YYYY, h:mm:ss a"
                   )}
                 </div>
-
                 <div className="sl-date text-muted">
                   By : {val.updated_by_user}
                 </div>
@@ -292,7 +274,6 @@ class InventoryItem extends React.Component {
                           style={{ marginTop: "4%" }}
                         >
                           {" "}
-                          {Assignhistory}
                           {history}
                         </div>
                       </div>

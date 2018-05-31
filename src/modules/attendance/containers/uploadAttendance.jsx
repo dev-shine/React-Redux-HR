@@ -18,6 +18,7 @@ class UploadAttendance extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillMount () {
     this.props.onUsersList();
@@ -29,7 +30,9 @@ class UploadAttendance extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
   }
-
+  handleSubmit() {
+    window.location.href = CONFIG.upload_attendance_url
+  }
   handleOpenIframe () {
     this.setState({openIframe: true});
   }
@@ -50,11 +53,7 @@ class UploadAttendance extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 p">
-                <form action={CONFIG.upload_attendance_url} method="POST" encType="multipart/form-data">
-                  <div className="form-group">
-                    <input type="submit" name="submit" value="CLICK TO UPLOAD ATTENDANCE" className="col-xs-4 md-btn md-raised indigo" />
-                  </div>
-                </form>
+                    <input type="button" onClick={this.handleSubmit} name="submit" value="CLICK TO UPLOAD ATTENDANCE" className="col-xs-4 md-btn md-raised indigo" />
                  {/* <AttendanceSheatForm
                     user_documents={this.state.user_documents}
                     onUpdatedocuments={this.props.onUpdatedocuments}

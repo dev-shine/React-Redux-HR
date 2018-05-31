@@ -31,7 +31,7 @@ class UploadAttendance extends React.Component {
     }
   }
   handleSubmit() {
-    window.location.href = CONFIG.upload_attendance_url
+    window.open(CONFIG.upload_attendance_url)
   }
   handleOpenIframe () {
     this.setState({openIframe: true});

@@ -11,7 +11,7 @@ const CONFIG = {
   login_page_url:            'http://dev.hr.excellencetechnologies.in/hr',
   upload_url:                'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file.php',
   upload_leave_url:          'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/upload_leave_doc.php',
-  upload_attendance_url:     'http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php',
+  upload_attendance_url:     'http://dev.hr.excellencetechnologies.in/hr/attendance/index.php',
   pdf_url:                   'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
   upload_email_attachment:   'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
   transfer_link:             'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/display_user_info.php',

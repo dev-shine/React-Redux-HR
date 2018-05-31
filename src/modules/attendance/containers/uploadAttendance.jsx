@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
+import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
@@ -49,11 +50,16 @@ class UploadAttendance extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 p">
-                  <AttendanceSheatForm
+                <form action={CONFIG.upload_attendance_url} method="POST" encType="multipart/form-data">
+                  <div className="form-group">
+                    <input type="submit" name="submit" value="CLICK TO UPLOAD ATTENDANCE" className="col-xs-4 md-btn md-raised indigo" />
+                  </div>
+                </form>
+                 {/* <AttendanceSheatForm
                     user_documents={this.state.user_documents}
                     onUpdatedocuments={this.props.onUpdatedocuments}
                     {...this.props}
-                    />
+                    /> */}
                 </div>
               </div>
             </div>

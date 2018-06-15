@@ -5,7 +5,6 @@ const DATA = [
   {'path': '/attendanceRequests', 'label': 'Attendance Requests', 'plabel': 'Attendance'},
   {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
   {'path': '/manage_roles', 'label': 'Manage Roles', 'plabel': 'Roles'},
-  {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
   {'path': '/dashboard', 'label': 'Dashboard', 'plabel': 'Manage Employees'},
   {'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees'},
   {'path': '/manage_working_hours', 'label': 'Office Hours', 'plabel': 'Manage Hours'},
@@ -19,7 +18,8 @@ const DATA = [
   {'path': '/manage_payslips', 'label': 'Payslips', 'plabel': 'Manage Salary'},
   {'path': '/mail_templates', 'label': 'Mail Templates', 'plabel': 'Templates'},
   {'path': '/add_variables', 'label': 'Add Variables', 'plabel': 'Templates'},
-  {'path': '/upload_policy_documents', 'label': 'Upload Documents', 'plabel': 'Policy Documents'},
+  {'path': '/add_documents', 'label': 'Add Documents', 'plabel': 'Add Documents'},
+  {'path': '/upload_policy_documents', 'label': 'Upload Policy Documents', 'plabel': 'Policy Documents'},
   {'path': '/my_leaves', 'label': 'My Leaves'},
   {'path': '/salary', 'label': 'My Salary'},
   {'path': '/my_profile', 'label': 'My Profile'},
@@ -27,7 +27,7 @@ const DATA = [
   {'path': '/documents', 'label': 'My Documents'},
   {'path': '/policy_documents', 'label': 'Policy Documents'},
   {'path': '/holidays', 'label': 'Holidays'},
-  {'path': '/inventory_system', 'label': 'Inventory'},
+  {'path': '/inventoryOverviewDetail', 'label': 'Inventory'},
   {'path': '/team_view', 'label': 'Team'},
   {'path': '/logout', 'label': 'Logout'}
 ];

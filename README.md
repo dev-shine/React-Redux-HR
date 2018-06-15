@@ -39,6 +39,12 @@ $ npm run deploy:dev
 $ npm run deploy:prod
 ```
 
+### Run Cypress Tests
+
+```
+$ npm run cypress
+```
+
 ## Application Structure
 
 The application structure presented below is to be strictly followed while developing the the application. The functionality is grouped in to modules based on its feature and routes falls under similar category. The same module structure is to be followed inside **components**, **redux**, **style** which contains related content modulewise.
@@ -50,8 +56,12 @@ The application structure presented below is to be strictly followed while devel
 ├── build                    # All build-related configuration
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── server                   # Koa application (uses webpack middleware)
 │   └── main.js              # Server application entry point
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── src                      # Application source code
 │   ├── modules              # Reusable Container Components
 │   │   └── auth             # Route definitions and async split points
@@ -185,6 +195,7 @@ body{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 ```
+
 ### Error while npm install
 
 ```
@@ -192,3 +203,12 @@ ERROR in ./~/css-loader!./~/sass-loader!./~/postcss-loader!./src/styles/main.scs
 Module build failed: Error: ENOENT: no such file or directory, scandir '/var/www/html/UpworkTest/ReactReduxHR/node_modules/node-sass/vendor'
 ```  
 In case of this error run the `npm rebuild node-sass --force`. 
+
+### Cypress Unit Testing
+
+```
+It is to test every page(route) as a user by Automation testing.
+run test through UI in default browser.
+
+```
+**NOTE:** Every Time a PR is created circleci must pass the test.

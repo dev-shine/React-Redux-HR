@@ -1,0 +1,4 @@
+{
+  "restartBrowserBetweenSpecFiles": true,
+  "numTestsKeptInMemory": 5
+}

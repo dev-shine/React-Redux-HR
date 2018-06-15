@@ -43,7 +43,6 @@ class ManagePayslips extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    window.scrollTo(0, 0);
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
@@ -113,18 +112,18 @@ class ManagePayslips extends React.Component {
     }
   }
   saveArrear (user_id, extra_arrear, arrear_for_month) {
-    // console.log(user_id,extra_arrear,arrear_for_month);
+   
     this.props.onCreateArrear(user_id, extra_arrear, arrear_for_month);
   }
 
   callCreateUserPayslip (payslipData, evt) {
-    // evt.preventDefault();
+    evt.preventDefault();
     this.props.onCreateUserPayslip(payslipData).then((data) => {
       this.onUserClick(this.state.selected_user_id);
     }, (error) => {
       notify(error);
     });
-  }
+  } 
 
   callMonthlyPayslip (userid, year, month) {
     this.setState({year: year, month: month});

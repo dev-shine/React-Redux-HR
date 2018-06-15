@@ -27,7 +27,7 @@ class Menu extends React.Component {
         <div className="left navside dark dk">
           <div className="navbar no-radius">
             <a className="navbar-brand">
-              <img src="./favicon.ico" />
+              <img id="logo" src="./favicon.ico" />
               <span className="hidden-folded inline">HR</span>
             </a>
           </div>

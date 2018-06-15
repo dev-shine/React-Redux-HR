@@ -11,17 +11,18 @@ class SalaryList extends React.Component {
     };
     this.search = this.search.bind(this);
   }
+
   search (searchValue) {
-    if (searchValue !== 'null' && searchValue !== '') {
+    if (searchValue !== 'null' && searchValue !== '' && !_.isEmpty(searchValue)) {
       var emps = [];
       _.forEach(this.props.empList, function (emp, i) {
-        if ((emp.empName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.designation.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.salary.indexOf(searchValue) !== -1) ||
-         (emp.dateOfJoining.indexOf(searchValue) !== -1) ||
-         (emp.noOfDaysSinceJoined.indexOf(searchValue) !== -1) ||
-         (emp.preSalaryIncDetail.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-         (emp.nextSallaryInc.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)) {
+        if ((!_.isEmpty(emp.empName) && emp.empName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (!_.isEmpty(emp.designation) && emp.designation.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (emp.salary.toString().indexOf(searchValue.toString()) !== -1) ||
+         (!_.isEmpty(emp.dateOfJoining) && emp.dateOfJoining.toString().indexOf(searchValue.toString()) !== -1) ||
+         (!_.isEmpty(emp.noOfDaysSinceJoined) && emp.noOfDaysSinceJoined.toString().indexOf(searchValue.toString()) !== -1) ||
+         (!_.isEmpty(emp.preSalaryIncDetail) && emp.preSalaryIncDetail.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+         (!_.isEmpty(emp.nextSallaryInc) && emp.nextSallaryInc.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)) {
           emps.push({
             'image':               emp.image,
             'empName':             emp.empName,
@@ -79,7 +80,7 @@ class SalaryList extends React.Component {
           <div className="col-md-6 p-r">
             <div className="form-group">
               <label style={{'fontSize': 15}}>Search:</label>
-              <input type="text" className="form-control" ref="search" onChange={() => this.search(this.refs.search.value)} />
+              <input type="text" id="search-form" className="form-control" ref="search" onChange={() => this.search(this.refs.search.value)} />
             </div>
           </div>
         </div>

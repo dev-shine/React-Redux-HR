@@ -36,7 +36,7 @@ import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';
 import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
-import Page_InventorySystem from './modules/inventory/containers/manageInventory';
+import InventorySystem from './modules/inventory/containers/manageInventory';
 import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
@@ -47,8 +47,15 @@ import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
-
+import InventoryItem from './modules/inventory/components/inventoryItem'
+import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
+import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
+import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
+import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
+import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
+import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer.jsx';  
+import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
 // import APP from './App';
 
 // -for iPhone iPad safari engine
@@ -106,8 +113,22 @@ let render = (routerKey = null) => {
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} />
-            <Route path="inventory_system" component={Page_InventorySystem} />
+
+            {/* <Route path="inventoryOverviewDetail" component={Page_InventorySystem} /> */}
+            {/* <Route path="inventory_system/:device/:id" component={InventoryItem} /> */}
+            <Route path="inventory_system" component={InventorySystem} />
+
+            <Route path="inventory_system/:device/:id" component={InventoryItem} />
+            <Route path="inventory_system/:device" component={InventorySystem}/>
             <Route path="attendanceReq" component={Page_AttendanceReq} />
+            <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>
+            <Route path="add_documents" component = {Page_AddDocuments} />
+            <Route path="add_documents/*" component = {Page_FormAddDocuments} />
+
+            <Route path="addInventory" component={RouterAddInventorySystem}/>
+            <Route path="add_new_employee" component={AddNewEmployee}/>
+            <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
+            <Route path="user_document" component={UserDocumentDetails}/>
           </Route>
         </Router>
       </Provider>

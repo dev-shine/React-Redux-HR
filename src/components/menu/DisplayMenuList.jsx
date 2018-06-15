@@ -14,7 +14,7 @@ const DisplayMenuList = ({rolePages, click}) => {
       let validPath = subChild.path.replace(/\//g, '');
       if (!_.isEmpty(_.find(rolePages, ['page_name', validPath]))) {
         return (
-          <li key={k} className="hidden-folded" onClick={() => menuToggle()}>
+          <li key={k} className="hidden-folded" id={validPath} onClick={() => menuToggle()}>
             <span style={{'fontSize': 11, 'fontWeight': 600}}>
               <Link to={subChild.path}>{subChild.label}</Link>
             </span>

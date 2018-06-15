@@ -14,7 +14,7 @@ let initialState = {
   forgotPassword: {
     isLoading: false,
     isError:   false,
-    isSuccess: false,
+    isSuccess: false, 
     message:   ''
   }
 };
@@ -58,25 +58,25 @@ const userLogout = (state, action) => update(state, {
 });
 const requestForgotPassword = (state, action) => update(state, {
   forgotPassword: {
-    isLoading: true,
-    isError:   false,
-    isSuccess: false,
-    message:   ''
+    isLoading: {$set: true},
+    isError:   {$set: false},
+    isSuccess: {$set: false},
+    message:   {$set: ''}
   }
 });
 const successForgotPassword = (state, action) => update(state, {
   forgotPassword: {
-    isLoading: false,
-    isError:   false,
-    isSuccess: true,
+    isLoading: {$set: false},
+    isError:   {$set: false},
+    isSuccess: {$set: true},
     message:   {$set: action.payload}
   }
 });
 const errorForgotPassword = (state, action) => update(state, {
   forgotPassword: {
-    isLoading: false,
-    isError:   true,
-    isSuccess: false,
+    isLoading: {$set: false},
+    isError:   {$set: true},
+    isSuccess: {$set: false},
     message:   {$set: action.payload}
   }
 });

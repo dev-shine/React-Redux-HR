@@ -67,7 +67,7 @@ webpackConfig.plugins = [
     minify:   {
       collapseWhitespace: true
     }
-  })
+  }),
 ];
 
 debug('Enable plugins for live development (HMR, NoErrors).');

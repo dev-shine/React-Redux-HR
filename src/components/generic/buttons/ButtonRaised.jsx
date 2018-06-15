@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonRaised = ({label, style, className, onClick}) => {
+const ButtonRaised = ({label, style, id, className, onClick}) => {
   let classname = 'md-btn md-raised ' + className;
+  let idName = id !== undefined ? id : '';
   return (
-    <button className={classname} style={style} onTouchTap={onClick}>{label}</button>
+    <button className={classname} style={style} id={idName} onTouchTap={onClick}>{label}</button>
   );
 };
 

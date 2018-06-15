@@ -3,16 +3,19 @@ import _ from 'lodash';
 import {confirm} from 'src/services/notify';
 import {getToken, resetLoggedUser} from 'src/services/generic';
 import 'whatwg-fetch';
+import axios from 'axios';
 
 const actionsForOtherAPIurl = ['get_user_profile_detail', 'get_user_profile_detail_by_id', 'update_user_profile_detail_by_id', 'update_user_bank_detail',
   'update_user_profile_detail', 'get_user_manage_payslips_data', 'create_employee_salary_slip', 'delete_salary',
-  'send_payslips_to_employees', 'get_user_document', 'insert_user_document', 'delete_user_document', 'get_all_users_detail',
+  'send_payslips_to_employees', 'get_user_document','get_user_document_by_id', 'insert_user_document', 'delete_user_document', 'get_all_users_detail',
   'create_template_variable', 'get_template_variable', 'delete_template_variable', 'update_template_variable', 'create_email_template',
   'get_email_template', 'delete_email_template', 'update_email_template', 'send_employee_email', 'create_pdf', 'get_policy_document',
   'save_policy_document', 'get_user_policy_document', 'update_user_policy_document', 'add_team_list', 'get_team_list',
-  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id' ];
 
-const actionsForAPIurl = ['admin_user_apply_leave', 'change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
+  'get_team_users_detail', 'get_user_salary_info', 'get_user_salary_info_by_id', 'get_unassigned_machine_list' , 'add_user_comment' ];
+
+
+const actionsForAPIurl = ['admin_user_apply_leave','get_my_inventories', 'get_machine','change_employee_status', 'get_employee_life_cycle', 'update_employee_life_cycle', 'show_disabled_users', 'add_roles', 'list_all_roles', 'update_role', 'assign_user_role', 'delete_role', 'get_employee_monthly_hours', 'get_employee_performance'];
 
 const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 
@@ -30,7 +33,6 @@ export function fireAjax (method, url, data, api) {
     Accept: 'application/json',
     body:   JSON.stringify(data)
   };
-
   if (data.action === 'add_user_salary') {
     delete (data.action);
     headers.body = JSON.stringify(data);
@@ -42,7 +44,8 @@ export function fireAjax (method, url, data, api) {
   } else if (_.indexOf(actionsForOtherAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.other_api_url;
-  } else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
+  } 
+  else if (_.indexOf(actionsForAPIurl, data.action) >= 0) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
   } else if (data.action === 'get_team_stats') {
@@ -83,7 +86,6 @@ export function fireAjax (method, url, data, api) {
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
   }
-
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {
       return new Promise((resolve, reject) => {
@@ -100,4 +102,8 @@ export function fireAjax (method, url, data, api) {
       return response.json();
     }
   });
+}
+
+export function uploadfile(formData, url) {  
+  return axios.post(url, formData);
 }

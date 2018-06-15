@@ -101,7 +101,7 @@ class ManageRoles extends React.Component {
               <div className="row">
                 <AddRolesForm callAddNewRole={this.callAddNewRole} displayData={this.state.rolesData} />
               </div>
-              <div className="row">
+              <div className="row" id="role_page">
                 <div className="col-sm-8">
                   <DisplayRolesLists
                     displayData={this.state.rolesData}

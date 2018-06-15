@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DaySection = ({block, classname, dataToDisplay, time, title}) => {
+const DaySection = ({block, classname, dataToDisplay, time, title, officeTime}) => {
   let content = '';
   if (block === 'type1') {
     content = <span>
       <span className="fc-time">{time}</span>
-      <span className="fc-title">{title}</span>
+      <span className="fc-title">{title}{officeTime ? <i className="officetime" >{`- ${officeTime} hrs`}</i> : ''}</span>
     </span>;
   } else if (block === 'type2') {
     content = dataToDisplay;
@@ -21,11 +21,11 @@ const DaySection = ({block, classname, dataToDisplay, time, title}) => {
 };
 
 DaySection.PropTypes = {
-  block: PropTypes.string.isRequired,
-  classname: PropTypes.string.isRequired,
+  block:         PropTypes.string.isRequired,
+  classname:     PropTypes.string.isRequired,
   dataToDisplay: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  time:          PropTypes.string.isRequired,
+  title:         PropTypes.string.isRequired
 };
 
 export default DaySection;

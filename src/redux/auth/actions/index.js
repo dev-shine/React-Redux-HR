@@ -22,7 +22,7 @@ export function* loginRequest (action) {
   }
 }
 
-export function* isAlreadyLoggedIn (action) {
+export function* isAlreadyLoggedIn (action) { 
   let {token, data} = getLoggedUser();
   if (token) {
     yield put(actions.userLoginSuccess(setLoggedUser(token, data.id)));
@@ -37,7 +37,11 @@ export function* forgotPassword (action) {
       'action':   'forgot_password',
       'username': action.payload.username
     });
-    yield put(actions.forgotPasswordSuccess(response.data.message));
+    if (response.error == 1) {
+      yield put(actions.forgotPasswordError(response.data.message));
+    } else {
+      yield put(actions.forgotPasswordSuccess(response.data.message));
+    }
   } catch (e) {
     yield put(actions.forgotPasswordError('Error Occurs !!'));
     console.warn('Some error found in "forgotPassword" action\n', e);

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Menu from 'components/generic/Menu';
+import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'components/generic/AlertNotification';
 import Header from 'components/generic/Header';
@@ -17,6 +18,7 @@ class UploadAttendance extends React.Component {
     this.props.onIsAlreadyLogin();
     this.state = {
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillMount () {
     this.props.onUsersList();
@@ -28,7 +30,9 @@ class UploadAttendance extends React.Component {
       this.props.router.push(isNotValid.redirectTo);
     }
   }
-
+  handleSubmit() {
+    window.open(CONFIG.upload_attendance_url)
+  }
   handleOpenIframe () {
     this.setState({openIframe: true});
   }
@@ -49,11 +53,12 @@ class UploadAttendance extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-10 p">
-                  <AttendanceSheatForm
+                    <input type="button" onClick={this.handleSubmit} name="submit" value="CLICK TO UPLOAD ATTENDANCE" className="col-xs-4 md-btn md-raised indigo" />
+                 {/* <AttendanceSheatForm
                     user_documents={this.state.user_documents}
                     onUpdatedocuments={this.props.onUpdatedocuments}
                     {...this.props}
-                    />
+                    /> */}
                 </div>
               </div>
             </div>

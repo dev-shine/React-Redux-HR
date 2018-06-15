@@ -1,336 +1,584 @@
-import React from 'react';
-import 'react-date-picker/index.css';
-import Dialog from 'material-ui/Dialog';
-import {DateField} from 'react-date-picker';
-import {notify} from 'src/services/notify';
-import TextField from 'material-ui/TextField';
-import AlertNotification from 'components/generic/AlertNotification';
+import React from "react";
+import "react-date-picker/index.css";
+import Dialog from "material-ui/Dialog";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router";
+import { DateField } from "react-date-picker";
+import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
+import { notify } from "src/services/notify";
+import TextField from "material-ui/TextField";
+import AlertNotification from "components/generic/AlertNotification";
+import CircularProgress from "material-ui/CircularProgress";
+import DatePicker from "material-ui/DatePicker";
+import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
+import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
+import * as actions from "appRedux/actions";
+import * as actionsUsersList from "appRedux/generic/actions/usersList";
+import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
+import style from "src/styles/inventory/viewUser.scss";
+import Header from "components/generic/Header";
+import Menu from "components/generic/Menu";
+import { isNotUserValid } from "src/services/generic";
+var moment = require("moment");
+let newdate;
+let selectedOption;
+let purchase;
+let warranty;
+let datef;
 
-export default class FormAddNewInventory extends React.Component {
-  constructor (props) {
+class FormAddNewInventory extends React.Component {
+  constructor(props) {
     super(props);
+    this.props.onIsAlreadyLogin();
     this.state = {
-      open:             false,
-      edit:             false,
-      id:               '',
-      user:             '',
-      autoOk:           true,
-      machine_type:     '',
-      machine_name:     '',
-      machine_price:    '',
-      serial_no:        '',
-      purchase_date:    '',
-      mac_address:      '',
-      operating_system: '',
-      comment:          '',
-      warranty_comment: '',
-      repair_comment:   '',
-      bill_no:          '',
-      warranty:         '',
-      user_Id:          '',
-      msg:              '',
-      deviceTypeList:   [],
-      deviceStatusList: []
+      open: false,
+      edit: false,
+      id: "",
+      user: "",
+      autoOk: true,
+      machine_type: "",
+      machine_name: "",
+      machine_price: "",
+      serial_no: "",
+      purchase_date: "",
+      operating_system: "",
+      comment: "",
+      warranty_comment: "",
+      repair_comment: "",
+      bill_no: "",
+      warranty: "",
+      user_Id: "unassign",
+      msg: "",
+      deviceTypeList: [],
+      deviceStatusList: [],
+      status: "",
+      loading: false,
+      unassign_comment: "",
+      warranty_years: ""
     };
-    this.handleOpen = this.handleOpen.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
+    this.handleAddDialog = this.handleAddDialog.bind(this);
+    this.openEditDevice = this.openEditDevice.bind(this);
   }
 
-  componentWillReceiveProps (props) {
-    // let {open, edit} = props;
-    this.setState({
-      open:             props.open,
-      edit:             props.edit,
-      deviceTypeList:   props.manageDevice.deviceList,
-      deviceStatusList: props.manageDevice.statusList
+  componentWillMount() {
+    this.props.onUsersList();
+    this.props.onFetchDeviceType();
+    this.props.onFetchDeviceStatus();
+  }
+  openEditDevice(id) {
+    this.props.onGetDeviceById(id).then(val => {
+      this.setState({
+        edit: true,
+        open: true,
+        deviceId: id,
+        status_message: "",
+        getByIdData: val
+      });
     });
+  }
+  componentWillReceiveProps(props) {
+    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    this.setState({
+      open: props.open,
+      edit: props.edit,
+      deviceTypeList: props.manageDevice.deviceList,
+      deviceStatusList: props.manageDevice.statusList,
+      username: props.manageUsers.username,
+      user_profile_detail: props.manageUsers.user_profile_detail,
+      user_assign_machine: props.manageUsers.user_assign_machine
+    });
+    <CircularProgress />;
 
-    if (props.edit) {
+    if (props.manageDevice.editData.edit) {
+      purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;
+      warranty = moment(props.manageDevice.editData.device.warranty_end_date)
+        ._d;
+
+      // var a = moment(props.manageDevice.editData.device.warranty_end_date);
+      // var b = moment(props.manageDevice.editData.device.date_of_purchase);
+      // var diffDuration = moment.duration(a.diff(b));
+      // let year=diffDuration.years();
+      // let month=diffDuration.months();
+      // let day=diffDuration.days();
+      // if(year>0 && month==0 && day==0){
+      //   this.setState({
+      //     warranty_years:year
+      //   })
+      // }
+      // else if(year<0 && month==6 && day==0){
+      //   this.setState({
+      //     warranty_years:month
+      //   })
+      // }
+      // else{
+      //   this.setState({
+      //     warranty_years:''
+      //   })
+      // }
       this.setState({
-        id:               props.getByIdData.id,
-        machine_type:     props.getByIdData.machine_type,
-        machine_name:     props.getByIdData.machine_name,
-        machine_price:    props.getByIdData.machine_price,
-        serial_no:        props.getByIdData.serial_number,
-        purchase_date:    props.getByIdData.date_of_purchase,
-        mac_address:      props.getByIdData.mac_address,
-        operating_system: props.getByIdData.operating_system,
-        status:           props.getByIdData.status,
-        comment:          props.getByIdData.comments,
-        warranty_comment: props.getByIdData.warranty_comment,
-        repair_comment:   props.getByIdData.repair_comment,
-        bill_no:          props.getByIdData.bill_number,
-        warranty:         props.getByIdData.warranty_end_date,
-        user_Id:          props.getByIdData.user_Id
+        id: props.manageDevice.editData.device.id,
+        machine_type: props.manageDevice.editData.device.machine_type,
+        machine_name: props.manageDevice.editData.device.machine_name,
+        machine_price: props.manageDevice.editData.device.machine_price,
+        serial_no: props.manageDevice.editData.device.serial_number,
+        purchase_date: purchase,
+        operating_system: props.manageDevice.editData.device.operating_system,
+        status: props.manageDevice.editData.device.status,
+        comment: props.manageDevice.editData.device.comments,
+        warranty_comment: props.manageDevice.editData.device.warranty_comment,
+        repair_comment: props.manageDevice.editData.device.repair_comment,
+        bill_no: props.manageDevice.editData.device.bill_number,
+        warranty: warranty,
+        user_Id: props.manageDevice.editData.device.user_Id,
+        unassign_comment: props.manageDevice.editData.device.unassign_comment,
+        warranty_years: props.manageDevice.editData.device.warranty_years
       });
-    } else {
+      if (
+        this.props.manageDevice.status_message ===
+        "Successfully Updated into table"
+      ) {
+        this.props.manageDevice.status_message = "";
+      }
+    } else if (
+      this.props.manageDevice.status_message ==
+      "Inventory added successfully and need to be approved by admin!!"
+    ) {
       this.setState({
-        id:               '',
-        machine_type:     '',
-        machine_name:     '',
-        machine_price:    '',
-        serial_no:        '',
-        purchase_date:    '',
-        mac_address:      '',
-        operating_system: '',
-        status:           '',
-        comment:          '',
-        warranty_comment: '',
-        repair_comment:   '',
-        bill_no:          '',
-        warranty:         '',
-        user_Id:          ''
+        id: "",
+        machine_type: "",
+        machine_name: "",
+        machine_price: "",
+        serial_no: "",
+        purchase_date: "",
+        operating_system: "",
+        status: "",
+        comment: "",
+        warranty_comment: "",
+        repair_comment: "",
+        bill_no: "",
+        warranty: "",
+        user_Id: "",
+        loading: false,
+        unassign_comment: "",
+        warranty_years: ""
       });
+      this.props.manageDevice.status_message = "";
     }
   }
+  handleAddDevice() {
+    newdate = new Date(this.state.purchase_date);
+    if (selectedOption == 0.5) {
+      newdate.setMonth(newdate.getMonth() + 6);
+    } else if (selectedOption == 1) {
+      newdate.setFullYear(newdate.getFullYear() + 1);
+    } else if (selectedOption == 2) {
+      newdate.setFullYear(newdate.getFullYear() + 2);
+    } else if (selectedOption == 3) {
+      newdate.setFullYear(newdate.getFullYear() + 3);
+    } else if (selectedOption == 5) {
+      newdate.setFullYear(newdate.getFullYear() + 5);
+    }
+    var dd = newdate.getDate();
+    var mm = newdate.getMonth() + 1;
+    var y = newdate.getFullYear();
+    var someFormattedDate = y + "-" + mm + "-" + dd;
 
-  handleOpen (e) {
-    e.stopPropagation();
-    this.props.handleAddDialog();
-  }
-
-  handleAddDevice () {
     let apiData = {
-      machine_type:     this.state.machine_type,
-      machine_name:     this.state.machine_name.trim(),
-      machine_price:    this.state.machine_price.trim(),
-      serial_no:        this.state.serial_no.trim(),
-      purchase_date:    this.state.purchase_date,
-      mac_address:      null,
+      machine_type: this.state.machine_type,
+      machine_name: this.state.machine_name.trim(),
+      machine_price: this.state.machine_price.trim(),
+      serial_no: this.state.serial_no.trim(),
+      purchase_date: this.state.purchase_date,
       operating_system: this.state.operating_system,
-      status:           this.state.status,
-      comment:          this.state.comment.trim(),
+      status: this.state.status,
+      comment: this.state.comment.trim(),
       warranty_comment: this.state.warranty_comment.trim(),
-      repair_comment:   this.state.repair_comment.trim(),
-      bill_no:          this.state.bill_no.trim(),
-      warranty:         this.state.warranty,
-      user_Id:          this.state.user_Id
+      repair_comment: this.state.repair_comment.trim(),
+      bill_no: this.state.bill_no.trim(),
+      warranty: someFormattedDate,
+      user_Id: this.state.user_Id,
+      unassign_comment: this.state.unassign_comment,
+      warranty_years: this.state.warranty_years
     };
     let resetFields = {
-      machine_type:     '',
-      machine_name:     '',
-      machine_price:    '',
-      serial_no:        '',
-      purchase_date:    '',
-      mac_address:      '',
-      operating_system: '',
-      comment:          '',
-      warranty_comment: '',
-      repair_comment:   '',
-      bill_no:          '',
-      warranty:         '',
-      user_Id:          ''
+      machine_type: "",
+      machine_name: "",
+      machine_price: "",
+      serial_no: "",
+      purchase_date: "",
+      operating_system: "",
+      comment: "",
+      warranty_comment: "",
+      repair_comment: "",
+      bill_no: "",
+      warranty: "",
+      user_Id: "",
+      unassign_comment: "",
+      warranty_years: ""
     };
     let validate = true;
-    let mac = this.state.mac_address;
-    if (this.isMacRequired(this.state.machine_type)) {
-      apiData.mac_address = mac;
-      var pattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i;
-      if (!mac.trim().match(pattern)) {
-        validate = false;
-        notify('Oops', 'MAC Adress type is Invalid', 'error');
-      }
-    }
-    if (validate && !this.props.edit) {
-      this.props.onAddNewMachine(apiData).then((val) => {
-        this.setState(resetFields);
-        notify('Success !', val, 'success');
-        this.props.onFetchDevice();
-        this.props.handleClose();
-      }, (error) => {
-        notify('Error !', error, 'error');
-      });
+    this.setState({
+      loading: true
+    });
+    if (validate && !this.props.manageDevice.editData.edit) {
+      this.props.onAddNewMachine(apiData).then(
+        val => {
+          notify("Success !", val, "success");
+          this.props.router.push(
+            `/inventory_system/${this.state.machine_type}`
+          );
+          this.props.onFetchDevice();
+        },
+        error => {
+          notify("Error !", error, "error");
+          this.setState({
+            loading: false
+          });
+        }
+      );
     } else if (validate) {
-      this.props.onUpdateDevice(this.state.id, apiData).then((message) => {
-        notify('', message, '');
-        this.props.handleClose();
-        this.props.onFetchDevice();
-      }).catch((message) => {
-        this.setState({
-          msg: message
+      this.props
+        .onUpdateDevice(this.state.id, apiData)
+        .then(message => {
+          notify("", message, "");
+          if (message == "No fields updated into table") {
+            this.setState({
+              loading: false
+            });
+          }
+          this.props.handleClose();
+          this.props.onFetchDevice();
+        })
+        .catch(message => {
+          this.setState({
+            msg: message
+          });
+          this.props.router.push(
+            `/inventory_system/${this.state.machine_type}`
+          );
         });
-      });
     }
+    return false;
   }
-  handleAssign (deviceId, Userid) {
-    this.setState({userId: Userid});
+  handleAssign(deviceId, Userid) {
+    this.setState({ userId: Userid });
     this.props.callAssign(deviceId, Userid);
   }
 
-  handleChangeDate (event, date) {
+  handleChangeDate(event, date) {
     this.setState({
       purchase_date: date
     });
   }
-  isMacRequired (machineType) {
-    return (machineType.trim().toLowerCase() === 'laptop' || machineType.trim().toLowerCase() === 'cpu');
+  handleAddDialog() {
+    this.setState({
+      deviceId: "",
+      open: true,
+      status_message: "",
+      edit: false
+    });
   }
-  render () {
+  warranty_date = e => {
+    e.preventDefault();
+    selectedOption = e.target.value;
+    this.setState({
+      warranty_years: e.target.value
+    });
+  };
+
+  render() {
     let userList = this.props.usersList.users.map((val, i) => {
-      return <option key={val.id} id={i} value={val.user_Id} >{val.name}</option>;
+      return (
+        <option key={val.id} id={i} value={val.user_Id}>
+          {val.name}
+        </option>
+      );
     });
     return (
       <div>
-        <AlertNotification message={this.state.msg} />
-        <button className="md-btn md-raised m-b-sm indigo"
-          onTouchTap={this.handleOpen}>Add New Inventory </button>
-        <Dialog
-          title={this.state.edit ? 'UPDATE INVENTORY' : 'ADD INVENTORY'}
-          titleStyle={{opacity: '0.56'}}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.props.handleClose}
-          contentStyle={{width: '70%', maxWidth: 'none'}}
-          autoScrollBodyContent
-          >
-          <div className="col-md-12">
-            <div className="row">
+        <Menu {...this.props} />
+        <div id="content" className="app-content box-shadow-z0" role="main">
+          <Header
+            pageTitle={
+              this.props.manageDevice.editData.edit
+                ? "Edit Inventory"
+                : "Add New Inventory"
+            }
+            showLoading={this.props.frontend.show_loading}
+          />
+          <div className="addinventory">
+            <AlertNotification message={this.state.msg} />
+            <div>
+              {/* <button style={{display:'inline-block',float:'left',marginRight:'2%'}} className="md-btn md-raised m-b-sm indigo">Approved Inventory</button>
+          <button style={{display:'inline-block',float:'left',marginRight:'2%'}} className="md-btn md-raised m-b-sm indigo">Unapproved Inventory</button> */}
+              {/* <button style={{float:'right',marginRight:'25px'}} className="md-btn md-raised m-b-sm indigo"
+            onTouchTap={this.handleOpen}>Add New Inventory </button> */}
+            </div>
+            <div className="col-md-6">
+              {this.state.warranty ? "Date Of Purchase" : ""}
+              <DatePicker
+                hintText="Date Of Purchase"
+                onChange={(e, date) => {
+                  this.setState({ purchase_date: date });
+                }}
+                value={this.state.purchase_date}
+                required
+                textFieldStyle={{ width: "100%" }}
+              />
+            </div>
+
+            <div className="col-md-6">
               <div className="col-md-6">
-                <p style={{opacity: '0.56'}}>Date Of Purchase</p>
-                <DateField
-                  style={{marginTop: '0%'}}
-                  dateFormat="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                  onChange={(date) => { this.setState({purchase_date: date}); }}
-                  value={this.state.purchase_date}
-                  className="form-control"
-                  required />
+                <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
+                {this.props.manageDevice.editData.device.warranty_end_date ? (
+                  <p>
+                    {this.props.manageDevice.editData.device.warranty_end_date}
+                  </p>
+                ) : null}
               </div>
+              <select
+                style={{ marginTop: "0%", opacity: "0.56" }}
+                value={this.state.warranty_years}
+                ref="warranty_period"
+                onChange={this.warranty_date}
+                className="form-control"
+                required
+              >
+                <option value="" disabled>
+                  --Select warranty period--
+                </option>
+                <option value="0.5">6 Months</option>
+                <option value="1">1 year</option>
+                <option value="2">2 year</option>
+                <option value="3">3 year</option>
+                <option value="5">5 year</option>
+              </select>
+            </div>
 
-              <div className="col-md-6">
-                <p style={{opacity: '0.56'}}>Date Of Warrenty Expiry</p>
-                <DateField style={{marginTop: '0%'}}
-                  dateFormat="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                  onChange={(date) => { this.setState({warranty: date}); }}
-                  value={this.state.warranty}
-                  className="form-control"
-                  required />
-              </div>
+            <div
+              className="col-md-6"
+              style={{ opacity: "0.56", marginTop: "2%" }}
+            >
+              {"Machine/Device Type"}
+              <select
+                className="form-control"
+                ref="machine_type"
+                value={this.state.machine_type}
+                onChange={evt => {
+                  this.setState({ machine_type: evt.target.value });
+                }}
+              >
+                <option value="" disabled>
+                  --Select Device--
+                </option>
+                {this.state.deviceTypeList.map((val, i) => {
+                  return (
+                    <option key={i} value={val}>
+                      {" "}
+                      {val}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-              <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
-                {'Machine/Device Type'}
-                <select className="form-control"
-                  ref="machine_type"
-                  value={this.state.machine_type}
-                  onChange={(evt) => {
-                    this.setState({machine_type: evt.target.value});
-                  }}>
-                  <option value='' disabled>--Select Device--</option>
-                  {this.state.deviceTypeList.map((val, i) => {
-                    return <option key={i} value={val} > {val}</option>;
-                  })}
-                </select>
-              </div>
+            <div
+              className="col-md-6"
+              style={{ opacity: "0.56", marginTop: "2%" }}
+            >
+              {"Status"}
+              <select
+                className="form-control"
+                ref="status"
+                value={this.state.status}
+                onChange={e => this.setState({ status: e.target.value })}
+                required
+              >
+                <option value="" disabled>
+                  --Select Status--
+                </option>
+                {this.state.deviceStatusList.map((val, i) => {
+                  return (
+                    <option key={i} value={val.status}>
+                      {" "}
+                      {val.status}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Machine Name"
+                fullWidth
+                onChange={e => this.setState({ machine_name: e.target.value })}
+                onBlur={e =>
+                  this.setState({
+                    machine_name: this.state.machine_name.trim()
+                  })
+                }
+                value={this.state.machine_name}
+                required
+              />
+            </div>
 
-              <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
-                {'Status'}
-                <select className="form-control" ref="status" value={this.state.status}
-                  onChange={(e) => (this.setState({status: e.target.value}))} required>
-                  <option value='' disabled>--Select Status--</option>
-                  {this.state.deviceStatusList.map((val, i) => {
-                    return <option key={i} value={val.status}> {val.status}</option>;
-                  })}
-                </select>
-              </div>
-
-              <div className="col-md-6">
-                <TextField
-                  floatingLabelText="Machine Name"
-                  fullWidth
-                  onChange={(e) => (this.setState({machine_name: e.target.value}))}
-                  onBlur={(e) => { this.setState({machine_name: this.state.machine_name.trim()}); }}
-                  value={this.state.machine_name}
-                  required />
-              </div>
-
-              <div className="col-md-6" style={{opacity: '0.56', marginTop: '2%'}}>
-                {'Assign User'}
+            {!this.props.manageDevice.editData.edit ? (
+              <div
+                className="col-md-6"
+                style={{ opacity: "0.56", marginTop: "2%" }}
+              >
+                {"Assign User"}
                 <select
                   value={this.state.user_Id}
-                  onChange={(evt) => { this.setState({user_Id: evt.target.value}); }}
-                  className="form-control" required>
-                  <option value='' disabled>Select User</option>
+                  onChange={evt => {
+                    this.setState({ user_Id: evt.target.value });
+                  }}
+                  className="form-control"
+                  required
+                >
+                  <option value="">Select User</option>
+                  <option value="unassign">
+                    Unassign Device to any employee
+                  </option>
                   {userList}
                 </select>
               </div>
-
-              {<div className="col-md-6">
-                <TextField
-                  floatingLabelText="Mac Address"
-                  hintText='00:25:96:FF:FE:12'
-                  disabled={!this.isMacRequired(this.state.machine_type)}
-                  fullWidth
-                  onBlur={(e) => { this.setState({mac_address: this.state.mac_address.trim()}); }}
-                  onChange={(e) => { this.setState({mac_address: e.target.value}); }}
-                  value={this.isMacRequired(this.state.machine_type) ? this.state.mac_address : ''} />
-              </div>
-            }
-
+            ) : null}
+            {this.state.user_Id == "unassign" ? (
               <div className="col-md-6">
                 <TextField
-                  floatingLabelText="Price"
-                  hintText='₹'
+                  floatingLabelText="Unassign Device comment"
                   fullWidth
-                  onChange={(e) => (this.setState({machine_price: e.target.value}))}
-                  onBlur={(e) => { this.setState({machine_price: this.state.machine_price.trim()}); }}
-                  value={this.state.machine_price} required />
+                  onChange={e =>
+                    this.setState({ unassign_comment: e.target.value })
+                  }
+                  onBlur={e => {
+                    this.setState({
+                      unassign_comment: this.state.unassign_comment.trim()
+                    });
+                  }}
+                  value={this.state.unassign_comment}
+                  required
+                />
               </div>
-
-              <div className="col-md-6">
-                <TextField
-                  floatingLabelText="Bill No"
-                  fullWidth
-                  onChange={(e) => (this.setState({bill_no: e.target.value}))}
-                  onBlur={(e) => { this.setState({bill_no: this.state.bill_no.trim()}); }}
-                  value={this.state.bill_no} />
-              </div>
-
-              <div className="col-md-6">
-                <TextField
-                  floatingLabelText="Serial No"
-                  fullWidth
-                  onChange={(e) => (this.setState({serial_no: e.target.value}))}
-                  onBlur={(e) => { this.setState({serial_no: this.state.serial_no.trim()}); }}
-                  value={this.state.serial_no} />
-              </div>
-
-              <div className="col-md-12" style={{opacity: '0.56'}} >
-                {'Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({comment: this.state.comment.trim()}); }}
-                  onChange={(e) => { this.setState({comment: e.target.value}); }}
-                  value={this.state.comment}
-                  />
-              </div>
-
-              <div className="col-md-6" style={{opacity: '0.56'}}>
-                {'Extended Warranty Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({warranty_comment: this.state.warranty_comment.trim()}); }}
-                  onChange={(e) => { this.setState({warranty_comment: e.target.value}); }}
-                  value={this.state.warranty_comment} />
-              </div>
-
-              <div className="col-md-6" style={{opacity: '0.56'}}>
-                {'Previous Repair Comment'}
-                <textarea
-                  style={{width: '100%'}}
-                  onBlur={(e) => { this.setState({repair_comment: this.state.repair_comment.trim()}); }}
-                  onChange={(e) => { this.setState({repair_comment: e.target.value}); }}
-                  value={this.state.repair_comment} />
-              </div>
+            ) : null}
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Price"
+                hintText="₹"
+                fullWidth
+                onChange={e => this.setState({ machine_price: e.target.value })}
+                onBlur={e => {
+                  this.setState({
+                    machine_price: this.state.machine_price.trim()
+                  });
+                }}
+                value={this.state.machine_price}
+                required
+              />
             </div>
+
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Serial No"
+                fullWidth
+                onChange={e => this.setState({ serial_no: e.target.value })}
+                onBlur={e => {
+                  this.setState({ serial_no: this.state.serial_no.trim() });
+                }}
+                value={this.state.serial_no}
+              />
+            </div>
+            <div className="col-md-6">
+              <TextField
+                floatingLabelText="Excellence Serial no "
+                fullWidth
+                onChange={e => this.setState({ bill_no: e.target.value })}
+                onBlur={e => {
+                  this.setState({ bill_no: this.state.bill_no.trim() });
+                }}
+                value={this.state.bill_no}
+              />
+            </div>
+
+            {this.state.loading ? (
+              <CircularProgress
+                size={30}
+                thickness={3}
+                style={{ marginLeft: "50%" }}
+              />
+            ) : null}
+            {this.state.loading == false ? (
+              <button
+                className="col-md-12 md-btn md-raised m-b-sm indigo invbtn"
+                style={{ opacity: "0.76", marginTop: "2%" }}
+                onClick={e => this.handleAddDevice(e)}
+              >
+                {this.props.manageDevice.editData.edit
+                  ? "Update Inventory"
+                  : "Add Inventory"}
+              </button>
+            ) : null}
           </div>
-          <button className="col-md-12 md-btn md-raised m-b-sm indigo" style={{opacity: '0.76', marginTop: '2%'}} onClick={this.handleAddDevice}>
-            {this.state.edit ? 'Update Inventory' : 'Add Inventory'}
-          </button>
-        </Dialog>
+        </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    frontend: state.frontend.toJS(),
+    usersList: state.usersList.toJS(),
+    manageUsers: state.manageUsers.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    manageDevice: state.manageDevice.toJS()
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onIsAlreadyLogin: () => {
+      return dispatch(actions.isAlreadyLogin());
+    },
+    onUsersList: () => {
+      return dispatch(actionsUsersList.get_users_list());
+    },
+    onUserProfileDetails: (userid, username) => {
+      return dispatch(
+        actionsManageUsers.getUserProfileDetails(userid, username)
+      );
+    },
+    onAddNewMachine: newMachineDetails => {
+      return dispatch(actionsManageDevice.addNewMachine(newMachineDetails));
+    },
+    onFetchDevice: () => {
+      return dispatch(actionsManageDevice.get_machines_detail());
+    },
+    onGetDeviceById: id => {
+      return dispatch(actionsManageDevice.getDeviceById(id));
+    },
+    onUpdateDevice: (id, machineData) => {
+      return dispatch(actionsManageDevice.updateDevice(id, machineData));
+    },
+    onFetchDeviceType: () => {
+      return dispatch(actionsManageDevice.getDeviceType());
+    },
+    onFetchDeviceStatus: () => {
+      return dispatch(actionsManageDevice.getDeviceStatus());
+    },
+    onShowTab: () => {
+      return dispatch(actionsManageDevice.showTab());
+    }
+  };
+};
+
+const AddInvetorySystem = connect(mapStateToProps, mapDispatchToProps)(
+  FormAddNewInventory
+);
+
+const RouterAddInventorySystem = withRouter(AddInvetorySystem);
+
+export default RouterAddInventorySystem;

@@ -55,7 +55,7 @@ describe('Test leaves page', () => {
     shouldBeVisible('.app-body .padding');
     shouldBeVisible('.app-body .padding .row > div');
     shouldBeVisible('#manage_leave_header');
-    shouldBeVisible('#manage_leave_header .leaves-tab .blue');
+    // shouldBeVisible('#manage_leave_header .leaves-tab .blue');
     shouldBeVisible('#manage_leave_header .leaves-tab .yellow-A200');
     shouldBeVisible('#manage_leave_header .leaves-tab .green-A200');
     shouldBeVisible('#manage_leave_header .leaves-tab .red-500');

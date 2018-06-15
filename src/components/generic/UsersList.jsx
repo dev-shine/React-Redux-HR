@@ -16,7 +16,8 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
   //     $('#fixedScroll').removeClass('fixedScroll');
   //   }
   // });
-  let usersList = _.map(users, (user, key) => {
+  let orderUser=_.orderBy(users, [ 'id'], ['asc']);
+  let usersList = _.map(orderUser, (user, key) => {
     let avatar = '';
     let param = '';
     let arrow = '';
@@ -31,7 +32,7 @@ const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, to
       avatar = <img src={profileImae} />;
       param = user.user_Id;
     } else {
-      profileImae = user.name.charAt(0);
+      profileImae = user.username.charAt(0);
       avatar = <Avatar>{profileImae}</Avatar>;
       param = user;
     }

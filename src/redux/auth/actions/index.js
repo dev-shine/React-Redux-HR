@@ -22,7 +22,7 @@ export function* loginRequest (action) {
   }
 }
 
-export function* isAlreadyLoggedIn (action) {
+export function* isAlreadyLoggedIn (action) { 
   let {token, data} = getLoggedUser();
   if (token) {
     yield put(actions.userLoginSuccess(setLoggedUser(token, data.id)));

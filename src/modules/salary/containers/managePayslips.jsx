@@ -112,7 +112,7 @@ class ManagePayslips extends React.Component {
     }
   }
   saveArrear (user_id, extra_arrear, arrear_for_month) {
-    // console.log(user_id,extra_arrear,arrear_for_month);
+   
     this.props.onCreateArrear(user_id, extra_arrear, arrear_for_month);
   }
 

@@ -14,7 +14,7 @@ let initialState = {
   forgotPassword: {
     isLoading: false,
     isError:   false,
-    isSuccess: false,
+    isSuccess: false, 
     message:   ''
   }
 };

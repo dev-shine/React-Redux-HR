@@ -9,16 +9,13 @@ const ViewUserDevice = ({userAssignMachine}) => {
       <td style={{marginRight: '0%'}}>{i + 1}</td>
       <td>{device.machine_type}</td>
       <td>{device.machine_name}</td>
-      <td>{device.mac_address}</td>
       <td>{device.assign_date}</td>
     </tr>);
   });
   return (
     <div>
-      <div className="col-md-9">
-        <h6 className="text-center">Asssigned Device Details</h6>
-        <hr />
-        <br />
+      <div className="col-md-12">
+        <h6 className="text-center">Assigned Device Details</h6>
         <div className='row'>
           <div className='col-xs-12'>
             <div style={{'marginTop': '2%'}}>
@@ -33,7 +30,6 @@ const ViewUserDevice = ({userAssignMachine}) => {
                         <th>Sr. No</th>
                         <th>Device Type</th>
                         <th>Name</th>
-                        <th>Mac Address</th>
                         <th>Assign Date</th>
                       </tr>
                     </thead>

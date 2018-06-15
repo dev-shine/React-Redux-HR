@@ -1,6 +1,7 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
 import * as actions from 'appRedux/actions';
+import {notify} from 'src/services/notify';
 const ExpessUrl = 'http://144.76.34.244:3017/attendance/update_time_by_employee';
 
 export function* getUserDaySummary (action) {
@@ -51,7 +52,7 @@ export function* empUpdateDaySummary (action) {
   const {userid, date, entryTime, exitTime, reason, year, month} = action.payload;
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action':     'update_time_by_employee',
+      'action':     'add_manual_attendance',
       'userid':     parseInt(userid),
       'date':       date,
       'entry_time': entryTime,
@@ -62,6 +63,11 @@ export function* empUpdateDaySummary (action) {
       yield put(actions.successUpdateEmpDaySummary(response.success));
       yield put(actions.requestUserDaySummary({userid, date}));
       yield put(actions.requestUserAttendance({userid, year, month}));
+      notify(
+      "success",
+      "Your In/Out time and reason are sent to the Admin for approval",
+      "success"
+    );
     } else {
       yield put(actions.errorUpdateEmpDaySummary(response.data.message));
       yield put(actions.requestUserDaySummary({userid, date}));
@@ -69,6 +75,6 @@ export function* empUpdateDaySummary (action) {
   } catch (e) {
     yield put(actions.errorUpdateEmpDaySummary('Error Occurs !!'));
     yield put(actions.requestUserDaySummary({userid, date}));
-    console.warn('Some error found in "update_user_day_summary" action\n', e);
+    console.warn('Some error found in "add_manual_attendance" action\n', e);
   }
 }

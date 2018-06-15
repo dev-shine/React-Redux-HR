@@ -13,7 +13,6 @@ describe('Test disable profile page', () => {
     click('.nav-sub #disabled_employes');
     urlVisited(urls.baseUrl + urls.disabledEmployes);
     shouldBeVisible('.app-body');
-    shouldBeVisible('.app-body .padding');
     shouldBeVisible('#userListWrapper #userList');
   });
   it('click on any employee on left side will show respective information on right sided panel', () => {

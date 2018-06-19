@@ -1,0 +1,29 @@
+.day-color-referance{
+  min-width: 55px;
+}
+.calendar-day {
+ width: calc(100% / 7);
+ min-width: 100px;
+ float: left;
+ min-height: 150px;
+}
+
+.officetime {
+  font-size: 10px;
+}
+
+.compensation-data{
+  small{
+    display: block;
+    font-size: 10px;
+    line-height: 2;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+}
+
+@media (max-width: 580px) {
+  .time-summary {
+    width: 100%;
+  }
+}

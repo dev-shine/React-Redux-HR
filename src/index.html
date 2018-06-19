@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" style="font-size:15px">
-
 <head>
 	<meta charset="UTF-8">
 	<title>HR</title>
@@ -15,106 +14,30 @@
 	<!-- for Chrome on Android, multi-resolution icon of 196x196 -->
 	<meta name="mobile-web-app-capable" content="yes">
 	<link rel="shortcut icon" sizes="196x196" href="">
+
 	<!-- style -->
-	<link rel="stylesheet" href="assets/animate.css/animate.min.css" type="text/css" />
-	<link rel="stylesheet" href="assets/glyphicons/glyphicons.css" type="text/css" />
-	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" type="text/css" />
-	<link rel="stylesheet" href="assets/material-design-icons/material-design-icons.css" type="text/css" />
-	<link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-
-	<!-- build:css ../assets/styles/app.min.css -->
-	<link rel="stylesheet" href="assets/styles/app.css" type="text/css" />
-	<link rel="stylesheet" href="assets/styles/app.min.css" type="text/css" />
-	<!-- endbuild -->
-	<link rel="stylesheet" href="assets/styles/font.css" type="text/css" />
-
-	<link rel="stylesheet" href="libs/jquery/fullcalendar/dist/fullcalendar.css" type="text/css" />
-	<link rel="stylesheet" href="libs/jquery/fullcalendar/dist/fullcalendar.theme.css" type="text/css" />
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="assets/styles/jquery.timepicker.css" />
-	<!--
-    <link href="assets/styles/footable/footable.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="assets/styles/footable/footable.bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/styles/footable/footable.core.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="assets/styles/footable/footable.core.standalone.css" rel="stylesheet" type="text/css" />
-    <link href="assets/styles/footable/footable.standalone.css" rel="stylesheet" type="text/css" />
-    <link href="assets/styles/footable/FooTable.css" rel="stylesheet" type="text/css" />
-    FooTable end-->
+	<link href="/home/etech/Documents/ReactReduxHR/src/styles/main.scss">
 	<style type="text/css">
 		@page {
 			margin: 1cm 2cm 2cm;
 		}
+		.rowflex{box-sizing:border-box; display:-webkit-box; display:-ms-flexbox; display:flex; -webkit-box-flex:0; -ms-flex:0 1 auto; flex:0 1 auto; -webkit-box-orient:horizontal; -webkit-box-direction:normal; -ms-flex-direction:row; flex-direction:row; -ms-flex-wrap:wrap; flex-wrap:wrap; margin-right:-.5rem; margin-left:-.5rem}
+		.box-row{position:relative; box-sizing:border-box; min-height:1rem; overflow:hidden; padding:10px 5px; }
+		.col-xs,.col-xs-offset-0{box-sizing:border-box; -webkit-box-flex:0; -ms-flex:0 0 auto; flex:0 0 auto; }
+		.col-xs{-webkit-box-flex:1; -ms-flex-positive:1; flex-grow:1; -ms-flex-preferred-size:0; flex-basis:0; max-width:100%}
 	</style>
 </head>
-
 <body>
 	<div class="app" id="myApp"></div>
-	<!--
-	<script src="./bundle.js" type="text/javascript"></script>
-  -->
-
-	<!-- build:js scripts/app.html.js -->
-	<!-- jQuery -->
-	<script src="libs/jquery/jquery/dist/jquery.js"></script>
-
-	<script type="text/javascript" src="scripts/jquery.timepicker.js"></script>
-
-	<!-- Bootstrap -->
-	<script src="libs/jquery/tether/dist/js/tether.min.js"></script>
-	<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
-	<!-- core -->
-	<script src="libs/jquery/underscore/underscore-min.js"></script>
-	<script src="libs/jquery/jQuery-Storage-API/jquery.storageapi.min.js"></script>
-	<script src="libs/jquery/PACE/pace.min.js"></script>
-
-	<script src="scripts/config.lazyload.js"></script>
-
-	<script src="scripts/palette.js"></script>
-
-	<!--
-  <script src="http://localhost/reactsjs/HR/scripts/ui-load.js"></script>
--->
-	<script src="scripts/ui-jp.js"></script>
-	<script src="scripts/ui-include.js"></script>
-	<script src="scripts/ui-device.js"></script>
-	<script src="scripts/ui-form.js"></script>
-	<script src="scripts/ui-nav.js"></script>
-	<!--
-  <script src="http://localhost/reactsjs/HR/scripts/ui-screenfull.js"></script>
-  <script src="ui-scroll-to.js"></script>
-  -->
-	<script src="scripts/ui-toggle-class.js"></script>
-
-	<script src="scripts/app.js"></script>
-
-	<!-- ajax -->
-	<!--
-  <script src="libs/jquery/jquery-pjax/jquery.pjax.js"></script>
-  -->
-	<script src="scripts/ajax.js"></script>
-	<!--
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-    <script src="assets/styles/footable/footable.js" type="text/javascript"></script>
-    <script src="assets/styles/footable/footable.paginate.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      $(function () {
-         if ( $.isFunction($.fn.footable) ) {
-            $('table').footable({
-              breakpoints: {
-                phone: 480,
-                tablet: 1024
-              }
-            });
-         }
-       });
-    </script>
-  FooTable end-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-storage-api/1.9.4/jquery.storageapi.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 </body>
-
 </html>

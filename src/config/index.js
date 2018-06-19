@@ -1,37 +1,23 @@
-const token = localStorage.getItem('hr_logged_user')
-export const CONFIG = {
-  ADMIN: 'Admin',
-  HR: 'HR',
-  GUEST: 'Guest',
-  EMPLOYEE: 'Employee',
-  WORKING_DAY: 'WORKING_DAY',
-  LEAVE_DAY: 'LEAVE_DAY',
-  // dev apis
-  api_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/api.php',
-  other_api_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/api.php',
-  api_url_salary: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info',
-  google_login_btn_page_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/google-api/drive_file/index.php?token=' + token,
-  login_page_url: 'http://dev.hr.excellencetechnologies.in/hr/',
-  upload_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file.php',
-  upload_leave_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/API_HR/upload_leave_doc.php',
-  upload_attendance_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/upload_form.php',
-  pdf_url: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/',
-  upload_email_attachment: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/upload_file_attachment.php',
-  transfer_link: 'http://dev.hr.excellencetechnologies.in/hr/attendance/sal_info/display_user_info.php',
+import config_development from './development';
+import config_production from './production';
 
-  // live apis
-  // api_url: 'https://hr.excellencetechnologies.in/attendance/API_HR/api.php',
-  // other_api_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/api.php',
-  // api_url_salary: 'https://hr.excellencetechnologies.in/attendance/sal_info',
-  // google_login_btn_page_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/google-api/drive_file/index.php?token=' + token,
-  // login_page_url: 'https://hr.excellencetechnologies.in/',
-  // upload_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file.php',
-  // upload_leave_url: 'http://hr.excellencetechnologies.in/attendance/API_HR/upload_leave_doc.php',
-  // upload_attendance_url: 'https://hr.excellencetechnologies.in/attendance/upload_form.php',
-  // pdf_url: 'https://hr.excellencetechnologies.in/attendance/sal_info/',
-  // upload_email_attachment: 'https://hr.excellencetechnologies.in/attendance/sal_info/upload_file_attachment.php',
-  // transfer_link: 'https://hr.excellencetechnologies.in/attendance/sal_info/display_user_info.php',
+let CONFIG = config_development;
 
-  jwt_secret_key: 'HR_APP'
+console.log('Environment :: ' + process.env.NODE_ENV);
 
+if (process.env.NODE_ENV === 'production') {
+  CONFIG = config_production;
 }
+
+CONFIG['ADMIN'] = 'Admin';
+CONFIG['HR'] = 'HR';
+CONFIG['GUEST'] = 'Guest';
+CONFIG['EMPLOYEE'] = 'Employee';
+CONFIG['WORKING_DAY'] = 'WORKING_DAY';
+CONFIG['LEAVE_DAY'] = 'LEAVE_DAY';
+CONFIG['DEFAULT_PASSWORD'] = 'java@123';
+CONFIG['jwt_secret_key'] = 'HR_APP';
+CONFIG['PAGEROLES'] = [];
+CONFIG['minimum_months_hr_salary_view'] = 8;
+
+export {CONFIG};

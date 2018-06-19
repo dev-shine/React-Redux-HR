@@ -1,39 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import * as _ from 'lodash'
+import PropTypes from 'prop-types';
 
-class LoadingIcon extends React.Component {
-    constructor( props ){
-        super( props );
-    }
-    render(){
-      let styles = _.cloneDeep(this.constructor.styles);
-
-      let show_loading = '';
-
-      if( this.props.frontend.show_loading == 1 ){
-        show_loading = <div className="progress progress-striped active">
-            <div className="progress-bar info" style={styles.progressWidth}></div>
-        </div>
-      }
-      return (
-        <div style={styles.loadingDivHeight}>
-          {show_loading}
-        </div>
-      )
-
-    }
-}
-
-LoadingIcon.styles = {
+const styles = {
   progressWidth: {
-    'width' : '100%'
+    'width': '100%'
   },
-  loadingDivHeight : {
-    'height' : '10px'
+  loadingDivHeight: {
+    'height': '10px'
   }
 };
 
-export default LoadingIcon
+const LoadingIcon = ({loading}) => {
+  if (loading === true) {
+    return (
+      <div style={styles.loadingDivHeight}>
+        <div className="progress progress-striped active">
+           <div className="progress-bar info" style={styles.progressWidth}></div>
+       </div>
+      </div>
+    );
+  }
+  return (
+    <div></div>
+  );
+};
 
+LoadingIcon.PropTypes = {
+  loading: PropTypes.bool
+};
 
+export default LoadingIcon;

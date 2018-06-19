@@ -1,87 +1,53 @@
-# React Redux Starter Kit
-
-[![Join the chat at https://gitter.im/davezuko/react-redux-starter-kit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/davezuko/react-redux-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/davezuko/react-redux-starter-kit.svg?branch=master)](https://travis-ci.org/davezuko/react-redux-starter-kit?branch=master)
-[![dependencies](https://david-dm.org/davezuko/react-redux-starter-kit.svg)](https://david-dm.org/davezuko/react-redux-starter-kit)
-[![devDependency Status](https://david-dm.org/davezuko/react-redux-starter-kit/dev-status.svg)](https://david-dm.org/davezuko/react-redux-starter-kit#info=devDependencies)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-
-This starter kit is designed to get you up and running with a bunch of awesome new front-end technologies, all on top of a configurable, feature-rich webpack build system that's already setup to provide hot reloading, CSS modules with Sass support, unit testing, code coverage reports, bundle splitting, and a whole lot more.
-
-The primary goal of this project is to remain as **unopinionated** as possible. Its purpose is not to dictate your project structure or to demonstrate a complete sample application, but to provide a set of tools intended to make front-end development robust, easy, and, most importantly, fun. Check out the full feature list below!
-
-Finally, This project wouldn't be possible without the help of our many contributors, so [thank you](#thank-you) for all of your help.
-
-## Table of Contents
-1. [Features](#features)
-1. [Requirements](#requirements)
-1. [Getting Started](#getting-started)
-1. [Application Structure](#application-structure)
-1. [Development](#development)
-  1. [Developer Tools](#developer-tools)
-  1. [Routing](#routing)
-1. [Testing](#testing)
-1. [Deployment](#deployment)
-1. [Build System](#build-system)
-  1. [Configuration](#configuration)
-  1. [Root Resolve](#root-resolve)
-  1. [Globals](#globals)
-  1. [Styles](#styles)
-  1. [Server](#server)
-  1. [Production Optimization](#production-optimization)
-1. [Learning Resources](#learning-resources)
-1. [FAQ](#troubleshooting)
-1. [Thank You](#thank-you)
-
-## Features
-* [react](https://github.com/facebook/react)
-* [redux](https://github.com/rackt/redux)
-* [react-router](https://github.com/rackt/react-router)
-* [react-router-redux](https://github.com/rackt/react-router-redux)
-* [webpack](https://github.com/webpack/webpack)
-* [babel](https://github.com/babel/babel)
-* [koa](https://github.com/koajs/koa)
-* [karma](https://github.com/karma-runner/karma)
-* [eslint](http://eslint.org)
-
-## Requirements
-* node `^4.2.0`
-* npm `^3.0.0`
+## Excellence HR System (```v 2.0.0```)
+Upgraded...
 
 ## Getting Started
 
-After confirming that your development environment meets the specified [requirements](#requirements), you can follow these steps to get the project up and running:
 
 ```bash
-$ git clone https://github.com/davezuko/react-redux-starter-kit.git
-$ cd react-redux-starter-kit
+$ git clone https://github.com/reactexcel/ReactReduxHR.git
+$ cd ReactReduxHR
 $ npm install                   # Install project dependencies
-$ npm start                     # Compile and launch
+$ npm run start:dev                     # Compile and launch
+```
+Then open `http://127.0.0.1:3000` in browser.
+
+### Run project with development api's
+
+
+```bash
+$ npm run start:dev
 ```
 
-If everything works, you should see the following:
+### Run project with production api's
 
-<img src="http://i.imgur.com/zR7VRG6.png?2" />
 
-While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
+```bash
+$ npm run start:prod
+```
+### Build project with development api's
 
-|`npm run <script>`|Description|
-|------------------|-----------|
-|`start`|Serves your app at `localhost:3000`. HMR will be enabled in development.|
-|`compile`|Compiles the application to disk (`~/dist` by default).|
-|`dev`|Same as `npm start`, but enables nodemon for the server as well.|
-|`dev:no-debug`|Same as `npm run dev` but disables devtool instrumentation.|
-|`test`|Runs unit tests with Karma and generates a coverage report.|
-|`test:dev`|Runs Karma and watches for changes to re-run tests; does not generate coverage reports.|
-|`deploy`|Runs linter, tests, and then, on success, compiles your application to disk.|
-|`deploy:dev`|Same as `deploy` but overrides `NODE_ENV` to "development".|
-|`deploy:prod`|Same as `deploy` but overrides `NODE_ENV` to "production".|
-|`lint`|Lint all `.js` files.|
-|`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
+
+```bash
+$ npm run deploy:dev
+```
+
+### Build project with production api's
+
+
+```bash
+$ npm run deploy:prod
+```
+
+### Run Cypress Tests
+
+```
+$ npm run cypress
+```
 
 ## Application Structure
 
-The application structure presented in this boilerplate is **fractal**, where functionality is grouped primarily by feature rather than file type. Please note, however, that this structure is only meant to serve as a guide, it is by no means prescriptive. That said, it aims to represent generally accepted guidelines and patterns for building scalable applications. If you wish to read more about this pattern, please check out this [awesome writeup](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure) by [Justin Greenberg](https://github.com/justingreenberg).
+The application structure presented below is to be strictly followed while developing the the application. The functionality is grouped in to modules based on its feature and routes falls under similar category. The same module structure is to be followed inside **components**, **redux**, **style** which contains related content modulewise.
 
 ```
 .
@@ -90,177 +56,159 @@ The application structure presented in this boilerplate is **fractal**, where fu
 ├── build                    # All build-related configuration
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── server                   # Koa application (uses webpack middleware)
 │   └── main.js              # Server application entry point
+├──cypress                   # Cypress Unit Test files
+|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── src                      # Application source code
-│   ├── main.js              # Application bootstrap and rendering
+│   ├── modules              # Reusable Container Components
+│   │   └── auth             # Route definitions and async split points
+│   │       ├── components   # Presentational React Components related to respactive modules
+│   │       └── containers   # The root components for the route comes here
 │   ├── components           # Reusable Presentational Components
-│   ├── containers           # Reusable Container Components
-│   ├── layouts              # Components that dictate major page structure
-│   ├── static               # Static assets (not imported anywhere in source code)
+│   │   └── auth             # Module dir for the dumb components
 │   ├── styles               # Application-wide styles (generally settings)
-│   ├── store                # Redux-specific pieces
-│   │   ├── createStore.js   # Create and instrument redux store
-│   │   └── reducers.js      # Reducer registry and injection
-│   └── routes               # Main route definitions and async split points
-│       ├── index.js         # Bootstrap main application routes with store
-│       └── Home             # Fractal route
-│           ├── index.js     # Route definitions and async split points
-│           ├── assets       # Assets required to render components
-│           ├── components   # Presentational React Components
-│           ├── container    # Connect components to actions and store
-│           ├── modules      # Collections of reducers/constants/actions
-│           └── routes **    # Fractal sub-routes (** optional)
-└── tests                    # Unit tests
+│   │   ├── main.scss        # Imports all scss form the diffrent module wise scss
+│   │   └── auth             # Contains scss for the respective modules
+│   ├── redux                # Reducers and action for each module inside this dir
+│   │   ├── auth             # Container for module wise actions & reducer
+│   │   │   ├── actions      # Module wise actions
+│   │   │   └── reducers     # Module wise reducer
+│   │   ├── actions.js       # Actions are defined here that are being imported to dispatch any api call & response
+│   │   ├── constants.js     # Defines constants for the actions
+│   │   ├── reducers.js      # Imports all reducers of diffrent modules and combine it
+│   │   └── update.js        # Manual commands defined to update the reducers
+│   ├── config               # common configuration used in source code
+│   ├── static               # Static assets (not imported anywhere in source code)
+│   ├── saga.js              # Root of saga middleware
+│   ├── store.js             # Create redux store using reducers and meddilwares
+│   ├── main.js              # Application bootstrap, routes and rendering
+│   └── index.html           # Project's html file
+├── package.json             # Project's package.json file
+│
+:
 ```
 
-## Development
+## Styles
 
-#### Developer Tools
-
-**We recommend using the [Redux DevTools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd).**
-Using the chrome extension allows your monitors to run on a separate thread and affords better performance and functionality. It comes with several of the most popular monitors, is easy to configure, filters actions, and doesn’t require installing any packages.
-
-However, adding the DevTools components to your project is simple. First, grab the packages from npm:
-
-```bash
-npm i --save-dev redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
-```
-
-Then follow the [manual integration walkthrough](https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md).
-
-### Routing
-We use `react-router` [route definitions](https://github.com/reactjs/react-router/blob/master/docs/API.md#plainroute) (`<route>/index.js`) to define units of logic within our application. See the [application structure](#application-structure) section for more information.
-
-## Testing
-To add a unit test, simply create a `.spec.js` file anywhere in `~/tests`. Karma will pick up on these files automatically, and Mocha and Chai will be available within your test without the need to import them. If you are using `redux-cli`, test files should automatically be generated when you create a component or redux module.
-
-Coverage reports will be compiled to `~/coverage` by default. If you wish to change what reporters are used and where reports are compiled, you can do so by modifying `coverage_reporters` in `~/config/index.js`.
-
-## Deployment
-Out of the box, this starter kit is deployable by serving the `~/dist` folder generated by `npm run deploy` (make sure to specify your target `NODE_ENV` as well). This project does not concern itself with the details of server-side rendering or API structure, since that demands an opinionated structure that makes it difficult to extend the starter kit. However, if you do need help with more advanced deployment strategies, here are a few tips:
-
-### Static Deployments
-If you are serving the application via a web server such as nginx, make sure to direct incoming routes to the root `~/dist/index.html` file and let react-router take care of the rest. If you are unsure of how to do this, you might find [this documentation](https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#configuring-your-server) helpful. The Koa server that comes with the starter kit is able to be extended to serve as an API or whatever else you need, but that's entirely up to you.
-
-### Heroku
-
-Heroku has `nodejs buildpack` script that does the following when you deploy your app to Heroku.
-1. Find `packages.json` in the root directory.
-2. Install `nodejs` and `npm` packages.
-3. Run `npm postinstall script`
-4. Run `npm start`
-
-Therefore, you need to modify `package.json` before deploying to Heroku. Make the following changes in the `scripts` section of `package.json`.
+We are using `.scss` to style this application. We emphasize not to use inline as much possible and use class instead. Module structure should be followed to create a `.scss` file for a component.
+### example of styles for **auth** module
 
 ```
-...
-"start": "better-npm-run start:prod",
-"serve": "better-npm-run start",
-"postinstall": "npm run deploy:prod",
-"betterScripts": {
-  ...
-  "start:prod": {
-    "command": "babel-node bin/server",
-    "env": {
-      "NODE_ENV": "production"
-    }
-  }
-  ...
-},
+src
+├─ styles                    # Application-wide styles (generally settings)
+│  ├─ main.scss               # Imports all scss form the diffrent modules (i.e. 'import 'auth/index.scss'')
+│  └─ auth                    # Contains scss for the respective modules
+│     ├─ index.scss           # Import all scss files for this module (i.e. login.scss, forgotPassword.scss, logout.scss ) │and also define common styles here
+│     ├─ login.scss           # Define styles for login container and its successive components
+│     ├─ forgotPassword.scss  # Define styles for forgot password container and its successive components
+│     └─ logout.scss          # Define styles for logout container and its successive components
+
+```
+### example of styles for **auth** module
+
+To add a class to `.scss`, first we create the same module stucture to which we are supposed to write a class.
+Lets take example to add some style to login page. If `.scss` for login doesn't exist than we create it `style/auth/login.scss`. Find the location carefully because it defines the relation between `.scss` and your components. Here in example `style` is the directory which contains all `.scss` files. `auth` is the module directory, it contains all `.scss` files for `auth` module. `login.scss` indicates that it contains all styles for login page.
+
+`style/auth/login.scss`
+
+```
+/*
+  Styles only for container login and its successive components
+*/
+
+.logo-container {
+  background-color: #284665;
+  padding: 30px 40px 30px 40px;
+  width: 300px;
+  margin-left: 5px;
+  border-radius: 6px;
+  padding-bottom: 20px;
+}
 ```
 
-It's also important to tell Heroku to install all `devDependencies` to successfully compile your app on Heroku's environment. Run the following in your terminal.
+`style/auth/forgotPassword.scss`
 
-```bash
-$ heroku config:set NPM_CONFIG_PRODUCTION=false
+```
+/*
+  Styles only for container forgotPassword and its successive components
+*/
+
+.btn-flat {
+  background: #284665;
+}
 ```
 
-With this setup, you will install all the necessray packages, build your app, and start the webserver (e.g. koa) everytime you push your app to Heroku. Try to deploy to Heroku by running the following commands.
+`style/auth/logout.scss`
 
-```bash
-$ git add .
-$ git commit -m 'My awesome commit'
-$ git push heroku master
+```
+/*
+  Styles only for container logout and its successive components
+*/
+.timeline {
+  margin: 0;
+  padding: 0;
+}
 ```
 
-If you fail to deploy for an unknown reason, try [this helpful comment](https://github.com/davezuko/react-redux-starter-kit/issues/730#issuecomment-213997120) by [DonHansDampf](https://github.com/DonHansDampf) addressing Heroku deployments.
-
-Have more questions? Feel free to submit an issue or join the Gitter chat!
-
-## Build System
-
-### Configuration
-
-Default project configuration can be found in `~/config/index.js`. Here you'll be able to redefine your `src` and `dist` directories, adjust compilation settings, tweak your vendor dependencies, and more. For the most part, you should be able to make changes in here **without ever having to touch the actual webpack build configuration**.
-
-If you need environment-specific overrides (useful for dynamically setting API endpoints, for example), you can edit `~/config/environments.js` and define overrides on a per-NODE_ENV basis. There are examples for both `development` and `production`, so use those as guidelines. Here are some common configuration options:
-
-|Key|Description|
-|---|-----------|
-|`dir_src`|application source code base path|
-|`dir_dist`|path to build compiled application to|
-|`server_host`|hostname for the Koa server|
-|`server_port`|port for the Koa server|
-|`compiler_css_modules`|whether or not to enable CSS modules|
-|`compiler_devtool`|what type of source-maps to generate (set to `false`/`null` to disable)|
-|`compiler_vendor`|packages to separate into to the vendor bundle|
+module directory also contains one `index.scss` file which imports all `.scss` files for respective module (here `auth` module in example). This `index.scss` file also contains styles that is common to that module.
 
 
-### Root Resolve
-Webpack is configured to make use of [resolve.root](http://webpack.github.io/docs/configuration.html#resolve-root), which lets you import local packages as if you were traversing from the root of your `~/src` directory. Here's an example:
 
-```js
-// current file: ~/src/views/some/nested/View.js
-// What used to be this:
-import SomeComponent from '../../../components/SomeComponent'
+```
+/*
+  `style/auth/index.scss`
+  Imports .scss files for this module
+*/
+@import "login";
+@import "logout";
+@import "forgotPassword";
 
-// Can now be this:
-import SomeComponent from 'components/SomeComponent' // Hooray!
+/*
+  Styles common to all container of this modules and its successive components
+*/
+.input-auth-padding {
+  padding: 5px;
+}
+```
+### main.scss
+
+There would be a `main.scss` file which import scss files from all modules. This main.scss file is imported to the project's root file `main.js`. So no need to add any other `scss` file to anywhere in the application but only need to import in `main.scss`.
+
+
+
+```
+/*
+  `style/main.scss`
+  Imports index.scss file from the modules
+*/
+@import "auth/index";
+@import "inventory/index";
+@import "auth/index";
+
+/*
+  style comes here which is common to all modules  
+*/
+body{
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 ```
 
-### Globals
+### Error while npm install
 
-These are global variables available to you anywhere in your source code. If you wish to modify them, they can be found as the `globals` key in `~/config/index.js`. When adding new globals, make sure you also add them to `~/.eslintrc`.
+```
+ERROR in ./~/css-loader!./~/sass-loader!./~/postcss-loader!./src/styles/main.scss
+Module build failed: Error: ENOENT: no such file or directory, scandir '/var/www/html/UpworkTest/ReactReduxHR/node_modules/node-sass/vendor'
+```  
+In case of this error run the `npm rebuild node-sass --force`. 
 
-|Variable|Description|
-|---|---|
-|`process.env.NODE_ENV`|the active `NODE_ENV` when the build started|
-|`__DEV__`|True when `process.env.NODE_ENV` is `development`|
-|`__PROD__`|True when `process.env.NODE_ENV` is `production`|
-|`__TEST__`|True when `process.env.NODE_ENV` is `test`|
-|`__DEBUG__`|True when `process.env.NODE_ENV` is `development` and cli arg `--no_debug` is not set (`npm run dev:no-debug`)|
-|`__BASENAME__`|[history basename option](https://github.com/rackt/history/blob/master/docs/BasenameSupport.md)|
+### Cypress Unit Testing
 
-### Styles
+```
+It is to test every page(route) as a user by Automation testing.
+run test through UI in default browser.
 
-Both `.scss` and `.css` file extensions are supported out of the box and are configured to use [CSS Modules](https://github.com/css-modules/css-modules). After being imported, styles will be processed with [PostCSS](https://github.com/postcss/postcss) for minification and autoprefixing, and will be extracted to a `.css` file during production builds.
-
-### Server
-
-This starter kit comes packaged with an Koa server. It's important to note that the sole purpose of this server is to provide `webpack-dev-middleware` and `webpack-hot-middleware` for hot module replacement. Using a custom Koa app in place of [webpack-dev-server](https://github.com/webpack/webpack-dev-server) makes it easier to extend the starter kit to include functionality such as API's, universal rendering, and more -- all without bloating the base boilerplate.
-
-### Production Optimization
-
-Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined. Additionally, in production, we use [react-optimize](https://github.com/thejameskyle/babel-react-optimize) to further optimize your React code.
-
-In production, webpack will extract styles to a `.css` file, minify your JavaScript, and perform additional optimizations such as module deduplication.
-
-## Learning Resources
-
-* [Starting out with react-redux-starter-kit](https://suspicious.website/2016/04/29/starting-out-with-react-redux-starter-kit/) is an introduction to the components used in this starter kit with a small example in the end.
-
-## FAQ
-
-Having trouble? Check out our [FAQ](https://github.com/davezuko/react-redux-starter-kit/wiki/FAQ:-Frequently-Asked-Questions) or submit an issue. Please be considerate by only posting issues that are directly related to this project; questions about how to implement certain React or Redux features are both best suited for StackOverflow or their respective repositories.
-
-## Thank You
-
-This project wouldn't be possible without help from the community, so I'd like to highlight some of its biggest contributors. Thank you all for your hard work, you've made my life a lot easier and taught me a lot in the process.
-
-* [Justin Greenberg](https://github.com/justingreenberg) - For all of your PR's, getting us to Babel 6, and constant work improving our patterns.
-* [Roman Pearah](https://github.com/neverfox) - For your bug reports, help in triaging issues, and PR contributions.
-* [Spencer Dixin](https://github.com/SpencerCDixon) - For your creation of [redux-cli](https://github.com/SpencerCDixon/redux-cli).
-* [Jonas Matser](https://github.com/mtsr) - For your help in triaging issues and unending support in our Gitter channel.
-
-And to everyone else who has contributed, even if you are not listed here your work is appreciated.
+```
+**NOTE:** Every Time a PR is created circleci must pass the test.

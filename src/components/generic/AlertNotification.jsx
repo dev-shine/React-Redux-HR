@@ -1,30 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import Snackbar from 'material-ui/Snackbar';
 
-class AlertNotification extends React.Component {
-    constructor( props ){
-        super( props );
-    }
-    render(){
-      let show_alert = false
-      let alert_message = ""
+const AlertNotification = ({message,handleRequestClose}) => {
+  let showAlert = false;
+  let alertMessage = '';
+  if (!_.isEmpty(message)) {
+    showAlert = true;
+    alertMessage = message;
+  }
+ 
+  return (
+    <Snackbar
+      open={showAlert}
+      message={alertMessage}
+      autoHideDuration={4000}
+    />
+  );
+};
 
-      if( this.props.alert_message != 'undefined' && this.props.alert_message != '' ){
-        show_alert = true
-        alert_message = this.props.alert_message
-      }
-
-      return (
-        <Snackbar
-          open={show_alert}
-          message={alert_message}
-          autoHideDuration={4000}
-        />
-      )
-
-    }
-}
-
-export default AlertNotification
-
-
+AlertNotification.PropTypes = {
+  message: PropTypes.string.isRequired
+};
+export default AlertNotification;

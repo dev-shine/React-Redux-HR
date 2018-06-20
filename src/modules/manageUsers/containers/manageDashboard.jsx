@@ -203,8 +203,6 @@ class ManageDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props, '============props');
-    console.log(this.state, '============state');
     return (
       <div>
         <div id="content" className="app-content box-shadow-z0" role="main">
@@ -325,7 +323,14 @@ class ManageDashboard extends React.Component {
                   </div>
                 ) : null}
                 <div className="col-xs-12 well box-shadow-deep p-a box">
-                  <EmployeeLeastActiveHours />
+                  <EmployeeLeastActiveHours 
+                    currentMonth={this.state.currentMonth}
+                    currentYear={this.state.currentYear}
+                    year={this.state.years}
+                    {...this.props}
+                    months={this.state.months}
+                    monthlyAllUsersReport={this.props.monthlyAllUsersReport}
+                  />
                 </div>
               </div>
             </div>
@@ -343,6 +348,7 @@ function mapStateToProps(state) {
     usersList: state.usersList.toJS(),
     teamStats: state.teamStats,
     empLifeCycle: state.teamStats.empLifeCycle,
+    monthlyAllUsersReport: state.teamStats.monthlyAllUsersReport,
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours: state.teamStats.empHours,
     monthlyHours: state.teamStats.monthlyHours,

@@ -138,6 +138,20 @@ const errorUsersList = (state, action) => update(state, {
   employeeList: {$setRequestError: action.payload}
 });
 
+const requestMonthlyReportAllUsers = (state, action) => update(state, {
+  monthlyAllUsersReport: {$setRequestLoading: null}
+});
+
+const successMonthlyReportAllUsers = (state, action) => {
+  return update(state, {
+    monthlyAllUsersReport: {$setRequestSuccess: action.payload}
+  });
+};
+
+const errorMonthlyReportAllUsers = (state, action) => update(state, {
+  monthlyAllUsersReport: {$setRequestError: action.payload}
+});
+
 export default handleActions({
   [constants.REQUEST_TEAM_STATS]: requestTeamStats,
   [constants.SUCCESS_TEAM_STATS]: successTeamStats,

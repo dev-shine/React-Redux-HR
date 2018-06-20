@@ -23,7 +23,7 @@ export function* getTeamStats (action) {
 }
 
 export function* getMonthlyReportAllUsers (action) {
-  try {
+  try { 
     const response = yield call(fireAjax, 'POST', '', {
       'action':                 'get_monthly_report_all_users',
       'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_monthly_report_all_users',

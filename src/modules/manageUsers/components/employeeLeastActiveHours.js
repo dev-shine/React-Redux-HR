@@ -5,7 +5,6 @@ import {withRouter} from 'react-router';
 import * as actions from 'appRedux/actions';
 import 'react-date-picker/index.css';
 var moment = require('moment');
-
 class EmployeeLeastActiveHours extends Component {
     constructor(props){
         super(props);
@@ -53,7 +52,44 @@ class EmployeeLeastActiveHours extends Component {
           'year':  year
         });
       }
+    renderTotalHours(userData) {
+        const computedTime = {
+            time: '',
+            count: ''
+        };
+        let count = 0;
+        computedTime.time =_.sumBy(userData, function(entryTimings){ 
+            if(parseInt(entryTimings.active_hours.total_time) > 0){
+                computedTime.count = count++;
+            }
+            return parseFloat(entryTimings.active_hours.total_time) 
+        });
+        return computedTime; 
+    }
     render() {
+        // console.log(this.props.monthlyAllUsersReport.data);
+        let user = [];
+        _.map(this.props.monthlyAllUsersReport.data, (userData,k) => {
+            let activeHoursTotalTime = (this.renderTotalHours(userData.data)).time;
+            let activeHoursTotalCount= (this.renderTotalHours(userData.data)).count;
+            let activeHoursTotalAverage= activeHoursTotalCount > 0 ? activeHoursTotalTime/activeHoursTotalCount : 0;
+            let totalHoursTotalTime= _.sumBy(userData.data, function(entryTimings){ return parseFloat(entryTimings.total_hours.total_time) });
+            let  totalHoursTotalAverage= activeHoursTotalCount > 0 ? totalHoursTotalTime/activeHoursTotalCount : 0;
+            user[k] = {
+                name: userData.name, 
+                id: userData.user_id,
+                activeHoursTotalTime,
+                activeHoursTotalCount,
+                activeHoursTotalAverage,
+                totalHoursTotalTime,
+                totalHoursTotalAverage
+            };
+
+            if (k < 10 ) {
+                console.log(user);
+            }
+        });
+        console.log(user);
         let MonthlyAllUsersReport = this.state.monthlyAllUsersReport;
         var noOfDays = [];
         var noOfActiveHours = [];

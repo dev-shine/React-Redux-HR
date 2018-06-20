@@ -22,6 +22,25 @@ export function* getTeamStats (action) {
   }
 }
 
+export function* getMonthlyReportAllUsers (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action':                 'get_monthly_report_all_users',
+      'express_request_url':    CONFIG.expressRequestUrl + '/reports/get_monthly_report_all_users',
+      'express_request_method': 'POST',
+      'express_request_body':   action.payload
+    });
+    if (response.error === 0) {
+      yield put(actions.successMonthlyReportAllUsers(response.data));
+    } else {
+      yield put(actions.errorMonthlyReportAllUsers(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorMonthlyReportAllUsers('Error Occurs !!'));
+    console.warn('Some error found in "get_monthly_report_all_users" Request action\n', e);
+  }
+}
+
 export function* getEmployeLifeCycle (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {

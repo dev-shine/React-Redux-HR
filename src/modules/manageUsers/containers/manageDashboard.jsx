@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";
 import _ from "lodash";
 import Menu from "components/generic/Menu";
+import { dateFormatter } from '../../../helper/helper';
 import { bindActionCreators } from "redux";
 import { isNotUserValid } from "src/services/generic";
 import LoadingIcon from "components/generic/LoadingIcon";
@@ -13,6 +14,7 @@ import UsersListHeader from "components/generic/UsersListHeader";
 import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard";
 import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
 import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
+import EmployeeLeastActiveHours from 'modules/manageUsers/components/employeeLeastActiveHours';
 import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLifeCycle";
 import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
@@ -25,6 +27,7 @@ class ManageDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dateObject: dateFormatter(),
       defaultTeamDisplay: "",
       status_message: "",
       active: "active",
@@ -89,6 +92,10 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
+    let monthlyReport = {
+      month: this.state.dateObject.monthAlpha,
+      year: year
+    };
     this.props.requestUserList();
     this.props.requestTeamStats();
     this.props.requestEmployeLifeCycle({
@@ -196,6 +203,8 @@ class ManageDashboard extends React.Component {
   }
 
   render() {
+    console.log(this.props, '============props');
+    console.log(this.state, '============state');
     return (
       <div>
         <div id="content" className="app-content box-shadow-z0" role="main">
@@ -315,6 +324,9 @@ class ManageDashboard extends React.Component {
                     />
                   </div>
                 ) : null}
+                <div className="col-xs-12 well box-shadow-deep p-a box">
+                  <EmployeeLeastActiveHours />
+                </div>
               </div>
             </div>
           </div>
@@ -342,10 +354,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch);
 };
 
-const VisibleManageDashboard = connect(mapStateToProps, mapDispatchToProps)(
-  ManageDashboard
-);
-
-const RouterVisibleManageDashboard = withRouter(VisibleManageDashboard);
-
-export default RouterVisibleManageDashboard;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageDashboard));

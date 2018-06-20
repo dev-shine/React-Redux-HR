@@ -77,6 +77,11 @@ export const requestTeamStats = createAction(constants.REQUEST_TEAM_STATS);
 export const successTeamStats = createAction(constants.SUCCESS_TEAM_STATS);
 export const errorTeamStats = createAction(constants.ERROR_TEAM_STATS);
 
+// dashboard graph apis
+export const requestMonthlyReportAllUsers = createAction(constants.REQUEST_MONTHLY_REPORT_ALL_USERS);
+export const successMonthlyReportAllUsers = createAction(constants.SUCCESS_MONTHLY_REPORT_ALL_USERS);
+export const errorMonthlyReportAllUsers = createAction(constants.ERROR_MONTHLY_REPORT_ALL_USERS);
+
 export const requestEmployeLifeCycle = createAction(constants.REQUEST_EMP_LIFE_CYCLE);
 export const successEmployeLifeCycle = createAction(constants.SUCCESS_EMP_LIFE_CYCLE);
 export const errorEmployeLifeCycle = createAction(constants.ERROR_EMP_LIFE_CYCLE);
@@ -117,7 +122,6 @@ export const errorUnassignedDeviceList = createAction(constants.ACTION_ERROR_UNA
 export const requestAddUserComment = createAction(constants.REQUEST_ADD_USER_COMMENT);
 export const successAddUserComment = createAction(constants.ACTION_SUCCESS_ADD_USER_COMMENT);
 export const errorAddUserComment = createAction(constants.ACTION_ERROR_ADD_USER_COMMENT);
-
 
 export const requesteditwithoutapi = createAction(constants.ACTION_REQUEST_EDIT_WITHOUT_API);
 export const successeditwithoutapi = createAction(constants.ACTION_SUCCESS_EDIT_WITHOUT_API);

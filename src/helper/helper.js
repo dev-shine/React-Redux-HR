@@ -10,3 +10,20 @@ export const qualityValue = file => {
     return (quality = 0.6);
   }
 };
+
+export const dateFormatter = () => {
+  const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+  const currentDateISO = new Date();
+  const year = currentDateISO.getFullYear();
+  const monthNumeric = currentDateISO.getMonth();
+  const date = currentDateISO.getDate();
+  const monthAlpha = months[monthNumeric];
+  const dateObject = {
+    date,
+    monthNumeric,
+    monthAlpha,
+    months,
+    year
+  };
+  return dateObject;
+}

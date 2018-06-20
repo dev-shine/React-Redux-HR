@@ -81,6 +81,10 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
+  } else if (data.action === 'get_monthly_report_all_users') {
+    delete (data.action);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.expressApiUrl;
   } else if (data.action === 'get_user_list') {
     delete (data.action);
     headers.body = JSON.stringify(data);

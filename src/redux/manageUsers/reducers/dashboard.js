@@ -45,6 +45,13 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  monthlyAllUsersReport: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
   }
 };
 
@@ -154,5 +161,10 @@ export default handleActions({
 
   [constants.REQUEST_USER_LIST]: requestUsersList,
   [constants.SUCCESS_USER_LIST]: successUsersList,
-  [constants.ERROR_USER_LIST]:   errorUsersList
+  [constants.ERROR_USER_LIST]:   errorUsersList,
+
+  [constants.REQUEST_MONTHLY_REPORT_ALL_USERS]: requestMonthlyReportAllUsers,
+  [constants.SUCCESS_MONTHLY_REPORT_ALL_USERS]: successMonthlyReportAllUsers,
+  [constants.ERROR_MONTHLY_REPORT_ALL_USERS]: errorMonthlyReportAllUsers
+  
 }, initialState);

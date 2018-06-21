@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";
 import _ from "lodash";
 import Menu from "components/generic/Menu";
+import { dateFormatter } from '../../../helper/helper';
 import { bindActionCreators } from "redux";
 import { isNotUserValid } from "src/services/generic";
 import LoadingIcon from "components/generic/LoadingIcon";
@@ -13,6 +14,7 @@ import UsersListHeader from "components/generic/UsersListHeader";
 import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard";
 import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
 import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
+import EmployeeLeastActiveHours from 'modules/manageUsers/components/employeeLeastActiveHours';
 import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLifeCycle";
 import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
@@ -25,6 +27,7 @@ class ManageDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dateObject: dateFormatter(),
       defaultTeamDisplay: "",
       status_message: "",
       active: "active",
@@ -60,6 +63,7 @@ class ManageDashboard extends React.Component {
       years: []
     };
     this.openPage = this.openPage.bind(this);
+    this.getByData = this.getByData.bind(this);
   }
   componentWillMount(props) {
     window.scrollTo(0, 0);
@@ -89,23 +93,29 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
+    let monthlyReport = {
+      month: this.state.dateObject.monthAlpha,
+      year: year
+    };
     this.props.requestUserList();
     this.props.requestTeamStats();
     this.props.requestEmployeLifeCycle({
       start_year: year,
       end_year: year
     });
+
     this.props.requestEmployeeMonthlyHours({
       id: userId,
       month: months[month],
       year: year
     });
+
     this.props.requestEmployeePerformance({
       id: userId,
       month: months[month],
       year: year
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
     let tokenData = getLoggedUser().data;
@@ -123,6 +133,13 @@ class ManageDashboard extends React.Component {
     this.setState({
       defaultTeamDisplay: props.teamStats.teamStats.data.teams,
       empData: props.empHours
+    });
+  }
+  getByData(data) {
+    const userId = localStorage.getItem('userid');
+    this.props.requestMonthlyReportAllUsers({
+      'month': data.month,
+      'year': data.year
     });
   }
 
@@ -315,6 +332,17 @@ class ManageDashboard extends React.Component {
                     />
                   </div>
                 ) : null}
+                <div className="col-xs-12 well box-shadow-deep p-a box">
+                  <EmployeeLeastActiveHours
+                    currentMonth={this.state.currentMonth}
+                    currentYear={this.state.currentYear}
+                    year={this.state.years}
+                    {...this.props}
+                    getByData={this.getByData}
+                    months={this.state.months}
+                    monthlyAllUsersReport={this.props.monthlyAllUsersReport}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -331,6 +359,7 @@ function mapStateToProps(state) {
     usersList: state.usersList.toJS(),
     teamStats: state.teamStats,
     empLifeCycle: state.teamStats.empLifeCycle,
+    monthlyAllUsersReport: state.teamStats.monthlyAllUsersReport,
     manageUserPendingHours: state.manageUserPendingHours.toJS(),
     empHours: state.teamStats.empHours,
     monthlyHours: state.teamStats.monthlyHours,
@@ -342,10 +371,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch);
 };
 
-const VisibleManageDashboard = connect(mapStateToProps, mapDispatchToProps)(
-  ManageDashboard
-);
-
-const RouterVisibleManageDashboard = withRouter(VisibleManageDashboard);
-
-export default RouterVisibleManageDashboard;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageDashboard));

@@ -2,7 +2,7 @@ import {takeLatest} from 'redux-saga/effects';
 import * as constants from 'appRedux/constants';
 import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'appRedux/auth/actions';
 import {holidayList} from 'appRedux/holidays/actions';
-import {getTeamStats, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList} from 'appRedux/manageUsers/actions/dashboard';
+import {getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList} from 'appRedux/manageUsers/actions/dashboard';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDayAttendance, userAttendanceStatus} from 'appRedux/attendance/actions/attendanceRequests';
 import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appRedux/attendance/actions/userDaySummary';
@@ -29,6 +29,7 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
 
   yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);
+  yield takeLatest(constants.REQUEST_MONTHLY_REPORT_ALL_USERS, getMonthlyReportAllUsers);
   yield takeLatest(constants.REQUEST_EMP_LIFE_CYCLE, getEmployeLifeCycle);
   yield takeLatest(constants.REQUEST_EMP_HOURS, getEmployeeHours);
   yield takeLatest(constants.REQUEST_EMP_MONTHLY_HOURS, getEmployeeMonthlyHours);

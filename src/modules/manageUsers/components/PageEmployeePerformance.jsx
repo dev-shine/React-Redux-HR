@@ -167,7 +167,7 @@ class PageEmployeePerformance extends Component {
         <div className="container p-t ">
           <div className="row">
             <div className="form-group col-xs-6 profile-input p-a">
-              <label htmlFor="sel1">Select Months:</label>
+              <label htmlFor="sel1">Select Month:</label>
               <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
                 onChange={(evt) => { this.handleMonth(evt.target.value); }}>
                 {monthOptions}

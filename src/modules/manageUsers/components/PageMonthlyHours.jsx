@@ -160,7 +160,7 @@ class PageMonthlyHours extends Component {
             </select>
           </div>
           <div className="form-group col-sm-4 col-xs-6 p-a">
-            <label htmlFor="sel1">Select Months:</label>
+            <label htmlFor="sel1">Select Month:</label>
             <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
               onChange={(evt) => { this.handleMonth(evt.target.value);  }}>
               {monthOptions}

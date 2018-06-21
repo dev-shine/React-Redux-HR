@@ -45,6 +45,13 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  monthlyAllUsersReport: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
   }
 };
 
@@ -131,6 +138,20 @@ const errorUsersList = (state, action) => update(state, {
   employeeList: {$setRequestError: action.payload}
 });
 
+const requestMonthlyReportAllUsers = (state, action) => update(state, {
+  monthlyAllUsersReport: {$setRequestLoading: null}
+});
+
+const successMonthlyReportAllUsers = (state, action) => {
+  return update(state, {
+    monthlyAllUsersReport: {$setRequestSuccess: action.payload}
+  });
+};
+
+const errorMonthlyReportAllUsers = (state, action) => update(state, {
+  monthlyAllUsersReport: {$setRequestError: action.payload}
+});
+
 export default handleActions({
   [constants.REQUEST_TEAM_STATS]: requestTeamStats,
   [constants.SUCCESS_TEAM_STATS]: successTeamStats,
@@ -154,5 +175,10 @@ export default handleActions({
 
   [constants.REQUEST_USER_LIST]: requestUsersList,
   [constants.SUCCESS_USER_LIST]: successUsersList,
-  [constants.ERROR_USER_LIST]:   errorUsersList
+  [constants.ERROR_USER_LIST]:   errorUsersList,
+
+  [constants.REQUEST_MONTHLY_REPORT_ALL_USERS]: requestMonthlyReportAllUsers,
+  [constants.SUCCESS_MONTHLY_REPORT_ALL_USERS]: successMonthlyReportAllUsers,
+  [constants.ERROR_MONTHLY_REPORT_ALL_USERS]: errorMonthlyReportAllUsers
+  
 }, initialState);

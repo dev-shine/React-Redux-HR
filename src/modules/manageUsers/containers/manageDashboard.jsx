@@ -102,6 +102,10 @@ class ManageDashboard extends React.Component {
       start_year: year,
       end_year: year
     });
+    this.props.requestMonthlyReportAllUsers({
+      month: month,
+      year: year
+    });
     this.props.requestEmployeeMonthlyHours({
       id: userId,
       month: months[month],
@@ -112,7 +116,7 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
     let tokenData = getLoggedUser().data;
@@ -323,7 +327,7 @@ class ManageDashboard extends React.Component {
                   </div>
                 ) : null}
                 <div className="col-xs-12 well box-shadow-deep p-a box">
-                  <EmployeeLeastActiveHours 
+                  <EmployeeLeastActiveHours
                     currentMonth={this.state.currentMonth}
                     currentYear={this.state.currentYear}
                     year={this.state.years}

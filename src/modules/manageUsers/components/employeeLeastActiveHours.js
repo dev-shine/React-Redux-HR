@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import CircularProgress from "material-ui/CircularProgress";
 import * as actions from 'appRedux/actions';
 import 'react-date-picker/index.css';
 var moment = require('moment');
@@ -12,7 +13,8 @@ class EmployeeLeastActiveHours extends Component {
             year:                '',
             month:               '',
             userId:              '',
-            monthlyAllUsersReport: ''
+            monthlyAllUsersReport: '',
+            loading: false
         }
         this.handleMonth = this.handleMonth.bind(this);
         this.handleYear = this.handleYear.bind(this);
@@ -25,17 +27,28 @@ class EmployeeLeastActiveHours extends Component {
         });
       }
       componentWillReceiveProps (props) {
+          if(props.monthlyAllUsersReport.isLoading){
+              this.setState({
+                  loading: true,
+                })
+            } else if(props.monthlyAllUsersReport.isSuccess || props.monthlyAllUsersReport.isError){
+                this.setState({
+                    loading: false,
+                })
+            }
         this.setState({
-            monthlyAllUsersReport: props.monthlyAllUsersReport
+            monthlyAllUsersReport: props.monthlyAllUsersReport,
         });
+        
       }
       handleMonth(data){
-        this.setState({month:data});
+        this.setState({month:data,loading:true});
         this.getByData({month:data, change: 'month' });
+        
       }
     
       handleYear(data){
-        this.setState({ year: data});
+        this.setState({ year: data,loading:true});
         this.getByData({ year: data, change: 'year' });
       }
       getByData (data) {
@@ -66,7 +79,7 @@ class EmployeeLeastActiveHours extends Component {
         });
         return computedTime; 
     }
-    render() {
+    render() {    
         let user = [];
         let leastaActiveList;
         _.map(this.props.monthlyAllUsersReport.data, (userData,k) => {
@@ -84,22 +97,22 @@ class EmployeeLeastActiveHours extends Component {
                 totalHoursTotalTime,
                 totalHoursTotalAverage
             };
-
+            
             if(k< 150){
                 let orderedActiveHoursTotalAverage = _.orderBy(user, ['activeHoursTotalAverage'], ['asc']);
                 let filteredActiveHours = _.filter(orderedActiveHoursTotalAverage, function(o) { return o.activeHoursTotalAverage != 0; });
                 let finalActiveHours = _.slice(filteredActiveHours, [0],[10])
-
+                
                 leastaActiveList = _.map(finalActiveHours, (val, i) => {
                     return (
-                      <tr key={i}>
+                        <tr key={i}>
                         <td>{val.name}</td>
                         <td>{val.activeHoursTotalAverage}</td>
                         <td>{val.totalHoursTotalAverage}</td>
                       </tr>
                     )
                 });
-             }
+            }
         });
         let MonthlyAllUsersReport = this.state.monthlyAllUsersReport;
         var noOfDays = [];
@@ -119,19 +132,41 @@ class EmployeeLeastActiveHours extends Component {
             <div className="col-xs-12 employee-life-cycle">
                 <div className="text-center emp-life-cycle">
                     <div className="row no-gutter box">
-                        <h6>Employee Least Active</h6>
+                        <h6>Least Active Employees</h6>
                         <div className="table-responsive">
                             <table className="table table-striped table-hover">
                             <thead style={{ textAlign: "center" }}>
                                 <tr>
-                                <th style={{ textAlign: "center" }}>Employee Name</th>
-                                <th style={{ textAlign: "center" }}>Average Active Hours</th>
-                                <th style={{ textAlign: "center" }}>Average Total Hours</th>
+                                    <th style={{ textAlign: "center" }}>Employee Name</th>
+                                    <th style={{ textAlign: "center" }}>Average Active Hours</th>
+                                    <th style={{ textAlign: "center" }}>Average Total Hours</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {leastaActiveList}
+                            { this.state.loading ? 
+                                <tbody>
+                                    <tr>
+                                        <td />
+                                            <CircularProgress
+                                            size={30}
+                                            thickness={3}
+                                            style={{ marginTop: "20px" }}
+                                            />
+                                        <td/>
+                                    </tr>  
+                                </tbody> 
+                                    :  
+                            this.props.monthlyAllUsersReport.data.length === undefined ? 
+                                <tbody>
+                                    <tr>
+                                        <td />
+                                        No Data Found this month
+                                        <td/>
+                                    </tr> 
                                 </tbody>
+                                : 
+                                <tbody>
+                                    {leastaActiveList}
+                                </tbody>}
                             </table>
                         </div>
                     </div>
@@ -142,7 +177,7 @@ class EmployeeLeastActiveHours extends Component {
                 <div className="container p-t ">
                 <div className="row">
                     <div className="form-group col-xs-6 profile-input p-a">
-                    <label htmlFor="sel1">Select Months:</label>
+                    <label htmlFor="sel1">Select Month:</label>
                     <select className="form-control" id="sel1" defaultValue={this.props.currentMonth}
                         onChange={(evt) => { this.handleMonth(evt.target.value); }}>
                         {monthOptions}

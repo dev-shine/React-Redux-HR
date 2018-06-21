@@ -18,6 +18,7 @@ class EmployeeLeastActiveHours extends Component {
         }
         this.handleMonth = this.handleMonth.bind(this);
         this.handleYear = this.handleYear.bind(this);
+        this.setByData = this.setByData.bind(this);
     }
     componentWillMount() {
         this.setState({
@@ -42,13 +43,13 @@ class EmployeeLeastActiveHours extends Component {
     }
     handleMonth(data) {
         this.setState({ month: data, loading: true });
-        this.getByData({ month: data, change: 'month' });
+        this.setByData({ month: data, change: 'month' });
     }
     handleYear(data) {
         this.setState({ year: data, loading: true });
-        this.getByData({ year: data, change: 'year' });
+        this.setByData({ year: data, change: 'year' });
     }
-    getByData(data) {
+    setByData(data) {
         const userId = localStorage.getItem('userid');
         let year = this.state.year !== '' ? this.state.year : this.props.currentYear;
         let month = this.state.month !== '' ? this.state.month : this.props.currentMonth;
@@ -57,7 +58,7 @@ class EmployeeLeastActiveHours extends Component {
         } else if (data.change === 'year') {
             year = data.year;
         }
-        this.props.requestMonthlyReportAllUsers({
+        this.props.getByData({
             'month': month,
             'year': year
         });

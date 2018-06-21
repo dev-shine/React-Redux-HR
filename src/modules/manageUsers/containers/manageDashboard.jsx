@@ -63,6 +63,7 @@ class ManageDashboard extends React.Component {
       years: []
     };
     this.openPage = this.openPage.bind(this);
+    this.getByData = this.getByData.bind(this);
   }
   componentWillMount(props) {
     window.scrollTo(0, 0);
@@ -102,15 +103,13 @@ class ManageDashboard extends React.Component {
       start_year: year,
       end_year: year
     });
-    this.props.requestMonthlyReportAllUsers({
-      month: month,
-      year: year
-    });
+
     this.props.requestEmployeeMonthlyHours({
       id: userId,
       month: months[month],
       year: year
     });
+
     this.props.requestEmployeePerformance({
       id: userId,
       month: months[month],
@@ -134,6 +133,14 @@ class ManageDashboard extends React.Component {
     this.setState({
       defaultTeamDisplay: props.teamStats.teamStats.data.teams,
       empData: props.empHours
+    });
+  }
+  getByData(data) {
+    console.log(data);
+    const userId = localStorage.getItem('userid');
+    this.props.requestMonthlyReportAllUsers({
+      'month': data.month,
+      'year': data.year
     });
   }
 
@@ -332,6 +339,7 @@ class ManageDashboard extends React.Component {
                     currentYear={this.state.currentYear}
                     year={this.state.years}
                     {...this.props}
+                    getByData={this.getByData}
                     months={this.state.months}
                     monthlyAllUsersReport={this.props.monthlyAllUsersReport}
                   />

@@ -67,8 +67,8 @@ class EmployeeLeastActiveHours extends Component {
         return computedTime; 
     }
     render() {
-        // console.log(this.props.monthlyAllUsersReport.data);
         let user = [];
+        let leastaActiveList;
         _.map(this.props.monthlyAllUsersReport.data, (userData,k) => {
             let activeHoursTotalTime = (this.renderTotalHours(userData.data)).time;
             let activeHoursTotalCount= (this.renderTotalHours(userData.data)).count;
@@ -85,11 +85,22 @@ class EmployeeLeastActiveHours extends Component {
                 totalHoursTotalAverage
             };
 
-            if (k < 10 ) {
-                console.log(user);
-            }
+            if(k< 150){
+                let orderedActiveHoursTotalAverage = _.orderBy(user, ['activeHoursTotalAverage'], ['asc']);
+                let filteredActiveHours = _.filter(orderedActiveHoursTotalAverage, function(o) { return o.activeHoursTotalAverage != 0; });
+                let finalActiveHours = _.slice(filteredActiveHours, [0],[10])
+
+                leastaActiveList = _.map(finalActiveHours, (val, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{val.name}</td>
+                        <td>{val.activeHoursTotalAverage}</td>
+                        <td>{val.totalHoursTotalAverage}</td>
+                      </tr>
+                    )
+                });
+             }
         });
-        console.log(user);
         let MonthlyAllUsersReport = this.state.monthlyAllUsersReport;
         var noOfDays = [];
         var noOfActiveHours = [];
@@ -111,13 +122,16 @@ class EmployeeLeastActiveHours extends Component {
                         <h6>Employee Least Active</h6>
                         <div className="table-responsive">
                             <table className="table table-striped table-hover">
-                            <thead>
+                            <thead style={{ textAlign: "center" }}>
                                 <tr>
-                                <th>Employee Name</th>
-                                <th>Average Active Hours</th>
-                                <th>Average Total Hours</th>
+                                <th style={{ textAlign: "center" }}>Employee Name</th>
+                                <th style={{ textAlign: "center" }}>Average Active Hours</th>
+                                <th style={{ textAlign: "center" }}>Average Total Hours</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {leastaActiveList}
+                                </tbody>
                             </table>
                         </div>
                     </div>

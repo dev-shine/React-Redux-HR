@@ -136,7 +136,6 @@ class ManageDashboard extends React.Component {
     });
   }
   getByData(data) {
-    console.log(data);
     const userId = localStorage.getItem('userid');
     this.props.requestMonthlyReportAllUsers({
       'month': data.month,

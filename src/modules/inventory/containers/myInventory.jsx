@@ -159,10 +159,16 @@ class MyInventory extends React.Component {
                       <button
                         className="md-btn md-raised m-b-sm w-xs blue"
                         onClick={() => {
-                          this.props.onAddAuditComment(activeAuditId, auditMsg).then((res)=>{
-                          this.props.onGetMyInventory();
-                          $("#modalAudit").modal("hide");
-                          });
+                          this.props
+                            .onAddAuditComment(activeAuditId, auditMsg)
+                            .then(res => {
+                              this.props.onGetMyInventory();
+                              $("#modalAudit").modal("hide");
+                              this.setState({
+                                activeAuditId: "",
+                                auditMsg: ""
+                              });
+                            });
                         }}
                       >
                         Submit

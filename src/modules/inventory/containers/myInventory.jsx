@@ -24,7 +24,9 @@ class MyInventory extends React.Component {
       user_profile_detail: {},
       user_assign_machine: [],
       device: [],
-      unassignDeviceList: []
+      unassignDeviceList: [],
+      activeAuditId: "",
+      auditMsg: ""
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(
@@ -52,7 +54,6 @@ class MyInventory extends React.Component {
       user_profile_detail: props.myProfile.user_profile_detail,
       user_assign_machine: props.myProfile.myInventory
     });
-    
   }
 
   callUpdateUserDeviceDetails(newDeviceDetails) {
@@ -103,14 +104,75 @@ class MyInventory extends React.Component {
       status_message: ""
     });
   }
+  handleAuditClick = id => {
+    this.setState({
+      activeAuditId: id
+    });
+  };
 
   render() {
-    
+    const { auditMsg, activeAuditId } = this.state;
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={"My Inventory"} {...this.props} />
+          <div id="modalAudit" className="modal" data-backdrop="true">
+            <div className="modal-dialog modal-lg">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div>
+                    <div className="col-xs-11">
+                      <h5 className="modal-title">Audit Box</h5>
+                    </div>
+                    <div className="col-xs-1">
+                      <button
+                        className="btn btn-icon white"
+                        data-dismiss="modal"
+                      >
+                        <i className="fa fa-remove" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-body p-lg">
+                  <div className="form-group row">
+                    <label className="col-sm-2 form-control-label">
+                      Message
+                    </label>
+                    <div className="col-sm-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={auditMsg}
+                        onChange={e =>
+                          this.setState({
+                            auditMsg: e.target.value
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group row m-t-md">
+                    <div className="col-sm-10">
+                      <button
+                        className="md-btn md-raised m-b-sm w-xs blue"
+                        onClick={() => {
+                          this.props.onAddAuditComment(activeAuditId, auditMsg).then((res)=>{
+                          this.props.onGetMyInventory();
+                          $("#modalAudit").modal("hide");
+                          });
+                        }}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter m-b-md">
@@ -135,6 +197,7 @@ class MyInventory extends React.Component {
                 userAssignMachine={this.state.user_assign_machine}
                 callUpdateUserDeviceDetails={this.callUpdateUserDeviceDetails}
                 loggedUser={this.props.loggedUser}
+                handleAuditClick={this.handleAuditClick}
               />
             </div>
             <UnassignDevice
@@ -156,13 +219,16 @@ function mapStateToProps(state) {
     frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
     myProfile: state.myProfile.toJS(),
-    unassignedDeviceList: state.manageDevice.toJS(),
+    unassignedDeviceList: state.manageDevice.toJS()
   };
 }
 const mapDispatchToProps = dispatch => {
   return {
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());
+    },
+    onAddAuditComment: (id, msg) => {
+      return dispatch(actionsMyProfile.addInventoryAudit(id, msg));
     },
     onMyProfileDetails: () => {
       return dispatch(actionsMyProfile.getMyProfileDetails());
@@ -190,7 +256,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 const RouterVisibleMyInventory = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MyInventory)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MyInventory)
 );
 
 export default RouterVisibleMyInventory;

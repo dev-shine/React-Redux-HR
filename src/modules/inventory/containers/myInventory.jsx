@@ -26,7 +26,8 @@ class MyInventory extends React.Component {
       device: [],
       unassignDeviceList: [],
       activeAuditId: "",
-      auditMsg: ""
+      auditMsg: "",
+      activeItemName:""
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(
@@ -104,14 +105,15 @@ class MyInventory extends React.Component {
       status_message: ""
     });
   }
-  handleAuditClick = id => {
+  handleAuditClick = val => {
     this.setState({
-      activeAuditId: id
+      activeAuditId: val.id,
+      activeItemName: val.machine_name
     });
   };
 
   render() {
-    const { auditMsg, activeAuditId } = this.state;
+    const { auditMsg, activeAuditId, activeItemName } = this.state;
     return (
       <div>
         <Menu {...this.props} />
@@ -123,7 +125,7 @@ class MyInventory extends React.Component {
                 <div className="modal-header">
                   <div>
                     <div className="col-xs-11">
-                      <h5 className="modal-title">Audit Box</h5>
+                      <h5 className="modal-title">Audit of {activeItemName}</h5>
                     </div>
                     <div className="col-xs-1">
                       <button
@@ -166,7 +168,8 @@ class MyInventory extends React.Component {
                               $("#modalAudit").modal("hide");
                               this.setState({
                                 activeAuditId: "",
-                                auditMsg: ""
+                                auditMsg: "",
+                                activeItemName: ""
                               });
                             });
                         }}

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import moment from "moment";
 import "react-date-picker/index.css";
 import { CONFIG } from "src/config/index";
 
@@ -39,16 +40,26 @@ const DeviceDetails = ({
               className="btn btn-primary btn-responsives"
               data-toggle="modal"
               data-target="#modalAudit"
-              onClick={() => handleAuditClick(val.id)}
+              onClick={() => handleAuditClick(val)}
+              style={{ background: "red", fontSize:"13px" }}
             >
-              audit
+              Audit Pending
             </button>
           ) : (
-            <div
-              title={auditComment}
-              className={auditComment.length > 100 ? "audit-comment" : ""}
-            >
-              {auditComment}
+            <div style={{width:"inherit"}}>
+              <div style={{width:"inherit"}}>
+                <p
+                  title={auditComment}
+                  className={auditComment.length > 100 ? "audit-comment" : ""}
+                >
+                  {auditComment}
+                </p>
+              </div>
+              <div>
+                Audited On -{moment(
+                  val.audit_current_month_status.status.updated_at
+                ).format("Do MMMM YYYY, h:mm:ss a")}
+              </div>
             </div>
           )}
         </td>

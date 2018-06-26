@@ -362,7 +362,7 @@ export function addInventoryAudit (id, msg) {
       async_addInventoryAudit(id, msg).then((json) => {
         dispatch(hide_loading()); // hide loading icon
         reslove(json)
-        confirm('Audited Successfully', '' , 'success')
+        confirm(json.message, '' , 'success')
       });
     });
   };

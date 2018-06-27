@@ -1,6 +1,7 @@
 import {createAction} from 'redux-actions';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
+import {confirm} from 'src/services/notify';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import * as constants from 'appRedux/constants';
 
@@ -340,6 +341,28 @@ export function getMyInventory () {
         if (json.error == 0) {
           dispatch({type : "ACTION_GET_MY_INVENTORY",payload:json.data});
         } 
+      });
+    });
+  };
+}
+
+function async_addInventoryAudit (id, message) {
+  let data = {
+    'action': 'add_inventory_audit',
+    'inventory_id': id,
+    'audit_message': message
+  };
+  return fireAjax('POST', '', data);
+}
+
+export function addInventoryAudit (id, msg) {
+  return function (dispatch, getState) {
+    return new Promise((reslove, reject) => {
+      dispatch(show_loading()); // show loading icon
+      async_addInventoryAudit(id, msg).then((json) => {
+        dispatch(hide_loading()); // hide loading icon
+        reslove(json)
+        confirm(json.message, '' , 'success')
       });
     });
   };

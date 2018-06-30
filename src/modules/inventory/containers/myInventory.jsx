@@ -48,7 +48,7 @@ class MyInventory extends React.Component {
   }
   componentWillReceiveProps(props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
-    if (isNotValid.status) {
+    if (isNotValid.status && isNotValid.redirectTo !== '/my_inventory') {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({

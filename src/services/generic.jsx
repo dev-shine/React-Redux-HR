@@ -9,6 +9,8 @@ export function isNotUserValid (path, loggedUser) {
     return {status: true, redirectTo: '/logout'};
   } else if (loggedUser.data.is_policy_documents_read_by_user === 0) {
     return {status: true, redirectTo: '/policy_documents'};
+  } else if (loggedUser.data.is_inventory_audit_pending === 1) {
+    return {status: true, redirectTo: '/my_inventory'};
   } else if (isEmpty) {
     return {status: true, redirectTo: '/' + tokenData.role_pages && tokenData.role_pages[0].page_name};
   } else {

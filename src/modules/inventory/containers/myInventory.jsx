@@ -51,10 +51,6 @@ class MyInventory extends React.Component {
     if (isNotValid.status && isNotValid.redirectTo !== '/my_inventory') {
       this.props.router.push(isNotValid.redirectTo);
     }
-    // let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
-    // if (isNotValid.status) {
-    //   this.props.router.push(isNotValid.redirectTo);
-    // }
     this.setState({
       user_profile_detail: props.myProfile.user_profile_detail,
       user_assign_machine: props.myProfile.myInventory

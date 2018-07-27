@@ -131,4 +131,6 @@ export const requestAddNewUserDetails = createAction(constants.REQUEST_ADD_NEW_U
 export const successAddNewUserDetails = createAction(constants.ACTION_SUCCESS_ADD_NEW_USER_DETAILS);
 export const errorAddNewUserDetails = createAction(constants.ACTION_ERROR_ADD_NEW_USER_DETAILS)
 
-
+export const requestLeastActiveEmployee = createAction(constants.REQUEST_LEAST_ACTIVE_EMP);
+export const successLeastActiveEmployee = createAction(constants.SUCCESS_LEAST_ACTIVE_EMP);
+export const errorLeastActiveEmployee = createAction(constants.ERROR_LEAST_ACTIVE_EMP);

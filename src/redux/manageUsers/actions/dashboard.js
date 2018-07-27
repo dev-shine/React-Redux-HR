@@ -150,3 +150,21 @@ export function* getEmployeePerformance (action) {
     console.warn('Some error found in "get_employee_hours" Request action\n', e);
   }
 }
+
+export function* getLeastActiveEmp(action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'get_average_working_hours',
+      'start_date': action.payload.start_date,
+      'end_date': action.payload.end_date
+    });
+    if (response.error === 0) {
+      yield put(actions.successLeastActiveEmployee(response.data));
+    } else {
+      yield put(actions.errorLeastActiveEmployee(response.message));
+    }
+  } catch (e) {
+    yield put(actions.errorLeastActiveEmployee('Error Occurs !!'));
+    console.warn('Some error found in "get_employee_hours" Request action\n', e);
+  }
+}

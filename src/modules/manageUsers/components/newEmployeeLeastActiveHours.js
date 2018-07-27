@@ -10,35 +10,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 // CSS Modules, react-datepicker-cssmodules.css
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 class NewEmployeeLeastActiveHours extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            startDate: moment(),
-        }
-        this.handleStartDate = this.handleStartDate.bind(this);
-        this.handleEndDate = this.handleEndDate.bind(this);
-    }
-    handleStartDate(date) {
-        this.setState({
-            startDate: date
-        });
-    }
-    handleEndDate(date){
-        this.setState({
-            endDate: date
-        });
-    }
     render() {
-        console.log(this.props,"console")
-        console.log(this.state)
         let leastaActiveList;        
         leastaActiveList = _.map(this.props.empActiveHoursList.data, (val,i) => {
             return(
                 <tr key={i}>
                     <td>{val.name}</td>
-                    <td>{val.average_inside_hours}
-                        <br />
-                        <span>({val.totalPresentDays} day present)</span>
+                        <td>{val.average_inside_hours}  <span>({val.totalPresentDays} day present)</span>
                     </td>
                 </tr>
             )
@@ -94,7 +72,7 @@ class NewEmployeeLeastActiveHours extends Component {
                                     </tbody>
                                     : this.props.empActiveHoursList.data.length == 0 ?
                                         <tr>
-                                            <td colSpan="2" >No Data Found this month</td>
+                                            <td colSpan="2" >No Data Found </td>
                                         </tr>
                                         :
                                        <tbody>

@@ -232,9 +232,11 @@ class ManageDashboard extends React.Component {
       endDate: date
     },()=>{
     if(startDate && endDate){
+      const start_date = moment(startDate).format('YYYY-MM-DD');
+      const end_date = moment(date).format('YYYY-MM-DD');
       this.props.requestLeastActiveEmployee({
-        start_date: startDate,
-        end_date: endDate
+        start_date: start_date,
+        end_date: end_date
       })
     }
     });
@@ -360,7 +362,7 @@ class ManageDashboard extends React.Component {
                     />
                   </div>
                 ) : null}
-                <div className="col-xs-12 well box-shadow-deep p-a box">
+                {/* <div className="col-xs-12 well box-shadow-deep p-a box">
                   <EmployeeLeastActiveHours
                     currentMonth={this.state.currentMonth}
                     currentYear={this.state.currentYear}
@@ -370,7 +372,8 @@ class ManageDashboard extends React.Component {
                     months={this.state.months}
                     monthlyAllUsersReport={this.props.monthlyAllUsersReport}
                   />
-                </div>
+                </div> */}
+              
                 <div className="col-xs-12 well box-shadow-deep p-a box">
                   <NewEmployeeLeastActiveHours
                     startDate={this.state.startDate}

@@ -69,6 +69,8 @@ class ManageDashboard extends React.Component {
     this.getByData = this.getByData.bind(this);
   }
   componentWillMount(props) {
+    const start_date = moment(this.state.startDate).format('YYYY-MM-DD');
+    const end_date = moment(this.state.endDate).format('YYYY-MM-DD');
     window.scrollTo(0, 0);
     const dateData = new Date();
     const dataDate = dateData.toString().split(" ");
@@ -96,9 +98,10 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
+    
     this.props.requestLeastActiveEmployee({
-      start_date: this.state.startDate,
-      end_date: this.state.endDate
+      start_date: start_date,
+      end_date: end_date
     })
     let monthlyReport = {
       month: this.state.dateObject.monthAlpha,

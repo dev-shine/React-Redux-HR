@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import DeviceCounter from "./DeviceCounter";
 import style from "src/styles/inventory/viewUser.scss";
 import {CSVLink} from 'react-csv';
+import moment from 'moment';
 //  import FormAddNewInventory from '/home/etech/Documents/ReactReduxHR/src/modules/inventory/components/AddInventory.jsx'
 
 
@@ -96,10 +97,10 @@ const DeviceCounterTab = ({ statusList, deviceCountList, router }) => {
             <div className="clear">
               <h4 className="m-a-0 text-lg _300" />
               <small className="text-muted"> Total Device </small>
-              <CSVLink data={datas} headers={headersData} filename={"device-report.csv"}  className="btn btn-success" style={{position: "absolute",right:"2%",bottom:'50%'}} >
-                  Download Device Report
+              <h1 style={{ right:"1%",bottom:"15%",position:'absolute' , color: "#0E9BB1" }}>{total}</h1>
+              <CSVLink data={datas} headers={headersData} filename={`device-report${moment().format("MMMM")}${moment().format("YYYY")}.csv`} style={{position:'absolute',right:'1%',bottom:'2%',color:'#337ab7',textDecoration:'underline'}} >
+                  Download Report
               </CSVLink>
-              <h1 style={{ float: "right", color: "#0E9BB1" }}>{total}</h1>
             </div>
           </div>
         </div>

@@ -97,7 +97,7 @@ const DeviceCounterTab = ({ statusList, deviceCountList, router }) => {
             <div className="clear">
               <h4 className="m-a-0 text-lg _300" />
               <small className="text-muted"> Total Device </small>
-              <h1 style={{ right:"1%",bottom:"15%",position:'absolute' , color: "#0E9BB1" }}>{total}</h1>
+              <h1 style={{ right:"1%",bottom:"20%",position:'absolute' , color: "#0E9BB1" }}>{total}</h1>
               <CSVLink data={datas} headers={headersData} filename={`device-report${moment().format("MMMM")}${moment().format("YYYY")}.csv`} style={{position:'absolute',right:'1%',bottom:'2%',color:'#337ab7',textDecoration:'underline'}} >
                   Download Report
               </CSVLink>

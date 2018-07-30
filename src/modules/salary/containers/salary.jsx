@@ -73,10 +73,11 @@ class Salary extends React.Component {
                   <div className="row">
                     <div className="col-sm-6 col-xs-12" id={'salaryDetail'}>
                       <h6 className="text-center">Salary Details</h6>
-                      <SalaryDetails data={this.state.holding_amt} />
+                      <SalaryDetails holdingAmount={this.state.holding_amt} data={this.state.salary_details} />
                     </div>
                     <div className="col-sm-3 col-xs-6 salary-border-left" id={'salaryRevision'}>
                       <h6 className="text-center">Salary Revisions</h6>
+                      <h6 className="text-center" >(Click on Salary for details)</h6>
                       <hr />
                       <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary} />
                     </div>

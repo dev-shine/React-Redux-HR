@@ -21,8 +21,10 @@ const DeviceCounterTab = ({ statusList, deviceCountList, router }) => {
     Object.keys(deviceCountList[key]).map((keys)=>{
       headers.map((data)=>{
         if(data.label !== keys){
+          let modLabel = keys.split("_").join(" ");
+          let label = modLabel.charAt(0).toUpperCase() + modLabel.slice(1)
             headerData.push({
-            label:keys,
+            label: label,
             key:keys
           })
         }

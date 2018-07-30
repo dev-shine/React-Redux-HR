@@ -31,6 +31,7 @@ class NewEmployeeLeastActiveHours extends Component {
                                 <h4 style={{ fontSize: "16px", fontWeight: 'bold', display: "inline-block", marginRight: "20px" }}>Select Start Date</h4>
                                 <div style={{ display: "inline-block" }}>
                                     <DatePicker
+                                        placeholderText="Select a Start date"
                                         selected={this.props.startDate}
                                         onChange={(date) => { this.props.handleStartDate(date) }}
                                         dateFormat="YYYY-MM-DD"
@@ -41,6 +42,7 @@ class NewEmployeeLeastActiveHours extends Component {
                                 <h4 style={{ fontSize: "16px", fontWeight: 'bold', display: "inline-block",marginRight:"20px" }}>Select End Date</h4>
                                 <div style={{ display: "inline-block" }}>
                                     <DatePicker
+                                        placeholderText="Select a End date"
                                         selected={this.props.endDate}
                                         onChange={(date) => { this.props.handleEndDate(date) }}
                                         dateFormat="YYYY-MM-DD"

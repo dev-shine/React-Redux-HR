@@ -9,7 +9,7 @@ class SalaryDetails extends React.Component {
     };
   }
   componentWillReceiveProps (props) {
-    this.setState({holdingAmount: props.data});
+    this.setState({ holdingAmount: props.holdingAmount});
   }
 
   render () {

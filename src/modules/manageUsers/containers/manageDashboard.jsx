@@ -15,6 +15,7 @@ import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard"
 import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
 import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
 import EmployeeLeastActiveHours from 'modules/manageUsers/components/employeeLeastActiveHours';
+import NewEmployeeLeastActiveHours from 'modules/manageUsers/components/newEmployeeLeastActiveHours'
 import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLifeCycle";
 import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
@@ -60,7 +61,9 @@ class ManageDashboard extends React.Component {
         "Nov",
         "Dec"
       ],
-      years: []
+      years: [],
+      startDate: moment(),
+      endDate: moment().add(7, 'days')
     };
     this.openPage = this.openPage.bind(this);
     this.getByData = this.getByData.bind(this);
@@ -93,6 +96,11 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
+    
+    this.props.requestLeastActiveEmployee({
+      start_date: "",
+      end_date: ""
+    })
     let monthlyReport = {
       month: this.state.dateObject.monthAlpha,
       year: year
@@ -115,6 +123,7 @@ class ManageDashboard extends React.Component {
       month: months[month],
       year: year
     });
+   
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -211,7 +220,29 @@ class ManageDashboard extends React.Component {
       });
     }
   }
-
+  handleStartDate(date){
+    this.setState({
+      startDate: date
+    });
+  }
+  handleEndDate(date){
+    const {
+      startDate,endDate
+    } = this.state;
+    this.setState({
+      endDate: date
+    },()=>{
+    if(startDate && endDate){
+      const start_date = moment(startDate).format('YYYY-MM-DD');
+      const end_date = moment(date).format('YYYY-MM-DD');
+      this.props.requestLeastActiveEmployee({
+        start_date: start_date,
+        end_date: end_date
+      })
+    }
+    });
+    
+  }
   render() {
     return (
       <div>
@@ -332,7 +363,7 @@ class ManageDashboard extends React.Component {
                     />
                   </div>
                 ) : null}
-                <div className="col-xs-12 well box-shadow-deep p-a box">
+                {/* <div className="col-xs-12 well box-shadow-deep p-a box">
                   <EmployeeLeastActiveHours
                     currentMonth={this.state.currentMonth}
                     currentYear={this.state.currentYear}
@@ -341,6 +372,17 @@ class ManageDashboard extends React.Component {
                     getByData={this.getByData}
                     months={this.state.months}
                     monthlyAllUsersReport={this.props.monthlyAllUsersReport}
+                  />
+                </div> */}
+              
+                <div className="col-xs-12 well box-shadow-deep p-a box">
+                  <NewEmployeeLeastActiveHours
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+
+                    handleStartDate={(date) => { this.handleStartDate(date)}}
+                    handleEndDate={(date) => { this.handleEndDate(date) }}
+                    empActiveHoursList={this.props.leastActiveEmp}
                   />
                 </div>
               </div>
@@ -364,7 +406,8 @@ function mapStateToProps(state) {
     empHours: state.teamStats.empHours,
     monthlyHours: state.teamStats.monthlyHours,
     employeePerformance: state.teamStats.employeePerformance,
-    employeeList: state.teamStats.employeeList
+    employeeList: state.teamStats.employeeList,
+    leastActiveEmp:state.teamStats.leastActiveEmp
   };
 }
 const mapDispatchToProps = dispatch => {

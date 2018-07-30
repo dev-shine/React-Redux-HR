@@ -106,6 +106,7 @@
     "react-csv": "^1.0.14",
     "react-date-picker": "^5.3.28",
     "react-date-range": "^0.2.4",
+    "react-datepicker": "^1.5.0",
     "react-dom": "^15.6.1",
     "react-file-uploader": "^0.3.3",
     "react-google-login": "^2.3.2",

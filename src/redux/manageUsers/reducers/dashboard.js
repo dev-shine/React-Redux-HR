@@ -52,6 +52,13 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  leastActiveEmp: {
+    data:      {},
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
+    message: ''
   }
 };
 
@@ -152,6 +159,18 @@ const errorMonthlyReportAllUsers = (state, action) => update(state, {
   monthlyAllUsersReport: {$setRequestError: action.payload}
 });
 
+const requestLeastActiveEmp = (state, action) => update(state, {
+  leastActiveEmp: { $setRequestLoading: null }
+}); 
+
+const successLeastActiveEmp = (state, action) => update(state, {
+  leastActiveEmp: { $setRequestSuccess: action.payload }
+}); 
+
+const errorLeastActiveEmp = (state, action) => update(state, {
+  leastActiveEmp: { $setRequestError: action.payload }
+});
+
 export default handleActions({
   [constants.REQUEST_TEAM_STATS]: requestTeamStats,
   [constants.SUCCESS_TEAM_STATS]: successTeamStats,
@@ -179,6 +198,10 @@ export default handleActions({
 
   [constants.REQUEST_MONTHLY_REPORT_ALL_USERS]: requestMonthlyReportAllUsers,
   [constants.SUCCESS_MONTHLY_REPORT_ALL_USERS]: successMonthlyReportAllUsers,
-  [constants.ERROR_MONTHLY_REPORT_ALL_USERS]: errorMonthlyReportAllUsers
-  
+  [constants.ERROR_MONTHLY_REPORT_ALL_USERS]: errorMonthlyReportAllUsers,
+
+  [constants.REQUEST_LEAST_ACTIVE_EMP]: requestLeastActiveEmp,
+  [constants.SUCCESS_LEAST_ACTIVE_EMP]: successLeastActiveEmp,
+  [constants.ERROR_LEAST_ACTIVE_EMP]: errorLeastActiveEmp
+
 }, initialState);

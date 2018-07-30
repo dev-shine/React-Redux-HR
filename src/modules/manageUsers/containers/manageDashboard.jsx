@@ -62,8 +62,8 @@ class ManageDashboard extends React.Component {
         "Dec"
       ],
       years: [],
-      startDate: moment(),
-      endDate: moment().add(7, 'days')
+      startDate: null,
+      endDate: null
     };
     this.openPage = this.openPage.bind(this);
     this.getByData = this.getByData.bind(this);
@@ -232,7 +232,7 @@ class ManageDashboard extends React.Component {
     this.setState({
       endDate: date
     },()=>{
-    if(startDate && endDate){
+    if(startDate){
       const start_date = moment(startDate).format('YYYY-MM-DD');
       const end_date = moment(date).format('YYYY-MM-DD');
       this.props.requestLeastActiveEmployee({

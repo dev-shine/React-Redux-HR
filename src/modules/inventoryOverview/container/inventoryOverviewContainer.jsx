@@ -25,7 +25,7 @@ class InventoryOverviewContainer extends React.Component{
         this.props.onFetchDeviceCount();
     }
     render(){ 
-        return(
+          return(
             <div>
                 <Menu {...this.props} />
                  <div id="content" className="app-content box-shadow-z0" role="main">

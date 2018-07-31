@@ -19,6 +19,8 @@ const actionsForAPIurl = ['add_inventory_audit','admin_user_apply_leave','get_my
 
 const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval'];
 
+export const deviceKeys = ["id","machine_type","machine_name","machine_price","serial_number","date_of_purchase","status","warranty_end_date","bill_number","warranty_comment","approval_status","user_Id","assign_date","name"]
+
 export function fireAjax (method, url, data, api) {
   let URL = CONFIG.api_url + url;
   let action = data.action;

@@ -17,6 +17,7 @@ const DeviceCounterTab = ({ statusList, deviceCountList, router }) => {
   ];
   let datas =[];
   let headerData=[];
+  console.log(deviceCountList,"customerererere")
   Object.keys(deviceCountList).map((key)=>{
     Object.keys(deviceCountList[key]).map((keys)=>{
       headers.map((data)=>{

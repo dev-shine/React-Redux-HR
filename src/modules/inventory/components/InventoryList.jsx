@@ -7,6 +7,9 @@ import AddDeviceStatus from "modules/inventory/components/AddDeviceStatus";
 import { CONFIG } from "config";
 import style from "src/styles/inventory/viewUser.scss";
 var moment = require("moment");
+import { CSVLink } from 'react-csv';
+import {deviceKeys} from 'services/index';
+
 
 let devices;
 let capitalizeDevice;
@@ -30,7 +33,8 @@ class InventoryList extends React.Component {
       statusList: [],
       deviceVal: "",
       unapprovedList: [],
-      approveDialog: false
+      approveDialog: false,
+      headerData:[]
     };
 
     this.openEditDevice = this.openEditDevice.bind(this);
@@ -57,7 +61,23 @@ class InventoryList extends React.Component {
       this.setState({ deviceStatusList: val });
     });
   }
-
+  handleHeaderData(deviceList){
+    let headerData = [];
+    let headerLabel = '';
+    if(deviceList && deviceList.length >= 1){
+      let headerObject = deviceKeys;
+        _.map(headerObject,(keys,k)=>{
+          let label = keys.split("_").join(" ");
+          headerLabel = label.charAt(0).toUpperCase() + label.slice(1);
+          let header = {
+            label:headerLabel,
+            key:keys
+          }
+        headerData.push(header);
+        })
+       return headerData;
+    }
+  }
   componentWillReceiveProps(props) {
     if (props.manageDevice.status_message !== this.state.status_message) {
       this.setState({
@@ -207,7 +227,7 @@ class InventoryList extends React.Component {
     this.props.onFetchDeviceStatus();
   }
 
-  handleDeviceTypeFilter(deviceType) {
+  async handleDeviceTypeFilter(deviceType) {
     if (this.state.deviceTypeList === this.props.manageDevice.deviceList) {
       let devices = this.props.manageDevice.device;
       if (this.state.device_status !== "") {
@@ -236,9 +256,11 @@ class InventoryList extends React.Component {
             getLowerCase(row.status) === getLowerCase(this.state.device_status)
         );
       }
+      let header = this.handleHeaderData(devices);
       this.setState({
         deviceList: devices,
-        search: deviceType
+        search: deviceType,
+        headerData:header,
       });
     }
   }
@@ -249,7 +271,7 @@ class InventoryList extends React.Component {
     );
   }
 
-  handleStatusTypeFilter(statusType) {
+  async handleStatusTypeFilter(statusType) {
     let status = this.props.manageDevice.device;
     if (this.state.search !== "") {
       status = this.state.deviceList;
@@ -276,9 +298,11 @@ class InventoryList extends React.Component {
           getLowerCase(row.status) === getLowerCase(statusType)
       );
     }
+    let header = this.handleHeaderData(status);
     this.setState({
       deviceList: status,
-      device_status: statusType
+      device_status: statusType,
+      headerData:header,
     });
   }
 
@@ -293,6 +317,10 @@ class InventoryList extends React.Component {
     this.props.callUnapprovedId({ id });
   }
   render() {
+    let fileNames = this.props.routeParams.device;
+    if(this.props.searchVal.length >= 1){
+      fileNames = this.props.searchVal.toLowerCase();
+    }
     let path = CONFIG.inventory_images;
     const role = getLoggedUser().data.role;
     var statusList = this.state.deviceStatusList || [];
@@ -507,7 +535,12 @@ class InventoryList extends React.Component {
                     className="buttonbox"
                     style={{ float: "right", marginRight: "1%" }}
                   >
-                    <div className="col-sm-4 p-0 pt-5">
+                     <div className="col-sm-4 p-0 pt-5">
+                      <CSVLink data={this.state.deviceList} headers={this.state.headerData} filename={`inventory-${fileNames}-report-${moment().format("YYYY-MMMM-DD")}.csv`} style={{float: "right", marginRight: "25px", color: '#337ab7', textDecoration: 'underline',marginTop: '30px', marginLeft: "17px" }} >
+                        Download Report
+                      </CSVLink>
+                    </div>
+                    <div className="col-sm-3 p-0 pt-5">
                       <div className=" text-left" style={{ marginTop: "26px" }}>
                         <AddDeviceStatus
                           callAddStatus={this.callAddStatus}
@@ -520,7 +553,7 @@ class InventoryList extends React.Component {
                         />
                       </div>
                     </div>
-
+                   
                     <div className="col-sm-2 p-0 pt-5">
                       <div
                         className="text-left  addcomp"

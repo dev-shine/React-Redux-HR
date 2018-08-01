@@ -10,6 +10,7 @@ import EmpDaySummary from 'modules/attendance/components/empDaySummary';
 import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
 import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
 import * as actions from 'appRedux/actions';
+import isEqual from "lodash/isEqual";
 
 class MonthlyAttendance extends React.Component {
   constructor (props) {
@@ -28,22 +29,21 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillMount () {
     this.props.isAlreadyLogin();
-    let userId = this.props.loggedUser.data.id;
+    let userId = this.props.loggedUser.data.id;    
     this.setState({'defaultUserDisplay': userId});
     let d = new Date();
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
     this.setState({year: year, month: month});
   }
-  componentWillReceiveProps (props) {
+  componentWillReceiveProps (props) {    
     const userId=props.loggedUser.data.id;
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
     }
-    if(userId){
+    if(userId  && !isEqual(props,this.props)){
       this.props.requestUserAttendance({userid: userId, year: this.state.year, month: this.state.month});
-
     }
   }
   onShowDaySummary (userid, date) {

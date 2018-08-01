@@ -34,12 +34,16 @@ class MonthlyAttendance extends React.Component {
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
     this.setState({year: year, month: month});
-    this.props.requestUserAttendance({userid: userId, year: year, month: month});
   }
   componentWillReceiveProps (props) {
+    const userId=props.loggedUser.data.id;
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
       this.props.router.push(isNotValid.redirectTo);
+    }
+    if(userId){
+      this.props.requestUserAttendance({userid: userId, year: this.state.year, month: this.state.month});
+
     }
   }
   onShowDaySummary (userid, date) {
@@ -54,7 +58,7 @@ class MonthlyAttendance extends React.Component {
     this.setState({year: y, month: m});
     this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
-  render () {
+  render () {    
     return (
       <div >
         <Menu {...this.props} />

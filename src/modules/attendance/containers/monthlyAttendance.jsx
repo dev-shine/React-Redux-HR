@@ -27,7 +27,7 @@ class MonthlyAttendance extends React.Component {
     this.onShowDaySummary = this.onShowDaySummary.bind(this);
     this.monthToggle = this.monthToggle.bind(this);
   }
-  componentWillMount () {
+  componentWillMount () {    
     this.props.isAlreadyLogin();
     let userId = this.props.loggedUser.data.id;    
     this.setState({'defaultUserDisplay': userId});
@@ -35,6 +35,8 @@ class MonthlyAttendance extends React.Component {
     let year = d.getFullYear();
     let month = d.getMonth() + 1; // +1 since getMonth starts from 0
     this.setState({year: year, month: month});
+    this.props.requestUserAttendance({userid: userId, year: year, month:month});
+
   }
   componentWillReceiveProps (props) {    
     const userId=props.loggedUser.data.id;

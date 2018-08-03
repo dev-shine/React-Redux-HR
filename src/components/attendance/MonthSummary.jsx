@@ -12,7 +12,7 @@ const MonthSummary = ({monthlyAttendance}) => {
       <DayReference monthlyAttendance={monthlyAttendance} />
     </div>
   );
-};
+}; 
 
 MonthSummary.PropTypes = {
   monthlyAttendance:   PropTypes.object.isRequired,

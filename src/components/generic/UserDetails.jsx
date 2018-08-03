@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const UserDetails = ({monthlyAttendance}) => {
   return (
-    <div className="row">
-      <div className="col-xs-12">
+    <div className="user-detail">
+      <div className="col-xs-12 col-sm-4 userName">
         <div className="box p-a">
           <div className="pull-left m-r">
             <span className="w-40 avatar">

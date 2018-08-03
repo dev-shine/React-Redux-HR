@@ -1,19 +1,19 @@
-.day-color-referance{
+.day-color-referance {
   min-width: 55px;
 }
 .calendar-day {
- width: calc(100% / 7);
- min-width: 100px;
- float: left;
- min-height: 150px;
+  width: calc(100% / 7);
+  min-width: 100px;
+  float: left;
+  min-height: 150px;
 }
 
 .officetime {
   font-size: 10px;
 }
 
-.compensation-data{
-  small{
+.compensation-data {
+  small {
     display: block;
     font-size: 10px;
     line-height: 2;
@@ -25,5 +25,94 @@
 @media (max-width: 580px) {
   .time-summary {
     width: 100%;
+  }
+}
+.user-detail {
+  .userName {
+    padding: 0 !important;
+    .p-a {
+      padding: 0.8rem 0.5rem 0rem !important;
+      .m-r {
+        margin-right: 0.5rem !important;
+      }
+    }
+  }
+}
+.row {
+  .time-summary {
+    padding: 0 !important;
+    width: 21.6%;
+    .p-a {
+      padding: 1rem 0.5rem !important;
+    }
+    .total {
+      color: #b276de;
+    }
+    .complete {
+      color: #6ccaac;
+    }
+    .pending {
+      color: rgb(244, 92, 66);
+    }
+    .text-lg {
+      font-size: 1.4rem;
+    }
+  }
+}
+.box {
+  .clear {
+    .text-lg{
+      font-size:1.4rem
+    }
+    h4 {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+  .box-body {
+    .m-b {
+      margin-bottom: 0;
+    }
+    .no-gutter {
+      h4 {
+        margin: 5px 0px;
+      }
+      .p-a {
+        padding: 0.3rem 0.5rem !important;
+        .h-3x {
+          height: 1rem;
+        }
+      }
+    }
+  }
+}
+.day {
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 1.5rem;
+  .box-header {
+    padding: 1.5rem 1rem 0rem;
+  }
+  .box-body {
+    padding: 0.4rem 1rem 0rem;
+    .no-gutter {
+      h4 {
+        margin: 5px 0px;
+      }
+      .p-a {
+        padding: 0.3rem 0.5rem !important;
+        margin-bottom: 5px;
+        .h-3x {
+          height: 1rem;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .row {
+    .time-summary {
+      width: 100%;
+    }
   }
 }

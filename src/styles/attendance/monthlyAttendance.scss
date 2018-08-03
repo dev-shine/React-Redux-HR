@@ -61,8 +61,8 @@
 }
 .box {
   .clear {
-    .text-lg{
-      font-size:1.4rem
+    .text-lg {
+      font-size: 1.2rem;
     }
     h4 {
       margin-top: 0;
@@ -113,6 +113,19 @@
   .row {
     .time-summary {
       width: 100%;
+    }
+  }
+  .month-summary {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+}
+@media only screen and (max-width: 1092px) and (min-width: 992px) {
+  .box {
+    .clear {
+      .text-lg {
+        font-size: 1rem;
+      }
     }
   }
 }

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 const TimeSummary = ({ monthlyAttendance }) => {
   return (
     <div className="row ">
-      <div className="col-xs-12 col-md-3 time-summary">
-        <div className="box p-a">
+      <div className="col-xs-12 col-sm-3 time-summary">
+        <div className="box p-a month-summary">
           <div className="pull-left m-r" />
           <div className="clear total">
             <h4 className="m-a-0 text-lg _300">
@@ -17,7 +17,7 @@ const TimeSummary = ({ monthlyAttendance }) => {
         </div>
       </div>
       <div className="col-xs-12 col-sm-3 time-summary">
-        <div className="box p-a">
+        <div className="box p-a month-summary">
           <div className="pull-left m-r" />
           <div className="clear complete">
             <h4 className="m-a-0 text-lg _300">
@@ -29,7 +29,7 @@ const TimeSummary = ({ monthlyAttendance }) => {
         </div>
       </div>
       <div className="col-xs-12 col-sm-3 time-summary">
-        <div className="box p-a">
+        <div className="box p-a month-summary">
           <div className="pull-left m-r" />
           <div className="clear pending">
             <h4 className="m-a-0 text-lg _300">

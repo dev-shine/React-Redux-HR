@@ -22,6 +22,7 @@ const actionForExpressWeburl = ['update_time_by_employee', 'manual', 'approval']
 export const deviceKeys = ["id","machine_type","machine_name","machine_price","serial_number","date_of_purchase","status","warranty_end_date","bill_number","warranty_comment","approval_status","user_Id","assign_date","name"]
 
 export function fireAjax (method, url, data, api) {
+  console.log(data);
   let URL = CONFIG.api_url + url;
   let action = data.action;
   let token = getToken();
@@ -39,7 +40,12 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_sal_structure.php';
-  } else if (data.action === 'add_user_holding') {
+  } else if (data.action === "revert_leave_status"){
+    console.log(data);
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.api_url;
+  }
+  else if (data.action === 'add_user_holding') {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_holding_info.php';
@@ -91,8 +97,10 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
-  }
+  } 
   return fetch(URL, headers).then((response) => {
+    console.log("----------");
+    
     if (response.status === 500) {
       return new Promise((resolve, reject) => {
         response.json().then((data) => {
@@ -105,6 +113,8 @@ export function fireAjax (method, url, data, api) {
         location.href = CONFIG.BASE_URL;
       });
     } else {
+      console.log("0000000000");
+      
       return response.json();
     }
   });

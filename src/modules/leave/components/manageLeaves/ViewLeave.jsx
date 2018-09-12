@@ -158,7 +158,6 @@ class ViewLeave extends React.Component {
     if (this.props.selectedLeave.status === 'Pending' && this.props.selectedLeave.hr_approved === '1') {
       status = 'Approved By HR';
     }
-    console.log(this.props);
     return (
       <div className="item">
         <div className="item-bg">

@@ -28,7 +28,6 @@ class ViewLeave extends React.Component {
     this.setState({messagetouser: '', edit: false});
   }
   handleRevert () {
-    console.log('Reverting..', this.props);
     this.props.leaveRevertRequest(this.props.selectedLeave.id, getToken());
   }
   handleSave (data) {
@@ -130,7 +129,7 @@ class ViewLeave extends React.Component {
     }
   }
 
-  render () {
+  render () {    
     let styles = _.cloneDeep(this.constructor.styles);
     let notify = this._notify();
     let changeStatusButton = this._getChangeStatusButtons(this.props.selectedLeave.id, this.props.selectedLeave.status);
@@ -181,9 +180,9 @@ class ViewLeave extends React.Component {
             <div className="col-xs-12 col-sm-8 leave-details">
               <div>Status - <i><b>{status}</b></i> 
                 { (this.props.selectedLeave.status ==="Rejected" || this.props.selectedLeave.status === "Approved") &&
-                  //<div className="text-right" style={{marginTop: '10px'}}>
-                    <ButtonFlat style={{backgroundColor:'#ffff00'}} onClick={this.handleRevert} label="Revert to pending" />
-                  //</div>
+                  <div style={{margin: '5px 0'}} >
+                    <ButtonRaised style={{backgroundColor:'#ffff00'}} onClick={this.handleRevert} label="Revert to pending" />
+                  </div>
                 }
               </div>
               <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>

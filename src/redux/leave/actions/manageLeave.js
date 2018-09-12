@@ -138,3 +138,33 @@ export function onAddDescription (leaveid, hr, data) {
     });
   };
 }
+
+function async_leaveRevertRequest(leaveid, token) {
+  return fireAjax('POST', '', {
+    'action':    'revert_leave_status',
+    'leaveid':   leaveid,
+    'token':     token
+  });
+}
+
+
+export function leaveRevertRequest (leaveid, token) {  
+  return function (dispatch, getState) {
+    return new Promise((resolve, reject) => {
+    dispatch(show_loading()); // show loading icon
+      async_leaveRevertRequest(leaveid, token).then(
+				(json) => {
+          resolve(json);
+          dispatch(hide_loading()); // hide loading icon
+          if (json.error == 0) {
+            dispatch(actions_listLeaves.getAllLeaves());
+          }
+        },
+				(error) => {
+          dispatch(actions_listLeaves.getAllLeaves());
+          dispatch(hide_loading()); // hide loading icon
+        }
+			);
+    });
+  };
+}

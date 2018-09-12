@@ -21,10 +21,14 @@ class ViewLeave extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleRevert = this.handleRevert.bind(this);
   }
 
   componentWillReceiveProps (props) {
     this.setState({messagetouser: '', edit: false});
+  }
+  handleRevert () {
+    this.props.leaveRevertRequest(this.props.selectedLeave.id, getToken());
   }
   handleSave (data) {
     this.props.onAddDescription(this.props.selectedLeave.id, this.state.messageByHr, data);
@@ -125,7 +129,7 @@ class ViewLeave extends React.Component {
     }
   }
 
-  render () {
+  render () {    
     let styles = _.cloneDeep(this.constructor.styles);
     let notify = this._notify();
     let changeStatusButton = this._getChangeStatusButtons(this.props.selectedLeave.id, this.props.selectedLeave.status);
@@ -154,7 +158,6 @@ class ViewLeave extends React.Component {
     if (this.props.selectedLeave.status === 'Pending' && this.props.selectedLeave.hr_approved === '1') {
       status = 'Approved By HR';
     }
-
     return (
       <div className="item">
         <div className="item-bg">
@@ -174,7 +177,13 @@ class ViewLeave extends React.Component {
               <hr className="col-xs-12 hidden-sm hidden-md hidden-lg" />
             </div>
             <div className="col-xs-12 col-sm-8 leave-details">
-              <div>Status - <i><b>{status}</b></i></div>
+              <div>Status - <i><b>{status}</b></i> 
+                { (this.props.selectedLeave.status ==="Rejected" || this.props.selectedLeave.status === "Approved") &&
+                  <div style={{margin: '5px 0'}} >
+                    <ButtonRaised style={{backgroundColor:'#ffff00'}} onClick={this.handleRevert} label="Revert to pending" />
+                  </div>
+                }
+              </div>
               <div>Applied On <i><b>{this.props.selectedLeave.applied_on}</b></i></div>
               <div><b>{this.props.selectedLeave.from_date} To {this.props.selectedLeave.to_date}</b></div>
               <div>No. of Days - <i><b>{this.props.selectedLeave.no_of_days}</b></i></div>

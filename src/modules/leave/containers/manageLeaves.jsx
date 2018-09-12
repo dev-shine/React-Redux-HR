@@ -161,7 +161,7 @@ class ManageLeaves extends React.Component {
             <ViewLeave
               selectedLeave={this.state.selectedLeave}
               doLeaveStatusChange={this.doLeaveStatusChange}
-              {...this.props}
+              {...this.props} 
             />
           </div>
         </div>
@@ -244,7 +244,8 @@ const mapDispatchToProps = dispatch => {
     },
     onDocRequired: (leaveid, data, comment) => {
       return dispatch(actions_manageLeave.docRequired(leaveid, data, comment));
-    }
+    },
+    leaveRevertRequest: (leaveid, token)=> dispatch(actions_manageLeave.leaveRevertRequest(leaveid, token))
   };
 };
 

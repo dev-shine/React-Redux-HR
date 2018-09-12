@@ -39,7 +39,11 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_sal_structure.php';
-  } else if (data.action === 'add_user_holding') {
+  } else if (data.action === "revert_leave_status"){
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.api_url;
+  }
+  else if (data.action === 'add_user_holding') {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url_salary + '/add_holding_info.php';
@@ -91,7 +95,7 @@ export function fireAjax (method, url, data, api) {
     delete (data.action);
     headers.body = JSON.stringify(data);
     URL = CONFIG.expressApiUrl;
-  }
+  } 
   return fetch(URL, headers).then((response) => {
     if (response.status === 500) {
       return new Promise((resolve, reject) => {

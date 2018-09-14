@@ -10,14 +10,13 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import { getToken } from 'src/services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';
+import { dateFormatter } from "src/helper/helper";
 
 class AuditInventoryList extends Component {
     constructor() {
         super();
         let date = new Date();
         this.state = { month: date.getMonth() + 1, year: date.getYear() + 1900 };
-        this.monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-        this.yearName = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
     }
     componentWillMount() {
         this.props.onIsAlreadyLogin();
@@ -36,12 +35,16 @@ class AuditInventoryList extends Component {
         let rows = null;
         let datas = [];
         const path = CONFIG.inventory_images;
-        const optionsMonth = this.monthName.map((item, index) => {
+        const optionsMonth = dateFormatter().months.map((item, index) => {
             return (<option key={index} value={index + 1}>{item}</option>);
         })
-        const optionsYear = this.yearName.map((item, index) => {
-            return (<option key={index} value={index + 2011}>{item}</option>);
-        })
+        const Year = [];
+        for (let i = 0; i < 5; i++) {
+            Year.push(this.state.year + i - 1);
+        }
+        const optionsYear = Year.map((item, index) => {
+            return (<option key={index} value={item}>{item}</option>);
+        });
         if (this.props.manageDevice.auditData.length !== 0) {
             rows = this.props.manageDevice.auditData.map((item, index) => {
                 datas.push({

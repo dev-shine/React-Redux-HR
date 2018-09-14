@@ -42,6 +42,9 @@ export function fireAjax (method, url, data, api) {
   } else if (data.action === "revert_leave_status"){
     headers.body = JSON.stringify(data);
     URL = CONFIG.api_url;
+  } else if (data.action === "get_inventory_audit_status_month_wise") {
+    headers.body = JSON.stringify(data);
+    URL = CONFIG.api_url;
   }
   else if (data.action === 'add_user_holding') {
     delete (data.action);

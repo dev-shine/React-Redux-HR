@@ -71,7 +71,7 @@ class AuditInventoryList extends Component {
                                 </div>
                             }
                         </td>
-                        <td style={{ width: "10%" }}>{item.assigned_to && 
+                        <td style={{ width: "10%" }}>{item.assigned_to &&
                             (<div>
                                 {item.assigned_to} ({item.assigned_user_id})
                             </div>)}
@@ -93,6 +93,7 @@ class AuditInventoryList extends Component {
 
             });
         }
+        console.log(this.props);
         return (
             <div>
                 <Menu {...this.props} />
@@ -108,26 +109,26 @@ class AuditInventoryList extends Component {
                                     <h4>Audit Summary</h4>
                                 </div>
                                 <div className="col-sm-10">
-                                    <div className="row no-gutter" style={{ display: "flex", flex: "wrap" }}>
+                                    <div className="row no-gutter" /* style={{ display: "flex", flex: "wrap" }} */>
                                         <div className="col-xs-12 col-sm-3 day-color-referance white" style={{ padding: "5px" }}>
                                             <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.total_inventories}</h4>
-                                            <div className="text-u-c text-sm">Total Inventory</div>
-                                        </div>
-
-                                        <div className="col-xs-12 col-sm-3 day-color-referance yellow" style={{ padding: "5px" }}>
-                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_pending}</h4>
-                                            <div className="text-u-c text-sm"> Pending Audit</div>
-
+                                            <div className="text-u-c text-sm" style={{ fontSize: "11px" }}>Total Inventory</div>
                                         </div>
 
                                         <div className="col-xs-12 col-sm-3 day-color-referance red" style={{ padding: "5px" }}>
-                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_done}</h4>
-                                            <div className="text-u-c text-sm">Done Audit</div>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_pending}</h4>
+                                            <div className="text-u-c text-sm" style={{ fontSize: "11px" }}> Pending Audit</div>
+
                                         </div>
 
-                                        <div className="col-xs-12 col-sm-3 day-color-referance red-100" style={{ padding: "5px" }}>
+                                        <div className="col-xs-12 col-sm-3 day-color-referance green" style={{ padding: "5px" }}>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_done}</h4>
+                                            <div className="text-u-c text-sm" style={{ fontSize: "11px" }}>Done Audit</div>
+                                        </div>
+
+                                        <div className="col-xs-12 col-sm-3 day-color-referance indigo" style={{ padding: "5px" }}>
                                             <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.unassigned_inventories}</h4>
-                                            <div className="text-u-c text-sm">Unassigned Inventory</div>
+                                            <div className="text-u-c text-sm" style={{ fontSize: "11px" }}>Unassigned Inventory</div>
                                         </div>
                                     </div>
                                 </div>

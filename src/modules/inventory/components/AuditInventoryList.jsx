@@ -153,6 +153,8 @@ class AuditInventoryList extends Component {
                                     >   Download Report
                                     </CSVLink>
                                 </div>
+                                <div style={{overflow: "auto", overflowY: "hidden"}}>
+
                                 <table key="" className="table table-responsive table-hover table-striped">
                                     <thead className="success text-center">
                                         <tr style={{ padding: 0 }}>
@@ -166,6 +168,7 @@ class AuditInventoryList extends Component {
                                     </thead>
                                     <tbody>{rows}</tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                     </div>

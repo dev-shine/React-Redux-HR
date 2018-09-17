@@ -18,6 +18,10 @@ class Holidays extends React.Component {
     this.props.requestHolidayList();
   }
   componentWillReceiveProps (props) {
+    if(props.addHoliday.isSuccess){
+      this.props.requestHolidayList();
+    }
+    
     let {route, router, loggedUser, holidaysList: {isError, message}} = props;
     let isNotValid = isNotUserValid(route.path, loggedUser);
     if (isNotValid.status) {
@@ -40,7 +44,7 @@ class Holidays extends React.Component {
             <div className="padding">
               <div className="row">
                 <div className="col-md-12">
-                  <HolidaysList holidays={data.holidays} />
+                  <HolidaysList holidays={data.holidays} addHoliday={this.props.requestAddHoliday} isAdmin={this.props.loggedUser.data.role==="Admin"} />
                 </div>
               </div>
             </div>
@@ -55,7 +59,8 @@ function mapStateToProps (state) {
   return {
     frontend:     state.frontend.toJS(),
     loggedUser:   state.logged_user.userLogin,
-    holidaysList: state.holidaysList.holidaysList
+    holidaysList: state.holidaysList.holidaysList,
+    addHoliday :  state.holidaysList.addHolidays
   };
 }
 const mapDispatchToProps = (dispatch) => {

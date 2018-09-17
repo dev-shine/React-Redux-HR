@@ -17,10 +17,14 @@ class AuditInventoryList extends Component {
         super();
         let date = new Date();
         this.state = { month: date.getMonth() + 1, year: date.getYear() + 1900 };
+        this.Year = [];
     }
     componentWillMount() {
         this.props.onIsAlreadyLogin();
         this.props.onUsersList();
+        for (let i = 0; i < 5; i++) {
+            this.Year.push(parseInt(this.state.year) + i - 1);
+        }
         this.props.auditList(getToken(), this.state.month, this.state.year);
     }
     onMonthChange = (e) => {
@@ -38,19 +42,16 @@ class AuditInventoryList extends Component {
         const optionsMonth = dateFormatter().months.map((item, index) => {
             return (<option key={index} value={index + 1}>{item}</option>);
         })
-        const Year = [];
-        for (let i = 0; i < 5; i++) {
-            Year.push(this.state.year + i - 1);
-        }
-        const optionsYear = Year.map((item, index) => {
+        const optionsYear = this.Year.map((item, index) => {
             return (<option key={index} value={item}>{item}</option>);
         });
-        if (this.props.manageDevice.auditData.length !== 0) {
-            rows = this.props.manageDevice.auditData.map((item, index) => {
+        if (Object.keys(this.props.manageDevice.auditData).length !== 0) {
+            rows = this.props.manageDevice.auditData.audit_list.map((item, index) => {
                 datas.push({
                     "Inventory Id": item.id,
                     "Inventory Name": item.machine_name,
                     "Inventory Type": item.machine_type,
+                    "Assigned To": item.assigned_name,
                     "Comment": item.comment,
                     "Audit By Name": item.name,
                     "Audit By User Id": item.audit_done_by_user_id,
@@ -62,19 +63,24 @@ class AuditInventoryList extends Component {
                         <td style={{ width: "5%" }}>{index + 1}</td>
                         <td style={{ width: "10%" }}>{item.id}</td>
                         <td style={{ width: "15%" }}>{item.machine_type}</td>
-                        <td style={{ width: "15%" }}>{item.machine_name}
+                        <td style={{ width: "7%" }}>{item.machine_name}
                             {item.file_name &&
                                 <div className="thumbnail">
                                     <img src={path + item.file_name} />
                                 </div>
                             }
                         </td>
+                        <td style={{ width: "10%" }}>{item.assigned_to && 
+                            (<div>
+                                {item.assigned_to} ({item.assigned_user_id})
+                            </div>)}
+                        </td>
                         <td>
                             {item.comment &&
                                 (<div>
                                     <div>
                                         <b><i>
-                                            By: {item.name} ({item.user_Id})
+                                            By: {item.audit_done_by} ({item.audit_done_by_user_id})
                                     </i></b>
                                     </div>
                                     {item.comment}
@@ -86,7 +92,6 @@ class AuditInventoryList extends Component {
 
             });
         }
-
         return (
             <div>
                 <Menu {...this.props} />
@@ -95,39 +100,72 @@ class AuditInventoryList extends Component {
                         pageTitle={"Inventories Audit"}
                         showLoading={this.props.frontend.show_loading}
                     />
-                </div>
-                <div className="container-fluid">
-                    <div className=" col-md-10 col-md-offset-2" style={{ marginTop: "60px", backgroundColor: "white" }}>
-                        <div className="row" style={{ padding: "10px 0 20px 0", position: "relative" }}>
-                            <div className="col-md-2">
-                                <select className="form-control" onChange={this.onYearChange} value={this.state.year}>
-                                    {optionsYear}
-                                </select>
+                    <div className="app-body" id="view">
+                        <div className="padding">
+                            <div style={{ overflow: "auto", backgroundColor: "white" }}>
+                                <div className="col-sm-2 col-xs-12" style={{ paddingTop: "10px" }}>
+                                    <h4>Audit Summary</h4>
+                                </div>
+                                <div className="col-sm-10">
+                                    <div className="row no-gutter" style={{ display: "flex", flex: "wrap" }}>
+                                        <div className="col-xs-12 col-sm-3 day-color-referance white" style={{ padding: "5px" }}>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.total_inventories}</h4>
+                                            <div className="text-u-c text-sm">Total Inventory</div>
+                                        </div>
+
+                                        <div className="col-xs-12 col-sm-3 day-color-referance yellow" style={{ padding: "5px" }}>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_pending}</h4>
+                                            <div className="text-u-c text-sm"> Pending Audit</div>
+
+                                        </div>
+
+                                        <div className="col-xs-12 col-sm-3 day-color-referance red" style={{ padding: "5px" }}>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.audit_done}</h4>
+                                            <div className="text-u-c text-sm">Done Audit</div>
+                                        </div>
+
+                                        <div className="col-xs-12 col-sm-3 day-color-referance red-100" style={{ padding: "5px" }}>
+                                            <h4>{Object.keys(this.props.manageDevice.auditData).length !== 0 && this.props.manageDevice.auditData.stats.unassigned_inventories}</h4>
+                                            <div className="text-u-c text-sm">Unassigned Inventory</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="col-md-2">
-                                <select className="form-control" onChange={this.onMonthChange} value={this.state.month}>
-                                    {optionsMonth}
-                                </select>
+
+                            <div style={{ marginTop: "20px", backgroundColor: "white" }}>
+                                <div className="row" style={{ padding: "10px 10px 20px 10px", position: "relative" }}>
+                                    <div className="col-md-2">
+                                        <select className="form-control" onChange={this.onYearChange} value={this.state.year}>
+                                            {optionsYear}
+                                        </select>
+                                    </div>
+                                    <div className="col-md-2">
+                                        <select className="form-control" onChange={this.onMonthChange} value={this.state.month}>
+                                            {optionsMonth}
+                                        </select>
+                                    </div>
+                                    <CSVLink
+                                        style={{ position: 'absolute', right: '2%', bottom: '4px', color: '#337ab7', textDecoration: 'underline' }}
+                                        data={datas}
+                                        filename={`audit-${moment().format("MMM-YYYY-DD-MMM-YYYY")}.csv`}
+                                    >   Download Report
+                                    </CSVLink>
+                                </div>
+                                <table key="" className="table table-responsive table-hover table-striped">
+                                    <thead className="success text-center">
+                                        <tr style={{ padding: 0 }}>
+                                            <th style={{ width: "5%" }}>#</th>
+                                            <th style={{ width: "10%" }}>Device Id</th>
+                                            <th style={{ width: "15%" }}>Device Type</th>
+                                            <th style={{ width: "7%" }}>Device Name</th>
+                                            <th style={{ width: "10%" }}>Assigned To</th>
+                                            <th className="text-center">Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{rows}</tbody>
+                                </table>
                             </div>
-                            <CSVLink
-                                style={{ position: 'absolute', right: '2%', bottom: '4px', color: '#337ab7', textDecoration: 'underline' }}
-                                data={datas}
-                                filename={`audit-${moment().format("MMM-YYYY-DD-MMM-YYYY")}.csv`}
-                            >   Download Report
-                            </CSVLink>
                         </div>
-                        <table key="" className="table table-responsive table-hover table-striped">
-                            <thead className="success text-center">
-                                <tr style={{ padding: 0 }}>
-                                    <th style={{ width: "5%" }}>#</th>
-                                    <th style={{ width: "10%" }}>Device Id</th>
-                                    <th style={{ width: "15%" }}>Device Type</th>
-                                    <th style={{ width: "15%" }}>Device Name</th>
-                                    <th className="text-center">Comments</th>
-                                </tr>
-                            </thead>
-                            <tbody>{rows}</tbody>
-                        </table>
                     </div>
                 </div>
             </div>

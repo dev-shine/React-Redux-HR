@@ -52,8 +52,9 @@ class AuditInventoryList extends Component {
                     "Inventory Name": item.machine_name,
                     "Inventory Type": item.machine_type,
                     "Assigned To": item.assigned_name,
+                    "Assigned Id": item.assigned_user_id,
                     "Comment": item.comment,
-                    "Audit By Name": item.name,
+                    "Audit By Name": item.audit_done_by,
                     "Audit By User Id": item.audit_done_by_user_id,
                     "Month": item.month,
                     "Year": item.year

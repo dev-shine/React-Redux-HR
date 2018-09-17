@@ -801,11 +801,43 @@ export function unassignDeviceList () {
 export function successEditDeviceData (device,edit,open) {
   return createAction(constants.ACTION_SUCCESS_EDIT_WITHOUT_API)({device,edit,open});
 }
+
 export function editDeviceData (device,edit,open) {
   return (dispatch, getState) => {
     dispatch(successEditDeviceData(device,edit,open));
   };
 }
 
+export function successAuditList (data) {
+  return createAction(constants.ACTION_SUCCESS_AUDIT_LIST)(data);
+}
+export function errorAuditList (data) {
+  return createAction(constants.ACTION_ERROR_AUDIT_LIST)(data);
+}
+
+function getAsyncAuditList (token, month, year) {
+  return fireAjax('POST','',{
+    'token': token,
+    'request': 'POST',
+    'action': 'get_inventory_audit_status_month_wise',
+    'month': month,
+    'year': year
+  });
+}
+
+export function getAuditList(token, month, year){
+  return (dispatch, getState) => {
+    return new Promise(function (resolve, reject) {
+      dispatch(show_loading());
+      return getAsyncAuditList(token, month, year).then((res) => {
+        dispatch(hide_loading());
+        dispatch(successAuditList(res.data));
+      }, (error) => {
+        dispatch(hide_loading());
+        reject(error);
+      });
+    });
+  };
+}
 
 

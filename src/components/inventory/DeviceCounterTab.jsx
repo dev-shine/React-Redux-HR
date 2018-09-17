@@ -5,6 +5,7 @@ import DeviceCounter from "./DeviceCounter";
 import style from "src/styles/inventory/viewUser.scss";
 import {CSVLink} from 'react-csv';
 import moment from 'moment';
+import { Link } from "react-router";
 //  import FormAddNewInventory from '/home/etech/Documents/ReactReduxHR/src/modules/inventory/components/AddInventory.jsx'
 
 
@@ -101,9 +102,13 @@ const DeviceCounterTab = ({ statusList, deviceCountList, router }) => {
               <h4 className="m-a-0 text-lg _300" />
               <small className="text-muted"> Total Device </small>
               <h1 style={{ right:"1%",bottom:"20%",position:'absolute' , color: "#0E9BB1" }}>{total}</h1>
-              <CSVLink data={datas} headers={headersData} filename={`device-report-${moment().format("YYYY-MMMM-DD")}.csv`} style={{position:'absolute',right:'1%',bottom:'2%',color:'#337ab7',textDecoration:'underline'}} >
+              <div style={{position: "absolute", right: "1%", bottom: "2%"}}>
+                <Link className="" style={{color:'#337ab7', textDecoration:'underline' }} to="/audit_inventory_list">View Audit History </Link>
+                <span style={{backgroundColor: "black", width: "2px", margin: "0 6px"}}></span>
+                <CSVLink data={datas} headers={headersData} filename={`device-report-${moment().format("YYYY-MMMM-DD")}.csv`} style={{color:'#337ab7',textDecoration:'underline'}} >
                   Download Report
-              </CSVLink>
+                </CSVLink>
+              </div>
             </div>
           </div>
         </div>

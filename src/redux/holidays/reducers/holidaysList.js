@@ -19,7 +19,7 @@ let initialState = {
     message:   ''
   },
   holidayType : {
-    data:      {},
+    data:      [],
     isLoading: false,
     isError:   false,
     isSuccess: false,

@@ -11,7 +11,7 @@ class HolidaysList extends React.Component{
     this.state={
       date:"",
       holidayName:"",
-      type:""
+      type:"0"
     };
   }
   
@@ -67,7 +67,6 @@ class HolidaysList extends React.Component{
                 value={this.state.type}
                 style={{minHeight:'0'}}
             >
-              <option value=''>-Type-</option>
               {holidayType && holidayType.map((data,index)=><option value={data.type}>{data.text}</option>)}
             </select>
           </div>

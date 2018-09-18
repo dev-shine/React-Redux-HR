@@ -11,10 +11,14 @@ class HolidaysList extends React.Component{
     this.state={
       date:"",
       holidayName:"",
-      type:"0"
+      type:""
     };
   }
-  
+  componentWillReceiveProps(props){
+    if(props.holidayType){
+      this.setState({type:props.holidayType[0].type})
+    }
+  }
   render(){
     const { holidayType } = this.props;
     let img = <img src='./socialMediaIcons/holidays.svg' className="w-40 img-circle m-x-md" />;

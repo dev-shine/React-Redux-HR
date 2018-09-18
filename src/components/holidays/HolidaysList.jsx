@@ -4,6 +4,7 @@ import {DateField} from 'react-date-picker';
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
 import InputText from 'components/generic/input/InputText';
 import { getToken } from 'src/services/generic';
+import {notify} from 'src/services/notify';
 
 class HolidaysList extends React.Component{
   constructor(props){
@@ -15,8 +16,16 @@ class HolidaysList extends React.Component{
     };
   }
   componentWillReceiveProps(props){
+    let {addHolidayState: {isError, isSuccess, message, data}} = props;
     if(props.holidayType){
-      this.setState({type:props.holidayType[0].type})
+      this.setState({type:`${props.holidayType[0].type}`})
+    }
+    if (isError) {
+      notify('Error !', message, 'error');
+    }
+    if (isSuccess) {
+      notify('Success !', data.message, 'success');
+      this.setState({date:"",holidayName:""});
     }
   }
   render(){
@@ -71,7 +80,7 @@ class HolidaysList extends React.Component{
                 value={this.state.type}
                 style={{minHeight:'0'}}
             >
-              {holidayType && holidayType.map((data,index)=><option value={data.type}>{data.text}</option>)}
+              {holidayType && holidayType.map((data,index)=><option key={index} value={data.type}>{data.text}</option>)}
             </select>
           </div>
           <div className="col-md-3" style={{paddingTop:"2px", paddingLeft:"1px", paddingRight:"1px"}}>

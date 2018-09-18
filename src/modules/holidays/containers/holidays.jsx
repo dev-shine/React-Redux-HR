@@ -51,6 +51,7 @@ class Holidays extends React.Component {
                   addHoliday={this.props.requestAddHoliday} 
                   isAdmin={this.props.loggedUser.data.role==="Admin"} 
                   holidayType={this.props.holidayType.data.holiday_type_list}
+                  addHolidayState={this.props.addHoliday}
                   />
                 </div>
               </div>

@@ -31,7 +31,7 @@ export function* addHoliday (action) {
     if (response.error === 0) {
       yield put(actions.successAddHoliday(response.data));
     } else if (response.error === 1) {
-      yield put(actions.errorAddHoliday('API response error.'));
+      yield put(actions.errorAddHoliday(response.data.message));
     }
   } catch (e) {
     yield put(actions.errorAddHoliday('Error Occurs !!'));

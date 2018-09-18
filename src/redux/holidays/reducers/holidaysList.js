@@ -72,5 +72,5 @@ export default handleActions({
   [constants.REQUEST_HOLIDAYTYPE]: requestHolidayType,
   [constants.SUCCESS_HOLIDAYTYPE]: successHolidayType,
   [constants.ERROR_HOLIDAYTYPE]: errorHolidayType,
-  [constants.RESET_REDUCER]: resetReducer
+  [constants.RESET_ADDHOLIDAYREDUCER]: resetReducer
 }, initialState);

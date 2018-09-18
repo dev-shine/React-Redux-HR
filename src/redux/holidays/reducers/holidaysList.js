@@ -32,7 +32,8 @@ const requestHolidaysList = (state, action) => update(state, {
 });
 const successHolidaysList = (state, action) => update(state, {
   holidaysList: {$setRequestSuccess: action.payload},
-  addHolidays :{isSuccess :{$set:false}} 
+  addHolidays : {isSuccess :{$set:false}},
+  addHolidays : {message : {$set:''}} 
 });
 const errorHolidaysList = (state, action) => update(state, {
   holidaysList: {$setRequestError: action.payload}

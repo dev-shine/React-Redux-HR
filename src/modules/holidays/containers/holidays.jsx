@@ -17,6 +17,7 @@ class Holidays extends React.Component {
   }
   componentWillMount () {
     this.props.requestHolidayList();
+    this.props.resetReducer();
     this.props.requestHolidayType({token:getToken()});
   }
   componentWillReceiveProps (props) {

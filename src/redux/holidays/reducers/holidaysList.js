@@ -32,7 +32,7 @@ const requestHolidaysList = (state, action) => update(state, {
 });
 const successHolidaysList = (state, action) => update(state, {
   holidaysList: {$setRequestSuccess: action.payload},
-  addHolidays :{isSuccess :{$set:false}} 
+  addHolidays : {isSuccess :{$set:false}}
 });
 const errorHolidaysList = (state, action) => update(state, {
   holidaysList: {$setRequestError: action.payload}
@@ -58,6 +58,10 @@ const errorHolidayType = (state, action) => update(state, {
   holidayType: {$setRequestError: action.payload}
 });
 
+const resetReducer = (state,action) => update(state, {
+  addHolidays : {$setInitialState :null}
+})
+
 export default handleActions({
   [constants.REQUEST_HOLIDAYSLIST]: requestHolidaysList,
   [constants.SUCCESS_HOLIDAYSLIST]: successHolidaysList,
@@ -67,5 +71,6 @@ export default handleActions({
   [constants.ERROR_ADDHOLIDAYS]: errorAddHolidays,
   [constants.REQUEST_HOLIDAYTYPE]: requestHolidayType,
   [constants.SUCCESS_HOLIDAYTYPE]: successHolidayType,
-  [constants.ERROR_HOLIDAYTYPE]: errorHolidayType
+  [constants.ERROR_HOLIDAYTYPE]: errorHolidayType,
+  [constants.RESET_ADDHOLIDAYREDUCER]: resetReducer
 }, initialState);

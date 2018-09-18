@@ -4,6 +4,7 @@ import {DateField} from 'react-date-picker';
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
 import InputText from 'components/generic/input/InputText';
 import { getToken } from 'src/services/generic';
+import {notify} from 'src/services/notify';
 
 class HolidaysList extends React.Component{
   constructor(props){
@@ -14,8 +15,21 @@ class HolidaysList extends React.Component{
       type:""
     };
   }
-  
+  componentWillReceiveProps(props){
+    let {addHolidayState: {isError, isSuccess, message, data}} = props;
+    if(props.holidayType){
+      this.setState({type:`${props.holidayType[0].type}`})
+    }
+    if (isError) {
+      notify('Error !', message, 'error');
+    }
+    if (isSuccess) {
+      notify('Success !', data.message, 'success');
+      this.setState({date:"",holidayName:""});
+    }
+  }
   render(){
+    const { holidayType } = this.props;
     let img = <img src='./socialMediaIcons/holidays.svg' className="w-40 img-circle m-x-md" />;
     let holidaysList = <tr><td className="text-muted text-center" colSpan={4}><h2>{img} Loading Holidays...</h2></td></tr>;
     if (this.props.holidays !== undefined && _.size(this.props.holidays) === 0) {
@@ -58,17 +72,16 @@ class HolidaysList extends React.Component{
           </div>
           <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
             <select
-                              className="form-control"
-                              ref="training_month"
-                              onChange={e => {
-                                this.setState({ type: e.target.value });
-                              }}
-                              style={{minHeight:'0'}}
-                            >
-                              <option selected>-Type-</option>
-                              <option value="RH">RH</option>
-                              <option value="Normal">Normal</option>
-              </select>
+                className="form-control"
+                ref="training_month"
+                onChange={e => {
+                  this.setState({ type: e.target.value });
+                }}
+                value={this.state.type}
+                style={{minHeight:'0'}}
+            >
+              {holidayType && holidayType.map((data,index)=><option key={index} value={data.type}>{data.text}</option>)}
+            </select>
           </div>
           <div className="col-md-3" style={{paddingTop:"2px", paddingLeft:"1px", paddingRight:"1px"}}>
              <ButtonRaised

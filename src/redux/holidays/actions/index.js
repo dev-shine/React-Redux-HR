@@ -30,12 +30,28 @@ export function* addHoliday (action) {
     });
     if (response.error === 0) {
       yield put(actions.successAddHoliday(response.data));
-      holidayList();
     } else if (response.error === 1) {
-      yield put(actions.errorAddHoliday('API response error.'));
+      yield put(actions.errorAddHoliday(response.data.message));
     }
   } catch (e) {
     yield put(actions.errorAddHoliday('Error Occurs !!'));
     console.warn('Some error found in addHolidayList action\n', e);
+  }
+}
+
+export function* holidayType (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'get_holiday_types_list',
+       "token":action.payload.token,
+    });
+    if (response.error === 0) {
+      yield put(actions.successHolidayType(response.data));
+    } else if (response.error === 1) {
+      yield put(actions.errorHolidayType('API response error.'));
+    }
+  } catch (e) {
+    yield put(actions.errorHolidayType('Error Occurs !!'));
+    console.warn('Some error found in requestHolidayType action\n', e);
   }
 }

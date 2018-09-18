@@ -11,6 +11,7 @@ import { getToken } from 'src/services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';
 import { dateFormatter } from "src/helper/helper";
+import { Link } from "react-router";
 
 class AuditInventoryList extends Component {
     constructor() {
@@ -64,7 +65,10 @@ class AuditInventoryList extends Component {
                         <td style={{ width: "5%" }}>{index + 1}</td>
                         <td style={{ width: "10%" }}>{item.id}</td>
                         <td style={{ width: "15%" }}>{item.machine_type}</td>
-                        <td style={{ width: "7%" }}>{item.machine_name}
+                        <td style={{ width: "7%" }}>
+                            <Link to={`/inventory_system/${item.machine_type}/${item.id}`}>
+                                {item.machine_name}
+                            </Link>
                             {item.file_name &&
                                 <div className="thumbnail">
                                     <img src={path + item.file_name} />

@@ -127,7 +127,7 @@ let render = (routerKey = null) => {
             <Route path="audit_inventory_list" component={Page_Audit_Inventory}/>
             <Route path="add_documents" component = {Page_AddDocuments} />
             <Route path="add_documents/*" component = {Page_FormAddDocuments} />
-            <Route path="/health_stats" component = {ContainerHealthStats} />
+            <Route path="health_stats" component = {ContainerHealthStats} />
 
             <Route path="addInventory" component={RouterAddInventorySystem}/>
             <Route path="add_new_employee" component={AddNewEmployee}/>

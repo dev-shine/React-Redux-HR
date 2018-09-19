@@ -24,7 +24,7 @@ class Holidays extends React.Component {
   }
   componentWillReceiveProps (props) {
     if(props.addHoliday.isSuccess){
-      this.props.requestHolidayList();
+      this.props.requestHolidayList({year:new Date().getYear() + 1900});
     }
     
     let {route, router, loggedUser, holidaysList: {isError, message}} = props;

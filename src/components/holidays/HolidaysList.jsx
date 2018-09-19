@@ -12,9 +12,15 @@ class HolidaysList extends React.Component{
     this.state={
       date:"",
       holidayName:"",
-      type:""
+      type:"",
+      year:""
     };
   }
+  
+  componentWillMount(){
+    this.setState({year:`${this.props.yearArray[3]}`});
+  }
+
   componentWillReceiveProps(props){
     let {addHolidayState: {isError, isSuccess, message, data}} = props;
     if(props.holidayType){
@@ -28,8 +34,12 @@ class HolidaysList extends React.Component{
       this.setState({date:"",holidayName:""});
     }
   }
+  onChange=(e)=>{
+    this.setState({ year: e.target.value });
+    this.props.holidayList({ year: e.target.value });
+  }
   render(){
-    const { holidayType } = this.props;
+    const { holidayType, yearArray } = this.props;
     let img = <img src='./socialMediaIcons/holidays.svg' className="w-40 img-circle m-x-md" />;
     let holidaysList = <tr><td className="text-muted text-center" colSpan={4}><h2>{img} Loading Holidays...</h2></td></tr>;
     if (this.props.holidays !== undefined && _.size(this.props.holidays) === 0) {
@@ -55,46 +65,61 @@ class HolidaysList extends React.Component{
   
     return (
       <div>
-      {this.props.isAdmin ? <div className="row">
-        <div className="col-md-7" style={{float:"right"}}>
-          <div className="col-md-3" style={{paddingTop:"2px", paddingRight:"1px"}}>
-          <DateField dateFormat="YYYY-MM-DD" onChange={(date) => this.setState(
-                    { date: date }
-                  )} value={this.state.date}/>
+        <div className="row">
+          <div className="col-md-5" style={{float:"left"}}>
+            <div className="col-md-3" style={{paddingLeft:"1px", paddingLeft:"1px"}}>
+              <select
+                      className="form-control"
+                      ref="year_holidays"
+                      onChange={this.onChange}
+                      value={this.state.year}
+                      style={{minHeight:'0'}}
+                  >
+                    {yearArray && yearArray.map((data,index)=><option key={index} value={data}>{data}</option>)}
+              </select>
+            </div>
           </div>
-          <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
-                        <InputText onchange={e =>
-                            this.setState({ holidayName: e.target.value })
-                          } value={this.state.holidayName}
-                          placeHolder="Holiday Name"
-                          style={{minHeight:'0'}}
-                          />
+      {this.props.isAdmin ? 
+          <div className="col-md-7" style={{float:"right"}}>
+            <div className="col-md-3" style={{paddingTop:"2px", paddingRight:"1px"}}>
+            <DateField dateFormat="YYYY-MM-DD" onChange={(date) => this.setState(
+                      { date: date }
+                    )} value={this.state.date}/>
+            </div>
+            <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
+                          <InputText onchange={e =>
+                              this.setState({ holidayName: e.target.value })
+                            } value={this.state.holidayName}
+                            placeHolder="Holiday Name"
+                            style={{minHeight:'0'}}
+                            />
+            </div>
+            <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
+              <select
+                  className="form-control"
+                  ref="holiday_type"
+                  onChange={e => {
+                    this.setState({ type: e.target.value });
+                  }}
+                  value={this.state.type}
+                  style={{minHeight:'0'}}
+              >
+                {holidayType && holidayType.map((data,index)=><option key={index} value={data.type}>{data.text}</option>)}
+              </select>
+            </div>
+            <div className="col-md-3" style={{paddingTop:"2px", paddingLeft:"1px", paddingRight:"1px"}}>
+              <ButtonRaised
+                          className="col-xs-10 p-y-2 m-b-sm indigo"
+                          onClick={() => this.props.addHoliday({data:this.state,token:getToken()})}
+                          label={"Add Holiday"}
+                          style={{width:"100%"}}
+                          disabled={this.state.date === "" || this.state.holidayName === "" || this.state.type === ""}
+                        />
+                
+            </div>
           </div>
-          <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
-            <select
-                className="form-control"
-                ref="training_month"
-                onChange={e => {
-                  this.setState({ type: e.target.value });
-                }}
-                value={this.state.type}
-                style={{minHeight:'0'}}
-            >
-              {holidayType && holidayType.map((data,index)=><option key={index} value={data.type}>{data.text}</option>)}
-            </select>
-          </div>
-          <div className="col-md-3" style={{paddingTop:"2px", paddingLeft:"1px", paddingRight:"1px"}}>
-             <ButtonRaised
-                        className="col-xs-10 p-y-2 m-b-sm indigo"
-                        onClick={() => this.props.addHoliday({data:this.state,token:getToken()})}
-                        label={"Add Holiday"}
-                        style={{width:"100%"}}
-                        disabled={this.state.date === "" || this.state.holidayName === "" || this.state.type === ""}
-                      />
-              
-          </div>
-        </div>
-      </div>:null}
+      :null}
+      </div>
       <div className="row">
         <div className="col-12">
           <div className="table-responsive box">

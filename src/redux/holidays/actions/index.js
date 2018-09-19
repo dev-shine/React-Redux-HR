@@ -6,7 +6,8 @@ import * as constants from 'appRedux/constants';
 export function* holidayList (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {
-      'action': 'get_holidays_list'
+      'action': 'get_holidays_list',
+      'year' : action.payload.year
     });
     if (response.error === 0) {
       yield put(actions.successHolidayList(response.data));

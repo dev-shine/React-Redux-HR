@@ -26,6 +26,10 @@ export const requestHolidayType = createAction(constants.REQUEST_HOLIDAYTYPE);
 export const successHolidayType = createAction(constants.SUCCESS_HOLIDAYTYPE);
 export const errorHolidayType = createAction(constants.ERROR_HOLIDAYTYPE);
 
+export const requestDeleteHoliday = createAction(constants.REQUEST_DELETEHOLIDAYS);
+export const successDeleteHoliday = createAction(constants.SUCCESS_DELETEHOLIDAYS);
+export const errorDeleteHoliday = createAction(constants.ERROR_DELETEHOLIDAYS);
+
 export const resetReducer = createAction(constants.RESET_ADDHOLIDAYREDUCER);
 
 export const requestUserAttendance = createAction(constants.REQUEST_USER_ATTENDANCE);

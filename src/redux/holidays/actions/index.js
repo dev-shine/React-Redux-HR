@@ -40,6 +40,23 @@ export function* addHoliday (action) {
   }
 }
 
+export function* deleteHoliday (action) {
+  try {
+    const response = yield call(fireAjax, 'POST', '', {
+      'action': 'delete_holiday',
+       "holiday_id" : action.payload.id
+    });
+    if (response.error === 0) {
+      yield put(actions.successDeleteHoliday(response.data));
+    } else if (response.error === 1) {
+      yield put(actions.errorDeleteHoliday(response.data.message));
+    }
+  } catch (e) {
+    yield put(actions.errorDeleteHoliday('Error Occurs !!'));
+    console.warn('Some error found in deleteHoliday action\n', e);
+  }
+}
+
 export function* holidayType (action) {
   try {
     const response = yield call(fireAjax, 'POST', '', {

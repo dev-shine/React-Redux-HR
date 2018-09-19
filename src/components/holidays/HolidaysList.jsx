@@ -2,6 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import {DateField} from 'react-date-picker';
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
+import ButtonFlat from "components/generic/buttons/ButtonFlat";
 import InputText from 'components/generic/input/InputText';
 
 class HolidaysList extends React.Component{
@@ -26,6 +27,7 @@ class HolidaysList extends React.Component{
             <td>{holiday.dayOfWeek}</td>
             <td>{holiday.name}</td>
             <td>{holiday.text}</td>
+            {this.props.isAdmin?<td><ButtonFlat className="m-b-sm text-danger" label="Delete" id={holiday.id} onClick={e=>{this.props.deleteHoliday(e.target.id)}} /></td>:null}
           </tr>
         );
       });
@@ -95,7 +97,7 @@ class HolidaysList extends React.Component{
             <div className="box-divider m-a-0"></div>
             <table className="table table-striped">
               <thead className="success">
-                <tr><th>Month</th><th>Date</th><th>Day</th><th>Holiday</th><th>Type</th></tr>
+                <tr><th>Month</th><th>Date</th><th>Day</th><th>Holiday</th><th>Type</th>{this.props.isAdmin?<th>Actions</th>:null}</tr>
               </thead>
               <tbody>
                 {holidaysList}

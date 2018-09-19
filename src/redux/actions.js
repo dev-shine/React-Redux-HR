@@ -134,3 +134,7 @@ export const errorAddNewUserDetails = createAction(constants.ACTION_ERROR_ADD_NE
 export const requestLeastActiveEmployee = createAction(constants.REQUEST_LEAST_ACTIVE_EMP);
 export const successLeastActiveEmployee = createAction(constants.SUCCESS_LEAST_ACTIVE_EMP);
 export const errorLeastActiveEmployee = createAction(constants.ERROR_LEAST_ACTIVE_EMP);
+
+export const requestHealthStats = createAction(constants.REQUEST_HEALTH_STATS);
+export const successHealthStats = createAction(constants.SUCCESS_HEALTH_STATS);
+export const errorHealthStats = createAction(constants.ERROR_HEALTH_STATS);

@@ -4,10 +4,13 @@ import Header from "components/generic/Header";
 import { connect } from "react-redux";
 import * as actions from "appRedux/actions";
 import HealthStats from "modules/healthStats/component/HealthStats";
+import * as actionsUsersList from "appRedux/generic/actions/usersList";
+
 
 class ContainerHealthStats extends React.Component {
-    componentWillMount(){
+    componentWillMount() {
         this.props.onIsAlreadyLogin();
+        this.props.healthStatsRequest();
     }
     render() {
         return (
@@ -20,9 +23,7 @@ class ContainerHealthStats extends React.Component {
                     />
                     <div className="app-body" id="view">
                         <div className="padding">
-                            <div style={{ overflow: "auto", backgroundColor: "white" }}>
-                                <HealthStats />
-                            </div>
+                            <HealthStats {...this.props.healthData} />
                         </div>
                     </div>
                 </div>
@@ -31,11 +32,14 @@ class ContainerHealthStats extends React.Component {
     }
 }
 const mapStateToProps = (state) => ({
-        frontend: state.frontend.toJS()
+    frontend: state.frontend.toJS(),
+    loggedUser: state.logged_user.userLogin,
+    healthData: state.healthstats.healthStats.data
 });
 
 const mapDispatchToProps = dispatch => ({
-    onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin())
+    onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin()),
+    healthStatsRequest: () => dispatch(actions.requestHealthStats())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContainerHealthStats);

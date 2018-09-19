@@ -73,6 +73,7 @@ class Holidays extends React.Component {
   
   handleYearChange=(e)=>{
     this.setState({ year: e.target.value });
+    this.props.requestHolidayList({year:e.target.value});
   }
   
   addHoliday=()=>{

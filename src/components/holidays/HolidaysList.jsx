@@ -3,41 +3,9 @@ import * as _ from 'lodash';
 import {DateField} from 'react-date-picker';
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
 import InputText from 'components/generic/input/InputText';
-import { getToken } from 'src/services/generic';
-import {notify} from 'src/services/notify';
 
 class HolidaysList extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      date:"",
-      holidayName:"",
-      type:"",
-      year:""
-    };
-  }
-  
-  componentWillMount(){
-    this.setState({year:`${this.props.yearArray[3]}`});
-  }
 
-  componentWillReceiveProps(props){
-    let {addHolidayState: {isError, isSuccess, message, data}} = props;
-    if(props.holidayType){
-      this.setState({type:`${props.holidayType[0].type}`})
-    }
-    if (isError) {
-      notify('Error !', message, 'error');
-    }
-    if (isSuccess) {
-      notify('Success !', data.message, 'success');
-      this.setState({date:"",holidayName:""});
-    }
-  }
-  onChange=(e)=>{
-    this.setState({ year: e.target.value });
-    this.props.holidayList({ year: e.target.value });
-  }
   render(){
     const { holidayType, yearArray } = this.props;
     let img = <img src='./socialMediaIcons/holidays.svg' className="w-40 img-circle m-x-md" />;
@@ -45,22 +13,23 @@ class HolidaysList extends React.Component{
     if (this.props.holidays !== undefined && _.size(this.props.holidays) === 0) {
       holidaysList = <tr><td className="text-muted text-center" colSpan={4}><h2>{img} No Holidays This Year.</h2></td></tr>;
     } else if (this.props.holidays !== undefined) {
-      this.props.holidays.sort(function compare (a, b) {
-        var dateA = new Date(a.date);
-        var dateB = new Date(b.date);
-        return dateA - dateB;
+        this.props.holidays.sort(function compare (a, b) {
+          var dateA = new Date(a.date);
+          var dateB = new Date(b.date);
+          return dateA - dateB;
+        });
+        holidaysList = _.map(this.props.holidays, (holiday, key) => {
+        return (
+          <tr key={key}>
+            <td>{holiday.month}</td>
+            <td>{holiday.date}</td>
+            <td>{holiday.dayOfWeek}</td>
+            <td>{holiday.name}</td>
+            <td>{holiday.text}</td>
+          </tr>
+        );
       });
-      holidaysList = _.map(this.props.holidays, (holiday, key) => {
-      return (
-        <tr key={key}>
-          <td>{holiday.month}</td>
-          <td>{holiday.date}</td>
-          <td>{holiday.dayOfWeek}</td>
-          <td>{holiday.name}</td>
-        </tr>
-      );
-    });
-  } 
+    } 
   
   
     return (
@@ -71,8 +40,10 @@ class HolidaysList extends React.Component{
               <select
                       className="form-control"
                       ref="year_holidays"
-                      onChange={this.onChange}
-                      value={this.state.year}
+                      onChange={e => {
+                        this.props.handleYearChange(e);
+                      }}
+                      value={this.props.state.year}
                       style={{minHeight:'0'}}
                   >
                     {yearArray && yearArray.map((data,index)=><option key={index} value={data}>{data}</option>)}
@@ -82,14 +53,12 @@ class HolidaysList extends React.Component{
       {this.props.isAdmin ? 
           <div className="col-md-7" style={{float:"right"}}>
             <div className="col-md-3" style={{paddingTop:"2px", paddingRight:"1px"}}>
-            <DateField dateFormat="YYYY-MM-DD" onChange={(date) => this.setState(
-                      { date: date }
-                    )} value={this.state.date}/>
+            <DateField dateFormat="YYYY-MM-DD" onChange={(date) =>{this.props.handleDateChnage(date)} } value={this.props.state.date}/>
             </div>
             <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
-                          <InputText onchange={e =>
-                              this.setState({ holidayName: e.target.value })
-                            } value={this.state.holidayName}
+                          <InputText onchange={e =>{
+                              this.props.handleHolidayNameChnage(e);
+                            }} value={this.props.state.holidayName}
                             placeHolder="Holiday Name"
                             style={{minHeight:'0'}}
                             />
@@ -99,9 +68,9 @@ class HolidaysList extends React.Component{
                   className="form-control"
                   ref="holiday_type"
                   onChange={e => {
-                    this.setState({ type: e.target.value });
+                    this.props.handleTypeChnage(e);
                   }}
-                  value={this.state.type}
+                  value={this.props.state.type}
                   style={{minHeight:'0'}}
               >
                 {holidayType && holidayType.map((data,index)=><option key={index} value={data.type}>{data.text}</option>)}
@@ -110,10 +79,10 @@ class HolidaysList extends React.Component{
             <div className="col-md-3" style={{paddingTop:"2px", paddingLeft:"1px", paddingRight:"1px"}}>
               <ButtonRaised
                           className="col-xs-10 p-y-2 m-b-sm indigo"
-                          onClick={() => this.props.addHoliday({data:this.state,token:getToken()})}
+                          onClick={() => this.props.addHoliday()}
                           label={"Add Holiday"}
                           style={{width:"100%"}}
-                          disabled={this.state.date === "" || this.state.holidayName === "" || this.state.type === ""}
+                          disabled={this.props.state.date === "" || this.props.state.holidayName === "" || this.props.state.type === ""}
                         />
                 
             </div>
@@ -126,7 +95,7 @@ class HolidaysList extends React.Component{
             <div className="box-divider m-a-0"></div>
             <table className="table table-striped">
               <thead className="success">
-                <tr><th>Month</th><th>Date</th><th>Day</th><th>Holiday</th></tr>
+                <tr><th>Month</th><th>Date</th><th>Day</th><th>Holiday</th><th>Type</th></tr>
               </thead>
               <tbody>
                 {holidaysList}

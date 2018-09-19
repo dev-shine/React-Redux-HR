@@ -14,6 +14,12 @@ class Holidays extends React.Component {
   constructor (props) {
     super(props);
     this.props.isAlreadyLogin();
+    this.state={
+      date:"",
+      holidayName:"",
+      type:"",
+      year:""
+    };
     this.year=[];
   }
   componentWillMount () {
@@ -21,10 +27,20 @@ class Holidays extends React.Component {
     this.props.resetReducer();
     this.props.requestHolidayType({token:getToken()});
     this.year = getYearArray();
+    this.setState({year:`${this.year[3]}`});
   }
   componentWillReceiveProps (props) {
-    if(props.addHoliday.isSuccess){
-      this.props.requestHolidayList({year:new Date().getYear() + 1900});
+    let {addHoliday,holidayType} = props;
+    if(holidayType && holidayType.data && holidayType.data.holiday_type_list){
+      this.setState({type:`${holidayType.data.holiday_type_list[0].type}`})
+    }
+    if (addHoliday.isError) {
+      notify('Error !', addHoliday.message, 'error');
+    }
+    if (addHoliday.isSuccess) {
+      notify('Success !', addHoliday.data.message, 'success');
+      this.props.requestHolidayList({year:this.state.year});
+      this.setState({date:"",holidayName:""});
     }
     
     let {route, router, loggedUser, holidaysList: {isError, message}} = props;
@@ -35,7 +51,34 @@ class Holidays extends React.Component {
     if (isError) {
       notify('Error !', message, 'error');
     }
+    if(props.holidayType && props.holidayType.data && props.holidayType.data.holiday_type_list){
+      this.setState({type:`${props.holidayType.data.holiday_type_list[0].type}`})
+    }
   }
+
+  handleDateChnage=(date)=>{
+    this.setState(
+      { date: date, year:date.substring(0, 4) }
+    )}
+
+  handleHolidayNameChnage=(e)=>{
+    this.setState(
+      { holidayName: e.target.value }
+    )}
+
+  handleTypeChnage=(e)=>{
+    this.setState(
+      { type: e.target.value }
+    )}
+  
+  handleYearChange=(e)=>{
+    this.setState({ year: e.target.value });
+  }
+  
+  addHoliday=()=>{
+    this.props.requestAddHoliday({data:this.state,token:getToken()})
+  }
+
   render () {
     let {isLoading, data} = this.props.holidaysList;
     return (
@@ -51,12 +94,15 @@ class Holidays extends React.Component {
                 <div className="col-md-12">
                   <HolidaysList 
                   holidays={data.holidays} 
-                  addHoliday={this.props.requestAddHoliday} 
+                  addHoliday={this.addHoliday} 
                   isAdmin={this.props.loggedUser.data.role==="Admin"} 
                   holidayType={this.props.holidayType.data.holiday_type_list}
-                  addHolidayState={this.props.addHoliday}
                   yearArray={this.year}
-                  holidayList={this.props.requestHolidayList}
+                  handleDateChnage={this.handleDateChnage}
+                  handleHolidayNameChnage={this.handleHolidayNameChnage}
+                  handleTypeChnage={this.handleTypeChnage}
+                  handleYearChange={this.handleYearChange}
+                  state={this.state}
                   />
                 </div>
               </div>

@@ -39,7 +39,7 @@ class Holidays extends React.Component {
     }
     if (addHoliday.isSuccess) {
       notify('Success !', addHoliday.data.message, 'success');
-      this.props.requestHolidayList({year:this.state.year});
+      this.props.requestHolidayList({year:this.state.date.substring(0, 4)});
       this.setState({date:"",holidayName:""});
     }
     if (deleteHoliday.isError) {
@@ -64,9 +64,11 @@ class Holidays extends React.Component {
   }
 
   handleDateChnage=(date)=>{
-    this.setState(
-      { date: date, year:date.substring(0, 4) }
-    )}
+    if(date){
+      this.setState(
+        { date: date, year:date.substring(0, 4) }
+      )}
+    }
 
   handleHolidayNameChnage=(e)=>{
     this.setState(

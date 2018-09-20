@@ -2,7 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import {DateField} from 'react-date-picker';
 import ButtonRaised from "components/generic/buttons/ButtonRaised";
-import ButtonFlat from "components/generic/buttons/ButtonFlat";
+import {confirm} from 'src/services/notify';
 import InputText from 'components/generic/input/InputText';
 
 class HolidaysList extends React.Component{
@@ -27,7 +27,26 @@ class HolidaysList extends React.Component{
             <td>{holiday.dayOfWeek}</td>
             <td>{holiday.name}</td>
             <td>{holiday.text}</td>
-            {this.props.isAdmin?<td><ButtonFlat className="m-b-sm text-danger" label="Delete" id={holiday.id} onClick={e=>{this.props.deleteHoliday(e.target.id)}} /></td>:null}
+            {this.props.isAdmin?<td><button
+                className="md-btn md-raised m-b-sm danger"
+                id={holiday.id}
+                onClick={(e) => {
+                  confirm(
+                    "Are you sure ?",
+                    "Do you want to delete this holiday ?",
+                    "warning"
+                  ).then(res => {
+                    if (res) {
+                      this.props.deleteHoliday(
+                        holiday.id
+                      );
+                    }
+                  });
+                }}
+                aria-hidden="true"
+              >
+                Delete
+              </button></td>:null}
           </tr>
         );
       });

@@ -30,7 +30,7 @@ class Holidays extends React.Component {
     this.setState({year:`${this.year[3]}`});
   }
   componentWillReceiveProps (props) {
-    let {addHoliday,holidayType} = props;
+    let {addHoliday,holidayType,deleteHoliday} = props;
     if(holidayType && holidayType.data && holidayType.data.holiday_type_list){
       this.setState({type:`${holidayType.data.holiday_type_list[0].type}`})
     }
@@ -39,8 +39,15 @@ class Holidays extends React.Component {
     }
     if (addHoliday.isSuccess) {
       notify('Success !', addHoliday.data.message, 'success');
-      this.props.requestHolidayList({year:this.state.year});
+      this.props.requestHolidayList({year:this.state.date.substring(0, 4)});
       this.setState({date:"",holidayName:""});
+    }
+    if (deleteHoliday.isError) {
+      notify('Error !', deleteHoliday.message, 'error');
+    }
+    if (deleteHoliday.isSuccess) {
+      notify('Success !', deleteHoliday.data.message, 'success');
+      this.props.requestHolidayList({year:this.state.year});
     }
     
     let {route, router, loggedUser, holidaysList: {isError, message}} = props;
@@ -57,9 +64,12 @@ class Holidays extends React.Component {
   }
 
   handleDateChnage=(date)=>{
-    this.setState(
-      { date: date, year:date.substring(0, 4) }
-    )}
+    if(date){
+      this.setState(
+        { date: date, year:date.substring(0, 4) }
+      )
+    }
+    }
 
   handleHolidayNameChnage=(e)=>{
     this.setState(
@@ -78,6 +88,10 @@ class Holidays extends React.Component {
   
   addHoliday=()=>{
     this.props.requestAddHoliday({data:this.state,token:getToken()})
+  }
+
+  deleteHoliday=(id)=>{
+    this.props.requestDeleteHoliday({id:id,token:getToken()})
   }
 
   render () {
@@ -103,6 +117,7 @@ class Holidays extends React.Component {
                   handleHolidayNameChnage={this.handleHolidayNameChnage}
                   handleTypeChnage={this.handleTypeChnage}
                   handleYearChange={this.handleYearChange}
+                  deleteHoliday={this.deleteHoliday}
                   state={this.state}
                   />
                 </div>
@@ -121,6 +136,7 @@ function mapStateToProps (state) {
     loggedUser:   state.logged_user.userLogin,
     holidaysList: state.holidaysList.holidaysList,
     addHoliday :  state.holidaysList.addHolidays,
+    deleteHoliday:state.holidaysList.deleteHolidays,
     holidayType : state.holidaysList.holidayType
   };
 }

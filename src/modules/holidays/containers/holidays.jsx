@@ -68,7 +68,6 @@ class Holidays extends React.Component {
       this.setState(
         { date: date, year:date.substring(0, 4) }
       )
-      this.props.requestHolidayList({year:date.substring(0, 4)});
     }
     }
 

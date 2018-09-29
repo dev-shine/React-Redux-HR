@@ -18,6 +18,20 @@ export const requestHolidayList = createAction(constants.REQUEST_HOLIDAYSLIST);
 export const successHolidayList = createAction(constants.SUCCESS_HOLIDAYSLIST);
 export const errorHolidayList = createAction(constants.ERROR_HOLIDAYSLIST);
 
+export const requestAddHoliday = createAction(constants.REQUEST_ADDHOLIDAYS);
+export const successAddHoliday = createAction(constants.SUCCESS_ADDHOLIDAYS);
+export const errorAddHoliday = createAction(constants.ERROR_ADDHOLIDAYS);
+
+export const requestHolidayType = createAction(constants.REQUEST_HOLIDAYTYPE);
+export const successHolidayType = createAction(constants.SUCCESS_HOLIDAYTYPE);
+export const errorHolidayType = createAction(constants.ERROR_HOLIDAYTYPE);
+
+export const requestDeleteHoliday = createAction(constants.REQUEST_DELETEHOLIDAYS);
+export const successDeleteHoliday = createAction(constants.SUCCESS_DELETEHOLIDAYS);
+export const errorDeleteHoliday = createAction(constants.ERROR_DELETEHOLIDAYS);
+
+export const resetReducer = createAction(constants.RESET_ADDHOLIDAYREDUCER);
+
 export const requestUserAttendance = createAction(constants.REQUEST_USER_ATTENDANCE);
 export const successUserAttendance = createAction(constants.SUCCESS_USER_ATTENDANCE);
 export const errorUserAttendance = createAction(constants.ERROR_USER_ATTENDANCE);

@@ -20,7 +20,6 @@ class ContainerHealthStats extends React.Component {
           }
         if (deleteHealthData.isSuccess) {
             notify('Success !', deleteHealthData.data.message, 'success');
-            props.healthStatsRequest();
           }
     }
     render() {
@@ -34,7 +33,11 @@ class ContainerHealthStats extends React.Component {
                     />
                     <div className="app-body" id="view">
                         <div className="padding">
+                        <div className="row" style={{ margin: "0px" }}>
+                            <div className="col-sm-2" style={{ backgroundColor: "white" }}>
                             <HealthStats {...this.props} />
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>

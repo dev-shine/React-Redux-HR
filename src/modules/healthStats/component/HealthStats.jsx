@@ -11,8 +11,8 @@ export default class HealthStats extends React.Component {
             <td>{item.year}</td>
             <td>{item.count}</td>
             <td>
-              <button
-                className="md-btn md-raised m-b-sm danger"
+              <i
+                className="material-icons"
                 onClick={e => {
                   confirm(
                     "Are you sure ?",
@@ -26,20 +26,19 @@ export default class HealthStats extends React.Component {
                 }}
                 aria-hidden="true"
               >
-                Delete
-              </button>
+                delete
+              </i>
             </td>
           </tr>
         );
       });
     }
     return (
-      <div className="row" style={{ margin: "0px" }}>
-        <div className="col-sm-4" style={{ backgroundColor: "white" }}>
-          <h5 style={{ padding: "10px" }}>
+      <div>
+          <h5 style={{ fontSize: "11px" }}>
             Database Health - Attendance Table
           </h5>
-          <table className="table">
+          <table className="table attendance-stats" style={{ fontSize: "10px" }}>
             <thead>
               <tr>
                 <th>Year</th>
@@ -49,7 +48,6 @@ export default class HealthStats extends React.Component {
             </thead>
             <tbody>{data}</tbody>
           </table>
-        </div>
       </div>
     );
   }

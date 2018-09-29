@@ -24,6 +24,7 @@ export function* delteHealthStats(action) {
             'year' : action.payload
         });
         if (response.error === 0) {
+            yield put(actions.requestHealthStats());
             yield put(actions.successDeleteHealthStats(response));
         } else if (response.error === 1) {
             yield put(actions.errorDeleteHealthStats('API response error.'));

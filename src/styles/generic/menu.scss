@@ -1,0 +1,25 @@
+.app-aside {
+  header {
+    height: 7%;
+  }
+  section {
+    height: 76%;
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+  }
+  footer {
+    height: 17%;
+  }
+  .logged-user-info {
+    position: fixed;
+    bottom: 10px;
+  }
+  .hide-scroll {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+}

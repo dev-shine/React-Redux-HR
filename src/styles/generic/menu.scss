@@ -14,14 +14,19 @@
     position: sticky;
     bottom: 10px;
   }
- 
+
   .hide-scroll {
     position: absolute;
     top: 0px;
     bottom: 0px;
     left: 0px;
-    right: -20px;
+    right: -15px;
     overflow-x: hidden;
     overflow-y: scroll;
+  }
+  .nav-light {
+    ul {
+      width: 96%;
+    }
   }
 }

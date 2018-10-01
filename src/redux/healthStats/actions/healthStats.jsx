@@ -39,8 +39,8 @@ export function* healthStatsAddSecretKeyRequest(action) {
             'app_name': action.payload
         });
         if (response.error === 0) {
+            yield put(actions.successHealthStatsAddSecretKey(response.data.message));
             yield put(actions.requestHealthStatsSecretKeyList());
-            yield put(actions.successHealthStatsAddSecretKey(response.data));
         } else if (response.error === 1) {
             yield put(actions.errorHealthStatsAddSecretKey('API response error.'));
         }
@@ -56,8 +56,8 @@ export function* healthStatsDeleteSecretKeyRequest(action) {
             'app_id': action.payload
         });
         if (response.error === 0) {
+            yield put(actions.successHealthStatsDeleteSecretKey(response.data.message));
             yield put(actions.requestHealthStatsSecretKeyList());
-            yield put(actions.successHealthStatsDeleteSecretKey(response.data));
         } else if (response.error === 1) {
             yield put(actions.errorHealthStatsDeleteSecretKey('API response error.'));
         }
@@ -73,8 +73,8 @@ export function* healthStatsRegenerateSecretKeyRequest(action) {
             'app_id': action.payload
         });
         if (response.error === 0) {
+            yield put(actions.successHealthStatsRegenerateSecretKey(response.data.message));
             yield put(actions.requestHealthStatsSecretKeyList());
-            yield put(actions.successHealthStatsRegenerateSecretKey(response.data));
         } else if (response.error === 1) {
             yield put(actions.errorHealthStatsRegenerateSecretKey('API response error.'));
         }
@@ -90,8 +90,8 @@ export function* deleteHealthStats(action) {
             'year' : action.payload
         });
         if (response.error === 0) {
+            yield put(actions.successDeleteHealthStats(response.message));
             yield put(actions.requestHealthStats());
-            yield put(actions.successDeleteHealthStats(response));
         } else if (response.error === 1) {
             yield put(actions.errorDeleteHealthStats('API response error.'));
         }

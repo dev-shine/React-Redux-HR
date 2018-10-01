@@ -15,7 +15,7 @@ export default class EmployeeJoiningTerminationStats extends React.Component {
         renderTo: "chart-container"
       },
       title: {
-        text: "Stacked column chart"
+        text: ""
       },
       credits: {
         enabled: false
@@ -28,7 +28,7 @@ export default class EmployeeJoiningTerminationStats extends React.Component {
       yAxis: {
         min: 0,
         title: {
-          text: "Total Employment"
+          text: "Total Employment %"
         }
       },
       tooltip: {

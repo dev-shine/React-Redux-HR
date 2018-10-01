@@ -7,7 +7,7 @@ import HealthStats from "modules/healthStats/component/HealthStats";
 import HealthStatsSecretKey from "modules/healthStats/component/HealthStatsSecretKey";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import {notify} from 'src/services/notify';
-import HealthStatsGraph from "modules/healthStats/component/HealthStatsGraph"
+import EmployeeJoiningTerminationStats from "modules/healthStats/component/EmployeeJoiningTerminationStats"
 
 
 class ContainerHealthStats extends React.Component {
@@ -47,7 +47,7 @@ class ContainerHealthStats extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6">
-                            <HealthStatsGraph data={this.props.statsHistory}/>
+                            <EmployeeJoiningTerminationStats data={this.props.statsHistory}/>
                             </div>
                         </div>
                         </div>

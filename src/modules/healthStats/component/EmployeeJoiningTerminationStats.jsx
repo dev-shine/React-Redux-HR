@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Highcharts from "highcharts";
 import * as _ from "lodash";
-export default class HealthStatsGraph extends React.Component {
+export default class EmployeeJoiningTerminationStats extends React.Component {
   componentWillReceiveProps(props) {
     if (props.data && props.data.data && props.data.data.data) {
       this.highChartRender(props);
@@ -62,6 +62,6 @@ export default class HealthStatsGraph extends React.Component {
     });
   };
   render() {
-    return <div id="chart-container" style={{paddingTop:"1%"}}></div>;
+    return <div id="chart-container"></div>;
   }
 }

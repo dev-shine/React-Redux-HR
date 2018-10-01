@@ -6,7 +6,8 @@
     height: 76%;
     overflow: hidden;
     position: relative;
-    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
   }
   footer {
     height: 17%;
@@ -23,3 +24,4 @@
     right: 0px;
   }
 }
+section::-webkit-scrollbar { width: 0 !important;height:0 !important }

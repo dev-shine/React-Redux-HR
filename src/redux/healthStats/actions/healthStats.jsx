@@ -17,6 +17,72 @@ export function* healthStatsRequest(action) {
     }
 }
 
+export function* healthStatsSecretKeyListRequest(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'get_all_secret_keys'
+        });
+        if (response.error === 0) {
+            yield put(actions.successHealthStatsSecretKeyList(response.data));
+        } else if (response.error === 1) {
+            yield put(actions.errorHealthStatsSecretKeyList('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorHealthStatsSecretKeyList('Error Occurs !!'));
+    }
+}
+
+export function* healthStatsAddSecretKeyRequest(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'generate_secret_key',
+            'app_name': action.payload
+        });
+        if (response.error === 0) {
+            yield put(actions.requestHealthStatsSecretKeyList());
+            yield put(actions.successHealthStatsAddSecretKey(response.data));
+        } else if (response.error === 1) {
+            yield put(actions.errorHealthStatsAddSecretKey('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorHealthStatsAddSecretKey('Error Occurs !!'));
+    }
+}
+
+export function* healthStatsDeleteSecretKeyRequest(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'delete_secret_key',
+            'app_id': action.payload
+        });
+        if (response.error === 0) {
+            yield put(actions.requestHealthStatsSecretKeyList());
+            yield put(actions.successHealthStatsDeleteSecretKey(response.data));
+        } else if (response.error === 1) {
+            yield put(actions.errorHealthStatsDeleteSecretKey('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorHealthStatsDeleteSecretKey('Error Occurs !!'));
+    }
+}
+
+export function* healthStatsRegenerateSecretKeyRequest(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'regenerate_secret_key',
+            'app_id': action.payload
+        });
+        if (response.error === 0) {
+            yield put(actions.requestHealthStatsSecretKeyList());
+            yield put(actions.successHealthStatsRegenerateSecretKey(response.data));
+        } else if (response.error === 1) {
+            yield put(actions.errorHealthStatsRegenerateSecretKey('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorHealthStatsRegenerateSecretKey('Error Occurs !!'));
+    }
+}
+
 export function* deleteHealthStats(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {

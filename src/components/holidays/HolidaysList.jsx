@@ -26,7 +26,7 @@ class HolidaysList extends React.Component{
             <td>{holiday.date}</td>
             <td>{holiday.dayOfWeek}</td>
             <td>{holiday.name}</td>
-            <td>{holiday.text}</td>
+            <td>{holiday.type_text}</td>
             {this.props.isAdmin?<td><button
                 className="md-btn md-raised m-b-sm danger"
                 id={holiday.id}

@@ -4,6 +4,7 @@ import Header from "components/generic/Header";
 import { connect } from "react-redux";
 import * as actions from "appRedux/actions";
 import HealthStats from "modules/healthStats/component/HealthStats";
+import HealthStatsSecretKey from "modules/healthStats/component/HealthStatsSecretKey";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import {notify} from 'src/services/notify';
 import HealthStatsGraph from "modules/healthStats/component/HealthStatsGraph"
@@ -14,6 +15,7 @@ class ContainerHealthStats extends React.Component {
         this.props.onIsAlreadyLogin();
         this.props.healthStatsRequest();
         this.props.requestStatsHistory();
+        this.props.healthStatsKeyListRequest();
     }
     componentWillReceiveProps(props) {
         let {deleteHealthData} = props;
@@ -37,7 +39,10 @@ class ContainerHealthStats extends React.Component {
                         <div className="padding">
                         <div className="row m-0">
                             <div className="col-sm-2 bg-white">
-                            <HealthStats {...this.props} />
+                                <HealthStats {...this.props} />
+                            </div>
+                            <div className="col-sm-5 secret-key-block">
+                                <HealthStatsSecretKey {...this.props} />
                             </div>
                         </div>
                         <div className="row">
@@ -57,14 +62,19 @@ const mapStateToProps = (state) => ({
     loggedUser: state.logged_user.userLogin,
     healthData: state.healthstats.healthStats.data,
     deleteHealthData: state.healthstats.deleteHealthStats,
-    statsHistory: state.healthstats.statsHistory
+    statsHistory: state.healthstats.statsHistory,
+    healthKeyData: state.healthstats.healthStatsSecretKeyList.data,
 });
 
 const mapDispatchToProps = dispatch => ({
     onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin()),
     healthStatsRequest: () => dispatch(actions.requestHealthStats()),
     deleteHealthStats: (year) => dispatch(actions.requestDeleteHealthStats(year)),
-    requestStatsHistory: () => dispatch(actions.requestStatsHistory())
+    requestStatsHistory: () => dispatch(actions.requestStatsHistory()),
+    healthStatsKeyListRequest: () => dispatch(actions.requestHealthStatsSecretKeyList()),
+    healthStatsAddKeyRequest: (appname) => dispatch(actions.requestHealthStatsAddSecretKey(appname)),
+    healthStatsDeleteKeyRequest: (appid) => dispatch(actions.requestHealthStatsDeleteSecretKey(appid)),
+    healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid))
 
 });
 

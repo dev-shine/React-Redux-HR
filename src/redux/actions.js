@@ -153,6 +153,22 @@ export const requestHealthStats = createAction(constants.REQUEST_HEALTH_STATS);
 export const successHealthStats = createAction(constants.SUCCESS_HEALTH_STATS);
 export const errorHealthStats = createAction(constants.ERROR_HEALTH_STATS);
 
+export const requestHealthStatsSecretKeyList = createAction(constants.REQUEST_HEALTH_STATS_SECRET_KEY_LIST);
+export const successHealthStatsSecretKeyList = createAction(constants.SUCCESS_HEALTH_STATS_SECRET_KEY_LIST);
+export const errorHealthStatsSecretKeyList = createAction(constants.ERROR_HEALTH_STATS_SECRET_KEY_LIST);
+
+export const requestHealthStatsAddSecretKey = createAction(constants.REQUEST_HEALTH_STATS_ADD_SECRET_KEY);
+export const successHealthStatsAddSecretKey = createAction(constants.SUCCESS_HEALTH_STATS_ADD_SECRET_KEY);
+export const errorHealthStatsAddSecretKey = createAction(constants.ERROR_HEALTH_STATS_ADD_SECRET_KEY);
+
+export const requestHealthStatsDeleteSecretKey = createAction(constants.REQUEST_HEALTH_STATS_DELETE_SECRET_KEY);
+export const successHealthStatsDeleteSecretKey = createAction(constants.SUCCESS_HEALTH_STATS_DELETE_SECRET_KEY);
+export const errorHealthStatsDeleteSecretKey = createAction(constants.ERROR_HEALTH_STATS_DELETE_SECRET_KEY);
+
+export const requestHealthStatsRegenerateSecretKey = createAction(constants.REQUEST_HEALTH_STATS_REGENERATE_SECRET_KEY);
+export const successHealthStatsRegenerateSecretKey = createAction(constants.SUCCESS_HEALTH_STATS_REGENERATE_SECRET_KEY);
+export const errorHealthStatsRegenerateSecretKey = createAction(constants.ERROR_HEALTH_STATS_REGENERATE_SECRET_KEY);
+
 export const requestDeleteHealthStats = createAction(constants.DELETE_HEALTH_STATS);
 export const successDeleteHealthStats = createAction(constants.SUCCESS_DELETE_HEALTH_STATS);
 export const errorDeleteHealthStats = createAction(constants.ERROR_DELETE_HEALTH_STATS);

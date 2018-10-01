@@ -22,8 +22,6 @@ export function* healthStatsSecretKeyListRequest(action) {
         const response = yield call(fireAjax, 'POST', '', {
             'action': 'get_all_secret_keys'
         });
-        // console.log(response);
-
         if (response.error === 0) {
             yield put(actions.successHealthStatsSecretKeyList(response.data));
         } else if (response.error === 1) {
@@ -33,6 +31,7 @@ export function* healthStatsSecretKeyListRequest(action) {
         yield put(actions.errorHealthStatsSecretKeyList('Error Occurs !!'));
     }
 }
+
 export function* healthStatsAddSecretKeyRequest(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {
@@ -49,6 +48,7 @@ export function* healthStatsAddSecretKeyRequest(action) {
         yield put(actions.errorHealthStatsAddSecretKey('Error Occurs !!'));
     }
 }
+
 export function* healthStatsDeleteSecretKeyRequest(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {
@@ -65,6 +65,7 @@ export function* healthStatsDeleteSecretKeyRequest(action) {
         yield put(actions.errorHealthStatsDeleteSecretKey('Error Occurs !!'));
     }
 }
+
 export function* healthStatsRegenerateSecretKeyRequest(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {
@@ -79,5 +80,22 @@ export function* healthStatsRegenerateSecretKeyRequest(action) {
         }
     } catch (e) {
         yield put(actions.errorHealthStatsRegenerateSecretKey('Error Occurs !!'));
+    }
+}
+
+export function* deleteHealthStats(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'delete_attendance_stats_summary',
+            'year' : action.payload
+        });
+        if (response.error === 0) {
+            yield put(actions.requestHealthStats());
+            yield put(actions.successDeleteHealthStats(response));
+        } else if (response.error === 1) {
+            yield put(actions.errorDeleteHealthStats('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorDeleteHealthStats('Error Occurs !!'));
     }
 }

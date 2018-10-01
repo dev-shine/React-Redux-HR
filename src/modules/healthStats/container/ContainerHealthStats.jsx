@@ -15,6 +15,15 @@ class ContainerHealthStats extends React.Component {
         this.props.healthStatsRequest();
         this.props.healthStatsKeyListRequest();
     }
+    componentWillReceiveProps(props) {
+        let {deleteHealthData} = props;
+        if (deleteHealthData.isError) {
+            notify('Error !', deleteHealthData.message, 'error');
+          }
+        if (deleteHealthData.isSuccess) {
+            notify('Success !', deleteHealthData.data.message, 'success');
+          }
+    }
     render() {
         return (
             <div>
@@ -26,14 +35,14 @@ class ContainerHealthStats extends React.Component {
                     />
                     <div className="app-body" id="view">
                         <div className="padding">
-                            <div className="row" style={{ margin: "0px" }}>
-                                <div className="col-sm-2" style={{ backgroundColor: "white" }}>
-                                    <HealthStats {...this.props.healthData} />
-                                </div>
-                                <div className="col-sm-5 secret-key-block">
-                                    <HealthStatsSecretKey {...this.props} />
-                                </div>
+                        <div className="row m-0">
+                            <div className="col-sm-2 bg-white">
+                                <HealthStats {...this.props} />
                             </div>
+                            <div className="col-sm-5 secret-key-block">
+                                <HealthStatsSecretKey {...this.props} />
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +54,8 @@ const mapStateToProps = (state) => ({
     frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
     healthData: state.healthstats.healthStats.data,
-    healthKeyData: state.healthstats.healthStatsSecretKeyList.data
+    healthKeyData: state.healthstats.healthStatsSecretKeyList.data,
+    deleteHealthData: state.healthstats.deleteHealthStats
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,7 +64,9 @@ const mapDispatchToProps = dispatch => ({
     healthStatsKeyListRequest: () => dispatch(actions.requestHealthStatsSecretKeyList()),
     healthStatsAddKeyRequest: (appname) => dispatch(actions.requestHealthStatsAddSecretKey(appname)),
     healthStatsDeleteKeyRequest: (appid) => dispatch(actions.requestHealthStatsDeleteSecretKey(appid)),
-    healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid))
+    healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid)),
+    deleteHealthStats: (year) => dispatch(actions.requestDeleteHealthStats(year))
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContainerHealthStats);

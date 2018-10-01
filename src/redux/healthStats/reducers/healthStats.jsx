@@ -38,11 +38,19 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  deleteHealthStats: {
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   ''
   }
 };
 
 const requestHealthStats = (state, action) => update(state, {
-    healthStats: {$setRequestLoading: null}
+    healthStats: {$setRequestLoading: null},
+    deleteHealthStats: {isError:{$set: false},isSuccess:{$set: false}}
 });
 const successHealthStats = (state, action) => update(state, {
     healthStats: {$setRequestSuccess: action.payload}
@@ -91,6 +99,16 @@ const errorHealthStatsRegenerateSecretKey = (state, action) => update(state, {
   healthStatsSecretKeyList: {$setRequestError: action.payload}
 });
 
+const deleteHealthStats = (state, action) => update(state, {
+  deleteHealthStats: {$setRequestLoading: null}
+});
+const successDeleteHealthStats = (state, action) => update(state, {
+  deleteHealthStats: {$setRequestSuccess: action.payload}
+});
+const errorDeleteHealthStats = (state, action) => update(state, {
+  deleteHealthStats: {$setRequestError: action.payload}
+});
+
 export default handleActions({
   [constants.REQUEST_HEALTH_STATS]: requestHealthStats,
   [constants.SUCCESS_HEALTH_STATS]: successHealthStats,
@@ -107,4 +125,8 @@ export default handleActions({
   [constants.REQUEST_HEALTH_STATS_REGENERATE_SECRET_KEY]: requestHealthStatsRegenerateSecretKey,
   [constants.SUCCESS_HEALTH_STATS_REGENERATE_SECRET_KEY]: successHealthStatsRegenerateSecretKey,
   [constants.ERROR_HEALTH_STATS_REGENERATE_SECRET_KEY]: errorHealthStatsRegenerateSecretKey,
+  [constants.DELETE_HEALTH_STATS]: deleteHealthStats,
+  [constants.SUCCESS_DELETE_HEALTH_STATS]: successDeleteHealthStats,
+  [constants.ERROR_DELETE_HEALTH_STATS]:   errorDeleteHealthStats
+  
 }, initialState);

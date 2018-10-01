@@ -152,3 +152,7 @@ export const errorLeastActiveEmployee = createAction(constants.ERROR_LEAST_ACTIV
 export const requestHealthStats = createAction(constants.REQUEST_HEALTH_STATS);
 export const successHealthStats = createAction(constants.SUCCESS_HEALTH_STATS);
 export const errorHealthStats = createAction(constants.ERROR_HEALTH_STATS);
+
+export const requestDeleteHealthStats = createAction(constants.DELETE_HEALTH_STATS);
+export const successDeleteHealthStats = createAction(constants.SUCCESS_DELETE_HEALTH_STATS);
+export const errorDeleteHealthStats = createAction(constants.ERROR_DELETE_HEALTH_STATS);

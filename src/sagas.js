@@ -9,7 +9,7 @@ import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appR
 import {getUsersList} from 'appRedux/generic/actions/usersList';
 import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
 import {getTeamList, saveTeam, getTeam} from 'appRedux/team/actions/teamList';
-import healthStatsRequest from 'appRedux/healthStats/actions/healthStats';
+import {healthStatsRequest, delteHealthStats} from 'appRedux/healthStats/actions/healthStats';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);
@@ -32,6 +32,7 @@ export function* watchActions () {
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
   yield takeLatest(constants.REQUEST_HEALTH_STATS, healthStatsRequest);
+  yield takeLatest(constants.DELETE_HEALTH_STATS, delteHealthStats);
 
   yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);
   yield takeLatest(constants.REQUEST_MONTHLY_REPORT_ALL_USERS, getMonthlyReportAllUsers);

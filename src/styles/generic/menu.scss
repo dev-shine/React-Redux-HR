@@ -1,0 +1,27 @@
+.app-aside {
+  header {
+    height: 7%;
+  }
+  section {
+    height: 76%;
+    overflow: hidden;
+    position: relative;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  footer {
+    height: 17%;
+  }
+  .logged-user-info {
+    position: sticky;
+    bottom: 10px;
+  }
+  .hide-scroll {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+}
+section::-webkit-scrollbar { width: 0 !important;height:0 !important }

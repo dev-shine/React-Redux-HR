@@ -8,7 +8,7 @@ const LoggedUserInfo = ({loggedUser}) => {
     profileImage = <Avatar>{loggedUser.name.charAt(0)}</Avatar>;
   }
   return (
-    <div className="b-t">
+    <div className="b-t logged-user-info">
       <div className="nav-fold">
         <span className="pull-left">{profileImage}</span>
       </div>

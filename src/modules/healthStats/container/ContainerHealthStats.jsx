@@ -13,7 +13,7 @@ class ContainerHealthStats extends React.Component {
         this.props.onIsAlreadyLogin();
         this.props.healthStatsRequest();
     }
-    componentWillReceiveProps(props) { 
+    componentWillReceiveProps(props) {
         let {deleteHealthData} = props;
         if (deleteHealthData.isError) {
             notify('Error !', deleteHealthData.message, 'error');
@@ -33,8 +33,8 @@ class ContainerHealthStats extends React.Component {
                     />
                     <div className="app-body" id="view">
                         <div className="padding">
-                        <div className="row" style={{ margin: "0px" }}>
-                            <div className="col-sm-2" style={{ backgroundColor: "white" }}>
+                        <div className="row m-0">
+                            <div className="col-sm-2 bg-white">
                             <HealthStats {...this.props} />
                             </div>
                         </div>

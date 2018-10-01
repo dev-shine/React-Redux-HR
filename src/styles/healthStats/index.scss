@@ -1,24 +1,30 @@
-.attendance-stats{
-    thead{
-        tr{
-            th{
-               padding: 5px;
-               text-align:  center;
-               border-color: rgba(120, 130, 140, 0.045); 
+#content{
+    font-size: 10px;
+    h5{
+        font-size: 10px !important;
+    } 
+    .attendance-stats{
+        thead{
+            tr{
+                th{
+                   padding: 5px;
+                   text-align:  center;
+                   border-color: rgba(120, 130, 140, 0.045); 
+                }
             }
         }
-    }
-    tbody{
-        tr{
-            td{
-                padding: 0px;
-                text-align: center;
-                border-color: rgba(120, 130, 140, 0.045);
-                i{
-                    font-size: 15px !important;
-                    color: red;
-                    cursor: pointer;
-                    line-height: 0.6 !important;
+        tbody{
+            tr{
+                td{
+                    padding: 0px;
+                    text-align: center;
+                    border-color: rgba(120, 130, 140, 0.045);
+                    i{
+                        font-size: 15px !important;
+                        color: red;
+                        cursor: pointer;
+                        line-height: 0.6 !important;
+                    }
                 }
             }
         }

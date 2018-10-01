@@ -36,10 +36,10 @@ export default class HealthStats extends React.Component {
     }
     return (
       <div>
-          <h5 style={{ fontSize: "11px" }}>
+          <h5>
             Database Health - Attendance Table
           </h5>
-          <table className="table attendance-stats" style={{ fontSize: "10px" }}>
+          <table className="table attendance-stats">
             <thead>
               <tr>
                 <th>Year</th>

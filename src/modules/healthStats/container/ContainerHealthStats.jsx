@@ -6,12 +6,14 @@ import * as actions from "appRedux/actions";
 import HealthStats from "modules/healthStats/component/HealthStats";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import {notify} from 'src/services/notify';
+import HealthStatsGraph from "modules/healthStats/component/HealthStatsGraph"
 
 
 class ContainerHealthStats extends React.Component {
     componentWillMount() {
         this.props.onIsAlreadyLogin();
         this.props.healthStatsRequest();
+        this.props.requestStatsHistory();
     }
     componentWillReceiveProps(props) {
         let {deleteHealthData} = props;
@@ -38,6 +40,11 @@ class ContainerHealthStats extends React.Component {
                             <HealthStats {...this.props} />
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="col-sm-6">
+                            <HealthStatsGraph data={this.props.statsHistory}/>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -49,13 +56,15 @@ const mapStateToProps = (state) => ({
     frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
     healthData: state.healthstats.healthStats.data,
-    deleteHealthData: state.healthstats.deleteHealthStats
+    deleteHealthData: state.healthstats.deleteHealthStats,
+    statsHistory: state.healthstats.statsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
     onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin()),
     healthStatsRequest: () => dispatch(actions.requestHealthStats()),
-    deleteHealthStats: (year) => dispatch(actions.requestDeleteHealthStats(year))
+    deleteHealthStats: (year) => dispatch(actions.requestDeleteHealthStats(year)),
+    requestStatsHistory: () => dispatch(actions.requestStatsHistory())
 
 });
 

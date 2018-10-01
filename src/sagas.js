@@ -9,7 +9,7 @@ import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appR
 import {getUsersList} from 'appRedux/generic/actions/usersList';
 import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
 import {getTeamList, saveTeam, getTeam} from 'appRedux/team/actions/teamList';
-import {healthStatsRequest, delteHealthStats} from 'appRedux/healthStats/actions/healthStats';
+import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats} from 'appRedux/healthStats/actions/healthStats';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);
@@ -32,7 +32,12 @@ export function* watchActions () {
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
   yield takeLatest(constants.REQUEST_HEALTH_STATS, healthStatsRequest);
-  yield takeLatest(constants.DELETE_HEALTH_STATS, delteHealthStats);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_SECRET_KEY_LIST, healthStatsSecretKeyListRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_ADD_SECRET_KEY, healthStatsAddSecretKeyRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_DELETE_SECRET_KEY, healthStatsDeleteSecretKeyRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_REGENERATE_SECRET_KEY, healthStatsRegenerateSecretKeyRequest);
+  
+  yield takeLatest(constants.DELETE_HEALTH_STATS, deleteHealthStats);
 
   yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);
   yield takeLatest(constants.REQUEST_MONTHLY_REPORT_ALL_USERS, getMonthlyReportAllUsers);

@@ -67,6 +67,7 @@ export default class HealthStatsSecretKey extends React.Component {
         }
         return (
             <div>
+                <h5>Third Party Api Key</h5>
                 <div className="stats-add-icon-div">
                     <i
                         className="material-icons stats-add-icon"

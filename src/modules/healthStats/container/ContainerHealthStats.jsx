@@ -17,7 +17,7 @@ class ContainerHealthStats extends React.Component {
     }
     render() {
         return (
-            <div style={{fontSize: "10px"}}>
+            <div>
                 <Menu {...this.props} />
                 <div id="content" className="app-content box-shadow-z0" role="main">
                     <Header

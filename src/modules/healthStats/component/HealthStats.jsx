@@ -37,7 +37,7 @@ export default class HealthStats extends React.Component {
     return (
       <div>
           <h5>
-            Database Health - Attendance Table
+            DB Health - Attendance Table
           </h5>
           <table className="table attendance-stats">
             <thead>

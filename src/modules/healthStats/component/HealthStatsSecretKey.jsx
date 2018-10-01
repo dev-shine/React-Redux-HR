@@ -20,7 +20,7 @@ export default class HealthStatsSecretKey extends React.Component {
             data = this.props.healthKeyData.app_info.map((item, index) => {
                 return (
                     <tr key={index}>
-                        <td>{index}</td>
+                        <td>{index + 1}</td>
                         <td>{item.app_name}</td>
                         <td>{item.secret_key}</td>
                         <td>

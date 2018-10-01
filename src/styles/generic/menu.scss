@@ -6,8 +6,6 @@
     height: 76%;
     overflow: hidden;
     position: relative;
-    overflow: scroll;
-    overflow-x: hidden;
   }
   footer {
     height: 17%;
@@ -16,12 +14,19 @@
     position: sticky;
     bottom: 10px;
   }
+
   .hide-scroll {
     position: absolute;
     top: 0px;
     bottom: 0px;
     left: 0px;
-    right: 0px;
+    right: -15px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .nav-light {
+    ul {
+      width: 96%;
+    }
   }
 }
-section::-webkit-scrollbar { width: 0 !important;height:0 !important }

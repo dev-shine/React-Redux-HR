@@ -13,6 +13,7 @@ export default class HealthStats extends React.Component {
             <td>
               <i
                 className="material-icons"
+                title="Delete"
                 onClick={e => {
                   confirm(
                     "Are you sure ?",

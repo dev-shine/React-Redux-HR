@@ -106,7 +106,7 @@ export function* requestStatsHistory(action) {
             'action': 'get_employees_history_stats'
         });
         if (response.error === 0) {
-            yield put(actions.successStatsHistory(response));
+            yield put(actions.successStatsHistory(response.data));
         } else if (response.error === 1) {
             yield put(actions.errorStatsHistory('API response error.'));
         }

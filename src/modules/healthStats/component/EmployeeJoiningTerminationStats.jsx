@@ -2,9 +2,18 @@ import React, { Component } from "react";
 import Highcharts from "highcharts";
 import * as _ from "lodash";
 export default class EmployeeJoiningTerminationStats extends React.Component {
-  componentWillReceiveProps(props) {
-    if (props.data && props.data.data && props.data.data.data) {
-      this.highChartRender(props);
+  constructor(props){
+    super(props);
+    this.state = {
+      flag: false
+    }
+  }
+  componentWillUpdate(nextProps) {
+    if(!this.state.flag){
+      if (nextProps && nextProps.data && nextProps.data.data && nextProps.data.data.stats) {
+        this.highChartRender(nextProps);
+        this.setState({flag:true});
+      }
     }
   }
   highChartRender = props => {
@@ -22,7 +31,7 @@ export default class EmployeeJoiningTerminationStats extends React.Component {
       },
       xAxis: {
         categories: Object.keys(
-          props.data.data.data.stats.joining_termination_stats
+          props.data.data.stats.joining_termination_stats
         )
       },
       yAxis: {
@@ -46,7 +55,7 @@ export default class EmployeeJoiningTerminationStats extends React.Component {
           name: "Joining",
           color:"#82E0AA",
           data: _.map(
-            props.data.data.data.stats.joining_termination_stats,
+            props.data.data.stats.joining_termination_stats,
             "joining"
           )
         },
@@ -54,7 +63,7 @@ export default class EmployeeJoiningTerminationStats extends React.Component {
           name: "Termination",
           color:"#F5B7B1",
           data: _.map(
-            props.data.data.data.stats.joining_termination_stats,
+            props.data.data.stats.joining_termination_stats,
             "termination"
           )
         }

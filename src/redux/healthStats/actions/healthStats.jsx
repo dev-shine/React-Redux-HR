@@ -99,3 +99,18 @@ export function* deleteHealthStats(action) {
         yield put(actions.errorDeleteHealthStats('Error Occurs !!'));
     }
 }
+
+export function* requestStatsHistory(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'get_employees_history_stats'
+        });
+        if (response.error === 0) {
+            yield put(actions.successStatsHistory(response));
+        } else if (response.error === 1) {
+            yield put(actions.errorStatsHistory('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorStatsHistory('Error Occurs !!'));
+    }
+}

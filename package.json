@@ -75,7 +75,7 @@
     "fetch": "^1.1.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^0.30.0",
-    "highcharts": "^5.0.14",
+    "highcharts": "^5.0.15",
     "highstock-release": "^5.0.14",
     "history": "^2.0.0",
     "html-webpack-plugin": "^2.7.1",

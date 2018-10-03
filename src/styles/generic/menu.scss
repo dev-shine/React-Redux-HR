@@ -1,0 +1,32 @@
+.app-aside {
+  header {
+    height: 7%;
+  }
+  section {
+    height: 76%;
+    overflow: hidden;
+    position: relative;
+  }
+  footer {
+    height: 17%;
+  }
+  .logged-user-info {
+    position: sticky;
+    bottom: 10px;
+  }
+
+  .hide-scroll {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: -15px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .nav-light {
+    ul {
+      width: 96%;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import * as constants from 'appRedux/constants';
 import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'appRedux/auth/actions';
-import {holidayList} from 'appRedux/holidays/actions';
+import {holidayList, addHoliday, holidayType, deleteHoliday} from 'appRedux/holidays/actions';
 import { getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList, getLeastActiveEmp} from 'appRedux/manageUsers/actions/dashboard';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDayAttendance, userAttendanceStatus} from 'appRedux/attendance/actions/attendanceRequests';
@@ -9,7 +9,7 @@ import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appR
 import {getUsersList} from 'appRedux/generic/actions/usersList';
 import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
 import {getTeamList, saveTeam, getTeam} from 'appRedux/team/actions/teamList';
-import healthStatsRequest from 'appRedux/healthStats/actions/healthStats';
+import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats, requestStatsHistory} from 'appRedux/healthStats/actions/healthStats';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);
@@ -18,6 +18,9 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_LOGOUT, logout);
 
   yield takeLatest(constants.REQUEST_HOLIDAYSLIST, holidayList);
+  yield takeLatest(constants.REQUEST_ADDHOLIDAYS, addHoliday);
+  yield takeLatest(constants.REQUEST_HOLIDAYTYPE, holidayType);
+  yield takeLatest(constants.REQUEST_DELETEHOLIDAYS, deleteHoliday);
 
   yield takeLatest(constants.REQUEST_USER_ATTENDANCE, userMonthlyAttendance);
   yield takeLatest(constants.REQUEST_USER_DAY_SUMMARY, getUserDaySummary);
@@ -29,6 +32,13 @@ export function* watchActions () {
 
   yield takeLatest(constants.REQUEST_USERSLIST, getUsersList);
   yield takeLatest(constants.REQUEST_HEALTH_STATS, healthStatsRequest);
+  yield takeLatest(constants.DELETE_HEALTH_STATS, deleteHealthStats);
+  yield takeLatest(constants.REQUEST_STATS_HISTORY,requestStatsHistory)
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_SECRET_KEY_LIST, healthStatsSecretKeyListRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_ADD_SECRET_KEY, healthStatsAddSecretKeyRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_DELETE_SECRET_KEY, healthStatsDeleteSecretKeyRequest);
+  yield takeLatest(constants.REQUEST_HEALTH_STATS_REGENERATE_SECRET_KEY, healthStatsRegenerateSecretKeyRequest);
+  
 
   yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);
   yield takeLatest(constants.REQUEST_MONTHLY_REPORT_ALL_USERS, getMonthlyReportAllUsers);

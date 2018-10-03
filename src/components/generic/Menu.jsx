@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LoggedUserInfo from 'components/menu/LoggedUserInfo';
 import DisplayMenuList from 'components/menu/DisplayMenuList';
+import "styles/generic/menu.scss"
 
 class Menu extends React.Component {
   constructor (props) {
@@ -23,20 +24,27 @@ class Menu extends React.Component {
   }
   render () {
     return (
+
       <div id="aside" className="app-aside modal fade nav-dropdown">
         <div className="left navside dark dk">
+        <header >
           <div className="navbar no-radius">
             <a className="navbar-brand">
               <img id="logo" src="./favicon.ico" />
               <span className="hidden-folded inline">HR</span>
             </a>
           </div>
+          </header>
+          <section >
           <div className="hide-scroll">
             <nav className="scroll nav-light">
               <DisplayMenuList rolePages={this.props.loggedUser.data.role_pages} click={(id) => this.click(id)} />
             </nav>
           </div>
+          </section>
+          <footer >
           <LoggedUserInfo loggedUser={this.props.loggedUser.data} />
+          </footer>
         </div>
       </div>
     );

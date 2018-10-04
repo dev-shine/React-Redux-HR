@@ -64,7 +64,7 @@ class Salary extends React.Component {
     if (this.props.salary.salary_history) {
       data = this.props.salary.salary_history.map((item, index) => {
         return (
-          <div className="row" key={index} style={{ margin: "5px 0" }}>
+          <div className="row salary-blocks-margin" key={index}>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
               <div><span className="salary-title">Applicable From: </span> {item.test.applicable_from} |
                 <span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |
@@ -150,7 +150,7 @@ class Salary extends React.Component {
               <div className="box">
                 <div className="box-divider m-a-0"></div>
                 <div className="box-body">
-                  <div style={{ fontSize: "10px" }}>
+                  <div className="content-salary">
                     {data}
                   </div>
                   <div className="row">

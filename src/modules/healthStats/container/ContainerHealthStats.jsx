@@ -61,7 +61,7 @@ class ContainerHealthStats extends React.Component {
                             </div>
                         </div>
                         <div className="row m-10">
-                            <div className="col-sm-5 secret-key-block">
+                            <div className="col-sm-6 secret-key-block">
                                 <HealthStatsSecretKey {...this.props} />
                             </div>
                         </div>

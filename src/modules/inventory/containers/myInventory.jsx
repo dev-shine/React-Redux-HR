@@ -121,7 +121,18 @@ class MyInventory extends React.Component {
       activeItemName: val.machine_name
     });
   };
-
+  handleAuditSubmit = (activeAuditId, auditMsg) =>{
+    this.props.onAddAuditComment(activeAuditId, auditMsg)
+    .then(res => {
+      this.props.onGetMyInventory();
+      $("#modalAudit").modal("hide");
+      this.setState({
+        activeAuditId: "",
+        auditMsg: "",
+        activeItemName: ""
+      });
+    });
+  }
   render() {
     const { auditMsg, activeAuditId, activeItemName, show_alert_message } = this.state;
     return (
@@ -166,17 +177,7 @@ class MyInventory extends React.Component {
                         onKeyUp={e=>{
                           if(e.keyCode===13){
                             if(auditMsg!=""){
-                              this.props
-                                .onAddAuditComment(activeAuditId, auditMsg)
-                                .then(res => {
-                                  this.props.onGetMyInventory();
-                                  $("#modalAudit").modal("hide");
-                                  this.setState({
-                                    activeAuditId: "",
-                                    auditMsg: "",
-                                    activeItemName: ""
-                                  });
-                                });
+                              this.handleAuditSubmit(activeAuditId, auditMsg);
                             }
                           }
                           
@@ -192,17 +193,7 @@ class MyInventory extends React.Component {
                         className="md-btn md-raised m-b-sm w-xs blue"
                         onClick={() => {
                           if(auditMsg!=""){
-                            this.props
-                              .onAddAuditComment(activeAuditId, auditMsg)
-                              .then(res => {
-                                this.props.onGetMyInventory();
-                                $("#modalAudit").modal("hide");
-                                this.setState({
-                                  activeAuditId: "",
-                                  auditMsg: "",
-                                  activeItemName: ""
-                                });
-                              });
+                            this.handleAuditSubmit(activeAuditId, auditMsg);
                           }
                         }}
                       >

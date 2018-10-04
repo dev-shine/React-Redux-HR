@@ -1,6 +1,15 @@
 .width-8 {
   width:84px;
 }
+.content-salary {
+  font-size: 10px;
+}
+.salary-block-title {
+  padding-left: 20px;
+}
+.salary-blocks-margin {
+  margin: 5px 0;
+}
 .button-style-l {
   margin-top: 10px;
   margin-left: 5px;
@@ -8,13 +17,88 @@
 .salary-border-left{
   border-left: 1px solid $border-color;
 }
+.salary-add-holding {
+  border-width: 1px;
+  padding: 2px 6px;
+}
 .salary-p-x {
     padding-right: 1rem !important;
     padding-left: 1rem !important;
 }
-@media screen and (max-width: 768px) {
+.salary-title {
+  font-weight: 600;
+}
+.salary-col-title-padding {
+  div {
+    padding: 0px !important;
+    div {
+      padding: 0px !important;
+    }
+  }
+}
+.salary-col-padding {
+  padding: 0px 4px !important;
+  div {
+    padding: 5px 0px !important;
+    div {
+      padding : 0px 0px !important;
+      div {
+        padding: 0px 4px !important;
+      }
+    }
+  }
+}
+@media screen and (min-width: 992px) {
+  .salary-block{
+    height: 45px;
+  }
+  .salary-total-title {
+    text-align: center;
+    font-weight: 600;
+  }
+  .salary-total-value {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .salary-title-12 {
+    width: 12%;
+  }
+  .salary-title-17 {
+    width: 17%;
+  }
+  .salary-title-23 {
+    width: 23%;
+  }
+  .salary-title-22 {
+    width: 22%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .salary-total{
+    font-size: 10px;
+  }
+  .salary-total-title {
+    text-align: center;
+    font-weight: 600;
+  }
+  .salary-total-value {
+    text-align: center;
+  }
+  
+}
+@media screen and (max-width: 767px) {
     .salary-border-left {
       border-left: 0px !important;
+    }
+    .salary-total-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .salary-total-value {
+      text-align: center;
+      font-size: 14px;
     }
 }
 @media screen and (max-width: 358px) {

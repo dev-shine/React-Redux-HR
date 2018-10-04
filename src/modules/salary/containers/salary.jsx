@@ -60,55 +60,46 @@ class Salary extends React.Component {
     this.setState({ 'salary_details': new_details });
   }
   render() {
-    console.log(this.props.salary.salary_history);
     let data;
     if (this.props.salary.salary_history) {
       data = this.props.salary.salary_history.map((item, index) => {
-        console.log(item);
-
         return (
-          <div className="row" key={index} style={{ margin: "2px 0" }}>
-
+          <div className="row" key={index} style={{ margin: "5px 0" }}>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
-              <div /* className="col-sm-3" */>
-                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title">Applicable From: </span> {item.test.applicable_from} |{/* </div> */}
-                {/* <div className="col-sm-12"></div> */}
-              {/* </div> */}
-              {/* <div className="col-sm-3"> */}
-                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |{/* </div> */}
-                {/* <div className="col-sm-12"></div> */}
-              {/* </div> */}
-              {/* <div className="col-sm-3"> */}
-                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title"> Updated On: </span> {item.test.last_updated_on}{/* </div> */}
-                {/* <div className="col-sm-12"></div> */}
+              <div><span className="salary-title">Applicable From: </span> {item.test.applicable_from} |
+                <span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |
+                <span className="salary-title"> Updated On: </span> {item.test.last_updated_on}
               </div>
             </div>
             <div className="col-md-12 salary-col-padding">
-              <div className="col-md-1 col-sm-2" style={{fontSize: "14px", textAlign: "center"}}>
-                <div className="col-sm-12 salary-title">Total Salary</div>
-                <div className="col-sm-12">{item.test.total_salary}</div>
+              <div className="col-md-1 col-sm-2">
+                <div className="col-sm-12 salary-total-title">Total</div>
+                <div className="col-sm-12 salary-total-value">{item.test.total_salary}</div>
               </div>
-
               <div className="col-md-5 col-sm-10 bg-success salary-block">
-                <div className="col-sm-2">
+                <div className="col-sm-2 salary-title-12">
                   <div className="col-sm-12 salary-title">Basic</div>
                   <div className="col-sm-12">{item.Basic}</div>
                 </div>
-                <div className="col-sm-2">
+                <div className="col-sm-2 salary-title-12">
                   <div className="col-sm-12 salary-title">HRA</div>
                   <div className="col-sm-12">{item.HRA}</div>
                 </div>
-                <div className="col-sm-2">
+                <div className="col-sm-2 salary-title-17">
                   <div className="col-sm-12 salary-title">Conveyance</div>
                   <div className="col-sm-12">{item.Conveyance}</div>
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-2 salary-title-23">
                   <div className="col-sm-12 salary-title">Medical Allowance</div>
                   <div className="col-sm-12">{item.Medical_Allowance}</div>
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-2 salary-title-22">
                   <div className="col-sm-12 salary-title">Special Allowance</div>
                   <div className="col-sm-12">{item.Special_Allowance}</div>
+                </div>
+                <div className="col-sm-2 salary-title-12">
+                  <div className="col-sm-12 salary-title">Arrears</div>
+                  <div className="col-sm-12">{item.Arrears}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 bg-danger salary-block">
@@ -136,16 +127,11 @@ class Salary extends React.Component {
                   <div className="col-sm-12 salary-title">Holding Amount</div>
                   <div className="col-sm-12 salary-holding-btn">
                     <input type="text"
-                      className="col-md-12 col-sm-6"
-                    //id="hold1"
-                    //fullWidth
-                    //onChange={(evt) => { this.setState({ holdingAmount: evt.target.value }); }}
-                    //value={this.state.holdingAmount}
+                      className="col-md-6 col-sm-6"
                     />
                     <input type="button"
-                      //id="addHolding" 
-                      className="col-md-12 col-sm-6 sm-btn md-raised info"
-                      value="Add Holding" />
+                      className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
+                      value="Add" />
                   </div>
                 </div>
               </div>
@@ -168,16 +154,6 @@ class Salary extends React.Component {
                     {data}
                   </div>
                   <div className="row">
-                    <div className="col-sm-6 col-xs-12" id={'salaryDetail'}>
-                      <h6 className="text-center">Salary Details</h6>
-                      <SalaryDetails holdingAmount={this.state.holding_amt} data={this.state.salary_details} />
-                    </div>
-                    <div className="col-sm-3 col-xs-6 salary-border-left" id={'salaryRevision'}>
-                      <h6 className="text-center">Salary Revisions</h6>
-                      <h6 className="text-center" >(Click on Salary for details)</h6>
-                      <hr />
-                      <SalaryHistory data={this.props.salary.salary_history} viewSalarySummary={this.viewSalarySummary} />
-                    </div>
                     <div className="col-sm-3 col-xs-6 salary-border-left" id={'payslips'}>
                       <h6 className="text-center">Previous Payslips</h6>
                       <hr />

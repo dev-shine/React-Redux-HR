@@ -8,6 +8,10 @@
 .salary-border-left{
   border-left: 1px solid $border-color;
 }
+.salary-add-holding {
+  border-width: 1px;
+  padding: 2px 6px;
+}
 .salary-p-x {
     padding-right: 1rem !important;
     padding-left: 1rem !important;
@@ -37,44 +41,55 @@
 }
 @media screen and (min-width: 992px) {
   .salary-block{
-    height: 65px;
+    height: 45px;
+  }
+  .salary-total-title {
+    text-align: center;
+    font-weight: 600;
+  }
+  .salary-total-value {
+    text-align: center;
+    font-size: 14px;
+  }
+  .salary-title-12 {
+    width: 12%;
+  }
+  .salary-title-17 {
+    width: 17%;
+  }
+  .salary-title-23 {
+    width: 23%;
+  }
+  .salary-title-22 {
+    width: 22%;
   }
 }
-/*
-  .salary-col-padding {
-    div {
-      div {
-        .salary-holding-btn{
-          top: 0px;
-          height: 25px;
-        };
-        div {
-          padding: 0 4px;
-        }
-      }
-    }
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .salary-total{
+    font-size: 10px;
   }
-
+  .salary-total-title {
+    text-align: center;
+    font-weight: 600;
+  }
+  .salary-total-value {
+    text-align: center;
+  }
+  
 }
- */
- @media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .salary-border-left {
       border-left: 0px !important;
     }
-    /* .salary-col-padding {
-      div {
-        div {
-          .salary-holding-btn{
-            top: 0px;
-            height: 25px;
-          };
-          div {
-            padding: 0 4px;
-          }
-        }
-      }
+    .salary-total-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
     }
- */
+    .salary-total-value {
+      text-align: center;
+      font-size: 14px;
+    }
 }
 @media screen and (max-width: 358px) {
   .salary-p-x {

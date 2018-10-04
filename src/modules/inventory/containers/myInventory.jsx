@@ -153,7 +153,7 @@ class MyInventory extends React.Component {
                       Message
                     </label>
                     <div className="col-sm-9">
-                      <small style={{color:"red"}}><i>Add a short description about inventory. Eg. Working fine, keys not working, etc.</i></small>
+                      <small className="text-red"><i>Add a short description about inventory. Eg. Working fine, keys not working, etc.</i></small>
                       <input
                         type="text"
                         className="form-control"
@@ -203,14 +203,12 @@ class MyInventory extends React.Component {
                   inventory
                 />
                 {!show_alert_message?
-                <div>
-                <div className="col-xs-12" style={{color:"red"}}>
+                <div className="col-xs-12 text-red bg-white">
                   <h6>Important:</h6>
                   <h6>-Your monthly audit of inventories is pending.</h6>
                   <h6>-Click on Audit Pending button to do audit of an inventory.</h6>
                   <h6>-Once you are done with all the inventories you will be able to access rest of HR app.</h6>
-                </div>
-              </div> 
+                </div> 
                 :null}
               </div>
               <AssignDevice

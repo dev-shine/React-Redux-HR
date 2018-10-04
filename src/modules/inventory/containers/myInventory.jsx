@@ -153,7 +153,7 @@ class MyInventory extends React.Component {
                       Message
                     </label>
                     <div className="col-sm-9">
-                      <small className="text-red"><i>Add a short description about inventory. Eg. Working fine, keys not working, etc.</i></small>
+                      <small className="text-red-np"><i>Add a short description about inventory. Eg. Working fine, keys not working, etc.</i></small>
                       <input
                         type="text"
                         className="form-control"
@@ -163,8 +163,27 @@ class MyInventory extends React.Component {
                             auditMsg: e.target.value
                           })
                         }
+                        onKeyUp={e=>{
+                          if(e.keyCode===13){
+                            if(auditMsg!=""){
+                              this.props
+                                .onAddAuditComment(activeAuditId, auditMsg)
+                                .then(res => {
+                                  this.props.onGetMyInventory();
+                                  $("#modalAudit").modal("hide");
+                                  this.setState({
+                                    activeAuditId: "",
+                                    auditMsg: "",
+                                    activeItemName: ""
+                                  });
+                                });
+                            }
+                          }
+                          
+                        }}
                         required
                       />
+                      {auditMsg ==="" ? <small className="text-red-np"> Please write something</small> : null}
                     </div>
                   </div>
                   <div className="form-group row m-t-md">
@@ -172,17 +191,19 @@ class MyInventory extends React.Component {
                       <button
                         className="md-btn md-raised m-b-sm w-xs blue"
                         onClick={() => {
-                          this.props
-                            .onAddAuditComment(activeAuditId, auditMsg)
-                            .then(res => {
-                              this.props.onGetMyInventory();
-                              $("#modalAudit").modal("hide");
-                              this.setState({
-                                activeAuditId: "",
-                                auditMsg: "",
-                                activeItemName: ""
+                          if(auditMsg!=""){
+                            this.props
+                              .onAddAuditComment(activeAuditId, auditMsg)
+                              .then(res => {
+                                this.props.onGetMyInventory();
+                                $("#modalAudit").modal("hide");
+                                this.setState({
+                                  activeAuditId: "",
+                                  auditMsg: "",
+                                  activeItemName: ""
+                                });
                               });
-                            });
+                          }
                         }}
                       >
                         Submit

@@ -48,7 +48,7 @@ class ContainerHealthStats extends React.Component {
         return (
             <div>
                 <Menu {...this.props} />
-                <div id="content" className="app-content box-shadow-z0" role="main">
+                <div id="content" className="app-content box-shadow-z0 content-health-stats" role="main">
                     <Header
                         pageTitle={"App Health & Stats"}
                         showLoading={this.props.frontend.show_loading}

@@ -67,24 +67,24 @@ class Salary extends React.Component {
         console.log(item);
 
         return (
-          <div className="row" key={index} style={{ margin: "10px 0" }}>
+          <div className="row" key={index} style={{ margin: "2px 0" }}>
 
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
-              <div className="col-sm-2">
-                <div className="col-sm-12 salary-title">Applicable From</div>
-                <div className="col-sm-12">{item.test.applicable_from}</div>
-              </div>
-              <div className="col-sm-2">
-                <div className="col-sm-12 salary-title">Leaves Allocated</div>
-                <div className="col-sm-12">{item.test.leaves_allocated}</div>
-              </div>
-              <div className="col-sm-2">
-                <div className="col-sm-12 salary-title">Updated On</div>
-                <div className="col-sm-12">{item.test.last_updated_on}</div>
+              <div /* className="col-sm-3" */>
+                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title">Applicable From: </span> {item.test.applicable_from} |{/* </div> */}
+                {/* <div className="col-sm-12"></div> */}
+              {/* </div> */}
+              {/* <div className="col-sm-3"> */}
+                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |{/* </div> */}
+                {/* <div className="col-sm-12"></div> */}
+              {/* </div> */}
+              {/* <div className="col-sm-3"> */}
+                {/* <div className="col-sm-12 salary-title"> */}<span className="salary-title"> Updated On: </span> {item.test.last_updated_on}{/* </div> */}
+                {/* <div className="col-sm-12"></div> */}
               </div>
             </div>
             <div className="col-md-12 salary-col-padding">
-              <div className="col-md-1 col-sm-2">
+              <div className="col-md-1 col-sm-2" style={{fontSize: "14px", textAlign: "center"}}>
                 <div className="col-sm-12 salary-title">Total Salary</div>
                 <div className="col-sm-12">{item.test.total_salary}</div>
               </div>

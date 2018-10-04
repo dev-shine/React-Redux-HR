@@ -26,7 +26,7 @@ export default class HealthStatsSecretKey extends React.Component {
                         <td>{item.secret_key}</td>
                         <td>
                         <b>Added on:</b> {moment(item.added_on).format('MMM Do YYYY, h:mm a')} <br></br> 
-                        {item.last_request ? <span><b>Last Requested at:</b>{moment(item.last_request).format('MMM Do YYYY, h:mm a')}</span> : null}
+                        {item.last_request ? <span><b>Last Requested at:</b> {moment(item.last_request).format('MMM Do YYYY, h:mm a')}</span> : null}
                         </td>
                         <td>
                             <i

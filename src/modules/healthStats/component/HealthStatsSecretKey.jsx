@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputText from 'components/generic/input/InputText';
 import { confirm } from "src/services/notify";
+import moment from 'moment';
 
 export default class HealthStatsSecretKey extends React.Component {
     constructor() {
@@ -23,6 +24,10 @@ export default class HealthStatsSecretKey extends React.Component {
                         <td>{index + 1}</td>
                         <td>{item.app_name}</td>
                         <td>{item.secret_key}</td>
+                        <td>
+                        <b>Added on:</b> {moment(item.added_on).format('MMM Do YYYY, h:mm a')} <br></br> 
+                        {item.last_request ? <span><b>Last Requested at:</b>{moment(item.last_request).format('MMM Do YYYY, h:mm a')}</span> : null}
+                        </td>
                         <td>
                             <i
                                 className="material-icons stats-delete-icon"
@@ -85,7 +90,7 @@ export default class HealthStatsSecretKey extends React.Component {
                             <th>#</th>
                             <th>App</th>
                             <th>Secret Key</th>
-
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>

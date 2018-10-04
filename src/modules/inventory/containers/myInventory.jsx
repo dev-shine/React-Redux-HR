@@ -195,7 +195,7 @@ class MyInventory extends React.Component {
           </div>
           <div className="app-body" id="view">
             <div className="padding">
-              <div className="row no-gutter m-b-md">
+              <div className="row no-gutter">
                 <UserHorizontalView
                   profileImage={this.props.loggedUser.data.profileImage}
                   name={this.state.user_profile_detail.name}

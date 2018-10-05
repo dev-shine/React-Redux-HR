@@ -148,16 +148,13 @@
   .w-13{
     width: 13%;
   }
-  .w-11{
-    width: 11%;
-  }
   .w-15{
     width: 15%;
   }
   .content-payslips{
     .payslip_row{
       .row{
-        .w-13, .w-15, .w-11{
+        .w-13, .w-15{
           padding: 0 !important;
         }
       }

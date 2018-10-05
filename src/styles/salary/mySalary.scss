@@ -48,6 +48,29 @@
     }
   }
 }
+.payslips{
+  margin-top: 20px;
+  .content-payslips{
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 10px;
+    b .l-view {
+      background: #fff;
+    }
+    .payslip_row div.row:nth-child(even){
+      background-color: #F8F8FF;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    .payslip_row div.row:nth-child(odd){
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    .m-view{
+      font-weight: bold;
+    }
+  }
+}
 @media screen and (min-width: 992px) {
   .salary-block{
     height: 45px;
@@ -105,5 +128,39 @@
   .salary-p-x {
       padding-right: .5rem !important;
       padding-left: .5rem !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .m-view{
+    display: block;
+  }
+  .l-view{
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .m-view{
+    display: none;
+  }
+  .l-view{
+    display: block;
+  }
+  .w-13{
+    width: 13%;
+  }
+  .w-11{
+    width: 11%;
+  }
+  .w-15{
+    width: 15%;
+  }
+  .content-payslips{
+    .payslip_row{
+      .row{
+        .w-13, .w-15, .w-11{
+          padding: 0 !important;
+        }
+      }
+    }
   }
 }

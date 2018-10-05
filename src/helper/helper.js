@@ -13,6 +13,7 @@ export const qualityValue = file => {
 
 export const dateFormatter = () => {
   const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+  const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const currentDateISO = new Date();
   const year = currentDateISO.getFullYear();
   const monthNumeric = currentDateISO.getMonth();
@@ -23,6 +24,7 @@ export const dateFormatter = () => {
     monthNumeric,
     monthAlpha,
     months,
+    fullMonths,
     year
   };
   return dateObject;

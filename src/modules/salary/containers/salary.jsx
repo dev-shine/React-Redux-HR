@@ -155,9 +155,9 @@ class Salary extends React.Component {
                     <hr />
                     {data}
                   </div>
-                  <div className="row">
-                    <div className="col-sm-3 col-xs-6 salary-border-left" id={'payslips'}>
-                      <h6 className="text-center">Previous Payslips</h6>
+                  <div className="row payslips">
+                    <div className="col-sm-12 col-xs-12" id={'payslips'}>
+                      <h6 className="salary-block-title">Previous Payslips</h6>
                       <hr />
                       <PayslipHistory payslip_history={this.state.payslip_history} />
                     </div>

@@ -7,15 +7,28 @@ import HealthStats from "modules/healthStats/component/HealthStats";
 import HealthStatsSecretKey from "modules/healthStats/component/HealthStatsSecretKey";
 import * as actionsUsersList from "appRedux/generic/actions/usersList";
 import {notify} from 'src/services/notify';
-import EmployeeJoiningTerminationStats from "modules/healthStats/component/EmployeeJoiningTerminationStats"
+import EmployeeJoiningTerminationStats from "modules/healthStats/component/EmployeeJoiningTerminationStats";
+import LeaveStats from "modules/healthStats/component/LeaveStats";
+import { getYearArray } from 'src/services/generic';
+import { dateFormatter } from "src/helper/helper";
 
 
 class ContainerHealthStats extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state={
+            month:new Date().getMonth() + 1, 
+            year: new Date().getYear() + 1900,
+        };
+        this.year=[];
+      }
     componentWillMount() {
         this.props.onIsAlreadyLogin();
         this.props.healthStatsRequest();
         this.props.requestStatsHistory();
         this.props.healthStatsKeyListRequest();
+        this.year = getYearArray();
+        this.props.requestStatsLeaveHistory({year:this.state.year,month:this.state.month});
     }
     componentWillReceiveProps(props) {        
         const {deleteHealthData, addSecretKeyData, deleteSecretKeyData, regenerateSecretKeyData} = props;
@@ -44,6 +57,16 @@ class ContainerHealthStats extends React.Component {
             notify('Success !', regenerateSecretKeyData.message, 'success');
           }
     }
+    onChange=(e) => {
+        if(e.target.name==="month"){
+            this.setState({ month: e.target.value});
+            this.props.requestStatsLeaveHistory({month:e.target.value, year:this.state.year}); 
+        }
+        if(e.target.name==="year"){
+            this.setState({ year: e.target.value});
+            this.props.requestStatsLeaveHistory({month:this.state.month, year:e.target.value});
+        }
+    } 
     render() {
         return (
             <div>
@@ -70,6 +93,24 @@ class ContainerHealthStats extends React.Component {
                             <h5>Recruitment Stats</h5>
                             <EmployeeJoiningTerminationStats data={this.props.statsHistory}/>
                             </div>
+                            <div className="col-sm-6 bg-white">
+                                <div className="row leave_stats">
+                                    <div className="col-sm-6">
+                                        <h5>Leave Stats</h5>
+                                    </div>
+                                    <div className="col-sm-3">
+                                        <select className="form-control" onChange={this.onChange} value={this.state.year} name="year">
+                                        {this.year.map((data,index)=><option key={index} value={data}>{data}</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-3">
+                                        <select className="form-control" onChange={this.onChange} value={this.state.month} name="month">
+                                           {dateFormatter().months.map((item, index)=><option key={index} value={index + 1}>{item}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+                                <LeaveStats data={this.props.statsLeaveHistory.data} flag={this.props.statsLeaveHistory.flag} handleFlag={this.props.updateFlag}/>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -87,7 +128,8 @@ const mapStateToProps = (state) => ({
     healthKeyData: state.healthstats.healthStatsSecretKeyList.data,
     addSecretKeyData: state.healthstats.healthStatsAddSecretKey,
     deleteSecretKeyData: state.healthstats.healthStatsDeleteSecretKey,
-    regenerateSecretKeyData: state.healthstats.healthStatsRegenerateSecretKey
+    regenerateSecretKeyData: state.healthstats.healthStatsRegenerateSecretKey,
+    statsLeaveHistory: state.healthstats.statsLeaveHistory
 
 });
 
@@ -99,7 +141,9 @@ const mapDispatchToProps = dispatch => ({
     healthStatsKeyListRequest: () => dispatch(actions.requestHealthStatsSecretKeyList()),
     healthStatsAddKeyRequest: (appname) => dispatch(actions.requestHealthStatsAddSecretKey(appname)),
     healthStatsDeleteKeyRequest: (appid) => dispatch(actions.requestHealthStatsDeleteSecretKey(appid)),
-    healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid))
+    healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid)),
+    requestStatsLeaveHistory: (payload) => dispatch(actions.requestStatsLeaveHistory(payload)),
+    updateFlag: () => dispatch(actions.updateFlag()) 
 
 });
 

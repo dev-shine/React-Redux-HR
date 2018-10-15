@@ -14,9 +14,11 @@ import UserSalaryHistory from 'components/salary/manageSalary/UserSalaryHistory'
 import UserHoldingHistory from 'components/salary/manageSalary/UserHoldingHistory';
 import FormAddHolding from 'modules/salary/components/manageSalary/FormAddHolding';
 import FormAddSalary from 'modules/salary/components/manageSalary/FormAddSalary';
+import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
 import * as actions from 'appRedux/actions';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
 import * as actions_manageSalary from 'appRedux/salary/actions/manageSalary';
+import SalaryBlock from "components/generic/SalaryBlock";
 
 class ManageSalary extends React.Component {
   constructor (props) {
@@ -124,7 +126,9 @@ class ManageSalary extends React.Component {
       notify(error);
     });
   }
-  viewSalarySummary (id) {
+  viewSalarySummary (e, id) {
+    console.log(e, id);
+    
     let new_details = this.state.salary_details;
     _.forEach(this.state.salary_history, (d, k) => {
       if (d.test.id == id) {
@@ -133,7 +137,9 @@ class ManageSalary extends React.Component {
     });
     this.setState({'user_latest_salary_details': new_details});
   }
-  callDeleteUserSalary (user_id, salary_id) {
+  callDeleteUserSalary (e, user_id, salary_id) {
+    console.log(e, user_id, salary_id);
+    
     this.props.onDeleteUserSalary(user_id, salary_id).then((data) => {
       this.onUserClick(user_id);
     }, (error) => {
@@ -146,6 +152,19 @@ class ManageSalary extends React.Component {
     if (this.props.manageSalary.status_message != '') {
       status_message = <span className="label label-lg primary pos-rlt m-r-xs">
         <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>;
+    }
+    let data;
+    const message = this.state.msg;
+    if (message) {
+      data = (<div className="well well-lg" style={{'color':"red"}} >
+        <i className="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
+        {message} </div>)
+    }else {
+      data = this.state.salary_history.map((item, index) => {
+        return (
+          <SalaryBlock key={index} item={item} displayPage="manage" viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
+        )
+      });
     }
     return (
       <div>
@@ -166,6 +185,20 @@ class ManageSalary extends React.Component {
                       <p>
                         <small>{this.state.selected_user_jobtitle}</small>
                       </p>
+                    </div>
+                  </div>
+                  <div className="box m-t-xs">
+                    <div className="p-a block ">
+                      <h6 className="text-center">Add New</h6>
+                      <hr />
+                      <AddSalaryForm {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
+                    </div>
+                    <div className="p-a block ">
+                      <h6 className="text-center">Salary Revision</h6>
+                      <hr />
+                      <div className="content-salary">
+                        {data}
+                      </div>
                     </div>
                   </div>
                   <div className="row no-gutter b-t box">

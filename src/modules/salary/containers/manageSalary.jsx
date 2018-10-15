@@ -188,16 +188,17 @@ class ManageSalary extends React.Component {
                     </div>
                   </div>
                   <div className="box m-t-xs">
-                    <div className="p-a block ">
+                    {/* <div className="p-a block ">
                       <h6 className="text-center">Add New</h6>
                       <hr />
                       <AddSalaryForm {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
-                    </div>
+                    </div> */}
                     <div className="p-a block ">
                       <h6 className="text-center">Salary Revision</h6>
                       <hr />
                       <div className="content-salary">
                         {data}
+                        <AddSalaryForm {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
                       </div>
                     </div>
                   </div>

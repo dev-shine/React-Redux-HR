@@ -3,7 +3,7 @@ import React from "react";
 const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
     console.log(item);
 
-    return (
+    return ( 
         <div className="row salary-blocks-margin" onClick={() => displayPage === "manage" && viewSalarySummary(item.test.id)  }>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
                 <div>
@@ -69,10 +69,10 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                             (
                                 <div className="text-center">
                                     <i
-                                        className="material-icons"
+                                        className="material-icons delete-icon"
                                         onClick={() => callDeleteUserSalary(item.test.user_Id, item.test.id)}
                                     >
-                                        delete
+                                        delete_forever
                                     </i>
                                 </div>) :
                             (

@@ -163,104 +163,107 @@ class AddSalaryForm extends React.Component {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from;
     return (
-      <div className="row no-gutter" style={{ fontSize: "10px" }}>
-        <div className="row no-gutter" style={{ padding: "10px 15px" }}>
-          <div className="col-xs-10 col-sm-9">
-            <div className="col-xs-2 col-sm-3 p-r">
-              <label>Applicable From : {this.state.applicable_from}</label>
-              <DateField
-                dateFormat="YYYY-MM-DD"
-                onChange={this.handleApplicableFrom}
-                className="form-control"
-              />
+      <div className="row salary-blocks-margin add-salary-form-wrapper">
+            <div className="col-md-12 col-sm-12 salary-range-wrapper">
+                <div className="applicable-from">
+                  <span className="salary-title">Applicable From : 
+                  {/* {this.state.applicable_from} */}
+                  </span>
+                  <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field"/>
+                </div>
+                <div className="applicable-till">
+                  <span className="salary-title">Applicable Till : 
+                  {/* {this.state.applicable_till} */}
+                  </span>
+                  <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableTill} className="form-control date-field" />
+                </div>
+                <div className="leaves">
+                  <span className="salary-title">Leaves : </span>
+                  <input type="text" className="form-control" ref="leave" onChange={() => this.setState({ leave: this.refs.leave.value })} value={this.state.leave} />
+                </div>
             </div>
-            <div className="col-xs-2 col-sm-3 p-r">
-              <label>Applicable Till : {this.state.applicable_till}</label>
-              <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableTill} className="form-control" />
+            <div className="col-md-12 salary-col-padding">
+                <div className="col-md-1 col-sm-2 salary-total-width">
+                    <div className="col-sm-12 salary-total-title">Total</div>
+                    <div className="col-sm-12 salary-total-value">{this.state.total_salary}</div>
+                </div>
+                <div className="col-md-5 col-sm-10 bg-success salary-block salary-addition-width">
+                    <div className="col-sm-2 salary-basic-width">
+                        <div className="col-sm-12 salary-title">Basic</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="basic" onChange={() => this.setState({ basic: this.refs.basic.value })} value={this.state.basic} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-hra-width">
+                        <div className="col-sm-12 salary-title">HRA</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="hra" onChange={() => this.setState({ hra: this.refs.hra.value })} value={this.state.hra} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-conveyance-width">
+                        <div className="col-sm-12 salary-title">Conveyance</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="conveyance" onChange={() => this.setState({ conveyance: this.refs.conveyance.value })} value={this.state.conveyance} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-medical-width">
+                        <div className="col-sm-12 salary-title">Medical Allowance</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="medical_allowance" onChange={() => this.setState({ medical_allowance: this.refs.medical_allowance.value })} value={this.state.medical_allowance} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-special-width">
+                        <div className="col-sm-12 salary-title">Special Allowance</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="special_allowance" onChange={() => this.setState({ special_allowance: this.refs.special_allowance.value })} value={this.state.special_allowance} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-arrears-width">
+                        <div className="col-sm-12 salary-title">Arrears</div>
+                        <div className="col-sm-12">
+                        <input type="text" className="form-control input-sm" ref="arrear" onChange={() => this.setState({ arrear: this.refs.arrear.value })} value={this.state.arrear} />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6 col-sm-12 bg-danger salary-block salary-deduction-width">
+                    <div className="col-sm-2 salary-epf-width">
+                        <div className="col-sm-12 salary-title">EPF</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="epf" onChange={() => this.setState({ epf: this.refs.epf.value })} value={this.state.epf} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-loan-width">
+                        <div className="col-sm-12 salary-title">Loan</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="loan" onChange={() => this.setState({ loan: this.refs.loan.value })} value={this.state.loan} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-advance-width">
+                        <div className="col-sm-12 salary-title">Advance</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="advance" onChange={() => this.setState({ advance: this.refs.advance.value })} value={this.state.advance} />
+                        </div>
+                    </div>
+                    <div className="col-sm-2 salary-miscdeductions-width">
+                        <div className="col-sm-12 salary-title">Misc Deductions</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="misc_deduction" onChange={() => this.setState({ misc_deduction: this.refs.misc_deduction.value })} value={this.state.misc_deduction} />
+                        </div>
+                    </div>
+                    <div className="col-sm-1 salary-tds-width">
+                        <div className="col-sm-12 salary-title">TDS</div>
+                        <div className="col-sm-12">
+                          <input type="text" className="form-control input-sm" ref="tds" onChange={() => this.setState({ tds: this.refs.tds.value })} value={this.state.tds} />
+                        </div>
+                    </div>
+                    <div className="col-sm-3 salary-options-width">
+                        <i className="material-icons add-icon" onClick={() => this.props.callAddUserSalary(this.state)}>
+                              add_circle_outline
+                        </i>
+                    </div>
+                </div>
             </div>
-            {/* </div> */}
-            {/* <div className="row no-gutter"> */}
-            {/* <div className="col-xs-12 p-r b-b"> */}
-
-
-            {/* </div> */}
-            <div className="col-xs-2 col-sm-3">
-              <label>Leaves</label>
-              <input type="text" className="form-control" ref="leave" onChange={() => this.setState({ leave: this.refs.leave.value })} value={this.state.leave} />
-            </div>
-          </div>
-          <div className="col-xs-2  col-sm-3 text-right">
-            <label>Salary in hand</label>
-            <h5 style={{ fontWeight: "700" }}>{this.state.total_salary}</h5>
-          </div>
         </div>
-        <div className="row no-gutter bg-success" style={{ padding: "10px 15px" }}>
-          <div className="col-xs-10">
-            <div className="col-xs-2 p-r">
-              <label>Basic</label>
-              <input type="text" className="form-control input-sm" ref="basic" onChange={() => this.setState({ basic: this.refs.basic.value })} value={this.state.basic} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>HRA</label>
-              <input type="text" className="form-control input-sm" ref="hra" onChange={() => this.setState({ hra: this.refs.hra.value })} value={this.state.hra} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Conveyance</label>
-              <input type="text" className="form-control input-sm" ref="conveyance" onChange={() => this.setState({ conveyance: this.refs.conveyance.value })} value={this.state.conveyance} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Medical Allowance</label>
-              <input type="text" className="form-control input-sm" ref="medical_allowance" onChange={() => this.setState({ medical_allowance: this.refs.medical_allowance.value })} value={this.state.medical_allowance} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Special Allowance</label>
-              <input type="text" className="form-control input-sm" ref="special_allowance" onChange={() => this.setState({ special_allowance: this.refs.special_allowance.value })} value={this.state.special_allowance} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Arrears</label>
-              <input type="text" className="form-control input-sm" ref="arrear" onChange={() => this.setState({ arrear: this.refs.arrear.value })} value={this.state.arrear} />
-            </div>
-          </div>
-          <div className="col-xs-2 text-right">
-            <label>Total Salary</label>
-            <h5>{this.state.total_earning}</h5>
-          </div>
-        </div>
-        <div className="row no-gutter bg-danger" style={{ padding: "10px 15px" }}>
-          <div className="col-xs-10">
-            <div className="col-xs-2 p-r">
-              <label>EPF</label>
-              <input type="text" className="form-control input-sm" ref="epf" onChange={() => this.setState({ epf: this.refs.epf.value })} value={this.state.epf} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Loan</label>
-              <input type="text" className="form-control input-sm" ref="loan" onChange={() => this.setState({ loan: this.refs.loan.value })} value={this.state.loan} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Advance</label>
-              <input type="text" className="form-control input-sm" ref="advance" onChange={() => this.setState({ advance: this.refs.advance.value })} value={this.state.advance} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>Misc Deductions</label>
-              <input type="text" className="form-control input-sm" ref="misc_deduction" onChange={() => this.setState({ misc_deduction: this.refs.misc_deduction.value })} value={this.state.misc_deduction} />
-            </div>
-            <div className="col-xs-2 p-r">
-              <label>TDS</label>
-              <input type="text" className="form-control input-sm" ref="tds" onChange={() => this.setState({ tds: this.refs.tds.value })} value={this.state.tds} />
-            </div>
-          </div>
-          <div className="col-xs-2 text-right">
-            <label>Total Deduction</label>
-            <h5>{this.state.total_deduction}</h5>
-          </div>
-        </div>
-
-        {/* <div className="row no-gutter"> */}
-        <div className="col-xs-offset-10 col-xs-2" style={{ marginTop: "10px" }}>
-          <ButtonRaised className="col-xs-12 indigo" onClick={() => this.props.callAddUserSalary(this.state)} label="Add" />
-        </div>
-        {/* </div> */}
-      </div>
     )
   }
 }

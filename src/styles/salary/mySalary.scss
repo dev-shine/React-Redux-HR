@@ -3,12 +3,59 @@
 }
 .content-salary {
   font-size: 10px;
+  .date-field, input{
+    min-width: 35px;
+    height: 1.5rem;
+    padding: 4px;
+    line-height: 0;
+    font-size: .6rem;
+    min-height: 1rem !important;
+    border-radius: 5px !important;
+  }
+  .date-field{
+    border-color: rgba(120, 130, 140, 0.2);
+    input{
+      height: 97%;
+    }
+  }
+  .delete-icon{
+    color: red;
+    cursor: pointer;
+  }
+  .add-icon{
+    color: green;
+    cursor: pointer;
+  }
+  .salary-range-wrapper{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 5px;
+  }
+  .applicable-from, .applicable-till, .leaves{
+    display: flex;
+    margin-right: 5px;
+    .salary-title{
+      // min-width: 83px;
+      align-items: center;
+      display: flex;
+      margin: 0;
+      justify-content: center;
+      // padding: 0 6px;
+      margin-right: 5px;
+      white-space: nowrap;
+    }
+  }
 }
 .salary-block-title {
   padding-left: 20px;
 }
 .salary-blocks-margin {
   margin: 5px 0;
+  &.add-salary-form-wrapper{
+    background: rgba(71, 82, 93, 0.04);
+    padding: 5px 0;
+    border-radius: 5px;
+  }
 }
 .button-style-l {
   margin-top: 10px;
@@ -127,6 +174,10 @@
     }
     .salary-options-width {
       width: 27%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

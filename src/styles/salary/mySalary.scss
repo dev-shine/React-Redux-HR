@@ -4,7 +4,7 @@
 .content-salary {
   font-size: 10px;
   .date-field, input{
-    min-width: 35px;
+    // min-width: 35px;
     height: 1.5rem;
     padding: 4px;
     line-height: 0;
@@ -12,10 +12,17 @@
     min-height: 1rem !important;
     border-radius: 5px !important;
   }
+  .salary-input-wrapper{
+    padding: 0px !important;
+  }
   .date-field{
     border-color: rgba(120, 130, 140, 0.2);
     input{
       height: 97%;
+    }
+    .react-date-field__picker{
+      font-size: .9rem;
+      line-height: 1;
     }
   }
   .delete-icon{
@@ -30,6 +37,7 @@
     display: flex;
     justify-content: end;
     margin-bottom: 5px;
+    flex-wrap: wrap;
   }
   .applicable-from, .applicable-till, .leaves{
     display: flex;
@@ -51,7 +59,7 @@
 }
 .salary-blocks-margin {
   margin: 5px 0;
-  &.add-salary-form-wrapper{
+  &.salary-row-bg{
     background: rgba(71, 82, 93, 0.04);
     padding: 5px 0;
     border-radius: 5px;
@@ -118,10 +126,27 @@
     }
   }
 }
-@media screen and (min-width: 992px) {
-  .salary-block{
-    height: 45px;
+.salary-details{
+  height: 60px;
+}
+.salary-block{
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  .cell{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &.center{
+      justify-content: space-around;
+    }
   }
+}
+@media screen and (min-width: 992px) {
+  // .salary-block{
+  //   height: 45px;
+  // }
   .salary-total-title {
     text-align: center;
     font-weight: 600;
@@ -208,10 +233,13 @@
       font-size: 14px;
     }
 }
-@media screen and (max-width: 358px) {
+@media screen and (max-width: 398px) {
   .salary-p-x {
       padding-right: .5rem !important;
       padding-left: .5rem !important;
+  }
+  .salary-title{
+    font-size: 0.5rem;
   }
 }
 @media screen and (max-width: 768px) {

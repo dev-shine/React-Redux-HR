@@ -114,3 +114,21 @@ export function* requestStatsHistory(action) {
         yield put(actions.errorStatsHistory('Error Occurs !!'));
     }
 }
+
+export function* requestStatsLeave(action) {
+    try {
+        const response = yield call(fireAjax, 'POST', '', {
+            'action': 'get_employees_leaves_stats',
+            'month' : action.payload.month,
+            'year' : action.payload.year
+            
+        });
+        if (response.error === 0) {
+            yield put(actions.successStatsLeaveHistory(response.data));
+        } else if (response.error === 1) {
+            yield put(actions.errorStatsLeaveHistory('API response error.'));
+        }
+    } catch (e) {
+        yield put(actions.errorStatsLeaveHistory('Error Occurs !!'));
+    }
+}

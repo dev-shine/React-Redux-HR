@@ -9,7 +9,7 @@ import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'appR
 import {getUsersList} from 'appRedux/generic/actions/usersList';
 import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'appRedux/policyDocuments/actions/index';
 import {getTeamList, saveTeam, getTeam} from 'appRedux/team/actions/teamList';
-import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats, requestStatsHistory} from 'appRedux/healthStats/actions/healthStats';
+import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats, requestStatsHistory, requestStatsLeave} from 'appRedux/healthStats/actions/healthStats';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);
@@ -38,6 +38,7 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_HEALTH_STATS_ADD_SECRET_KEY, healthStatsAddSecretKeyRequest);
   yield takeLatest(constants.REQUEST_HEALTH_STATS_DELETE_SECRET_KEY, healthStatsDeleteSecretKeyRequest);
   yield takeLatest(constants.REQUEST_HEALTH_STATS_REGENERATE_SECRET_KEY, healthStatsRegenerateSecretKeyRequest);
+  yield takeLatest(constants.REQUEST_STATS_LEAVE_HISTORY, requestStatsLeave);
   
 
   yield takeLatest(constants.REQUEST_TEAM_STATS, getTeamStats);

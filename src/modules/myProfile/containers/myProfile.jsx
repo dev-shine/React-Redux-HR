@@ -105,9 +105,6 @@ class MyProfile extends React.Component {
                 <div className="col-sm-6 p-a m-b-md">
                   <FormUpdatePassword callUpdatePassword={this.callUpdatePassword} />
                 </div>
-                <div className="col-sm-6 p-a">
-                  <PayslipHistory payslip_history={this.state.payslip_history} />
-                </div>
               </div>
             </div>
           </div>

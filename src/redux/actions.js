@@ -176,3 +176,8 @@ export const errorDeleteHealthStats = createAction(constants.ERROR_DELETE_HEALTH
 export const requestStatsHistory = createAction(constants.REQUEST_STATS_HISTORY);
 export const successStatsHistory = createAction(constants.SUCCESS_STATS_HISTORY);
 export const errorStatsHistory = createAction(constants.ERROR_STATS_HISTORY);
+
+export const requestStatsLeaveHistory = createAction(constants.REQUEST_STATS_LEAVE_HISTORY);
+export const successStatsLeaveHistory = createAction(constants.SUCCESS_STATS_LEAVE_HISTORY);
+export const errorStatsLeaveHistory = createAction(constants.ERROR_STATS_LEAVE_HISTORY);
+export const updateFlag = createAction(constants.UPDATE_FLAG);

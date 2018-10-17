@@ -5,7 +5,7 @@ export default class LeaveStats extends React.Component {
   componentWillUpdate(nextProps) {
     if(nextProps.flag){
       if (nextProps && nextProps.data && nextProps.data.stats) {
-        this.highChartRender(nextProps.data.stats);
+        this.highChartRender(_.filter(nextProps.data.stats, function(o) {{return o.day_type==="WORKING_DAY"}}));
         nextProps.handleFlag();
       }
     }
@@ -27,7 +27,7 @@ export default class LeaveStats extends React.Component {
         enabled: false
       },
       xAxis: {
-        categories: _.map(_.filter(data, function(o) {{return o.type==="working"}}), o => `${o.date} ${o.day}`)
+        categories: _.map(data, o => `${o.date} ${o.day}`)
       },
       yAxis: {
         min: 0,
@@ -49,17 +49,17 @@ export default class LeaveStats extends React.Component {
         {
             name: "Approved",
             color:"#69f0ae",
-            data: _.map(_.filter(data, function(o) {{return o.type==="working"}}),"approved")
+            data: _.map(data,"approved")
         },
         {
             name: "Pending",
             color:"#ffff00",
-            data: _.map(_.filter(data, function(o) {{return o.type==="working"}}),"pending")
+            data: _.map(data,"pending")
         },
         {
             name: "Rejected",
             color:"#f44336",
-            data: _.map(_.filter(data, function(o) {{return o.type==="working"}}),"rejected")
+            data: _.map(data,"rejected")
         }
       ]
     });

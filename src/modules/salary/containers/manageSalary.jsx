@@ -128,7 +128,7 @@ class ManageSalary extends React.Component {
   }
   viewSalarySummary (e, id) {
     console.log(e, id);
-    
+    e.stopPropagation();
     let new_details = this.state.salary_details;
     _.forEach(this.state.salary_history, (d, k) => {
       if (d.test.id == id) {
@@ -139,7 +139,7 @@ class ManageSalary extends React.Component {
   }
   callDeleteUserSalary (e, user_id, salary_id) {
     console.log(e, user_id, salary_id);
-    
+    e.stopPropagation();
     this.props.onDeleteUserSalary(user_id, salary_id).then((data) => {
       this.onUserClick(user_id);
     }, (error) => {

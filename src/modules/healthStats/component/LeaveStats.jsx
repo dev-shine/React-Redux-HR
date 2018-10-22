@@ -60,7 +60,14 @@ export default class LeaveStats extends React.Component {
             name: "Rejected",
             color:"#f44336",
             data: _.map(data,"rejected")
-        }
+        },
+        {
+          name: "Employees Present",
+          color: "#98AEDA",
+          data: _.map(data,function(item){
+            return item.total_employees - item.approved;
+          })
+      }
       ]
     });
   };

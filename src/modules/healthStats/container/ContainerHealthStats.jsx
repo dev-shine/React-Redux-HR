@@ -84,16 +84,16 @@ class ContainerHealthStats extends React.Component {
                             </div>
                         </div>
                         <div className="row m-10">
-                            <div className="col-sm-6 secret-key-block">
+                            <div className="col-sm-6 b-health-stats secret-key-block">
                                 <HealthStatsSecretKey {...this.props} />
                             </div>
                         </div>
                         <div className="row m-10">
-                            <div className="col-sm-6 bg-white">
+                            <div className="col-sm-6 b-health-stats bg-white">
                             <h5>Recruitment Stats</h5>
                             <EmployeeJoiningTerminationStats data={this.props.statsHistory}/>
                             </div>
-                            <div className="col-sm-6 bg-white">
+                            <div className="col-sm-6 b2-health-stats bg-white">
                                 <div className="row leave_stats">
                                     <div className="col-sm-6">
                                         <h5>Leave Stats</h5>

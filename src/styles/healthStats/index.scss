@@ -15,6 +15,13 @@
         background-color: white;
         padding-top: 10px;
     }
+    .b-health-stats{
+        width: 49.5%;
+    }
+    .b2-health-stats{
+        width: 49.5%;
+        margin-left: 1%;
+    }
     .attendance-stats{
         thead{
             tr{
@@ -104,5 +111,15 @@
 @media screen and (max-width: 767px){
     .secret-key-block{
         margin-left: 0px;
+    }
+    .content-health-stats{
+        .b-health-stats{
+            width: 100%;
+        }
+        .b2-health-stats{
+            width: 100%;
+            margin-top: 20px;
+            margin-left: 0;
+        }
     }
 }

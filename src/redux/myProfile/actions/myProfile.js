@@ -3,6 +3,8 @@ import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import {confirm} from 'src/services/notify';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {setLoggedUser, getLoggedUser} from 'src/services/generic';
+import {userDataUpdated} from 'appRedux/actions';
 import * as constants from 'appRedux/constants';
 
 export function success_my_profile (data) {
@@ -360,6 +362,11 @@ export function addInventoryAudit (id, msg) {
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
       async_addInventoryAudit(id, msg).then((json) => {
+        if(json.data && json.data.new_token){
+          let {userId} = getLoggedUser();
+          let tokenData = setLoggedUser(json.data.new_token, userId);
+          dispatch(userDataUpdated(tokenData));
+        }
         dispatch(hide_loading()); // hide loading icon
         reslove(json)
         confirm(json.message, '' , 'success')

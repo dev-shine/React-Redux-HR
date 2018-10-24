@@ -52,6 +52,14 @@ let initialState = {
     isError:   false,
     isSuccess: false,
     message:   ''
+  },
+  statsLeaveHistory:{
+    data:      {},
+    isLoading: false,
+    isError:   false,
+    isSuccess: false,
+    message:   '',
+    flag: false
   }
 };
 
@@ -129,6 +137,19 @@ const errorStatsHistory = (state, action) => update(state, {
   statsHistory: {$setRequestError: action.payload}
 });
 
+const requestStatsLeaveHistory = (state, action) => update(state, {
+  statsLeaveHistory: {$setRequestLoading: null}
+});
+const successStatsLeaveHistory = (state, action) => update(state, {
+  statsLeaveHistory: {$setRequestSuccess: action.payload , flag: {$set: true}}
+});
+const errorStatsLeaveHistory = (state, action) => update(state, {
+  statsLeaveHistory: {$setRequestError: action.payload}
+});
+const updateStatsLeaveHistoryFlag = (state, action) => update(state,{
+  statsLeaveHistory: {flag: {$set: false}}
+})
+
 export default handleActions({
   [constants.REQUEST_HEALTH_STATS]: requestHealthStats,
   [constants.SUCCESS_HEALTH_STATS]: successHealthStats,
@@ -150,6 +171,9 @@ export default handleActions({
   [constants.ERROR_DELETE_HEALTH_STATS]:   errorDeleteHealthStats,
   [constants.REQUEST_STATS_HISTORY]: requestStatsHistory,
   [constants.SUCCESS_STATS_HISTORY]: successStatsHistory,
-  [constants.ERROR_STATS_HISTORY]: errorStatsHistory
-  
+  [constants.ERROR_STATS_HISTORY]: errorStatsHistory,
+  [constants.REQUEST_STATS_LEAVE_HISTORY]: requestStatsLeaveHistory,
+  [constants.SUCCESS_STATS_LEAVE_HISTORY]: successStatsLeaveHistory,
+  [constants.ERROR_STATS_LEAVE_HISTORY]: errorStatsLeaveHistory,
+  [constants.UPDATE_FLAG]: updateStatsLeaveHistoryFlag   
 }, initialState);

@@ -10,6 +10,7 @@ import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
 import * as actions from 'appRedux/actions';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
+import SalaryBlock from "components/generic/SalaryBlock";
 
 class Salary extends React.Component {
   constructor(props) {
@@ -64,79 +65,7 @@ class Salary extends React.Component {
     if (this.props.salary.salary_history) {
       data = this.props.salary.salary_history.map((item, index) => {
         return (
-          <div className="row salary-blocks-margin" key={index}>
-            <div className="col-md-12 col-sm-12 salary-col-title-padding">
-              <div><span className="salary-title">Applicable From: </span> {item.test.applicable_from} |
-                <span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |
-                <span className="salary-title"> Updated On: </span> {item.test.last_updated_on}
-              </div>
-            </div>
-            <div className="col-md-12 salary-col-padding">
-              <div className="col-md-1 col-sm-2">
-                <div className="col-sm-12 salary-total-title">Total</div>
-                <div className="col-sm-12 salary-total-value">{item.test.total_salary}</div>
-              </div>
-              <div className="col-md-5 col-sm-10 bg-success salary-block">
-                <div className="col-sm-2 salary-title-12">
-                  <div className="col-sm-12 salary-title">Basic</div>
-                  <div className="col-sm-12">{item.Basic}</div>
-                </div>
-                <div className="col-sm-2 salary-title-12">
-                  <div className="col-sm-12 salary-title">HRA</div>
-                  <div className="col-sm-12">{item.HRA}</div>
-                </div>
-                <div className="col-sm-2 salary-title-17">
-                  <div className="col-sm-12 salary-title">Conveyance</div>
-                  <div className="col-sm-12">{item.Conveyance}</div>
-                </div>
-                <div className="col-sm-2 salary-title-23">
-                  <div className="col-sm-12 salary-title">Medical Allowance</div>
-                  <div className="col-sm-12">{item.Medical_Allowance}</div>
-                </div>
-                <div className="col-sm-2 salary-title-22">
-                  <div className="col-sm-12 salary-title">Special Allowance</div>
-                  <div className="col-sm-12">{item.Special_Allowance}</div>
-                </div>
-                <div className="col-sm-2 salary-title-12">
-                  <div className="col-sm-12 salary-title">Arrears</div>
-                  <div className="col-sm-12">{item.Arrears}</div>
-                </div>
-              </div>
-              <div className="col-md-6 col-sm-12 bg-danger salary-block">
-                <div className="col-sm-2">
-                  <div className="col-sm-12 salary-title">EPF</div>
-                  <div className="col-sm-12">{item.EPF}</div>
-                </div>
-                <div className="col-sm-2">
-                  <div className="col-sm-12 salary-title">Loan</div>
-                  <div className="col-sm-12">{item.Loan}</div>
-                </div>
-                <div className="col-sm-2">
-                  <div className="col-sm-12 salary-title">Advance</div>
-                  <div className="col-sm-12">{item.Advance}</div>
-                </div>
-                <div className="col-sm-2">
-                  <div className="col-sm-12 salary-title">Misc Deductions</div>
-                  <div className="col-sm-12">{item.Misc_Deductions}</div>
-                </div>
-                <div className="col-sm-1">
-                  <div className="col-sm-12 salary-title">TDS</div>
-                  <div className="col-sm-12">{item.TDS}</div>
-                </div>
-                <div className="col-sm-3">
-                  <div className="col-sm-12 salary-title">Holding Amount</div>
-                  <div className="col-sm-12 salary-holding-btn">
-                    <input type="text"
-                      className="col-md-6 col-sm-6"
-                    />
-                    <input type="button"
-                      className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
-                      value="Add" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <SalaryBlock key={index} item={item} /> 
         )
       });
     }

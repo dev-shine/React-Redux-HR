@@ -69,7 +69,7 @@ class FormAddSalary extends React.Component {
       })
     }
   }
-
+  
   componentWillReceiveProps(props){
     let applicable_from = null
     let applicable_till = null

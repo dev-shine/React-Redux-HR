@@ -15,7 +15,9 @@
   .salary-input-wrapper{
     padding: 0px !important;
   }
+
   .date-field{
+    width: 44%;
     border-color: rgba(120, 130, 140, 0.2);
     input{
       height: 97%;
@@ -52,6 +54,9 @@
       margin-right: 5px;
       white-space: nowrap;
     }
+    .leave-field{
+      width: 30%;
+    }    
   }
 }
 .salary-block-title {
@@ -64,6 +69,9 @@
     padding: 5px 0;
     border-radius: 5px;
   }
+}
+.salary-blocks-margin:last-child{
+  margin-top: 15px;
 }
 .button-style-l {
   margin-top: 10px;
@@ -129,6 +137,9 @@
 .salary-details{
   height: 60px;
 }
+.salary-add-details{
+  height: 93px;
+}
 .salary-block{
   height: 100%;
   display: flex;
@@ -141,6 +152,19 @@
     &.center{
       justify-content: space-around;
     }
+  }
+}
+.salary-add-block{
+  height: 100%;
+  .cell{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &.center{
+      text-align: center;
+      justify-content: space-around;
+    } 
   }
 }
 @media screen and (min-width: 992px) {
@@ -199,7 +223,7 @@
     }
     .salary-options-width {
       width: 27%;
-      height: 100%;
+      // height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -220,6 +244,13 @@
   
 }
 @media screen and (max-width: 767px) {
+  .content-salary{
+    .leaves{
+      .leave-field{
+        width: 100%;
+      }
+    }
+  }
     .salary-border-left {
       border-left: 0px !important;
     }
@@ -231,6 +262,9 @@
     .salary-total-value {
       text-align: center;
       font-size: 14px;
+    }
+    .salary-add-block {
+      height: auto;
     }
 }
 @media screen and (max-width: 398px) {

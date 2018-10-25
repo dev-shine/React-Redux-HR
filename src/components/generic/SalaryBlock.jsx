@@ -1,8 +1,6 @@
 import React from "react";
 
 const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
-    console.log(item);
-    
     return ( 
         <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => displayPage === "manage" && viewSalarySummary(e,item.test.id) }>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">

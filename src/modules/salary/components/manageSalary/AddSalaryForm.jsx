@@ -12,10 +12,12 @@ class AddSalaryForm extends React.Component {
       user_id: "",
       applicable_from: null,
       applicable_till: null,
+      applicable_month: '0',
       total_salary: '0',
       total_earning: '0',
       total_deduction: '0',
       leave: '0',
+      increment_amount: '0',
       basic: '0',
       hra: '0',
       conveyance: '0',
@@ -76,6 +78,7 @@ class AddSalaryForm extends React.Component {
     let applicable_till = null
     let total_salary = "0"
     let leave = '0'
+    let increment_amount = '0'
     let basic = '0'
     let hra = '0'
     let conveyance = '0'
@@ -102,8 +105,10 @@ class AddSalaryForm extends React.Component {
       if (typeof props.user_latest_salary_details.test.leaves_allocated != 'undefined') {
         leave = props.user_latest_salary_details.test.leaves_allocated
       }
+      if (typeof props.user_latest_salary_details.test.increment_amount != 'undefined') {
+        increment_amount = props.user_latest_salary_details.test.increment_amount
+      }
     }
-
     if (typeof props.user_latest_salary_details.Basic != 'undefined') {
       basic = props.user_latest_salary_details.Basic
     }
@@ -142,6 +147,7 @@ class AddSalaryForm extends React.Component {
       user_id: props.userid,
       total_salary: total_salary,
       leave: leave,
+      increment_amount: increment_amount,
       basic: basic,
       hra: hra,
       conveyance: conveyance,
@@ -159,6 +165,10 @@ class AddSalaryForm extends React.Component {
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from;
+    let opt = [];
+    for(var i = 1; i <= 12; i++){
+      opt.push(<option key={i} value={i}>{i} months</option>)
+    }
     return (
       <div className="row salary-blocks-margin salary-row-bg">
         <div className="col-md-12 col-sm-12 salary-range-wrapper">
@@ -167,12 +177,18 @@ class AddSalaryForm extends React.Component {
             <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
           </div>
           <div className="applicable-till">
-            <span className="salary-title">Applicable Till : </span>
-            <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableTill} className="form-control date-field" />
+            <span className="salary-title">Applicable Months : </span>
+            <select className="form-control" value={this.state.applicable_month} onChange={(e)=>this.setState({applicable_month: e.target.value})}>
+              {opt}
+            </select>
           </div>
           <div className="leaves">
             <span className="salary-title">Leaves : </span>
             <input type="text" className="form-control leave-field" ref="leave" onChange={() => this.setState({ leave: this.refs.leave.value })} value={this.state.leave} />
+          </div>
+          <div className="incremented-value">
+            <span className="salary-title">Incremented Amount : </span>
+            <input type="text" className="form-control" onChange={(e) => this.setState({ increment_amount: e.target.value })} value={this.state.increment_amount} />
           </div>
         </div>
         <div className="col-md-12 salary-col-padding salary-add-details">

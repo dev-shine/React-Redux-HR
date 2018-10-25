@@ -51,14 +51,16 @@ export function error_add_user_salary (data) {
   return createAction(constants.ACTION_ERROR_ADD_USER_SALARY)(data);
 }
 
-function async_add_user_new_salary (n_userid, n_applicable_from, n_applicable_till, n_total_salary, n_leave, n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds) {
+function async_add_user_new_salary (n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount,  n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds) {
   return fireAjax('POST', '', {
     action:            'add_user_salary',
     user_id:           n_userid,
     applicable_from:   n_applicable_from,
     applicable_till:   n_applicable_till,
+    applicable_month:  n_applicable_month,
     total_salary:      n_total_salary,
     leave:             n_leave,
+    increment_amount:  n_increment_amount,
     basic:             n_basic,
     hra:               n_hra,
     conveyance:        n_conveyance,
@@ -80,8 +82,10 @@ export function add_user_new_salary (new_salary_data) {
     let n_userid = '';
     let n_applicable_from = '';
     let n_applicable_till = '';
+    let n_applicable_month = '';
     let n_total_salary = '';
     let n_leave = '';
+    let n_increment_amount = '';
     let n_basic = '';
     let n_hra = '';
     let n_conveyance = '';
@@ -103,11 +107,17 @@ export function add_user_new_salary (new_salary_data) {
     if (typeof new_salary_data.applicable_till !== 'undefined') {
       n_applicable_till = new_salary_data.applicable_till;
     }
+    if (typeof new_salary_data.applicable_month !== 'undefined'){
+      n_applicable_month = new_salary_data.applicable_month;
+    }
     if (typeof new_salary_data.total_salary !== 'undefined') {
       n_total_salary = new_salary_data.total_salary;
     }
     if (typeof new_salary_data.leave !== 'undefined') {
       n_leave = new_salary_data.leave;
+    }
+    if (typeof new_salary_data.increment_amount !== 'undefined') {
+      n_increment_amount = new_salary_data.increment_amount;
     }
     if (typeof new_salary_data.basic !== 'undefined') {
       n_basic = new_salary_data.basic;
@@ -152,11 +162,17 @@ export function add_user_new_salary (new_salary_data) {
     if (n_applicable_till === '') {
       return Promise.reject('Applicable till date is empty');
     }
+    if (n_applicable_month === '') {
+      return Promise.reject('Applicable month empty');
+    }
     if (n_total_salary === '') {
       return Promise.reject('Total Salary is empty');
     }
     if (n_leave === '') {
       return Promise.reject('Leave is empty');
+    }
+    if (n_increment_amount === ''){
+      return Promise.reject('Incremented amount empty');
     }
     if (n_basic === '') {
       return Promise.reject('Basic is empty');
@@ -194,7 +210,7 @@ export function add_user_new_salary (new_salary_data) {
 
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_add_user_new_salary(n_userid, n_applicable_from, n_applicable_till, n_total_salary, n_leave, n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds).then(
+      async_add_user_new_salary(n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount, n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds).then(
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (json.error.length == 0) {

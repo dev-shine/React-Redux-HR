@@ -3,7 +3,7 @@
 }
 .content-salary {
   font-size: 10px;
-  .date-field, input{
+  .date-field, input, select{
     // min-width: 35px;
     height: 1.5rem;
     padding: 4px;
@@ -41,7 +41,7 @@
     margin-bottom: 5px;
     flex-wrap: wrap;
   }
-  .applicable-from, .applicable-till, .leaves{
+  .applicable-from, .applicable-till, .leaves, .incremented-value{
     display: flex;
     margin-right: 5px;
     .salary-title{

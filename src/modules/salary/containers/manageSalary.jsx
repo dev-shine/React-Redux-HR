@@ -64,7 +64,7 @@ class ManageSalary extends React.Component {
 
     if (typeof props.manageSalary.salary_structure.salary_details !== 'undefined' && props.manageSalary.salary_structure.salary_details.length > 0) {
       s_salary_history = props.manageSalary.salary_structure.salary_details.reverse();
-      s_user_latest_salary_details = s_salary_history[0];
+      //s_user_latest_salary_details = s_salary_history[0];
     }
     if (typeof props.manageSalary.salary_structure.holding_details !== 'undefined' && props.manageSalary.salary_structure.holding_details.length > 0) {
       s_holding_history = props.manageSalary.salary_structure.holding_details.reverse();
@@ -127,7 +127,6 @@ class ManageSalary extends React.Component {
     });
   }
   viewSalarySummary (e, id) {
-    console.log(e, id);
     e.stopPropagation();
     let new_details = this.state.salary_details;
     _.forEach(this.state.salary_history, (d, k) => {
@@ -138,7 +137,6 @@ class ManageSalary extends React.Component {
     this.setState({'user_latest_salary_details': new_details});
   }
   callDeleteUserSalary (e, user_id, salary_id) {
-    console.log(e, user_id, salary_id);
     e.stopPropagation();
     this.props.onDeleteUserSalary(user_id, salary_id).then((data) => {
       this.onUserClick(user_id);

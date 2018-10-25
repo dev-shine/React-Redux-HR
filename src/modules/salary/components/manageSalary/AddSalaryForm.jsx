@@ -11,6 +11,7 @@ class AddSalaryForm extends React.Component {
     this.state = {
       user_id: "",
       applicable_from: null,
+      applicable_till: null,
       total_salary: '0',
       total_earning: '0',
       total_deduction: '0',
@@ -65,14 +66,12 @@ class AddSalaryForm extends React.Component {
       this.setState({
         total_earning: n_total_earning,
         total_salary: n_total_salary,
-        total_deduction: n_total_deduction,
+        total_deduction: n_total_deduction
       })
     }
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
-
     let applicable_from = null
     let applicable_till = null
     let total_salary = "0"
@@ -141,8 +140,6 @@ class AddSalaryForm extends React.Component {
 
     this.setState({
       user_id: props.userid,
-      applicable_from: "",
-      applicable_till: "",
       total_salary: total_salary,
       leave: leave,
       basic: basic,
@@ -166,15 +163,11 @@ class AddSalaryForm extends React.Component {
       <div className="row salary-blocks-margin salary-row-bg">
         <div className="col-md-12 col-sm-12 salary-range-wrapper">
           <div className="applicable-from">
-            <span className="salary-title">Applicable From :
-                  {/* {this.state.applicable_from} */}
-            </span>
+            <span className="salary-title">Applicable From : </span>
             <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
           </div>
           <div className="applicable-till">
-            <span className="salary-title">Applicable Till :
-                  {/* {this.state.applicable_till} */}
-            </span>
+            <span className="salary-title">Applicable Till : </span>
             <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableTill} className="form-control date-field" />
           </div>
           <div className="leaves">
@@ -182,14 +175,6 @@ class AddSalaryForm extends React.Component {
             <input type="text" className="form-control leave-field" ref="leave" onChange={() => this.setState({ leave: this.refs.leave.value })} value={this.state.leave} />
           </div>
         </div>
-        {/* <div className="col-md-12">
-          <div className="col-md-5 col-sm-2 col-xs-12 salary-addition-width" style={{marginLeft: "8%", textAlign: "center"}}>
-            <span className="salary-total-title">Total Earnings: </span>{this.state.total_earning}
-          </div>
-          <div className="col-md-6 col-sm-2 col-xs-12 salary-deduction-width" style={{textAlign: "center"}}>
-            <span className="salary-total-title">Total Deductions: </span>{this.state.total_deduction}
-          </div>
-        </div> */}
         <div className="col-md-12 salary-col-padding salary-add-details">
           <div className="col-md-1 col-sm-2 col-xs-12 salary-total-width">
             <div className="col-sm-12 salary-total-title">Total</div>
@@ -275,7 +260,7 @@ class AddSalaryForm extends React.Component {
             <div className="col-sm-3 cell center salary-options-width">
               <i className="material-icons add-icon" onClick={() => this.props.callAddUserSalary(this.state)}>
                 add_circle_outline
-                        </i>
+              </i>
             </div>
           </div>
         </div>

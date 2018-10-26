@@ -208,12 +208,6 @@ class MyInventory extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter">
-                <UserHorizontalView
-                  profileImage={this.props.loggedUser.data.profileImage}
-                  name={this.state.user_profile_detail.name}
-                  jobtitle={this.state.user_profile_detail.jobtitle}
-                  inventory
-                />
                 {!show_alert_message?
                 <div className="col-xs-12 text-red bg-white">
                   <h6>Important:</h6>

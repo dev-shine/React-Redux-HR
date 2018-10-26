@@ -12,8 +12,10 @@ import UsersList from 'components/generic/UsersList';
 import UsersListHeader from 'components/generic/UsersListHeader';
 import UserSalaryHistory from 'components/salary/manageSalary/UserSalaryHistory';
 import UserHoldingHistory from 'components/salary/manageSalary/UserHoldingHistory';
+import UserHistoryHolding from 'components/salary/manageSalary/UserHistoryHolding';
 import FormAddHolding from 'modules/salary/components/manageSalary/FormAddHolding';
 import FormAddSalary from 'modules/salary/components/manageSalary/FormAddSalary';
+import AddHoldingForm from 'modules/salary/components/manageSalary/AddHoldingForm';
 import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
 import * as actions from 'appRedux/actions';
 import * as actions_usersList from 'appRedux/generic/actions/usersList';
@@ -196,6 +198,16 @@ class ManageSalary extends React.Component {
                       <div className="content-salary">
                         {data}
                         <AddSalaryForm {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} user_latest_salary_details={this.state.user_latest_salary_details}/>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="box m-t-xs">
+                    <div className="p-a block ">
+                      <h6 className="text-center">Holding Revision</h6>
+                      <hr />
+                      <div className="content-salary">
+                        <UserHistoryHolding data={this.state.holding_history} />
+                        <AddHoldingForm {...this.props} userid={this.state.selected_user_id} callAddUserHolding={this.callAddUserHolding} user_latest_salary_details={this.state.user_latest_salary_details}/>
                       </div>
                     </div>
                   </div>

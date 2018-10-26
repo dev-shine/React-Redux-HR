@@ -46,27 +46,27 @@ class AddHoldingForm extends React.Component {
     let date = this.state.applicable_from;
     return (
       <div className="row salary-blocks-margin salary-row-bg">
-        <div className="col-md-3">
+        <div className="col-sm-3">
           <div className="salary-title">Holding From : </div>
           <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingFrom} className="form-control date-field date-holding-field" />
         </div>
-        <div className="col-md-3">
+        <div className="col-sm-3">
           <div className="salary-title">Holding Till : </div>
           <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingTill} className="form-control date-field date-holding-field" />
         </div>
-        <div className="col-md-2">
+        <div className="col-sm-2">
           <div className="salary-title">Holding Amount : </div>
           <span>
             <input type="text" className="form-control" ref="holding_amount" onChange={() => this.setState({ holding_amount: this.refs.holding_amount.value })} value={this.state.holding_amount} />
           </span>
         </div>
-        <div className="col-md-3">
+        <div className="col-sm-3">
           <div className="salary-title">Reason : </div>
           <span>
             <input type="text" className="form-control" ref="reason" onChange={() => this.setState({ reason: this.refs.reason.value })} value={this.state.reason} />
           </span>
         </div>
-        <div className="col-xs-12 col-sm-8 col-md-1 text-center">
+        <div className="col-sm-1 text-center">
           <i className="material-icons add-icon" onClick={() => this.props.callAddUserHolding(this.state)}>
             add_circle_outline
               </i>

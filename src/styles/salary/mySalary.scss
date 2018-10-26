@@ -3,7 +3,8 @@
 }
 .content-salary {
   font-size: 10px;
-  .date-field, input{
+  .date-field, input, select{
+    // min-width: 35px;
     height: 1.5rem;
     padding: 4px;
     line-height: 0;
@@ -14,9 +15,11 @@
   .salary-input-wrapper{
     padding: 0px !important;
   }
-  
+  .divider{
+    padding: 0 5px;
+  }
   .date-field{
-    width: 50%;
+    // width: 50%;
     border-color: rgba(120, 130, 140, 0.2);
     input{
       height: 97%;
@@ -44,7 +47,7 @@
     margin-bottom: 5px;
     flex-wrap: wrap;
   }
-  .applicable-from, .applicable-till, .leaves{
+  .applicable-from, .applicable-till, .leaves, .incremented-value{
     display: flex;
     margin-right: 5px;
     .salary-title{
@@ -56,8 +59,11 @@
       white-space: nowrap;
     }
     .leave-field{
-      width: 30%;
+      // width: 30%;
     }    
+  }
+  .leaves{
+    max-width: 100px;
   }
   table{
     thead{

@@ -166,7 +166,7 @@ class AddSalaryForm extends React.Component {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from;
     let opt = [];
-    for(var i = 1; i <= 12; i++){
+    for(var i = 1; i <= 24; i++){
       opt.push(<option key={i} value={i}>{i} months</option>)
     }
     return (

@@ -5,9 +5,11 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
         <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => displayPage === "manage" && viewSalarySummary(e,item.test.id) }>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
                 <div>
-                    <span className="salary-title">Applicable From: </span> {item.test.applicable_from} |
-                    <span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated} |
-                    <span className="salary-title"> Updated On: </span> {item.test.last_updated_on}
+                    <span className="salary-title">Applicable From: </span> {item.test.applicable_from || '--'} <span className="divider">|</span>
+                    <span className="salary-title"> Applicable Till: </span> {`${item.test.applicable_month ? item.test.applicable_month+' months' : '--'} (${item.test.applicable_till || '--'})`} <span className="divider">|</span>
+                    <span className="salary-title"> Increment Amount: </span> {item.Increment_Amount || '--'} <span className="divider">|</span>
+                    <span className="salary-title"> Leaves Allocated: </span> {item.test.leaves_allocated || '--'} <span className="divider">|</span>
+                    <span className="salary-title"> Updated On: </span> {item.test.last_updated_on || '--'} 
                 </div>
             </div>
             <div className="col-md-12 salary-col-padding salary-details">

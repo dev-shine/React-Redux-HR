@@ -64,31 +64,31 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                         <div className="col-sm-12 salary-title">TDS</div>
                         <div className="col-sm-12">{item.TDS}</div>
                     </div>
-                    <div className="col-sm-3 col-xs-12 cell center salary-options-width">
-                        {displayPage === "manage" ?
-                            (
-                                <div className="text-center">
-                                    <i
-                                        className="material-icons delete-icon"
-                                        onClick={(e) => callDeleteUserSalary(e, item.test.user_Id, item.test.id)}
-                                    >
-                                        delete_forever
-                                    </i>
-                                </div>) :
-                            (
-                                <div>
-                                    <div className="col-sm-12 salary-title">Holding Amount</div>
-                                    <div className="col-sm-12 salary-holding-btn">
-                                        <input type="text"
-                                            className="col-md-6 col-sm-6"
-                                        />
-                                        <input type="button"
-                                            className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
-                                            value="Add" />
-                                    </div>
+                    {displayPage === "manage" ?
+                        (
+                            <div className="col-sm-3 col-xs-12 cell center salary-options-width">
+                            <div className="text-center">
+                                <i
+                                    className="material-icons delete-icon"
+                                    onClick={(e) => callDeleteUserSalary(e, item.test.user_Id, item.test.id)}
+                                >
+                                    delete_forever
+                                </i>
+                            </div>
+                            </div>) :
+                        (
+                            <div className="col-sm-3 col-xs-12 cell">
+                                <div className="col-sm-12 salary-title">Holding Amount</div>
+                                <div className="col-sm-12 salary-holding-btn">
+                                    <input type="text"
+                                        className="col-md-6 col-sm-6"
+                                    />
+                                    <input type="button"
+                                        className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
+                                        value="Add" />
                                 </div>
-                            )}
-                    </div>
+                            </div>
+                        )}
                 </div>
             </div>
         </div>

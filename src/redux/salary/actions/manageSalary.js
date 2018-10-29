@@ -243,7 +243,8 @@ function async_add_user_new_holding (n_userid, n_holding_from, n_holding_till, n
     action:             'add_user_holding',
     user_id:            n_userid,
     holding_start_date: n_holding_from,
-    holding_end_date:   n_holding_till,
+    holding_end_date:   "",
+    holding_month:      n_holding_till,
     holding_amt:        n_holding_amount,
     reason:             n_holding_reason
   });

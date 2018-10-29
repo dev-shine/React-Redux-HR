@@ -2,7 +2,6 @@ import React from "react";
 import moment from 'moment';
 
 const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
-    // console.log(moment(item.test.applicable_from).format("DD-MMMM-YYYY"));
     const total_earning = parseInt(item.Basic) + parseInt(item.HRA) + parseInt(item.Conveyance) + parseInt(item.Medical_Allowance) + parseInt(item.Special_Allowance) + parseInt(item.Arrears);
     const total_deduction = parseInt(item.EPF) + parseInt(item.Loan) + parseInt(item.Advance) + parseInt(item.Misc_Deductions) + parseInt(item.TDS);
     return (

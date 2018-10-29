@@ -1,16 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const UserHistoryHolding = ({ data }) => {
     let holdingHistory = _.map(data, (item, key) => {
         return (
             <tr key={key}>
                 <td>Rs.{item.holding_amt}</td>
-                <td>{item.holding_start_date}</td>
-                <td>{item.holding_end_date}</td>
+                <td>{moment(item.holding_start_date).format("DD-MMMM-YYYY")}</td>
+                <td>{moment(item.holding_end_date).format("DD-MMMM-YYYY")}</td>
                 <td>{item.reason}</td>
-                <td>{item.last_updated_on}</td>
+                <td>{moment(item.last_updated_on).format("DD-MMMM-YYYY")}</td>
             </tr>
         )
     });

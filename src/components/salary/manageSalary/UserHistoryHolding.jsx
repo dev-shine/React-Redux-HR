@@ -9,7 +9,7 @@ const UserHistoryHolding = ({ data }) => {
             <tr key={key}>
                 <td>Rs.{item.holding_amt}</td>
                 <td>{moment(item.holding_start_date).format("DD-MMMM-YYYY")}</td>
-                <td>{moment(item.holding_end_date).format("DD-MMMM-YYYY")}</td>
+                <td>{moment(item.holding_end_date).format("DD-MMMM-YYYY")} ({item.holding_month} {item.holding_month < 2 ? 'month' : 'months' })</td>
                 <td>{item.reason}</td>
                 <td>{moment(item.last_updated_on).format("DD-MMMM-YYYY")}</td>
             </tr>

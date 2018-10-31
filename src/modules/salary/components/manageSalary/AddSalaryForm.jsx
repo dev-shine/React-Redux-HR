@@ -60,7 +60,7 @@ class AddSalaryForm extends React.Component {
     let e_tds = this.state.tds
     let n_total_deduction = +e_epf + +e_loan + +e_advance + +e_misc_deduction + +e_tds
 
-    let n_total_salary = n_total_earning - n_total_deduction
+    let n_total_salary = (n_total_earning - n_total_deduction).toFixed(2);
 
     if (n_total_salary != this.state.total_salary
       || n_total_earning != this.state.total_earning

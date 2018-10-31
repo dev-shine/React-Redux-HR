@@ -15,6 +15,11 @@ const UserHistoryHolding = ({ data }) => {
             </tr>
         )
     });
+    if(data.length == 0){
+        return(
+            <div className="text-center">No holding data available</div>
+        )
+    }
     return (
         <div>
             <table className="table table-striped">

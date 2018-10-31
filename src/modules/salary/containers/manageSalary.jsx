@@ -65,7 +65,7 @@ class ManageSalary extends React.Component {
     let s_user_latest_holding_details = {};
 
     if (typeof props.manageSalary.salary_structure.salary_details !== 'undefined' && props.manageSalary.salary_structure.salary_details.length > 0) {
-      s_salary_history = props.manageSalary.salary_structure.salary_details.reverse();
+      s_salary_history = _.sortBy(props.manageSalary.salary_structure.salary_details, "date").reverse();
     }
     if (typeof props.manageSalary.salary_structure.holding_details !== 'undefined' && props.manageSalary.salary_structure.holding_details.length > 0) {
       s_holding_history = props.manageSalary.salary_structure.holding_details.reverse();
@@ -82,6 +82,9 @@ class ManageSalary extends React.Component {
         let defaultUserId = firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
+    }
+    if(this.props.manageSalary.status_message !== ''){
+      notify(this.props.manageSalary.status_message);
     }
   }
 
@@ -147,11 +150,6 @@ class ManageSalary extends React.Component {
   }
 
   render () {
-    let status_message = '';
-    if (this.props.manageSalary.status_message != '') {
-      status_message = <span className="label label-lg primary pos-rlt m-r-xs">
-        <b className="arrow left b-primary"></b>{this.props.manageSalary.status_message}</span>;
-    }
     let data;
     const message = this.state.msg;
     if (message) {
@@ -169,7 +167,7 @@ class ManageSalary extends React.Component {
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'Manage Salaries' + status_message} showLoading={this.props.frontend.show_loading} userListHeader />
+          <Header pageTitle={'Manage Salaries'} showLoading={this.props.frontend.show_loading} userListHeader />
           <UsersListHeader users={this.props.usersList.users} selectedUserId={this.state.selected_user_id} onUserClick={this.onUserClick} />
           <div className="app-body" id="view">
             <div className="padding">
@@ -180,7 +178,7 @@ class ManageSalary extends React.Component {
                 <div className="col-md-10 col-sm-12 col-xs-12">
                   <div className="box m-t-xs">
                     <div className="p-a text-center">
-                      <a href="" className="text-md m-t block">{this.state.selected_user_name}</a>
+                      <div className="text-md m-t block">{this.state.selected_user_name}</div>
                       <p>
                         <small>{this.state.selected_user_jobtitle}</small>
                       </p>

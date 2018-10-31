@@ -2,8 +2,8 @@ import React from "react";
 import moment from 'moment';
 
 const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
-    const total_earning = parseInt(item.Basic) + parseInt(item.HRA) + parseInt(item.Conveyance) + parseInt(item.Medical_Allowance) + parseInt(item.Special_Allowance) + parseInt(item.Arrears);
-    const total_deduction = parseInt(item.EPF) + parseInt(item.Loan) + parseInt(item.Advance) + parseInt(item.Misc_Deductions) + parseInt(item.TDS);
+    const total_earning = (item.Basic*1 + item.HRA*1 + item.Conveyance*1 + item.Medical_Allowance*1 + item.Special_Allowance*1 + item.Arrears*1).toFixed(2);
+    const total_deduction = (item.EPF*1 + item.Loan*1 + item.Advance*1 + item.Misc_Deductions*1 + item.TDS*1).toFixed(2);
     return (
         <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => displayPage === "manage" && viewSalarySummary(e, item.test.id)}>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">

@@ -79,12 +79,12 @@ class ContainerHealthStats extends React.Component {
                     <div className="app-body" id="view">
                         <div className="padding">
                         <div className="row m-10">
-                            <div className="col-sm-2 bg-white">
+                            <div className="col-sm-12 bg-white">
                                 <HealthStats {...this.props} />
                             </div>
                         </div>
                         <div className="row m-10">
-                            <div className="col-sm-6 b-health-stats secret-key-block">
+                            <div className="col-sm-12 secret-key-block">
                                 <HealthStatsSecretKey {...this.props} />
                             </div>
                         </div>

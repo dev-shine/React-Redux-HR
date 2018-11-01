@@ -195,12 +195,12 @@ class AddSalaryForm extends React.Component {
         <div className="col-md-12 salary-col-padding salary-add-details">
           <div className="col-md-1 col-sm-2 col-xs-12 salary-total-width">
             <div className="col-sm-12 salary-total-title">Total</div>
-            <div className="col-sm-12 salary-total-value">{this.state.total_salary}</div>
+            <div className="col-sm-12 salary-total-value">&#8377; {parseInt(this.state.total_salary).toFixed(2)}</div>
           </div>
           <div className="col-md-5 col-sm-10 col-xs-12 bg-success salary-add-block salary-addition-width">
             <div className="col-sm-12">
               <div className="col-sm-12 salary-total-title">Total Earnings</div>
-              <div className="col-sm-12 salary-total-value">{this.state.total_earning}</div>
+              <div className="col-sm-12 salary-total-value">&#8377; {parseInt(this.state.total_earning).toFixed(2)}</div>
             </div>
             <div className="col-sm-2 cell salary-basic-width">
               <div className="col-sm-12 salary-title">Basic</div>
@@ -242,7 +242,7 @@ class AddSalaryForm extends React.Component {
           <div className="col-md-6 col-sm-12 col-xs-12 bg-danger salary-add-block salary-deduction-width">
           <div className="col-sm-12">
               <div className="col-sm-12 salary-total-title">Total Deductions</div>
-              <div className="col-sm-12 salary-total-value">{this.state.total_deduction}</div>
+              <div className="col-sm-12 salary-total-value">&#8377; {parseInt(this.state.total_deduction).toFixed(2)}</div>
             </div>
             <div className="col-sm-2 cell salary-epf-width">
               <div className="col-sm-12 salary-title">EPF</div>

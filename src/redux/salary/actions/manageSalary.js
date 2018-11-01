@@ -322,7 +322,7 @@ export function error_delete_user_salary (data) {
 }
 
 function async_delete_user_salary (user_id, salary_id) {
-  return fireAjax('GET', '', {
+  return fireAjax('POST', '', {
     action:    'delete_salary',
     user_id:   user_id,
     salary_id: salary_id

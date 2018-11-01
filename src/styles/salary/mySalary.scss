@@ -256,6 +256,67 @@
       align-items: center;
     }
   }
+  .my-salary{
+    .salary-total-width {
+      width: 10%;
+    }
+    .salary-addition-width {
+      width: 54%;
+      .salary-basic-width {
+        width: 11%;
+        min-width: 46px;
+      }
+      .salary-hra-width {
+        width: 11%;
+        min-width: 46px;
+      }
+      .salary-conveyance-width {
+        width: 17%;
+        min-width: 60px;
+      }
+      .salary-medical-width {
+        width: 24%;
+        min-width: 60px;
+      }
+      .salary-special-width {
+        width: 23%;
+        min-width: 60px;
+      }
+      .salary-arrears-width {
+        width: 12%;
+        min-width: 46px;
+      }
+    }
+    .salary-deduction-width {
+      width: 36%;
+      .salary-epf-width {
+        width: 19%;
+        min-width: 46px;
+      }
+      .salary-loan-width {
+        width: 19%;
+        min-width: 46px;
+      }
+      .salary-advance-width {
+        width: 19%;
+        min-width: 46px;
+      }
+      .salary-miscdeductions-width {
+        width: 24%;
+        min-width: 84px;
+      }
+      .salary-tds-width {
+        width: 19%;
+        min-width: 46px;
+      }
+      // .salary-options-width {
+      //   width: 12%;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center;
+      // }
+    }
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .salary-total{

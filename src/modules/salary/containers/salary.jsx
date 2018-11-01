@@ -79,7 +79,7 @@ class Salary extends React.Component {
               <div className="box">
                 <div className="box-divider m-a-0"></div>
                 <div className="box-body">
-                  <div className="content-salary">
+                  <div className="content-salary my-salary">
                     <h6 className="salary-block-title">Salary Details</h6>
                     <hr />
                     {data}

@@ -91,18 +91,18 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                                 </i>
                                 </div>
                             </div>) :
-                        (
-                            <div className="col-sm-3 col-xs-12 cell">
-                                <div className="col-sm-12 salary-title">Holding Amount</div>
-                                <div className="col-sm-12 salary-holding-btn">
-                                    <input type="text"
-                                        className="col-md-6 col-sm-6"
-                                    />
-                                    <input type="button"
-                                        className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
-                                        value="Add" />
-                                </div>
-                            </div>
+                        ( ""
+                            // <div className="col-sm-3 col-xs-12 cell">
+                            //     <div className="col-sm-12 salary-title">Holding Amount</div>
+                            //     <div className="col-sm-12 salary-holding-btn">
+                            //         <input type="text"
+                            //             className="col-md-6 col-sm-6"
+                            //         />
+                            //         <input type="button"
+                            //             className="col-md-6 col-sm-6 sm-btn md-raised info salary-add-holding"
+                            //             value="Add" />
+                            //     </div>
+                            // </div>
                         )}
                 </div>
             </div>

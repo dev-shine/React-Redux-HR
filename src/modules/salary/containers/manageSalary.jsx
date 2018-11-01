@@ -79,7 +79,8 @@ class ManageSalary extends React.Component {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0];
-        let defaultUserId = firstUser.user_Id;
+        let selectedUser = this.props.location.query.selectedUser
+        let defaultUserId = selectedUser || firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
     }
@@ -103,6 +104,7 @@ class ManageSalary extends React.Component {
         selected_user_jobtitle = userDetails.jobtitle;
         selected_user_id = userDetails.user_Id;
         selected_user_date_of_joining = userDetails.dateofjoining;
+        this.props.router.push('manage_salary?selectedUser='+userDetails.user_Id)
       }
     }
     this.setState({
@@ -209,7 +211,7 @@ class ManageSalary extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="row no-gutter b-t box">
+                  {/* <div className="row no-gutter b-t box">
                     <div className="col-md-3 col-sm-4 col-xs-12 b-r box">
                       <div className="p-a block ">
                         <h6 className="text-center">Salary Revision</h6>
@@ -234,7 +236,7 @@ class ManageSalary extends React.Component {
                         <FormAddHolding {...this.props} userid={this.state.selected_user_id} callAddUserHolding={this.callAddUserHolding} user_latest_salary_details={this.state.user_latest_salary_details} />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

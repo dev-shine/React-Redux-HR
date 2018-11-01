@@ -4,6 +4,10 @@ import moment from 'moment';
 const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
     const total_earning = (item.Basic*1 + item.HRA*1 + item.Conveyance*1 + item.Medical_Allowance*1 + item.Special_Allowance*1 + item.Arrears*1).toFixed(2);
     const total_deduction = (item.EPF*1 + item.Loan*1 + item.Advance*1 + item.Misc_Deductions*1 + item.TDS*1).toFixed(2);
+    const valueDecimal = (val) => {
+        let v = Number(val);
+        return Math.round(v) === v ? v : v.toFixed(2);
+    }
     return (
         <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => displayPage === "manage" && viewSalarySummary(e, item.test.id)}>
             <div className="col-md-12 col-sm-12 salary-col-title-padding">
@@ -27,27 +31,27 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-basic-width">
                         <div className="col-sm-12 salary-title">Basic</div>
-                        <div className="col-sm-12">{item.Basic}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Basic)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-hra-width">
                         <div className="col-sm-12 salary-title">HRA</div>
-                        <div className="col-sm-12">{item.HRA}</div>
+                        <div className="col-sm-12">{valueDecimal(item.HRA)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-conveyance-width">
                         <div className="col-sm-12 salary-title">Conveyance</div>
-                        <div className="col-sm-12">{item.Conveyance}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Conveyance)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-medical-width">
                         <div className="col-sm-12 salary-title">Medical Allowance</div>
-                        <div className="col-sm-12">{item.Medical_Allowance}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Medical_Allowance)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-special-width">
                         <div className="col-sm-12 salary-title">Special Allowance</div>
-                        <div className="col-sm-12">{item.Special_Allowance}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Special_Allowance)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-arrears-width">
                         <div className="col-sm-12 salary-title">Arrears</div>
-                        <div className="col-sm-12">{item.Arrears}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Arrears)}</div>
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12 col-xs-12 bg-danger salary-block salary-deduction-width">
@@ -57,23 +61,23 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-epf-width">
                         <div className="col-sm-12 salary-title">EPF</div>
-                        <div className="col-sm-12">{item.EPF}</div>
+                        <div className="col-sm-12">{valueDecimal(item.EPF)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-loan-width">
                         <div className="col-sm-12 salary-title">Loan</div>
-                        <div className="col-sm-12">{item.Loan}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Loan)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-advance-width">
                         <div className="col-sm-12 salary-title">Advance</div>
-                        <div className="col-sm-12">{item.Advance}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Advance)}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-miscdeductions-width">
                         <div className="col-sm-12 salary-title">Misc Deductions</div>
-                        <div className="col-sm-12">{item.Misc_Deductions}</div>
+                        <div className="col-sm-12">{valueDecimal(item.Misc_Deductions)}</div>
                     </div>
                     <div className="col-sm-1 col-xs-12 cell salary-tds-width">
                         <div className="col-sm-12 salary-title">TDS</div>
-                        <div className="col-sm-12">{item.TDS}</div>
+                        <div className="col-sm-12">{valueDecimal(item.TDS)}</div>
                     </div>
                     {displayPage === "manage" ?
                         (

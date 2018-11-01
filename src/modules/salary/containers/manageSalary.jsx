@@ -79,7 +79,8 @@ class ManageSalary extends React.Component {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0];
-        let defaultUserId = firstUser.user_Id;
+        let selectedUser = this.props.location.query.selectedUser
+        let defaultUserId = selectedUser || firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
     }
@@ -103,6 +104,7 @@ class ManageSalary extends React.Component {
         selected_user_jobtitle = userDetails.jobtitle;
         selected_user_id = userDetails.user_Id;
         selected_user_date_of_joining = userDetails.dateofjoining;
+        this.props.router.push('manage_salary?selectedUser='+userDetails.user_Id)
       }
     }
     this.setState({

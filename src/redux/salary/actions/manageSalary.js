@@ -51,8 +51,8 @@ export function error_add_user_salary (data) {
   return createAction(constants.ACTION_ERROR_ADD_USER_SALARY)(data);
 }
 
-function async_add_user_new_salary (n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount,  n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds) {
-  return fireAjax('POST', '', {
+function async_add_user_new_salary (n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount,  n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds, first_update) {
+  let payload = {
     action:            'add_user_salary',
     user_id:           n_userid,
     applicable_from:   n_applicable_from,
@@ -72,7 +72,11 @@ function async_add_user_new_salary (n_userid, n_applicable_from, n_applicable_ti
     advance:           n_advance,
     misc_deduction:    n_misc_deduction,
     tds:               n_tds
-  });
+  }
+  if(first_update){
+    payload.first_update = first_update;
+  }
+  return fireAjax('POST', '', payload);
 }
 
 export function add_user_new_salary (new_salary_data) {
@@ -210,14 +214,16 @@ export function add_user_new_salary (new_salary_data) {
 
     return new Promise((resolve, reject) => {
       dispatch(show_loading()); // show loading icon
-      async_add_user_new_salary(n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount, n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds).then(
+      async_add_user_new_salary(n_userid, n_applicable_from, n_applicable_till, n_applicable_month, n_total_salary, n_leave, n_increment_amount, n_basic, n_hra, n_conveyance, n_medical_allowance, n_special_allowance, n_arrear, n_epf, n_loan, n_advance, n_misc_deduction, n_tds, new_salary_data.first_update).then(
         (json) => {
           dispatch(hide_loading()); // hide loading icon
           if (json.error.length == 0) {
             dispatch(success_add_user_salary(json.data));
             dispatch(get_user_salary_details(n_userid));
+            resolve();
           } else {
             dispatch(error_add_user_salary(json.error[0]));
+            reject(json.error[0]);
           }
         },
         (error) => {

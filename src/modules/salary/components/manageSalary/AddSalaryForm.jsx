@@ -9,7 +9,7 @@ class AddSalaryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: "",
+      user_id: this.props.userid || "",
       applicable_from: null,
       applicable_till: null,
       applicable_month: '',
@@ -90,76 +90,77 @@ class AddSalaryForm extends React.Component {
     let advance = '0'
     let misc_deduction = '0'
     let tds = '0'
+    if(props.user_latest_salary_details){
+      if (typeof props.user_latest_salary_details.test != 'undefined') {
+        if (typeof props.user_latest_salary_details.test.applicable_from != 'undefined') {
+          //applicable_from = props.user_latest_salary_details.test.applicable_from
+        }
+        if (typeof props.user_latest_salary_details.test.applicable_till != 'undefined') {
+          //applicable_till = props.user_latest_salary_details.test.applicable_till
+        }
+        if (typeof props.user_latest_salary_details.test.total_salary != 'undefined') {
+          total_salary = props.user_latest_salary_details.test.total_salary
+        }
 
-    if (typeof props.user_latest_salary_details.test != 'undefined') {
-      if (typeof props.user_latest_salary_details.test.applicable_from != 'undefined') {
-        //applicable_from = props.user_latest_salary_details.test.applicable_from
+        if (typeof props.user_latest_salary_details.test.leaves_allocated != 'undefined') {
+          leave = props.user_latest_salary_details.test.leaves_allocated
+        }
+        if (typeof props.user_latest_salary_details.test.increment_amount != 'undefined') {
+          increment_amount = props.user_latest_salary_details.test.increment_amount
+        }
       }
-      if (typeof props.user_latest_salary_details.test.applicable_till != 'undefined') {
-        //applicable_till = props.user_latest_salary_details.test.applicable_till
+      if (typeof props.user_latest_salary_details.Basic != 'undefined') {
+        basic = props.user_latest_salary_details.Basic
       }
-      if (typeof props.user_latest_salary_details.test.total_salary != 'undefined') {
-        total_salary = props.user_latest_salary_details.test.total_salary
+      if (typeof props.user_latest_salary_details.HRA != 'undefined') {
+        hra = props.user_latest_salary_details.HRA
+      }
+      if (typeof props.user_latest_salary_details.Conveyance != 'undefined') {
+        conveyance = props.user_latest_salary_details.Conveyance
+      }
+      if (typeof props.user_latest_salary_details.Medical_Allowance != 'undefined') {
+        medical_allowance = props.user_latest_salary_details.Medical_Allowance
+      }
+      if (typeof props.user_latest_salary_details.Medical_Allowance != 'undefined') {
+        special_allowance = props.user_latest_salary_details.Special_Allowance
+      }
+      if (typeof props.user_latest_salary_details.Arrears != 'undefined') {
+        arrear = props.user_latest_salary_details.Arrears
+      }
+      if (typeof props.user_latest_salary_details.EPF != 'undefined') {
+        epf = props.user_latest_salary_details.EPF
+      }
+      if (typeof props.user_latest_salary_details.Loan != 'undefined') {
+        loan = props.user_latest_salary_details.Loan
+      }
+      if (typeof props.user_latest_salary_details.Advance != 'undefined') {
+        advance = props.user_latest_salary_details.Advance
+      }
+      if (typeof props.user_latest_salary_details.Misc_Deductions != 'undefined') {
+        misc_deduction = props.user_latest_salary_details.Misc_Deductions
+      }
+      if (typeof props.user_latest_salary_details.TDS != 'undefined') {
+        tds = props.user_latest_salary_details.TDS
       }
 
-      if (typeof props.user_latest_salary_details.test.leaves_allocated != 'undefined') {
-        leave = props.user_latest_salary_details.test.leaves_allocated
-      }
-      if (typeof props.user_latest_salary_details.test.increment_amount != 'undefined') {
-        increment_amount = props.user_latest_salary_details.test.increment_amount
-      }
+      this.setState({
+        user_id: props.userid,
+        total_salary: total_salary,
+        leave: leave,
+        increment_amount: increment_amount,
+        basic: basic,
+        hra: hra,
+        conveyance: conveyance,
+        medical_allowance: medical_allowance,
+        special_allowance: special_allowance,
+        arrear: arrear,
+        epf: epf,
+        loan: loan,
+        advance: advance,
+        misc_deduction: misc_deduction,
+        tds: tds,
+      })
     }
-    if (typeof props.user_latest_salary_details.Basic != 'undefined') {
-      basic = props.user_latest_salary_details.Basic
-    }
-    if (typeof props.user_latest_salary_details.HRA != 'undefined') {
-      hra = props.user_latest_salary_details.HRA
-    }
-    if (typeof props.user_latest_salary_details.Conveyance != 'undefined') {
-      conveyance = props.user_latest_salary_details.Conveyance
-    }
-    if (typeof props.user_latest_salary_details.Medical_Allowance != 'undefined') {
-      medical_allowance = props.user_latest_salary_details.Medical_Allowance
-    }
-    if (typeof props.user_latest_salary_details.Medical_Allowance != 'undefined') {
-      special_allowance = props.user_latest_salary_details.Special_Allowance
-    }
-    if (typeof props.user_latest_salary_details.Arrears != 'undefined') {
-      arrear = props.user_latest_salary_details.Arrears
-    }
-    if (typeof props.user_latest_salary_details.EPF != 'undefined') {
-      epf = props.user_latest_salary_details.EPF
-    }
-    if (typeof props.user_latest_salary_details.Loan != 'undefined') {
-      loan = props.user_latest_salary_details.Loan
-    }
-    if (typeof props.user_latest_salary_details.Advance != 'undefined') {
-      advance = props.user_latest_salary_details.Advance
-    }
-    if (typeof props.user_latest_salary_details.Misc_Deductions != 'undefined') {
-      misc_deduction = props.user_latest_salary_details.Misc_Deductions
-    }
-    if (typeof props.user_latest_salary_details.TDS != 'undefined') {
-      tds = props.user_latest_salary_details.TDS
-    }
-
-    this.setState({
-      user_id: props.userid,
-      total_salary: total_salary,
-      leave: leave,
-      increment_amount: increment_amount,
-      basic: basic,
-      hra: hra,
-      conveyance: conveyance,
-      medical_allowance: medical_allowance,
-      special_allowance: special_allowance,
-      arrear: arrear,
-      epf: epf,
-      loan: loan,
-      advance: advance,
-      misc_deduction: misc_deduction,
-      tds: tds,
-    })
   }
 
   render() {

@@ -311,6 +311,7 @@ export function updateUserProfileDetails(new_profile_details) {
             dispatch(success_update_user_profile_details(json.data.message));
           } else {
             dispatch(error_update_user_profile_details(json.data.message));
+            reject(json.data)
           }
         },
         error => {

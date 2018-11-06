@@ -18,6 +18,7 @@ import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails
 import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDetails';
 import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
 import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
+import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
 import FormAddNewEmployeeDetails from 'modules/manageUsers/components/FormAddNewEmployeeDetails';
 import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
 import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
@@ -25,7 +26,9 @@ import * as actions from 'appRedux/actions';
 import * as actionsUsersList from 'appRedux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
+import * as actions_manageSalary from 'appRedux/salary/actions/manageSalary';
 import { RaisedButton } from 'material-ui';
+import Dialog from 'material-ui/Dialog';
 
 class ManageUsers extends React.Component {
   constructor (props) {
@@ -41,7 +44,8 @@ class ManageUsers extends React.Component {
       user_payslip_history: [],
       employee_life_cycle:  {},
       'openIframe':         false,
-      username:             ''
+      username:             '',
+      open:                 false
     };
     this.onUserClick = this.onUserClick.bind(this);
     this.callUpdateUserBankDetails = this.callUpdateUserBankDetails.bind(this);
@@ -51,6 +55,7 @@ class ManageUsers extends React.Component {
     this.handleCloseIframe = this.handleCloseIframe.bind(this);
     this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
     this.handleChangeSteps = this.handleChangeSteps.bind(this);
+    this.callAddUserSalary = this.callAddUserSalary.bind(this);
   }
   componentWillMount () {
     this.props.onUsersList();
@@ -125,9 +130,16 @@ class ManageUsers extends React.Component {
       notify(error);
     });
   }
-  callUpdateUserProfileDetails (newProfileDetails) {
+  callUpdateUserProfileDetails (newProfileDetails) {  
+    // this.setState({initiateProfileUpdate: false}); 
     this.props.onUpdateUserProfileDetails(newProfileDetails).then((data) => {}, (error) => {
-      notify(error);
+      if(error.message === 'You have to add salary first.'){
+        this.setState({
+          open:true
+        })
+      } else {
+        notify(error);
+      }
     });
   }
  
@@ -166,9 +178,32 @@ class ManageUsers extends React.Component {
   handleCloseIframe () {
     this.setState({openIframe: false});
   }
+  callAddUserSalary (new_salary_details) {
+    new_salary_details.first_update = true;
+    this.props.onAddNewSalary(new_salary_details).then((data) => {
+      this.setState({
+        open:false,
+        // initiateProfileUpdate: true
+      })
+    }, (error) => {
+      notify(error);
+    });
+  }
   render () {
+    console.log('this.state.open', this.state.open);
+    
     return (
       <div>
+        <Dialog title="Add Salary"
+          modal={false}
+          open={this.state.open}
+          onRequestClose={()=>this.setState({open:false})}
+          contentClassName="dialog-class"
+          autoScrollBodyContent>
+          <div  className="content-salary">
+            <AddSalaryForm {...this.props} userid={this.state.selected_user_id} callAddUserSalary={this.callAddUserSalary} />
+          </div>
+        </Dialog>
         <AlertNotification message={this.props.manageUsers.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
@@ -223,6 +258,7 @@ class ManageUsers extends React.Component {
                         ref="userForm"
                         user_profile_detail={this.state.user_profile_detail}
                         callUpdateUserProfileDetails={this.callUpdateUserProfileDetails}
+                        // initiateProfileUpdate={this.state.initiateProfileUpdate}
                         username={this.state.username} {...this.props}
                       />
                     </div>
@@ -313,7 +349,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onHandleChangeSteps: (userid, stepid) => {
       return dispatch(actionsManageUsers.changeSteps(userid, stepid));
-    }
+    },
+    onAddNewSalary: (new_salary_data) => {
+      return dispatch(actions_manageSalary.add_user_new_salary(new_salary_data));
+    },
   };
 };
 

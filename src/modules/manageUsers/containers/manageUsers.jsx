@@ -131,12 +131,11 @@ class ManageUsers extends React.Component {
     });
   }
   callUpdateUserProfileDetails (newProfileDetails) {  
-    this.setState({initiateProfileUpdate: false}); 
+    // this.setState({initiateProfileUpdate: false}); 
     this.props.onUpdateUserProfileDetails(newProfileDetails).then((data) => {}, (error) => {
       if(error.message === 'You have to add salary first.'){
         this.setState({
-          open:true,
-          asked
+          open:true
         })
       } else {
         notify(error);
@@ -184,19 +183,21 @@ class ManageUsers extends React.Component {
     this.props.onAddNewSalary(new_salary_details).then((data) => {
       this.setState({
         open:false,
-        initiateProfileUpdate: true
+        // initiateProfileUpdate: true
       })
     }, (error) => {
       notify(error);
     });
   }
   render () {
+    console.log('this.state.open', this.state.open);
+    
     return (
       <div>
         <Dialog title="Add Salary"
           modal={false}
           open={this.state.open}
-          onRequestClose={this.setState({open:false})}
+          onRequestClose={()=>this.setState({open:false})}
           contentClassName="dialog-class"
           autoScrollBodyContent>
           <div  className="content-salary">
@@ -257,7 +258,7 @@ class ManageUsers extends React.Component {
                         ref="userForm"
                         user_profile_detail={this.state.user_profile_detail}
                         callUpdateUserProfileDetails={this.callUpdateUserProfileDetails}
-                        initiateProfileUpdate={this.state.initiateProfileUpdate}
+                        // initiateProfileUpdate={this.state.initiateProfileUpdate}
                         username={this.state.username} {...this.props}
                       />
                     </div>

@@ -11,6 +11,7 @@ import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
 import * as actions from 'appRedux/actions';
 import * as actions_salary from 'appRedux/salary/actions/viewSalary';
 import SalaryBlock from "components/generic/SalaryBlock";
+import {isMobile} from 'react-device-detect';
 
 class Salary extends React.Component {
   constructor(props) {
@@ -62,7 +63,9 @@ class Salary extends React.Component {
   }
   render() {
     let data;
-    if (this.props.salary.salary_history) {
+    if(!isMobile){
+      data = <div className="not-displayed">Your salary details are hidden on desktop for your own security purpose, you can only view your salary on mobile.</div>
+    }else if (this.props.salary.salary_history) {
       data = this.props.salary.salary_history.map((item, index) => {
         return (
           <SalaryBlock key={index} item={item} /> 

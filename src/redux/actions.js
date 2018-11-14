@@ -181,3 +181,7 @@ export const requestStatsLeaveHistory = createAction(constants.REQUEST_STATS_LEA
 export const successStatsLeaveHistory = createAction(constants.SUCCESS_STATS_LEAVE_HISTORY);
 export const errorStatsLeaveHistory = createAction(constants.ERROR_STATS_LEAVE_HISTORY);
 export const updateFlag = createAction(constants.UPDATE_FLAG);
+
+export const requestGetAttendanceUploadSetting = createAction(constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING);
+export const successGetAttendanceUploadSetting = createAction(constants.SUCCESS_GET_ATTANDANCE_UPLOAD_SETTING);
+export const errorGetAttendanceUploadSetting = createAction(constants.ERROR_GET_ATTANDANCE_UPLOAD_SETTING);

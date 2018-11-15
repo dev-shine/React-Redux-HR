@@ -25,7 +25,7 @@ let initialState = {
   }
 };
 
-const requestGetAttendanceUploadSetting = (state, action) => update(state, {
+const requestAttendanceUploadSetting = (state, action) => update(state, {
   attendanceUploadSetting: {
     isLoading: {$set: true},
     isError:   {$set: false},
@@ -42,24 +42,24 @@ const successGetAttendanceUploadSetting = (state, action) => update(state, {
     message:   {$set: ''}
   }
 });
-const errorGetAttendanceUploadSetting = (state, action) => update(state, {
+const errorAttendanceUploadSetting = (state, action) => update(state, {
   attendanceUploadSetting: {
     isLoading: {$set: false},
     isError:   {$set: true},
     isSuccess: {$set: false},
-    message:   {$set: 'Error !'}
+    message:   {$set: action.payload}
   }
 });
 
-const requestAddAttendanceUploadSetting = (state, action) => update(state, {
-  addAttendanceUploadSetting: {
-    isLoading: {$set: true},
-    isError:   {$set: false},
-    isSuccess: {$set: false},
-    message:   {$set: ''}
-  }
-});
-const successAddAttendanceUploadSetting = (state, action) => update(state, {
+// const requestAddAttendanceUploadSetting = (state, action) => update(state, {
+//   addAttendanceUploadSetting: {
+//     isLoading: {$set: true},
+//     isError:   {$set: false},
+//     isSuccess: {$set: false},
+//     message:   {$set: ''}
+//   }
+// });
+const successAttendanceUploadSettingActions = (state, action) => update(state, {
   addAttendanceUploadSetting: {
     isLoading: {$set: false},
     isError:   {$set: false},
@@ -67,50 +67,50 @@ const successAddAttendanceUploadSetting = (state, action) => update(state, {
     message:   {$set: ''}
   }
 });
-const errorAddAttendanceUploadSetting = (state, action) => update(state, {
-  addAttendanceUploadSetting: {
-    isLoading: {$set: false},
-    isError:   {$set: true},
-    isSuccess: {$set: false},
-    message:   {$set: 'Error !'}
-  }
-});
+// const errorAddAttendanceUploadSetting = (state, action) => update(state, {
+//   addAttendanceUploadSetting: {
+//     isLoading: {$set: false},
+//     isError:   {$set: true},
+//     isSuccess: {$set: false},
+//     message:   {$set: 'Error !'}
+//   }
+// });
 
-const requestDeleteAttendanceUploadSetting = (state, action) => update(state, {
-  deleteAttendanceUploadSetting: {
-    isLoading: {$set: true},
-    isError:   {$set: false},
-    isSuccess: {$set: false},
-    message:   {$set: ''}
-  }
-});
-const successDeleteAttendanceUploadSetting = (state, action) => update(state, {
-  deleteAttendanceUploadSetting: {
-    isLoading: {$set: false},
-    isError:   {$set: false},
-    isSuccess: {$set: true},
-    message:   {$set: ''}
-  }
-});
-const errorDeleteAttendanceUploadSetting = (state, action) => update(state, {
-  deleteAttendanceUploadSetting: {
-    isLoading: {$set: false},
-    isError:   {$set: true},
-    isSuccess: {$set: false},
-    message:   {$set: 'Error !'}
-  }
-});
+// const requestDeleteAttendanceUploadSetting = (state, action) => update(state, {
+//   deleteAttendanceUploadSetting: {
+//     isLoading: {$set: true},
+//     isError:   {$set: false},
+//     isSuccess: {$set: false},
+//     message:   {$set: ''}
+//   }
+// });
+// const successDeleteAttendanceUploadSetting = (state, action) => update(state, {
+//   deleteAttendanceUploadSetting: {
+//     isLoading: {$set: false},
+//     isError:   {$set: false},
+//     isSuccess: {$set: true},
+//     message:   {$set: ''}
+//   }
+// });
+// const errorDeleteAttendanceUploadSetting = (state, action) => update(state, {
+//   deleteAttendanceUploadSetting: {
+//     isLoading: {$set: false},
+//     isError:   {$set: true},
+//     isSuccess: {$set: false},
+//     message:   {$set: 'Error !'}
+//   }
+// });
 
 export default handleActions({
-  [constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING]: requestGetAttendanceUploadSetting,
+  [constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING]: requestAttendanceUploadSetting,
   [constants.SUCCESS_GET_ATTANDANCE_UPLOAD_SETTING]: successGetAttendanceUploadSetting,
-  [constants.ERROR_GET_ATTANDANCE_UPLOAD_SETTING]:   errorGetAttendanceUploadSetting, 
+  [constants.ERROR_GET_ATTANDANCE_UPLOAD_SETTING]:   errorAttendanceUploadSetting, 
 
-  [constants.REQUEST_ADD_ATTANDANCE_UPLOAD_SETTING]: requestAddAttendanceUploadSetting,
-  [constants.SUCCESS_ADD_ATTANDANCE_UPLOAD_SETTING]: successAddAttendanceUploadSetting,
-  [constants.ERROR_ADD_ATTANDANCE_UPLOAD_SETTING]:   errorAddAttendanceUploadSetting, 
+  [constants.REQUEST_ADD_ATTANDANCE_UPLOAD_SETTING]: requestAttendanceUploadSetting,
+  [constants.SUCCESS_ADD_ATTANDANCE_UPLOAD_SETTING]: successAttendanceUploadSettingActions,
+  [constants.ERROR_ADD_ATTANDANCE_UPLOAD_SETTING]:   errorAttendanceUploadSetting, 
 
-  [constants.REQUEST_DELETE_ATTANDANCE_UPLOAD_SETTING]: requestDeleteAttendanceUploadSetting,
-  [constants.SUCCESS_DELETE_ATTANDANCE_UPLOAD_SETTING]: successDeleteAttendanceUploadSetting,
-  [constants.ERROR_DELETE_ATTANDANCE_UPLOAD_SETTING]:   errorDeleteAttendanceUploadSetting 
+  [constants.REQUEST_DELETE_ATTANDANCE_UPLOAD_SETTING]: requestAttendanceUploadSetting,
+  [constants.SUCCESS_DELETE_ATTANDANCE_UPLOAD_SETTING]: successAttendanceUploadSettingActions,
+  [constants.ERROR_DELETE_ATTANDANCE_UPLOAD_SETTING]:   errorAttendanceUploadSetting 
 }, initialState);

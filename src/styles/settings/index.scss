@@ -6,9 +6,10 @@
         width: 50%;
     }
     .add-new-key-column{
-        max-width: 250px;
-        min-width: 250px;
+        max-width: 200px;
+        min-width: 200px;
         width: 25%;
+        text-align: center;
     }
     .keys-wrapper{
         display: flex;
@@ -20,7 +21,6 @@
         background: rgba(0, 156, 172, 0.44);
         color: #FFF;
         display: flex;
-        // position: absolute;
         align-items: center;
         justify-content: space-between;
         border-radius: 6px;

@@ -33,7 +33,7 @@ class ContainerHealthStats extends React.Component {
                     <div className="app-body" id="view">
                         <div className="padding">
                         <div className="row m-10">
-                            <div className="col-sm-12 bg-white">
+                            <div className="col-sm-6 bg-white">
                                 <AttendanceUploadSetting {...this.props} />
                             </div>
                         </div>

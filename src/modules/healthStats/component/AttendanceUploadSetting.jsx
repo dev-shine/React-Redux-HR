@@ -34,7 +34,6 @@ export default class AttendanceUploadSetting extends React.Component {
         this.props.requestDeleteAttendanceUploadSetting(params);
     }
     render() {
-        console.log('this.props', this.props);
         let config = this.props.attendanceUploadSetting.data;
         let userKeys = [], dateTimeKeys = [];    
         config.user_id && config.user_id.map((keyText, i)=>{

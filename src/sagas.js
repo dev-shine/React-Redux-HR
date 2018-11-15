@@ -2,7 +2,7 @@ import {takeLatest} from 'redux-saga/effects';
 import * as constants from 'appRedux/constants';
 import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'appRedux/auth/actions';
 import {holidayList, addHoliday, holidayType, deleteHoliday} from 'appRedux/holidays/actions';
-import {getAttendanceUploadSettings} from 'appRedux/settings/actions';
+import {getAttendanceUploadSettings, addAttendanceUploadSettings, deleteAttendanceUploadSettings} from 'appRedux/settings/actions';
 import { getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList, getLeastActiveEmp} from 'appRedux/manageUsers/actions/dashboard';
 import {userMonthlyAttendance} from 'appRedux/attendance/actions/monthlyAttendance';
 import {getUserDayAttendance, userAttendanceStatus} from 'appRedux/attendance/actions/attendanceRequests';
@@ -62,6 +62,8 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_GET_TEAM, getTeam);
 
   yield takeLatest(constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING, getAttendanceUploadSettings);
+  yield takeLatest(constants.REQUEST_ADD_ATTANDANCE_UPLOAD_SETTING, addAttendanceUploadSettings);
+  yield takeLatest(constants.REQUEST_DELETE_ATTANDANCE_UPLOAD_SETTING, deleteAttendanceUploadSettings);
 }
 
 export default function* rootSaga () {

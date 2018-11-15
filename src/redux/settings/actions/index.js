@@ -7,8 +7,6 @@ export function* getAttendanceUploadSettings(action) {
         const response = yield call(fireAjax, 'POST', '', {
             'action': 'get_attendance_keys'
         });
-        console.log('response', response);
-        
         if (response.error === 0) {
             yield put(actions.successGetAttendanceUploadSetting(response.data));
         } else if (response.error === 1) {
@@ -19,118 +17,36 @@ export function* getAttendanceUploadSettings(action) {
     }
 }
 
-export function* healthStatsSecretKeyListRequest(action) {
+export function* addAttendanceUploadSettings(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {
-            'action': 'get_all_secret_keys'
+            'action': 'add_attendance_keys',
+            ...action.payload
         });
         if (response.error === 0) {
-            yield put(actions.successHealthStatsSecretKeyList(response.data));
+            yield put(actions.successAddAttendanceUploadSetting(response.data));
+            yield put(actions.requestGetAttendanceUploadSetting());
         } else if (response.error === 1) {
-            yield put(actions.errorHealthStatsSecretKeyList(response.data.message));
+            yield put(actions.errorAddAttendanceUploadSetting(response.data.message));
         }
     } catch (e) {
-        yield put(actions.errorHealthStatsSecretKeyList('Error Occurs !!'));
+        yield put(actions.errorAddAttendanceUploadSetting('Error Occurs !!'));
     }
 }
 
-export function* healthStatsAddSecretKeyRequest(action) {
+export function* deleteAttendanceUploadSettings(action) {
     try {
         const response = yield call(fireAjax, 'POST', '', {
-            'action': 'generate_secret_key',
-            'app_name': action.payload
+            'action': 'delete_attendance_keys',
+            ...action.payload
         });
         if (response.error === 0) {
-            yield put(actions.successHealthStatsAddSecretKey(response.data.message));
-            yield put(actions.requestHealthStatsSecretKeyList());
+            yield put(actions.successDeleteAttendanceUploadSetting());
+            yield put(actions.requestGetAttendanceUploadSetting());
         } else if (response.error === 1) {
-            yield put(actions.errorHealthStatsAddSecretKey(response.data.message));
+            yield put(actions.errorDeleteAttendanceUploadSetting(response.data.message));
         }
     } catch (e) {
-        yield put(actions.errorHealthStatsAddSecretKey('Error Occurs !!'));
-    }
-}
-
-export function* healthStatsDeleteSecretKeyRequest(action) {
-    try {
-        const response = yield call(fireAjax, 'POST', '', {
-            'action': 'delete_secret_key',
-            'app_id': action.payload
-        });
-        if (response.error === 0) {
-            yield put(actions.successHealthStatsDeleteSecretKey(response.data.message));
-            yield put(actions.requestHealthStatsSecretKeyList());
-        } else if (response.error === 1) {
-            yield put(actions.errorHealthStatsDeleteSecretKey(response.data.message));
-        }
-    } catch (e) {
-        yield put(actions.errorHealthStatsDeleteSecretKey('Error Occurs !!'));
-    }
-}
-
-export function* healthStatsRegenerateSecretKeyRequest(action) {
-    try {
-        const response = yield call(fireAjax, 'POST', '', {
-            'action': 'regenerate_secret_key',
-            'app_id': action.payload
-        });
-        if (response.error === 0) {
-            yield put(actions.successHealthStatsRegenerateSecretKey(response.data.message));
-            yield put(actions.requestHealthStatsSecretKeyList());
-        } else if (response.error === 1) {
-            yield put(actions.errorHealthStatsRegenerateSecretKey(response.data.message));
-        }
-    } catch (e) {
-        yield put(actions.errorHealthStatsRegenerateSecretKey('Error Occurs !!'));
-    }
-}
-
-export function* deleteHealthStats(action) {
-    try {
-        const response = yield call(fireAjax, 'POST', '', {
-            'action': 'delete_attendance_stats_summary',
-            'year' : action.payload
-        });
-        if (response.error === 0) {
-            yield put(actions.successDeleteHealthStats(response.data.message));
-            yield put(actions.requestHealthStats());
-        } else if (response.error === 1) {
-            yield put(actions.errorDeleteHealthStats(response.data.message));
-        }
-    } catch (e) {
-        yield put(actions.errorDeleteHealthStats('Error Occurs !!'));
-    }
-}
-
-export function* requestStatsHistory(action) {
-    try {
-        const response = yield call(fireAjax, 'POST', '', {
-            'action': 'get_employees_history_stats'
-        });
-        if (response.error === 0) {
-            yield put(actions.successStatsHistory(response.data));
-        } else if (response.error === 1) {
-            yield put(actions.errorStatsHistory('API response error.'));
-        }
-    } catch (e) {
-        yield put(actions.errorStatsHistory('Error Occurs !!'));
-    }
-}
-
-export function* requestStatsLeave(action) {
-    try {
-        const response = yield call(fireAjax, 'POST', '', {
-            'action': 'get_employees_leaves_stats',
-            'month' : action.payload.month,
-            'year' : action.payload.year
-            
-        });
-        if (response.error === 0) {
-            yield put(actions.successStatsLeaveHistory(response.data));
-        } else if (response.error === 1) {
-            yield put(actions.errorStatsLeaveHistory('API response error.'));
-        }
-    } catch (e) {
-        yield put(actions.errorStatsLeaveHistory('Error Occurs !!'));
+        yield put(actions.errorDeleteAttendanceUploadSetting('Error Occurs !!'));
     }
 }

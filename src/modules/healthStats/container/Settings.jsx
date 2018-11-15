@@ -20,48 +20,10 @@ class ContainerHealthStats extends React.Component {
     componentWillMount() {
         this.props.onIsAlreadyLogin();
         this.props.getAttendanceUploadSettings();
-        // this.props.requestStatsHistory();
-        // this.props.healthStatsKeyListRequest();
-        // this.year = getYearArray();
-        // this.props.requestStatsLeaveHistory({year:this.state.year,month:this.state.month});
     }
-    componentWillReceiveProps(props) {        
-        // const {deleteHealthData, addSecretKeyData, deleteSecretKeyData, regenerateSecretKeyData} = props;
-        // if (deleteHealthData.isError) {    
-        //     notify('Error !', deleteHealthData.message, 'error');
-        //   }
-        // if (deleteHealthData.isSuccess) {
-        //     notify('Success !', deleteHealthData.message, 'success');
-        //   }
-        // if (addSecretKeyData.isError) {    
-        //     notify('Error !', addSecretKeyData.message, 'error');
-        //   }
-        // if (addSecretKeyData.isSuccess) {
-        //     notify('Success !', addSecretKeyData.message, 'success');
-        //   }
-        // if (deleteSecretKeyData.isError) {    
-        //     notify('Error !', deleteSecretKeyData.message, 'error');
-        //   }
-        // if (deleteSecretKeyData.isSuccess) {
-        //     notify('Success !', deleteSecretKeyData.message, 'success');
-        //   }
-        // if (regenerateSecretKeyData.isError) {    
-        //     notify('Error !', regenerateSecretKeyData.message, 'error');
-        //   }
-        // if (regenerateSecretKeyData.isSuccess) {
-        //     notify('Success !', regenerateSecretKeyData.message, 'success');
-        //   }
+    componentWillReceiveProps(props) {    
+
     }
-    onChange=(e) => {
-        if(e.target.name==="month"){
-            this.setState({ month: e.target.value});
-            this.props.requestStatsLeaveHistory({month:e.target.value, year:this.state.year}); 
-        }
-        if(e.target.name==="year"){
-            this.setState({ year: e.target.value});
-            this.props.requestStatsLeaveHistory({month:this.state.month, year:e.target.value});
-        }
-    } 
     render() {
         return (
             <div>
@@ -83,27 +45,17 @@ class ContainerHealthStats extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-
-    console.log('state', state);
-    
     return{
-    frontend: state.frontend.toJS(),
-    loggedUser: state.logged_user.userLogin,
-    attendanceUploadSetting: state.settings.attendanceUploadSetting
-};
+        frontend: state.frontend.toJS(),
+        loggedUser: state.logged_user.userLogin,
+        attendanceUploadSetting: state.settings.attendanceUploadSetting
+    };
 }
 const mapDispatchToProps = dispatch => ({
     onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin()),
     getAttendanceUploadSettings: () => dispatch(actions.requestGetAttendanceUploadSetting()),
-    // deleteHealthStats: (year) => dispatch(actions.requestDeleteHealthStats(year)),
-    // requestStatsHistory: () => dispatch(actions.requestStatsHistory()),
-    // healthStatsKeyListRequest: () => dispatch(actions.requestHealthStatsSecretKeyList()),
-    // healthStatsAddKeyRequest: (appname) => dispatch(actions.requestHealthStatsAddSecretKey(appname)),
-    // healthStatsDeleteKeyRequest: (appid) => dispatch(actions.requestHealthStatsDeleteSecretKey(appid)),
-    // healthStatsRegenerateKeyRequest: (appid) => dispatch(actions.requestHealthStatsRegenerateSecretKey(appid)),
-    // requestStatsLeaveHistory: (payload) => dispatch(actions.requestStatsLeaveHistory(payload)),
-    // updateFlag: () => dispatch(actions.updateFlag()) 
-
+    requestAddAttendanceUploadSetting:(params) => dispatch(actions.requestAddAttendanceUploadSetting(params)),
+    requestDeleteAttendanceUploadSetting:(params) => dispatch(actions.requestDeleteAttendanceUploadSetting(params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContainerHealthStats);

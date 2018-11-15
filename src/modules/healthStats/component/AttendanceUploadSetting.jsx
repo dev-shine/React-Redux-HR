@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InputText from 'components/generic/input/InputText';
-import { confirm } from "src/services/notify";
+import {notify} from 'src/services/notify';
 import moment from 'moment';
 
 export default class AttendanceUploadSetting extends React.Component {

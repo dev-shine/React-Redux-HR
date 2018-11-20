@@ -10,7 +10,7 @@ const DisplayMenuList = ({rolePages, click}) => {
   };
   let groupIndex = _.groupBy(DATA, function (value) { return value.plabel; });
   let links = _.map(groupIndex, (subChildren, parentLabel) => {
-    let linkList = _.map(subChildren, (subChild, k) => {
+    let linkList = _.map(subChildren, (subChild, k) => {      
       let validPath = subChild.path.replace(/\//g, '');
       if (!_.isEmpty(_.find(rolePages, ['page_name', validPath]))) {
         return (

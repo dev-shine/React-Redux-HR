@@ -1,0 +1,46 @@
+.attendance-upload-setting{
+    .field-column{
+        width: 25%;
+    }
+    .allowed-keys-column{
+        width: 50%;
+    }
+    .add-new-key-column{
+        max-width: 200px;
+        min-width: 200px;
+        width: 25%;
+        text-align: center;
+    }
+    .keys-wrapper{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .key-chips{
+        font-size: 10px;
+        background: rgba(0, 156, 172, 0.44);
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 6px;
+        overflow: hidden;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin: 1px;
+        .text{
+            padding: 3px 8px;
+            font-size: 10px;
+            height: 100%;
+        }
+        .delete{
+            padding: 3px 8px;
+            background: rgba(0, 156, 172, 0.44);
+            height: 100%;
+            cursor: pointer;
+            &:hover{
+                background: rgba(0, 156, 172, 1);
+            }
+        }
+    }
+}

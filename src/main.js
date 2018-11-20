@@ -58,6 +58,7 @@ import Page_InventoryOverview from './modules/inventoryOverview/container/invent
 import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
 import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
 import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
+import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
 
 // -for iPhone iPad safari engine
@@ -128,6 +129,7 @@ let render = (routerKey = null) => {
             <Route path="add_documents" component = {Page_AddDocuments} />
             <Route path="add_documents/*" component = {Page_FormAddDocuments} />
             <Route path="health_stats" component = {ContainerHealthStats} />
+            <Route path="settings" component = {Page_settings} />
 
             <Route path="addInventory" component={RouterAddInventorySystem}/>
             <Route path="add_new_employee" component={AddNewEmployee}/>

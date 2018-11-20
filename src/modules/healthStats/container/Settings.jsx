@@ -20,11 +20,14 @@ class ContainerHealthStats extends React.Component {
     componentWillMount() {
         this.props.onIsAlreadyLogin();
         this.props.getAttendanceUploadSettings();
+        this.props.resetPasswordStatus();
     }
     componentWillReceiveProps(props) {    
 
     }
     render() {
+        console.log(this.props);
+        
         return (
             <div>
                 <Menu {...this.props} />
@@ -38,7 +41,9 @@ class ContainerHealthStats extends React.Component {
                                
                             </div>
                             <div className="col-sm-5 bg-white col-sm-offset-1">
-                            <PasswordResetSetting/>
+                            <PasswordResetSetting 
+                            resetPasswordData={this.props.requestResetPasswordSetting}
+                            resetPasswordStatusData={this.props.resetPasswordStatusData}/>
                             </div>
                         </div>
                         </div>
@@ -49,17 +54,22 @@ class ContainerHealthStats extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
+    console.log(state,'kkkkkkkkkkkk');
+    
     return{
         frontend: state.frontend.toJS(),
         loggedUser: state.logged_user.userLogin,
-        attendanceUploadSetting: state.settings.attendanceUploadSetting
+        attendanceUploadSetting: state.settings.attendanceUploadSetting,
+        resetPasswordStatusData: state.settings.resetPasswordStatus,
     };
 }
 const mapDispatchToProps = dispatch => ({
     onIsAlreadyLogin: () => dispatch(actions.isAlreadyLogin()),
     getAttendanceUploadSettings: () => dispatch(actions.requestGetAttendanceUploadSetting()),
     requestAddAttendanceUploadSetting:(params) => dispatch(actions.requestAddAttendanceUploadSetting(params)),
-    requestDeleteAttendanceUploadSetting:(params) => dispatch(actions.requestDeleteAttendanceUploadSetting(params))
+    requestDeleteAttendanceUploadSetting:(params) => dispatch(actions.requestDeleteAttendanceUploadSetting(params)),
+    requestResetPasswordSetting :(params)=> dispatch(actions.requestResetPasswordSetting(params)),
+    resetPasswordStatus:()=>dispatch(actions.requestResetPasswordStatus())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContainerHealthStats);

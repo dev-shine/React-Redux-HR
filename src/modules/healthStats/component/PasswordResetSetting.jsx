@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import ToggleButton from "react-toggle-button";
+import lodash from "lodash";
 
 const durationDays = () => {
   let options = [];
   let i = 1;
   while (i <= 100) {
-     options.push( {value:i,label:i+" Days"});
+    options.push({ value: i, label: i + " Days" });
     i++;
-  }  
- return options
+  }
+  return options;
 };
 
 export default class PasswordResetSetting extends Component {
   state = { toggleActive: false, selectedOption: null };
+
   onToggle = () => {
     this.setState({ toggleActive: !this.state.toggleActive });
   };
@@ -22,9 +24,26 @@ export default class PasswordResetSetting extends Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
+
+  onSaveChangesClick = () => {
+    this.props.resetPasswordData(this.state);
+  };
+  componentWillReceiveProps(props) {
+    if (
+      !_.isEqual(
+        this.props.resetPasswordStatusData.data,
+        props.resetPasswordStatusData.data
+      )
+    ) {
+      this.setState({
+        toggleActive: props.resetPasswordStatusData.data.value.status,
+        selectedOption:{'value': parseInt(props.resetPasswordStatusData.data.value.days),'label':parseInt(props.resetPasswordStatusData.data.value.days)+" days"}
+      });
+    }
+  }
   render() {
-    //   console.log(options,'optionsoptions');
-      
+    console.log(this.state, "optionsoptions");
+
     return (
       <div className="attendance-upload-setting">
         <h5>Password Reset Setting</h5>
@@ -56,6 +75,15 @@ export default class PasswordResetSetting extends Component {
             </tr>
           </tbody>
         </table>
+        <div className="reset-password-save">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.onSaveChangesClick}
+          >
+            Save Changes
+          </button>
+        </div>
       </div>
     );
   }

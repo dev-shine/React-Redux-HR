@@ -11,7 +11,7 @@ import EmployeeJoiningTerminationStats from "modules/healthStats/component/Emplo
 import LeaveStats from "modules/healthStats/component/LeaveStats";
 import { getYearArray } from 'src/services/generic';
 import { dateFormatter } from "src/helper/helper";
-
+import PasswordResetSetting from "modules/healthStats/component/PasswordResetSetting";
 
 class ContainerHealthStats extends React.Component {
     constructor (props) {
@@ -35,6 +35,10 @@ class ContainerHealthStats extends React.Component {
                         <div className="row m-10">
                             <div className="col-sm-6 bg-white">
                                 <AttendanceUploadSetting {...this.props} />
+                               
+                            </div>
+                            <div className="col-sm-5 bg-white col-sm-offset-1">
+                            <PasswordResetSetting/>
                             </div>
                         </div>
                         </div>

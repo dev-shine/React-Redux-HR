@@ -159,7 +159,7 @@ export default class empDaySummary extends React.Component {
                       <input
                         type="text"
                         name="exit_time"
-                        className="timepickerInput form-control"
+                        className=" form-control"
                         ref="exit_time"
                         disabled={this.state.inputAccess}
                         value={this.state.form_exit_time}

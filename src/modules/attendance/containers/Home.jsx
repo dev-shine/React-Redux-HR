@@ -8,7 +8,7 @@ import {isNotUserValid} from 'src/services/generic';
 import UsersList from 'src/components/generic/UsersList';
 import Header from 'src/components/generic/Header';
 import UserMonthlyAttendance from 'src/components/attendance/UserMonthlyAttendance';
-import UserDaySummary from 'modules/attendance/components/UserDaySummary';
+import UserDaySummary from 'src/modules/attendance/components/UserDaySummary';
 // import * as actionsUsersList from 'src/redux/generic/actions/usersList';
 // import * as actionsMonthlyAttendance from 'src/redux/attendance/actions/monthlyAttendance';
 // import * as actionsUserDaySummary from 'src/redux/attendance/actions/userDaySummary';

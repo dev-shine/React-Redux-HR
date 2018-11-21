@@ -6,7 +6,7 @@ import {CONFIG} from 'src/config/index';
 import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'src/components/generic/Header';
-import SalaryList from 'modules/salary/components/viewSalary/SalaryList';
+import SalaryList from 'src/modules/salary/components/viewSalary/SalaryList';
 import * as actions from 'src/redux/actions';
 import * as actions_salary from 'src/redux/salary/actions/viewSalary';
 

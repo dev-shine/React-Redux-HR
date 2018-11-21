@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import Menu from 'src/components/generic/Menu';
 import Header from 'src/components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
-import DocumentsList from 'modules/policyDocuments/components/DocumentsList';
+import DocumentsList from 'src/modules/policyDocuments/components/DocumentsList';
 import * as actions from 'src/redux/actions';
 
 class PolicyDocumentContainer extends React.Component {

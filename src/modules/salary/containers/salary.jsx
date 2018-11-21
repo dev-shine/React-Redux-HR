@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import Menu from 'src/components/generic/Menu';
 import { isNotUserValid } from 'src/services/generic';
 import Header from 'src/components/generic/Header';
-import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
+import SalaryDetails from 'src/modules/salary/components/userSalary/SalaryDetails';
 import SalaryHistory from 'src/components/salary/userSalary/SalaryHistory';
 import PayslipHistory from 'src/components/salary/userSalary/PayslipHistory';
 import * as actions from 'src/redux/actions';

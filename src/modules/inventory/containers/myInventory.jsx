@@ -10,8 +10,8 @@ import DeviceDetails from "src/components/inventory/deviceDetails";
 import * as actionsMyProfile from "src/redux/myProfile/actions/myProfile";
 import * as actions from 'src/redux/actions';
 import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
-import UnassignDevice from "modules/inventory/components/UnassignDevice";
-import AssignDevice from "modules/inventory/components/AssignDevice";
+import UnassignDevice from "src/modules/inventory/components/UnassignDevice";
+import AssignDevice from "src/modules/inventory/components/AssignDevice";
 import _ from "lodash";
 import $ from 'jquery';
 

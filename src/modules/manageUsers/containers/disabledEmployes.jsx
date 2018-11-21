@@ -9,7 +9,7 @@ import UsersList from 'src/components/generic/UsersList';
 import UsersListHeader from 'src/components/generic/UsersListHeader';
 import DisabledUserDetails from 'src/components/manageUser/DisabledUserDetails';
 import UserPayslipsHistory from 'src/components/salary/managePayslips/UserPayslipsHistory';
-import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
+import UpdateEmployeeDocument from 'src/modules/manageUsers/components/UpdateEmployeeDocument';
 import * as actions from 'src/redux/actions';
 import * as actionsDisabledEmployee from 'src/redux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';

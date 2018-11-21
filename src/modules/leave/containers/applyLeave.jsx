@@ -9,7 +9,7 @@ import {CONFIG} from 'src/config/index';
 import UsersList from 'src/components/generic/UsersList';
 import Header from 'src/components/generic/Header';
 import UsersListHeader from 'src/components/generic/UsersListHeader';
-import ApplyLeaveForm from 'modules/leave/components/applyLeave/ApplyLeaveForm';
+import ApplyLeaveForm from 'src/modules/leave/components/applyLeave/ApplyLeaveForm';
 import * as actions from 'src/redux/actions';
 import * as actions_usersList from 'src/redux/generic/actions/usersList';
 import * as actions_policy from 'src/redux/policyDocuments/actions/index';

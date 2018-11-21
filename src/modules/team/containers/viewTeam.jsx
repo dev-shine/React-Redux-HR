@@ -4,8 +4,8 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import TeamList from 'modules/team/components/TeamList';
-import TeamDetails from 'modules/team/components/TeamDetails';
+import TeamList from 'src/modules/team/components/TeamList';
+import TeamDetails from 'src/modules/team/components/TeamDetails';
 import LoadingIcon from 'src/components/generic/LoadingIcon';
 import * as actions from 'src/redux/actions';
 

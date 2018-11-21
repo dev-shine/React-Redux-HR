@@ -6,7 +6,7 @@ import {notify} from 'src/services/notify';
 import {isNotUserValid} from 'src/services/generic';
 import GetLogo from 'src/components/auth/login/GetLogo';
 import Navbar from 'src/components/auth/login/Navbar';
-import LoginForm from 'modules/auth/components/login/LoginForm';
+import LoginForm from 'src/modules/auth/components/login/LoginForm';
 import LoginFormFooter from 'src/components/auth/login/LoginFormFooter';
 import LoadingIcon from 'src/components/generic/LoadingIcon';
 import * as actions from 'src/redux/actions';

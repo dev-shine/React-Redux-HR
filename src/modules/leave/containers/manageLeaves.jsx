@@ -7,7 +7,7 @@ import { CONFIG } from "src/config/index";
 import { isNotUserValid } from "src/services/generic";
 import Header from "src/components/generic/Header";
 import ListLeaves from "src/components/leave/manageLeaves/ListLeaves";
-import ViewLeave from "modules/leave/components/manageLeaves/ViewLeave";
+import ViewLeave from "src/modules/leave/components/manageLeaves/ViewLeave";
 import LeaveColorReference from "src/components/leave/manageLeaves/LeaveColorReference";
 import * as actions from "src/redux/actions";
 import * as actions_listLeaves from "src/redux/leave/actions/listLeaves";

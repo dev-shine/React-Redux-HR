@@ -40,12 +40,12 @@ import InventorySystem from './modules/inventory/containers/manageInventory';
 import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-import PageDisabledEmployes from 'modules/manageUsers/containers/disabledEmployes';
+import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
 import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
 import Page_TeamView from './modules/team/containers/viewTeam';
 import Page_MyProfile from './modules/myProfile/containers/myProfile';
-import PageManageDashboard from 'modules/manageUsers/containers/manageDashboard';
+import PageManageDashboard from './modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
 import InventoryItem from './modules/inventory/components/inventoryItem'
 import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';

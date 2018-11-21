@@ -6,7 +6,7 @@ import {CONFIG} from 'src/config/index';
 import {isNotUserValid} from 'src/services/generic';
 import AlertNotification from 'src/components/generic/AlertNotification';
 import Header from 'src/components/generic/Header';
-import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
+import AttendanceSheatForm from 'src/modules/attendance/components/uploadAttendance/AttendanceSheatForm';
 import * as actions from 'src/redux/actions';
 import * as actionsUsersList from 'src/redux/generic/actions/usersList';
 import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';

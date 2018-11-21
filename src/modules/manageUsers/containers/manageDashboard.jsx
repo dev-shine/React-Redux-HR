@@ -11,13 +11,13 @@ import * as actions from "src/redux/actions";
 import Header from "src/components/generic/Header";
 import GetLogo from "src/components/auth/login/GetLogo";
 import UsersListHeader from "src/components/generic/UsersListHeader";
-import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard";
-import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
-import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
-import EmployeeLeastActiveHours from 'modules/manageUsers/components/employeeLeastActiveHours';
-import NewEmployeeLeastActiveHours from 'modules/manageUsers/components/newEmployeeLeastActiveHours'
-import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLifeCycle";
-import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
+import PageUserDashboard from "src/modules/manageUsers/components/PageUserDashboard";
+import PageMonthlyHours from "src/modules/manageUsers/components/PageMonthlyHours";
+import PageEmployeePerformance from "src/modules/manageUsers/components/PageEmployeePerformance";
+import EmployeeLeastActiveHours from 'src/modules/manageUsers/components/employeeLeastActiveHours';
+import NewEmployeeLeastActiveHours from 'src/modules/manageUsers/components/newEmployeeLeastActiveHours'
+import PageEmployeeLifeCycle from "src/modules/manageUsers/components/PageEmployeeLifeCycle";
+import PageEmpHours from "src/modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
 import { getLoggedUser } from "src/services/generic";
 import * as actionsManageUserPendingHours from "src/redux/workingHours/actions/manageUserPendingHour";

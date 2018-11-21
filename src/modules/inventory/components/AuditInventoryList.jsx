@@ -3,7 +3,7 @@ import Menu from "src/components/generic/Menu";
 import Header from "src/components/generic/Header";
 import { connect } from "react-redux";
 import * as actions from 'src/redux/actions';
-import { CONFIG } from "config";
+import { CONFIG } from "src/config";
 import * as actionsUsersList from "src/redux/generic/actions/usersList";
 import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
 import * as actionsManageDevice from "src/redux/inventory/actions/inventory";

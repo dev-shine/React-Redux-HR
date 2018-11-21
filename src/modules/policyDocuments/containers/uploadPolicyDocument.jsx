@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'src/components/generic/Header';
 import Message from 'src/components/generic/Message';
-import FormUploadPolicyDocument from 'modules/policyDocuments/components/formUploadPolicyDocument';
+import FormUploadPolicyDocument from 'src/modules/policyDocuments/components/formUploadPolicyDocument';
 import ListAllPolicyDocument from 'src/components/policyDocuments/ListAllPolicyDocument';
 import * as actions from 'src/redux/actions';
 

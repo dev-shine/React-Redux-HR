@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
 import Header from 'src/components/generic/Header';
-import UserLeavesList from 'modules/leave/components/myLeaves/UserLeavesList';
+import UserLeavesList from 'src/modules/leave/components/myLeaves/UserLeavesList';
 import * as actions from 'src/redux/actions';
 import * as actions_myLeaves from 'src/redux/leave/actions/myLeaves';
 

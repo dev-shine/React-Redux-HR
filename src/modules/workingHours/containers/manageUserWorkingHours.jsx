@@ -8,7 +8,7 @@ import {isNotUserValid} from 'src/services/generic';
 import UsersList from 'src/components/generic/UsersList';
 import UsersListHeader from 'src/components/generic/UsersListHeader';
 import ListUserWorkingHours from 'src/components/workingHours/ListUserWorkingHours';
-import FormAddUserWorkingHours from 'modules/workingHours/components/FormAddUserWorkingHours';
+import FormAddUserWorkingHours from 'src/modules/workingHours/components/FormAddUserWorkingHours';
 import * as actions from 'src/redux/actions';
 import * as actionsUsersList from 'src/redux/generic/actions/usersList';
 import * as actionsManageUserWorkingHours from 'src/redux/workingHours/actions/manageUserWorkingHours';

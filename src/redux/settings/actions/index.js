@@ -66,7 +66,7 @@ export function* deleteAttendanceUploadSettings(action) {
 export function* requestResetPasswordSetting(params) {
   yield put(show_loading());
   const response = yield call(fireAjax, "POST", "", {
-    action: "reset_password_config",
+    action: "add_reset_password_config",
     pwd_reset_interval: params.payload.selectedOption.value,
     pwd_reset_status: params.payload.toggleActive
   });

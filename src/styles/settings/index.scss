@@ -4,7 +4,10 @@
   }
   .reset-password-save {
     text-align: center;
-    margin-bottom: 4%;
+    display: flex;
+    .col-sm-6{
+      padding-left:0px;
+    }
   }
   .reset1,.reset2{
 padding:10px 6px 0px 6px !important
@@ -53,5 +56,42 @@ padding:10px 6px 0px 6px !important
         background: rgba(0, 156, 172, 1);
       }
     }
+  }
+}
+.css-vj8t7z,.css-2o5izw{
+  border-radius: 0px !important;
+  min-height: 20px !important;
+  .css-1ep9fjw ,.css-1uq0kb5{
+padding: 0 8px !important;
+  }
+}
+.save-btn{
+  text-align: right;
+  button{
+    font-size: 10px;
+  }
+}
+.setting-section1{
+  padding:0px 6px 0px 0px !important;
+  .setting1{
+    padding:12px
+  }
+}
+.setting-section2{
+  padding-left:6px;
+  padding:0px 0px 0px 6px !important;
+  .setting2{
+    padding:12px
+  }
+}
+@media screen and (max-width: 600px) {
+  .setting-section1{
+    padding:0px !important;
+
+  }
+  .setting-section2{
+    padding:0px !important;
+    margin-top: 20px;
+
   }
 }

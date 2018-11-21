@@ -22,7 +22,6 @@ export default class PasswordResetSetting extends Component {
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
   };
 
   onSaveChangesClick = () => {
@@ -42,11 +41,22 @@ export default class PasswordResetSetting extends Component {
     }
   }
   render() {
-    console.log(this.state, "optionsoptions");
-
     return (
       <div className="attendance-upload-setting">
+        <div className="reset-password-save">
+        <div className="col-sm-6 col-xs-6">
         <h5>Password Reset Setting</h5>
+        </div>
+        <div className="col-sm-6 col-xs-6 save-btn">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.onSaveChangesClick}
+          >
+            Save Changes
+          </button>
+          </div>
+        </div>
         <table className="table table-responsive secret-key-table">
           <tbody>
             <tr>
@@ -75,15 +85,6 @@ export default class PasswordResetSetting extends Component {
             </tr>
           </tbody>
         </table>
-        <div className="reset-password-save">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.onSaveChangesClick}
-          >
-            Save Changes
-          </button>
-        </div>
       </div>
     );
   }

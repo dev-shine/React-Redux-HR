@@ -1,8 +1,11 @@
+import $ from 'jquery';
 var _ = require('underscore');
+let jQuery = $;
+let app = window.app;
 
 (function ($) {
-  	"use strict";
-
+	"use strict";
+	
 	var promise = false,
 		deferred = $.Deferred();
 	_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;

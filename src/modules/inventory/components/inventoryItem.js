@@ -323,7 +323,7 @@ const mapDispatchToProps = dispatch => {
       return dispatch(actionsUsersList.get_users_list());
     },
     onMyProfileDetails: () => {
-      return dispatch(actionsMyProfile.getMyProfileDetails());
+      // return dispatch(actionsMyProfile.getMyProfileDetails());
     },
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());

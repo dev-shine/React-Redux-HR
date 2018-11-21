@@ -3,6 +3,7 @@
  * https://github.com/danlevan/google-material-color
  */
 (function(root, factory) {
+  let define;
   if (typeof define === 'function' && define.amd) {
     define([], factory);
   } else if (typeof exports === 'object') {

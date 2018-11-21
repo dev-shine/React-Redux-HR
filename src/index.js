@@ -67,8 +67,6 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
 }
 const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 injectTapEventPlugin();
-console.log('window.jQuery', window.jQuery);
-console.log('window.jQuery==',jQuery);
 
 
 export class APP extends React.Component {

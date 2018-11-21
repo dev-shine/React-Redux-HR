@@ -18,6 +18,7 @@ import LoadingIcon from 'components/generic/LoadingIcon';
 import EditableDiv from 'components/editor/EditableDiv';
 import FilterLabel from 'components/template/FilterLabel';
 import {getToken} from 'src/services/generic';
+import $ from 'jquery';
 var FormData = require('form-data');
 var moment = require('moment');
 

@@ -13,6 +13,7 @@ import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
 import UnassignDevice from "modules/inventory/components/UnassignDevice";
 import AssignDevice from "modules/inventory/components/AssignDevice";
 import _ from "lodash";
+import $ from 'jquery';
 
 class MyInventory extends React.Component {
   constructor(props) {

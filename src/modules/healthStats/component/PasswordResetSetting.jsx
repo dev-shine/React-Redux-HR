@@ -36,7 +36,11 @@ export default class PasswordResetSetting extends Component {
     ) {
       this.setState({
         toggleActive: props.resetPasswordStatusData.data.value.status,
-        selectedOption:{'value': parseInt(props.resetPasswordStatusData.data.value.days),'label':parseInt(props.resetPasswordStatusData.data.value.days)+" days"}
+        selectedOption: {
+          value: parseInt(props.resetPasswordStatusData.data.value.days),
+          label:
+            parseInt(props.resetPasswordStatusData.data.value.days) + " days"
+        }
       });
     }
   }
@@ -44,17 +48,17 @@ export default class PasswordResetSetting extends Component {
     return (
       <div className="attendance-upload-setting">
         <div className="reset-password-save">
-        <div className="col-sm-6 col-xs-6">
-        <h5>Password Reset Setting</h5>
-        </div>
-        <div className="col-sm-6 col-xs-6 save-btn">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.onSaveChangesClick}
-          >
-            Save Changes
-          </button>
+          <div className="col-sm-6 col-xs-6">
+            <h5>Password Reset Setting</h5>
+          </div>
+          <div className="col-sm-6 col-xs-6 save-btn">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.onSaveChangesClick}
+            >
+              Save Changes
+            </button>
           </div>
         </div>
         <table className="table table-responsive secret-key-table">

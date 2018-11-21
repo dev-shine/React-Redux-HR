@@ -28,7 +28,7 @@ let initialState = {
     isError: false,
     isSuccess: false,
     message: "",
-    data:{}
+    data: {}
   }
 };
 
@@ -112,13 +112,14 @@ const successAttendanceUploadSettingActions = (state, action) =>
 //   }
 // });
 
-const successResetPasswordStatus = (state, action) =>update(state, {
+const successResetPasswordStatus = (state, action) =>
+  update(state, {
     resetPasswordStatus: {
       isLoading: { $set: false },
       isError: { $set: false },
       isSuccess: { $set: true },
       message: { $set: "Error !" },
-      data: {$set:action.payload.data}
+      data: { $set: action.payload.data }
     }
   });
 

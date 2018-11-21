@@ -6,7 +6,7 @@ import 'jquery';
 import 'jquery-ui';
 import 'tether';
 import 'bootstrap';
-import './themeFlatkit/scripts';
+import './themeFlatkit/scripts'; 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, useRouterHistory} from 'react-router';
@@ -54,7 +54,7 @@ import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddN
 import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
 import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
-import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer.jsx';  
+import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
 import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
 import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
 import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
@@ -67,6 +67,9 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
 }
 const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 injectTapEventPlugin();
+console.log('window.jQuery', window.jQuery);
+console.log('window.jQuery==',jQuery);
+
 
 export class APP extends React.Component {
   render () {
@@ -139,7 +142,7 @@ let render = (routerKey = null) => {
         </Router>
       </Provider>
     </MuiThemeProvider>
-  ), document.querySelector('#myApp'));
+  ), document.querySelector('#root'));
 };
 
 render();

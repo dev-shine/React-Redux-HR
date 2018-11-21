@@ -10,7 +10,7 @@ import Header from "src/components/generic/Header";
 import { CONFIG } from "src/config/index";
 import { DateField } from "react-date-picker";
 import AddNewEmployeeDetails from "./FormAddNewEmployeeDetails";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 import { withRouter } from "react-router";
 import CircularProgress from "material-ui/CircularProgress";
 import Button from "src/components/generic/buttons/Button";

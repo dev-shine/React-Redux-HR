@@ -1,5 +1,5 @@
 import React from "react";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 import Dialog from "material-ui/Dialog";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";

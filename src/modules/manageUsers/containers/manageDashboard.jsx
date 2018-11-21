@@ -21,6 +21,7 @@ import PageEmpHours from "src/modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
 import { getLoggedUser } from "src/services/generic";
 import * as actionsManageUserPendingHours from "src/redux/workingHours/actions/manageUserPendingHour";
+import $ from 'jquery';
 
 var moment = require("moment");
 

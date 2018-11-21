@@ -1,5 +1,5 @@
 import React from 'react';
-import 'react-date-picker/index.css';
+// import 'react-date-picker/index.css';
 import ButtonRaised from 'src/components/generic/buttons/ButtonRaised';
 import {notify} from 'src/services/notify';
 

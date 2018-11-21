@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import {CONFIG} from 'src/config/index';
 import {DateField} from 'react-date-picker';
-import 'react-date-picker/index.css';
+// import 'react-date-picker/index.css';
 import {Button, ButtonFlat} from 'src/components/generic/buttons';
 import ButtonRaised from 'src/components/generic/buttons/ButtonRaised';
 import {Calendar} from 'react-date-range';

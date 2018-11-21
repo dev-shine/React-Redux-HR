@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { notify } from "src/services/notify";
 import { DateField } from "react-date-picker";
 import ToggleButton from "react-toggle-button";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 import { CONFIG } from "src/config/index";
 import Button from "src/components/generic/buttons/Button";
 import Menu from "src/components/generic/Menu";

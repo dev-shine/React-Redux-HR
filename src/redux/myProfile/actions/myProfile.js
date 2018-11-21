@@ -2,10 +2,10 @@ import {createAction} from 'redux-actions';
 import {CONFIG} from 'src/config/index';
 import {fireAjax} from 'src/services/index';
 import {confirm} from 'src/services/notify';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
 import {setLoggedUser, getLoggedUser} from 'src/services/generic';
-import {userDataUpdated} from 'appRedux/actions';
-import * as constants from 'appRedux/constants';
+import {userDataUpdated} from 'src/redux/actions';
+import * as constants from 'src/redux/constants';
 
 export function success_my_profile (data) {
   return createAction(constants.ACTION_SUCCESS_MY_PROFILE)(data);

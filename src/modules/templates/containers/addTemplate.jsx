@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'components/generic/Menu';
+import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
+import Header from 'src/components/generic/Header';
 import Template from '../components/Template';
-import * as actions from 'appRedux/actions';
-import * as actions_salary from 'appRedux/salary/actions/viewSalary';
-import * as actions_templates from 'appRedux/templates/actions/templates';
+import * as actions from 'src/redux/actions';
+import * as actions_salary from 'src/redux/salary/actions/viewSalary';
+import * as actions_templates from 'src/redux/templates/actions/templates';
 
 class TemplateContainer extends React.Component {
   constructor (props) {

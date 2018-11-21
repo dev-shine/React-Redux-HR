@@ -3,9 +3,9 @@ import * as _ from "lodash";
 import queue from "async/queue";
 
 import { fireAjax } from "src/services/index";
-import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
+import { show_loading, hide_loading } from "src/redux/generic/actions/frontend";
 var moment = require("moment");
-import * as constants from "appRedux/constants";
+import * as constants from "src/redux/constants";
 
 export function success_user_profile(data, username) {
   return {

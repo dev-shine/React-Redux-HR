@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
-import * as constants from 'appRedux/constants';
+import * as constants from 'src/redux/constants';
 import update from 'immutability-helper';
-import 'appRedux/update';
+import 'src/redux/update';
 
 let initialState = {
   policyDocument: {

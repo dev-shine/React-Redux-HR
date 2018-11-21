@@ -2,15 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";
 import _ from "lodash";
-import Menu from "components/generic/Menu";
+import Menu from "src/components/generic/Menu";
 import { dateFormatter } from '../../../helper/helper';
 import { bindActionCreators } from "redux";
 import { isNotUserValid } from "src/services/generic";
-import LoadingIcon from "components/generic/LoadingIcon";
-import * as actions from "appRedux/actions";
-import Header from "components/generic/Header";
-import GetLogo from "components/auth/login/GetLogo";
-import UsersListHeader from "components/generic/UsersListHeader";
+import LoadingIcon from "src/components/generic/LoadingIcon";
+import * as actions from "src/redux/actions";
+import Header from "src/components/generic/Header";
+import GetLogo from "src/components/auth/login/GetLogo";
+import UsersListHeader from "src/components/generic/UsersListHeader";
 import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard";
 import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
 import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
@@ -20,7 +20,7 @@ import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLi
 import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
 import { resetLoggedUser } from "src/services/generic";
 import { getLoggedUser } from "src/services/generic";
-import * as actionsManageUserPendingHours from "appRedux/workingHours/actions/manageUserPendingHour";
+import * as actionsManageUserPendingHours from "src/redux/workingHours/actions/manageUserPendingHour";
 
 var moment = require("moment");
 

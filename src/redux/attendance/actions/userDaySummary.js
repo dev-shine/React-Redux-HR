@@ -1,6 +1,6 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 import {notify} from 'src/services/notify';
 const ExpessUrl = 'http://144.76.34.244:3017/attendance/update_time_by_employee';
 

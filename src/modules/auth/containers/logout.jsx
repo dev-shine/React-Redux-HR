@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 
 class Logout extends React.Component {
   constructor (props) {

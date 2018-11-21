@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ButtonInfo, Button} from 'components/generic/buttons';
+import {ButtonInfo, Button} from 'src/components/generic/buttons';
 
 const MyLeavesList = ({leave, handleOpen, cancelLeave}) => {
   let s = leave.status;

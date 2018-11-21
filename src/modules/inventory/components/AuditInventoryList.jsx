@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Menu from "components/generic/Menu";
-import Header from "components/generic/Header";
+import Menu from "src/components/generic/Menu";
+import Header from "src/components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from "appRedux/actions";
+import * as actions from 'src/redux/actions';
 import { CONFIG } from "config";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
+import * as actionsUsersList from "src/redux/generic/actions/usersList";
+import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
+import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
 import { getToken } from 'src/services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';

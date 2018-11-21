@@ -1,3 +1,5 @@
+import $ from 'jquery';
+let jQuery = $;
 (function ($) {
 	"use strict";
 

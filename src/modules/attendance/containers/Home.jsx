@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
+import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import UsersList from 'components/generic/UsersList';
-import Header from 'components/generic/Header';
-import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
+import UsersList from 'src/components/generic/UsersList';
+import Header from 'src/components/generic/Header';
+import UserMonthlyAttendance from 'src/components/attendance/UserMonthlyAttendance';
 import UserDaySummary from 'modules/attendance/components/UserDaySummary';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
-import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
-import * as actions from 'appRedux/actions';
+// import * as actionsUsersList from 'src/redux/generic/actions/usersList';
+// import * as actionsMonthlyAttendance from 'src/redux/attendance/actions/monthlyAttendance';
+// import * as actionsUserDaySummary from 'src/redux/attendance/actions/userDaySummary';
+import * as actions from 'src/redux/actions';
 
 class Home extends React.Component {
   constructor (props) {

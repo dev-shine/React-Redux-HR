@@ -2,7 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 import 'react-date-picker/index.css';
-import {ButtonRaised} from 'components/generic/buttons/index';
+import {ButtonRaised} from 'src/components/generic/buttons/index';
 
 class FormBankDetails extends React.Component {
   constructor (props) {

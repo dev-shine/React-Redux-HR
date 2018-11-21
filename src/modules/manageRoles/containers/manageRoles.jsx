@@ -4,14 +4,14 @@ import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
+import Menu from 'src/components/generic/Menu';
+import Header from 'src/components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
-import AlertNotification from 'components/generic/AlertNotification';
+import AlertNotification from 'src/components/generic/AlertNotification';
 import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
 import DisplayRolesLists from 'modules/manageRoles/components/DisplayRolesLists';
-import UsersRolesList from 'components/generic/UsersRolesList';
-import * as actions from 'appRedux/actions';
+import UsersRolesList from 'src/components/generic/UsersRolesList';
+import * as actions from 'src/redux/actions';
 import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {

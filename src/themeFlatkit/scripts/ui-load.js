@@ -6,6 +6,8 @@
  * @ flatfull.com All Rights Reserved.
  * Author url: http://themeforest.net/user/flatfull
  */
+import $ from 'jquery';
+let jQuery = $;
 var uiLoad = uiLoad || {};
 
 (function($, $document, uiLoad) {
@@ -84,3 +86,4 @@ var uiLoad = uiLoad || {};
 	}
 
 })(jQuery, document, uiLoad);
+export default uiLoad;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import CircularProgress from "material-ui/CircularProgress";
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 import 'react-date-picker/index.css';
 var moment = require('moment');
 class EmployeeLeastActiveHours extends Component {

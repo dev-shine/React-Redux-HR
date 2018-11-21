@@ -5,9 +5,9 @@ import { DateField } from "react-date-picker";
 import PropTypes from "prop-types";
 import { notify } from "src/services/notify";
 import TextField from "material-ui/TextField";
-import * as actions from "appRedux/actions";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import AlertNotification from "components/generic/AlertNotification";
+import * as actions from "src/redux/actions";
+import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
+import AlertNotification from "src/components/generic/AlertNotification";
 
 export default class UnassignDevice extends React.Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 import {HighchartsChart, AreaSplineSeries, Chart, XAxis, Tooltip, YAxis, Title, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
 import 'react-date-picker/index.css';
 var moment = require('moment');

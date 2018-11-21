@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import InputText from 'components/generic/input/InputText';
+import InputText from 'src/components/generic/input/InputText';
 import {notify} from 'src/services/notify';
 import moment from 'moment';
 

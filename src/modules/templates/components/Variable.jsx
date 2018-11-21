@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as _ from 'lodash';
 import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
-import LoadingIcon from 'components/generic/LoadingIcon';
+import LoadingIcon from 'src/components/generic/LoadingIcon';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';

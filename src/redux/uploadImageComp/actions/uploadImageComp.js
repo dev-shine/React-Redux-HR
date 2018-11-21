@@ -1,9 +1,9 @@
 import { createAction } from "redux-actions";
 import { uploadfile } from "src/services/index";
 import { notify } from "src/services/notify";
-import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
+import { show_loading, hide_loading } from "src/redux/generic/actions/frontend";
+import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
+import * as actionMyDocuments from "src/redux/myDocuments/actions/myDocument";
 
 export const uploadFile = (formData, url, isRole) => dispatch => {
   dispatch({ type: "UPLOADING_FILE" });

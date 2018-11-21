@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import { qualityValue } from "src/helper/helper";
 import axios from "axios";
 import CircularProgress from "material-ui/CircularProgress";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actionsUploadFile from "appRedux/uploadImageComp/actions/uploadImageComp";
-import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
+import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
+import * as actionsUploadFile from "src/redux/uploadImageComp/actions/uploadImageComp";
+import * as actionMyDocuments from "src/redux/myDocuments/actions/myDocument";
 import { format } from "url";
 class UploadImageComp extends Component {
   constructor() {

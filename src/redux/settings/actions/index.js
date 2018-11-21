@@ -1,7 +1,7 @@
 import { fireAjax } from 'src/services/index';
 import { call, put } from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as actions from 'src/redux/actions';
+import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
 
 
 export function* getAttendanceUploadSettings(action) {

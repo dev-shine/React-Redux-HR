@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoggedUserInfo from 'components/menu/LoggedUserInfo';
-import DisplayMenuList from 'components/menu/DisplayMenuList';
+import LoggedUserInfo from 'src/components/menu/LoggedUserInfo';
+import DisplayMenuList from 'src/components/menu/DisplayMenuList';
 import "styles/generic/menu.scss"
 
 class Menu extends React.Component {

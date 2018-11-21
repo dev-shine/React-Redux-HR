@@ -4,20 +4,20 @@ import TextField from "material-ui/TextField";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { notify } from "src/services/notify";
-import Menu from "components/generic/Menu";
+import Menu from "src/components/generic/Menu";
 import { isNotUserValid } from "src/services/generic";
-import Header from "components/generic/Header";
+import Header from "src/components/generic/Header";
 import { CONFIG } from "src/config/index";
 import { DateField } from "react-date-picker";
 import AddNewEmployeeDetails from "./FormAddNewEmployeeDetails";
 import "react-date-picker/index.css";
 import { withRouter } from "react-router";
 import CircularProgress from "material-ui/CircularProgress";
-import Button from "components/generic/buttons/Button";
+import Button from "src/components/generic/buttons/Button";
 import DatePicker from "material-ui/DatePicker";
-import ButtonRaised from "components/generic/buttons/ButtonRaised";
-import * as actions from "appRedux/actions";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
+import ButtonRaised from "src/components/generic/buttons/ButtonRaised";
+import * as actions from "src/redux/actions";
+import * as actionsUsersList from "src/redux/generic/actions/usersList";
 import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
 
 class FormAddNewEmployee extends React.Component {

@@ -1,6 +1,6 @@
 import MODULE_CONFIG from './config.lazyload.js';
-import $ from 'jquery';
 import uiLoad from './ui-load';
+import $ from 'jquery';
 let jQuery = $;
 
 (function ($, MODULE_CONFIG) {

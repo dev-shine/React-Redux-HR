@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {notify} from 'src/services/notify';
-import * as actions from 'appRedux/actions';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
+import * as actions from 'src/redux/actions';
+import Menu from 'src/components/generic/Menu';
+import Header from 'src/components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
-import HolidaysList from 'components/holidays/HolidaysList';
+import HolidaysList from 'src/components/holidays/HolidaysList';
 import { getToken, getYearArray } from 'src/services/generic';
 
 class Holidays extends React.Component {

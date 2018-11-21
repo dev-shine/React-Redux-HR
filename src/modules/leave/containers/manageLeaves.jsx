@@ -2,16 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as _ from "lodash";
-import Menu from "components/generic/Menu";
+import Menu from "src/components/generic/Menu";
 import { CONFIG } from "src/config/index";
 import { isNotUserValid } from "src/services/generic";
-import Header from "components/generic/Header";
-import ListLeaves from "components/leave/manageLeaves/ListLeaves";
+import Header from "src/components/generic/Header";
+import ListLeaves from "src/components/leave/manageLeaves/ListLeaves";
 import ViewLeave from "modules/leave/components/manageLeaves/ViewLeave";
-import LeaveColorReference from "components/leave/manageLeaves/LeaveColorReference";
-import * as actions from "appRedux/actions";
-import * as actions_listLeaves from "appRedux/leave/actions/listLeaves";
-import * as actions_manageLeave from "appRedux/leave/actions/manageLeave";
+import LeaveColorReference from "src/components/leave/manageLeaves/LeaveColorReference";
+import * as actions from "src/redux/actions";
+import * as actions_listLeaves from "src/redux/leave/actions/listLeaves";
+import * as actions_manageLeave from "src/redux/leave/actions/manageLeave";
 
 class ManageLeaves extends React.Component {
   constructor(props) {

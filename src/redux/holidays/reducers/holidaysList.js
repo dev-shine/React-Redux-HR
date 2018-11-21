@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
 import update from 'immutability-helper';
-import * as constants from 'appRedux/constants';
-import 'appRedux/update';
+import * as constants from 'src/redux/constants';
+import 'src/redux/update';
 
 let initialState = {
   holidaysList: {

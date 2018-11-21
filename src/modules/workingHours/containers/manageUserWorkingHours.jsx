@@ -2,16 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
+import Menu from 'src/components/generic/Menu';
+import Header from 'src/components/generic/Header';
 import {isNotUserValid} from 'src/services/generic';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import ListUserWorkingHours from 'components/workingHours/ListUserWorkingHours';
+import UsersList from 'src/components/generic/UsersList';
+import UsersListHeader from 'src/components/generic/UsersListHeader';
+import ListUserWorkingHours from 'src/components/workingHours/ListUserWorkingHours';
 import FormAddUserWorkingHours from 'modules/workingHours/components/FormAddUserWorkingHours';
-import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsManageUserWorkingHours from 'appRedux/workingHours/actions/manageUserWorkingHours';
+import * as actions from 'src/redux/actions';
+import * as actionsUsersList from 'src/redux/generic/actions/usersList';
+import * as actionsManageUserWorkingHours from 'src/redux/workingHours/actions/manageUserWorkingHours';
 
 class ManageUserWorkingHours extends React.Component {
   constructor (props) {

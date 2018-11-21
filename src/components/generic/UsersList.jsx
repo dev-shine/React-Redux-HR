@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
+import $ from 'jquery';
 
 const UsersList = ({users, selectedUserId, onUserClick, disabledUser, header, top}) => {
   const userClick = (param) => {

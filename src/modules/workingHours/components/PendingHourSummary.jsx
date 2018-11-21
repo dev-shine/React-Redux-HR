@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
 import {CONFIG} from 'src/config/index';
-import * as actions_login from 'appRedux/auth/actions/index';
+import * as actions_login from 'src/redux/auth/actions/index';
 import AddUserPendingHour from './AddUserPendingHour';
 import 'react-date-picker/index.css';
 var moment = require('moment');

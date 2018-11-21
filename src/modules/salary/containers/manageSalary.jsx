@@ -5,22 +5,22 @@ import moment from 'moment';
 import * as _ from 'lodash';
 import {notify} from 'src/services/notify';
 import {CONFIG} from 'src/config/index';
-import Menu from 'components/generic/Menu';
+import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import UserSalaryHistory from 'components/salary/manageSalary/UserSalaryHistory';
-import UserHoldingHistory from 'components/salary/manageSalary/UserHoldingHistory';
-import UserHistoryHolding from 'components/salary/manageSalary/UserHistoryHolding';
+import Header from 'src/components/generic/Header';
+import UsersList from 'src/components/generic/UsersList';
+import UsersListHeader from 'src/components/generic/UsersListHeader';
+import UserSalaryHistory from 'src/components/salary/manageSalary/UserSalaryHistory';
+import UserHoldingHistory from 'src/components/salary/manageSalary/UserHoldingHistory';
+import UserHistoryHolding from 'src/components/salary/manageSalary/UserHistoryHolding';
 import FormAddHolding from 'modules/salary/components/manageSalary/FormAddHolding';
 import FormAddSalary from 'modules/salary/components/manageSalary/FormAddSalary';
 import AddHoldingForm from 'modules/salary/components/manageSalary/AddHoldingForm';
 import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
-import * as actions from 'appRedux/actions';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
-import * as actions_manageSalary from 'appRedux/salary/actions/manageSalary';
-import SalaryBlock from "components/generic/SalaryBlock";
+import * as actions from 'src/redux/actions';
+import * as actions_usersList from 'src/redux/generic/actions/usersList';
+import * as actions_manageSalary from 'src/redux/salary/actions/manageSalary';
+import SalaryBlock from "src/components/generic/SalaryBlock";
 
 class ManageSalary extends React.Component {
   constructor (props) {

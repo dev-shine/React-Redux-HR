@@ -2,18 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import Menu from 'components/generic/Menu';
+import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import DisabledUserDetails from 'components/manageUser/DisabledUserDetails';
-import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
+import Header from 'src/components/generic/Header';
+import UsersList from 'src/components/generic/UsersList';
+import UsersListHeader from 'src/components/generic/UsersListHeader';
+import DisabledUserDetails from 'src/components/manageUser/DisabledUserDetails';
+import UserPayslipsHistory from 'src/components/salary/managePayslips/UserPayslipsHistory';
 import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
-import * as actions from 'appRedux/actions';
-import * as actionsDisabledEmployee from 'appRedux/generic/actions/usersList';
-import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
-import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
+import * as actions from 'src/redux/actions';
+import * as actionsDisabledEmployee from 'src/redux/generic/actions/usersList';
+import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
+import * as actionsManagePayslips from 'src/redux/salary/actions/managePayslips';
 
 class PageDisabledEmployes extends React.Component {
   constructor (props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as dayType from 'appRedux/attendance/constants';
+import * as dayType from 'src/redux/attendance/constants';
 import DaySection from './DaySection';
 
 const styles = {

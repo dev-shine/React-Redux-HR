@@ -2,7 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import {CONFIG} from 'src/config/index';
 import {getToken} from 'src/services/generic';
-import {ButtonRaised, ButtonFlat} from 'components/generic/buttons';
+import {ButtonRaised, ButtonFlat} from 'src/components/generic/buttons';
 
 class ViewLeave extends React.Component {
   constructor (props) {

@@ -4,7 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import {notify} from 'src/services/notify';
 import {getToken} from 'src/services/generic';
 import {CONFIG} from 'src/config/index';
-import MyLeavesList from 'components/leave/myLeaves/MyLeavesList';
+import MyLeavesList from 'src/components/leave/myLeaves/MyLeavesList';
 
 class UserLeavesList extends React.Component {
   constructor (props) {

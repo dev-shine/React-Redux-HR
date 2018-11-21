@@ -1,11 +1,11 @@
 import {createAction} from 'redux-actions';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as constants from 'src/redux/constants';
+import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
 
 //* *********************************
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 
 export function* getUsersList (action) {
   try {

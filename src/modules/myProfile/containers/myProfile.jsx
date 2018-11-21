@@ -3,17 +3,17 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
+import Menu from 'src/components/generic/Menu';
 import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UserHorizontalView from 'components/generic/UserHorizontalView';
-import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
+import Header from 'src/components/generic/Header';
+import UserHorizontalView from 'src/components/generic/UserHorizontalView';
+import PayslipHistory from 'src/components/salary/userSalary/PayslipHistory';
 import FormProfileDetails from 'modules/myProfile/components/FormProfileDetails';
 import FormBankDetails from 'modules/myProfile/components/FormBankDetails';
 import FormUpdatePassword from 'modules/myProfile/components/FormUpdatePassword';
-import * as actions from 'appRedux/actions';
-import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
-import * as actionsSalary from 'appRedux/salary/actions/viewSalary';
+import * as actions from 'src/redux/actions';
+import * as actionsMyProfile from 'src/redux/myProfile/actions/myProfile';
+import * as actionsSalary from 'src/redux/salary/actions/viewSalary';
 
 class MyProfile extends React.Component {
   constructor (props) {

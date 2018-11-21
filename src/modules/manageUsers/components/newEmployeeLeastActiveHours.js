@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import CircularProgress from "material-ui/CircularProgress";
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';

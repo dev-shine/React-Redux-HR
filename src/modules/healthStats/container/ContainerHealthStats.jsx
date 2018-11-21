@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Menu from "components/generic/Menu";
-import Header from "components/generic/Header";
+import Menu from "src/components/generic/Menu";
+import Header from "src/components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from "appRedux/actions";
+import * as actions from 'src/redux/actions';
 import HealthStats from "modules/healthStats/component/HealthStats";
 import HealthStatsSecretKey from "modules/healthStats/component/HealthStatsSecretKey";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
+import * as actionsUsersList from "src/redux/generic/actions/usersList";
 import {notify} from 'src/services/notify';
 import EmployeeJoiningTerminationStats from "modules/healthStats/component/EmployeeJoiningTerminationStats";
 import LeaveStats from "modules/healthStats/component/LeaveStats";

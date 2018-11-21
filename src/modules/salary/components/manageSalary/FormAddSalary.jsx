@@ -2,7 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
-import {ButtonRaised} from 'components/generic/buttons';
+import {ButtonRaised} from 'src/components/generic/buttons';
 
 
 class FormAddSalary extends React.Component {

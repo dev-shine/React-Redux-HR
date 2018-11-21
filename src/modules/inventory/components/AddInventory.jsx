@@ -4,20 +4,20 @@ import Dialog from "material-ui/Dialog";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";
 import { DateField } from "react-date-picker";
-import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
+import { show_loading, hide_loading } from "src/redux/generic/actions/frontend";
 import { notify } from "src/services/notify";
 import TextField from "material-ui/TextField";
-import AlertNotification from "components/generic/AlertNotification";
+import AlertNotification from "src/components/generic/AlertNotification";
 import CircularProgress from "material-ui/CircularProgress";
 import DatePicker from "material-ui/DatePicker";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actions from "appRedux/actions";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
+import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
+import * as actions from 'src/redux/actions';
+import * as actionsUsersList from "src/redux/generic/actions/usersList";
+import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
 import style from "src/styles/inventory/viewUser.scss";
-import Header from "components/generic/Header";
-import Menu from "components/generic/Menu";
+import Header from "src/components/generic/Header";
+import Menu from "src/components/generic/Menu";
 import { isNotUserValid } from "src/services/generic";
 var moment = require("moment");
 let newdate;
@@ -90,7 +90,7 @@ class FormAddNewInventory extends React.Component {
       user_profile_detail: props.manageUsers.user_profile_detail,
       user_assign_machine: props.manageUsers.user_assign_machine
     });
-    <CircularProgress />;
+    // <CircularProgress />;
 
     if (props.manageDevice.editData.edit) {
       purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;

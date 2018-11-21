@@ -1,6 +1,6 @@
 import {fireAjax} from 'src/services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from 'src/redux/actions';
 
 export function* getTeamList (action) {
   try {

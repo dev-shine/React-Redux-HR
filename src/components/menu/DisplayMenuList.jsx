@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Link} from 'react-router';
-import {DATA} from 'components/menu/menuObject';
+import {DATA} from 'src/components/menu/menuObject';
 
 const DisplayMenuList = ({rolePages, click}) => {
   const menuToggle = () => {

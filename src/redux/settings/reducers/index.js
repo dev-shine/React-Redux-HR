@@ -123,6 +123,17 @@ const successResetPasswordStatus = (state, action) =>
     }
   });
 
+  const successClearResetPasswordData = (state, action) =>
+  update(state, {
+    resetPasswordStatus: {
+      isLoading: { $set: false },
+      isError: { $set: false },
+      isSuccess: { $set: true },
+      message: { $set: "Error !" },
+      data: { $set: {} }
+    }
+  });
+
 export default handleActions(
   {
     [constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING]: requestAttendanceUploadSetting,
@@ -136,7 +147,8 @@ export default handleActions(
     [constants.REQUEST_DELETE_ATTANDANCE_UPLOAD_SETTING]: requestAttendanceUploadSetting,
     [constants.SUCCESS_DELETE_ATTANDANCE_UPLOAD_SETTING]: successAttendanceUploadSettingActions,
     [constants.ERROR_DELETE_ATTANDANCE_UPLOAD_SETTING]: errorAttendanceUploadSetting,
-    [constants.SUCCESS_RESET_PASSWORD_STATUS]: successResetPasswordStatus
+    [constants.SUCCESS_RESET_PASSWORD_STATUS]: successResetPasswordStatus,
+    [constants.SUCCESS_CLEAR_RESET_PASSWORD_DATA]:successClearResetPasswordData,
   },
   initialState
 );

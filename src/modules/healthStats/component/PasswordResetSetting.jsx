@@ -46,6 +46,10 @@ export default class PasswordResetSetting extends Component {
       });
     }
   }
+
+  componentWillUnmount() {
+    this.props.clearData();
+  }
   render() {
     let isDisabled = this.state.selectedOption === null ? "disabled" : "";
     return (

@@ -50,6 +50,7 @@ class ContainerHealthStats extends React.Component {
                       resetPasswordStatusData={
                         this.props.resetPasswordStatusData
                       }
+                      clearData={this.props.clearData}
                     />
                   </div>
                 </div>
@@ -79,7 +80,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.requestDeleteAttendanceUploadSetting(params)),
   requestResetPasswordSetting: params =>
     dispatch(actions.requestResetPasswordSetting(params)),
-  resetPasswordStatus: () => dispatch(actions.requestResetPasswordStatus())
+  resetPasswordStatus: () => dispatch(actions.requestResetPasswordStatus()),
+  clearData: () => dispatch(actions.requestClearResetPasswordData()),
+
 });
 
 export default connect(

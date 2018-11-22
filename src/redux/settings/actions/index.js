@@ -81,3 +81,7 @@ export function* requestResetPasswordStatus() {
     yield put(actions.successResetPasswordStatus(response));
   }
 }
+
+export function* requestClearResetPasswordData() {
+    yield put(actions.successClearResetPasswordData());
+}

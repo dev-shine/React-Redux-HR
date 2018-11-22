@@ -201,3 +201,7 @@ export const errorrResetPasswordSetting = createAction(constants.ERROR_RESET_PAS
 export const requestResetPasswordStatus = createAction(constants.REQUEST_RESET_PASSWORD_STATUS);
 export const successResetPasswordStatus = createAction(constants.SUCCESS_RESET_PASSWORD_STATUS);
 export const errorrResetPasswordStatus = createAction(constants.ERROR_RESET_PASSWORD_STATUS);
+
+export const requestClearResetPasswordData = createAction(constants.REQUEST_CLEAR_RESET_PASSWORD_DATA);
+export const successClearResetPasswordData = createAction(constants.SUCCESS_CLEAR_RESET_PASSWORD_DATA);
+

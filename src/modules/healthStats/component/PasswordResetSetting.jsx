@@ -21,13 +21,14 @@ export default class PasswordResetSetting extends Component {
   };
 
   handleChange = selectedOption => {
-    this.setState({ selectedOption });
+    this.setState({ selectedOption, isDisabled: "" });
   };
 
   onSaveChangesClick = () => {
     this.props.resetPasswordData(this.state);
   };
   componentWillReceiveProps(props) {
+    const { value } = props.resetPasswordStatusData.data;
     if (
       !_.isEqual(
         this.props.resetPasswordStatusData.data,
@@ -35,16 +36,18 @@ export default class PasswordResetSetting extends Component {
       )
     ) {
       this.setState({
-        toggleActive: props.resetPasswordStatusData.data.value.status,
-        selectedOption: {
-          value: parseInt(props.resetPasswordStatusData.data.value.days),
-          label:
-            parseInt(props.resetPasswordStatusData.data.value.days) + " days"
-        }
+        toggleActive: value && value.status,
+        selectedOption: value
+          ? {
+              value: parseInt(value.days),
+              label: parseInt(value.days) + " days"
+            }
+          : null
       });
     }
   }
   render() {
+    let isDisabled = this.state.selectedOption === null ? "disabled" : "";
     return (
       <div className="attendance-upload-setting">
         <div className="reset-password-save">
@@ -54,8 +57,9 @@ export default class PasswordResetSetting extends Component {
           <div className="col-sm-6 col-xs-6 save-btn">
             <button
               type="button"
-              className="btn btn-primary"
+              className={`btn btn-primary ${isDisabled}`}
               onClick={this.onSaveChangesClick}
+              disabled={isDisabled}
             >
               Save Changes
             </button>

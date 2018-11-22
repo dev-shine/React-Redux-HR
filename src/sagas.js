@@ -1,16 +1,16 @@
 import {takeLatest} from 'redux-saga/effects';
-import * as constants from 'src/redux/constants';
-import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from 'src/redux/auth/actions';
-import {holidayList, addHoliday, holidayType, deleteHoliday} from 'src/redux/holidays/actions';
-import {getAttendanceUploadSettings, addAttendanceUploadSettings, deleteAttendanceUploadSettings} from 'src/redux/settings/actions';
-import { getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList, getLeastActiveEmp} from 'src/redux/manageUsers/actions/dashboard';
-import {userMonthlyAttendance} from 'src/redux/attendance/actions/monthlyAttendance';
-import {getUserDayAttendance, userAttendanceStatus} from 'src/redux/attendance/actions/attendanceRequests';
-import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from 'src/redux/attendance/actions/userDaySummary';
-import {getUsersList} from 'src/redux/generic/actions/usersList';
-import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from 'src/redux/policyDocuments/actions/index';
-import {getTeamList, saveTeam, getTeam} from 'src/redux/team/actions/teamList';
-import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats, requestStatsHistory, requestStatsLeave} from 'src/redux/healthStats/actions/healthStats';
+import * as constants from './redux/constants';
+import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from './redux/auth/actions';
+import {holidayList, addHoliday, holidayType, deleteHoliday} from './redux/holidays/actions';
+import {getAttendanceUploadSettings, addAttendanceUploadSettings, deleteAttendanceUploadSettings} from './redux/settings/actions';
+import { getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList, getLeastActiveEmp} from './redux/manageUsers/actions/dashboard';
+import {userMonthlyAttendance} from './redux/attendance/actions/monthlyAttendance';
+import {getUserDayAttendance, userAttendanceStatus} from './redux/attendance/actions/attendanceRequests';
+import {getUserDaySummary, updateUserDaySummary, empUpdateDaySummary} from './redux/attendance/actions/userDaySummary';
+import {getUsersList} from './redux/generic/actions/usersList';
+import {fetchUserPolicyDocument, submitPolicyDocs, updateReadStatus, fetchPolicyDocument} from './redux/policyDocuments/actions/index';
+import {getTeamList, saveTeam, getTeam} from './redux/team/actions/teamList';
+import {healthStatsRequest, healthStatsSecretKeyListRequest, healthStatsAddSecretKeyRequest, healthStatsDeleteSecretKeyRequest, healthStatsRegenerateSecretKeyRequest, deleteHealthStats, requestStatsHistory, requestStatsLeave} from './redux/healthStats/actions/healthStats';
 
 export function* watchActions () {
   yield takeLatest(constants.USER_LOGIN_REQUEST, loginRequest);

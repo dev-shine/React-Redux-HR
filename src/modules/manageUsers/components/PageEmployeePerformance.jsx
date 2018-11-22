@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import _ from 'lodash';
-import * as actions from 'src/redux/actions';
+import * as actions from '../../../redux/actions';
 import {HighchartsChart, AreaSplineSeries, Chart, XAxis, Tooltip, YAxis, Title, Subtitle, Legend, ColumnSeries, SplineSeries, PieSeries} from 'react-jsx-highcharts';
-import 'react-date-picker/index.css';
+// import 'react-date-picker/index.css';
 var moment = require('moment');
 
 class PageEmployeePerformance extends Component {

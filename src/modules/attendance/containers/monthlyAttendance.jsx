@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import {notify} from 'src/services/notify';
-import EmpDaySummary from 'src/modules/attendance/components/empDaySummary';
-import UserMonthlyAttendance from 'src/components/attendance/UserMonthlyAttendance';
-// import * as actionsUserDaySummary from 'src/redux/attendance/actions/userDaySummary';
-import * as actions from 'src/redux/actions';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import {notify} from '../../../services/notify';
+import EmpDaySummary from '../../../modules/attendance/components/empDaySummary';
+import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
+// import * as actionsUserDaySummary from '../../../redux/attendance/actions/userDaySummary';
+import * as actions from '../../../redux/actions';
 import isEqual from "lodash/isEqual";
 
 class MonthlyAttendance extends React.Component {

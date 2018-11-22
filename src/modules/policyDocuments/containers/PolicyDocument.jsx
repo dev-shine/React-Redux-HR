@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import Menu from 'src/components/generic/Menu';
-import Header from 'src/components/generic/Header';
-import {isNotUserValid} from 'src/services/generic';
-import DocumentsList from 'src/modules/policyDocuments/components/DocumentsList';
-import * as actions from 'src/redux/actions';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
+import {isNotUserValid} from '../../../services/generic';
+import DocumentsList from '../../../modules/policyDocuments/components/DocumentsList';
+import * as actions from '../../../redux/actions';
 
 class PolicyDocumentContainer extends React.Component {
   constructor (props) {

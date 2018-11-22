@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { confirm } from "src/services/notify";
+import { confirm } from "../../../services/notify";
 
 export default class HealthStats extends React.Component {
   render() {

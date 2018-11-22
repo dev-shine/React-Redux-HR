@@ -1,9 +1,9 @@
 import React from 'react';
 import * as _ from 'lodash';
 import {DateField} from 'react-date-picker';
-import ButtonRaised from "src/components/generic/buttons/ButtonRaised";
-import {confirm} from 'src/services/notify';
-import InputText from 'src/components/generic/input/InputText';
+import ButtonRaised from "../../components/generic/buttons/ButtonRaised";
+import {confirm} from '../../services/notify';
+import InputText from '../../components/generic/input/InputText';
 
 class HolidaysList extends React.Component{
 

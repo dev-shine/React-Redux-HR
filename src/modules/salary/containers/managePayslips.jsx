@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import ManagePayslipsUsersList from 'src/modules/salary/components/managePayslips/ManagePayslipsUsersList';
-import FormGeneratePaySlip from 'src/modules/salary/components/managePayslips/FormGeneratePaySlip';
-import EmployeeActualSalary from 'src/modules/salary/components/managePayslips/EmployeeActualSalary';
-import UserPayslipsHistory from 'src/components/salary/managePayslips/UserPayslipsHistory';
-import * as actions from 'src/redux/actions';
-import * as actions_usersList from 'src/redux/generic/actions/usersList';
-import * as actions_managePayslips from 'src/redux/salary/actions/managePayslips';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import ManagePayslipsUsersList from '../../../modules/salary/components/managePayslips/ManagePayslipsUsersList';
+import FormGeneratePaySlip from '../../../modules/salary/components/managePayslips/FormGeneratePaySlip';
+import EmployeeActualSalary from '../../../modules/salary/components/managePayslips/EmployeeActualSalary';
+import UserPayslipsHistory from '../../../components/salary/managePayslips/UserPayslipsHistory';
+import * as actions from '../../../redux/actions';
+import * as actions_usersList from '../../../redux/generic/actions/usersList';
+import * as actions_managePayslips from '../../../redux/salary/actions/managePayslips';
 
 class ManagePayslips extends React.Component {
   constructor (props) {

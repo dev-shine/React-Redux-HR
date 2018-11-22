@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/notify';
-import * as actions from 'src/redux/actions';
-import Menu from 'src/components/generic/Menu';
-import Header from 'src/components/generic/Header';
-import {isNotUserValid} from 'src/services/generic';
-import HolidaysList from 'src/components/holidays/HolidaysList';
-import { getToken, getYearArray } from 'src/services/generic';
+import {notify} from '../../../services/notify';
+import * as actions from '../../../redux/actions';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
+import {isNotUserValid} from '../../../services/generic';
+import HolidaysList from '../../../components/holidays/HolidaysList';
+import { getToken, getYearArray } from '../../../services/generic';
 
 class Holidays extends React.Component {
   constructor (props) {

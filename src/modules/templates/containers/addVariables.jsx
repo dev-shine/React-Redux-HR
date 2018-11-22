@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import * as actions from 'src/redux/actions';
-import * as actions_templates from 'src/redux/templates/actions/templates';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import * as actions from '../../../redux/actions';
+import * as actions_templates from '../../../redux/templates/actions/templates';
 import Variables from '../components/Variable';
 
 class VariablesContainer extends React.Component {

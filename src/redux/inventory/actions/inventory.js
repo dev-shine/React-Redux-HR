@@ -1,9 +1,9 @@
 import {createAction} from 'redux-actions';
-import {fireAjax} from 'src/services/index';
-import {notify} from 'src/services/notify'; 
-import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
-import * as actionsMyProfile from "src/redux/myProfile/actions/myProfile";
-import * as constants from 'src/redux/constants';
+import {fireAjax} from '../../../services/index';
+import {notify} from '../../../services/notify'; 
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as actionsMyProfile from "../../../redux/myProfile/actions/myProfile";
+import * as constants from '../../../redux/constants';
 import { createInflate } from 'zlib';
 
 export function success_add_new_machine (data) {

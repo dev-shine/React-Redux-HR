@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import * as constants from 'src/redux/constants';
+import * as constants from '../../../redux/constants';
 
 export function show_loading () {
   return createAction(constants.ACTION_SHOW_LOADING)();

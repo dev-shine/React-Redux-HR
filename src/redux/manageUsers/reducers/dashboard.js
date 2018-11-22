@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
-import * as constants from 'src/redux/constants';
+import * as constants from '../../../redux/constants';
 import update from 'immutability-helper';
-import 'src/redux/update';
+import '../../../redux/update';
 
 let initialState = {
   teamStats: {

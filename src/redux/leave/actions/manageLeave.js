@@ -1,10 +1,10 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
 import * as jwt from 'jwt-simple';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import * as constants from 'src/redux/constants';
-import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import * as constants from '../../../redux/constants';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
 import * as actions_listLeaves from './listLeaves';
 
 export function leave_status_change_success (data) {

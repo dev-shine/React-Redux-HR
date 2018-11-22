@@ -2,7 +2,7 @@ import "react-date-picker/index.css";
 import React from "react";
 import PropTypes from "prop-types";
 import DeviceCounter from "./DeviceCounter";
-import style from "src/styles/inventory/viewUser.scss";
+import style from "../../styles/inventory/viewUser.scss";
 import {CSVLink} from 'react-csv';
 import moment from 'moment';
 import { Link } from "react-router";

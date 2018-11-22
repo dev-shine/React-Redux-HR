@@ -1,7 +1,7 @@
 import {createAction} from 'redux-actions';
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
-import * as constants from 'src/redux/constants';
+import {fireAjax} from '../../../services/index';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
 
 export function successAddNewRole (data) {
   return createAction(constants.ACTION_SUCCESS_ADD_ROLE)(data);

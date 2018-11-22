@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { CONFIG } from "src/config/index";
-import { notify } from "src/services/notify";
-import Menu from "src/components/generic/Menu";
-import { getToken } from "src/services/generic";
-import * as actions from "src/redux/actions";
-import Header from "src/components/generic/Header";
+import { CONFIG } from "../../../config/index";
+import { notify } from "../../../services/notify";
+import Menu from "../../../components/generic/Menu";
+import { getToken } from "../../../services/generic";
+import * as actions from "../../../redux/actions";
+import Header from "../../../components/generic/Header";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 import { browserHistory } from "react-router";
 import { connect } from "react-redux";

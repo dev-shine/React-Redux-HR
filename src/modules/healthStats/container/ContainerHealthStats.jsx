@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import Menu from "src/components/generic/Menu";
-import Header from "src/components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import Header from "../../../components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from 'src/redux/actions';
-import HealthStats from "src/modules/healthStats/component/HealthStats";
-import HealthStatsSecretKey from "src/modules/healthStats/component/HealthStatsSecretKey";
-import * as actionsUsersList from "src/redux/generic/actions/usersList";
-import {notify} from 'src/services/notify';
-import EmployeeJoiningTerminationStats from "src/modules/healthStats/component/EmployeeJoiningTerminationStats";
-import LeaveStats from "src/modules/healthStats/component/LeaveStats";
-import { getYearArray } from 'src/services/generic';
-import { dateFormatter } from "src/helper/helper";
+import * as actions from '../../../redux/actions';
+import HealthStats from "../../../modules/healthStats/component/HealthStats";
+import HealthStatsSecretKey from "../../../modules/healthStats/component/HealthStatsSecretKey";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import {notify} from '../../../services/notify';
+import EmployeeJoiningTerminationStats from "../../../modules/healthStats/component/EmployeeJoiningTerminationStats";
+import LeaveStats from "../../../modules/healthStats/component/LeaveStats";
+import { getYearArray } from '../../../services/generic';
+import { dateFormatter } from "../../../helper/helper";
 
 
 class ContainerHealthStats extends React.Component {

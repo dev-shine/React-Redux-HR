@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as jwt from 'jwt-simple';
-import {CONFIG} from 'src/config/index';
+import {CONFIG} from '../config/index';
 
 export function isNotUserValid (path, loggedUser) {
   let tokenData = getLoggedUser().data || [];

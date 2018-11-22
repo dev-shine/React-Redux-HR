@@ -1,12 +1,12 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
-import {notify, confirm} from 'src/services/notify';
+import {notify, confirm} from '../../../services/notify';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {CONFIG} from 'src/config/index';
-import style from 'src/styles/inventory/viewUser.scss'
+import {CONFIG} from '../../../config/index';
+import style from '../../../styles/inventory/viewUser.scss'
 import 'react-date-picker/index.css';
 
 export default class AddDeviceDialoge extends React.Component {

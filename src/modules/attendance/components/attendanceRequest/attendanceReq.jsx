@@ -1,10 +1,10 @@
 import React from 'react';
-import {isNotUserValid} from 'src/services/generic';
+import {isNotUserValid} from '../../../services/generic';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 // import 'react-date-picker/index.css';
-import {CONFIG} from 'src/config/index';
-import {notify} from 'src/services/notify';
+import {CONFIG} from '../../../config/index';
+import {notify} from '../../../services/notify';
 import AttendanceApprove from './attendanceApprove';
 
 export default class UserPendingAttendanceList extends React.Component {

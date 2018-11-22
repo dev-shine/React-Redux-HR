@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import UsersList from 'src/components/generic/UsersList';
-import Header from 'src/components/generic/Header';
-import UserMonthlyAttendance from 'src/components/attendance/UserMonthlyAttendance';
-import UserDaySummary from 'src/modules/attendance/components/UserDaySummary';
-// import * as actionsUsersList from 'src/redux/generic/actions/usersList';
-// import * as actionsMonthlyAttendance from 'src/redux/attendance/actions/monthlyAttendance';
-// import * as actionsUserDaySummary from 'src/redux/attendance/actions/userDaySummary';
-import * as actions from 'src/redux/actions';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+// import UsersList from '../../../components/generic/UsersList';
+import Header from '../../../components/generic/Header';
+// import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
+// import UserDaySummary from '../../../modules/attendance/components/UserDaySummary';
+// import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+// import * as actionsMonthlyAttendance from '../../../redux/attendance/actions/monthlyAttendance';
+// import * as actionsUserDaySummary from '../../../redux/attendance/actions/userDaySummary';
+import * as actions from '../../../redux/actions';
 
 class Home extends React.Component {
   constructor (props) {
@@ -70,17 +70,18 @@ class Home extends React.Component {
     return (
       <div>
         <Menu {...this.props} />
-        <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} />
+        {/* <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} /> */}
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Users'} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
                 <div className="col-md-2" id="fixedScroll">
-                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} />
+                  {/* <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} /> */}
                 </div>
                 <div className="col-md-10">
-                  <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} />
+                adasd
+                  {/* <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} /> */}
                 </div>
               </div>
             </div>

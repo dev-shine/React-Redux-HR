@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import WorkingHoursSummary from 'src/components/workingHours/WorkingHoursSummary';
-import * as actions from 'src/redux/actions';
-import * as actionsWorkingHoursSummary from 'src/redux/workingHours/actions/workingHoursSummary';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import WorkingHoursSummary from '../../../components/workingHours/WorkingHoursSummary';
+import * as actions from '../../../redux/actions';
+import * as actionsWorkingHoursSummary from '../../../redux/workingHours/actions/workingHoursSummary';
 
 class ManageWorkingHours extends React.Component {
   constructor (props) {

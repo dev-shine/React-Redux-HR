@@ -3,11 +3,11 @@ import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 import {DateField} from 'react-date-picker';
 import 'react-date-picker/index.css';
-import {CONFIG} from 'src/config/index';
-import Label from 'src/components/generic/label';
-import InputText from 'src/components/generic/input/InputText';
-import Textarea from 'src/components/generic/input/TextArea';
-import ButtonRaised from 'src/components/generic/buttons/ButtonRaised';
+import {CONFIG} from '../../../config/index';
+import Label from '../../../components/generic/label';
+import InputText from '../../../components/generic/input/InputText';
+import Textarea from '../../../components/generic/input/TextArea';
+import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
 var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {

@@ -1,7 +1,7 @@
-import {fireAjax} from 'src/services/index';
+import {fireAjax} from '../../../services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'src/redux/actions';
-import {CONFIG} from 'src/config/index';
+import * as actions from '../../../redux/actions';
+import {CONFIG} from '../../../config/index';
 
 export function* getTeamStats (action) {
   try {

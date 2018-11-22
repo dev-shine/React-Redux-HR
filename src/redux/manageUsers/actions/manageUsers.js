@@ -2,10 +2,10 @@ import { createAction } from "redux-actions";
 import * as _ from "lodash";
 import queue from "async/queue";
 
-import { fireAjax } from "src/services/index";
-import { show_loading, hide_loading } from "src/redux/generic/actions/frontend";
+import { fireAjax } from "../../../services/index";
+import { show_loading, hide_loading } from "../../../redux/generic/actions/frontend";
 var moment = require("moment");
-import * as constants from "src/redux/constants";
+import * as constants from "../../../redux/constants";
 
 export function success_user_profile(data, username) {
   return {

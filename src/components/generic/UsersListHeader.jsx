@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UsersList from 'src/components/generic/UsersList';
+import UsersList from '../../components/generic/UsersList';
 
 const UsersListHeader = ({users, selectedUserId, onUserClick, disabledUser}) => {
   return (

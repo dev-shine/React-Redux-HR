@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'src/components/generic/LoadingIcon';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import * as actions from 'src/redux/actions';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import * as actions from '../../../redux/actions';
 import {bindActionCreators} from 'redux';
 import UserPendingAttendanceList from '../components/attendanceRequest/attendanceReq';
-// import * as actionsManageUserAttendance from 'src/redux/attendance/actions/attendanceRequests';
+// import * as actionsManageUserAttendance from '../../../redux/attendance/actions/attendanceRequests';
 
 class ManageAttendanceRequest extends React.Component {
   constructor (props) {

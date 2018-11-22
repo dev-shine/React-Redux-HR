@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import InputText from 'src/components/generic/input/InputText';
-import { confirm } from "src/services/notify";
+import InputText from '../../../components/generic/input/InputText';
+import { confirm } from "../../../services/notify";
 import moment from 'moment';
 
 export default class HealthStatsSecretKey extends React.Component {

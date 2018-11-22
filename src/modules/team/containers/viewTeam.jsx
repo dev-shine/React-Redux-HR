@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import TeamList from 'src/modules/team/components/TeamList';
-import TeamDetails from 'src/modules/team/components/TeamDetails';
-import LoadingIcon from 'src/components/generic/LoadingIcon';
-import * as actions from 'src/redux/actions';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import TeamList from '../../../modules/team/components/TeamList';
+import TeamDetails from '../../../modules/team/components/TeamDetails';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import * as actions from '../../../redux/actions';
 
 class ViewTeam extends React.Component {
   constructor (props) {

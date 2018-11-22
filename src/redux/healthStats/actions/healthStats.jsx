@@ -1,6 +1,6 @@
-import { fireAjax } from 'src/services/index';
+import { fireAjax } from '../../../services/index';
 import { call, put } from 'redux-saga/effects';
-import * as actions from 'src/redux/actions';
+import * as actions from '../../../redux/actions';
 
 export function* healthStatsRequest(action) {
     try {

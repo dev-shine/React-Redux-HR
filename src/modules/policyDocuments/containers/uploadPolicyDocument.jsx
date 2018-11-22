@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
 import {bindActionCreators} from 'redux';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import Message from 'src/components/generic/Message';
-import FormUploadPolicyDocument from 'src/modules/policyDocuments/components/formUploadPolicyDocument';
-import ListAllPolicyDocument from 'src/components/policyDocuments/ListAllPolicyDocument';
-import * as actions from 'src/redux/actions';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import Message from '../../../components/generic/Message';
+import FormUploadPolicyDocument from '../../../modules/policyDocuments/components/formUploadPolicyDocument';
+import ListAllPolicyDocument from '../../../components/policyDocuments/ListAllPolicyDocument';
+import * as actions from '../../../redux/actions';
 
 class UploadPolicyDocumentContainer extends React.Component {
   constructor (props) {

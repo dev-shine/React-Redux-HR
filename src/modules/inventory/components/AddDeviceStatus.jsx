@@ -4,10 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {GithubPicker} from 'react-color';
-import {notify, confirm} from 'src/services/notify';
-import {CONFIG} from 'src/config/index';
+import {notify, confirm} from '../../../services/notify';
+import {CONFIG} from '../../../config/index';
 import 'react-date-picker/index.css';
-import style from 'src/styles/inventory/viewUser.scss'
+import style from '../../../styles/inventory/viewUser.scss'
 
 export default class AddDeviceStatus extends React.Component {
   constructor (props) {

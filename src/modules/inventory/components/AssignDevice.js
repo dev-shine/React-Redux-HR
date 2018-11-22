@@ -2,13 +2,13 @@ import React from "react";
 import "react-date-picker/index.css";
 import Dialog from "material-ui/Dialog";
 import { DateField } from "react-date-picker";
-import { notify } from "src/services/notify";
-import * as actions from "src/redux/actions";
-import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
+import { notify } from "../../../services/notify";
+import * as actions from "../../../redux/actions";
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
 import PropTypes from "prop-types";
 import TextField from "material-ui/TextField";
 import * as _ from "lodash";
-import AlertNotification from "src/components/generic/AlertNotification";
+import AlertNotification from "../../../components/generic/AlertNotification";
 
 export default class AssignDevice extends React.Component {
   constructor(props) {

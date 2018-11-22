@@ -1,17 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { notify } from "src/services/notify";
-import Menu from "src/components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
-import Header from "src/components/generic/Header";
-import UserHorizontalView from "src/components/generic/UserHorizontalView";
-import DeviceDetails from "src/components/inventory/deviceDetails";
-import * as actionsMyProfile from "src/redux/myProfile/actions/myProfile";
-import * as actions from 'src/redux/actions';
-import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
-import UnassignDevice from "src/modules/inventory/components/UnassignDevice";
-import AssignDevice from "src/modules/inventory/components/AssignDevice";
+import { notify } from "../../../services/notify";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
+import Header from "../../../components/generic/Header";
+import UserHorizontalView from "../../../components/generic/UserHorizontalView";
+import DeviceDetails from "../../../components/inventory/deviceDetails";
+import * as actionsMyProfile from "../../../redux/myProfile/actions/myProfile";
+import * as actions from '../../../redux/actions';
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import UnassignDevice from "../../../modules/inventory/components/UnassignDevice";
+import AssignDevice from "../../../modules/inventory/components/AssignDevice";
 import _ from "lodash";
 import $ from 'jquery';
 

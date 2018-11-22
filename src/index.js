@@ -1,7 +1,7 @@
-import 'styles/main.scss';
+import './styles/main.scss';
 import 'whatwg-fetch';
 import 'sweetalert';
-import 'sweetalert/dist/sweetalert.css';
+// import 'sweetalert/dist/sweetalert.css';
 import 'jquery';
 import 'jquery-ui';
 import 'tether';
@@ -15,50 +15,50 @@ import {Provider} from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Page_Login from './modules/auth/containers/login';
-import Page_Logout from './modules/auth/containers/logout';
-import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
-import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
-import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
-import Page_ApplyLeave from './modules/leave/containers/applyLeave';
-import Page_MyLeaves from './modules/leave/containers/myLeaves';
-import Page_Holidays from './modules/holidays/containers/holidays';
-import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
-import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
-import Page_ManageSalary from './modules/salary/containers/manageSalary';
-import Page_ViewSalary from './modules/salary/containers/viewSalary';
-import Page_Salary from './modules/salary/containers/salary';
-import Page_ManagePayslips from './modules/salary/containers/managePayslips';
-import Page_Home from './modules/attendance/containers/Home';
-import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
-import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
-import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
-import PageManageUsers from './modules/manageUsers/containers/manageUsers';
-import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
-import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
-import InventorySystem from './modules/inventory/containers/manageInventory';
-import Page_MyInventory from './modules/inventory/containers/myInventory';
-import PageManageRoles from './modules/manageRoles/containers/manageRoles';
-import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
-import Page_mail_template from './modules/templates/containers/addTemplate';
-import Page_AddVariables from './modules/templates/containers/addVariables';
-import Page_TeamView from './modules/team/containers/viewTeam';
-import Page_MyProfile from './modules/myProfile/containers/myProfile';
+// import Page_Login from './modules/auth/containers/login';
+// import Page_Logout from './modules/auth/containers/logout';
+// import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
+// import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
+// import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
+// import Page_ApplyLeave from './modules/leave/containers/applyLeave';
+// import Page_MyLeaves from './modules/leave/containers/myLeaves';
+// import Page_Holidays from './modules/holidays/containers/holidays';
+// import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
+// import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
+// import Page_ManageSalary from './modules/salary/containers/manageSalary';
+// import Page_ViewSalary from './modules/salary/containers/viewSalary';
+// import Page_Salary from './modules/salary/containers/salary';
+// import Page_ManagePayslips from './modules/salary/containers/managePayslips';
+// import Page_Home from './modules/attendance/containers/Home';
+// import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
+// import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
+// import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
+// import PageManageUsers from './modules/manageUsers/containers/manageUsers';
+// import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
+// import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
+// import InventorySystem from './modules/inventory/containers/manageInventory';
+// import Page_MyInventory from './modules/inventory/containers/myInventory';
+// import PageManageRoles from './modules/manageRoles/containers/manageRoles';
+// import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
+// import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
+// import Page_mail_template from './modules/templates/containers/addTemplate';
+// import Page_AddVariables from './modules/templates/containers/addVariables';
+// import Page_TeamView from './modules/team/containers/viewTeam';
+// import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from './modules/manageUsers/containers/manageDashboard';
-import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
-import InventoryItem from './modules/inventory/components/inventoryItem'
-import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
-import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
-import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
-import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
-import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
+// import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
+// import InventoryItem from './modules/inventory/components/inventoryItem'
+// import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
+// import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
+// import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
+// import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
+// import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
-import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
-import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
-import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
-import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
-import Page_settings from './modules/healthStats/container/Settings';
+// import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
+// import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
+// import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
+// import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
+// import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
 
 // -for iPhone iPad safari engine
@@ -87,8 +87,8 @@ let render = (routerKey = null) => {
           <Route path="/" component={APP}>
             <IndexRoute component={PageManageDashboard} />
             //this will be the default page which will opens when app starts
-            <Route path="home" component={Page_Home} />
-            <Route path="PageManageDashboard" component={PageManageDashboard} />
+            {/* <Route path="home" component={Page_Home} /> */}
+            {/* <Route path="PageManageDashboard" component={PageManageDashboard} />
             <Route path="page_login" component={Page_Login} />
             <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
             <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
@@ -116,11 +116,11 @@ let render = (routerKey = null) => {
             <Route path="policy_documents" component={Page_PolicyDocument} />
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="add_variables" component={Page_AddVariables} />
-            <Route path="mail_templates" component={Page_mail_template} />
+            <Route path="mail_templates" component={Page_mail_template} /> */}
 
             {/* <Route path="inventoryOverviewDetail" component={Page_InventorySystem} /> */}
             {/* <Route path="inventory_system/:device/:id" component={InventoryItem} /> */}
-            <Route path="inventory_system" component={InventorySystem} />
+            {/* <Route path="inventory_system" component={InventorySystem} />
 
             <Route path="inventory_system/:device/:id" component={InventoryItem} />
             <Route path="inventory_system/:device" component={InventorySystem}/>
@@ -135,7 +135,7 @@ let render = (routerKey = null) => {
             <Route path="addInventory" component={RouterAddInventorySystem}/>
             <Route path="add_new_employee" component={AddNewEmployee}/>
             <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
-            <Route path="user_document" component={UserDocumentDetails}/>
+            <Route path="user_document" component={UserDocumentDetails}/> */}
           </Route>
         </Router>
       </Provider>

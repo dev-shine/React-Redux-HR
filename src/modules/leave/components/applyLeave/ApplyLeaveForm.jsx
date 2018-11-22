@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {Calendar} from 'react-date-range';
-import {notify} from 'src/services/notify';
-import {Button, ButtonRaised, ButtonFlat} from 'src/components/generic/buttons';
+import {notify} from '../../../../services/notify';
+import {Button, ButtonRaised, ButtonFlat} from '../../../../components/generic/buttons';
 import AddLeaveDocument from './AddLeaveDocument'
 
 

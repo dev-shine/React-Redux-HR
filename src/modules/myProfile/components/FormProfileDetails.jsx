@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateField} from 'react-date-picker';
-import {ButtonRaised} from 'src/components/generic/buttons/index';
+import {ButtonRaised} from '../../../components/generic/buttons/index';
 import 'react-date-picker/index.css';
 
 class FormProfileDetails extends React.Component {

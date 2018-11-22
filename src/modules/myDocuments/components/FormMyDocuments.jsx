@@ -1,8 +1,8 @@
 import React from "react";
-import { CONFIG } from "src/config/index";
-import { notify } from "src/services/notify";
-import { getToken } from "src/services/generic";
-import ListDocuments from "src/components/myDocuments/ListDocuments";
+import { CONFIG } from "../../../config/index";
+import { notify } from "../../../services/notify";
+import { getToken } from "../../../services/generic";
+import ListDocuments from "../../../components/myDocuments/ListDocuments";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";

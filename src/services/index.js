@@ -1,7 +1,7 @@
-import {CONFIG} from 'src/config/index';
+import {CONFIG} from '../config/index';
 import _ from 'lodash';
-import {confirm} from 'src/services/notify';
-import {getToken, resetLoggedUser} from 'src/services/generic';
+import {confirm} from '../services/notify';
+import {getToken, resetLoggedUser} from '../services/generic';
 import 'whatwg-fetch';
 import axios from 'axios';
 
@@ -109,7 +109,7 @@ export function fireAjax (method, url, data, api) {
     } else if (response.status === 401) {
       confirm('401 Access Denied !', '<span style="color:#f27474;font-size:18px;font-weight:600">' + action + '</span><br/>You are unauthorized to the Action - Contact Admin!!', 'error').then((res) => {
         resetLoggedUser();
-        location.href = CONFIG.BASE_URL;
+        window.location.href = CONFIG.BASE_URL;
       });
     } else {
       return response.json();

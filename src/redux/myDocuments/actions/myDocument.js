@@ -1,8 +1,8 @@
 import {createAction} from 'redux-actions';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
-import * as constants from 'src/redux/constants';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
 
 // ---------get user document
 

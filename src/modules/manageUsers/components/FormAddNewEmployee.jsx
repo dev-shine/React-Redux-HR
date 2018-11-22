@@ -3,22 +3,22 @@ import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { notify } from "src/services/notify";
-import Menu from "src/components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
-import Header from "src/components/generic/Header";
-import { CONFIG } from "src/config/index";
+import { notify } from "../../../services/notify";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
+import Header from "../../../components/generic/Header";
+import { CONFIG } from "../../../config/index";
 import { DateField } from "react-date-picker";
 import AddNewEmployeeDetails from "./FormAddNewEmployeeDetails";
 // import "react-date-picker/index.css";
 import { withRouter } from "react-router";
 import CircularProgress from "material-ui/CircularProgress";
-import Button from "src/components/generic/buttons/Button";
+import Button from "../../../components/generic/buttons/Button";
 import DatePicker from "material-ui/DatePicker";
-import ButtonRaised from "src/components/generic/buttons/ButtonRaised";
-import * as actions from "src/redux/actions";
-import * as actionsUsersList from "src/redux/generic/actions/usersList";
-import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
+import ButtonRaised from "../../../components/generic/buttons/ButtonRaised";
+import * as actions from "../../../redux/actions";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
 
 class FormAddNewEmployee extends React.Component {
   constructor(props) {

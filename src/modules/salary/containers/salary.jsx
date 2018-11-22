@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as _ from 'lodash';
-import Menu from 'src/components/generic/Menu';
-import { isNotUserValid } from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import SalaryDetails from 'src/modules/salary/components/userSalary/SalaryDetails';
-import SalaryHistory from 'src/components/salary/userSalary/SalaryHistory';
-import PayslipHistory from 'src/components/salary/userSalary/PayslipHistory';
-import * as actions from 'src/redux/actions';
-import * as actions_salary from 'src/redux/salary/actions/viewSalary';
-import SalaryBlock from "src/components/generic/SalaryBlock";
+import Menu from '../../../components/generic/Menu';
+import { isNotUserValid } from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import SalaryDetails from '../../../modules/salary/components/userSalary/SalaryDetails';
+import SalaryHistory from '../../../components/salary/userSalary/SalaryHistory';
+import PayslipHistory from '../../../components/salary/userSalary/PayslipHistory';
+import * as actions from '../../../redux/actions';
+import * as actions_salary from '../../../redux/salary/actions/viewSalary';
+import SalaryBlock from "../../../components/generic/SalaryBlock";
 import {isMobile} from 'react-device-detect';
 
 class Salary extends React.Component {

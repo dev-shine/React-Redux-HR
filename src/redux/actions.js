@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import * as constants from 'src/redux/constants';
+import * as constants from '../redux/constants';
 
 export const userLoginRequest = createAction(constants.USER_LOGIN_REQUEST);
 export const userLoginSuccess = createAction(constants.USER_LOGIN_SUCCESS);

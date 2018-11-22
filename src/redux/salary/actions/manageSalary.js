@@ -1,8 +1,8 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'src/redux/generic/actions/frontend';
-import * as constants from 'src/redux/constants';
+import {fireAjax} from '../../../services/index';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
 
 export function success_user_salary_details (data) {
   return createAction(constants.ACTION_SUCCESS_USER_SALARY_DETAILS)(data);

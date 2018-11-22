@@ -2,19 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import * as _ from 'lodash';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import {CONFIG} from 'src/config/index';
-import UsersList from 'src/components/generic/UsersList';
-import Header from 'src/components/generic/Header';
-import UsersListHeader from 'src/components/generic/UsersListHeader';
-import ApplyLeaveForm from 'src/modules/leave/components/applyLeave/ApplyLeaveForm';
-import * as actions from 'src/redux/actions';
-import * as actions_usersList from 'src/redux/generic/actions/usersList';
-import * as actions_policy from 'src/redux/policyDocuments/actions/index';
-import * as actions_apply_leave from 'src/redux/leave/actions/applyLeave';
-import * as actions_manageLeave from "src/redux/leave/actions/manageLeave";
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import {CONFIG} from '../../../config/index';
+import UsersList from '../../../components/generic/UsersList';
+import Header from '../../../components/generic/Header';
+import UsersListHeader from '../../../components/generic/UsersListHeader';
+import ApplyLeaveForm from '../../../modules/leave/components/applyLeave/ApplyLeaveForm';
+import * as actions from '../../../redux/actions';
+import * as actions_usersList from '../../../redux/generic/actions/usersList';
+import * as actions_policy from '../../../redux/policyDocuments/actions/index';
+import * as actions_apply_leave from '../../../redux/leave/actions/applyLeave';
+import * as actions_manageLeave from "../../../redux/leave/actions/manageLeave";
 
 class ApplyLeave extends React.Component {
   constructor (props) {

@@ -1,4 +1,4 @@
-import {getToken} from 'src/services/generic';
+import {getToken} from '../services/generic';
 
 const token = getToken();
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'src/components/generic/Menu';
-import LoadingIcon from 'src/components/generic/LoadingIcon';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'src/components/generic/Header';
-import UsersList from 'src/components/generic/UsersList';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import UsersList from '../../../components/generic/UsersList';
 import AddAsLeaveHour from '../components/AddAsLeaveHour';
-import * as actions from 'src/redux/actions';
+import * as actions from '../../../redux/actions';
 import UserPendingHoursList from '../components/UserPendingHoursList';
-import * as actionsUsersList from 'src/redux/generic/actions/usersList';
-import * as actionPendingHour from 'src/redux/workingHours/actions/managePendingLeave';
-import * as actions_apply_leave from 'src/redux/leave/actions/applyLeave';
-import * as actionsManageUserPendingHours from 'src/redux/workingHours/actions/manageUserPendingHour';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionPendingHour from '../../../redux/workingHours/actions/managePendingLeave';
+import * as actions_apply_leave from '../../../redux/leave/actions/applyLeave';
+import * as actionsManageUserPendingHours from '../../../redux/workingHours/actions/manageUserPendingHour';
 
 class ManageUserPendingHours extends React.Component {
   constructor (props) {

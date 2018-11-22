@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Menu from "src/components/generic/Menu";
-import Header from "src/components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import Header from "../../../components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from 'src/redux/actions';
-import AttendanceUploadSetting from "src/modules/healthStats/component/AttendanceUploadSetting";
+import * as actions from '../../../redux/actions';
+import AttendanceUploadSetting from "../../../modules/healthStats/component/AttendanceUploadSetting";
 
 
 class ContainerHealthStats extends React.Component {

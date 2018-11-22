@@ -2,13 +2,13 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
-import {CONFIG} from 'src/config/index';
+import {CONFIG} from '../../../config/index';
 import {DateField} from 'react-date-picker';
 // import 'react-date-picker/index.css';
-import {Button, ButtonFlat} from 'src/components/generic/buttons';
-import ButtonRaised from 'src/components/generic/buttons/ButtonRaised';
+import {Button, ButtonFlat} from '../../../components/generic/buttons';
+import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
 import {Calendar} from 'react-date-range';
-import {notify} from 'src/services/notify';
+import {notify} from '../../../services/notify';
 
 var moment = require('moment');
 

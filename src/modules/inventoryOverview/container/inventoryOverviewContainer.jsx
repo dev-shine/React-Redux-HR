@@ -1,14 +1,14 @@
 import React from 'react';
-import Menu from 'src/components/generic/Menu';
-import Header from 'src/components/generic/Header';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import ViewUserDevice from 'src/components/inventory/ViewUser';
-import DeviceCounterTab from 'src/components/inventory/DeviceCounterTab';
-import * as actionsManageDevice from 'src/redux/inventory/actions/inventory';
-import * as actions from 'src/redux/actions';
-import * as actionsUsersList from 'src/redux/generic/actions/usersList';
-import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
+import ViewUserDevice from '../../../components/inventory/ViewUser';
+import DeviceCounterTab from '../../../components/inventory/DeviceCounterTab';
+import * as actionsManageDevice from '../../../redux/inventory/actions/inventory';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUsers from '../../../redux/manageUsers/actions/manageUsers';
 
 class InventoryOverviewContainer extends React.Component{
 

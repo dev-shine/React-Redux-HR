@@ -1,5 +1,5 @@
 import React from "react";
-import { CONFIG } from "src/config/index";
+import { CONFIG } from "../../../config/index";
 import "timepicker/jquery.timepicker.min.css";
 import "timepicker/jquery.timepicker.min.js";
 var moment = require("moment");

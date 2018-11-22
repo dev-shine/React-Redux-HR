@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import Menu from "src/components/generic/Menu";
-import Header from "src/components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import Header from "../../../components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from 'src/redux/actions';
-import { CONFIG } from "src/config";
-import * as actionsUsersList from "src/redux/generic/actions/usersList";
-import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
-import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
-import { getToken } from 'src/services/generic';
+import * as actions from '../../../redux/actions';
+import { CONFIG } from "../../../config";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import { getToken } from '../../../services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';
-import { dateFormatter } from "src/helper/helper";
+import { dateFormatter } from "../../../helper/helper";
 import { Link } from "react-router";
 
 class AuditInventoryList extends Component {

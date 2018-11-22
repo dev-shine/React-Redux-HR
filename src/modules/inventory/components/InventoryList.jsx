@@ -1,11 +1,11 @@
 import React from "react";
 import * as _ from "lodash";
-import { notify, confirm } from "src/services/notify";
-import { getLowerCase, getLoggedUser } from "src/services/generic";
-import AddDeviceDialoge from "src/modules/inventory/components/AddDeviceDialoge";
-import AddDeviceStatus from "src/modules/inventory/components/AddDeviceStatus";
+import { notify, confirm } from "../../../services/notify";
+import { getLowerCase, getLoggedUser } from "../../../services/generic";
+import AddDeviceDialoge from "../../../modules/inventory/components/AddDeviceDialoge";
+import AddDeviceStatus from "../../../modules/inventory/components/AddDeviceStatus";
 import { CONFIG } from "config";
-import style from "src/styles/inventory/viewUser.scss";
+import style from "../../../styles/inventory/viewUser.scss";
 var moment = require("moment");
 import { CSVLink } from 'react-csv';
 import {deviceKeys} from 'services/index';

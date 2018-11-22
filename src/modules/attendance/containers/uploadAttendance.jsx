@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'src/components/generic/Menu';
-import {CONFIG} from 'src/config/index';
-import {isNotUserValid} from 'src/services/generic';
-import AlertNotification from 'src/components/generic/AlertNotification';
-import Header from 'src/components/generic/Header';
-import AttendanceSheatForm from 'src/modules/attendance/components/uploadAttendance/AttendanceSheatForm';
-import * as actions from 'src/redux/actions';
-import * as actionsUsersList from 'src/redux/generic/actions/usersList';
-import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
-import * as actionsManagePayslips from 'src/redux/salary/actions/managePayslips';
+import Menu from '../../../components/generic/Menu';
+import {CONFIG} from '../../../config/index';
+import {isNotUserValid} from '../../../services/generic';
+import AlertNotification from '../../../components/generic/AlertNotification';
+import Header from '../../../components/generic/Header';
+import AttendanceSheatForm from '../../../modules/attendance/components/uploadAttendance/AttendanceSheatForm';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUsers from '../../redux/manageUsers/actions/manageUsers';
+import * as actionsManagePayslips from '../../../redux/salary/actions/managePayslips';
 
 class UploadAttendance extends React.Component {
   constructor (props) {

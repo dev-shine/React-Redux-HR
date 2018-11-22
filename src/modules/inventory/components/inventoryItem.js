@@ -1,17 +1,17 @@
 import React from "react";
 import * as _ from "lodash";
 import moment from "moment";
-import { CONFIG } from "src/config/index";
+import { CONFIG } from "../../../config/index";
 import { connect } from "react-redux";
-import Menu from "src/components/generic/Menu";
-import { notify } from "src/services/notify";
-import Header from "src/components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import { notify } from "../../../services/notify";
+import Header from "../../../components/generic/Header";
 import { withRouter } from "react-router";
-import * as actions from 'src/redux/actions';
-import * as actionsManageDevice from "src/redux/inventory/actions/inventory";
-import * as actionsUsersList from "src/redux/generic/actions/usersList";
-import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
-import ButtonRaised from "src/components/generic/buttons/ButtonRaised";
+import * as actions from '../../../redux/actions';
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
+import ButtonRaised from "../../../components/generic/buttons/ButtonRaised";
 import DialogUpload from "./dialogueUpload";
 let device_id;
 class InventoryItem extends React.Component {

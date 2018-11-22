@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/notify';
-import {isNotUserValid} from 'src/services/generic';
-import GetLogo from 'src/components/auth/login/GetLogo';
-import Navbar from 'src/components/auth/login/Navbar';
-import LoadingIcon from 'src/components/generic/LoadingIcon';
-import {Button} from 'src/components/generic/buttons';
-import * as actions from 'src/redux/actions';
+import {notify} from '../../../services/notify';
+import {isNotUserValid} from '../../../services/generic';
+import GetLogo from '../../../components/auth/login/GetLogo';
+import Navbar from '../../../components/auth/login/Navbar';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import {Button} from '../../../components/generic/buttons';
+import * as actions from '../../../redux/actions';
 
 class ForgotPassword extends React.Component {
   constructor (props) {

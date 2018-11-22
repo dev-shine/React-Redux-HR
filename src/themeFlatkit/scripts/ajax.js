@@ -1,6 +1,3 @@
-import $ from 'jquery';
-let jQuery = $;
-
 (function ($) {
 	'use strict';
     if ($.support.pjax) {
@@ -25,4 +22,4 @@ let jQuery = $;
         $( document ).trigger( "pjaxEnd" );
       });
     }
-})(jQuery);
+})(window.jQuery);

@@ -1,6 +1,3 @@
-import $ from 'jquery';
-let jQuery = $;
-
 (function ($) {
 	"use strict";
 
@@ -15,4 +12,4 @@ let jQuery = $;
     	$('body').addClass('smart');
 	} 
 
-})(jQuery);
+})(window.jQuery);

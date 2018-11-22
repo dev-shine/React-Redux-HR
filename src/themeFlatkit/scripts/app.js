@@ -1,6 +1,4 @@
-import palette from './palette';
-import $ from 'jquery';
-let jQuery = $;
+// import palette from './palette';
 
 (function ($) {
 	'use strict';
@@ -43,7 +41,7 @@ let jQuery = $;
 
     var setting = 'jqStorage-'+app.name+'-Setting',
         storage = $.localStorage;
-    
+
     if( storage.isEmpty(setting) ){
         storage.set(setting, app.setting);
     }else{
@@ -103,7 +101,7 @@ let jQuery = $;
     };
 
     function getColor(name){
-      return app.color[ name ] ? app.color[ name ] : palette.find(name);
+      return app.color[ name ] ? app.color[ name ] : window.palette.find(name);
     };
 
     function getParams(name) {
@@ -114,8 +112,8 @@ let jQuery = $;
     }
 
     function init(){
-      $('[ui-jp]').uiJp();
-      $('body').uiInclude();
+      window.$('[ui-jp]').uiJp();
+      window.$('body').uiInclude();
     }
 
-})(jQuery);
+})(window.jQuery);

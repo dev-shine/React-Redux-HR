@@ -17,4 +17,4 @@
           scrollTop: target.offset().top
         }, 600, 'easeInOutExpo');
 	});
-})(jQuery);
+})(window.jQuery);

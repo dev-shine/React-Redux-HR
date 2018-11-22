@@ -1,5 +1,3 @@
-import $ from 'jquery';
-let jQuery = $;
 (function ($) {
 	"use strict";
 
@@ -7,4 +5,4 @@ let jQuery = $;
 		$(this).val() ? $(this).addClass('has-value') : $(this).removeClass('has-value');
 	});
 
-})(jQuery);
+})(window.jQuery);

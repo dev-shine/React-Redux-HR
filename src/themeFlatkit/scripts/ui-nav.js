@@ -1,6 +1,3 @@
-import $ from 'jquery';
-let jQuery = $;
-
 (function ($) {
   "use strict";
   
@@ -13,4 +10,4 @@ let jQuery = $;
     $li.toggleClass('active');
     $active.removeClass('active');
   });
-})(jQuery);
+})(window.jQuery);

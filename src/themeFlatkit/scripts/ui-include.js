@@ -1,6 +1,6 @@
-import $ from 'jquery';
+// import $ from 'jquery';
 var _ = require('underscore');
-let jQuery = $;
+// let jQuery = $;
 let app = window.app;
 
 (function ($) {
@@ -56,4 +56,4 @@ let app = window.app;
 	    return $o;
 	}
 
-})(jQuery);
+})(window.jQuery);

@@ -2,7 +2,7 @@ import './styles/main.scss';
 import 'whatwg-fetch';
 import 'sweetalert';
 // import 'sweetalert/dist/sweetalert.css';
-import 'jquery';
+// import 'jquery';
 import 'jquery-ui';
 import 'tether';
 import 'bootstrap';
@@ -60,6 +60,7 @@ import store from './store';
 // import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
 // import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
+require('jquery');
 
 // -for iPhone iPad safari engine
 if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {

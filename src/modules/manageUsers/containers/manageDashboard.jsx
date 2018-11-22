@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router";
+import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
 import _ from "lodash";
 import Menu from "../../../components/generic/Menu";
 import { dateFormatter } from '../../../helper/helper';

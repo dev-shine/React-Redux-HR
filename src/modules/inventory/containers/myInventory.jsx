@@ -130,18 +130,7 @@ class MyInventory extends React.Component {
     $("#modalAudit").modal("hide");
     this.props.onAddAuditComment(activeAuditId, auditMsg)
     .then(res => {
-      this.props.onGetMyInventory().then(res=>{
-      //  const remainActive= _.remove(this.state.activeAudits, function(n) {
-      //     return n===activeAuditId
-      //   });        
-      //   this.setState({
-      //     activeAuditId: "",
-      //     auditMsg: "",
-      //     activeItemName: "",
-      //     activeAudits:remainActive
-      //   });
-      });
-      
+      this.props.onGetMyInventory()
     });
     this.setState({
       auditMsg: "",

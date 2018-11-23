@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
 import "react-date-picker/index.css";
+import CircularProgress from "material-ui/CircularProgress";
 import { CONFIG } from "src/config/index";
 
 let path = CONFIG.inventory_images;
@@ -10,8 +11,10 @@ const DeviceDetails = ({
   userAssignMachine,
   unassignDevice,
   loggedUser,
-  handleAuditClick
-}) => {
+  handleAuditClick,
+  activeAuditId,
+  activeAudits
+}) => {  
   let machineList = _.map(userAssignMachine, (val, i) => {
     const auditComment =
       val.audit_current_month_status.status !== false
@@ -29,22 +32,31 @@ const DeviceDetails = ({
             </a>
           ) : null}
         </td>
-        <td>{val.machine_type}</td>
+        <td>{val.machine_type}</td> 
         <td>{val.machine_name}</td>
         <td>{val.bill_number}</td>
         <td>{val.serial_number}</td>
         <td style={{ width: "100px" }}>{val.assign_date}</td>
-        <td style={{ width: "255px" }}>
+        <td style={{ width: "240px" }}>
           {val.audit_current_month_status.status === false ? (
             <button
-              className="btn btn-primary btn-responsives"
+              className="btn btn-primary btn-responsives audit-btn"
               data-toggle="modal"
               data-target="#modalAudit"
               onClick={() => handleAuditClick(val)}
-              style={{ background: "red", fontSize:"13px" }}
+              style={{ background: activeAudits.includes(val.id)?"green":"red", fontSize:"13px" }}
+              disabled={activeAudits.includes(val.id)}
             >
-              Audit Pending
+            {activeAudits.includes(val.id) ?
+            <CircularProgress
+            size={15}
+            thickness={3}
+            style={{ marginLeft: "0%" }}
+          />
+            :"Audit Pending"
+            }
             </button>
+            
           ) : (
             <div style={{width:"inherit"}}>
               <div style={{width:"inherit"}}>

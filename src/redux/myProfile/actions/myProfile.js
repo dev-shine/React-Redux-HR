@@ -369,7 +369,6 @@ export function addInventoryAudit (id, msg) {
         }
         dispatch(hide_loading()); // hide loading icon
         reslove(json)
-        confirm(json.message, '' , 'success')
       });
     });
   };

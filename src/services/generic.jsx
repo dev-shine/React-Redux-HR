@@ -4,7 +4,7 @@ import {CONFIG} from '../config/index';
 
 export function isNotUserValid (path, loggedUser) {
   let tokenData = getLoggedUser().data || [];
-  let isEmpty = _.isEmpty(_.find(tokenData.role_pages, ['page_name', path]));
+  let isEmpty = _.isEmpty(_.find(tokenData.role_pages, (o)=>{ return `/${o.page_name}` === path}));
   if (!loggedUser.isLoggedIn) {
     return {status: true, redirectTo: '/logout'};
   } else if (loggedUser.data.is_policy_documents_read_by_user === 0) {

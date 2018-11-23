@@ -5,10 +5,10 @@ import {withRouter} from 'react-router';
 import {notify} from '../../../services/notify';
 import Menu from '../../../components/generic/Menu';
 import {isNotUserValid} from '../../../services/generic';
-// import UsersList from '../../../components/generic/UsersList';
+import UsersList from '../../../components/generic/UsersList';
 import Header from '../../../components/generic/Header';
-// import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
-// import UserDaySummary from '../../../modules/attendance/components/UserDaySummary';
+import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
+import UserDaySummary from '../../../modules/attendance/components/UserDaySummary';
 // import * as actionsUsersList from '../../../redux/generic/actions/usersList';
 // import * as actionsMonthlyAttendance from '../../../redux/attendance/actions/monthlyAttendance';
 // import * as actionsUserDaySummary from '../../../redux/attendance/actions/userDaySummary';
@@ -37,9 +37,9 @@ class Home extends React.Component {
     this.setState({year: year, month: month});
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
 
     if (props.userDaySummary.status_message !== '') {
@@ -70,18 +70,17 @@ class Home extends React.Component {
     return (
       <div>
         <Menu {...this.props} />
-        {/* <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} /> */}
+        <UserDaySummary userid={this.state.daysummary_userid} date={this.state.daysummary_date} year={this.state.year} month={this.state.month} {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header pageTitle={'Users'} showLoading={this.props.frontend.show_loading} />
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row">
                 <div className="col-md-2" id="fixedScroll">
-                  {/* <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} /> */}
+                  <UsersList users={this.props.usersList.users} onUserClick={this.onUserClick} selectedUserId={this.props.monthlyAttendance.userid} top={10} />
                 </div>
                 <div className="col-md-10">
-                adasd
-                  {/* <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} /> */}
+                  <UserMonthlyAttendance monthlyAttendance={this.props.monthlyAttendance} monthToggle={this.monthToggle} onShowDaySummary={this.onShowDaySummary} />
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import $ from 'jquery';
 import { CONFIG } from "../../../config/index";
 import "timepicker/jquery.timepicker.min.css";
 import "timepicker/jquery.timepicker.min.js";

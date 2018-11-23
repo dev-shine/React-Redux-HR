@@ -16,7 +16,7 @@ import {Provider} from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 
-// import Page_Login from './modules/auth/containers/login';
+import Page_Login from './modules/auth/containers/login';
 // import Page_Logout from './modules/auth/containers/logout';
 // import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
 // import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
@@ -30,8 +30,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import Page_ViewSalary from './modules/salary/containers/viewSalary';
 // import Page_Salary from './modules/salary/containers/salary';
 // import Page_ManagePayslips from './modules/salary/containers/managePayslips';
-// import Page_Home from './modules/attendance/containers/Home';
-// import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
+import Page_Home from './modules/attendance/containers/Home';
+import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
 // import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
 // import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 // import PageManageUsers from './modules/manageUsers/containers/manageUsers';
@@ -69,8 +69,8 @@ if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
   fetch = require('whatwg-fetch');
 }
 // const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
+// var injectTapEventPlugin = require("react-tap-event-plugin");
 // injectTapEventPlugin();
-
 
 export class APP extends React.Component {
   render () {
@@ -85,16 +85,13 @@ let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
       <Provider store={store}>
-      {/* <PageManageDashboard /> */}
         <Router history={appHistory} queryKey={false}>
           <Switch>
             <Route exact path="/" component={PageManageDashboard} />
-            {/* <Route path="home" component={Page_Home} /> */}
-
+            <Route path="/page_login" component={Page_Login} />
+            <Route path="/home" component={Page_Home} />
+            <Route path="/monthly_attendance" component={Page_MonthlyAttendance} />
           </Switch>
-          {/* <Route path="/" component={APP}>
-            
-          </Route> */}
         </Router>
       </Provider>
     </MuiThemeProvider>

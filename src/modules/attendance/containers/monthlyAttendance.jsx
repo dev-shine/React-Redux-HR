@@ -40,9 +40,9 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {    
     const userId=props.loggedUser.data.id;
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     if(userId  && !isEqual(props,this.props)){
       this.props.requestUserAttendance({userid: userId, year: this.state.year, month: this.state.month});
@@ -60,7 +60,7 @@ class MonthlyAttendance extends React.Component {
     this.setState({year: y, month: m});
     this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
-  render () {    
+  render () {
     return (
       <div >
         <Menu {...this.props} />

@@ -1,46 +1,99 @@
-.attendance-upload-setting{
-    .field-column{
-        width: 25%;
+.attendance-upload-setting {
+  .field-column {
+    width: 25%;
+  }
+  .reset-password-save {
+    text-align: center;
+    display: flex;
+    .col-sm-6 {
+      padding-left: 0px;
     }
-    .allowed-keys-column{
-        width: 50%;
+  }
+  .reset1,
+  .reset2 {
+    padding: 10px 6px 0px 6px !important;
+  }
+  .reset,
+  .duration {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .allowed-keys-column {
+    width: 50%;
+  }
+  .add-new-key-column {
+    max-width: 200px;
+    min-width: 200px;
+    width: 25%;
+    text-align: center;
+  }
+  .keys-wrapper {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .key-chips {
+    font-size: 10px;
+    background: rgba(0, 156, 172, 0.44);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    overflow: hidden;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 1px;
+    .text {
+      padding: 3px 8px;
+      font-size: 10px;
+      height: 100%;
     }
-    .add-new-key-column{
-        max-width: 200px;
-        min-width: 200px;
-        width: 25%;
-        text-align: center;
+    .delete {
+      padding: 3px 8px;
+      background: rgba(0, 156, 172, 0.44);
+      height: 100%;
+      cursor: pointer;
+      &:hover {
+        background: rgba(0, 156, 172, 1);
+      }
     }
-    .keys-wrapper{
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .key-chips{
-        font-size: 10px;
-        background: rgba(0, 156, 172, 0.44);
-        color: #FFF;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 6px;
-        overflow: hidden;
-        font-weight: 600;
-        letter-spacing: 1px;
-        margin: 1px;
-        .text{
-            padding: 3px 8px;
-            font-size: 10px;
-            height: 100%;
-        }
-        .delete{
-            padding: 3px 8px;
-            background: rgba(0, 156, 172, 0.44);
-            height: 100%;
-            cursor: pointer;
-            &:hover{
-                background: rgba(0, 156, 172, 1);
-            }
-        }
-    }
+  }
+}
+.css-vj8t7z,
+.css-2o5izw {
+  border-radius: 0px !important;
+  min-height: 20px !important;
+  .css-1ep9fjw,
+  .css-1uq0kb5 {
+    padding: 0 8px !important;
+  }
+}
+.save-btn {
+  text-align: right;
+  button {
+    font-size: 10px;
+  }
+}
+.setting-section1 {
+  padding: 0px 6px 0px 0px !important;
+  .setting1 {
+    padding: 12px;
+  }
+}
+.setting-section2 {
+  padding-left: 6px;
+  padding: 0px 0px 0px 6px !important;
+  .setting2 {
+    padding: 12px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .setting-section1 {
+    padding: 0px !important;
+  }
+  .setting-section2 {
+    padding: 0px !important;
+    margin-top: 20px;
+  }
 }

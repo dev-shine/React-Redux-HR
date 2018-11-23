@@ -4,7 +4,7 @@ import {fireAjax} from 'src/services/index';
 import {confirm} from 'src/services/notify';
 import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
 import {setLoggedUser, getLoggedUser} from 'src/services/generic';
-import {userDataUpdated} from 'appRedux/actions';
+import {userDataUpdated,showInventoryPending} from 'appRedux/actions';
 import * as constants from 'appRedux/constants';
 
 export function success_my_profile (data) {
@@ -358,9 +358,10 @@ function async_addInventoryAudit (id, message) {
 }
 
 export function addInventoryAudit (id, msg) {
-  return function (dispatch, getState) {
+  return function (dispatch, getState) { 
     return new Promise((reslove, reject) => {
       dispatch(show_loading()); // show loading icon
+      dispatch(showInventoryPending(false))
       async_addInventoryAudit(id, msg).then((json) => {
         if(json.data && json.data.new_token){
           let {userId} = getLoggedUser();
@@ -369,7 +370,10 @@ export function addInventoryAudit (id, msg) {
         }
         dispatch(hide_loading()); // hide loading icon
         reslove(json)
-      });
+      }).catch(()=>{
+        dispatch(showInventoryPending(true));
+        reject()
+      })
     });
   };
 }

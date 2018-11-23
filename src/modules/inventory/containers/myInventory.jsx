@@ -28,9 +28,9 @@ class MyInventory extends React.Component {
       unassignDeviceList: [],
       activeAuditId: "",
       auditMsg: "",
-      activeItemName:"",
+      activeItemName: "",
       show_alert_message: true,
-      activeAudits:[]
+      activeAudits: []
     };
     this.props.onIsAlreadyLogin();
     this.callUpdateUserDeviceDetails = this.callUpdateUserDeviceDetails.bind(
@@ -51,21 +51,21 @@ class MyInventory extends React.Component {
   }
   componentWillReceiveProps(props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
-    if (isNotValid.status && isNotValid.redirectTo !== '/my_inventory') {
+    if (isNotValid.status && isNotValid.redirectTo !== "/my_inventory") {
       this.props.router.push(isNotValid.redirectTo);
     }
     this.setState({
       user_profile_detail: props.myProfile.user_profile_detail,
       user_assign_machine: props.myProfile.myInventory,
-      show_alert_message:true
+      show_alert_message: true
     });
-      if(props && props.myProfile && props.myProfile.myInventory){
-        _.map(props.myProfile.myInventory,(val)=>{
-          if(!val.audit_current_month_status.status){
-            this.setState({show_alert_message:false});
-          }
-        })
-      }
+    if (props && props.myProfile && props.myProfile.myInventory) {
+      _.map(props.myProfile.myInventory, val => {
+        if (!val.audit_current_month_status.status) {
+          this.setState({ show_alert_message: false });
+        }
+      });
+    }
   }
 
   callUpdateUserDeviceDetails(newDeviceDetails) {
@@ -116,28 +116,42 @@ class MyInventory extends React.Component {
       status_message: ""
     });
   }
-  handleAuditClick = val => {    
+  handleAuditClick = val => {
     this.setState({
       activeAuditId: val.id,
-      activeItemName: val.machine_name 
+      activeItemName: val.machine_name
     });
   };
-  handleAuditSubmit = (activeAuditId, auditMsg) =>{
-    const activeBtn=this.state.activeAudits.concat(activeAuditId)
+  handleAuditSubmit = (activeAuditId, auditMsg) => {
+    const activeBtn = this.state.activeAudits.concat(activeAuditId);
     this.setState({
-      activeAudits:activeBtn
-    })
-    $("#modalAudit").modal("hide");
-    this.props.onAddAuditComment(activeAuditId, auditMsg)
-    .then(res => {
-      this.props.onGetMyInventory()
+      activeAudits: activeBtn
     });
+    $("#modalAudit").modal("hide");
+    this.props
+      .onAddAuditComment(activeAuditId, auditMsg)
+      .then(res => {
+        this.props.onGetMyInventory();
+      })
+      .catch(() => {
+        const remainActive = _.filter(this.state.activeAudits, function(n) {          
+          return n !== activeAuditId;
+        });        
+        this.setState({
+          activeAudits: remainActive
+        });
+      });
     this.setState({
-      auditMsg: "",
-    })
-  }
+      auditMsg: ""
+    });
+  };
   render() {
-    const { auditMsg, activeAuditId, activeItemName, show_alert_message } = this.state;
+    const {
+      auditMsg,
+      activeAuditId,
+      activeItemName,
+      show_alert_message
+    } = this.state;
     return (
       <div>
         <Menu {...this.props} />
@@ -167,7 +181,12 @@ class MyInventory extends React.Component {
                       Message
                     </label>
                     <div className="col-sm-9">
-                      <small className="text-red-np"><i>Add a short description about inventory. Eg. Working fine, keys not working, etc.</i></small>
+                      <small className="text-red-np">
+                        <i>
+                          Add a short description about inventory. Eg. Working
+                          fine, keys not working, etc.
+                        </i>
+                      </small>
                       <input
                         type="text"
                         className="form-control"
@@ -177,17 +196,21 @@ class MyInventory extends React.Component {
                             auditMsg: e.target.value
                           })
                         }
-                        onKeyUp={e=>{
-                          if(e.keyCode===13){
-                            if(auditMsg!=""){
+                        onKeyUp={e => {
+                          if (e.keyCode === 13) {
+                            if (auditMsg != "") {
                               this.handleAuditSubmit(activeAuditId, auditMsg);
                             }
                           }
-                          
                         }}
                         required
                       />
-                      {auditMsg ==="" ? <small className="text-red-np"> Please write something</small> : null}
+                      {auditMsg === "" ? (
+                        <small className="text-red-np">
+                          {" "}
+                          Please write something
+                        </small>
+                      ) : null}
                     </div>
                   </div>
                   <div className="form-group row m-t-md">
@@ -195,7 +218,7 @@ class MyInventory extends React.Component {
                       <button
                         className="md-btn md-raised m-b-sm w-xs blue"
                         onClick={() => {
-                          if(auditMsg!=""){
+                          if (auditMsg != "") {
                             this.handleAuditSubmit(activeAuditId, auditMsg);
                           }
                         }}
@@ -211,14 +234,20 @@ class MyInventory extends React.Component {
           <div className="app-body" id="view">
             <div className="padding">
               <div className="row no-gutter">
-                {!show_alert_message?
-                <div className="col-xs-12 text-red bg-white">
-                  <h6>Important:</h6>
-                  <h6>-Your monthly audit of inventories is pending.</h6>
-                  <h6>-Click on Audit Pending button to do audit of an inventory.</h6>
-                  <h6>-Once you are done with all the inventories you will be able to access rest of HR app.</h6>
-                </div> 
-                :null}
+                {!show_alert_message ? (
+                  <div className="col-xs-12 text-red bg-white">
+                    <h6>Important:</h6>
+                    <h6>-Your monthly audit of inventories is pending.</h6>
+                    <h6>
+                      -Click on Audit Pending button to do audit of an
+                      inventory.
+                    </h6>
+                    <h6>
+                      -Once you are done with all the inventories you will be
+                      able to access rest of HR app.
+                    </h6>
+                  </div>
+                ) : null}
               </div>
               <AssignDevice
                 handleCloseAssign={this.handleCloseAssign}
@@ -237,6 +266,7 @@ class MyInventory extends React.Component {
                 handleAuditClick={this.handleAuditClick}
                 activeAuditId={this.state.activeAuditId}
                 activeAudits={this.state.activeAudits}
+                showPending={this.props.showPending}
               />
             </div>
             <UnassignDevice
@@ -253,12 +283,13 @@ class MyInventory extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state) { 
   return {
     frontend: state.frontend.toJS(),
     loggedUser: state.logged_user.userLogin,
     myProfile: state.myProfile.toJS(),
-    unassignedDeviceList: state.manageDevice.toJS()
+    unassignedDeviceList: state.manageDevice.toJS(),
+    showPending: state.myProfile.toJS().showPending
   };
 }
 const mapDispatchToProps = dispatch => {

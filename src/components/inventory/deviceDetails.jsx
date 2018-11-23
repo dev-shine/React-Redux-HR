@@ -13,7 +13,8 @@ const DeviceDetails = ({
   loggedUser,
   handleAuditClick,
   activeAuditId,
-  activeAudits
+  activeAudits,
+  showPending
 }) => {  
   let machineList = _.map(userAssignMachine, (val, i) => {
     const auditComment =
@@ -36,7 +37,7 @@ const DeviceDetails = ({
         <td>{val.machine_name}</td>
         <td>{val.bill_number}</td>
         <td>{val.serial_number}</td>
-        <td style={{ width: "100px" }}>{val.assign_date}</td>
+        <td style={{ width: "100px" }}>{val.assign_date}</td> 
         <td style={{ width: "240px" }}>
           {val.audit_current_month_status.status === false ? (
             <button
@@ -44,10 +45,10 @@ const DeviceDetails = ({
               data-toggle="modal"
               data-target="#modalAudit"
               onClick={() => handleAuditClick(val)}
-              style={{ background: activeAudits.includes(val.id)?"green":"red", fontSize:"13px" }}
-              disabled={activeAudits.includes(val.id)}
+              style={{ background: activeAudits.includes(val.id) && !showPending?"green":"red", fontSize:"13px" }}
+              disabled={activeAudits.includes(val.id) && !showPending}
             >
-            {activeAudits.includes(val.id) ?
+            {activeAudits.includes(val.id) && !showPending ?
             <CircularProgress
             size={15}
             thickness={3}

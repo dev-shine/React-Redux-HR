@@ -205,3 +205,5 @@ export const errorrResetPasswordStatus = createAction(constants.ERROR_RESET_PASS
 export const requestClearResetPasswordData = createAction(constants.REQUEST_CLEAR_RESET_PASSWORD_DATA);
 export const successClearResetPasswordData = createAction(constants.SUCCESS_CLEAR_RESET_PASSWORD_DATA);
 
+export const showInventoryPending = createAction(constants.SHOW_INVENTOEY_PENDING); 
+

@@ -3,14 +3,13 @@ export function notify (title, text, type) {
   sweetAlert(title, text, type);
 }
 
-export function confirm (title, text, type,cancelText,confirmText,showCancelButton) {
-  
+export function confirm (title, text, type,cancelText,confirmText) { 
   return new Promise((resolve, reject) => {
     swal({
       title:             title,
       text:              text,
       type:              type,
-      showCancelButton:  showCancelButton || true,
+      showCancelButton:  true,
       confirmButtonText: confirmText ||'OK',
       closeOnConfirm:    true,
       html:              true,

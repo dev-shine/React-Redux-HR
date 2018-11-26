@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 const Button = ({id, type, label, style, className, onClick}) => {
   let classname = 'btn ' + className;
   return (
-    <button id={id} type={type} className={classname} style={style} 
-    // onTouchTap={onClick}
-    onClick={onClick}
-    >{label}</button>
+    <button id={id} type={type} className={classname} style={style} onClick={onClick}>{label}</button>
   );
 };
 

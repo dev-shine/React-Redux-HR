@@ -40,7 +40,7 @@ export function getAllLeaves (role) {
 },
 				(error) => {
   dispatch(hide_loading()); // hide loading icon
-  dispatch(list_leaves_error(json.data.message));
+  dispatch(list_leaves_error(error.data.message));
 }
 			);
     });

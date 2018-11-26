@@ -16,8 +16,6 @@ export function confirm (title, text, type) {
       html:              true
     },
     (isConfirm) => {
-      console.log('qqqqqq');
-      
       resolve(isConfirm);
     });
   });

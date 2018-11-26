@@ -30,9 +30,9 @@ class ManageUserWorkingHours extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
 
     if (this.state.defaultUserDisplay === '') {
@@ -76,6 +76,8 @@ class ManageUserWorkingHours extends React.Component {
       selectedUserId = this.props.manageUserWorkingHours.userInfo.user_Id;
     } catch (err) {}
 
+    console.log('this.props.usersList', this.props.usersList);
+    
     return (
       <div>
         <Menu {...this.props} />

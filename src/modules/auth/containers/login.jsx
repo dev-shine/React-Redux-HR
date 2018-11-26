@@ -18,7 +18,7 @@ class Login extends React.Component {
     this.doGuestLogin = this.doGuestLogin.bind(this);
     this.doLogin = this.doLogin.bind(this);
   }
-  componentWillReceiveProps (props) {    
+  componentWillReceiveProps (props) { 
     let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
       this.props.history.push(isNotValid.redirectTo);

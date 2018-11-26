@@ -39,7 +39,7 @@ export function getMyLeaves () {
 },
 				(error) => {
   dispatch(hide_loading()); // hide loading icon
-  dispatch(list_my_leaves_error(json.data.message));
+  dispatch(list_my_leaves_error(error.data.message));
 }
 			);
     });
@@ -69,7 +69,7 @@ export function cancelLeave (userId, from_date) {
 },
 				(error) => {
   dispatch(hide_loading()); // hide loading icon
-  reject(json.data.message);
+  reject(error.data.message);
 }
 			);
     });

@@ -1,4 +1,5 @@
 import {createAction} from 'redux-actions';
+import _ from 'lodash';
 import {CONFIG} from '../../../config/index';
 import {fireAjax} from '../../../services/index';
 import {confirm} from '../../../services/notify';
@@ -314,7 +315,7 @@ export function updateDocument (documents_link) {
     } else {
       document_link = documents_link.doc_link;
     }
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       _.map(document_link, (link) => {
         async_updateDocument(document_type, link, declearation).then((json) => {
           if (json.error == 0) {

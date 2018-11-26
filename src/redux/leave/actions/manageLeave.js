@@ -16,7 +16,7 @@ export function leave_status_change_fail (data) {
 }
 
 export function leave_status_change_error (err) {
-  return createAction(constants.ACTION_LEAVE_STATUS_CHANGE_ERROR)(data);
+  return createAction(constants.ACTION_LEAVE_STATUS_CHANGE_ERROR)(err);
 }
 
 function async_changeLeaveStatus (leaveid, newstatus, messagetouser) {

@@ -33,10 +33,10 @@ class ManageLeaves extends React.Component {
   }
   componentWillReceiveProps(props) {
     let selectedTab = "";
-    let { route, loggedUser } = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let { location, loggedUser } = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     if (
       props.loggedUser.data.role === CONFIG.ADMIN ||

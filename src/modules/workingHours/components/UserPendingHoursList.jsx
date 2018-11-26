@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-// import 'react-date-picker/index.css';
+import 'react-date-picker/index.css';
 import {CONFIG} from '../../../config/index';
 import {notify} from '../../../services/notify';
 import PendingHourSummary from './PendingHourSummary';
@@ -94,7 +94,7 @@ export default class UserPendingHoursList extends React.Component {
         callAddUserPendingHours={this.callAddUserPendingHours}
         {...this.props} />;
       let HalfdayButton = <AddAsHalfDayLeave val={val} {...this.props} />;
-      // <br />;
+      <br />;
       let leaveButton = <AddAsLeaveHour val={val}
         {...this.props} />;
 

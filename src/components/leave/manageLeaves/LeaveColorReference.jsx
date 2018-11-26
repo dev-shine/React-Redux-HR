@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {CONFIG} from '../../config/index';
+import {CONFIG} from '../../../config/index';
 
 const LeaveColorReference = ({filterLeaveList, selectedTab, userRole}) => {
   if (userRole === CONFIG.ADMIN) {

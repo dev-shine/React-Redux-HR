@@ -36,9 +36,9 @@ class MyProfile extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     let s_payslip_history = [];
 
@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsMyProfile.updateProfileDetails(new_profile_details));
     },
     onUpdateDeviceDetails: (new_device_details) => {
-      return dispatch(actionsMyProfile.updateUserDeviceDetails(new_device_details));
+      // return dispatch(actionsMyProfile.updateUserDeviceDetails(new_device_details));
     },
     onUpdatePassword: (new_password) => {
       return dispatch(actionsMyProfile.updatePassword(new_password));

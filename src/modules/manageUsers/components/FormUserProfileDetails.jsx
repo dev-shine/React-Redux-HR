@@ -183,11 +183,8 @@ class FormUserProfileDetails extends React.Component {
   handleUpdateClick = () => {
     const { training_completion_date } = this.props.user_profile_detail;
     const stateTrainingDate = this.state.training_completion_date;
-    if (
-      training_completion_date === "0000-00-00" &&
-      stateTrainingDate !== training_completion_date
-    ) {
-      
+    if (training_completion_date === "0000-00-00" &&
+      stateTrainingDate !== training_completion_date) {
       confirm("Has service agreement been signed?","","","No","Yes" ).then((res)=>{
         if(res){
           this.props.callUpdateUserProfileDetails(this.state);

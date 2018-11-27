@@ -27,7 +27,7 @@ import Page_Holidays from './modules/holidays/containers/holidays';
 // import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
 // import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
 import Page_ManageSalary from './modules/salary/containers/manageSalary';
-// import Page_ViewSalary from './modules/salary/containers/viewSalary';
+import Page_ViewSalary from './modules/salary/containers/viewSalary';
 import Page_Salary from './modules/salary/containers/salary';
 import Page_ManagePayslips from './modules/salary/containers/managePayslips';
 import Page_Home from './modules/attendance/containers/Home';
@@ -112,8 +112,8 @@ let render = (routerKey = null) => {
             <Route path="/forgot_password" component={Page_ForgotPassword} />
             <Route path="/documents" component={Page_MyDocuments} />
             <Route path="/uploadAttendance" component={Page_UploadAttendance} />
-            {/* <Route path="view_salary" component={Page_ViewSalary} />
-            <Route path="policy_documents" component={Page_PolicyDocument} />
+            <Route path="/view_salary" component={Page_ViewSalary} />
+            {/* <Route path="policy_documents" component={Page_PolicyDocument} />
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="add_variables" component={Page_AddVariables} />
             <Route path="mail_templates" component={Page_mail_template} /> */}

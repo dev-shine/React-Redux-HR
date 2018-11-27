@@ -22,9 +22,9 @@ class ViewSalary extends React.Component {
     this.props.onFetchUserSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     let emp = [];
     if (props.loggedUser.data.role === CONFIG.ADMIN) {

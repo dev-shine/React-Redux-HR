@@ -33,7 +33,7 @@ import Page_ManagePayslips from './modules/salary/containers/managePayslips';
 import Page_Home from './modules/attendance/containers/Home';
 import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
 // import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
-// import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
+import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
 import PageManageUsers from './modules/manageUsers/containers/manageUsers';
 import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
@@ -110,8 +110,8 @@ let render = (routerKey = null) => {
             <Route path="/manage_roles" component={PageManageRoles} />
             <Route path="/manage_payslips" component={Page_ManagePayslips} />
             <Route path="/forgot_password" component={Page_ForgotPassword} />
-            {/* <Route path="documents" component={Page_MyDocuments} />
-            <Route path="uploadAttendance" component={Page_UploadAttendance} />
+            <Route path="/documents" component={Page_MyDocuments} />
+            {/* <Route path="uploadAttendance" component={Page_UploadAttendance} />
             <Route path="view_salary" component={Page_ViewSalary} />
             <Route path="policy_documents" component={Page_PolicyDocument} />
             <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />

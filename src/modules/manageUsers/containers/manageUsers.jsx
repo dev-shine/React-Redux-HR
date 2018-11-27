@@ -24,7 +24,7 @@ import FormUserProfileDetails from '../../../modules/manageUsers/components/Form
 import EmployeeLifeCycle from '../../../modules/manageUsers/components/EmployeeLifeCycle';
 import * as actions from '../../../redux/actions';
 import * as actionsUsersList from '../../../redux/generic/actions/usersList';
-import * as actionsManageUsers from '../../redux/manageUsers/actions/manageUsers';
+import * as actionsManageUsers from '../../../redux/manageUsers/actions/manageUsers';
 import * as actionsManagePayslips from '../../../redux/salary/actions/managePayslips';
 import * as actions_manageSalary from '../../../redux/salary/actions/manageSalary';
 import { RaisedButton } from 'material-ui';
@@ -62,10 +62,10 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeams();
   }
   componentWillReceiveProps (props) {
-    let {route, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {location, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     this.setState({
       user_payslip_history: user_payslip_history,
@@ -318,16 +318,16 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
     },
     onUpdateUserBankDetails: (newBankDetails) => {
-      return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
+      // return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
     },
     onUpdateUserProfileDetails: (newProfileDetails) => {
       return dispatch(actionsManageUsers.updateUserProfileDetails(newProfileDetails));
     },
     onUpdateUserDeviceDetails: (newDeviceDetails) => {
-      return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
+      // return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
     },
     onUpdatedocuments: (documentLink) => {
-      return dispatch(actionsManageUsers.updateDocument(documentLink));
+      // return dispatch(actionsManageUsers.updateDocument(documentLink));
     },
     onChangeEmployeeStatus: (userid, status) => {
       return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status));
@@ -364,14 +364,14 @@ export default RouterVisibleManageUsers;
 ManageUsers.PropTypes = {
   onIsAlreadyLogin:           PropTypes.func.isRequired,
   onFetchTeam:                PropTypes.func.isRequired,
-  onUserProfileDetails:       React.PropTypes.func.isRequired,
+  onUserProfileDetails:       PropTypes.func.isRequired,
   onGetUserDocument:          PropTypes.func.isRequired,
   onUserManagePayslipsData:   PropTypes.func.isRequired,
   onUpdateUserBankDetails:    PropTypes.func.isRequired,
   onUpdateUserDeviceDetails:  PropTypes.func.isRequired,
   onUpdateUserProfileDetails: PropTypes.func.isRequired,
   onChangeEmployeeStatus:     PropTypes.func.isRequired,
-  onUsersList:                React.PropTypes.func.isRequired,
+  onUsersList:                PropTypes.func.isRequired,
   onUpdatedocuments:          PropTypes.func.isRequired,
   usersList:                  PropTypes.object.isRequired,
   manageUsers:                PropTypes.object.isRequired,

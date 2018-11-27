@@ -1,9 +1,9 @@
 import React from 'react';
 import * as _ from 'lodash';
 import $ from 'jquery';
-import {notify} from '../../../services/notify';
-import {getToken} from '../../../services/generic';
-import {CONFIG} from '../../../config/index';
+import {notify} from '../../../../services/notify';
+import {getToken} from '../../../../services/generic';
+import {CONFIG} from '../../../../config/index';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -105,7 +105,7 @@ class ManagePayslipsUsersList extends React.Component {
     });
 
     if (stop_user !== '') {
-      let res = confirm('Payslip not generated for user ID :' + stop_user + '\n Do you want to submit');
+      let res = window.confirm('Payslip not generated for user ID :' + stop_user + '\n Do you want to submit');
       if (!res) {
         e.preventDefault();
       }
@@ -227,7 +227,7 @@ class ManagePayslipsUsersList extends React.Component {
               }}>
                 <b>{googleDriveEmailStatus}</b>
               </div>
-              <RaisedButton label="Google Drive Login" onTouchTap={this.handleOpenIframe} />
+              <RaisedButton label="Google Drive Login" onClick={this.handleOpenIframe} />
             </div>
           </div>
 

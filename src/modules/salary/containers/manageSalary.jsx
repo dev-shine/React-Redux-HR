@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import moment from 'moment';
 import * as _ from 'lodash';
-import queryString from 'query-string'
+import queryString from 'query-string';
 import {notify} from '../../../services/notify';
 import {CONFIG} from '../../../config/index';
 import Menu from '../../../components/generic/Menu';

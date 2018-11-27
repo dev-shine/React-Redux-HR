@@ -29,7 +29,7 @@ import Page_Holidays from './modules/holidays/containers/holidays';
 import Page_ManageSalary from './modules/salary/containers/manageSalary';
 // import Page_ViewSalary from './modules/salary/containers/viewSalary';
 import Page_Salary from './modules/salary/containers/salary';
-// import Page_ManagePayslips from './modules/salary/containers/managePayslips';
+import Page_ManagePayslips from './modules/salary/containers/managePayslips';
 import Page_Home from './modules/attendance/containers/Home';
 import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
 // import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
@@ -108,8 +108,8 @@ let render = (routerKey = null) => {
             <Route path="/my_inventory" component={Page_MyInventory} />
             <Route path="/manage_users" component={PageManageUsers} />
             <Route path="/manage_roles" component={PageManageRoles} />
-            {/* <Route path="manage_payslips" component={Page_ManagePayslips} />
-            <Route path="forgot_password" component={Page_ForgotPassword} />
+            <Route path="/manage_payslips" component={Page_ManagePayslips} />
+            {/* <Route path="forgot_password" component={Page_ForgotPassword} />
             <Route path="documents" component={Page_MyDocuments} />
             <Route path="uploadAttendance" component={Page_UploadAttendance} />
             <Route path="view_salary" component={Page_ViewSalary} />

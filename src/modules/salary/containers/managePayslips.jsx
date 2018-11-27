@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import queryString from 'query-string';
 import * as _ from 'lodash';
 import {notify} from '../../../services/notify';
 import Menu from '../../../components/generic/Menu';
@@ -43,9 +44,9 @@ class ManagePayslips extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     let s_google_drive_emailid = '';
     let s_user_data_for_payslip = {};
@@ -80,8 +81,8 @@ class ManagePayslips extends React.Component {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.usersList.users[0];
-        let selectedUser = this.props.location.query.selectedUser
-        let defaultUserId = selectedUser || firstUser.user_Id;
+        const queryParams = queryString.parse(this.props.location.search)
+        let defaultUserId = queryParams.selectedUser || firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
     }
@@ -100,7 +101,7 @@ class ManagePayslips extends React.Component {
         selected_user_image = userDetails.slack_profile.image_192;
         selected_user_jobtitle = userDetails.jobtitle;
         selected_user_id = userDetails.user_Id;
-        this.props.router.push('manage_payslips?selectedUser='+userDetails.user_Id)
+        this.props.history.push('manage_payslips?selectedUser='+userDetails.user_Id)
       }
     }
     this.setState({'defaultUserDisplay': userid, 'selected_user_name': selected_user_name, 'selected_user_image': selected_user_image, 'selected_user_jobtitle': selected_user_jobtitle, 'selected_user_id': selected_user_id});

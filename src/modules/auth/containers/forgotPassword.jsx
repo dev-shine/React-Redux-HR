@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router';
+import {withRouter} from 'react-router';
+import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {notify} from '../../../services/notify';
 import {isNotUserValid} from '../../../services/generic';
@@ -20,10 +21,11 @@ class ForgotPassword extends React.Component {
     this.doResetPassword = this.doResetPassword.bind(this);
   }
   componentWillReceiveProps (props) {
-    let {route, router, loggedUser, forgotPassword: {isError, isSuccess, message}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {location, history, loggedUser, forgotPassword: {isError, isSuccess, message}} = props;
+    
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
-      router.push(isNotValid.redirectTo);
+      history.push(isNotValid.redirectTo);
     }
     if (isError || isSuccess) {
       let megType = isError ? 'error' : 'success';

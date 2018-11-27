@@ -18,7 +18,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Page_Login from './modules/auth/containers/login';
 import Page_Logout from './modules/auth/containers/logout';
-// import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
+import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
 import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
 import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
 import Page_ApplyLeave from './modules/leave/containers/applyLeave';
@@ -109,8 +109,8 @@ let render = (routerKey = null) => {
             <Route path="/manage_users" component={PageManageUsers} />
             <Route path="/manage_roles" component={PageManageRoles} />
             <Route path="/manage_payslips" component={Page_ManagePayslips} />
-            {/* <Route path="forgot_password" component={Page_ForgotPassword} />
-            <Route path="documents" component={Page_MyDocuments} />
+            <Route path="/forgot_password" component={Page_ForgotPassword} />
+            {/* <Route path="documents" component={Page_MyDocuments} />
             <Route path="uploadAttendance" component={Page_UploadAttendance} />
             <Route path="view_salary" component={Page_ViewSalary} />
             <Route path="policy_documents" component={Page_PolicyDocument} />

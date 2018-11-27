@@ -4,7 +4,7 @@ import Dialog from "material-ui/Dialog";
 import { notify } from "../../../services/notify";
 import { getToken } from "../../../services/generic";
 import { CONFIG } from "../../../config/index";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 
 class UpdateEmployeeDocument extends React.Component {
   constructor(props) {

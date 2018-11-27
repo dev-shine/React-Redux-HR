@@ -2556,6 +2556,10 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
+detect-element-overflow@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/detect-element-overflow/-/detect-element-overflow-1.1.1.tgz#771c50ec9d69f487477fef9728db0766a8f6962d"
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
@@ -3283,7 +3287,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.3:
+fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.3:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
@@ -3593,6 +3597,12 @@ get-stdin@^4.0.1:
 get-stream@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+
+get-user-locale@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/get-user-locale/-/get-user-locale-1.1.1.tgz#edff0a8bbd6aa3ed0ca30cc441e1acd111543b7f"
+  dependencies:
+    lodash.once "^4.1.1"
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
@@ -5233,6 +5243,10 @@ lodash.mergewith@^4.6.0:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
 
+lodash.once@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -5254,7 +5268,7 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "~3.0.0"
 
-lodash.throttle@^4.0.1, lodash.throttle@^4.1.1:
+lodash.throttle@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
@@ -5299,6 +5313,10 @@ make-dir@^1.0.0:
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
   dependencies:
     pify "^3.0.0"
+
+make-event-props@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/make-event-props/-/make-event-props-1.1.0.tgz#900a4818aeda72ec0ab6b5dc2c3407291592da76"
 
 makeerror@1.0.x:
   version "1.0.11"
@@ -5401,6 +5419,10 @@ meow@^3.7.0:
     read-pkg-up "^1.0.1"
     redent "^1.0.0"
     trim-newlines "^1.0.0"
+
+merge-class-names@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/merge-class-names/-/merge-class-names-1.1.1.tgz#3bd2f38eb5418c464a0fef615484fdf6c8932256"
 
 merge-deep@^3.0.2:
   version "3.0.2"
@@ -5876,10 +5898,6 @@ oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
 
-object-assign@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.0.1.tgz#99504456c3598b5cad4fc59c26e8a9bb107fe0bd"
-
 object-assign@4.1.1, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -6236,7 +6254,7 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-performance-now@^0.2.0, performance-now@~0.2.0:
+performance-now@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
 
@@ -6999,6 +7017,13 @@ qs@6.5.2, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
+query-string@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.2.0.tgz#468edeb542b7e0538f9f9b1aeb26f034f19c86e1"
+  dependencies:
+    decode-uri-component "^0.2.0"
+    strict-uri-encode "^2.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -7010,12 +7035,6 @@ querystring@0.2.0:
 querystringify@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.0.tgz#7ded8dfbf7879dcc60d0a644ac6754b283ad17ef"
-
-raf@3.2.0:
-  version "3.2.0"
-  resolved "http://registry.npmjs.org/raf/-/raf-3.2.0.tgz#2aba9a09bb70f8c2e9094dc60ace7c374fadec7e"
-  dependencies:
-    performance-now "~0.2.0"
 
 raf@3.4.0, raf@^3.1.0:
   version "3.4.0"
@@ -7076,29 +7095,30 @@ react-app-polyfill@^0.1.3:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
-react-class@2.0.0, react-class@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-class/-/react-class-2.0.0.tgz#5a52fdc15d4d99738ebf2bf69db374ce82737797"
+react-calendar@^2.17.4:
+  version "2.17.5"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.17.5.tgz#eba17a5614c27b70caa635ce74a1471b033f4890"
   dependencies:
-    object-assign "^4.0.1"
+    get-user-locale "^1.1.1"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+    react-lifecycles-compat "^3.0.4"
 
 react-csv@^1.0.19:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/react-csv/-/react-csv-1.0.19.tgz#3230dba7877cabaae454425c43e7e2ad90990482"
 
-react-date-picker@^5.3.28:
-  version "5.3.28"
-  resolved "http://registry.npmjs.org/react-date-picker/-/react-date-picker-5.3.28.tgz#b7baeee261c5c8dcb909973fb9788914ef07f518"
+react-date-picker@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-7.1.1.tgz#d8548e2be09bdfcc2fa75e2c3be947aabad79d90"
   dependencies:
-    lodash.throttle "^4.0.1"
-    object-assign "4.0.1"
-    raf "3.2.0"
-    react-class "2.0.0"
-    react-field "2.0.2"
-    react-flex "2.2.7"
-    react-inline-block "2.0.0"
-    react-notify-resize "1.0.3"
-    react-style-normalizer "1.2.8"
+    detect-element-overflow "^1.1.1"
+    get-user-locale "^1.1.1"
+    make-event-props "^1.1.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+    react-calendar "^2.17.4"
+    react-lifecycles-compat "^3.0.4"
 
 react-date-range@^0.9.4:
   version "0.9.4"
@@ -7172,25 +7192,6 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
-react-field@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-field/-/react-field-2.0.2.tgz#74e657944372dec0f8c9c8e340786e7bb761d2b5"
-  dependencies:
-    object-assign "^4.1.0"
-
-react-flex@2.2.7:
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/react-flex/-/react-flex-2.2.7.tgz#5c84e6c3affcbdc366edde4088f8d07303318fa8"
-  dependencies:
-    object-assign "^4.0.1"
-    react-class "^2.0.0"
-
-react-inline-block@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-inline-block/-/react-inline-block-2.0.0.tgz#7db7acd615705b54598702f18622de84af809ffa"
-  dependencies:
-    object-assign "^4.0.1"
-
 react-is@^16.3.2, react-is@^16.6.0:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.6.3.tgz#d2d7462fcfcbe6ec0da56ad69047e47e56e7eac0"
@@ -7203,7 +7204,7 @@ react-jsx-highcharts@^1.3.4:
     is-immutable "^1.0.1"
     lodash "^4.17.4"
 
-react-lifecycles-compat@^3.0.0:
+react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
@@ -7214,12 +7215,6 @@ react-motion@^0.5.2:
     performance-now "^0.2.0"
     prop-types "^15.5.8"
     raf "^3.1.0"
-
-react-notify-resize@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-notify-resize/-/react-notify-resize-1.0.3.tgz#a1d7503aeefd27eecb6b3b5b35c7707be9422f48"
-  dependencies:
-    react-class "^2.0.0"
 
 react-onclickoutside@^6.7.1:
   version "6.7.1"
@@ -7344,10 +7339,6 @@ react-scripts@2.1.1:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-style-normalizer@1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/react-style-normalizer/-/react-style-normalizer-1.2.8.tgz#7e84b3d25cea6225545c5af68963b225885344a2"
-
 react-toggle-button@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-toggle-button/-/react-toggle-button-2.2.0.tgz#a1b92143aa0df414642fcb141f0879f545bc5a89"
@@ -7365,14 +7356,14 @@ react-transition-group@^1.2.1:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react@16.4.0:
-  version "16.4.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.4.0.tgz#402c2db83335336fba1962c08b98c6272617d585"
+react@^16.6.3:
+  version "16.6.3"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.6.3.tgz#25d77c91911d6bbdd23db41e70fb094cc1e0871c"
   dependencies:
-    fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.0"
+    prop-types "^15.6.2"
+    scheduler "^0.11.2"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -8236,6 +8227,10 @@ stream-http@^2.7.2:
 stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
 
 string-length@^2.0.0:
   version "2.0.0"

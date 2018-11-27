@@ -1,5 +1,5 @@
 import React from 'react';
-import 'react-date-picker/index.css';
+// import 'react-date-picker/index.css';
 import {ButtonRaised} from '../../../components/generic/buttons/index';
 
 class FormUpdatePassword extends React.Component {

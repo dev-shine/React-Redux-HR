@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 import { CONFIG } from "../../config/index";
 
 let path = CONFIG.inventory_images;

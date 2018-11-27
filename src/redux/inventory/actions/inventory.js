@@ -718,7 +718,7 @@ export function addUserComment (addUserCommentDetails) {
           dispatch(actionsMyProfile.getMyInventory());
         }else{
           dispatch(errorAddUserComment(json.message))
-          notify('Error !',error,'error');
+          notify('Error !',json.message,'error');
         }
       }, (error) => {
         dispatch(hide_loading());
@@ -757,17 +757,15 @@ export function approvedUser (id) {
       return getAsyncApprovedData(id).then((json) => {
         dispatch(hide_loading());
         if(json.error==0){
-        dispatch(successApprovedList(json.message));
-        dispatch(unapprovedUser());
-        dispatch(get_machines_detail());
-       
+          dispatch(successApprovedList(json.message));
+          dispatch(unapprovedUser());
+          dispatch(get_machines_detail());
+        }else{
+          dispatch(errorApprovedList(json.message));
         }
-        else{
-        dispatch(errorApprovedList(json.message));
-      } (error) => {
-        dispatch(errorAddusercomment('error occur'));
-        reject('error occur');
-      }
+    },(error) => {
+      // dispatch(errorAddusercomment('error occur'));
+      reject('error occur');
     })
   })
 }

@@ -1,13 +1,7 @@
 import React from "react";
-import "react-date-picker/index.css";
 import Dialog from "material-ui/Dialog";
-import { DateField } from "react-date-picker";
 import PropTypes from "prop-types";
-import { notify } from "../../../services/notify";
-import TextField from "material-ui/TextField";
-import * as actions from "../../../redux/actions";
-import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
-import AlertNotification from "../../../components/generic/AlertNotification";
+
 
 export default class UnassignDevice extends React.Component {
   constructor(props) {

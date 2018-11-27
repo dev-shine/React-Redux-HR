@@ -26,7 +26,7 @@ import Page_MyLeaves from './modules/leave/containers/myLeaves';
 import Page_Holidays from './modules/holidays/containers/holidays';
 // import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
 // import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
-// import Page_ManageSalary from './modules/salary/containers/manageSalary';
+import Page_ManageSalary from './modules/salary/containers/manageSalary';
 // import Page_ViewSalary from './modules/salary/containers/viewSalary';
 import Page_Salary from './modules/salary/containers/salary';
 // import Page_ManagePayslips from './modules/salary/containers/managePayslips';
@@ -38,7 +38,7 @@ import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAtten
 import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
 // import InventorySystem from './modules/inventory/containers/manageInventory';
-// import Page_MyInventory from './modules/inventory/containers/myInventory';
+import Page_MyInventory from './modules/inventory/containers/myInventory';
 // import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 // import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
 import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
@@ -103,10 +103,10 @@ let render = (routerKey = null) => {
             {/* <Route path="/manage_user_pending_hours" component={Page_ManageUserPendingHours} /> */}
             <Route path="/leaves_summary" component={Page_LeavesSummary} />
             <Route path="/salary" component={Page_Salary} />
-            {/* <Route path="/manage_salary" component={Page_ManageSalary} /> */}
+            <Route path="/manage_salary" component={Page_ManageSalary} />
             <Route path="/my_profile" component={Page_MyProfile} />
-            {/* <Route path="my_inventory" component={Page_MyInventory} />
-            <Route path="manage_users" component={PageManageUsers} />
+            <Route path="/my_inventory" component={Page_MyInventory} />
+            {/* <Route path="manage_users" component={PageManageUsers} />
             <Route path="manage_roles" component={PageManageRoles} />
             <Route path="manage_payslips" component={Page_ManagePayslips} />
             <Route path="forgot_password" component={Page_ForgotPassword} />

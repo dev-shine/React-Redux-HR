@@ -1,7 +1,7 @@
 import React from 'react';
 import * as _ from 'lodash';
-import { DateField } from 'react-date-picker';
-import 'react-date-picker/index.css';
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
 import { ButtonRaised } from '../../../../components/generic/buttons';
 
 
@@ -175,7 +175,7 @@ class AddSalaryForm extends React.Component {
         <div className="col-md-12 col-sm-12 salary-range-wrapper">
           <div className="applicable-from">
             <span className="salary-title">Applicable From : </span>
-            <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
+            <DatePicker dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
           </div>
           <div className="applicable-till">
             <span className="salary-title">Applicable Months : </span>

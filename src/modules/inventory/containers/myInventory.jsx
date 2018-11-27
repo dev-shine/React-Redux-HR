@@ -5,7 +5,6 @@ import { notify } from "../../../services/notify";
 import Menu from "../../../components/generic/Menu";
 import { isNotUserValid } from "../../../services/generic";
 import Header from "../../../components/generic/Header";
-import UserHorizontalView from "../../../components/generic/UserHorizontalView";
 import DeviceDetails from "../../../components/inventory/deviceDetails";
 import * as actionsMyProfile from "../../../redux/myProfile/actions/myProfile";
 import * as actions from '../../../redux/actions';
@@ -50,9 +49,9 @@ class MyInventory extends React.Component {
     this.props.onGetMyInventory();
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/my_inventory') {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     this.setState({
       user_profile_detail: props.myProfile.user_profile_detail,
@@ -270,7 +269,7 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateDeviceDetails: newDeviceDetails => {
       return dispatch(
-        actionsMyProfile.updateUserDeviceDetails(newDeviceDetails)
+        // actionsMyProfile.updateUserDeviceDetails(newDeviceDetails)
       );
     },
     onAddUserComment: addUserCommentDetails => {

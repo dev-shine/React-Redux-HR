@@ -32,10 +32,10 @@ class ManageRoles extends React.Component {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let {loggedUser, route, router, manageRoles:{rolesData}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {loggedUser, location, history, manageRoles:{rolesData}} = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      router.push(isNotValid.redirectTo);
+      history.push(isNotValid.redirectTo);
     }
     if (rolesData !== this.state.rolesData) {
       this.setState({

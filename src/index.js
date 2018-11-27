@@ -39,7 +39,7 @@ import Page_ManageWorkingHours from './modules/workingHours/containers/manageWor
 import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
 // import InventorySystem from './modules/inventory/containers/manageInventory';
 import Page_MyInventory from './modules/inventory/containers/myInventory';
-// import PageManageRoles from './modules/manageRoles/containers/manageRoles';
+import PageManageRoles from './modules/manageRoles/containers/manageRoles';
 // import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
 import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
 // import Page_mail_template from './modules/templates/containers/addTemplate';
@@ -107,8 +107,8 @@ let render = (routerKey = null) => {
             <Route path="/my_profile" component={Page_MyProfile} />
             <Route path="/my_inventory" component={Page_MyInventory} />
             <Route path="/manage_users" component={PageManageUsers} />
-            {/* <Route path="manage_roles" component={PageManageRoles} />
-            <Route path="manage_payslips" component={Page_ManagePayslips} />
+            <Route path="/manage_roles" component={PageManageRoles} />
+            {/* <Route path="manage_payslips" component={Page_ManagePayslips} />
             <Route path="forgot_password" component={Page_ForgotPassword} />
             <Route path="documents" component={Page_MyDocuments} />
             <Route path="uploadAttendance" component={Page_UploadAttendance} />

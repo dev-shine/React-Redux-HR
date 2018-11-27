@@ -38,7 +38,7 @@ export function addNewRole (new_role) {
       description = new_role.description;
     }
 
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading());
       asyncAddNewRole(baseRoleId, name, description).then((json) => {
         dispatch(hide_loading());

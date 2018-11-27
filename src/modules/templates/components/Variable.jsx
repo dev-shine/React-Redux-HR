@@ -222,7 +222,7 @@ class Variables extends React.Component {
       <FlatButton
         label="BACK"
         primary
-        onTouchTap={this.gotoVariablePage.bind(this)}
+        onClick={this.gotoVariablePage.bind(this)}
         style={{marginRight: 5}}
             />,
       <RaisedButton

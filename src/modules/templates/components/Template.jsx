@@ -78,11 +78,11 @@ class Variables extends React.Component {
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     if (!props.loggedUser.isLoggedIn) {
-      this.props.router.push('/logout');
+      this.props.history.push('/logout');
     } else {
       if (props.loggedUser.data.role == CONFIG.ADMIN || props.loggedUser.data.role == CONFIG.HR) {
       } else {
-        this.props.router.push('/home');
+        this.props.history.push('/home');
       }
     }
     this.setState({usersList: props.employee.employee});

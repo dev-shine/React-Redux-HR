@@ -227,7 +227,7 @@ class FormAddNewInventory extends React.Component {
       this.props.onAddNewMachine(apiData).then(
         val => {
           notify("Success !", val, "success");
-          this.props.router.push(
+          this.props.history.push(
             `/inventory_system/${this.state.machine_type}`
           );
           this.props.onFetchDevice();
@@ -256,7 +256,7 @@ class FormAddNewInventory extends React.Component {
           this.setState({
             msg: message
           });
-          this.props.router.push(
+          this.props.history.push(
             `/inventory_system/${this.state.machine_type}`
           );
         });

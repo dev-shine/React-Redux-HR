@@ -9,7 +9,6 @@ class Logout extends React.Component {
     super(props);
   }
   componentWillMount () {
-    console.log('ddddddddddddddd', this.props)
     if (this.props.loggedUser.isLoggedIn) {
       this.props.requestLogout();
     } else {
@@ -17,8 +16,6 @@ class Logout extends React.Component {
     }
   }
   componentWillReceiveProps (props) {
-    console.log('sssssssssssssssss', props);
-    
     props.history.push('/');
   }
   render () {

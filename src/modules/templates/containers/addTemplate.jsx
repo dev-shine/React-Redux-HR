@@ -23,7 +23,7 @@ class TemplateContainer extends React.Component {
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
   }
 

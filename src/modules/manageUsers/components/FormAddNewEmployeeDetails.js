@@ -60,7 +60,7 @@ class FormAddNewEmployeeDetails extends React.Component {
     this.props.onAddNewUserDetails(new_profile_details).then(
       data => {
         notify("Success!!", data.message, "success");
-        this.props.router.push(`/add_documents/${this.props.params.id}`);
+        this.props.history.push(`/add_documents/${this.props.params.id}`);
       },
       error => {
         notify("error", error, "error");

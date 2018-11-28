@@ -11,7 +11,7 @@ import { getToken } from '../../../services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';
 import { dateFormatter } from "../../../helper/helper";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 class AuditInventoryList extends Component {
     constructor() {

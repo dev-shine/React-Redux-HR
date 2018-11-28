@@ -58,7 +58,7 @@ import store from './store';
 import createBrowserHistory from "history/createBrowserHistory";
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
 // import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
-// import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
+import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
 // import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
 // import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
@@ -126,8 +126,8 @@ let render = (routerKey = null) => {
             <Route path="/inventory_system/:device" component={InventorySystem}/>
             <Route path="/attendanceReq" component={Page_AttendanceReq} />
             <Route path="/inventoryOverviewDetail" component={Page_InventoryOverview}/>
-            {/* <Route path="audit_inventory_list" component={Page_Audit_Inventory}/>
-            <Route path="add_documents" component = {Page_AddDocuments} />
+            <Route path="/audit_inventory_list" component={Page_Audit_Inventory}/>
+            {/* <Route path="add_documents" component = {Page_AddDocuments} />
             <Route path="add_documents/*" component = {Page_FormAddDocuments} />
             <Route path="health_stats" component = {ContainerHealthStats} />
             <Route path="settings" component = {Page_settings} />

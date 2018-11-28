@@ -53,7 +53,7 @@ import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
 import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
 import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
 import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
-// import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
+import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
 import createBrowserHistory from "history/createBrowserHistory";
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
@@ -135,7 +135,7 @@ let render = (routerKey = null) => {
             <Route path="/addInventory" component={RouterAddInventorySystem}/>
             <Route exact path="/add_new_employee" component={AddNewEmployee}/>
             <Route path="/add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
-            {/* <Route path="user_document" component={UserDocumentDetails}/>  */}
+            <Route path="/user_document" component={UserDocumentDetails}/> 
           </Switch>
         </Router>
       </Provider>

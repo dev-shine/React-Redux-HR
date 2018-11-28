@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 import { notify } from "../../../services/notify";
 import Menu from "../../../components/generic/Menu";
@@ -17,7 +18,7 @@ import style from "../../../styles/inventory/viewUser.scss";
 import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
 import * as actions from '../../../redux/actions';
 import * as actionsUsersList from "../../../redux/generic/actions/usersList";
-import * as actionsManageUsers from "../../redux/manageUsers/actions/manageUsers";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
 import moment from 'moment';
 
 
@@ -73,7 +74,7 @@ class InventorySystem extends React.Component {
     this.props.onFetchUnapprovedUser();
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     this.setState({
       username: props.manageUsers.username,
       user_profile_detail: props.manageUsers.user_profile_detail,
@@ -171,7 +172,7 @@ class InventorySystem extends React.Component {
         thirdArrow: "hidden",
         fourthArrow: "hidden"
       });
-      this.props.router.push("inventoryOverviewDetail");
+      this.props.history.push("inventoryOverviewDetail");
     } else if (toDisplay === "unapproved_user") {
       this.setState({
         deviceList: "show",
@@ -230,7 +231,7 @@ class InventorySystem extends React.Component {
       open: true
     });
     this.props.onUserEditData({}, this.state.edit, this.state.open);
-    this.props.router.push("/addInventory");
+    this.props.history.push("/addInventory");
   }
 
   handleAddDialog() {
@@ -484,7 +485,7 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateUserDeviceDetails: newDeviceDetails => {
       return dispatch(
-        actionsManageUsers.updateUserDeviceDetails(newDeviceDetails)
+        // actionsManageUsers.updateUserDeviceDetails(newDeviceDetails)
       );
     },
     onAddNewMachine: newMachineDetails => {

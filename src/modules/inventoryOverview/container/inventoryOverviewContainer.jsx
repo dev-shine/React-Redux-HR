@@ -34,7 +34,7 @@ class InventoryOverviewContainer extends React.Component{
                 </div>
                 <div className="padding">
                 <div className={this.state.viewUserNew}>
-                  <DeviceCounterTab statusList={this.props.manageDevice.statusList} deviceCountList={this.props.manageDevice.deviceCountList} router={this.props.router}/>
+                  <DeviceCounterTab statusList={this.props.manageDevice.statusList} deviceCountList={this.props.manageDevice.deviceCountList} history={this.props.history}/>
                 </div>
               </div>
                  </div>

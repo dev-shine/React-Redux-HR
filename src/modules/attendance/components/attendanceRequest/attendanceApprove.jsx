@@ -1,7 +1,7 @@
 import React from 'react';
 // import 'react-date-picker/index.css';
-import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
-import {notify} from '../../../services/notify';
+import ButtonRaised from '../../../../components/generic/buttons/ButtonRaised';
+import {notify} from '../../../../services/notify';
 
 class AttendanceApprove extends React.Component {
   constructor (props) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import style from 'src/styles/inventory/viewUser.scss'
 
-const DeviceCounter = ({ deviceData, deviceName, router }) => {
+const DeviceCounter = ({ deviceData, deviceName, history }) => {
   let list = Object.keys(deviceData).map((k, idx) => {
     if (k === 'User_Assign' || k === 'User_Not_Assign' || k === 'Assigned') {
       return;
@@ -11,7 +11,7 @@ const DeviceCounter = ({ deviceData, deviceName, router }) => {
     }
   });
   return (
-    <div className="col-xs-12 col-sm-4 deviceinfo" onClick={() => router.push(`inventory_system/${deviceName}`)}>
+    <div className="col-xs-12 col-sm-4 deviceinfo" onClick={() => history.push(`inventory_system/${deviceName}`)}>
       <div className="box p-a" style={{ height: '350px' }}>
         <div className="pull-left m-r">
           <span className="w-48 rounded accent">

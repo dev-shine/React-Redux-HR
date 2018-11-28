@@ -26,7 +26,7 @@ class InventoryItem extends React.Component {
   }
 
   componentWillMount() {
-    device_id = this.props.routeParams.id;
+    device_id = this.props.match.params.id;
     this.props.onUsersList();
     this.props.onGetDevice(device_id);
     this.props.onIsAlreadyLogin();
@@ -70,7 +70,7 @@ class InventoryItem extends React.Component {
       this.props.manageDevice.unapprovedList.data
     );
     const machineName = _.filter(machineList, {
-      id: this.props.routeParams.id
+      id: this.props.match.params.id
     });
     const pat = _.isEmpty(machineName)
       ? null
@@ -286,7 +286,7 @@ class InventoryItem extends React.Component {
                   >
                     {
                       <DialogUpload
-                        inventory_id={this.props.routeParams.id}
+                        inventory_id={this.props.match.params.id}
                         {...this.props}
                       />
                     }

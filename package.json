@@ -19,6 +19,7 @@
     "popper.js": "^1.14.5",
     "query-string": "^6.2.0",
     "react": "^16.6.3",
+    "react-color": "^2.14.1",
     "react-csv": "^1.0.19",
     "react-date-picker": "^7.1.1",
     "react-date-range": "^0.9.4",

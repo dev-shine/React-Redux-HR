@@ -40,7 +40,7 @@ import Page_ManageUserWorkingHours from './modules/workingHours/containers/manag
 import InventorySystem from './modules/inventory/containers/manageInventory';
 import Page_MyInventory from './modules/inventory/containers/myInventory';
 import PageManageRoles from './modules/manageRoles/containers/manageRoles';
-// import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
+import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
 import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
 // import Page_mail_template from './modules/templates/containers/addTemplate';
 import Page_AddVariables from './modules/templates/containers/addVariables';
@@ -100,7 +100,7 @@ let render = (routerKey = null) => {
             <Route path="/my_leaves" component={Page_MyLeaves} />
             <Route path="/disabled_employes" component={PageDisabledEmployes} />
             <Route path="/manage_user_working_hours" component={Page_ManageUserWorkingHours} />
-            {/* <Route path="/manage_user_pending_hours" component={Page_ManageUserPendingHours} /> */}
+            <Route path="/manage_user_pending_hours" component={Page_ManageUserPendingHours} />
             <Route path="/leaves_summary" component={Page_LeavesSummary} />
             <Route path="/salary" component={Page_Salary} />
             <Route path="/manage_salary" component={Page_ManageSalary} />

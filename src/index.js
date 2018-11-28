@@ -49,18 +49,18 @@ import Page_MyProfile from './modules/myProfile/containers/myProfile';
 import PageManageDashboard from './modules/manageUsers/containers/manageDashboard';
 import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
 import InventoryItem from './modules/inventory/components/inventoryItem'
-// import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
-// import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
+import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
+import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
 // import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
 // import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
 // import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
 import createBrowserHistory from "history/createBrowserHistory";
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
-// import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
+import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
 import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
-// import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
-// import Page_settings from './modules/healthStats/container/Settings';
+import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
+import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
 require('jquery');
 const appHistory = createBrowserHistory()
@@ -127,13 +127,13 @@ let render = (routerKey = null) => {
             <Route path="/attendanceReq" component={Page_AttendanceReq} />
             <Route path="/inventoryOverviewDetail" component={Page_InventoryOverview}/>
             <Route path="/audit_inventory_list" component={Page_Audit_Inventory}/>
-            {/* <Route path="add_documents" component = {Page_AddDocuments} />
-            <Route path="add_documents/*" component = {Page_FormAddDocuments} />
-            <Route path="health_stats" component = {ContainerHealthStats} />
-            <Route path="settings" component = {Page_settings} />
+            <Route exact path="/add_documents" component = {Page_AddDocuments} />
+            <Route path="/add_documents/:userId" component = {Page_FormAddDocuments} />
+            <Route path="/health_stats" component = {ContainerHealthStats} />
+            <Route path="/settings" component = {Page_settings} />
 
-            <Route path="addInventory" component={RouterAddInventorySystem}/>
-            <Route path="add_new_employee" component={AddNewEmployee}/>
+            <Route path="/addInventory" component={RouterAddInventorySystem}/>
+            {/* <Route path="add_new_employee" component={AddNewEmployee}/>
             <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
             <Route path="user_document" component={UserDocumentDetails}/>  */}
           </Switch>

@@ -80,7 +80,7 @@ class FormAddNewInventory extends React.Component {
     });
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     this.setState({
       open: props.open,
       edit: props.edit,
@@ -297,13 +297,14 @@ class FormAddNewInventory extends React.Component {
         </option>
       );
     });
+    let editData = this.props.manageDevice.editData;
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header
             pageTitle={
-              this.props.manageDevice.editData.edit
+              editData.edit
                 ? "Edit Inventory"
                 : "Add New Inventory"
             }
@@ -333,9 +334,9 @@ class FormAddNewInventory extends React.Component {
             <div className="col-md-6">
               <div className="col-md-6">
                 <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
-                {this.props.manageDevice.editData.device.warranty_end_date ? (
+                {editData.device && editData.device.warranty_end_date ? (
                   <p>
-                    {this.props.manageDevice.editData.device.warranty_end_date}
+                    {editData.device.warranty_end_date}
                   </p>
                 ) : null}
               </div>
@@ -425,7 +426,7 @@ class FormAddNewInventory extends React.Component {
               />
             </div>
 
-            {!this.props.manageDevice.editData.edit ? (
+            {!editData.edit ? (
               <div
                 className="col-md-6"
                 style={{ opacity: "0.56", marginTop: "2%" }}
@@ -517,7 +518,7 @@ class FormAddNewInventory extends React.Component {
                 style={{ opacity: "0.76", marginTop: "2%" }}
                 onClick={e => this.handleAddDevice(e)}
               >
-                {this.props.manageDevice.editData.edit
+                {editData.edit
                   ? "Update Inventory"
                   : "Add Inventory"}
               </button>

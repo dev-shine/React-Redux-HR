@@ -19,7 +19,7 @@ class FormAddDocument extends Component {
       document_type: "",
       token: "",
       file: [],
-      user_id: this.props.params.splat,
+      user_id: this.props.match.params.userId,
       page_url: window.location.href,
       imageUrl:""
     };
@@ -36,7 +36,7 @@ class FormAddDocument extends Component {
     let type = this.state.document_type;
     let link1 = this.refs.file.value;
     let file = this.state.file[0];
-    let userId = this.props.params.splat;
+    let userId = this.props.match.params.userId;
     let stop = false;
     if (!userId) {
       stop = true;

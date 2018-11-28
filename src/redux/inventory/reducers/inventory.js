@@ -11,7 +11,7 @@ let initialState = {
   deviceCountList: {},
   comment: [],
   unassignedDeviceList: [],
-  editData: [],
+  editData: {},
   showTab: false,
   auditData: {}
 };

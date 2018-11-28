@@ -53,7 +53,7 @@ class FormAddNewEmployee extends React.Component {
         this.setState({
           user_id: data.user_id
         });
-        this.props.router.push(`/add_new_employee/${this.state.user_id}`);
+        this.props.history.push(`/add_new_employee/${this.state.user_id}`);
         let uname = this.props.usersList.username;
       },
       error => {

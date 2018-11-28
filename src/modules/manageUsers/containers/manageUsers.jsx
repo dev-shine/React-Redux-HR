@@ -92,7 +92,7 @@ class ManageUsers extends React.Component {
     }
   }
   handleFormAddNewEmployee(){
-    this.props.router.push("/add_new_employee")
+    this.props.history.push("/add_new_employee")
   }
   onUserClick (userid, username) {
     let selectedUserName = '';

@@ -51,7 +51,7 @@ import Page_AttendanceReq from './modules/attendance/containers/manageAttendance
 import InventoryItem from './modules/inventory/components/inventoryItem'
 import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
 import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
-// import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
+import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
 import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
 // import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
 import store from './store';
@@ -133,9 +133,9 @@ let render = (routerKey = null) => {
             <Route path="/settings" component = {Page_settings} />
 
             <Route path="/addInventory" component={RouterAddInventorySystem}/>
-            <Route path="/add_new_employee" component={AddNewEmployee}/>
-            {/* <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
-            <Route path="user_document" component={UserDocumentDetails}/>  */}
+            <Route exact path="/add_new_employee" component={AddNewEmployee}/>
+            <Route path="/add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
+            {/* <Route path="user_document" component={UserDocumentDetails}/>  */}
           </Switch>
         </Router>
       </Provider>

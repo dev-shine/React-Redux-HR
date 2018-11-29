@@ -1,20 +1,18 @@
 import './styles/main.scss';
 import 'whatwg-fetch';
-import 'sweetalert';
+// import 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';
-// import 'jquery';
+import 'jquery';
 import 'jquery-ui';
-import 'tether';
+// import 'tether';
 import 'bootstrap';
 import './themeFlatkit/scripts'; 
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import {Router, Route, IndexRoute, useRouterHistory} from 'react-router';
-import { Router, Route, Switch } from 'react-router'
-// import {createHashHistory} from 'history';
 import {Provider} from 'react-redux';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import createBrowserHistory from "history/createBrowserHistory";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Page_Login from './modules/auth/containers/login';
 import Page_Logout from './modules/auth/containers/logout';
@@ -54,33 +52,22 @@ import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocu
 import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
 import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
 import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
-import store from './store';
-import createBrowserHistory from "history/createBrowserHistory";
 import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
 import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
 import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
 import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
 import Page_settings from './modules/healthStats/container/Settings';
 // import APP from './App';
-require('jquery');
-const appHistory = createBrowserHistory()
-// -for iPhone iPad safari engine
-if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-  fetch = require('whatwg-fetch');
-}
-// const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
-// var injectTapEventPlugin = require("react-tap-event-plugin");
-// injectTapEventPlugin();
 
-export class APP extends React.Component {
-  render () {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+import store from './store';
+
+const appHistory = createBrowserHistory()
+
+// -for iPhone iPad safari engine
+// if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+//   fetch = require('whatwg-fetch');
+// }
+
 let render = (routerKey = null) => {
   ReactDOM.render((
     <MuiThemeProvider>
@@ -91,8 +78,8 @@ let render = (routerKey = null) => {
             <Route path="/page_login" component={Page_Login} />
             <Route path="/home" component={Page_Home} />
             <Route path="/monthly_attendance" component={Page_MonthlyAttendance} />
-            <Route path="/manage_working_hours" component={Page_ManageWorkingHours} />
             <Route path="/logout" component={Page_Logout} />
+            <Route path="/manage_working_hours" component={Page_ManageWorkingHours} />
             <Route path="/holidays" component={Page_Holidays} />
             <Route path="/team_view" component={Page_TeamView} />
             <Route path="/apply_leave" component={Page_ApplyLeave} />
@@ -140,72 +127,8 @@ let render = (routerKey = null) => {
         </Router>
       </Provider>
     </MuiThemeProvider>
-  ), document.querySelector('#root'));
+  ),
+  document.querySelector('#root'));
 };
-
-
-// let render = (routerKey = null) => {
-//   ReactDOM.render((
-//     <MuiThemeProvider>
-//       <Provider store={store}>
-//         <Router history={appHistory} queryKey={false}>
-//           <Route path="/" component={APP}>
-//             <IndexRoute component={PageManageDashboard} />
-//             //this will be the default page which will opens when app starts
-//             {/* <Route path="home" component={Page_Home} /> */}
-//             {/* <Route path="PageManageDashboard" component={PageManageDashboard} />
-//             <Route path="page_login" component={Page_Login} />
-//             <Route path="monthly_attendance" component={Page_MonthlyAttendance} />
-//             <Route path="manage_working_hours" component={Page_ManageWorkingHours} />
-            // <Route path="logout" component={Page_Logout} />
-            // <Route path="holidays" component={Page_Holidays} />
-            // <Route path="team_view" component={Page_TeamView} />
-            // <Route path="apply_leave" component={Page_ApplyLeave} />
-            // <Route path="manage_leaves" component={Page_ManageLeaves} />
-            // <Route path="my_leaves" component={Page_MyLeaves} />
-            // <Route path="disabled_employes" component={PageDisabledEmployes} />
-            // <Route path="manage_user_working_hours" component={Page_ManageUserWorkingHours} />
-            // <Route path="manage_user_pending_hours" component={Page_ManageUserPendingHours} />
-            // <Route path="leaves_summary" component={Page_LeavesSummary} />
-            // <Route path="salary" component={Page_Salary} />
-            // <Route path="manage_salary" component={Page_ManageSalary} />
-            // <Route path="my_profile" component={Page_MyProfile} />
-            // <Route path="my_inventory" component={Page_MyInventory} />
-            // <Route path="manage_users" component={PageManageUsers} />
-            // <Route path="manage_roles" component={PageManageRoles} />
-            // <Route path="manage_payslips" component={Page_ManagePayslips} />
-            // <Route path="forgot_password" component={Page_ForgotPassword} />
-            // <Route path="documents" component={Page_MyDocuments} />
-            // <Route path="uploadAttendance" component={Page_UploadAttendance} />
-            // <Route path="view_salary" component={Page_ViewSalary} />
-            // <Route path="policy_documents" component={Page_PolicyDocument} />
-            // <Route path="upload_policy_documents" component={Page_UploadPolicyDocument} />
-            // <Route path="add_variables" component={Page_AddVariables} />
-            // <Route path="mail_templates" component={Page_mail_template} /> */}
-
-            // {/* <Route path="inventoryOverviewDetail" component={Page_InventorySystem} /> */}
-            // {/* <Route path="inventory_system/:device/:id" component={InventoryItem} /> */}
-            // {/* <Route path="inventory_system" component={InventorySystem} />
-
-            // <Route path="inventory_system/:device/:id" component={InventoryItem} />
-            // <Route path="inventory_system/:device" component={InventorySystem}/>
-            // <Route path="attendanceReq" component={Page_AttendanceReq} />
-            // <Route path="inventoryOverviewDetail" component={Page_InventoryOverview}/>
-            // <Route path="audit_inventory_list" component={Page_Audit_Inventory}/>
-            // <Route path="add_documents" component = {Page_AddDocuments} />
-            // <Route path="add_documents/*" component = {Page_FormAddDocuments} />
-            // <Route path="health_stats" component = {ContainerHealthStats} />
-            // <Route path="settings" component = {Page_settings} />
-
-            // <Route path="addInventory" component={RouterAddInventorySystem}/>
-            // <Route path="add_new_employee" component={AddNewEmployee}/>
-            // <Route path="add_new_employee/:id" component={FormAddNewEmployeeDetails}/>
-            // <Route path="user_document" component={UserDocumentDetails}/> */}
-//           </Route>
-//         </Router>
-//       </Provider>
-//     </MuiThemeProvider>
-//   ), document.querySelector('#root'));
-// };
 
 render();

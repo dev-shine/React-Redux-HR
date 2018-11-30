@@ -23,6 +23,7 @@ import { resetLoggedUser } from "../../../services/generic";
 import { getLoggedUser } from "../../../services/generic";
 import * as actionsManageUserPendingHours from "../../../redux/workingHours/actions/manageUserPendingHour";
 import $ from 'jquery';
+import logo from '../../../static/logo.png';
 
 var moment = require("moment");
 
@@ -254,7 +255,7 @@ class ManageDashboard extends React.Component {
               <img
                 className="p-0"
                 style={{ marginTop: "0.7%" }}
-                src="./logo.png"
+                src={logo}
                 height="40"
                 width="220"
               />

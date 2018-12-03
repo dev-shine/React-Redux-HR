@@ -51,7 +51,7 @@ $ npm run start
 $ npm run start:prod
 ``` -->
 ### Build project 
-Build process will compile and create bundles as per enviornment setup done above.
+Build process will compile and create bundles as per enviornment setup done above. It also optimizes the build for the best performance
 It will pick the APIs base url from enviornment variable you defined.
 
 ```bash
@@ -83,7 +83,7 @@ The application structure presented below is to be strictly followed while devel
 ```
 .
 
-├── public                   # Koa application (uses webpack middleware)
+├── public                   # Public folder which contains html file for the project
 │   ├── favicon.ico          # page favicon
 │   ├── index.html           # Project's html file
 │   └── manifest.json        # Create-react-app auto generated file
@@ -114,7 +114,7 @@ The application structure presented below is to be strictly followed while devel
 │   └── index.js             # Application bootstrap, routes and renderin
 ├── .env.development         # Set enviornment variable for development
 ├── .env.production          # Set enviornment variable for production
-├── .env.json                # Set a common enviornment variable for both development & production  (remove .env.production and .env.development)
+├── .env                     # Set a common enviornment variable for both development & production  (remove .env.production and .env.development)
 ├── readmd.md                # Project's package.json file
 │
 :

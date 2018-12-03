@@ -58,6 +58,33 @@ It will pick the APIs base url from enviornment variable you defined.
 $ npm run build
 ```
 Now you have the /build folder at project root. You can move the build where ever you want to deploy and run in browser.
+
+### Deploy on development server 
+  Follow the steps below to deploy on development server
+
+  1. Commit and push the changes on git repository.
+  
+  2. Do the ssh login to the dev server in terminal.
+  
+  3. Remove the existing build in `~/public_html/hr/cra/` diractory.
+```bash
+$ cd ~/public_html/hr/cra/
+$ rm -rf *
+```
+
+  4. Go to the project diractory and build the app
+```bash
+$ cd ~/public_html/ReactReduxHR
+$ git pull origin dev         # take pull from updated branch which you want to deploy (must be CRA framework)
+$ npm run build               # Before build make sure is has .env file and base url(`REACT_APP_BASE_URL`) set in it . 
+$ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server diractory.
+```
+
+  It's done !
+  You can now run the dev server `http://dev.hr.excellencetechnologies.in/hr/cra/#/` in your browser.
+
+    NOTE: if `ReactReduxHR` not exist, then you have first clone the project and then follow the above steps.
+
 <!-- 
 ### Build project with production api's
 

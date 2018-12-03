@@ -9,24 +9,24 @@ $ git clone https://github.com/reactexcel/ReactReduxHR.git
 $ cd ReactReduxHR
 $ npm install                   # Install project dependencies
 ```
-### Setup enviornment
+#### Setup enviornment with any one of the below methods.
 
 1. If you want to run the app on port with development APIs and deploy with live APIs then add two files `.env.development` & `.env.production`. and set the env variables as below.
-#### .env.development
+  ###### .env.development
   ```
   REACT_APP_HOST_ENV=development
   REACT_APP_BASE_URL=development_api_base_url     # i.e. http://dev.hr.excellencetechnologies.in/hr
   ```
-#### .env.production
+  ###### .env.production
   ```
   REACT_APP_HOST_ENV=production
   REACT_APP_BASE_URL=live_api_base_url    # i.e. https://hr.excellencetechnologies.in
   ```
 
-2. if you want to both run and build with the same APIs then just add a `.env` file and set the env variables as below.
+2. if you want to run and build both with the same APIs then just add a `.env` file and set the env variables as below.
  ```
   REACT_APP_HOST_ENV=production
-  REACT_APP_BASE_URL=api_base_url     # any either development or production
+  REACT_APP_BASE_URL=api_base_url     # any either development or production base url
   ```
 
 Enviornment setup is finished. Now run the app with below command
@@ -51,7 +51,8 @@ $ npm run start
 $ npm run start:prod
 ``` -->
 ### Build project 
-Build process will compile and create chunks and bundles. It will create bundles as per enviornment setup done above and pick the base url from enviornment variable you defined above.
+Build process will compile and create bundles as per enviornment setup done above.
+It will pick the APIs base url from enviornment variable you defined.
 
 ```bash
 $ npm run build
@@ -82,8 +83,6 @@ The application structure presented below is to be strictly followed while devel
 ```
 .
 
-├──cypress                   # Cypress Unit Test files
-|   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── public                   # Koa application (uses webpack middleware)
 │   ├── favicon.ico          # page favicon
 │   ├── index.html           # Project's html file

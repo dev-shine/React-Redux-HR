@@ -75,15 +75,15 @@ $ rm -rf *
   4. Go to the project diractory and build the app
 ```bash
 $ cd ~/public_html/ReactReduxHR
-$ git pull origin dev         # take pull from updated branch which you want to deploy (must be CRA framework)
-$ npm run build               # Before build make sure is has .env file and base url(`REACT_APP_BASE_URL`) set in it . 
+$ git pull origin dev      # take pull from updated branch which you want to deploy (must be CRA framework)
+$ npm run build            # Before build make sure is has .env file and base url(`REACT_APP_BASE_URL`) set in it . 
 $ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server diractory.
 ```
 
   It's done !
   You can now run the dev server `http://dev.hr.excellencetechnologies.in/hr/cra/#/` in your browser.
 
-    NOTE: if `ReactReduxHR` not exist, then you have first clone the project and then follow the above steps.
+  NOTE: if `ReactReduxHR` not exist, then you have first clone the project and then follow the above steps.
 
 <!-- 
 ### Build project with production api's

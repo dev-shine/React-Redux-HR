@@ -46,7 +46,7 @@ class AddHoldingForm extends React.Component {
       <div className="row salary-blocks-margin salary-row-bg">
         <div className="col-sm-3">
           <div className="salary-title">Holding From : </div>
-          <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingFrom} className="form-control date-field date-holding-field" />
+          <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingFrom} className="form-control date-field date-holding-field" value={this.state.holding_from}/>
         </div>
         <div className="col-sm-3">
           <span className="salary-title">Applicable Months : </span>

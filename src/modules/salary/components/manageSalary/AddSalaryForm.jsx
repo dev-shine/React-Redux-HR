@@ -175,7 +175,7 @@ class AddSalaryForm extends React.Component {
         <div className="col-md-12 col-sm-12 salary-range-wrapper">
           <div className="applicable-from">
             <span className="salary-title">Applicable From : </span>
-            <DatePicker dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
+            <DatePicker dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" value={this.state.applicable_from}/>
           </div>
           <div className="applicable-till">
             <span className="salary-title">Applicable Months : </span>

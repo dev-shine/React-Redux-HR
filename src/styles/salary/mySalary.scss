@@ -6,7 +6,7 @@
   .date-field, input, select{
     // min-width: 35px;
     height: 1.5rem;
-    padding: 4px;
+    padding: 0px;
     line-height: 0;
     font-size: .6rem;
     min-height: 1rem !important;
@@ -23,6 +23,11 @@
     border-color: rgba(120, 130, 140, 0.2);
     input{
       height: 97%;
+    }
+    .react-date-picker__wrapper{
+      width: 100%;
+      padding: 4px;
+      border: none;
     }
     .react-date-field__picker{
       font-size: .9rem;

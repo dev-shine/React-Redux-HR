@@ -37,19 +37,6 @@ $ npm start                # Compile and launch
 ```
 It will launch the browser automatically, but if not,  Then open `http://127.0.0.1:3000` in browser.
 
-<!-- ### Run project with development api's
-  Running project with dev APIs on port 3000
-
-```bash
-$ npm run start
-``` -->
-
-<!-- ### Run project with production api's
-
-
-```bash
-$ npm run start:prod
-``` -->
 ### Build project 
 Build process will compile and create bundles as per enviornment setup done above. It also optimizes the build for the best performance
 It will pick the APIs base url from enviornment variable you defined.
@@ -66,18 +53,18 @@ Now you have the /build folder at project root. You can move the build where eve
   
   2. Do the ssh login to the dev server in terminal.
   
-  3. Remove the existing build in `~/public_html/hr/cra/` diractory.
+  3. Remove the existing build in `~/public_html/hr/cra/` directory.
 ```bash
 $ cd ~/public_html/hr/cra/
 $ rm -rf *
 ```
 
-  4. Go to the project diractory and build the app
+  4. Go to the project directory and build the app
 ```bash
 $ cd ~/public_html/ReactReduxHR
 $ git pull origin dev      # take pull from updated branch which you want to deploy (must be CRA framework)
 $ npm run build            # Before build make sure is has .env file and base url(`REACT_APP_BASE_URL`) set in it . 
-$ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server diractory.
+$ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server directory.
 ```
 
   It's done !
@@ -85,13 +72,6 @@ $ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server diractory
 
   NOTE: if `ReactReduxHR` not exist, then you have first clone the project and then follow the above steps.
 
-<!-- 
-### Build project with production api's
-
-
-```bash
-$ npm run deploy:prod
-``` -->
 
 ### Run Cypress Tests
 
@@ -102,11 +82,7 @@ $ npm run cypress
 ## Application Structure
 
 The application structure presented below is to be strictly followed while developing the application. Functionalities are grouped in to modules based on its features, and routes falls under similar category. The same module structure is to be followed inside **components**, **redux**, **style** which contains related content modulewise.
-<!-- ├── bin                      # Build/Start scripts
-├── blueprints               # Blueprint files for redux-cli
-├── build                    # All build-related configuration
-│   └── webpack              # Environment-specific configuration files for webpack
-├── config                   # Project configuration settings -->
+
 ```
 .
 

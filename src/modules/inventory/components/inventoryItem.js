@@ -14,6 +14,7 @@ import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUs
 import ButtonRaised from "../../../components/generic/buttons/ButtonRaised";
 import DialogUpload from "./dialogueUpload";
 let device_id;
+
 class InventoryItem extends React.Component {
   constructor(props) {
     super(props);
@@ -123,7 +124,7 @@ class InventoryItem extends React.Component {
       }
     );
     let path = CONFIG.inventory_images;
-
+    
     return (
       <div>
         <Menu {...this.props} />
@@ -224,9 +225,9 @@ class InventoryItem extends React.Component {
                       <select
                         onChange={e =>
                           this.setState({
-                            user_id: e.target.value,
-                            inventory_id: this.props.routeParams.id
-                          })
+                          user_id: e.target.value,
+                          inventory_id: this.props.match.params.id
+                        })
                         }
                         className="form-control"
                         ref="device_type"
@@ -254,7 +255,7 @@ class InventoryItem extends React.Component {
                             onChange={e =>
                               this.setState({
                                 comment: e.target.value,
-                                inventory_id: this.props.routeParams.id
+                                inventory_id: this.props.match.params.id
                               })
                             }
                             value={this.state.comment}
@@ -278,7 +279,7 @@ class InventoryItem extends React.Component {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
+                    {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.match.params.id} {...this.props}/>}</div> */}
                   </div>
                   <div
                     className="col-md-5 p-r col-sm-offset-1"

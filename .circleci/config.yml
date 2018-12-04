@@ -16,7 +16,7 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
-      - run: npm install
+      - run: yarn install
       - run: npm rebuild node-sass --force
       - run:
           command: npm start

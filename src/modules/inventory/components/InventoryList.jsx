@@ -195,7 +195,7 @@ class InventoryList extends React.Component {
   }
   handleInventory(id) {
     this.props.history.push(
-      `inventory_system/${this.props.routeParams.device}/${id}`
+      `inventory_system/${this.props.match.params.device}/${id}`
     );
   }
 

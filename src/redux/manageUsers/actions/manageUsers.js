@@ -5,6 +5,7 @@ import queue from "async/queue";
 import { fireAjax } from "../../../services/index";
 import { show_loading, hide_loading } from "../../../redux/generic/actions/frontend";
 import * as constants from "../../../redux/constants";
+import { func } from "prop-types";
 var moment = require("moment");
 
 export function success_user_profile(data, username) {
@@ -780,4 +781,41 @@ export function addNewUserDetails(new_profile_details) {
       );
     });
   };
+}
+
+export function successGetAllEmployeeDetails(data) {
+  return createAction(constants.SUCCESS_GET_ALL_EMPLOYEE_DETAILS)(data);
+}
+export function errorGetAllEmployeeDetails(data) {
+  return createAction(constants.ERROR_GET_ALL_EMPLOYEE_DETAILS)(data);
+}
+
+function async_getAllEmployeeDetails(){
+  return fireAjax("POST", "", {
+    action: "get_enabled_users_brief_details"
+  })
+}
+
+export function getAllEmployeeDetails() {
+  return function(dispatch, getState) {
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading()); // show loading icon
+      async_getAllEmployeeDetails().then(
+        res => {
+          console.log('res--', res);
+          if (res.error == 0) {
+            resolve(res.data);
+            dispatch(successGetAllEmployeeDetails(res.data));
+          } else {
+            dispatch(errorGetAllEmployeeDetails(res.data));
+          }
+          dispatch(hide_loading()); // hide loading icon
+        },
+        error => {
+          console.log('error', error);
+          dispatch(hide_loading()); // hide loading icon
+        }
+      )
+    })
+  }
 }

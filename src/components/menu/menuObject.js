@@ -4,6 +4,7 @@ const DATA = [
   {'path': '/uploadAttendance', 'label': 'Upload Attendance', 'plabel': 'Attendance'},
   {'path': '/attendanceRequests', 'label': 'Attendance Requests', 'plabel': 'Attendance'},
   {'path': '/manage_users', 'label': 'Profile', 'plabel': 'Manage Employees'},
+  {'path': '/all_employee', 'label': 'All Employee', 'plabel': 'Manage Employees'},
   {'path': '/manage_roles', 'label': 'Manage Roles', 'plabel': 'Roles'},
   {'path': '/dashboard', 'label': 'Dashboard', 'plabel': 'Manage Employees'},
   {'path': '/disabled_employes', 'label': 'Disable Employee', 'plabel': 'Manage Employees'},

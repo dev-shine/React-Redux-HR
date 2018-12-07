@@ -1,12 +1,29 @@
 import React from "react";
+import {orderBy} from 'lodash';
 import moment from 'moment';
 
-const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalary }) => {
+const SalaryBlock = ({ item, userid, displayPage, viewSalarySummary, callDeleteUserSalary, salaryStructure, callAddUserHolding }) => {
     const total_earning = (item.Basic*1 + item.HRA*1 + item.Conveyance*1 + item.Medical_Allowance*1 + item.Special_Allowance*1 + item.Arrears*1).toFixed(2);
     const total_deduction = (item.EPF*1 + item.Loan*1 + item.Advance*1 + item.Misc_Deductions*1 + item.TDS*1).toFixed(2);
     const valueDecimal = (val) => {
         let v = Number(val);
         return Math.round(v) === v ? v : v.toFixed(2);
+    }
+    let orderedSalary = orderBy(salaryStructure.salary_details,['date'],['desc']);
+    let orderedHolding = orderBy(salaryStructure.holding_details,['last_updated_on'],['desc']);
+    let isHolding = false;
+    if(orderedSalary.length > 0 && orderedHolding.length > 0){
+        isHolding = orderedSalary[0].date === item.date && orderedHolding[0].holding_amt > 0;
+    }
+    const  handleRemoveHolding = () => {
+        let params  = {
+            user_id: userid,
+            holding_from: moment().format('YYYY-MM-DD'),
+            holding_till: 12,
+            holding_amount: '0',
+            reason: 'Holding removed using button click'
+          }
+          callAddUserHolding(params)
     }
     return (
         <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => displayPage === "manage" && viewSalarySummary(e, item.test.id)}>
@@ -55,9 +72,12 @@ const SalaryBlock = ({ item, displayPage, viewSalarySummary, callDeleteUserSalar
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12 col-xs-12 bg-danger salary-block salary-deduction-width">
-                    <div className="col-sm-12">
+                    <div className="col-sm-8">
                         <div className="col-sm-12 salary-total-title">Total Deductions</div>
                         <div className="col-sm-12 salary-total-value">{total_deduction}</div>
+                    </div>
+                    <div className="col-sm-4 col-xs-12 cell remove-holding-btn-wrapper">
+                        {isHolding && <span className="remove-holding-btn" onClick={()=>handleRemoveHolding()}>Remove Holding</span>}
                     </div>
                     <div className="col-sm-2 col-xs-12 cell salary-epf-width">
                         <div className="col-sm-12 salary-title">EPF</div>

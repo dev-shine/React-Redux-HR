@@ -16,15 +16,19 @@ const EmployeeDetails = ({ employee, displayPage }) => {
                     <div className="col-sm-12 salary-total-title">E-id : {employee.id}</div>
                     <div className="col-sm-12 salary-total-title">{employee.jobtitle}</div>
                 </div>
-                <div className="col-sm-2 col-xs-12 cell">
+                <div className="col-sm-1 col-xs-12 cell">
                     {/* <div className="col-sm-12 salary-title">DOJ</div> */}
                     <div className="col-sm-12">{employee.dateofjoining}</div>
                 </div>
                 <div className="col-sm-2 col-xs-12 cell">
-                    {/* <div className="col-sm-12 salary-title">PAN No.</div> */}
-                    <div className="col-sm-12">{employee.pan_card_num}</div>
+                    {/* <div className="col-sm-12 salary-title">current_salary</div> */}
+                    <div className="col-sm-12">{employee.current_salary}</div>
                 </div>
                 <div className="col-sm-2 col-xs-12 cell">
+                    {/* <div className="col-sm-12 salary-title">PAN No.</div> */}
+                    <div className="col-sm-12">{employee.team}</div>
+                </div>
+                <div className="col-sm-1 col-xs-12 cell">
                     {/* <div className="col-sm-12 salary-title">Contact-1</div> */}
                     <div className="col-sm-12">{employee.mobile_ph}</div>
                 </div>

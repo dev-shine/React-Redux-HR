@@ -2,12 +2,12 @@ import React from 'react';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 import DateField from 'react-date-picker';
-// import 'react-date-picker/index.css';
 import {CONFIG} from '../../../config/index';
 import Label from '../../../components/generic/label';
 import InputText from '../../../components/generic/input/InputText';
 import Textarea from '../../../components/generic/input/TextArea';
 import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
+import {confirm} from '../../../services/notify';
 var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {
@@ -179,6 +179,20 @@ class FormUserProfileDetails extends React.Component {
     }
     this.props.callUpdateUserProfileDetails(this.state);
   }
+  handleUpdateClick = () => {
+    const { training_completion_date } = this.props.user_profile_detail;
+    const stateTrainingDate = this.state.training_completion_date;
+    if (training_completion_date === "0000-00-00" &&
+      stateTrainingDate !== training_completion_date) {
+      confirm("Has service agreement been signed?","","","No","Yes" ).then((res)=>{
+        if(res){
+          this.props.callUpdateUserProfileDetails(this.state);
+        }
+      })
+    } else {
+      this.props.callUpdateUserProfileDetails(this.state);
+    }
+  };
   render () {
     let selectedUser = _.find(this.props.usersList.users,['id',this.props.user_profile_detail.id]);
     let slackImg = selectedUser ? selectedUser.slack_profile.image_72 : '';  
@@ -412,11 +426,11 @@ class FormUserProfileDetails extends React.Component {
               if (e.target.checked) {
                 this.setState({ send_slack_msg: "1" });
               } else {
-                this.setState({ send_slack_msg: "" });
+                this.setState({ send_slack_msg: "" }); 
               }
             }} />
         </div>
-        <ButtonRaised className="col-xs-12 m-b-sm indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)} label={"Update Profile Details"} />
+        <ButtonRaised className="col-xs-12 m-b-sm indigo" onClick={this.handleUpdateClick} label={"Update Profile Details"} />
       </div>;
   }
 }

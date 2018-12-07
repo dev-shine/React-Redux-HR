@@ -816,7 +816,7 @@ export function errorAuditList (data) {
 function getAsyncAuditList (token, month, year) {
   return fireAjax('POST','',{
     'token': token,
-    'request': 'POST',
+    'request': 'POST', 
     'action': 'get_inventory_audit_status_month_wise',
     'month': month,
     'year': year

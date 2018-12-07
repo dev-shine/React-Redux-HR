@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {confirm} from 'src/services/notify';
+import {confirm} from '../../../services/notify';
 import _ from 'lodash';
 
 const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, handleDelete}) => {

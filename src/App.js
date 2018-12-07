@@ -3,7 +3,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import * as actions from 'appRedux/actions';
+import * as actions from './redux/actions';
 
 class APP extends React.Component {
   constructor (props) {

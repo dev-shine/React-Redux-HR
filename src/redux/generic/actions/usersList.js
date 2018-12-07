@@ -1,11 +1,11 @@
 import {createAction} from 'redux-actions';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
 
 //* *********************************
-import {fireAjax} from 'src/services/index';
+import {fireAjax} from '../../../services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from '../../../redux/actions';
 
 export function* getUsersList (action) {
   try {
@@ -29,7 +29,7 @@ export function success_usersList (data) {
 }
 
 export function empty_usersList (data) {
-  return createAction(constants.EMPTY_USERSLIST)(data);
+  // return createAction(constants.EMPTY_USERSLIST)(data);
 }
 
 export function error_usersList (data) {
@@ -50,7 +50,7 @@ export function get_users_list () {
           dispatch(success_usersList(json.data));
           resolve(json.data);
         } else {
-          dispatch(empty_usersList([]));
+          // dispatch(empty_usersList([]));
         }
       }, (error) => {
         dispatch(hide_loading()); // hide loading icon

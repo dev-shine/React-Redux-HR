@@ -21,4 +21,4 @@
 		$this.toggleClass('active');
 
     });
-})(jQuery);
+})(window.jQuery);

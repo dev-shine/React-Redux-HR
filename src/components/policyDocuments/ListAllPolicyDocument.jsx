@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {confirm} from 'src/services/notify';
+import {confirm} from '../../services/notify';
 import IconButton from 'material-ui/IconButton';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Card, CardHeader} from 'material-ui/Card';

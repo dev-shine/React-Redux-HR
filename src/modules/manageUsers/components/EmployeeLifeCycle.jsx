@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import ToggleButton from 'react-toggle-button';
+import $ from 'jquery';
 
 const EmployeeLifeCycle = ({employee_life_cycle, handleChangeSteps}) => {
   $(document).ready(function () {

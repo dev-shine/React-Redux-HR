@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
 import update from 'immutability-helper';
-import * as constants from 'appRedux/constants';
-import 'appRedux/update';
+import * as constants from '../../../redux/constants';
+import '../../../redux/update';
 
 let initialState = {
   empDaySummary: {
@@ -29,5 +29,5 @@ const errorUpdateEmpDaySummary = (state, action) => update(state, {
 export default handleActions({
   [constants.REQUEST_UPDATE_EMP_DAY_SUMMARY]: requestUpdateEmpDaySummary,
   [constants.SUCCESS_UPDATE_EMP_DAY_SUMMARY]: successUpdateEmpDaySummary,
-  [constants.ACTION_ERROR_EMP_DAY_SUMMARY]:   errorUpdateEmpDaySummary
+  // [constants.ACTION_ERROR_EMP_DAY_SUMMARY]:   errorUpdateEmpDaySummary
 }, initialState);

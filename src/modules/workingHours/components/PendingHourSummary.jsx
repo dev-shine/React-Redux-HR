@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
-import {CONFIG} from 'src/config/index';
-import * as actions_login from 'appRedux/auth/actions/index';
+import {CONFIG} from '../../../config/index';
+import * as actions_login from '../../../redux/auth/actions/index';
 import AddUserPendingHour from './AddUserPendingHour';
-import 'react-date-picker/index.css';
+// import 'react-date-picker/index.css';
 var moment = require('moment');
 
 const PendingHourSummary = ({manageUserPendingHours, onUserPendingHoursData}) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import * as _ from 'lodash';
-import { DateField } from 'react-date-picker';
-import 'react-date-picker/index.css';
-import { ButtonRaised } from 'components/generic/buttons';
+import moment from 'moment';
+import DateField from 'react-date-picker';
+import { ButtonRaised } from '../../../../components/generic/buttons';
 
 class AddHoldingForm extends React.Component {
   constructor(props) {
@@ -35,6 +35,11 @@ class AddHoldingForm extends React.Component {
     });
   }
 
+  addHolding = () =>{
+    let dataObject = _.cloneDeep(this.state);
+    dataObject.holding_from = moment(dataObject.holding_from).format('YYYY-MM-DD');
+    this.props.callAddUserHolding(dataObject)
+  }
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from;
@@ -46,7 +51,7 @@ class AddHoldingForm extends React.Component {
       <div className="row salary-blocks-margin salary-row-bg">
         <div className="col-sm-3">
           <div className="salary-title">Holding From : </div>
-          <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingFrom} className="form-control date-field date-holding-field" />
+          <DateField dateFormat="YYYY-MM-DD" onChange={this.handleHoldingFrom} className="form-control date-field date-holding-field" value={this.state.holding_from}/>
         </div>
         <div className="col-sm-3">
           <span className="salary-title">Applicable Months : </span>
@@ -68,7 +73,7 @@ class AddHoldingForm extends React.Component {
           </span>
         </div>
         <div className="col-sm-1 text-center">
-          <i className="material-icons add-icon" onClick={() => this.props.callAddUserHolding(this.state)}>
+          <i className="material-icons add-icon" onClick={() => this.addHolding()}>
             add_circle_outline
               </i>
         </div>

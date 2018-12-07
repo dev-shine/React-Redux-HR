@@ -1,19 +1,20 @@
 import React from "react";
 import * as _ from "lodash";
 import moment from "moment";
-import { CONFIG } from "src/config/index";
+import { CONFIG } from "../../../config/index";
 import { connect } from "react-redux";
-import Menu from "components/generic/Menu";
-import { notify } from "src/services/notify";
-import Header from "components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import { notify } from "../../../services/notify";
+import Header from "../../../components/generic/Header";
 import { withRouter } from "react-router";
-import * as actions from "appRedux/actions";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
-import ButtonRaised from "components/generic/buttons/ButtonRaised";
+import * as actions from '../../../redux/actions';
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
+import ButtonRaised from "../../../components/generic/buttons/ButtonRaised";
 import DialogUpload from "./dialogueUpload";
 let device_id;
+
 class InventoryItem extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,7 @@ class InventoryItem extends React.Component {
   }
 
   componentWillMount() {
-    device_id = this.props.routeParams.id;
+    device_id = this.props.match.params.id;
     this.props.onUsersList();
     this.props.onGetDevice(device_id);
     this.props.onIsAlreadyLogin();
@@ -70,7 +71,7 @@ class InventoryItem extends React.Component {
       this.props.manageDevice.unapprovedList.data
     );
     const machineName = _.filter(machineList, {
-      id: this.props.routeParams.id
+      id: this.props.match.params.id
     });
     const pat = _.isEmpty(machineName)
       ? null
@@ -123,7 +124,7 @@ class InventoryItem extends React.Component {
       }
     );
     let path = CONFIG.inventory_images;
-
+    
     return (
       <div>
         <Menu {...this.props} />
@@ -224,9 +225,9 @@ class InventoryItem extends React.Component {
                       <select
                         onChange={e =>
                           this.setState({
-                            user_id: e.target.value,
-                            inventory_id: this.props.routeParams.id
-                          })
+                          user_id: e.target.value,
+                          inventory_id: this.props.match.params.id
+                        })
                         }
                         className="form-control"
                         ref="device_type"
@@ -254,7 +255,7 @@ class InventoryItem extends React.Component {
                             onChange={e =>
                               this.setState({
                                 comment: e.target.value,
-                                inventory_id: this.props.routeParams.id
+                                inventory_id: this.props.match.params.id
                               })
                             }
                             value={this.state.comment}
@@ -278,7 +279,7 @@ class InventoryItem extends React.Component {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.routeParams.id} {...this.props}/>}</div> */}
+                    {/* <div className="col-md-5 p-r col-sm-offset-1" style={{marginTop:'17px'}}>{<DialogUpload inventory_id={this.props.match.params.id} {...this.props}/>}</div> */}
                   </div>
                   <div
                     className="col-md-5 p-r col-sm-offset-1"
@@ -286,7 +287,7 @@ class InventoryItem extends React.Component {
                   >
                     {
                       <DialogUpload
-                        inventory_id={this.props.routeParams.id}
+                        inventory_id={this.props.match.params.id}
                         {...this.props}
                       />
                     }
@@ -323,7 +324,7 @@ const mapDispatchToProps = dispatch => {
       return dispatch(actionsUsersList.get_users_list());
     },
     onMyProfileDetails: () => {
-      return dispatch(actionsMyProfile.getMyProfileDetails());
+      // return dispatch(actionsMyProfile.getMyProfileDetails());
     },
     onIsAlreadyLogin: () => {
       return dispatch(actions.isAlreadyLogin());

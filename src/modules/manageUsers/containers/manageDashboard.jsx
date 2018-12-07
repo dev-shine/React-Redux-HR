@@ -1,26 +1,29 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router";
+import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
 import _ from "lodash";
-import Menu from "components/generic/Menu";
+import Menu from "../../../components/generic/Menu";
 import { dateFormatter } from '../../../helper/helper';
 import { bindActionCreators } from "redux";
-import { isNotUserValid } from "src/services/generic";
-import LoadingIcon from "components/generic/LoadingIcon";
-import * as actions from "appRedux/actions";
-import Header from "components/generic/Header";
-import GetLogo from "components/auth/login/GetLogo";
-import UsersListHeader from "components/generic/UsersListHeader";
-import PageUserDashboard from "modules/manageUsers/components/PageUserDashboard";
-import PageMonthlyHours from "modules/manageUsers/components/PageMonthlyHours";
-import PageEmployeePerformance from "modules/manageUsers/components/PageEmployeePerformance";
-import EmployeeLeastActiveHours from 'modules/manageUsers/components/employeeLeastActiveHours';
-import NewEmployeeLeastActiveHours from 'modules/manageUsers/components/newEmployeeLeastActiveHours'
-import PageEmployeeLifeCycle from "modules/manageUsers/components/PageEmployeeLifeCycle";
-import PageEmpHours from "modules/manageUsers/components/PageEmpHours";
-import { resetLoggedUser } from "src/services/generic";
-import { getLoggedUser } from "src/services/generic";
-import * as actionsManageUserPendingHours from "appRedux/workingHours/actions/manageUserPendingHour";
+import { isNotUserValid } from "../../../services/generic";
+import LoadingIcon from "../../../components/generic/LoadingIcon";
+import * as actions from "../../../redux/actions";
+import Header from "../../../components/generic/Header";
+import GetLogo from "../../../components/auth/login/GetLogo";
+import UsersListHeader from "../../../components/generic/UsersListHeader";
+import PageUserDashboard from "../../../modules/manageUsers/components/PageUserDashboard";
+import PageMonthlyHours from "../../../modules/manageUsers/components/PageMonthlyHours";
+import PageEmployeePerformance from "../../../modules/manageUsers/components/PageEmployeePerformance";
+import EmployeeLeastActiveHours from '../../../modules/manageUsers/components/employeeLeastActiveHours';
+import NewEmployeeLeastActiveHours from '../../../modules/manageUsers/components/newEmployeeLeastActiveHours'
+import PageEmployeeLifeCycle from "../../../modules/manageUsers/components/PageEmployeeLifeCycle";
+import PageEmpHours from "../../../modules/manageUsers/components/PageEmpHours";
+import { resetLoggedUser } from "../../../services/generic";
+import { getLoggedUser } from "../../../services/generic";
+import * as actionsManageUserPendingHours from "../../../redux/workingHours/actions/manageUserPendingHour";
+import $ from 'jquery';
+import logo from '../../../static/logo.png';
 
 var moment = require("moment");
 
@@ -252,7 +255,7 @@ class ManageDashboard extends React.Component {
               <img
                 className="p-0"
                 style={{ marginTop: "0.7%" }}
-                src="./logo.png"
+                src={logo}
                 height="40"
                 width="220"
               />

@@ -10,4 +10,4 @@
     $li.toggleClass('active');
     $active.removeClass('active');
   });
-})(jQuery);
+})(window.jQuery);

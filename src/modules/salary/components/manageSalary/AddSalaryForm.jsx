@@ -1,8 +1,8 @@
 import React from 'react';
 import * as _ from 'lodash';
-import { DateField } from 'react-date-picker';
-import 'react-date-picker/index.css';
-import { ButtonRaised } from 'components/generic/buttons';
+import moment from 'moment';
+import DatePicker from 'react-date-picker';
+import { ButtonRaised } from '../../../../components/generic/buttons';
 
 
 class AddSalaryForm extends React.Component {
@@ -30,17 +30,10 @@ class AddSalaryForm extends React.Component {
       misc_deduction: '0',
       tds: '0',
     }
-    this.handleApplicableFrom = this.handleApplicableFrom.bind(this);
-    this.handleApplicableTill = this.handleApplicableTill.bind(this);
   }
-  handleApplicableFrom(date) {
+  handleApplicableFrom = (date) => {
     this.setState({
       applicable_from: date
-    });
-  }
-  handleApplicableTill(date) {
-    this.setState({
-      applicable_till: date
     });
   }
 
@@ -93,7 +86,9 @@ class AddSalaryForm extends React.Component {
     if(props.user_latest_salary_details){
       if (typeof props.user_latest_salary_details.test != 'undefined') {
         if (typeof props.user_latest_salary_details.test.applicable_from != 'undefined') {
-          //applicable_from = props.user_latest_salary_details.test.applicable_from
+          console.log('props.user_latest_salary_details.test.applicable_from', props.user_latest_salary_details.test.applicable_from);
+          
+          applicable_from = new Date(props.user_latest_salary_details.test.applicable_from)
         }
         if (typeof props.user_latest_salary_details.test.applicable_till != 'undefined') {
           //applicable_till = props.user_latest_salary_details.test.applicable_till
@@ -163,6 +158,12 @@ class AddSalaryForm extends React.Component {
     }
   }
 
+  addSalary = () => {
+    let dataObject = _.cloneDeep(this.state);
+    dataObject.applicable_from = moment(dataObject.applicable_from).format('YYYY-MM-DD');
+    this.props.callAddUserSalary(dataObject)
+  }
+
   render() {
     let styles = _.cloneDeep(this.constructor.styles);
     let date = this.state.applicable_from;
@@ -175,7 +176,7 @@ class AddSalaryForm extends React.Component {
         <div className="col-md-12 col-sm-12 salary-range-wrapper">
           <div className="applicable-from">
             <span className="salary-title">Applicable From : </span>
-            <DateField dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" />
+            <DatePicker dateFormat="YYYY-MM-DD" onChange={this.handleApplicableFrom} className="form-control date-field" value={this.state.applicable_from}/>
           </div>
           <div className="applicable-till">
             <span className="salary-title">Applicable Months : </span>
@@ -276,7 +277,7 @@ class AddSalaryForm extends React.Component {
               </div>
             </div>
             <div className="col-sm-3 cell center salary-options-width">
-              <i className="material-icons add-icon" onClick={() => this.props.callAddUserSalary(this.state)}>
+              <i className="material-icons add-icon" onClick={() => this.addSalary()}>
                 add_circle_outline
               </i>
             </div>

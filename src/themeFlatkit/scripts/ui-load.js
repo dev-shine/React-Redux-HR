@@ -83,4 +83,5 @@ var uiLoad = uiLoad || {};
 		return deferred.promise();
 	}
 
-})(jQuery, document, uiLoad);
+})(window.jQuery, document, uiLoad);
+// export default uiLoad;

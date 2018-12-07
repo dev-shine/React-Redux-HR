@@ -4,29 +4,29 @@ import {withRouter} from 'react-router';
 import * as _ from 'lodash';
 import ToggleButton from 'react-toggle-button';
 import PropTypes from 'prop-types';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import ButtonRaised from 'components/generic/buttons/ButtonRaised';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import UpdateEmployeeDocument from 'modules/manageUsers/components/UpdateEmployeeDocument';
-import Button from 'components/generic/buttons/Button';
-import AlertNotification from 'components/generic/AlertNotification';
-import DisplayUserBankDetails from 'components/manageUser/DisplayUserBankDetails';
-import DisplayUserDeviceDetails from 'components/manageUser/DisplayUserDeviceDetails';
-import UserPayslipsHistory from 'components/salary/managePayslips/UserPayslipsHistory';
-import FormAddNewEmployee from 'modules/manageUsers/components/FormAddNewEmployee';
-import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
-import FormAddNewEmployeeDetails from 'modules/manageUsers/components/FormAddNewEmployeeDetails';
-import FormUserProfileDetails from 'modules/manageUsers/components/FormUserProfileDetails';
-import EmployeeLifeCycle from 'modules/manageUsers/components/EmployeeLifeCycle';
-import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsManageUsers from 'src/redux/manageUsers/actions/manageUsers';
-import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
-import * as actions_manageSalary from 'appRedux/salary/actions/manageSalary';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
+import UsersList from '../../../components/generic/UsersList';
+import UsersListHeader from '../../../components/generic/UsersListHeader';
+import UpdateEmployeeDocument from '../../../modules/manageUsers/components/UpdateEmployeeDocument';
+import Button from '../../../components/generic/buttons/Button';
+import AlertNotification from '../../../components/generic/AlertNotification';
+import DisplayUserBankDetails from '../../../components/manageUser/DisplayUserBankDetails';
+import DisplayUserDeviceDetails from '../../../components/manageUser/DisplayUserDeviceDetails';
+import UserPayslipsHistory from '../../../components/salary/managePayslips/UserPayslipsHistory';
+import FormAddNewEmployee from '../../../modules/manageUsers/components/FormAddNewEmployee';
+import AddSalaryForm from '../../../modules/salary/components/manageSalary/AddSalaryForm';
+import FormAddNewEmployeeDetails from '../../../modules/manageUsers/components/FormAddNewEmployeeDetails';
+import FormUserProfileDetails from '../../../modules/manageUsers/components/FormUserProfileDetails';
+import EmployeeLifeCycle from '../../../modules/manageUsers/components/EmployeeLifeCycle';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUsers from '../../../redux/manageUsers/actions/manageUsers';
+import * as actionsManagePayslips from '../../../redux/salary/actions/managePayslips';
+import * as actions_manageSalary from '../../../redux/salary/actions/manageSalary';
 import { RaisedButton } from 'material-ui';
 import Dialog from 'material-ui/Dialog';
 
@@ -62,10 +62,10 @@ class ManageUsers extends React.Component {
     this.props.onFetchTeams();
   }
   componentWillReceiveProps (props) {
-    let {route, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {location, loggedUser, managePayslips:{user_payslip_history}, manageUsers:{username, user_profile_detail, user_bank_detail, user_assign_machine, user_documents, stages}} = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     this.setState({
       user_payslip_history: user_payslip_history,
@@ -92,7 +92,7 @@ class ManageUsers extends React.Component {
     }
   }
   handleFormAddNewEmployee(){
-    this.props.router.push("/add_new_employee")
+    this.props.history.push("/add_new_employee")
   }
   onUserClick (userid, username) {
     let selectedUserName = '';
@@ -318,16 +318,16 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
     },
     onUpdateUserBankDetails: (newBankDetails) => {
-      return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
+      // return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
     },
     onUpdateUserProfileDetails: (newProfileDetails) => {
       return dispatch(actionsManageUsers.updateUserProfileDetails(newProfileDetails));
     },
     onUpdateUserDeviceDetails: (newDeviceDetails) => {
-      return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
+      // return dispatch(actionsManageUsers.updateUserDeviceDetails(newDeviceDetails));
     },
     onUpdatedocuments: (documentLink) => {
-      return dispatch(actionsManageUsers.updateDocument(documentLink));
+      // return dispatch(actionsManageUsers.updateDocument(documentLink));
     },
     onChangeEmployeeStatus: (userid, status) => {
       return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status));
@@ -364,14 +364,14 @@ export default RouterVisibleManageUsers;
 ManageUsers.PropTypes = {
   onIsAlreadyLogin:           PropTypes.func.isRequired,
   onFetchTeam:                PropTypes.func.isRequired,
-  onUserProfileDetails:       React.PropTypes.func.isRequired,
+  onUserProfileDetails:       PropTypes.func.isRequired,
   onGetUserDocument:          PropTypes.func.isRequired,
   onUserManagePayslipsData:   PropTypes.func.isRequired,
   onUpdateUserBankDetails:    PropTypes.func.isRequired,
   onUpdateUserDeviceDetails:  PropTypes.func.isRequired,
   onUpdateUserProfileDetails: PropTypes.func.isRequired,
   onChangeEmployeeStatus:     PropTypes.func.isRequired,
-  onUsersList:                React.PropTypes.func.isRequired,
+  onUsersList:                PropTypes.func.isRequired,
   onUpdatedocuments:          PropTypes.func.isRequired,
   usersList:                  PropTypes.object.isRequired,
   manageUsers:                PropTypes.object.isRequired,

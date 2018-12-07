@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import {syncHistoryWithStore} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import thunk from 'redux-thunk';
-import rootReducer from 'appRedux/reducers';
+import rootReducer from './redux/reducers';
 import rootSaga from './sagas';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

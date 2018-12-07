@@ -1,18 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { notify } from "src/services/notify";
-import Menu from "components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
-import Header from "components/generic/Header";
-import UserHorizontalView from "components/generic/UserHorizontalView";
-import DeviceDetails from "components/inventory/deviceDetails";
-import * as actionsMyProfile from "appRedux/myProfile/actions/myProfile";
-import * as actions from "appRedux/actions";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import UnassignDevice from "modules/inventory/components/UnassignDevice";
-import AssignDevice from "modules/inventory/components/AssignDevice";
+import { notify } from "../../../services/notify";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
+import Header from "../../../components/generic/Header";
+import DeviceDetails from "../../../components/inventory/deviceDetails";
+import * as actionsMyProfile from "../../../redux/myProfile/actions/myProfile";
+import * as actions from '../../../redux/actions';
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import UnassignDevice from "../../../modules/inventory/components/UnassignDevice";
+import AssignDevice from "../../../modules/inventory/components/AssignDevice";
 import _ from "lodash";
+import $ from 'jquery';
 
 class MyInventory extends React.Component {
   constructor(props) {
@@ -50,9 +50,9 @@ class MyInventory extends React.Component {
     this.props.onGetMyInventory();
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
-    if (isNotValid.status && isNotValid.redirectTo !== "/my_inventory") {
-      this.props.router.push(isNotValid.redirectTo);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
+    if (isNotValid.status && isNotValid.redirectTo !== '/my_inventory') {
+      this.props.history.push(isNotValid.redirectTo);
     }
     this.setState({
       user_profile_detail: props.myProfile.user_profile_detail,
@@ -305,7 +305,7 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateDeviceDetails: newDeviceDetails => {
       return dispatch(
-        actionsMyProfile.updateUserDeviceDetails(newDeviceDetails)
+        // actionsMyProfile.updateUserDeviceDetails(newDeviceDetails)
       );
     },
     onAddUserComment: addUserCommentDetails => {

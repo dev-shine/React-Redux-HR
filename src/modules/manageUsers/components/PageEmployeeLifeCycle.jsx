@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
+import {notify} from '../../../services/notify';
 import _ from 'lodash';
 import {HighchartsChart, LineSeries, Chart, XAxis, YAxis, Title, Tooltip, Subtitle, Legend, ColumnSeries} from 'react-jsx-highcharts';
 

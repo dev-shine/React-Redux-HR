@@ -2,18 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UserHorizontalView from 'components/generic/UserHorizontalView';
-import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
-import FormProfileDetails from 'modules/myProfile/components/FormProfileDetails';
-import FormBankDetails from 'modules/myProfile/components/FormBankDetails';
-import FormUpdatePassword from 'modules/myProfile/components/FormUpdatePassword';
-import * as actions from 'appRedux/actions';
-import * as actionsMyProfile from 'appRedux/myProfile/actions/myProfile';
-import * as actionsSalary from 'appRedux/salary/actions/viewSalary';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import UserHorizontalView from '../../../components/generic/UserHorizontalView';
+import PayslipHistory from '../../../components/salary/userSalary/PayslipHistory';
+import FormProfileDetails from '../../../modules/myProfile/components/FormProfileDetails';
+import FormBankDetails from '../../../modules/myProfile/components/FormBankDetails';
+import FormUpdatePassword from '../../../modules/myProfile/components/FormUpdatePassword';
+import * as actions from '../../../redux/actions';
+import * as actionsMyProfile from '../../../redux/myProfile/actions/myProfile';
+import * as actionsSalary from '../../../redux/salary/actions/viewSalary';
 
 class MyProfile extends React.Component {
   constructor (props) {
@@ -36,9 +36,9 @@ class MyProfile extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     let s_payslip_history = [];
 
@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsMyProfile.updateProfileDetails(new_profile_details));
     },
     onUpdateDeviceDetails: (new_device_details) => {
-      return dispatch(actionsMyProfile.updateUserDeviceDetails(new_device_details));
+      // return dispatch(actionsMyProfile.updateUserDeviceDetails(new_device_details));
     },
     onUpdatePassword: (new_password) => {
       return dispatch(actionsMyProfile.updatePassword(new_password));

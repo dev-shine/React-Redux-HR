@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import {Calendar} from 'react-date-range';
-import {notify} from 'src/services/notify';
-import {Button, ButtonRaised, ButtonFlat} from 'components/generic/buttons';
+import {notify} from '../../../../services/notify';
+import {Button, ButtonRaised, ButtonFlat} from '../../../../components/generic/buttons';
 import AddLeaveDocument from './AddLeaveDocument'
 
 
@@ -243,7 +244,7 @@ class ApplyLeaveForm extends React.Component {
   }
 }
 ApplyLeaveForm.propTypes = {
-  doApplyLeave: React.PropTypes.func.isRequired,
-  applyLeave:   React.PropTypes.shape({start_date: React.PropTypes.String, end_date: React.PropTypes.String})
+  doApplyLeave: PropTypes.func.isRequired,
+  applyLeave:   PropTypes.shape({start_date: PropTypes.String, end_date: PropTypes.String})
 };
 export default ApplyLeaveForm;

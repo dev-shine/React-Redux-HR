@@ -1,8 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash'
-
-import {DateField} from 'react-date-picker'
-import 'react-date-picker/index.css'
+import $ from 'jquery';
 
 
 

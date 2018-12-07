@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import {CONFIG} from 'src/config/index';
-import {getToken} from 'src/services/generic';
+import {CONFIG} from '../../../../config/index';
+import {getToken} from '../../../../services/generic';
 
 class AttendanceSheatForm extends React.Component {
   constructor (props) {

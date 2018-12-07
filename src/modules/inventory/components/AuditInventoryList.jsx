@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import Menu from "components/generic/Menu";
-import Header from "components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import Header from "../../../components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from "appRedux/actions";
-import { CONFIG } from "config";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import { getToken } from 'src/services/generic';
+import * as actions from '../../../redux/actions';
+import { CONFIG } from "../../../config";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import { getToken } from '../../../services/generic';
 import { CSVLink } from "react-csv/lib";
 import moment from 'moment';
-import { dateFormatter } from "src/helper/helper";
-import { Link } from "react-router";
+import { dateFormatter } from "../../../helper/helper";
+import { Link } from "react-router-dom";
 
 class AuditInventoryList extends Component {
     constructor() {

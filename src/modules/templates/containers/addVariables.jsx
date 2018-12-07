@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import * as actions from 'appRedux/actions';
-import * as actions_templates from 'appRedux/templates/actions/templates';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import * as actions from '../../../redux/actions';
+import * as actions_templates from '../../../redux/templates/actions/templates';
 import Variables from '../components/Variable';
 
 class VariablesContainer extends React.Component {
@@ -17,9 +17,9 @@ class VariablesContainer extends React.Component {
     this.props.onFetchVariables();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
   }
   render () {

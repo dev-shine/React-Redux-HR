@@ -1,6 +1,6 @@
-import {fireAjax} from 'src/services/index';
+import {fireAjax} from '../../../services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from '../../../redux/actions';
 
 export function* userMonthlyAttendance (action) {
   try {

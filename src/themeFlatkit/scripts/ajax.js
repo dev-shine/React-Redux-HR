@@ -22,4 +22,4 @@
         $( document ).trigger( "pjaxEnd" );
       });
     }
-})(jQuery);
+})(window.jQuery);

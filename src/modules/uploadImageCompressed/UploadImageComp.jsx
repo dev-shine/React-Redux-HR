@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import ImageCompressor from "image-compressor.js";
-import { notify } from "src/services/notify";
+import { notify } from "../../services/notify";
 import { connect } from "react-redux";
-import { qualityValue } from "src/helper/helper";
+import { qualityValue } from "../../helper/helper";
 import axios from "axios";
 import CircularProgress from "material-ui/CircularProgress";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actionsUploadFile from "appRedux/uploadImageComp/actions/uploadImageComp";
-import * as actionMyDocuments from "appRedux/myDocuments/actions/myDocument";
+import * as actionsManageDevice from "../../redux/inventory/actions/inventory";
+import * as actionsUploadFile from "../../redux/uploadImageComp/actions/uploadImageComp";
+import * as actionMyDocuments from "../../redux/myDocuments/actions/myDocument";
 import { format } from "url";
 class UploadImageComp extends Component {
   constructor() {

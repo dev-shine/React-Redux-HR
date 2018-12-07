@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import LoadingIcon from 'components/generic/LoadingIcon';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import * as actions from 'appRedux/actions';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import * as actions from '../../../redux/actions';
 import {bindActionCreators} from 'redux';
 import UserPendingAttendanceList from '../components/attendanceRequest/attendanceReq';
-import * as actionsManageUserAttendance from 'appRedux/attendance/actions/attendanceRequests';
+// import * as actionsManageUserAttendance from '../../../redux/attendance/actions/attendanceRequests';
 
 class ManageAttendanceRequest extends React.Component {
   constructor (props) {
@@ -31,7 +31,7 @@ class ManageAttendanceRequest extends React.Component {
   componentWillReceiveProps (props) {
     // let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     // if (isNotValid.status) {
-    //   this.props.router.push(isNotValid.redirectTo);
+    //   this.props.history.push(isNotValid.redirectTo);
     // }
     let {route, router, loggedUser, attendanceReqList: {isError, message}} = props;
     if (isError) {

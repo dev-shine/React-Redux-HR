@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import Menu from "components/generic/Menu";
-import Header from "components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import Header from "../../../components/generic/Header";
 import { connect } from "react-redux";
-import * as actions from "appRedux/actions";
-import AttendanceUploadSetting from "modules/healthStats/component/AttendanceUploadSetting";
-import HealthStatsSecretKey from "modules/healthStats/component/HealthStatsSecretKey";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import { notify } from "src/services/notify";
-import EmployeeJoiningTerminationStats from "modules/healthStats/component/EmployeeJoiningTerminationStats";
-import LeaveStats from "modules/healthStats/component/LeaveStats";
-import { getYearArray } from "src/services/generic";
-import { dateFormatter } from "src/helper/helper";
-import PasswordResetSetting from "modules/healthStats/component/PasswordResetSetting";
+import * as actions from '../../../redux/actions';
+import AttendanceUploadSetting from "../../../modules/healthStats/component/AttendanceUploadSetting";
+import PasswordResetSetting from "../../../modules/healthStats/component/PasswordResetSetting";
 
 class ContainerHealthStats extends React.Component {
   constructor(props) {

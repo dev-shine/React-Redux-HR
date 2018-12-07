@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import ToggleButton from "react-toggle-button";
-import lodash from "lodash";
+import * as _ from "lodash";
 
 const durationDays = () => {
   let options = [];

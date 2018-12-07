@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
-import {isNotUserValid} from 'src/services/generic';
-import AlertNotification from 'components/generic/AlertNotification';
-import AddRolesForm from 'modules/manageRoles/components/AddRolesForm';
-import DisplayRolesLists from 'modules/manageRoles/components/DisplayRolesLists';
-import UsersRolesList from 'components/generic/UsersRolesList';
-import * as actions from 'appRedux/actions';
-import * as actionsManageRoles from 'src/redux/manageRoles/actions/manageRoles';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
+import {isNotUserValid} from '../../../services/generic';
+import AlertNotification from '../../../components/generic/AlertNotification';
+import AddRolesForm from '../../../modules/manageRoles/components/AddRolesForm';
+import DisplayRolesLists from '../../../modules/manageRoles/components/DisplayRolesLists';
+import UsersRolesList from '../../../components/generic/UsersRolesList';
+import * as actions from '../../../redux/actions';
+import * as actionsManageRoles from '../../../redux/manageRoles/actions/manageRoles';
 
 class ManageRoles extends React.Component {
   constructor (props) {
@@ -32,10 +32,10 @@ class ManageRoles extends React.Component {
     this.props.onRolesList();
   }
   componentWillReceiveProps (props) {
-    let {loggedUser, route, router, manageRoles:{rolesData}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {loggedUser, location, history, manageRoles:{rolesData}} = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      router.push(isNotValid.redirectTo);
+      history.push(isNotValid.redirectTo);
     }
     if (rolesData !== this.state.rolesData) {
       this.setState({

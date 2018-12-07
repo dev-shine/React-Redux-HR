@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { CONFIG } from "src/config/index";
-import Menu from "components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
-import Header from "components/generic/Header";
+import { CONFIG } from "../../../config/index";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
+import Header from "../../../components/generic/Header";
 import { withRouter } from "react-router";
-import * as actions from "appRedux/actions";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
+import * as actions from "../../../redux/actions";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
 
 class UserDocuments extends React.Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ButtonFlat = ({label, style, className, onClick, id}) => {
   let classname = "md-btn md-flat " + className;
   return (
-    <button id={id} className={classname} style={style} onTouchTap={onClick}>{label}</button>
+    <button id={id} className={classname} style={style} onClick={onClick}>{label}</button>
   )
 }
 

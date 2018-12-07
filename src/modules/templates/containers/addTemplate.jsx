@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
 import Template from '../components/Template';
-import * as actions from 'appRedux/actions';
-import * as actions_salary from 'appRedux/salary/actions/viewSalary';
-import * as actions_templates from 'appRedux/templates/actions/templates';
+import * as actions from '../../../redux/actions';
+import * as actions_salary from '../../../redux/salary/actions/viewSalary';
+import * as actions_templates from '../../../redux/templates/actions/templates';
 
 class TemplateContainer extends React.Component {
   constructor (props) {
@@ -23,7 +23,7 @@ class TemplateContainer extends React.Component {
   componentWillReceiveProps (props) {
     let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import {Calendar} from 'react-date-range';
 
 class FormAddUserWorkingHours extends React.Component {

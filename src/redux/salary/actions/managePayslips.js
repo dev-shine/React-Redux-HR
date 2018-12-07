@@ -1,9 +1,9 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-import * as constants from 'appRedux/constants';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
 
 export function success_user_manage_payslips_data (data) {
   return createAction(constants.ACTION_SUCCESS_USER_MANAGE_PAYSLIPS_DATA)(data);

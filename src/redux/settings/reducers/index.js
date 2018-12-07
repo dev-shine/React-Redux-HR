@@ -1,7 +1,7 @@
-import { handleActions } from "redux-actions";
-import update from "immutability-helper";
-import * as constants from "appRedux/constants";
-import "appRedux/update";
+import {handleActions} from 'redux-actions';
+import update from 'immutability-helper';
+import * as constants from '../../../redux/constants';
+import '../../../redux/update';
 
 let initialState = {
   attendanceUploadSetting: {

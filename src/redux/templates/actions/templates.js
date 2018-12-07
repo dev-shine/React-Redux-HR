@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
 import {createAction} from 'redux-actions';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import * as constants from '../../../redux/constants';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
 import 'whatwg-fetch';
 
 // --------add new valiable-------

@@ -1,4 +1,5 @@
 import MODULE_CONFIG from './config.lazyload.js';
+// import uiLoad from './ui-load';
 
 (function ($, MODULE_CONFIG) {
   	"use strict";
@@ -15,7 +16,7 @@ import MODULE_CONFIG from './config.lazyload.js';
 				options[0] = $.extend({}, options[0]);
 			}
 
-			uiLoad.load(MODULE_CONFIG[self.attr('ui-jp')]).then( function(){
+			window.uiLoad.load(MODULE_CONFIG[self.attr('ui-jp')]).then( function(){
 				self[self.attr('ui-jp')].apply(self, options);
 			});
         });
@@ -23,4 +24,4 @@ import MODULE_CONFIG from './config.lazyload.js';
         return lists;
 	}
 
-})(jQuery, MODULE_CONFIG);
+})(window.jQuery, MODULE_CONFIG);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { dateFormatter } from "src/helper/helper";
+import { dateFormatter } from "../../../helper/helper";
 
 const PayslipHistory = ({ payslip_history }) => {
   let previousPayslips = _.map(payslip_history, (d, key) => {

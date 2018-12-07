@@ -1,17 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
-import {isNotUserValid} from 'src/services/generic';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import ListUserWorkingHours from 'components/workingHours/ListUserWorkingHours';
-import FormAddUserWorkingHours from 'modules/workingHours/components/FormAddUserWorkingHours';
-import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsManageUserWorkingHours from 'appRedux/workingHours/actions/manageUserWorkingHours';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
+import {isNotUserValid} from '../../../services/generic';
+import UsersList from '../../../components/generic/UsersList';
+import UsersListHeader from '../../../components/generic/UsersListHeader';
+import ListUserWorkingHours from '../../../components/workingHours/ListUserWorkingHours';
+import FormAddUserWorkingHours from '../../../modules/workingHours/components/FormAddUserWorkingHours';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUserWorkingHours from '../../../redux/workingHours/actions/manageUserWorkingHours';
 
 class ManageUserWorkingHours extends React.Component {
   constructor (props) {
@@ -30,9 +30,9 @@ class ManageUserWorkingHours extends React.Component {
     this.props.onUsersList();
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
 
     if (this.state.defaultUserDisplay === '') {
@@ -76,6 +76,8 @@ class ManageUserWorkingHours extends React.Component {
       selectedUserId = this.props.manageUserWorkingHours.userInfo.user_Id;
     } catch (err) {}
 
+    console.log('this.props.usersList', this.props.usersList);
+    
     return (
       <div>
         <Menu {...this.props} />

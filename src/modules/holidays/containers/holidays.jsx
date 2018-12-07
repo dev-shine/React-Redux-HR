@@ -2,13 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/notify';
-import * as actions from 'appRedux/actions';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
-import {isNotUserValid} from 'src/services/generic';
-import HolidaysList from 'components/holidays/HolidaysList';
-import { getToken, getYearArray } from 'src/services/generic';
+import {notify} from '../../../services/notify';
+import * as actions from '../../../redux/actions';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
+import {isNotUserValid} from '../../../services/generic';
+import HolidaysList from '../../../components/holidays/HolidaysList';
+import { getToken, getYearArray } from '../../../services/generic';
+var moment = require('moment');
 
 class Holidays extends React.Component {
   constructor (props) {
@@ -39,7 +40,7 @@ class Holidays extends React.Component {
     }
     if (addHoliday.isSuccess) {
       notify('Success !', addHoliday.data.message, 'success');
-      this.props.requestHolidayList({year:this.state.date.substring(0, 4)});
+      this.props.requestHolidayList({year: moment(this.state.date).year()});
       this.setState({date:"",holidayName:""});
     }
     if (deleteHoliday.isError) {
@@ -50,10 +51,10 @@ class Holidays extends React.Component {
       this.props.requestHolidayList({year:this.state.year});
     }
     
-    let {route, router, loggedUser, holidaysList: {isError, message}} = props;
-    let isNotValid = isNotUserValid(route.path, loggedUser);
+    let {location, history, loggedUser, holidaysList: {isError, message}} = props;
+    let isNotValid = isNotUserValid(location.pathname, loggedUser);
     if (isNotValid.status) {
-      router.push(isNotValid.redirectTo);
+      history.push(isNotValid.redirectTo);
     }
     if (isError) {
       notify('Error !', message, 'error');
@@ -66,7 +67,7 @@ class Holidays extends React.Component {
   handleDateChnage=(date)=>{
     if(date){
       this.setState(
-        { date: date, year:date.substring(0, 4) }
+        { date: date, year: moment(date).year() }
       )
     }
     }

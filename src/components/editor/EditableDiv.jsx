@@ -1,12 +1,13 @@
 'use strict';
+import PropTypes from 'prop-types';
 var React = require('react');
 
 module.exports = React.createClass({
 	displayName: 'EditableDiv',
 
 	propTypes: {
-		content: React.PropTypes.string.isRequired,
-		onChange: React.PropTypes.func.isRequired
+		content: PropTypes.string.isRequired,
+		onChange: PropTypes.func.isRequired
 	},
 
 	getInitialState: function() {

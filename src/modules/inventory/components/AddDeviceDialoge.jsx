@@ -1,13 +1,12 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
-import {notify, confirm} from 'src/services/notify';
+import {notify, confirm} from '../../../services/notify';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {CONFIG} from 'src/config/index';
-import style from 'src/styles/inventory/viewUser.scss'
-import 'react-date-picker/index.css';
+import {CONFIG} from '../../../config/index';
+import style from '../../../styles/inventory/viewUser.scss'
 
 export default class AddDeviceDialoge extends React.Component {
   constructor (props) {
@@ -83,7 +82,7 @@ export default class AddDeviceDialoge extends React.Component {
 
   render () {
     const actions = [
-      <FlatButton label="Delete" secondary style={{marginRight: 5}} onTouchTap={() => {
+      <FlatButton label="Delete" secondary style={{marginRight: 5}} onClick={() => {
         if (this.state.checkValue !== '') {
           confirm('Are you sure ?', 'Do you want to delete this Device Type ?', 'warning').then((res) => {
             if (res) {
@@ -92,12 +91,12 @@ export default class AddDeviceDialoge extends React.Component {
           });
         }
       }} />,
-      <FlatButton label="Cancel" primary onTouchTap={this.props.handleClose} style={{marginRight: 5}} />,
-      <RaisedButton label="Submit" primary onTouchTap={this.addMoreDevice} />
+      <FlatButton label="Cancel" primary onClick={this.props.handleClose} style={{marginRight: 5}} />,
+      <RaisedButton label="Submit" primary onClick={this.addMoreDevice} />
     ];
     return (
       <div>
-        <button className="md-btn md-raised m-b-sm indigo addDevice" onTouchTap={this.props.handleOpen}>Add Device Type</button>
+        <button className="md-btn md-raised m-b-sm indigo addDevice" onClick={this.props.handleOpen}>Add Device Type</button>
         <Dialog
           title={'ADD DEVICE TYPE'}
           titleStyle={{opacity: '0.56'}}

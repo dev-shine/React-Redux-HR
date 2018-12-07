@@ -1,10 +1,10 @@
 import {createAction} from 'redux-actions';
 import * as _ from 'lodash';
 import * as jwt from 'jwt-simple';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import * as constants from '../../../redux/constants';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
 
 export function list_my_leaves_sucess (data) {
   return createAction(constants.ACTION_LIST_MY_LEAVES_SUCCESS)(data);
@@ -39,7 +39,7 @@ export function getMyLeaves () {
 },
 				(error) => {
   dispatch(hide_loading()); // hide loading icon
-  dispatch(list_my_leaves_error(json.data.message));
+  dispatch(list_my_leaves_error(error.data.message));
 }
 			);
     });
@@ -69,7 +69,7 @@ export function cancelLeave (userId, from_date) {
 },
 				(error) => {
   dispatch(hide_loading()); // hide loading icon
-  reject(json.data.message);
+  reject(error.data.message);
 }
 			);
     });

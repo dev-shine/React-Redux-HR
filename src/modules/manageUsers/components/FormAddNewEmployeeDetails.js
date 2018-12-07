@@ -3,21 +3,21 @@ import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { notify } from "src/services/notify";
+import { notify } from "../../../services/notify";
 import { DateField } from "react-date-picker";
 import ToggleButton from "react-toggle-button";
-import "react-date-picker/index.css";
-import { CONFIG } from "src/config/index";
-import Button from "components/generic/buttons/Button";
-import Menu from "components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
-import Header from "components/generic/Header";
+// import "react-date-picker/index.css";
+import { CONFIG } from "../../../config/index";
+import Button from "../../../components/generic/buttons/Button";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
+import Header from "../../../components/generic/Header";
 import { withRouter } from "react-router";
-import ButtonRaised from "components/generic/buttons/ButtonRaised";
+import ButtonRaised from "../../../components/generic/buttons/ButtonRaised";
 import SignaturePad from "signature_pad";
-import * as actions from "appRedux/actions";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "src/redux/manageUsers/actions/manageUsers";
+import * as actions from "../../../redux/actions";
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
 
 let signaturePad;
 class FormAddNewEmployeeDetails extends React.Component {
@@ -60,7 +60,7 @@ class FormAddNewEmployeeDetails extends React.Component {
     this.props.onAddNewUserDetails(new_profile_details).then(
       data => {
         notify("Success!!", data.message, "success");
-        this.props.router.push(`/add_documents/${this.props.params.id}`);
+        this.props.history.push(`/add_documents/${this.props.params.id}`);
       },
       error => {
         notify("error", error, "error");

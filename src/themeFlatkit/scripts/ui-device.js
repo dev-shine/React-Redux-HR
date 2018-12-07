@@ -12,4 +12,4 @@
     	$('body').addClass('smart');
 	} 
 
-})(jQuery);
+})(window.jQuery);

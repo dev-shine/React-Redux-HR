@@ -1,5 +1,5 @@
 ## Excellence HR System (```v 2.0.0```)
-Upgraded...
+Upgraded To create-react-app framework
 
 ## Getting Started
 
@@ -8,36 +8,70 @@ Upgraded...
 $ git clone https://github.com/reactexcel/ReactReduxHR.git
 $ cd ReactReduxHR
 $ npm install                   # Install project dependencies
-$ npm run start:dev                     # Compile and launch
 ```
-Then open `http://127.0.0.1:3000` in browser.
+#### Setup enviornment with any one of the below methods.
 
-### Run project with development api's
+1. If you want to run the app on port with development APIs and deploy with live APIs then add two files `.env.development` & `.env.production`. and set the env variables as below.
+  ###### .env.development
+  ```
+  REACT_APP_HOST_ENV=development
+  REACT_APP_BASE_URL=development_api_base_url     # i.e. http://dev.hr.excellencetechnologies.in/hr
+  ```
+  ###### .env.production
+  ```
+  REACT_APP_HOST_ENV=production
+  REACT_APP_BASE_URL=live_api_base_url    # i.e. https://hr.excellencetechnologies.in
+  ```
 
+2. if you want to run and build both with the same APIs then just add a `.env` file and set the env variables as below.
+ ```
+  REACT_APP_HOST_ENV=production
+  REACT_APP_BASE_URL=api_base_url     # any either development or production base url
+  ```
+
+Enviornment setup is finished. Now run the app with below command
+
+### Running Application
+```
+$ npm start                # Compile and launch
+```
+It will launch the browser automatically, but if not,  Then open `http://127.0.0.1:3000` in browser.
+
+### Build project 
+Build process will compile and create bundles as per enviornment setup done above. It also optimizes the build for the best performance
+It will pick the APIs base url from enviornment variable you defined.
 
 ```bash
-$ npm run start:dev
+$ npm run build
 ```
+Now you have the /build folder at project root. You can move the build where ever you want to deploy and run in browser.
 
-### Run project with production api's
+### Deploy on development server 
+  Follow the steps below to deploy on development server
 
-
+  1. Commit and push the changes on git repository.
+  
+  2. Do the ssh login to the dev server in terminal.
+  
+  3. Remove the existing build in `~/public_html/hr/cra/` directory.
 ```bash
-$ npm run start:prod
+$ cd ~/public_html/hr/cra/
+$ rm -rf *
 ```
-### Build project with development api's
 
-
+  4. Go to the project directory and build the app
 ```bash
-$ npm run deploy:dev
+$ cd ~/public_html/ReactReduxHR
+$ git pull origin dev      # take pull from updated branch which you want to deploy (must be CRA framework)
+$ npm run build            # Before build make sure is has .env file and base url(`REACT_APP_BASE_URL`) set in it . 
+$ mv ./build/*  ~/public_html/hr/cra/   # move the build to the server directory.
 ```
 
-### Build project with production api's
+  It's done !
+  You can now run the dev server `http://dev.hr.excellencetechnologies.in/hr/cra/#/` in your browser.
 
+  NOTE: if `ReactReduxHR` not exist, then you have first clone the project and then follow the above steps.
 
-```bash
-$ npm run deploy:prod
-```
 
 ### Run Cypress Tests
 
@@ -47,19 +81,15 @@ $ npm run cypress
 
 ## Application Structure
 
-The application structure presented below is to be strictly followed while developing the the application. The functionality is grouped in to modules based on its feature and routes falls under similar category. The same module structure is to be followed inside **components**, **redux**, **style** which contains related content modulewise.
+The application structure presented below is to be strictly followed while developing the application. Functionalities are grouped in to modules based on its features, and routes falls under similar category. The same module structure is to be followed inside **components**, **redux**, **style** which contains related content modulewise.
 
 ```
 .
-├── bin                      # Build/Start scripts
-├── blueprints               # Blueprint files for redux-cli
-├── build                    # All build-related configuration
-│   └── webpack              # Environment-specific configuration files for webpack
-├── config                   # Project configuration settings
-├──cypress                   # Cypress Unit Test files
-|   └── integration          # contains .js files that comes in Cypress UI to run tests
-├── server                   # Koa application (uses webpack middleware)
-│   └── main.js              # Server application entry point
+
+├── public                   # Public folder which contains html file for the project
+│   ├── favicon.ico          # page favicon
+│   ├── index.html           # Project's html file
+│   └── manifest.json        # Create-react-app auto generated file
 ├──cypress                   # Cypress Unit Test files
 |   └── integration          # contains .js files that comes in Cypress UI to run tests
 ├── src                      # Application source code
@@ -84,9 +114,11 @@ The application structure presented below is to be strictly followed while devel
 │   ├── static               # Static assets (not imported anywhere in source code)
 │   ├── saga.js              # Root of saga middleware
 │   ├── store.js             # Create redux store using reducers and meddilwares
-│   ├── main.js              # Application bootstrap, routes and rendering
-│   └── index.html           # Project's html file
-├── package.json             # Project's package.json file
+│   └── index.js             # Application bootstrap, routes and renderin
+├── .env.development         # Set enviornment variable for development
+├── .env.production          # Set enviornment variable for production
+├── .env                     # Set a common enviornment variable for both development & production  (remove .env.production and .env.development)
+├── readmd.md                # Project's package.json file
 │
 :
 ```

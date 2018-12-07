@@ -1,7 +1,7 @@
 import {createAction} from 'redux-actions';
-import {fireAjax} from 'src/services/index';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-import * as constants from 'appRedux/constants';
+import {fireAjax} from '../../../services/index';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as constants from '../../../redux/constants';
 
 export function successAddNewRole (data) {
   return createAction(constants.ACTION_SUCCESS_ADD_ROLE)(data);
@@ -38,7 +38,7 @@ export function addNewRole (new_role) {
       description = new_role.description;
     }
 
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       dispatch(show_loading());
       asyncAddNewRole(baseRoleId, name, description).then((json) => {
         dispatch(hide_loading());

@@ -1,15 +1,15 @@
 import React from "react";
-import * as _ from "lodash";
-import { notify, confirm } from "src/services/notify";
-import { getLowerCase, getLoggedUser } from "src/services/generic";
-import AddDeviceDialoge from "modules/inventory/components/AddDeviceDialoge";
-import AddDeviceStatus from "modules/inventory/components/AddDeviceStatus";
-import { CONFIG } from "config";
-import style from "src/styles/inventory/viewUser.scss";
-var moment = require("moment");
+import _ from "lodash";
+import { notify, confirm } from "../../../services/notify";
+import { getLowerCase, getLoggedUser } from "../../../services/generic";
+import AddDeviceDialoge from "../../../modules/inventory/components/AddDeviceDialoge";
+import AddDeviceStatus from "../../../modules/inventory/components/AddDeviceStatus";
+import { CONFIG } from "../../../config";
+import style from "../../../styles/inventory/viewUser.scss";
 import { CSVLink } from 'react-csv';
-import {deviceKeys} from 'services/index';
+import {deviceKeys} from '../../../services/index';
 
+var moment = require("moment");
 
 let devices;
 let capitalizeDevice;
@@ -115,7 +115,7 @@ class InventoryList extends React.Component {
         () => {
           this.state.search
             ? this.handleDeviceTypeFilter(this.state.search)
-            : this.handleDeviceTypeFilter(this.props.routeParams.device);
+            : this.handleDeviceTypeFilter(this.props.match.params.device);
         }
       );
       this.handleStatusTypeFilter("Working");
@@ -128,7 +128,7 @@ class InventoryList extends React.Component {
       open: false
     });
     this.props.editAction(device, this.state.edit, this.state.open);
-    this.props.router.push("/addInventory");
+    this.props.history.push("/addInventory");
   }
 
   deleteDevices(id, userId) {
@@ -194,8 +194,8 @@ class InventoryList extends React.Component {
     this.props.callAssign(id, userId);
   }
   handleInventory(id) {
-    this.props.router.push(
-      `inventory_system/${this.props.routeParams.device}/${id}`
+    this.props.history.push(
+      `inventory_system/${this.props.match.params.device}/${id}`
     );
   }
 
@@ -266,8 +266,8 @@ class InventoryList extends React.Component {
   }
 
   handleInventory(id) {
-    this.props.router.push(
-      `inventory_system/${this.props.routeParams.device}/${id}`
+    this.props.history.push(
+      `/inventory_system/${this.props.match.params.device}/${id}`
     );
   }
 
@@ -317,7 +317,7 @@ class InventoryList extends React.Component {
     this.props.callUnapprovedId({ id });
   }
   render() {
-    let fileNames = this.props.routeParams.device;
+    let fileNames = this.props.match.params.device;
     if(this.props.searchVal.length >= 1){
       fileNames = this.props.searchVal.toLowerCase();
     }

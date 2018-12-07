@@ -1,10 +1,10 @@
 import React from "react";
 import * as _ from "lodash";
 import Dialog from "material-ui/Dialog";
-import { notify } from "src/services/notify";
-import { getToken } from "src/services/generic";
-import { CONFIG } from "src/config/index";
-import "react-date-picker/index.css";
+import { notify } from "../../../services/notify";
+import { getToken } from "../../../services/generic";
+import { CONFIG } from "../../../config/index";
+// import "react-date-picker/index.css";
 
 class UpdateEmployeeDocument extends React.Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 const LeavesSummary = ({user}) => {
   let pendingPunchingDays = _.map(user.attendance, (day, key) => {

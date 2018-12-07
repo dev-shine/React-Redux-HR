@@ -1,14 +1,14 @@
 import React from 'react';
-import Menu from 'components/generic/Menu';
-import Header from 'components/generic/Header';
+import Menu from '../../../components/generic/Menu';
+import Header from '../../../components/generic/Header';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import ViewUserDevice from 'components/inventory/ViewUser';
-import DeviceCounterTab from 'components/inventory/DeviceCounterTab';
-import * as actionsManageDevice from 'appRedux/inventory/actions/inventory';
-import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
+import ViewUserDevice from '../../../components/inventory/ViewUser';
+import DeviceCounterTab from '../../../components/inventory/DeviceCounterTab';
+import * as actionsManageDevice from '../../../redux/inventory/actions/inventory';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUsers from '../../../redux/manageUsers/actions/manageUsers';
 
 class InventoryOverviewContainer extends React.Component{
 
@@ -34,7 +34,7 @@ class InventoryOverviewContainer extends React.Component{
                 </div>
                 <div className="padding">
                 <div className={this.state.viewUserNew}>
-                  <DeviceCounterTab statusList={this.props.manageDevice.statusList} deviceCountList={this.props.manageDevice.deviceCountList} router={this.props.router}/>
+                  <DeviceCounterTab statusList={this.props.manageDevice.statusList} deviceCountList={this.props.manageDevice.deviceCountList} history={this.props.history}/>
                 </div>
               </div>
                  </div>

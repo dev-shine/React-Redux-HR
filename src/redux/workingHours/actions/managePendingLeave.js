@@ -1,8 +1,8 @@
 import {createAction} from 'redux-actions';
 import _ from 'lodash';
-import {fireAjax} from 'src/services/index';
-import * as constants from 'appRedux/constants';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
+import {fireAjax} from '../../../services/index';
+import * as constants from '../../../redux/constants';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
 
 export function pendingLeaveSucess (data) {
   return createAction(constants.ACTION_PENDING_LEAVE_SUCCESS)(data);

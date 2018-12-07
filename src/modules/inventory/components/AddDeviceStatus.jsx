@@ -4,10 +4,9 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {GithubPicker} from 'react-color';
-import {notify, confirm} from 'src/services/notify';
-import {CONFIG} from 'src/config/index';
-import 'react-date-picker/index.css';
-import style from 'src/styles/inventory/viewUser.scss'
+import {notify, confirm} from '../../../services/notify';
+import {CONFIG} from '../../../config/index';
+import style from '../../../styles/inventory/viewUser.scss'
 
 export default class AddDeviceStatus extends React.Component {
   constructor (props) {
@@ -67,7 +66,7 @@ export default class AddDeviceStatus extends React.Component {
       <FlatButton
         label="Delete"
         secondary
-        onTouchTap={() => {
+        onClick={() => {
           if (this.state.checkValue !== '') {
             confirm('Are you sure ?', 'Do you want to delete this Device Status ?', 'warning').then((res) => {
               if (res) {
@@ -79,18 +78,18 @@ export default class AddDeviceStatus extends React.Component {
       <FlatButton
         label="Cancel"
         primary
-        onTouchTap={this.props.handleStatusClose}
+        onClick={this.props.handleStatusClose}
         style={{marginRight: 5}}
     />,
       <RaisedButton
         label="Submit"
         primary
-        onTouchTap={this.addMoreStatus}
+        onClick={this.addMoreStatus}
     />
     ];
     return (
       <div>
-        <button className="md-btn md-raised m-b-sm indigo addStatus"  onTouchTap={this.props.handleStatusOpen}>Add Status Type</button>
+        <button className="md-btn md-raised m-b-sm indigo addStatus"  onClick={this.props.handleStatusOpen}>Add Status Type</button>
         <Dialog
           title={'ADD STATUS TYPE'}
           titleStyle={{opacity: '0.56'}}

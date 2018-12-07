@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 const SalaryHistory = ({data, viewSalarySummary}) => {
   let salaryHistoryHtml = _.map(data, (d, key) => {

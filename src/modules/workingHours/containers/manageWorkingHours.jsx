@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import WorkingHoursSummary from 'components/workingHours/WorkingHoursSummary';
-import * as actions from 'appRedux/actions';
-import * as actionsWorkingHoursSummary from 'appRedux/workingHours/actions/workingHoursSummary';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import WorkingHoursSummary from '../../../components/workingHours/WorkingHoursSummary';
+import * as actions from '../../../redux/actions';
+import * as actionsWorkingHoursSummary from '../../../redux/workingHours/actions/workingHoursSummary';
 
 class ManageWorkingHours extends React.Component {
   constructor (props) {
@@ -27,9 +27,9 @@ class ManageWorkingHours extends React.Component {
     this.props.onWorkingHoursSummary(year, month);
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     if (props.workingHoursSummary.status_message !== '') {
       notify(props.workingHoursSummary.status_message);

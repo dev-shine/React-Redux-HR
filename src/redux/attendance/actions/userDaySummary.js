@@ -1,7 +1,7 @@
-import {fireAjax} from 'src/services/index';
+import {fireAjax} from '../../../services/index';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
-import {notify} from 'src/services/notify';
+import * as actions from '../../../redux/actions';
+import {notify} from '../../../services/notify';
 const ExpessUrl = 'http://144.76.34.244:3017/attendance/update_time_by_employee';
 
 export function* getUserDaySummary (action) {

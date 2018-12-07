@@ -1,6 +1,7 @@
+import swal from 'sweetalert';
 
 export function notify (title, text, type) {
-  sweetAlert(title, text, type);
+  swal(title, text, type);
 }
 
 export function confirm (title, text, type,cancelText,confirmText) { 

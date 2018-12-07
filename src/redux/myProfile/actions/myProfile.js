@@ -1,11 +1,12 @@
 import {createAction} from 'redux-actions';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import {confirm} from 'src/services/notify';
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-import {setLoggedUser, getLoggedUser} from 'src/services/generic';
-import {userDataUpdated,showInventoryPending} from 'appRedux/actions';
-import * as constants from 'appRedux/constants';
+import _ from 'lodash';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import {confirm} from '../../../services/notify';
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import {setLoggedUser, getLoggedUser} from '../../../services/generic';
+import {userDataUpdated, showInventoryPending} from '../../../redux/actions';
+import * as constants from '../../../redux/constants';
 
 export function success_my_profile (data) {
   return createAction(constants.ACTION_SUCCESS_MY_PROFILE)(data);
@@ -314,7 +315,7 @@ export function updateDocument (documents_link) {
     } else {
       document_link = documents_link.doc_link;
     }
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       _.map(document_link, (link) => {
         async_updateDocument(document_type, link, declearation).then((json) => {
           if (json.error == 0) {

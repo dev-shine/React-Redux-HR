@@ -1,24 +1,24 @@
 import React from "react";
-import "react-date-picker/index.css";
+// import "react-date-picker/index.css";
 import Dialog from "material-ui/Dialog";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router";
 import { DateField } from "react-date-picker";
-import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
-import { notify } from "src/services/notify";
+import { show_loading, hide_loading } from "../../../redux/generic/actions/frontend";
+import { notify } from "../../../services/notify";
 import TextField from "material-ui/TextField";
-import AlertNotification from "components/generic/AlertNotification";
+import AlertNotification from "../../../components/generic/AlertNotification";
 import CircularProgress from "material-ui/CircularProgress";
 import DatePicker from "material-ui/DatePicker";
 import UploadImageComp from "../../uploadImageCompressed/UploadImageComp";
-import * as actionsManageDevice from "appRedux/inventory/actions/inventory";
-import * as actions from "appRedux/actions";
-import * as actionsUsersList from "appRedux/generic/actions/usersList";
-import * as actionsManageUsers from "appRedux/manageUsers/actions/manageUsers";
-import style from "src/styles/inventory/viewUser.scss";
-import Header from "components/generic/Header";
-import Menu from "components/generic/Menu";
-import { isNotUserValid } from "src/services/generic";
+import * as actionsManageDevice from "../../../redux/inventory/actions/inventory";
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from "../../../redux/generic/actions/usersList";
+import * as actionsManageUsers from "../../../redux/manageUsers/actions/manageUsers";
+import style from "../../../styles/inventory/viewUser.scss";
+import Header from "../../../components/generic/Header";
+import Menu from "../../../components/generic/Menu";
+import { isNotUserValid } from "../../../services/generic";
 var moment = require("moment");
 let newdate;
 let selectedOption;
@@ -80,7 +80,7 @@ class FormAddNewInventory extends React.Component {
     });
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     this.setState({
       open: props.open,
       edit: props.edit,
@@ -90,7 +90,7 @@ class FormAddNewInventory extends React.Component {
       user_profile_detail: props.manageUsers.user_profile_detail,
       user_assign_machine: props.manageUsers.user_assign_machine
     });
-    <CircularProgress />;
+    // <CircularProgress />;
 
     if (props.manageDevice.editData.edit) {
       purchase = moment(props.manageDevice.editData.device.date_of_purchase)._d;
@@ -227,7 +227,7 @@ class FormAddNewInventory extends React.Component {
       this.props.onAddNewMachine(apiData).then(
         val => {
           notify("Success !", val, "success");
-          this.props.router.push(
+          this.props.history.push(
             `/inventory_system/${this.state.machine_type}`
           );
           this.props.onFetchDevice();
@@ -256,7 +256,7 @@ class FormAddNewInventory extends React.Component {
           this.setState({
             msg: message
           });
-          this.props.router.push(
+          this.props.history.push(
             `/inventory_system/${this.state.machine_type}`
           );
         });
@@ -297,13 +297,14 @@ class FormAddNewInventory extends React.Component {
         </option>
       );
     });
+    let editData = this.props.manageDevice.editData;
     return (
       <div>
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
           <Header
             pageTitle={
-              this.props.manageDevice.editData.edit
+              editData.edit
                 ? "Edit Inventory"
                 : "Add New Inventory"
             }
@@ -333,9 +334,9 @@ class FormAddNewInventory extends React.Component {
             <div className="col-md-6">
               <div className="col-md-6">
                 <p style={{ opacity: "0.56" }}>Date Of Warrenty Expiry</p>{" "}
-                {this.props.manageDevice.editData.device.warranty_end_date ? (
+                {editData.device && editData.device.warranty_end_date ? (
                   <p>
-                    {this.props.manageDevice.editData.device.warranty_end_date}
+                    {editData.device.warranty_end_date}
                   </p>
                 ) : null}
               </div>
@@ -425,7 +426,7 @@ class FormAddNewInventory extends React.Component {
               />
             </div>
 
-            {!this.props.manageDevice.editData.edit ? (
+            {!editData.edit ? (
               <div
                 className="col-md-6"
                 style={{ opacity: "0.56", marginTop: "2%" }}
@@ -517,7 +518,7 @@ class FormAddNewInventory extends React.Component {
                 style={{ opacity: "0.76", marginTop: "2%" }}
                 onClick={e => this.handleAddDevice(e)}
               >
-                {this.props.manageDevice.editData.edit
+                {editData.edit
                   ? "Update Inventory"
                   : "Add Inventory"}
               </button>

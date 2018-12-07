@@ -7,7 +7,7 @@ jobs:
       - image: cypress/base:6
         environment:
           - TERM: xterm
-      - image: node:7.10.1
+      - image: node:8.14.0
 
     parallelism: 1
     steps:
@@ -16,10 +16,10 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
-      - run: npm install
+      - run: yarn install
       - run: npm rebuild node-sass --force
       - run:
-          command: npm run start:dev
+          command: npm start
           background: true
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}

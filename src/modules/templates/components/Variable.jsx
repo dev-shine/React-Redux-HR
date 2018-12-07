@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
-import {notify} from 'src/services/notify';
-import {CONFIG} from 'src/config/index';
-import LoadingIcon from 'components/generic/LoadingIcon';
+import {notify} from '../../../services/notify';
+import {CONFIG} from '../../../config/index';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -81,12 +81,12 @@ class Variables extends React.Component {
     window.scrollTo(0, 0);
 
     if (!props.loggedUser.isLoggedIn) {
-      this.props.router.push('/logout');
+      this.props.history.push('/logout');
     } else {
       if (props.loggedUser.data.role === CONFIG.ADMIN || props.loggedUser.data.role === CONFIG.HR) {
 
       } else {
-        this.props.router.push('/home');
+        this.props.history.push('/home');
       }
     }
   }
@@ -222,7 +222,7 @@ class Variables extends React.Component {
       <FlatButton
         label="BACK"
         primary
-        onTouchTap={this.gotoVariablePage.bind(this)}
+        onClick={this.gotoVariablePage.bind(this)}
         style={{marginRight: 5}}
             />,
       <RaisedButton

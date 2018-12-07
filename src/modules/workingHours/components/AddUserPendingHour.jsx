@@ -1,7 +1,7 @@
 import React from 'react';
-import {CONFIG} from 'src/config/index';
-import 'react-date-picker/index.css';
-import ButtonRaised from 'components/generic/buttons/ButtonRaised';
+import {CONFIG} from '../../../config/index';
+// import 'react-date-picker/index.css';
+import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
 
 class AddUserPendingHour extends React.Component {
   constructor (props) {

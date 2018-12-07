@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import {notify} from 'src/services/notify';
-import EmpDaySummary from 'modules/attendance/components/empDaySummary';
-import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
-import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
-import * as actions from 'appRedux/actions';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import {notify} from '../../../services/notify';
+import EmpDaySummary from '../../../modules/attendance/components/empDaySummary';
+import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
+// import * as actionsUserDaySummary from '../../../redux/attendance/actions/userDaySummary';
+import * as actions from '../../../redux/actions';
 import isEqual from "lodash/isEqual";
 
 class MonthlyAttendance extends React.Component {
@@ -40,9 +40,9 @@ class MonthlyAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {    
     const userId=props.loggedUser.data.id;
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     if(userId  && !isEqual(props,this.props)){
       this.props.requestUserAttendance({userid: userId, year: this.state.year, month: this.state.month});
@@ -60,7 +60,7 @@ class MonthlyAttendance extends React.Component {
     this.setState({year: y, month: m});
     this.props.requestUserAttendance({userid: u, year: y, month: m});
   }
-  render () {    
+  render () {
     return (
       <div >
         <Menu {...this.props} />

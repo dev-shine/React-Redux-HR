@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as _ from 'lodash';
-import Menu from 'components/generic/Menu';
-import { isNotUserValid } from 'src/services/generic';
-import Header from 'components/generic/Header';
-import SalaryDetails from 'modules/salary/components/userSalary/SalaryDetails';
-import SalaryHistory from 'components/salary/userSalary/SalaryHistory';
-import PayslipHistory from 'components/salary/userSalary/PayslipHistory';
-import * as actions from 'appRedux/actions';
-import * as actions_salary from 'appRedux/salary/actions/viewSalary';
-import SalaryBlock from "components/generic/SalaryBlock";
+import Menu from '../../../components/generic/Menu';
+import { isNotUserValid } from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import SalaryDetails from '../../../modules/salary/components/userSalary/SalaryDetails';
+import SalaryHistory from '../../../components/salary/userSalary/SalaryHistory';
+import PayslipHistory from '../../../components/salary/userSalary/PayslipHistory';
+import * as actions from '../../../redux/actions';
+import * as actions_salary from '../../../redux/salary/actions/viewSalary';
+import SalaryBlock from "../../../components/generic/SalaryBlock";
 import {isMobile} from 'react-device-detect';
 
 class Salary extends React.Component {
@@ -29,9 +29,9 @@ class Salary extends React.Component {
     this.props.onSalaryDetails();
   }
   componentWillReceiveProps(props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
 
     let s_salary_details = {};

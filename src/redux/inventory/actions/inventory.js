@@ -1,9 +1,9 @@
 import {createAction} from 'redux-actions';
-import {fireAjax} from 'src/services/index';
-import {notify} from 'src/services/notify'; 
-import {show_loading, hide_loading} from 'appRedux/generic/actions/frontend';
-import * as actionsMyProfile from "appRedux/myProfile/actions/myProfile";
-import * as constants from 'appRedux/constants';
+import {fireAjax} from '../../../services/index';
+import {notify} from '../../../services/notify'; 
+import {show_loading, hide_loading} from '../../../redux/generic/actions/frontend';
+import * as actionsMyProfile from "../../../redux/myProfile/actions/myProfile";
+import * as constants from '../../../redux/constants';
 import { createInflate } from 'zlib';
 
 export function success_add_new_machine (data) {
@@ -718,7 +718,7 @@ export function addUserComment (addUserCommentDetails) {
           dispatch(actionsMyProfile.getMyInventory());
         }else{
           dispatch(errorAddUserComment(json.message))
-          notify('Error !',error,'error');
+          notify('Error !',json.message,'error');
         }
       }, (error) => {
         dispatch(hide_loading());
@@ -757,17 +757,15 @@ export function approvedUser (id) {
       return getAsyncApprovedData(id).then((json) => {
         dispatch(hide_loading());
         if(json.error==0){
-        dispatch(successApprovedList(json.message));
-        dispatch(unapprovedUser());
-        dispatch(get_machines_detail());
-       
+          dispatch(successApprovedList(json.message));
+          dispatch(unapprovedUser());
+          dispatch(get_machines_detail());
+        }else{
+          dispatch(errorApprovedList(json.message));
         }
-        else{
-        dispatch(errorApprovedList(json.message));
-      } (error) => {
-        dispatch(errorAddusercomment('error occur'));
-        reject('error occur');
-      }
+    },(error) => {
+      // dispatch(errorAddusercomment('error occur'));
+      reject('error occur');
     })
   })
 }

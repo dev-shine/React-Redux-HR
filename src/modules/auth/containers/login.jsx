@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {notify} from 'src/services/notify';
-import {isNotUserValid} from 'src/services/generic';
-import GetLogo from 'components/auth/login/GetLogo';
-import Navbar from 'components/auth/login/Navbar';
-import LoginForm from 'modules/auth/components/login/LoginForm';
-import LoginFormFooter from 'components/auth/login/LoginFormFooter';
-import LoadingIcon from 'components/generic/LoadingIcon';
-import * as actions from 'appRedux/actions';
+import {notify} from '../../../services/notify';
+import {isNotUserValid} from '../../../services/generic';
+import GetLogo from '../../../components/auth/login/GetLogo';
+import Navbar from '../../../components/auth/login/Navbar';
+import LoginForm from '../../../modules/auth/components/login/LoginForm';
+import LoginFormFooter from '../../../components/auth/login/LoginFormFooter';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import { isAlreadyLogin, userLoginRequest } from '../../../redux/actions';
 
 class Login extends React.Component {
   constructor (props) {
@@ -18,10 +18,10 @@ class Login extends React.Component {
     this.doGuestLogin = this.doGuestLogin.bind(this);
     this.doLogin = this.doLogin.bind(this);
   }
-  componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+  componentWillReceiveProps (props) { 
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status && isNotValid.redirectTo !== '/logout') {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     if (props.loggedUser.isError) {
       notify('Error !', props.loggedUser.message, 'error');
@@ -58,7 +58,10 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch);
+  return bindActionCreators({
+    isAlreadyLogin,
+    userLoginRequest
+  }, dispatch);
 };
 
 const VisibleLogin = connect(mapStateToProps, mapDispatchToProps)(Login);

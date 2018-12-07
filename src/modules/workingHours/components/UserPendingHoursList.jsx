@@ -1,9 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import 'react-date-picker/index.css';
-import {CONFIG} from 'src/config/index';
-import {notify} from 'src/services/notify';
+import {CONFIG} from '../../../config/index';
+import {notify} from '../../../services/notify';
 import PendingHourSummary from './PendingHourSummary';
 import AddUserPendingHour from './AddUserPendingHour';
 import AddAsLeaveHour from './AddAsLeaveHour';
@@ -35,11 +34,11 @@ export default class UserPendingHoursList extends React.Component {
 
   componentWillReceiveProps (props) {
     if (!props.loggedUser.isLoggedIn) {
-      this.props.router.push('/logout');
+      this.props.history.push('/logout');
     } else {
       if (props.loggedUser.data.role === CONFIG.ADMIN) {
       } else {
-        this.props.router.push('/home');
+        this.props.history.push('/home');
       }
     }
 
@@ -94,7 +93,7 @@ export default class UserPendingHoursList extends React.Component {
         callAddUserPendingHours={this.callAddUserPendingHours}
         {...this.props} />;
       let HalfdayButton = <AddAsHalfDayLeave val={val} {...this.props} />;
-      <br />;
+      // <br />;
       let leaveButton = <AddAsLeaveHour val={val}
         {...this.props} />;
 

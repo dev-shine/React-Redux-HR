@@ -1,9 +1,9 @@
-import * as jwt from 'jwt-simple';
-import {CONFIG} from 'src/config/index';
-import {fireAjax} from 'src/services/index';
-import {setLoggedUser, getLoggedUser} from 'src/services/generic';
+// import * as jwt from 'jwt-simple';
+import {CONFIG} from '../../../config/index';
+import {fireAjax} from '../../../services/index';
+import {setLoggedUser, getLoggedUser} from '../../../services/generic';
 import {call, put} from 'redux-saga/effects';
-import * as actions from 'appRedux/actions';
+import * as actions from '../../../redux/actions';
 
 export function* fetchPolicyDocument (action) {
   try {

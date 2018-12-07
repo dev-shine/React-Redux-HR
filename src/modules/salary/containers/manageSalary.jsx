@@ -3,24 +3,25 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import moment from 'moment';
 import * as _ from 'lodash';
-import {notify} from 'src/services/notify';
-import {CONFIG} from 'src/config/index';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import Header from 'components/generic/Header';
-import UsersList from 'components/generic/UsersList';
-import UsersListHeader from 'components/generic/UsersListHeader';
-import UserSalaryHistory from 'components/salary/manageSalary/UserSalaryHistory';
-import UserHoldingHistory from 'components/salary/manageSalary/UserHoldingHistory';
-import UserHistoryHolding from 'components/salary/manageSalary/UserHistoryHolding';
-import FormAddHolding from 'modules/salary/components/manageSalary/FormAddHolding';
-import FormAddSalary from 'modules/salary/components/manageSalary/FormAddSalary';
-import AddHoldingForm from 'modules/salary/components/manageSalary/AddHoldingForm';
-import AddSalaryForm from 'modules/salary/components/manageSalary/AddSalaryForm';
-import * as actions from 'appRedux/actions';
-import * as actions_usersList from 'appRedux/generic/actions/usersList';
-import * as actions_manageSalary from 'appRedux/salary/actions/manageSalary';
-import SalaryBlock from "components/generic/SalaryBlock";
+import queryString from 'query-string';
+import {notify} from '../../../services/notify';
+import {CONFIG} from '../../../config/index';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import Header from '../../../components/generic/Header';
+import UsersList from '../../../components/generic/UsersList';
+import UsersListHeader from '../../../components/generic/UsersListHeader';
+// import UserSalaryHistory from '../../../components/salary/manageSalary/UserSalaryHistory';
+// import UserHoldingHistory from '../../../components/salary/manageSalary/UserHoldingHistory';
+import UserHistoryHolding from '../../../components/salary/manageSalary/UserHistoryHolding';
+// import FormAddHolding from '../../../modules/salary/components/manageSalary/FormAddHolding';
+// import FormAddSalary from '../../../modules/salary/components/manageSalary/FormAddSalary';
+import AddHoldingForm from '../../../modules/salary/components/manageSalary/AddHoldingForm';
+import AddSalaryForm from '../../../modules/salary/components/manageSalary/AddSalaryForm';
+import * as actions from '../../../redux/actions';
+import * as actions_usersList from '../../../redux/generic/actions/usersList';
+import * as actions_manageSalary from '../../../redux/salary/actions/manageSalary';
+import SalaryBlock from "../../../components/generic/SalaryBlock";
 
 class ManageSalary extends React.Component {
   constructor (props) {
@@ -54,9 +55,9 @@ class ManageSalary extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
     this.setState({subList: this.props.usersList.users});
     let s_salary_history = [];
@@ -79,8 +80,8 @@ class ManageSalary extends React.Component {
     if (this.state.defaultUserDisplay == '') {
       if (this.props.usersList.users.length > 0) {
         let firstUser = this.props.loggedUser.data.role == CONFIG.HR ? this.state.subList[0] : this.props.usersList.users[0];
-        let selectedUser = this.props.location.query.selectedUser
-        let defaultUserId = selectedUser || firstUser.user_Id;
+        const queryParams = queryString.parse(this.props.location.search)
+        let defaultUserId = queryParams.selectedUser || firstUser.user_Id;
         this.onUserClick(defaultUserId);
       }
     }
@@ -104,7 +105,7 @@ class ManageSalary extends React.Component {
         selected_user_jobtitle = userDetails.jobtitle;
         selected_user_id = userDetails.user_Id;
         selected_user_date_of_joining = userDetails.dateofjoining;
-        this.props.router.push('manage_salary?selectedUser='+userDetails.user_Id)
+        this.props.history.push('manage_salary?selectedUser='+userDetails.user_Id)
       }
     }
     this.setState({
@@ -161,7 +162,7 @@ class ManageSalary extends React.Component {
     }else {
       data = this.state.salary_history.map((item, index) => {
         return (
-          <SalaryBlock key={index} item={item} displayPage="manage" viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
+          <SalaryBlock key={index} userid={this.state.selected_user_id} callAddUserHolding={this.callAddUserHolding} salaryStructure={this.props.manageSalary.salary_structure} item={item} displayPage="manage" viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
         )
       });
     }

@@ -2,22 +2,23 @@ import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import RichTextEditor from 'react-rte';
-import update from 'react/lib/update';
+// import update from 'react/lib/update';
 import Paper from 'material-ui/Paper';
-import {CONFIG} from 'src/config/index';
+import {CONFIG} from '../../../config/index';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
-import {confirm} from 'src/services/notify';
+import {confirm} from '../../../services/notify';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import Delete from 'material-ui/svg-icons/action/delete';
-import LoadingIcon from 'components/generic/LoadingIcon';
-import EditableDiv from 'components/editor/EditableDiv';
-import FilterLabel from 'components/template/FilterLabel';
-import {getToken} from 'src/services/generic';
+import LoadingIcon from '../../../components/generic/LoadingIcon';
+import EditableDiv from '../../../components/editor/EditableDiv';
+import FilterLabel from '../../../components/template/FilterLabel';
+import {getToken} from '../../../services/generic';
+import $ from 'jquery';
 var FormData = require('form-data');
 var moment = require('moment');
 
@@ -77,11 +78,11 @@ class Variables extends React.Component {
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
     if (!props.loggedUser.isLoggedIn) {
-      this.props.router.push('/logout');
+      this.props.history.push('/logout');
     } else {
       if (props.loggedUser.data.role == CONFIG.ADMIN || props.loggedUser.data.role == CONFIG.HR) {
       } else {
-        this.props.router.push('/home');
+        this.props.history.push('/home');
       }
     }
     this.setState({usersList: props.employee.employee});

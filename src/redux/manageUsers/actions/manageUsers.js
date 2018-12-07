@@ -2,10 +2,10 @@ import { createAction } from "redux-actions";
 import * as _ from "lodash";
 import queue from "async/queue";
 
-import { fireAjax } from "src/services/index";
-import { show_loading, hide_loading } from "appRedux/generic/actions/frontend";
+import { fireAjax } from "../../../services/index";
+import { show_loading, hide_loading } from "../../../redux/generic/actions/frontend";
+import * as constants from "../../../redux/constants";
 var moment = require("moment");
-import * as constants from "appRedux/constants";
 
 export function success_user_profile(data, username) {
   return {
@@ -594,11 +594,11 @@ var callApiSteps = queue(function(userid, dispatch, callback) {
     if (json.error == 0) {
       dispatch(successGetStep(json.data));
     } else {
-      reject(json.data.message);
+      // reject(json.data.message);
       dispatch(errorGetStep());
     }
   });
-  callback(json);
+  // callback(json);
 }, 1);
 
 function asyncGetSteps(userid) {

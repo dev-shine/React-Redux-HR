@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Menu from 'components/generic/Menu';
-import {CONFIG} from 'src/config/index';
-import {isNotUserValid} from 'src/services/generic';
-import AlertNotification from 'components/generic/AlertNotification';
-import Header from 'components/generic/Header';
-import AttendanceSheatForm from 'modules/attendance/components/uploadAttendance/AttendanceSheatForm';
-import * as actions from 'appRedux/actions';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsManageUsers from 'appRedux/manageUsers/actions/manageUsers';
-import * as actionsManagePayslips from 'appRedux/salary/actions/managePayslips';
+import Menu from '../../../components/generic/Menu';
+import {CONFIG} from '../../../config/index';
+import {isNotUserValid} from '../../../services/generic';
+import AlertNotification from '../../../components/generic/AlertNotification';
+import Header from '../../../components/generic/Header';
+import AttendanceSheatForm from '../../../modules/attendance/components/uploadAttendance/AttendanceSheatForm';
+import * as actions from '../../../redux/actions';
+import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+import * as actionsManageUsers from '../../../redux/manageUsers/actions/manageUsers';
+import * as actionsManagePayslips from '../../../redux/salary/actions/managePayslips';
 
 class UploadAttendance extends React.Component {
   constructor (props) {
@@ -25,9 +25,9 @@ class UploadAttendance extends React.Component {
   }
   componentWillReceiveProps (props) {
     window.scrollTo(0, 0);
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
   }
   handleSubmit() {
@@ -90,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.getUserProfileDetails(userid, username));
     },
     onUpdateUserBankDetails: (newBankDetails) => {
-      return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
+      // return dispatch(actionsManageUsers.updateUserBankDetails(newBankDetails));
     },
     onUpdateUserProfileDetails: (newProfileDetails) => {
       return dispatch(actionsManageUsers.updateUserProfileDetails(newProfileDetails));
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionsManageUsers.addNewEmployee(newEmployeeDetails));
     },
     onUpdatedocuments: (documentLink) => {
-      return dispatch(actionsManageUsers.updateDocument(documentLink));
+      // return dispatch(actionsManageUsers.updateDocument(documentLink));
     },
     onChangeEmployeeStatus: (userid, status) => {
       return dispatch(actionsManageUsers.changeEmployeeStatus(userid, status));

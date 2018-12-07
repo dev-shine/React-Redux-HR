@@ -5,4 +5,4 @@
 		$(this).val() ? $(this).addClass('has-value') : $(this).removeClass('has-value');
 	});
 
-})(jQuery);
+})(window.jQuery);

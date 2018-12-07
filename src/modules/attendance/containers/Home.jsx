@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import {notify} from 'src/services/notify';
-import Menu from 'components/generic/Menu';
-import {isNotUserValid} from 'src/services/generic';
-import UsersList from 'components/generic/UsersList';
-import Header from 'components/generic/Header';
-import UserMonthlyAttendance from 'components/attendance/UserMonthlyAttendance';
-import UserDaySummary from 'modules/attendance/components/UserDaySummary';
-import * as actionsUsersList from 'appRedux/generic/actions/usersList';
-import * as actionsMonthlyAttendance from 'appRedux/attendance/actions/monthlyAttendance';
-import * as actionsUserDaySummary from 'appRedux/attendance/actions/userDaySummary';
-import * as actions from 'appRedux/actions';
+import {notify} from '../../../services/notify';
+import Menu from '../../../components/generic/Menu';
+import {isNotUserValid} from '../../../services/generic';
+import UsersList from '../../../components/generic/UsersList';
+import Header from '../../../components/generic/Header';
+import UserMonthlyAttendance from '../../../components/attendance/UserMonthlyAttendance';
+import UserDaySummary from '../../../modules/attendance/components/UserDaySummary';
+// import * as actionsUsersList from '../../../redux/generic/actions/usersList';
+// import * as actionsMonthlyAttendance from '../../../redux/attendance/actions/monthlyAttendance';
+// import * as actionsUserDaySummary from '../../../redux/attendance/actions/userDaySummary';
+import * as actions from '../../../redux/actions';
 
 class Home extends React.Component {
   constructor (props) {
@@ -37,9 +37,9 @@ class Home extends React.Component {
     this.setState({year: year, month: month});
   }
   componentWillReceiveProps (props) {
-    let isNotValid = isNotUserValid(this.props.route.path, props.loggedUser);
+    let isNotValid = isNotUserValid(this.props.location.pathname, props.loggedUser);
     if (isNotValid.status) {
-      this.props.router.push(isNotValid.redirectTo);
+      this.props.history.push(isNotValid.redirectTo);
     }
 
     if (props.userDaySummary.status_message !== '') {

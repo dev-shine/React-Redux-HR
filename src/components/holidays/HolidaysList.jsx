@@ -74,7 +74,7 @@ class HolidaysList extends React.Component{
       {this.props.isAdmin ? 
           <div className="col-md-7" style={{float:"right"}}>
             <div className="col-md-3" style={{paddingTop:"2px", paddingRight:"1px"}}>
-            <DateField dateFormat="YYYY-MM-DD" onChange={(date) =>{this.props.handleDateChnage(date)} } value={this.props.state.date}/>
+            <DateField dateFormat="YYYY-MM-DD" className="form-control" onChange={(date) =>{this.props.handleDateChnage(date)} } value={this.props.state.date}/>
             </div>
             <div className="col-md-3" style={{paddingLeft:"1px", paddingRight:"1px"}}>
                           <InputText onchange={e =>{

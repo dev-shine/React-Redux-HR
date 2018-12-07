@@ -162,7 +162,7 @@ class ManageSalary extends React.Component {
     }else {
       data = this.state.salary_history.map((item, index) => {
         return (
-          <SalaryBlock key={index} item={item} displayPage="manage" viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
+          <SalaryBlock key={index} userid={this.state.selected_user_id} callAddUserHolding={this.callAddUserHolding} salaryStructure={this.props.manageSalary.salary_structure} item={item} displayPage="manage" viewSalarySummary={this.viewSalarySummary} callDeleteUserSalary={this.callDeleteUserSalary} />
         )
       });
     }

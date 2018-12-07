@@ -1,0 +1,20 @@
+
+.react-date-picker{
+    &.date-field svg{
+        height: 15px;
+    }
+    .react-date-picker__wrapper{
+        width: 100%;
+        padding: 4px;
+        border: none;
+      }
+      .react-date-field__picker{
+        font-size: .9rem;
+        line-height: 1;
+      }
+      .react-date-picker__button{
+          padding: 0px;
+          
+      }
+
+}

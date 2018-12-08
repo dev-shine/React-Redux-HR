@@ -5,6 +5,7 @@ import queue from "async/queue";
 import { fireAjax } from "../../../services/index";
 import { show_loading, hide_loading } from "../../../redux/generic/actions/frontend";
 import * as constants from "../../../redux/constants";
+import { func } from "prop-types";
 var moment = require("moment");
 
 export function success_user_profile(data, username) {
@@ -778,6 +779,81 @@ export function addNewUserDetails(new_profile_details) {
           dispatch(errorAddNewUserDetails("error occurs!!!"));
         }
       );
+    });
+  };
+}
+
+export function successGetAllEmployeeDetails(data) {
+  return createAction(constants.SUCCESS_GET_ALL_EMPLOYEE_DETAILS)(data);
+}
+export function errorGetAllEmployeeDetails(data) {
+  return createAction(constants.ERROR_GET_ALL_EMPLOYEE_DETAILS)(data);
+}
+
+function async_getAllEmployeeDetails(){
+  return fireAjax("POST", "", {
+    action: "get_enabled_users_brief_details"
+  })
+}
+ 
+export function getAllEmployeeDetails() {
+  return function(dispatch, getState) {
+    return new Promise((resolve, reject) => {
+      dispatch(show_loading()); // show loading icon
+      async_getAllEmployeeDetails().then(
+        res => {
+          if (res.error == 0) {
+            resolve(res.data);
+            dispatch(successGetAllEmployeeDetails(res.data));
+            if(res.data.length){
+              dispatch(getEmployeesSalaryDetails(res.data));
+            }
+          } else {
+            dispatch(errorGetAllEmployeeDetails(res.data));
+          }
+          dispatch(hide_loading()); // hide loading icon
+        },
+        error => {
+          console.log('error', error);
+          dispatch(hide_loading()); // hide loading icon
+        }
+      )
+    })
+  }
+}
+
+function async_get_user_salary_details (userid) {
+  return fireAjax('POST', '', {
+    action:  'get_user_salary_info_by_id',
+    user_id: userid
+  });
+}
+
+export function getEmployeesSalaryDetails (users, i=0) {
+  return function (dispatch, getState) {
+    return new Promise((resolve, reject) => {
+        let userid = users[i].user_Id;
+        dispatch(show_loading()); // show loading icon
+        async_get_user_salary_details(userid).then(
+          (json) => {
+            if (typeof json.data !== 'undefined' && typeof json.data.salary_details !== 'undefined' && json.data.salary_details.length > 0) {
+              let data = json.data;
+              let orderedSalary = _.orderBy(json.data.salary_details,['date'],['desc']);
+              users[i].current_salary = orderedSalary[0].test && orderedSalary[0].test.total_salary;
+              dispatch(successGetAllEmployeeDetails(users));
+            }
+            dispatch(hide_loading()); // hide loading icon
+            if(users.length > ++i){
+              dispatch(getEmployeesSalaryDetails(users, i));
+            }
+          },
+          (error) => {
+            dispatch(hide_loading()); // hide loading icon
+            if(users.length > ++i){
+              dispatch(getEmployeesSalaryDetails(users, i));
+            }
+          }
+        );
     });
   };
 }

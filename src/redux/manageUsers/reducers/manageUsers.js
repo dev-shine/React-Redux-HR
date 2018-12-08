@@ -4,6 +4,7 @@ let initialState = {
   'status_message':      '',
   'user_profile_detail': {},
   'user_assign_machine': [],
+  'allEmpolyesDetails' : [],
   'user_bank_detail':    {},
   'user_documents':      [],
   'username':            '',
@@ -42,7 +43,9 @@ export function manageUsers (state = Immutable.fromJS(initialState), action) {
     return state.set('status_message', action.payload);
   } else if (action.type === 'ACTION_ERROR_ADD_NEW_USER_DETAILS') {
     return state.set('status_message', action.payload);
-  } else {
+  } else if (action.type === 'SUCCESS_GET_ALL_EMPLOYEE_DETAILS') {
+    return state.set('allEmpolyesDetails', action.payload);
+  }else {
     return state.set('status_message', '');
   }
 }

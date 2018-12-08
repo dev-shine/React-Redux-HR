@@ -15,7 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import Delete from 'material-ui/svg-icons/action/delete';
 import LoadingIcon from '../../../components/generic/LoadingIcon';
-import EditableDiv from '../../../components/editor/EditableDiv';
+// import EditableDiv from '../../../components/editor/EditableDiv';
 import FilterLabel from '../../../components/template/FilterLabel';
 import {getToken} from '../../../services/generic';
 import $ from 'jquery';

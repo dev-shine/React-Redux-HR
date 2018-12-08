@@ -29,7 +29,7 @@ const EmployeeDetails = ({ allEmpolyesDetails }) => {
                     </div>
                     <div className="col-sm-2 col-xs-12 cell">
                         {/* <div className="col-sm-12 salary-title">current_salary</div> */}
-                        <div className="col-sm-12">{employee.current_salary}</div>
+                        <div className="col-sm-12">{employee.current_salary && `Rs.${employee.current_salary}`}</div>
                     </div>
                     <div className="col-sm-2 col-xs-12 cell">
                         {/* <div className="col-sm-12 salary-title">PAN No.</div> */}

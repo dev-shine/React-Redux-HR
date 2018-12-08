@@ -13,57 +13,12 @@ import {Provider} from 'react-redux';
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import createBrowserHistory from "history/createBrowserHistory";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-// import Page_Login from './modules/auth/containers/login';
-// import Page_Logout from './modules/auth/containers/logout';
-// import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
-// import Page_ManageLeaves from './modules/leave/containers/manageLeaves';
-// import Page_LeavesSummary from './modules/leave/containers/leavesSummary';
-// import Page_ApplyLeave from './modules/leave/containers/applyLeave';
-// import Page_MyLeaves from './modules/leave/containers/myLeaves';
-// import Page_Holidays from './modules/holidays/containers/holidays';
-// import Page_PolicyDocument from './modules/policyDocuments/containers/PolicyDocument';
-// import Page_UploadPolicyDocument from './modules/policyDocuments/containers/uploadPolicyDocument';
-// import Page_ManageSalary from './modules/salary/containers/manageSalary';
-// import Page_ViewSalary from './modules/salary/containers/viewSalary';
-// import Page_Salary from './modules/salary/containers/salary';
-// import Page_ManagePayslips from './modules/salary/containers/managePayslips';
-// import Page_Home from './modules/attendance/containers/Home';
-// import Page_MonthlyAttendance from './modules/attendance/containers/monthlyAttendance';
-// import Page_UploadAttendance from './modules/attendance/containers/uploadAttendance';
-// import Page_MyDocuments from './modules/myDocuments/containers/myDocuments';
-// import PageManageUsers from './modules/manageUsers/containers/manageUsers';
-// import Page_ManageWorkingHours from './modules/workingHours/containers/manageWorkingHours';
-// import Page_ManageUserWorkingHours from './modules/workingHours/containers/manageUserWorkingHours';
-// import InventorySystem from './modules/inventory/containers/manageInventory';
-// import Page_MyInventory from './modules/inventory/containers/myInventory';
-// import PageManageRoles from './modules/manageRoles/containers/manageRoles';
-// import Page_ManageUserPendingHours from './modules/workingHours/containers/manageUserPendingHours';
-// import PageDisabledEmployes from './modules/manageUsers/containers/disabledEmployes';
-// // import Page_mail_template from './modules/templates/containers/addTemplate';
-// import Page_AddVariables from './modules/templates/containers/addVariables';
-// import Page_TeamView from './modules/team/containers/viewTeam';
-// import Page_MyProfile from './modules/myProfile/containers/myProfile';
-// import PageManageDashboard from './modules/manageUsers/containers/manageDashboard';
-// import Page_AttendanceReq from './modules/attendance/containers/manageAttendanceReq';
-// import InventoryItem from './modules/inventory/components/inventoryItem'
-// import Page_AddDocuments from './modules/addDocuments/container/AddDocuments';
-// import Page_FormAddDocuments from './modules/addDocuments/components/FormAddDocuments';
-// import FormAddNewEmployeeDetails from './modules/manageUsers/components/FormAddNewEmployeeDetails'
-// import AddNewEmployee from './modules/manageUsers/components/FormAddNewEmployee'
-// import UserDocumentDetails from './modules/manageUsers/components/Userdocuments'
-// import Page_InventoryOverview from './modules/inventoryOverview/container/inventoryOverviewContainer';  
-// import RouterAddInventorySystem from './modules/inventory/components/AddInventory'
-// import Page_Audit_Inventory from "./modules/inventory/components/AuditInventoryList";
-// import ContainerHealthStats from './modules/healthStats/container/ContainerHealthStats';
-// import Page_settings from './modules/healthStats/container/Settings';
-// // import APP from './App';
-
+import Page_Login from './modules/auth/containers/login';
+import Page_Logout from './modules/auth/containers/logout';
+import Page_ForgotPassword from './modules/auth/containers/forgotPassword';
+import PageManageDashboard from './modules/manageUsers/containers/manageDashboard';
+import MenuDefault from "./components/menu/LoaderMenuDefault"
 import store from './store';
-
-const Page_Login = lazy(() => import('./modules/auth/containers/login'));
-const Page_Logout = lazy(() => import('./modules/auth/containers/logout'));
-const Page_ForgotPassword = lazy(() => import('./modules/auth/containers/forgotPassword'));
 const Page_ManageLeaves = lazy(() => import('./modules/leave/containers/manageLeaves'));
 const Page_LeavesSummary = lazy(() => import('./modules/leave/containers/leavesSummary'));
 const Page_ApplyLeave = lazy(() => import('./modules/leave/containers/applyLeave'));
@@ -90,7 +45,6 @@ const PageDisabledEmployes  = lazy(() => import('./modules/manageUsers/container
 const Page_AddVariables = lazy(() => import('./modules/templates/containers/addVariables'));
 const Page_TeamView = lazy(() => import('./modules/team/containers/viewTeam'));
 const Page_MyProfile = lazy(() => import('./modules/myProfile/containers/myProfile'));
-const PageManageDashboard = lazy(() => import('./modules/manageUsers/containers/manageDashboard'));
 const Page_AttendanceReq = lazy(() => import('./modules/attendance/containers/manageAttendanceReq'));
 const InventoryItem = lazy(() => import('./modules/inventory/components/inventoryItem'));
 const Page_AddDocuments = lazy(() => import('./modules/addDocuments/container/AddDocuments'));
@@ -116,9 +70,10 @@ let render = (routerKey = null) => {
     <MuiThemeProvider>
       <Provider store={store}>
         <Router history={appHistory} queryKey={false}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<MenuDefault/>}>
 
           <Switch>
+          <Route exact path="/menu" component={MenuDefault} />
             <Route exact path="/" component={PageManageDashboard} />
             <Route path="/page_login" component={Page_Login} />
             <Route path="/home" component={Page_Home} />

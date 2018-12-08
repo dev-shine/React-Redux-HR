@@ -529,11 +529,11 @@ class Variables extends React.Component {
       fileList.push(<div key={key}>{name}<i onClick={() => this.deleteAttachment(key)} className="fa fa-remove uploaded-pdf-block-style cross-button-style"></i></div>);
     });
     const actionsCreateTemplate = [
-      <FlatButton label="Close" className="m-r-5" primary onTouchTap={this.handleCloseDialog} />,
+      <FlatButton label="Close" className="m-r-5" primary onClick={this.handleCloseDialog} />,
       <RaisedButton label={_.isEmpty(this.state.templateId) ? 'SAVE' : 'Update'} primary onClick={this.saveTemplate} />
     ];
     const actionsSendMail = [
-      <FlatButton label="Close" primary onTouchTap={this.handleCloseDialog} />,
+      <FlatButton label="Close" primary onClick={this.handleCloseDialog} />,
       <RaisedButton label={'Preview'} primary onClick={this.openMailPreview} />
     ];
 
@@ -690,7 +690,7 @@ class Variables extends React.Component {
             >
             <Dialog
               title={'Enter values'}
-              actions={[ <FlatButton label="Close" primary onTouchTap={this.handleClose} style={{marginRight: 5}} />,
+              actions={[ <FlatButton label="Close" primary onClick={this.handleClose} style={{marginRight: 5}} />,
                 <RaisedButton label={'Set Variables'} primary onClick={this.setVariable} />]}
               modal={false}
               bodyClassName="template-dialog-style"
@@ -705,7 +705,7 @@ class Variables extends React.Component {
             <Dialog
               title={'Mail Preview'}
               titleClassName="templates-dialog-title"
-              actions={[<FlatButton label="Cancel" primary onTouchTap={this.closeMailPreview} style={{marginRight: 5}} />,
+              actions={[<FlatButton label="Cancel" primary onClick={this.closeMailPreview} style={{marginRight: 5}} />,
                 <RaisedButton label={'Continue'} primary onClick={this.sendMail} />,
                 <FlatButton label={'Download Preview'} primary style={{'float': 'left'}} onClick={(e) => { this.download_mail_preview(e); }} />]}
               modal={false}

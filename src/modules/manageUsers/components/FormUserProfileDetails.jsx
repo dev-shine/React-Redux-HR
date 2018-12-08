@@ -7,6 +7,7 @@ import Label from '../../../components/generic/label';
 import InputText from '../../../components/generic/input/InputText';
 import Textarea from '../../../components/generic/input/TextArea';
 import ButtonRaised from '../../../components/generic/buttons/ButtonRaised';
+import {confirm} from '../../../services/notify';
 var moment = require('moment');
 
 class FormUserProfileDetails extends React.Component {
@@ -82,13 +83,13 @@ class FormUserProfileDetails extends React.Component {
     if (typeof userProfileDetail.training_month !== 'undefined' && userProfileDetail.training_month !== null) {
       training_month = userProfileDetail.training_month;
     }
-    if (typeof userProfileDetail.dateofjoining !== 'undefined' && userProfileDetail.dateofjoining != null) {
+    if (typeof userProfileDetail.dateofjoining !== 'undefined' && userProfileDetail.dateofjoining != null  && userProfileDetail.dateofjoining !== '0000-00-00') {
       var mydate = new Date(userProfileDetail.dateofjoining);
       if (mydate !== 'Invalid Date') {
         dateofjoining = userProfileDetail.dateofjoining;
       }
     }
-    if (typeof userProfileDetail.dob !== 'undefined' && userProfileDetail.dob !== null) {
+    if (typeof userProfileDetail.dob !== 'undefined' && userProfileDetail.dob !== null && userProfileDetail.dob !== '0000-00-00') {
       var mydate = new Date(userProfileDetail.dob);
       if (mydate !== 'Invalid Date') {
         dob = moment(mydate);
@@ -127,7 +128,7 @@ class FormUserProfileDetails extends React.Component {
     if (typeof userProfileDetail.work_email !== 'undefined' && userProfileDetail.work_email != null) {
       work_email = userProfileDetail.work_email;
     }
-    if (typeof userProfileDetail.training_completion_date !== 'undefined' && userProfileDetail.training_completion_date !== null) {
+    if (typeof userProfileDetail.training_completion_date !== 'undefined' && userProfileDetail.training_completion_date !== null && userProfileDetail.training_completion_date !== '0000-00-00') {
       var mydate = new Date(userProfileDetail.training_completion_date);
       if (mydate !== 'Invalid Date') {
         training_completion_date = userProfileDetail.training_completion_date;
@@ -178,6 +179,20 @@ class FormUserProfileDetails extends React.Component {
     }
     this.props.callUpdateUserProfileDetails(this.state);
   }
+  handleUpdateClick = () => {
+    const { training_completion_date } = this.props.user_profile_detail;
+    const stateTrainingDate = this.state.training_completion_date;
+    if (training_completion_date === "0000-00-00" &&
+      stateTrainingDate !== training_completion_date) {
+      confirm("Has service agreement been signed?","","","No","Yes" ).then((res)=>{
+        if(res){
+          this.props.callUpdateUserProfileDetails(this.state);
+        }
+      })
+    } else {
+      this.props.callUpdateUserProfileDetails(this.state);
+    }
+  };
   render () {
     let selectedUser = _.find(this.props.usersList.users,['id',this.props.user_profile_detail.id]);
     let slackImg = selectedUser ? selectedUser.slack_profile.image_72 : '';  
@@ -411,11 +426,11 @@ class FormUserProfileDetails extends React.Component {
               if (e.target.checked) {
                 this.setState({ send_slack_msg: "1" });
               } else {
-                this.setState({ send_slack_msg: "" });
+                this.setState({ send_slack_msg: "" }); 
               }
             }} />
         </div>
-        <ButtonRaised className="col-xs-12 m-b-sm indigo" onClick={() => this.props.callUpdateUserProfileDetails(this.state)} label={"Update Profile Details"} />
+        <ButtonRaised className="col-xs-12 m-b-sm indigo" onClick={this.handleUpdateClick} label={"Update Profile Details"} />
       </div>;
   }
 }

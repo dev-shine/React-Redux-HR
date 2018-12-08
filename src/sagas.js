@@ -2,7 +2,7 @@ import {takeLatest} from 'redux-saga/effects';
 import * as constants from './redux/constants';
 import {loginRequest, isAlreadyLoggedIn, forgotPassword, logout} from './redux/auth/actions';
 import {holidayList, addHoliday, holidayType, deleteHoliday} from './redux/holidays/actions';
-import {getAttendanceUploadSettings, addAttendanceUploadSettings, deleteAttendanceUploadSettings} from './redux/settings/actions';
+import {getAttendanceUploadSettings, addAttendanceUploadSettings, deleteAttendanceUploadSettings, requestResetPasswordSetting, requestResetPasswordStatus, requestClearResetPasswordData } from './redux/settings/actions';
 import { getTeamStats, getMonthlyReportAllUsers, getEmployeLifeCycle, getEmployeeHours, getEmployeeMonthlyHours, getEmployeePerformance, getUserIdList, getLeastActiveEmp} from './redux/manageUsers/actions/dashboard';
 import {userMonthlyAttendance} from './redux/attendance/actions/monthlyAttendance';
 import {getUserDayAttendance, userAttendanceStatus} from './redux/attendance/actions/attendanceRequests';
@@ -64,6 +64,12 @@ export function* watchActions () {
   yield takeLatest(constants.REQUEST_GET_ATTANDANCE_UPLOAD_SETTING, getAttendanceUploadSettings);
   yield takeLatest(constants.REQUEST_ADD_ATTANDANCE_UPLOAD_SETTING, addAttendanceUploadSettings);
   yield takeLatest(constants.REQUEST_DELETE_ATTANDANCE_UPLOAD_SETTING, deleteAttendanceUploadSettings);
+
+
+  yield takeLatest(constants.REQUEST_RESET_PASSWORD_SETTING, requestResetPasswordSetting);
+  yield takeLatest(constants.REQUEST_RESET_PASSWORD_STATUS, requestResetPasswordStatus);
+  yield takeLatest(constants.REQUEST_CLEAR_RESET_PASSWORD_DATA, requestClearResetPasswordData);
+
 }
 
 export default function* rootSaga () {

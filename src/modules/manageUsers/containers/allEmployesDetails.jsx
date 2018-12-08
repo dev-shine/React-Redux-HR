@@ -32,27 +32,13 @@ class AllEmployesDetails extends React.Component {
   }
   
   render () {
-    console.log('this.props', this.props);
-    let data;
-    const {manageUsers}= this.props;
-    let allEmpolyesDetails = manageUsers.allEmpolyesDetails
-    if (!allEmpolyesDetails.length ) {
-      data = (<div className="well well-lg" style={{'color':"red"}} >
-        <i className="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
-        No Employee available </div>)
-    }else {
-      data = allEmpolyesDetails.map((employee, index) => {
-        return (
-          <EmployeeDetails key={index} employee={employee} displayPage="employeeDtails"  />
-        )
-      });
-    }
+    const {manageUsers, frontend}= this.props;
     return (
       <div>
-        <AlertNotification message={this.props.manageUsers.status_message} />
+        <AlertNotification message={manageUsers.status_message} />
         <Menu {...this.props} />
         <div id="content" className="app-content box-shadow-z0" role="main">
-          <Header pageTitle={'All Employees'} showLoading={this.props.frontend.show_loading} userListHeader />
+          <Header pageTitle={'All Employees'} showLoading={frontend.show_loading} userListHeader />
           <div className="app-body" id="view">
              <div className="padding">
               <div className="row">
@@ -61,34 +47,7 @@ class AllEmployesDetails extends React.Component {
                   <div className="p-a block ">
                       <h6 className="text-center">All Employees Details</h6>
                       <hr />
-                      <div className="content-salary">
-                      <div className="row salary-blocks-margin salary-row-bg" onClick={(e) => {}}>
-                            <div className="col-md-12 salary-col-padding" >
-                                <div className="col-md-2 col-sm-2 col-xs-12 employee-profile">
-                                    <div className="col-sm-12 salary-total-title">Profile</div>
-                                </div>
-                                <div className="col-sm-1 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">DOJ</div>
-                                </div>
-                                <div className="col-sm-2 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">Salary</div>
-                                </div>
-                                <div className="col-sm-2 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">Team</div>
-                                </div>
-                                <div className="col-sm-1 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">Mobile</div>
-                                </div>
-                                <div className="col-sm-2 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">Emergency Contact No.</div>
-                                </div>
-                                <div className="col-sm-2 col-xs-12 cell">
-                                    <div className="col-sm-12 salary-title">Other details</div>
-                                </div>
-                            </div>
-                        </div>
-                        {data}
-                      </div>
+                      <EmployeeDetails  allEmpolyesDetails={manageUsers.allEmpolyesDetails}  />
                   </div>
                   </div>
                 </div>
@@ -105,6 +64,7 @@ function mapStateToProps (state) {
   return {
     frontend:       state.frontend.toJS(),
     loggedUser:     state.logged_user.userLogin,
+    managePayslips: state.managePayslips.toJS(),
     manageUsers:    state.manageUsers.toJS(),
     teamList:       state.teamList.teamList
   };

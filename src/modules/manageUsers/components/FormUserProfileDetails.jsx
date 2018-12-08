@@ -2,7 +2,6 @@ import React from 'react';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 import DateField from 'react-date-picker';
-// import 'react-date-picker/index.css';
 import {CONFIG} from '../../../config/index';
 import Label from '../../../components/generic/label';
 import InputText from '../../../components/generic/input/InputText';

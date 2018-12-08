@@ -89,6 +89,56 @@
     padding-bottom: 10px;
   }
 }
+.employee-profile{
+  width: 130px;
+  div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.employee-details{
+  height: 93px;
+  .img-wrapper{
+    height: 40px;
+    width: 40px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .pan-card{
+    width:10%;
+    min-width: 50px;
+  }
+  .cell{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  // &.emp-col-padding {
+  //   padding: 0px 4px !important;
+  //   div{
+  //     padding: 5px 0px !important;
+  //   }
+  // }
+  // .salary-col-padding {
+  //   padding: 0px 4px !important;
+  //   div {
+  //     padding: 5px 0px !important;
+  //     div {
+  //       padding : 0px 0px !important;
+  //       // div {
+  //       //   padding: 0px 4px !important;
+  //       // }
+  //     }
+  //   }
+  // }
+}
 @media (max-width: 580px) {
   .emp-action-btn {
     .add-new-emp{

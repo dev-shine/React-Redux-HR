@@ -94,6 +94,7 @@ let render = (routerKey = null) => {
             <Route path="/my_profile" component={Page_MyProfile} />
             <Route path="/my_inventory" component={Page_MyInventory} />
             <Route path="/manage_users" component={PageManageUsers} />
+            <Route path="/all_employee" component={PageAllEmployee} />
             <Route path="/manage_roles" component={PageManageRoles} />
             <Route path="/manage_payslips" component={Page_ManagePayslips} />
             <Route path="/forgot_password" component={Page_ForgotPassword} />

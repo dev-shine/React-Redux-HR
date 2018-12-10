@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import Menu from "../generic/Menu.jsx";
-import "../../styles/generic/loaderMenuDefault.scss";
+
+
 class Load extends Component {
   render() {
     return (
       <div style={{ display: "flex" }}>
         <Menu {...this.props} />
         <div className="loader">
-          <i className="fa fa-spinner fa-spin" style={{ fontSize: "75px" }} />
+          <i className="fa fa-spinner fa-spin" />
         </div>
       </div>
     );

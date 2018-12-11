@@ -216,7 +216,7 @@ class Variables extends React.Component {
             } else if (variable.name === '#employee_email_id') {
               value = recipient.work_email;
             } else if (variable.name === '#page_break') {
-              value = "<div style='page-break-after:always;'></div>";
+              value = variable.value; //"<div style='page-break-after:always;'></div>";
             } else if (variable.name === '#employee_user_id') {
               value = recipient.user_Id;
             } else if (variable.name === '#employee_number') {

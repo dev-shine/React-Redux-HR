@@ -44,6 +44,7 @@ const PageManageRoles = lazy(() => import('./modules/manageRoles/containers/mana
 const Page_ManageUserPendingHours = lazy(() => import('./modules/workingHours/containers/manageUserPendingHours'));
 const PageDisabledEmployes  = lazy(() => import('./modules/manageUsers/containers/disabledEmployes'));
 const Page_AddVariables = lazy(() => import('./modules/templates/containers/addVariables'));
+const Page_mail_template = lazy(() => import('./modules/templates/containers/addTemplate'));
 const Page_TeamView = lazy(() => import('./modules/team/containers/viewTeam'));
 const Page_MyProfile = lazy(() => import('./modules/myProfile/containers/myProfile'));
 const Page_AttendanceReq = lazy(() => import('./modules/attendance/containers/manageAttendanceReq'));
@@ -105,7 +106,7 @@ let render = (routerKey = null) => {
             <Route path="/policy_documents" component={Page_PolicyDocument} />
             <Route path="/upload_policy_documents" component={Page_UploadPolicyDocument} />
             <Route path="/add_variables" component={Page_AddVariables} />
-            {/* <Route path="/mail_templates" component={Page_mail_template} /> */}
+            <Route path="/mail_templates" component={Page_mail_template} />
 
             {/* <Route path="inventoryOverviewDetail" component={Page_InventorySystem} /> */}
             {/* <Route path="inventory_system/:device/:id" component={InventoryItem} /> */}

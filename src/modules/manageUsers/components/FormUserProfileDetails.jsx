@@ -269,7 +269,7 @@ class FormUserProfileDetails extends React.Component {
               <Label htmlfor="Date Of Birth" text={"Date Of Birth ( eg. 27/1/1988 )"} />
               <DateField 
                 dateFormat="YYYY-MM-DD" 
-                onChange={(date, { dateMoment, timestamp }) => this.setState({ dob: dateMoment })} 
+                onChange={(date) => this.setState({ dob: date })} 
                 value={this.state.dob} 
                 className="form-control" 
               />

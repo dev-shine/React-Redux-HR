@@ -45,7 +45,7 @@ const DisplayRolesList = ({displayData, handleChange, handleChangeNotification, 
         <div className="panel-heading p-b-lg">
           <div className="panel-title p-b-md">
             <span className="col-xs-8 col-sm-9">
-              <Link data-toggle="collapse" data-parent="#accordion" to={collapseLink} >
+              <Link data-toggle="collapse" data-parent="#accordion" to={`#${collapseLink}`} >
                 <h4 className="m-b-xs text-lg col-xs-10" id={`${value.name}_span`}>{value.name}</h4>
                 <span className="col-xs-12 text-sm">{value.description}</span>
               </Link>

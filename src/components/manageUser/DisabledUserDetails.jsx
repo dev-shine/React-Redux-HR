@@ -124,7 +124,7 @@ const DisabledUserDetails = ({userDetails, changeEmployeeStatus}) => {
         </div>
         <div className="col-xs-6 col-sm-6 profile-input p-b">
           <div className="col-md-12 text-right">
-            <button className="btn btn-fw btn-success" onTouchTap={() => { changeEmployeeStatus(userDetails.user_Id, 'Enabled'); }}>Enable</button>
+            <button className="btn btn-fw btn-success" onClick={() => { changeEmployeeStatus(userDetails.user_Id, 'Enabled'); }}>Enable</button>
           </div>
         </div>
       </div>
